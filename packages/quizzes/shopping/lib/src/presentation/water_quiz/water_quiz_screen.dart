@@ -6,6 +6,7 @@ import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/presentation/cart_badge.dart';
 import 'package:shopping/src/presentation/shopping_item_tile.dart';
 import 'package:shopping/src/presentation/water_quiz/water_quiz_notifier.dart';
+import 'package:shopping/src/presentation/water_quiz/water_quiz_state.dart';
 
 class WaterQuizScreen extends ConsumerStatefulWidget {
   const WaterQuizScreen({super.key, this.onCompleted});
@@ -17,6 +18,11 @@ class WaterQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
+  static const _missionText = '水を2つ購入してください';
+  static const _timeLimitSeconds = 60;
+
+  bool _showCutIn = true;
+
   @override
   void initState() {
     super.initState();
@@ -43,41 +49,25 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
           ),
           body: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Card(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.assignment,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 8),
-                        const Text('ミッション: 水を2つ購入してください'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   itemCount: kShoppingCatalog.length,
                   itemBuilder: (context, index) {
                     final item = kShoppingCatalog[index];
+                    final isHinted = quizState.hintItemId == item.id;
                     return ShoppingItemTile(
                       item: item,
-                      onAddToCart: () => ref
-                          .read(waterQuizProvider.notifier)
-                          .addToCart(CartItem(
-                            id: item.id,
-                            name: item.name,
-                            price: item.price,
-                            quantity: 1,
-                          )),
+                      highlighted: isHinted,
+                      onAddToCart: () =>
+                          ref.read(waterQuizProvider.notifier).addToCart(
+                                CartItem(
+                                  id: item.id,
+                                  name: item.name,
+                                  price: item.price,
+                                  quantity: 1,
+                                ),
+                              ),
                     );
                   },
                 ),
@@ -85,14 +75,39 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
             ],
           ),
         ),
+        // フローティングミッションバー
+        if (quizState.status == QuizStatus.playing)
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 16,
+            right: 16,
+            child: FloatingMissionBar(
+              remainingSeconds: quizState.remainingSeconds,
+              missionText: _missionText,
+              hintUsed: quizState.hintUsed,
+              timeLimitSeconds: _timeLimitSeconds,
+              onHintTap: () =>
+                  ref.read(waterQuizProvider.notifier).useHint(),
+            ),
+          ),
+        // カットイン演出（クイズ開始時のみ）
+        if (_showCutIn)
+          MissionCutIn(
+            missionText: _missionText,
+            timeLimitSeconds: _timeLimitSeconds,
+            onFinished: () => setState(() => _showCutIn = false),
+          ),
+        // 正誤結果オーバーレイ
         if (quizState.status == QuizStatus.correct ||
-            quizState.status == QuizStatus.incorrect)
+            quizState.status == QuizStatus.incorrect ||
+            quizState.status == QuizStatus.timeUp)
           Positioned.fill(
             child: QuizResultOverlay(
               status: quizState.status,
               score: quizState.score,
               elapsedMs: quizState.elapsedMs,
               onRetry: () {
+                setState(() => _showCutIn = true);
                 ref.read(waterQuizProvider.notifier).retry();
               },
               onNext: quizState.status == QuizStatus.correct

@@ -17,6 +17,8 @@ class CartQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
+  bool _showCutIn = true;
+
   // クイズ問題として使用するカート（固定データ）
   static final _cart = ShoppingCart(
     items: const [
@@ -129,6 +131,13 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
                   ref.read(cartQuizProvider.notifier).useHint(),
             ),
           ),
+        // カットイン演出
+        if (_showCutIn)
+          MissionCutIn(
+            missionText: 'このカートの合計金額を選んでください',
+            timeLimitSeconds: _timeLimitSeconds,
+            onFinished: () => setState(() => _showCutIn = false),
+          ),
         // 正誤結果オーバーレイ
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||
@@ -138,7 +147,10 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
               status: quizState.status,
               score: quizState.score,
               elapsedMs: quizState.elapsedMs,
-              onRetry: () => ref.read(cartQuizProvider.notifier).retry(),
+              onRetry: () {
+                setState(() => _showCutIn = true);
+                ref.read(cartQuizProvider.notifier).retry();
+              },
               onNext: quizState.status == QuizStatus.correct
                   ? widget.onCompleted
                   : null,

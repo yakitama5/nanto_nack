@@ -17,6 +17,7 @@ class CheckoutQuizScreen extends ConsumerStatefulWidget {
 class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
   final _addressController = TextEditingController();
   static const _timeLimitSeconds = 90;
+  bool _showCutIn = true;
 
   @override
   void initState() {
@@ -141,6 +142,13 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
               timeLimitSeconds: _timeLimitSeconds,
             ),
           ),
+        // カットイン演出
+        if (_showCutIn)
+          MissionCutIn(
+            missionText: '購入手続きを完了してください',
+            timeLimitSeconds: _timeLimitSeconds,
+            onFinished: () => setState(() => _showCutIn = false),
+          ),
         // 正誤結果オーバーレイ
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||
@@ -150,8 +158,10 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
               status: quizState.status,
               score: quizState.score,
               elapsedMs: quizState.elapsedMs,
-              onRetry: () =>
-                  ref.read(checkoutQuizProvider.notifier).retry(),
+              onRetry: () {
+                setState(() => _showCutIn = true);
+                ref.read(checkoutQuizProvider.notifier).retry();
+              },
               onNext: quizState.status == QuizStatus.correct
                   ? widget.onCompleted
                   : null,
