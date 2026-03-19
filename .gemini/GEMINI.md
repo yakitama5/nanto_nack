@@ -16,46 +16,58 @@
 
 ## 🏗️ Project Structure (プロジェクト構造)
 
-* **Monorepo構成:** `melos` を使用したモノレポ構成を採用し、クイズごとの独立性とテスト容易性を確保します。
-  * **`apps/app_main/`**: メインアプリケーションのエントリーポイント。全体の状態管理、ルーティング（ホーム画面、ステージ選択など）を担います。
-  * **`packages/core/`**: 全クイズで使い回す共通パッケージ（あるあるUIコンポーネント、解読不能フォント設定、共通のドメインロジックなど）。
+* **Monorepo構成:** Dartネイティブの **Pub Workspace** と **Melos** を組み合わせたモノレポ構成を採用し、クイズごとの独立性とテスト容易性を確保します（ルートの `pubspec.yaml` で `workspace` を宣言し、各パッケージで `resolution: workspace` を指定します）。
+  * **`apps/app_main/`**: メインアプリケーションのエントリーポイント。全体の状態管理、ルーティング、UIの枠組みを担います。
+  * **`packages/system/`**: アプリケーションの基盤パッケージ。メンテナンス制御、Firebase、ローカルDB（Drift）、およびアプリ内課金（IAP）の基盤設定を管理します。
+  * **`packages/quiz_core/`**: 全クイズで共通利用するパッケージ。あるあるUIコンポーネント、解読不能フォント設定、クイズの共通エンティティを管理します。
   * **`packages/quizzes/quiz_*/`**: 各クイズ問題ごとの独立したワークスペース（例：`quiz_001_water`）。
 
 ## 🏛️ Application Architecture (アプリケーションアーキテクチャ)
 
-* **4層レイヤードアーキテクチャ:** プロジェクト（各パッケージ）は以下の4つの論理レイヤーに整理し、関心の分離を徹底してください。
-  * **Presentation (プレゼンテーション層):** クイズの画面UI（解読不能な文字やUIの描画）、ユーザーのタップ操作の受け取り、状態の監視を行います（UIコンポーネント、コントローラー）。
-  * **Application (アプリケーション層):** ユースケースを定義します。Presentation層からの入力を受け取り、Domain層やInfrastructure層の処理を調整してアプリの機能を実行します。
-  * **Domain (ドメイン層):** 「この操作順序で正解とするか」などのビジネスルール、エンティティを定義します。Flutter UIや外部パッケージに依存しない純粋なDartコードで記述します。
-  * **Infrastructure (インフラストラクチャ層):** データソースへのアクセスを担います。クイズの解説文データの取得や、ローカルDBへの進行度保存といった Repository の実装を行います。
+* **4層レイヤードアーキテクチャ:** 各パッケージは以下の4つの論理レイヤーに整理し、関心の分離を徹底してください。
+  * **Presentation:** UI描画、ユーザー操作の受け取り、状態の監視（UIコンポーネント、コントローラー）。
+  * **Application:** ユースケースの定義。Presentationからの入力を受け取り、DomainやInfrastructureの処理を調整します。
+  * **Domain:** ビジネスルール、エンティティの定義。Flutter UIや外部パッケージに依存しない純粋なDartコード。
+  * **Infrastructure:** データソースへのアクセス（Firebase, Drift, IAP等）を担う Repository の実装。
 
 ## 🎨 Flutter Style Guide & Best Practices
 
-* **原則:** SOLID原則の適用、継承よりコンポジションの優先、イミュータビリティ（不変性）の確保。
-* **命名規則:** クラスには `PascalCase`、メンバー/変数には `camelCase`、ファイルには `snake_case`。
-* **ウィジェット:** 可能な限り `const` コンストラクタを使用し、大きな `build()` メソッドは小さなプライベート `Widget` クラスに分割してください。
+* **原則:** SOLID原則の適用、継承よりコンポジションの優先。
+* **イミュータビリティ:** 変更不可能なデータ構造を優先し、状態やモデルの定義・更新には必ず **`copyWith` メソッド** を実装して利用してください。
+* **静的解析:** **`altive_lints`** を利用して厳格なコード規約を適用し、高品質なコードベースを保ちます。
 
 ## ⚙️ State Management (状態管理)
 
 * **Riverpod:** 状態管理には `flutter_riverpod` を使用します。
-* **標準Providerの利用:** コード生成（`riverpod_generator`）は使用せず、標準の `Provider`、`NotifierProvider` などを直接定義して使用してください。
-* **Hooks不使用:** `flutter_hooks` および `HookConsumerWidget` は使用しません。標準の `ConsumerWidget` または `ConsumerStatefulWidget` を使用してください。
+* **標準Providerの利用:** `riverpod_generator` は使用せず、標準の `Provider`, `NotifierProvider` などを直接定義してください。
+* **Hooks不使用:** `flutter_hooks` は使用せず、標準の `ConsumerWidget` または `ConsumerStatefulWidget` を使用してください。
 
-## 🔗 Routing (ルーティング)
+## 🔗 Routing & Layout (ルーティングとレイアウト)
 
-* **GoRouter:** 宣言的なナビゲーションのために `go_router` を使用してください。
-* **標準ルーティング定義:** コード生成（`go_router_builder`）は使用せず、標準の `GoRoute` 定義を用いてパスベースでルーティングを構築してください。
+* **GoRouter:** 宣言的なナビゲーションのために `go_router` を使用します（`go_router_builder` は不使用）。
+* **レスポンシブデザイン:** **`responsive_framework`** を利用してマルチデバイスに対応します。
+  * **Mobile / Tablet:** 画面サイズに合わせて最適化。
+  * **Desktop (Web/Mac/Windows等):** タブレットの横幅（例: 最大800px等）で固定し、左右に余白（マージン）を表示するレイアウトとします。
 
-## 🔒 Data Handling & Code Generation (データ処理とコード生成)
+## 🔒 Data Handling, Backend & Code Generation
 
-* **コード生成の制限:** 本プロジェクトで許可されているコード生成ツールは、アセットの自動生成を行う **`flutter_gen` のみ** です。`json_serializable` や `build_runner` に依存するその他の自動生成は一切行いません。
-* APIレスポンスやローカル保存データの変換（`fromJson` / `toJson`）は手動で実装してください。
+* **ローカルデータ (Drift):** ローカルデータベースには **`drift`** を利用し、プレイデータ（`isCleared`, `clearTimeMs`, `score`, `failureCount`）を保存します。
+* **Firebase連携:** `packages/system` 内で RemoteConfig, Crashlytics, Analytics を初期化・利用します。
+* **コード生成の制限:** 許可されているツールは以下の3つのみです。
+  1. `flutter_gen` (アセット自動生成)
+  2. `drift_dev`, `build_runner` (ローカルDB)
+  3. `slang`, `build_runner` (多言語化)
+  ※ `json_serializable`、`riverpod_generator`、`go_router_builder` などは引き続き禁止とし、手動で実装してください。
 
 ## 🌍 Internationalization (国際化)
 
-* コード生成ツールを使用せず、Flutter標準の `flutter_localizations` と `.arb` ファイルによる多言語化アプローチを採用してください。
+* **Slang:** 国際化（i18n）には型安全な `slang` と `slang_flutter` を使用します（JSON/YAMLベースでコード生成）。
 
-## 💅 Visual Design & Theming
+## 🎮 Game Logic & Monetization (ゲーム進行と課金)
 
-* **解読不能テキスト:** クイズ画面のダミーテキストには、既存のアプリと区別するため、特定のダミーフォントを適用するカスタム `TextStyle` を `core` パッケージで定義して使用してください。
-* **あるあるUI:** わざと分かりにくいボタンやナビゲーションは `core` でコンポーネント化し、意図的な「悪さ」を表現しつつも、Flutterの基本レイアウト原則を意図的に崩す場合はドキュメントを残してください。
+* **ステージ解放 (アンロック):** 前のステージをクリア（`isCleared == true`）することで次の問題が解放される「順次解放方式」を採用します。この判定ロジックは `app_main` の Domain/Application 層で管理します。
+* **マネタイズ (アプリ内課金):** 広告は極力排除し、アプリ内課金（`in_app_purchase`）を想定します。1日のプレイ回数制限とその解除フラグなどは `system` パッケージの Drift/Domain で管理します。
+
+## 🧪 Testing (テスティング)
+
+* **ユニット (`test`) / ウィジェット (`flutter_test`) / ゴールデン (`alchemist`) / E2E (`patrol`)** を利用し、`melos` スクリプトで一括実行します。
