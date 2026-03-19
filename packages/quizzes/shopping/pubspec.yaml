@@ -1,0 +1,25 @@
+name: shopping
+description: "NantoNack ショッピングカテゴリクイズパッケージ"
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.11.3
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  quiz_core:
+    path: ../../quiz_core
+  system:
+    path: ../../system
+
+dev_dependencies:
+  alchemist: ^0.14.0
+  altive_lints: ^2.2.0
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4

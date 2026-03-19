@@ -48,6 +48,14 @@ ios/Flutter/.last_build_id
 app.*.symbols
 app.*.map.json
 
+# 機密情報
+# --------------------
+packages/system/.env
+apps/app_main/dart_define/prod.json
+
+# envied 生成ファイル (機密情報を含む可能性)
+**/env.g.dart
+
 # OS / その他
 # --------------------
 .DS_Store

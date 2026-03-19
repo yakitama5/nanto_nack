@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: '3.41.5'
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: 静的解析
+  # ──────────────────────────────────────────────
+  analyze:
+    name: 静的解析
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Pub キャッシュの復元
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - name: Melos のインストール
+        run: dart pub global activate melos
+
+      - name: .env ファイルの作成 (CI用プレースホルダー)
+        run: |
+          cat > packages/system/.env << 'EOF'
+          FIREBASE_ANDROID_API_KEY=ci_placeholder
+          FIREBASE_IOS_API_KEY=ci_placeholder
+          FIREBASE_WEB_API_KEY=ci_placeholder
+          EOF
+
+      - name: 依存関係の解決 (melos bootstrap)
+        run: melos bootstrap
+
+      - name: コード生成 (build_runner)
+        run: melos run generate
+
+      - name: 静的解析 (flutter analyze)
+        run: melos run lint
+
+  # ──────────────────────────────────────────────
+  # Job 2: テスト
+  # ──────────────────────────────────────────────
+  test:
+    name: テスト
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Pub キャッシュの復元
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - name: Melos のインストール
+        run: dart pub global activate melos
+
+      - name: .env ファイルの作成 (CI用プレースホルダー)
+        run: |
+          cat > packages/system/.env << 'EOF'
+          FIREBASE_ANDROID_API_KEY=ci_placeholder
+          FIREBASE_IOS_API_KEY=ci_placeholder
+          FIREBASE_WEB_API_KEY=ci_placeholder
+          EOF
+
+      - name: 依存関係の解決 (melos bootstrap)
+        run: melos bootstrap
+
+      - name: コード生成 (build_runner)
+        run: melos run generate
+
+      - name: テスト実行 (flutter test)
+        run: melos run test:all
+
+      - name: テスト失敗時の成果物アップロード
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-failures-${{ github.event.number }}-${{ github.sha }}
+          path: |
+            **/test/failures/
+            **/goldens/failures/
+          retention-days: 7
