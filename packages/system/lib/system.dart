@@ -1,5 +1,11 @@
 export 'src/database/app_database.dart';
 export 'src/database/app_database_provider.dart';
+export 'src/database/quiz_result_repository.dart';
+export 'src/database/quiz_result_repository_provider.dart';
+export 'src/database/user_status_repository.dart';
+export 'src/database/user_status_repository_provider.dart';
+export 'src/environment/app_environment.dart';
+export 'src/environment/env.dart';
 export 'src/firebase/firebase_service.dart';
 export 'src/initializer.dart';
 export 'src/purchase/purchase_service.dart';
