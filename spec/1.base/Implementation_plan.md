@@ -17,14 +17,19 @@
    * 解読不能フォントの `TextStyle`、および「あるあるUIコンポーネント」の実装。
    * イミュータブルな状態管理（`copyWith` 実装）の共通基底クラス作成。
 
-## Phase 3: アプリ全体のレイアウトと統合 (`app_main`)
+## Phase 3: 環境構築と機密情報管理
+
+1. **環境別設定の導入:** `dart-define-from-file` を利用し、`dev.json`, `prod.json` などのJSONファイルを作成。`String.fromEnvironment` 経由で公開可能な設定値（Flavor, APIのBaseURLなど）を読み込む環境管理クラスを実装。
+2. **機密情報の管理:** `envied` パッケージを導入。リポジトリにコミットしない `.env` ファイルにAPIキー等の機密情報を記載し、`build_runner` を実行して難読化されたDartクラス（`Env` クラス）を自動生成。
+
+## Phase 4: アプリ全体のレイアウトと統合 (`app_main`)
 
 1. **レスポンシブ対応:** `responsive_framework` を導入し、`MaxWidthBox` でデスクトップ向けの左右余白レイアウトを構築。
 2. **ルーティング:** `go_router` でパスベースの遷移を定義（例: `/shopping/water`, `/shopping/cart`）。
 3. **ゲーム進行ロジック:** Driftからクリア状況を取得し、「前のステージが `isCleared` なら次をアンロックする」順次解放ロジックの実装。
 4. **画面実装:** ホーム画面（ステージ一覧）、制限到達時の課金（IAP）誘導モーダル。
 
-## Phase 4: ショッピングカテゴリの実装 (`quizzes/shopping`)
+## Phase 5: ショッピングカテゴリの実装 (`quizzes/shopping`)
 
 ※ 1つのパッケージ内に、ECアプリ系の複数のクイズを実装します。
 
@@ -33,7 +38,7 @@
 2. **Infrastructure層:** クリア時に `system` の Drift Repository を呼び出し、結果とスコアを保存する処理。
 3. **Presentation層:** 架空のECアプリのベースとなるUIコンポーネントを作成し、問題ごとに必要な画面（商品一覧画面、カート画面など）とRiverpodのコントローラーを実装。
 
-## Phase 5: テストの実装とCI設定
+## Phase 6: テストの実装とCI設定
 
 1. **Golden Tests:** `alchemist` を利用した視覚的リグレッションテスト。
 2. **E2E Tests:** `patrol` を利用した通しテストの実装。
