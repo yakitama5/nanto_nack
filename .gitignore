@@ -1,0 +1,62 @@
+# Flutter / Dart / Pub 関連
+# --------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+custom_lint.log
+**/doc/api/
+
+# IDE / エディタ関連
+# --------------------
+# IntelliJ / Android Studio
+.idea/
+!/.idea/runConfigurations/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# ツール関連
+# --------------------
+# FVM (Flutter Version Management)
+.fvm/
+
+# Mason
+.mason/
+# `mason get` すると内容が絶対パスに書き換わるためバージョン管理しない
+mason-lock.json
+
+# Firebase 関連
+# --------------------
+.firebase/
+firebase-debug.log
+
+# モバイル固有 (Android / iOS)
+# --------------------
+/android/app/debug
+/android/app/profile
+/android/app/release
+ios/Flutter/.last_build_id
+
+# 難読化・シンボル関連
+# --------------------
+app.*.symbols
+app.*.map.json
+
+# OS / その他
+# --------------------
+.DS_Store
+.history
+.svn/
+.atom/
+*.swp
+*.log
+*.class
+*.pyc
+.buildlog/
+migrate_working_dir/

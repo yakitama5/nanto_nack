@@ -1,0 +1,18 @@
+{
+  "general": {
+    "defaultApprovalMode": "auto_edit"
+  },
+  "autoAccept": true,
+  "mcpServers": {
+    "dart": {
+      "command": "dart",
+      "args": ["mcp-server"]
+    },
+    "github-remote": {
+      "httpUrl": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer <<YOUR_TOKEN>>"
+      }
+    }
+  }
+}
