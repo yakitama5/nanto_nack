@@ -19,6 +19,8 @@ dependencies:
   quiz_core:
     path: ../../packages/quiz_core
   responsive_framework: ^1.5.1
+  shopping:
+    path: ../../packages/quizzes/shopping
   slang_flutter: ^4.3.1
   system:
     path: ../../packages/system

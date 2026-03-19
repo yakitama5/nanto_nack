@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:shopping/shopping.dart';
 
 import 'presentation/home/home_screen.dart';
-import 'presentation/shopping/shopping_stub_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -12,19 +12,20 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/shopping/water',
-      builder: (context, state) =>
-          const ShoppingStubScreen(quizId: 'shopping_water', title: '水を2つ買おう'),
+      builder: (context, state) => WaterQuizScreen(
+        onCompleted: () => context.pop(),
+      ),
     ),
     GoRoute(
       path: '/shopping/cart',
-      builder: (context, state) =>
-          const ShoppingStubScreen(quizId: 'shopping_cart', title: 'カートを確認しよう'),
+      builder: (context, state) => CartQuizScreen(
+        onCompleted: () => context.pop(),
+      ),
     ),
     GoRoute(
       path: '/shopping/checkout',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'shopping_checkout',
-        title: '購入を完了しよう',
+      builder: (context, state) => CheckoutQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
   ],

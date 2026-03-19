@@ -18,6 +18,8 @@ dependencies:
     path: ../../system
 
 dev_dependencies:
+  alchemist: ^0.14.0
+  altive_lints: ^2.2.0
   flutter_test:
     sdk: flutter
-  altive_lints: ^2.2.0
+  mocktail: ^1.0.4
