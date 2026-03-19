@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
-import 'package:shopping/src/application/quiz_cart_use_case.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
+import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
+import 'package:shopping/src/presentation/cart_quiz/cart_quiz_state.dart';
 
 /// カートの合計金額を当てるクイズ画面
 class CartQuizScreen extends ConsumerStatefulWidget {
@@ -16,6 +17,7 @@ class CartQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
+  // クイズ問題として使用するカート（固定データ）
   static final _cart = ShoppingCart(
     items: const [
       CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 3),
@@ -30,55 +32,20 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   );
 
   static const _choices = [480, 580, 630, 750];
-
-  final _useCase = const QuizCartUseCase();
-  QuizStatus _status = QuizStatus.idle;
-  int _failureCount = 0;
-  DateTime? _startedAt;
-  int _elapsedMs = 0;
-  int? _selectedChoice;
+  static const _timeLimitSeconds = 60;
 
   @override
   void initState() {
     super.initState();
-    _startedAt = DateTime.now();
-    _status = QuizStatus.playing;
-  }
-
-  void _onChoiceTap(int choice) {
-    if (_status != QuizStatus.playing) return;
-    final elapsed = DateTime.now().difference(_startedAt!).inMilliseconds;
-
-    setState(() {
-      _selectedChoice = choice;
-      _elapsedMs = elapsed;
-      if (_useCase.isClear(cart: _cart, selectedTotal: choice)) {
-        _status = QuizStatus.correct;
-      } else {
-        _status = QuizStatus.incorrect;
-        _failureCount++;
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(cartQuizProvider.notifier).startQuiz();
     });
-  }
-
-  void _retry() {
-    setState(() {
-      _status = QuizStatus.playing;
-      _startedAt = DateTime.now();
-      _selectedChoice = null;
-    });
-  }
-
-  int get _score {
-    if (_status != QuizStatus.correct) return 0;
-    const baseScore = 1000;
-    final penalty = (_elapsedMs / 100).floor();
-    final failurePenalty = _failureCount * 100;
-    return (baseScore - penalty - failurePenalty).clamp(0, baseScore);
   }
 
   @override
   Widget build(BuildContext context) {
+    final quizState = ref.watch(cartQuizProvider);
+
     return Stack(
       children: [
         Scaffold(
@@ -88,6 +55,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // ミッションカード
                 Card(
                   color: Theme.of(context).colorScheme.primaryContainer,
                   child: Padding(
@@ -134,8 +102,10 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
                       .map(
                         (c) => ChoiceChip(
                           label: Text('¥$c'),
-                          selected: _selectedChoice == c,
-                          onSelected: (_) => _onChoiceTap(c),
+                          selected: quizState.selectedChoice == c,
+                          onSelected: (_) => ref
+                              .read(cartQuizProvider.notifier)
+                              .selectChoice(choice: c, cart: _cart),
                         ),
                       )
                       .toList(),
@@ -144,14 +114,34 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             ),
           ),
         ),
-        if (_status == QuizStatus.correct || _status == QuizStatus.incorrect)
+        // フローティングミッションバー
+        if (quizState.status == QuizStatus.playing)
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 16,
+            right: 16,
+            child: FloatingMissionBar(
+              remainingSeconds: quizState.remainingSeconds,
+              missionText: 'このカートの合計金額を選んでください',
+              hintUsed: quizState.hintUsed,
+              timeLimitSeconds: _timeLimitSeconds,
+              onHintTap: () =>
+                  ref.read(cartQuizProvider.notifier).useHint(),
+            ),
+          ),
+        // 正誤結果オーバーレイ
+        if (quizState.status == QuizStatus.correct ||
+            quizState.status == QuizStatus.incorrect ||
+            quizState.status == QuizStatus.timeUp)
           Positioned.fill(
             child: QuizResultOverlay(
-              status: _status,
-              score: _score,
-              elapsedMs: _elapsedMs,
-              onRetry: _retry,
-              onNext: _status == QuizStatus.correct ? widget.onCompleted : null,
+              status: quizState.status,
+              score: quizState.score,
+              elapsedMs: quizState.elapsedMs,
+              onRetry: () => ref.read(cartQuizProvider.notifier).retry(),
+              onNext: quizState.status == QuizStatus.correct
+                  ? widget.onCompleted
+                  : null,
             ),
           ),
       ],

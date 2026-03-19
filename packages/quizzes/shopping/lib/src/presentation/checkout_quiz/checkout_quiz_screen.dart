@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
-import 'package:shopping/src/application/quiz_checkout_use_case.dart';
+import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
+import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
 
 class CheckoutQuizScreen extends ConsumerStatefulWidget {
   const CheckoutQuizScreen({super.key, this.onCompleted});
@@ -14,19 +15,15 @@ class CheckoutQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
-  final _useCase = const QuizCheckoutUseCase();
   final _addressController = TextEditingController();
-  String? _selectedPayment;
-  bool _isConfirmed = false;
-  QuizStatus _status = QuizStatus.playing;
-  DateTime? _startedAt;
-  int _elapsedMs = 0;
-  int _failureCount = 0;
+  static const _timeLimitSeconds = 90;
 
   @override
   void initState() {
     super.initState();
-    _startedAt = DateTime.now();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(checkoutQuizProvider.notifier).startQuiz();
+    });
   }
 
   @override
@@ -35,43 +32,17 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
     super.dispose();
   }
 
-  void _onConfirm() {
-    final elapsed = DateTime.now().difference(_startedAt!).inMilliseconds;
-    final isAddressEntered = _addressController.text.trim().isNotEmpty;
-
-    setState(() {
-      _elapsedMs = elapsed;
-      if (_useCase.isClear(
-        isAddressEntered: isAddressEntered,
-        isPaymentSelected: _selectedPayment != null,
-        isConfirmed: _isConfirmed,
-      )) {
-        _status = QuizStatus.correct;
-      } else {
-        _status = QuizStatus.incorrect;
-        _failureCount++;
-      }
-    });
-  }
-
-  void _retry() {
-    setState(() {
-      _status = QuizStatus.playing;
-      _startedAt = DateTime.now();
-      _isConfirmed = false;
-    });
-  }
-
-  int get _score {
-    if (_status != QuizStatus.correct) return 0;
-    const baseScore = 1000;
-    final penalty = (_elapsedMs / 100).floor();
-    final failurePenalty = _failureCount * 100;
-    return (baseScore - penalty - failurePenalty).clamp(0, baseScore);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final quizState = ref.watch(checkoutQuizProvider);
+
+    // 住所変更をNotifierに反映（コントローラとの同期）
+    ref.listen<CheckoutQuizState>(checkoutQuizProvider, (prev, next) {
+      if (next.address != _addressController.text) {
+        _addressController.text = next.address;
+      }
+    });
+
     return Stack(
       children: [
         Scaffold(
@@ -111,6 +82,8 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                     border: OutlineInputBorder(),
                     hintText: '例: 東京都渋谷区...',
                   ),
+                  onChanged: (v) =>
+                      ref.read(checkoutQuizProvider.notifier).updateAddress(v),
                 ),
                 const SizedBox(height: 24),
                 Text(
@@ -118,31 +91,36 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                RadioGroup<String>(
-                  groupValue: _selectedPayment,
-                  onChanged: (v) => setState(() => _selectedPayment = v),
-                  child: Column(
-                    children: ['クレジットカード', 'コンビニ払い', '代金引換']
-                        .map(
-                          (method) => RadioListTile<String>(
-                            title: Text(method),
-                            value: method,
-                          ),
-                        )
-                        .toList(),
+                ...['クレジットカード', 'コンビニ払い', '代金引換'].map(
+                  (method) => RadioListTile<String>(
+                    title: Text(method),
+                    value: method,
+                    groupValue: quizState.selectedPayment,
+                    onChanged: (v) {
+                      if (v != null) {
+                        ref
+                            .read(checkoutQuizProvider.notifier)
+                            .selectPayment(v);
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(height: 16),
                 CheckboxListTile(
                   title: const Text('注文内容を確認しました'),
-                  value: _isConfirmed,
-                  onChanged: (v) => setState(() => _isConfirmed = v ?? false),
+                  value: quizState.isConfirmed,
+                  onChanged: (v) => ref
+                      .read(checkoutQuizProvider.notifier)
+                      .toggleConfirmed(value: v ?? false),
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton(
-                    onPressed: _onConfirm,
+                    onPressed: quizState.status == QuizStatus.playing
+                        ? () =>
+                            ref.read(checkoutQuizProvider.notifier).confirm()
+                        : null,
                     child: const Text('注文を確定する'),
                   ),
                 ),
@@ -150,14 +128,33 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
             ),
           ),
         ),
-        if (_status == QuizStatus.correct || _status == QuizStatus.incorrect)
+        // フローティングミッションバー
+        if (quizState.status == QuizStatus.playing)
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 16,
+            right: 16,
+            child: FloatingMissionBar(
+              remainingSeconds: quizState.remainingSeconds,
+              missionText: '購入手続きを完了してください',
+              hintUsed: false,
+              timeLimitSeconds: _timeLimitSeconds,
+            ),
+          ),
+        // 正誤結果オーバーレイ
+        if (quizState.status == QuizStatus.correct ||
+            quizState.status == QuizStatus.incorrect ||
+            quizState.status == QuizStatus.timeUp)
           Positioned.fill(
             child: QuizResultOverlay(
-              status: _status,
-              score: _score,
-              elapsedMs: _elapsedMs,
-              onRetry: _retry,
-              onNext: _status == QuizStatus.correct ? widget.onCompleted : null,
+              status: quizState.status,
+              score: quizState.score,
+              elapsedMs: quizState.elapsedMs,
+              onRetry: () =>
+                  ref.read(checkoutQuizProvider.notifier).retry(),
+              onNext: quizState.status == QuizStatus.correct
+                  ? widget.onCompleted
+                  : null,
             ),
           ),
       ],
