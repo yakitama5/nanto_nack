@@ -36,5 +36,18 @@
   "error": {
     "unknown": "エラーが発生しました",
     "retry": "再試行"
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "todayTip": "今日のUI/UXヒント",
+    "remainingPlays": "残りプレイ数",
+    "remainingPlaysCount": "残り{count}回",
+    "@remainingPlaysCount": { "param": "count" },
+    "unlimitedPlays": "無制限",
+    "streak": "連続プレイ",
+    "streakDays": "{days}日連続",
+    "@streakDays": { "param": "days" },
+    "activityHistory": "プレイ履歴",
+    "noActivity": "まだプレイ履歴がありません"
   }
 }

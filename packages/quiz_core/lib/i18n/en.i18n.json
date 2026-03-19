@@ -36,5 +36,18 @@
   "error": {
     "unknown": "An error occurred",
     "retry": "Retry"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "todayTip": "Today's UI/UX Tip",
+    "remainingPlays": "Remaining Plays",
+    "remainingPlaysCount": "{count} remaining",
+    "@remainingPlaysCount": { "param": "count" },
+    "unlimitedPlays": "Unlimited",
+    "streak": "Streak",
+    "streakDays": "{days} day streak",
+    "@streakDays": { "param": "days" },
+    "activityHistory": "Play History",
+    "noActivity": "No play history yet"
   }
 }
