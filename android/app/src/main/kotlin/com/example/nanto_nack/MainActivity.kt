@@ -1,4 +1,4 @@
-package com.example.fvm_skeleton_template
+package com.example.nanto_nack
 
 import io.flutter.embedding.android.FlutterActivity
 

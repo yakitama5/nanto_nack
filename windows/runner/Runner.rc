@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "fvm_skeleton_template" "\0"
+            VALUE "FileDescription", "nanto_nack" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "fvm_skeleton_template" "\0"
+            VALUE "InternalName", "nanto_nack" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "fvm_skeleton_template.exe" "\0"
-            VALUE "ProductName", "fvm_skeleton_template" "\0"
+            VALUE "OriginalFilename", "nanto_nack.exe" "\0"
+            VALUE "ProductName", "nanto_nack" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

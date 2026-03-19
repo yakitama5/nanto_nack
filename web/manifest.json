@@ -1,6 +1,6 @@
 {
-    "name": "fvm_skeleton_template",
-    "short_name": "fvm_skeleton_template",
+    "name": "nanto_nack",
+    "short_name": "nanto_nack",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
