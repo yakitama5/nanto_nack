@@ -1,0 +1,174 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, closed]
+
+# 本番デプロイはキャンセルしない。PR プレビューは後続 push で上書き
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'push' && 'production' || format('pr-{0}', github.event.number) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
+
+env:
+  FLUTTER_VERSION: '3.41.5'
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: ビルドとデプロイ
+  #   - push to main  → 本番デプロイ (GitHub Pages ルート)
+  #   - PR opened/sync → プレビューデプロイ (previews/pr-{N}/)
+  # ──────────────────────────────────────────────
+  build-and-deploy:
+    name: ${{ github.event_name == 'push' && '本番デプロイ' || 'プレビューデプロイ' }}
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'push' ||
+      (github.event_name == 'pull_request' && github.event.action != 'closed')
+    permissions:
+      contents: write       # gh-pages ブランチへの push
+      pull-requests: write  # PR へのコメント
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Pub キャッシュの復元
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - name: Melos のインストール
+        run: dart pub global activate melos
+
+      - name: .env ファイルの作成 (CI用プレースホルダー)
+        run: |
+          cat > packages/system/.env << 'EOF'
+          FIREBASE_ANDROID_API_KEY=ci_placeholder
+          FIREBASE_IOS_API_KEY=ci_placeholder
+          FIREBASE_WEB_API_KEY=ci_placeholder
+          EOF
+
+      - name: 依存関係の解決 (melos bootstrap)
+        run: melos bootstrap
+
+      - name: コード生成 (build_runner)
+        run: melos run generate
+
+      # デプロイ先パスと公開 URL を計算
+      - name: デプロイ設定の計算
+        id: config
+        run: |
+          REPO="${{ github.event.repository.name }}"
+          OWNER="${{ github.repository_owner }}"
+
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            PR="${{ github.event.number }}"
+            echo "base_href=/${REPO}/previews/pr-${PR}/"  >> "$GITHUB_OUTPUT"
+            echo "dest_dir=previews/pr-${PR}"             >> "$GITHUB_OUTPUT"
+            echo "url=https://${OWNER}.github.io/${REPO}/previews/pr-${PR}/" >> "$GITHUB_OUTPUT"
+            echo "is_preview=true"                        >> "$GITHUB_OUTPUT"
+          else
+            echo "base_href=/${REPO}/"                    >> "$GITHUB_OUTPUT"
+            echo "dest_dir=."                             >> "$GITHUB_OUTPUT"
+            echo "url=https://${OWNER}.github.io/${REPO}/" >> "$GITHUB_OUTPUT"
+            echo "is_preview=false"                       >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Web ビルド
+        run: |
+          cd apps/app_main
+          flutter build web \
+            --dart-define-from-file=dart_define/dev.json \
+            --base-href="${{ steps.config.outputs.base_href }}"
+
+      # keep_files: true で既存の previews/ ディレクトリを保持
+      - name: GitHub Pages へデプロイ
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: apps/app_main/build/web
+          destination_dir: ${{ steps.config.outputs.dest_dir }}
+          keep_files: true
+
+      # PR の場合のみプレビュー URL をコメント (同じ PR に対しては更新)
+      - name: プレビュー URL を PR にコメント
+        if: steps.config.outputs.is_preview == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url    = '${{ steps.config.outputs.url }}';
+            const sha    = '${{ github.sha }}';
+            const marker = '<!-- nanto-nack-preview-bot -->';
+            const body   = [
+              marker,
+              '## 🚀 プレビューデプロイ完了',
+              '',
+              `**URL:** ${url}`,
+              `**コミット:** \`${sha.slice(0, 7)}\``,
+              '',
+              '> GitHub Pages の反映には数分かかる場合があります。',
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c => c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner:      context.repo.owner,
+                repo:       context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner:        context.repo.owner,
+                repo:         context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+  # ──────────────────────────────────────────────
+  # Job 2: プレビュークリーンアップ
+  #   PR クローズ時に previews/pr-{N}/ を削除
+  # ──────────────────────────────────────────────
+  cleanup-preview:
+    name: プレビュークリーンアップ
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    permissions:
+      contents: write
+
+    steps:
+      - name: gh-pages ブランチをチェックアウト
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: プレビューディレクトリの削除
+        run: |
+          PR_DIR="previews/pr-${{ github.event.number }}"
+          if [ -d "$PR_DIR" ]; then
+            rm -rf "$PR_DIR"
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "chore: remove preview for PR #${{ github.event.number }}"
+            git push
+            echo "✅ Removed $PR_DIR"
+          else
+            echo "ℹ️ Preview not found: $PR_DIR (skipped)"
+          fi
