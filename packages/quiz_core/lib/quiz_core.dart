@@ -5,6 +5,8 @@ export 'src/theme/app_text_styles.dart';
 export 'src/theme/app_theme.dart';
 export 'src/utils/haptic_feedback_service.dart';
 export 'src/utils/score_rank.dart';
+export 'src/widgets/floating_mission_bar.dart';
+export 'src/widgets/mission_cut_in.dart';
 export 'src/widgets/nanto_heatmap.dart';
 export 'src/widgets/play_limit_modal.dart';
 export 'src/widgets/quiz_result_overlay.dart';
