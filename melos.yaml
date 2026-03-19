@@ -1,0 +1,19 @@
+name: nanto_nack
+
+packages:
+  - apps/**
+  - packages/**
+  - packages/quizzes/**
+
+scripts:
+  generate:
+    run: melos exec --depends-on="build_runner" -- dart run build_runner build --delete-conflicting-outputs
+    description: "コード生成 (drift_dev, slang)"
+
+  lint:
+    run: melos exec --flutter -- flutter analyze .
+    description: "静的解析"
+
+  test:all:
+    run: melos exec --flutter -- flutter test
+    description: "全テスト実行"

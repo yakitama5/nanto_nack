@@ -1,0 +1,22 @@
+name: quiz_core
+description: "NantoNack 共通パッケージ (UI, テーマ, エンティティ)"
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.11.3
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  altive_lints: ^2.2.0
+
+flutter:
+  uses-material-design: true
