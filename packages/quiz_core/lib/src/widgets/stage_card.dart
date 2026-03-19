@@ -11,12 +11,20 @@ class StageCard extends StatelessWidget {
     required this.title,
     required this.status,
     this.onTap,
+    this.clearTimeMs,
+    this.score,
   });
 
   final int stageNumber;
   final String title;
   final StageStatus status;
   final VoidCallback? onTap;
+
+  /// クリアタイム (ミリ秒)。クリア済みの場合に表示する
+  final int? clearTimeMs;
+
+  /// スコア。クリア済みの場合に表示する
+  final int? score;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +60,18 @@ class StageCard extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleMedium,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    if (status == StageStatus.cleared) ...[
+                      const SizedBox(height: 4),
+                      _ClearInfo(clearTimeMs: clearTimeMs, score: score),
+                    ],
+                  ],
                 ),
               ),
               Icon(icon, color: color),
@@ -62,6 +79,54 @@ class StageCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// クリア済みステージのタイム・スコア表示
+class _ClearInfo extends StatelessWidget {
+  const _ClearInfo({this.clearTimeMs, this.score});
+
+  final int? clearTimeMs;
+  final int? score;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context)
+              .colorScheme
+              .onSurface
+              .withValues(alpha: 0.6),
+        );
+
+    return Row(
+      children: [
+        if (clearTimeMs != null) ...[
+          Icon(
+            Icons.timer,
+            size: 12,
+            color: style?.color,
+          ),
+          const SizedBox(width: 2),
+          Text(
+            '${(clearTimeMs! / 1000).toStringAsFixed(1)}秒',
+            style: style,
+          ),
+        ],
+        if (clearTimeMs != null && score != null) const SizedBox(width: 8),
+        if (score != null) ...[
+          Icon(
+            Icons.star,
+            size: 12,
+            color: style?.color,
+          ),
+          const SizedBox(width: 2),
+          Text(
+            '$score点',
+            style: style,
+          ),
+        ],
+      ],
     );
   }
 }

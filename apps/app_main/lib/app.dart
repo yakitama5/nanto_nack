@@ -1,5 +1,6 @@
 import 'router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -9,10 +10,15 @@ class NantoNackApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final locale = TranslationProvider.of(context).flutterLocale;
+
     return MaterialApp.router(
       title: 'NantoNack',
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
+      locale: locale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       routerConfig: appRouter,
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: ClampingScrollWrapper.builder(context, child!),

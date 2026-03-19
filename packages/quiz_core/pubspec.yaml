@@ -12,11 +12,15 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.6.1
+  slang: ^4.3.1
+  slang_flutter: ^4.3.1
 
 dev_dependencies:
+  altive_lints: ^2.2.0
+  build_runner: ^2.4.15
   flutter_test:
     sdk: flutter
-  altive_lints: ^2.2.0
+  slang_build_runner: ^4.3.1
 
 flutter:
   uses-material-design: true
