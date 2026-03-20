@@ -48,9 +48,7 @@ jobs:
           restore-keys: pub-${{ runner.os }}-
 
       - name: Melos のインストール
-        run: |
-          dart pub global activate melos
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+        run: dart pub global activate melos
 
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
@@ -61,10 +59,10 @@ jobs:
           EOF
 
       - name: 依存関係の解決 (melos bootstrap)
-        run: melos bootstrap
+        run: dart pub global run melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: melos run generate
+        run: dart pub global run melos run generate
 
       # デプロイ先パスと公開 URL を計算
       - name: デプロイ設定の計算

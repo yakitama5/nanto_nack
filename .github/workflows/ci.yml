@@ -36,9 +36,7 @@ jobs:
           restore-keys: pub-${{ runner.os }}-
 
       - name: Melos のインストール
-        run: |
-          dart pub global activate melos
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+        run: dart pub global activate melos
 
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
@@ -49,13 +47,13 @@ jobs:
           EOF
 
       - name: 依存関係の解決 (melos bootstrap)
-        run: melos bootstrap
+        run: dart pub global run melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: melos run generate
+        run: dart pub global run melos run generate
 
       - name: 静的解析 (flutter analyze)
-        run: melos run lint
+        run: dart pub global run melos run lint
 
   # ──────────────────────────────────────────────
   # Job 2: テスト
@@ -84,9 +82,7 @@ jobs:
           restore-keys: pub-${{ runner.os }}-
 
       - name: Melos のインストール
-        run: |
-          dart pub global activate melos
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+        run: dart pub global activate melos
 
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
@@ -97,13 +93,13 @@ jobs:
           EOF
 
       - name: 依存関係の解決 (melos bootstrap)
-        run: melos bootstrap
+        run: dart pub global run melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: melos run generate
+        run: dart pub global run melos run generate
 
       - name: テスト実行 (flutter test)
-        run: melos run test:all
+        run: dart pub global run melos run test:all
 
       - name: テスト失敗時の成果物アップロード
         uses: actions/upload-artifact@v4
