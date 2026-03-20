@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_cart_use_case.dart';
@@ -29,7 +30,7 @@ class CartQuizNotifier extends Notifier<CartQuizState> {
   void startQuiz() {
     state = state.copyWith(
       status: QuizStatus.playing,
-      startedAt: DateTime.now(),
+      startedAt: clock.now(),
       remainingSeconds: _timeLimitSeconds,
     );
     _startTimer();
@@ -44,7 +45,7 @@ class CartQuizNotifier extends Notifier<CartQuizState> {
     _timer?.cancel();
 
     final elapsed = state.startedAt != null
-        ? DateTime.now().difference(state.startedAt!).inMilliseconds
+        ? clock.now().difference(state.startedAt!).inMilliseconds
         : 0;
 
     final isCorrect = _useCase.isClear(cart: cart, selectedTotal: choice);
@@ -80,7 +81,7 @@ class CartQuizNotifier extends Notifier<CartQuizState> {
     _timer?.cancel();
     state = CartQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(
       status: QuizStatus.playing,
-      startedAt: DateTime.now(),
+      startedAt: clock.now(),
       failureCount: state.failureCount,
     );
     _startTimer();
@@ -101,7 +102,7 @@ class CartQuizNotifier extends Notifier<CartQuizState> {
 
   Future<void> _onTimeUp() async {
     final elapsed = state.startedAt != null
-        ? DateTime.now().difference(state.startedAt!).inMilliseconds
+        ? clock.now().difference(state.startedAt!).inMilliseconds
         : 0;
     state = state.copyWith(
       status: QuizStatus.timeUp,

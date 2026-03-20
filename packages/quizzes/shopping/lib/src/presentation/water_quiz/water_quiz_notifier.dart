@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_water_use_case.dart';
@@ -32,7 +33,7 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
     _timer?.cancel();
     state = state.copyWith(
       status: QuizStatus.playing,
-      startedAt: DateTime.now(),
+      startedAt: clock.now(),
       cart: const ShoppingCart(),
       isPurchased: false,
       remainingSeconds: _timeLimitSeconds,
@@ -74,7 +75,7 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
 
     final newState = state.copyWith(isPurchased: true);
     final elapsed = newState.startedAt != null
-        ? DateTime.now().difference(newState.startedAt!).inMilliseconds
+        ? clock.now().difference(newState.startedAt!).inMilliseconds
         : 0;
 
     final reason = _useCase.failureReason(
@@ -104,7 +105,7 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
     _timer?.cancel();
     state = WaterQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(
       status: QuizStatus.playing,
-      startedAt: DateTime.now(),
+      startedAt: clock.now(),
       failureCount: state.failureCount,
     );
     _startTimer();
@@ -125,7 +126,7 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
 
   Future<void> _onTimeUp() async {
     final elapsed = state.startedAt != null
-        ? DateTime.now().difference(state.startedAt!).inMilliseconds
+        ? clock.now().difference(state.startedAt!).inMilliseconds
         : 0;
     state = state.copyWith(
       status: QuizStatus.timeUp,

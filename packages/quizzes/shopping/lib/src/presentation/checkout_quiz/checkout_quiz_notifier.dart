@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_checkout_use_case.dart';
@@ -28,7 +29,7 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
   void startQuiz() {
     state = state.copyWith(
       status: QuizStatus.playing,
-      startedAt: DateTime.now(),
+      startedAt: clock.now(),
       remainingSeconds: _timeLimitSeconds,
     );
     _startTimer();
@@ -58,7 +59,7 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
     _timer?.cancel();
 
     final elapsed = state.startedAt != null
-        ? DateTime.now().difference(state.startedAt!).inMilliseconds
+        ? clock.now().difference(state.startedAt!).inMilliseconds
         : 0;
 
     final isCorrect = _useCase.isClear(
@@ -91,7 +92,7 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
     state = CheckoutQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
         .copyWith(
       status: QuizStatus.playing,
-      startedAt: DateTime.now(),
+      startedAt: clock.now(),
       failureCount: state.failureCount,
     );
     _startTimer();
@@ -112,7 +113,7 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
 
   Future<void> _onTimeUp() async {
     final elapsed = state.startedAt != null
-        ? DateTime.now().difference(state.startedAt!).inMilliseconds
+        ? clock.now().difference(state.startedAt!).inMilliseconds
         : 0;
     state = state.copyWith(
       status: QuizStatus.timeUp,
