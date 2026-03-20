@@ -20,7 +20,10 @@ class CartQuizNotifier extends Notifier<CartQuizState> {
   Timer? _timer;
 
   @override
-  CartQuizState build() => CartQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+  CartQuizState build() {
+    ref.onDispose(() => _timer?.cancel());
+    return CartQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+  }
 
   /// クイズを開始する（タイマー始動）
   void startQuiz() {
@@ -122,8 +125,4 @@ class CartQuizNotifier extends Notifier<CartQuizState> {
     );
   }
 
-  @override
-  void dispose() {
-    _timer?.cancel();
-  }
 }

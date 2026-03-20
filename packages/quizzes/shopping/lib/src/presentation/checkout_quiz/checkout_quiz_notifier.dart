@@ -19,8 +19,10 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
   Timer? _timer;
 
   @override
-  CheckoutQuizState build() =>
-      CheckoutQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+  CheckoutQuizState build() {
+    ref.onDispose(() => _timer?.cancel());
+    return CheckoutQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+  }
 
   /// クイズを開始する（タイマー始動）
   void startQuiz() {
@@ -134,8 +136,4 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
     );
   }
 
-  @override
-  void dispose() {
-    _timer?.cancel();
-  }
 }

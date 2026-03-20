@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:system/system.dart';
+
 import '../domain/dashboard/dashboard_state.dart';
 import '../domain/dashboard/daily_tip.dart';
 import '../domain/dashboard/user_activity.dart';
@@ -52,7 +54,7 @@ class GetDashboardDataUseCase {
 
   /// Drift の履歴を日付ごとに集計して60日分のバケットを構築
   List<UserActivity> _buildActivityHistory(
-    List<dynamic> results,
+    List<QuizResult> results,
   ) {
     final today = DateTime.now();
     // 日付 → {clearCount, totalScore} のマップ
@@ -66,7 +68,7 @@ class GetDashboardDataUseCase {
       final existing = activityMap[day];
       activityMap[day] = (
         clearCount: (existing?.clearCount ?? 0) + 1,
-        totalScore: (existing?.totalScore ?? 0) + (result.score as int),
+        totalScore: (existing?.totalScore ?? 0) + result.score,
       );
     }
 

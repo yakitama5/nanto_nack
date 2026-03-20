@@ -50,19 +50,23 @@ class HomeScreen extends ConsumerWidget {
             child: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
-                  child: dashboardAsync.when(
-                    loading: () => const SkeletonDashboard(),
-                    error: (_, __) => const SizedBox.shrink(),
-                    data: (dashboard) => _DashboardSection(dashboard: dashboard),
-                  ),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                  sliver: SliverToBoxAdapter(
-                    child: Text(
-                      t.home.stageList,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      dashboardAsync.when(
+                        loading: () => const SkeletonDashboard(),
+                        error: (_, __) => const SizedBox.shrink(),
+                        data: (dashboard) =>
+                            _DashboardSection(dashboard: dashboard),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                        child: Text(
+                          t.home.stageList,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SliverPadding(

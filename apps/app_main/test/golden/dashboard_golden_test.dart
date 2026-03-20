@@ -6,11 +6,6 @@ import 'package:quiz_core/quiz_core.dart';
 // ─── ゴールデンテスト ─────────────────────────────────────────────────────────
 
 void main() {
-  // alchemist の設定を読み込む
-  setUpAll(() async {
-    await loadAppFonts();
-  });
-
   group('SkeletonDashboard golden tests', () {
     goldenTest(
       'スケルトン（ローディング）表示のゴールデンテスト',
@@ -22,7 +17,7 @@ void main() {
             child: SizedBox(
               width: 375,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: const Scaffold(
                   body: SkeletonDashboard(),
                 ),
@@ -34,7 +29,7 @@ void main() {
             child: SizedBox(
               width: 800,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: const Scaffold(
                   body: SkeletonDashboard(),
                 ),
@@ -69,7 +64,7 @@ void main() {
             child: SizedBox(
               width: 360,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: Scaffold(
                   body: Padding(
                     padding: const EdgeInsets.all(16),
@@ -84,7 +79,7 @@ void main() {
             child: SizedBox(
               width: 360,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: const Scaffold(
                   body: Padding(
                     padding: EdgeInsets.all(16),

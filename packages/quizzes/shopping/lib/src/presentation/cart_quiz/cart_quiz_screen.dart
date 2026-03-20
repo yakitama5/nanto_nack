@@ -4,7 +4,6 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
-import 'package:shopping/src/presentation/cart_quiz/cart_quiz_state.dart';
 
 /// カートの合計金額を当てるクイズ画面
 class CartQuizScreen extends ConsumerStatefulWidget {
@@ -119,7 +118,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
         // フローティングミッションバー
         if (quizState.status == QuizStatus.playing)
           Positioned(
-            top: MediaQuery.of(context).padding.top + 8,
+            top: MediaQuery.paddingOf(context).top + 8,
             left: 16,
             right: 16,
             child: FloatingMissionBar(

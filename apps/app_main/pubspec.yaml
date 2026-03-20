@@ -28,7 +28,6 @@ dependencies:
 dev_dependencies:
   alchemist: ^0.14.0
   altive_lints: ^2.2.0
-  flutter_riverpod: ^2.6.1
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4

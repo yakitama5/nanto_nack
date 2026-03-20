@@ -23,8 +23,10 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
   Timer? _timer;
 
   @override
-  WaterQuizState build() =>
-      WaterQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+  WaterQuizState build() {
+    ref.onDispose(() => _timer?.cancel());
+    return WaterQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+  }
 
   void startQuiz() {
     _timer?.cancel();
@@ -147,8 +149,4 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
     );
   }
 
-  @override
-  void dispose() {
-    _timer?.cancel();
-  }
 }

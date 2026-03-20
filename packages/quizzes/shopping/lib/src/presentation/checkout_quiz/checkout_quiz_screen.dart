@@ -92,18 +92,24 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                ...['クレジットカード', 'コンビニ払い', '代金引換'].map(
-                  (method) => RadioListTile<String>(
-                    title: Text(method),
-                    value: method,
-                    groupValue: quizState.selectedPayment,
-                    onChanged: (v) {
-                      if (v != null) {
-                        ref
-                            .read(checkoutQuizProvider.notifier)
-                            .selectPayment(v);
-                      }
-                    },
+                RadioGroup<String>(
+                  groupValue: quizState.selectedPayment,
+                  onChanged: (v) {
+                    if (v != null) {
+                      ref
+                          .read(checkoutQuizProvider.notifier)
+                          .selectPayment(v);
+                    }
+                  },
+                  child: Column(
+                    children: ['クレジットカード', 'コンビニ払い', '代金引換']
+                        .map(
+                          (method) => RadioListTile<String>(
+                            title: Text(method),
+                            value: method,
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -132,7 +138,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
         // フローティングミッションバー
         if (quizState.status == QuizStatus.playing)
           Positioned(
-            top: MediaQuery.of(context).padding.top + 8,
+            top: MediaQuery.paddingOf(context).top + 8,
             left: 16,
             right: 16,
             child: FloatingMissionBar(

@@ -6,7 +6,6 @@ import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/presentation/cart_badge.dart';
 import 'package:shopping/src/presentation/shopping_item_tile.dart';
 import 'package:shopping/src/presentation/water_quiz/water_quiz_notifier.dart';
-import 'package:shopping/src/presentation/water_quiz/water_quiz_state.dart';
 
 class WaterQuizScreen extends ConsumerStatefulWidget {
   const WaterQuizScreen({super.key, this.onCompleted});
@@ -47,38 +46,32 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
               ),
             ],
           ),
-          body: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: kShoppingCatalog.length,
-                  itemBuilder: (context, index) {
-                    final item = kShoppingCatalog[index];
-                    final isHinted = quizState.hintItemId == item.id;
-                    return ShoppingItemTile(
-                      item: item,
-                      highlighted: isHinted,
-                      onAddToCart: () =>
-                          ref.read(waterQuizProvider.notifier).addToCart(
-                                CartItem(
-                                  id: item.id,
-                                  name: item.name,
-                                  price: item.price,
-                                  quantity: 1,
-                                ),
-                              ),
-                    );
-                  },
-                ),
-              ),
-            ],
+          body: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: kShoppingCatalog.length,
+            itemBuilder: (context, index) {
+              final item = kShoppingCatalog[index];
+              final isHinted = quizState.hintItemId == item.id;
+              return ShoppingItemTile(
+                item: item,
+                highlighted: isHinted,
+                onAddToCart: () =>
+                    ref.read(waterQuizProvider.notifier).addToCart(
+                          CartItem(
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            quantity: 1,
+                          ),
+                        ),
+              );
+            },
           ),
         ),
         // フローティングミッションバー
         if (quizState.status == QuizStatus.playing)
           Positioned(
-            top: MediaQuery.of(context).padding.top + 8,
+            top: MediaQuery.paddingOf(context).top + 8,
             left: 16,
             right: 16,
             child: FloatingMissionBar(
