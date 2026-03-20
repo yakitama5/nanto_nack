@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:system/system.dart';
 
 import '../domain/dashboard/daily_tip.dart';
@@ -27,7 +28,7 @@ class DashboardRepositoryImpl implements DashboardRepository {
   @override
   Future<int> getTodayPlayCount() async {
     final status = await _userStatusRepository.get();
-    final today = DateTime.now();
+    final today = clock.now();
     final lastReset = status.lastResetDate;
 
     final isToday = lastReset != null &&

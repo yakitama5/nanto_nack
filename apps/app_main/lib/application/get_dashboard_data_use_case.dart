@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:clock/clock.dart';
 import 'package:system/system.dart';
 
 import '../domain/dashboard/dashboard_state.dart';
@@ -23,7 +24,7 @@ class GetDashboardDataUseCase {
     final remainingPlayCount =
         isPremium ? null : (5 - todayPlayCount).clamp(0, 5);
 
-    final since = DateTime.now().subtract(const Duration(days: 60));
+    final since = clock.now().subtract(const Duration(days: 60));
     final history = await _repository.getQuizHistorySince(since);
 
     final activityHistory = _buildActivityHistory(history);
@@ -46,7 +47,7 @@ class GetDashboardDataUseCase {
         content: 'クイズを解いてUI/UXの感覚を磨きましょう！',
       );
     }
-    final today = DateTime.now();
+    final today = clock.now();
     final seed = today.year * 10000 + today.month * 100 + today.day;
     final index = Random(seed).nextInt(tips.length);
     return tips[index];
@@ -56,7 +57,7 @@ class GetDashboardDataUseCase {
   List<UserActivity> _buildActivityHistory(
     List<QuizResult> results,
   ) {
-    final today = DateTime.now();
+    final today = clock.now();
     // 日付 → {clearCount, totalScore} のマップ
     final activityMap = <DateTime, ({int clearCount, int totalScore})>{};
 
