@@ -1,10 +1,5 @@
 name: nanto_nack
 
-packages:
-  - apps/**
-  - packages/**
-  - packages/quizzes/**
-
 scripts:
   generate:
     run: melos exec --depends-on="build_runner" -- dart run build_runner build --delete-conflicting-outputs
