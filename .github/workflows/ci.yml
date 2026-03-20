@@ -8,9 +8,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number }}
   cancel-in-progress: true
 
-env:
-  FLUTTER_VERSION: '3.41.5'
-
 jobs:
   # ──────────────────────────────────────────────
   # Job 1: 静的解析
@@ -22,9 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Flutter バージョンの取得 (.fvmrc)
+        id: fvm
+        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          flutter-version: ${{ steps.fvm.outputs.version }}
           cache: true
 
       - name: Pub キャッシュの復元
@@ -66,9 +67,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Flutter バージョンの取得 (.fvmrc)
+        id: fvm
+        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          flutter-version: ${{ steps.fvm.outputs.version }}
           cache: true
 
       - name: Pub キャッシュの復元
