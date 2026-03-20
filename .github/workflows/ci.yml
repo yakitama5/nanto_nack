@@ -38,21 +38,6 @@ jobs:
       - name: Melos のインストール
         run: dart pub global activate melos
 
-      - name: 診断情報 (melos bootstrap 失敗の原因調査)
-        run: |
-          echo "=== 現在のディレクトリ ==="
-          pwd
-          echo "=== ディレクトリ内容 ==="
-          ls -la
-          echo "=== melos.yaml の存在確認 ==="
-          ls -la melos.yaml 2>/dev/null && cat melos.yaml || echo "melos.yaml が存在しない"
-          echo "=== dart のバージョン ==="
-          dart --version
-          echo "=== グローバルパッケージ一覧 ==="
-          dart pub global list
-          echo "=== GITHUB_WORKSPACE ==="
-          echo "$GITHUB_WORKSPACE"
-
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
           cat > packages/system/.env << 'EOF'
