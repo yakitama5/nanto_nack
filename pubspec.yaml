@@ -11,6 +11,9 @@ workspace:
   - packages/quiz_core
   - packages/quizzes/shopping
 
+dev_dependencies:
+  melos: ^7.0.0
+
 melos:
   scripts:
     generate:
