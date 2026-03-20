@@ -37,6 +37,24 @@
 * **イミュータビリティ:** 変更不可能なデータ構造を優先し、状態やモデルの定義・更新には必ず **`copyWith` メソッド** を実装して利用してください。
 * **静的解析:** **`altive_lints`** を利用して厳格なコード規約を適用し、高品質なコードベースを保ちます。
 
+## 🕐 現在日時の取得ルール
+
+現在日時が必要な箇所では、`DateTime.now()` を直接使用することを **禁止** します。
+代わりに `clock` パッケージのグローバル変数 `clock.now()` を使用してください。
+
+```dart
+// ❌ 禁止
+final now = DateTime.now();
+
+// ✅ 正しい
+import 'package:clock/clock.dart';
+final now = clock.now();
+```
+
+* **理由:** `clock.now()` はテスト時に `withClock()` で任意の日時に差し替えられるため、日時に依存するロジックの単体テストが決定的（再現性のある）結果を返せるようになります。
+* `clock` を使用するパッケージの `pubspec.yaml` に `clock: ^1.1.2` を追加してください。
+* テストでの使い方は「🧪 Testing」セクションを参照してください。
+
 ## ⚙️ State Management (状態管理)
 
 * **Riverpod:** 状態管理には `flutter_riverpod` を使用します。
@@ -72,6 +90,22 @@
 ## 🧪 Testing (テスティング)
 
 * **ユニット (`test`) / ウィジェット (`flutter_test`) / ゴールデン (`alchemist`) / E2E (`patrol`)** を利用し、`melos` スクリプトで一括実行します。
+* **日時を使うテストでは `withClock()` で時刻を固定すること。** `DateTime.now()` を直接参照するテストは実行タイミングに依存して不安定になるため禁止します。
+
+```dart
+import 'package:clock/clock.dart';
+
+// テストファイルのトップレベルに固定日時を定義
+final _fixedNow = DateTime(2026, 3, 20, 12, 0);
+
+test('今日だけプレイしていればストリーク 1', () async {
+  await withClock(Clock.fixed(_fixedNow), () async {
+    // このブロック内では clock.now() が _fixedNow を返す
+    final result = await useCase.execute();
+    expect(result.currentStreak, 1);
+  });
+});
+```
 
 ## 📌 基本コミットルール
 
