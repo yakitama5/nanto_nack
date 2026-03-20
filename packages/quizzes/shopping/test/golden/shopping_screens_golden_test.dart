@@ -1,46 +1,12 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/shopping.dart';
 
-// ─── ヘルパー ─────────────────────────────────────────────────────────────────
-
-/// テスト用の ProviderScope ラッパー
-Widget _wrap({required Widget child}) {
-  return ProviderScope(
-    child: MaterialApp(
-      theme: AppTheme.light,
-      home: child,
-    ),
-  );
-}
-
-/// デバイス幅別のシナリオを生成するヘルパー
-List<GoldenTestScenario> _deviceScenarios({
-  required String name,
-  required Widget child,
-}) {
-  return [
-    GoldenTestScenario(
-      name: '$name - mobile (375px)',
-      child: SizedBox(width: 375, child: _wrap(child: child)),
-    ),
-    GoldenTestScenario(
-      name: '$name - tablet (768px)',
-      child: SizedBox(width: 768, child: _wrap(child: child)),
-    ),
-  ];
-}
-
 // ─── ゴールデンテスト ─────────────────────────────────────────────────────────
 
 void main() {
-  setUpAll(() async {
-    await loadAppFonts();
-  });
-
   group('ShoppingItemTile golden tests', () {
     goldenTest(
       '商品タイルのゴールデンテスト',
@@ -52,7 +18,7 @@ void main() {
             child: SizedBox(
               width: 400,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: Scaffold(
                   body: ShoppingItemTile(
                     item: const ShoppingItem(
@@ -73,7 +39,7 @@ void main() {
             child: SizedBox(
               width: 400,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: Scaffold(
                   body: ShoppingItemTile(
                     item: const ShoppingItem(
@@ -106,7 +72,7 @@ void main() {
             child: SizedBox(
               width: 375,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: const Scaffold(
                   body: Padding(
                     padding: EdgeInsets.all(16),
@@ -126,7 +92,7 @@ void main() {
             child: SizedBox(
               width: 375,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: const Scaffold(
                   body: Padding(
                     padding: EdgeInsets.all(16),
@@ -157,7 +123,7 @@ void main() {
             child: SizedBox(
               width: 300,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: const Scaffold(
                   body: Padding(
                     padding: EdgeInsets.all(16),
@@ -176,7 +142,7 @@ void main() {
             child: SizedBox(
               width: 300,
               child: MaterialApp(
-                theme: AppTheme.light,
+                theme: AppTheme.light(),
                 home: const Scaffold(
                   body: Padding(
                     padding: EdgeInsets.all(16),
