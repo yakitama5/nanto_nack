@@ -35,7 +35,9 @@ jobs:
           restore-keys: pub-${{ runner.os }}-
 
       - name: Melos のインストール
-        run: dart pub global activate melos
+        run: |
+          dart pub global activate melos
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
@@ -77,7 +79,9 @@ jobs:
           restore-keys: pub-${{ runner.os }}-
 
       - name: Melos のインストール
-        run: dart pub global activate melos
+        run: |
+          dart pub global activate melos
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
