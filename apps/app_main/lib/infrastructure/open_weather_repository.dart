@@ -13,10 +13,9 @@ import '../env/app_env.dart';
 class OpenWeatherRepository implements WeatherRepository {
   const OpenWeatherRepository();
 
-  /// デフォルト座標（東京）。
-  /// TODO: geolocator パッケージを導入して実際のデバイス位置情報を取得する。
-  static const double defaultLatitude = 35.6762;
-  static const double defaultLongitude = 139.6503;
+  /// 位置情報が取得できない場合のフォールバック座標（東京）。
+  static const double fallbackLatitude = 35.6762;
+  static const double fallbackLongitude = 139.6503;
 
   @override
   Future<WeatherInfo> getCurrentWeather({
