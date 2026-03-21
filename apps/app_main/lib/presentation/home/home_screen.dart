@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -67,11 +68,6 @@ class HomeScreen extends ConsumerWidget {
 // 今日の1枚ヒーローカード
 // ─────────────────────────────────────────
 
-/// 画面上部に表示する「今日の1枚」カード。
-///
-/// 時間帯と日付のシードから [DailyScene] を決定し、
-/// シーン毎のグラデーションとアイコンを表示する。
-/// 将来的に天気APIと連携してリアルな天気を反映できる設計。
 class _TodayHeroCard extends StatelessWidget {
   const _TodayHeroCard();
 
@@ -80,9 +76,8 @@ class _TodayHeroCard extends StatelessWidget {
     final scene = DailySceneTheme.resolveFromNow();
     final theme = DailySceneTheme.of(scene);
     final topPadding = MediaQuery.of(context).padding.top;
-    final now = DateTime.now();
+    final now = clock.now();
 
-    // 曜日の略称
     const weekdays = ['月', '火', '水', '木', '金', '土', '日'];
     final weekday = weekdays[now.weekday - 1];
     final dateLabel = '${now.month}月${now.day}日（$weekday）';
@@ -105,7 +100,6 @@ class _TodayHeroCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── 日付行 ──
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -119,8 +113,7 @@ class _TodayHeroCard extends StatelessWidget {
                             .textTheme
                             .labelLarge
                             ?.copyWith(
-                              color: theme.onSceneColor
-                                  .withValues(alpha: 0.7),
+                              color: theme.onSceneColor.withValues(alpha: 0.7),
                               fontWeight: FontWeight.w500,
                             ),
                       ),
@@ -138,12 +131,10 @@ class _TodayHeroCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                // シーンアイコン（グロー付き）
                 _SceneIcon(theme: theme),
               ],
             ),
             const SizedBox(height: 28),
-            // ── アプリタイトル ──
             Text(
               'NantoNack',
               style: Theme.of(context).textTheme.displaySmall?.copyWith(
@@ -168,7 +159,6 @@ class _TodayHeroCard extends StatelessWidget {
   }
 }
 
-/// シーンを表す装飾アイコン
 class _SceneIcon extends StatelessWidget {
   const _SceneIcon({required this.theme});
 
@@ -179,7 +169,6 @@ class _SceneIcon extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        // グローエフェクト（外側の大きな半透明円）
         Container(
           width: 80,
           height: 80,
@@ -188,7 +177,6 @@ class _SceneIcon extends StatelessWidget {
             color: theme.iconGlowColor,
           ),
         ),
-        // アイコン背景（内側の円）
         Container(
           width: 60,
           height: 60,
@@ -232,8 +220,27 @@ class _DashboardContent extends StatelessWidget {
             content: dashboard.dailyTip.content,
           ),
           const SizedBox(height: 16),
-          // ストリーク + 残りプレイ数
-          _StatsRow(dashboard: dashboard),
+          // 連続プレイカード（全幅・スタンプカレンダー付き）
+          _StreakCard(
+            currentStreak: dashboard.currentStreak,
+            activityHistory: dashboard.activityHistory,
+            streakLabel: t.dashboard.streak,
+            streakValue: t.dashboard.streakDays.replaceAll(
+              '{days}',
+              dashboard.currentStreak.toString(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          // 残りプレイ数（コンパクト横型カード）
+          _PlayCountCard(
+            label: t.dashboard.remainingPlays,
+            value: dashboard.remainingPlayCount == null
+                ? t.dashboard.unlimitedPlays
+                : t.dashboard.remainingPlaysCount.replaceAll(
+                    '{count}',
+                    dashboard.remainingPlayCount.toString(),
+                  ),
+          ),
           const SizedBox(height: 16),
           // プレイ履歴（ヒートマップ）
           _ActivityHistorySection(
@@ -284,7 +291,6 @@ class _TipCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ラベルPill
           _LabelPill(
             icon: Icons.lightbulb_rounded,
             label: label,
@@ -316,49 +322,120 @@ class _TipCard extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────
-// 統計行（ストリーク＋残りプレイ数）
+// 連続プレイカード（スタンプカレンダー付き）
 // ─────────────────────────────────────────
 
-class _StatsRow extends StatelessWidget {
-  const _StatsRow({required this.dashboard});
+/// 過去7日分のスタンプカレンダーを表示する連続プレイカード。
+///
+/// activityHistory から今日を含む直近7日分を取り出してセルを描画する。
+class _StreakCard extends StatelessWidget {
+  const _StreakCard({
+    required this.currentStreak,
+    required this.activityHistory,
+    required this.streakLabel,
+    required this.streakValue,
+  });
 
-  final DashboardState dashboard;
+  final int currentStreak;
+  final List<UserActivity> activityHistory;
+  final String streakLabel;
+  final String streakValue;
+
+  /// 今日を含む過去7日分のデータを構築する
+  List<_DayCellData> _buildWeekData() {
+    final now = clock.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    return List.generate(7, (i) {
+      final date = today.subtract(Duration(days: 6 - i));
+      final activity = activityHistory.firstWhere(
+        (a) => a.date.year == date.year &&
+            a.date.month == date.month &&
+            a.date.day == date.day,
+        orElse: () => UserActivity(date: date, clearCount: 0, totalScore: 0),
+      );
+      return _DayCellData(
+        date: date,
+        isToday: date == today,
+        hasPlayed: activity.hasActivity,
+        clearCount: activity.clearCount,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final t = Translations.of(context);
     final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final weekData = _buildWeekData();
 
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: ext.streakContainerColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: ext.streakColor.withValues(alpha: 0.2),
+        ),
+      ),
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: _StatCard(
-              icon: Icons.local_fire_department_rounded,
-              label: t.dashboard.streak,
-              value: t.dashboard.streakDays
-                  .replaceAll('{days}', dashboard.currentStreak.toString()),
-              accentColor: ext.streakColor,
-              containerColor: ext.streakContainerColor,
-              borderColor: ext.streakColor.withValues(alpha: 0.2),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: _StatCard(
-              icon: Icons.sports_esports_rounded,
-              label: t.dashboard.remainingPlays,
-              value: dashboard.remainingPlayCount == null
-                  ? t.dashboard.unlimitedPlays
-                  : t.dashboard.remainingPlaysCount.replaceAll(
-                      '{count}',
-                      dashboard.remainingPlayCount.toString(),
+          // ── ヘッダー ──
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              // アイコン
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: ext.streakColor.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.local_fire_department_rounded,
+                  size: 22,
+                  color: ext.streakColor,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    streakLabel,
+                    style: textTheme.labelSmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                      letterSpacing: 0.2,
                     ),
-              accentColor: ext.playCountColor,
-              containerColor: ext.playCountContainerColor,
-              borderColor: ext.playCountColor.withValues(alpha: 0.2),
-            ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    streakValue,
+                    style: textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: ext.streakColor,
+                      height: 1.0,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          // ── スタンプカレンダー ──
+          Row(
+            children: weekData.asMap().entries.map((entry) {
+              return Expanded(
+                child: _DayStampCell(
+                  data: entry.value,
+                  stampIndex: entry.key,
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
@@ -366,65 +443,212 @@ class _StatsRow extends StatelessWidget {
   }
 }
 
-class _StatCard extends StatelessWidget {
-  const _StatCard({
-    required this.icon,
-    required this.label,
-    required this.value,
-    required this.accentColor,
-    required this.containerColor,
-    required this.borderColor,
+/// 各日のデータ
+class _DayCellData {
+  const _DayCellData({
+    required this.date,
+    required this.isToday,
+    required this.hasPlayed,
+    required this.clearCount,
   });
 
-  final IconData icon;
-  final String label;
-  final String value;
-  final Color accentColor;
-  final Color containerColor;
-  final Color borderColor;
+  final DateTime date;
+  final bool isToday;
+  final bool hasPlayed;
+  final int clearCount;
+}
+
+/// 1日分のスタンプセル
+class _DayStampCell extends StatelessWidget {
+  const _DayStampCell({
+    required this.data,
+    required this.stampIndex,
+  });
+
+  final _DayCellData data;
+
+  /// スタンプの傾き計算に使うインデックス
+  final int stampIndex;
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    const weekdays = ['月', '火', '水', '木', '金', '土', '日'];
+    final weekdayLabel = weekdays[data.date.weekday - 1];
+    final dayLabel = data.date.day.toString();
+
+    // 曜日ラベルの色（土=青、日=赤）
+    final weekdayColor = switch (data.date.weekday) {
+      6 => Colors.blue.shade400,    // 土
+      7 => Colors.red.shade400,     // 日
+      _ => colorScheme.onSurfaceVariant,
+    };
+
+    return Column(
+      children: [
+        // 曜日ラベル
+        Text(
+          weekdayLabel,
+          style: textTheme.labelSmall?.copyWith(
+            color: weekdayColor,
+            fontWeight: FontWeight.w600,
+            fontSize: 10,
+          ),
+        ),
+        const SizedBox(height: 6),
+        // スタンプ本体
+        _buildStamp(context, ext, colorScheme),
+        const SizedBox(height: 5),
+        // 日付ラベル
+        Text(
+          dayLabel,
+          style: textTheme.labelSmall?.copyWith(
+            color: data.isToday
+                ? ext.streakColor
+                : colorScheme.onSurface.withValues(alpha: 0.5),
+            fontWeight: data.isToday ? FontWeight.w700 : FontWeight.w400,
+            fontSize: 11,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStamp(
+    BuildContext context,
+    NantoNackThemeExtension ext,
+    ColorScheme colorScheme,
+  ) {
+    if (data.hasPlayed) {
+      // ── プレイ済みスタンプ ──
+      // インデックスで微妙に傾きを変えてスタンプらしさを演出
+      final angle = (stampIndex % 2 == 0) ? -0.08 : 0.06;
+      return Transform.rotate(
+        angle: angle,
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: ext.streakColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: ext.streakColor.withValues(alpha: 0.35),
+                blurRadius: 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: const Icon(
+            Icons.local_fire_department_rounded,
+            size: 22,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+
+    if (data.isToday) {
+      // ── 今日・未プレイ：点線枠でアピール ──
+      return Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: ext.streakColor.withValues(alpha: 0.06),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: ext.streakColor.withValues(alpha: 0.5),
+            width: 1.5,
+            // ignore: prefer_const_constructors
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+        ),
+        child: Icon(
+          Icons.add_rounded,
+          size: 20,
+          color: ext.streakColor.withValues(alpha: 0.6),
+        ),
+      );
+    }
+
+    // ── 過去・未プレイ：薄いグレー ──
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: colorScheme.onSurface.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(
+        Icons.remove_rounded,
+        size: 18,
+        color: colorScheme.onSurface.withValues(alpha: 0.2),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────
+// 残りプレイ数カード（コンパクト横型）
+// ─────────────────────────────────────────
+
+class _PlayCountCard extends StatelessWidget {
+  const _PlayCountCard({
+    required this.label,
+    required this.value,
+  });
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
-        color: containerColor,
+        color: ext.playCountContainerColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: borderColor),
+        border: Border.all(
+          color: ext.playCountColor.withValues(alpha: 0.2),
+        ),
       ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
         children: [
-          // アイコン
           Container(
-            width: 40,
-            height: 40,
+            width: 36,
+            height: 36,
             decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(10),
+              color: ext.playCountColor.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(9),
             ),
-            child: Icon(icon, size: 22, color: accentColor),
+            child: Icon(
+              Icons.sports_esports_rounded,
+              size: 20,
+              color: ext.playCountColor,
+            ),
           ),
-          const SizedBox(height: 12),
-          // ラベル
+          const SizedBox(width: 12),
           Text(
             label,
-            style: textTheme.labelSmall?.copyWith(
+            style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurfaceVariant,
-              letterSpacing: 0.2,
+              fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 4),
-          // 数値（大きく）
+          const Spacer(),
           Text(
             value,
-            style: textTheme.titleLarge?.copyWith(
+            style: textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: accentColor,
-              height: 1.1,
+              color: ext.playCountColor,
             ),
           ),
         ],
@@ -466,7 +690,6 @@ class _ActivityHistorySection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // セクションヘッダー
           Row(
             children: [
               Container(
@@ -517,7 +740,6 @@ class _ActivityHistorySection extends StatelessWidget {
 // 共通ウィジェット
 // ─────────────────────────────────────────
 
-/// ラベル付きPillチップ（アイコン + テキスト）
 class _LabelPill extends StatelessWidget {
   const _LabelPill({
     required this.icon,
