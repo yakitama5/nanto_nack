@@ -6,9 +6,12 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../application/dashboard_provider.dart';
+import '../../application/weather_provider.dart';
 import '../../domain/daily_scene.dart';
 import '../../domain/dashboard/dashboard_state.dart';
 import '../../domain/dashboard/user_activity.dart';
+import '../../domain/weather/time_of_day_period.dart';
+import '../../domain/weather/weather_scene_key.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -68,13 +71,19 @@ class HomeScreen extends ConsumerWidget {
 // 今日の1枚ヒーローカード
 // ─────────────────────────────────────────
 
-class _TodayHeroCard extends StatelessWidget {
+/// 画面上部に表示する「今日の1枚」カード。
+///
+/// OpenWeather API から取得した天気と端末の時間帯に応じて
+/// [WeatherSceneKey] を解決し、対応するアセット画像を表示する。
+/// 取得失敗時は [DailySceneTheme] のグラデーションにフォールバックする。
+class _TodayHeroCard extends ConsumerWidget {
   const _TodayHeroCard();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final weatherAsync = ref.watch(weatherProvider);
     final scene = DailySceneTheme.resolveFromNow();
-    final theme = DailySceneTheme.of(scene);
+    final sceneTheme = DailySceneTheme.of(scene);
     final topPadding = MediaQuery.of(context).padding.top;
     final now = clock.now();
 
@@ -82,75 +91,128 @@ class _TodayHeroCard extends StatelessWidget {
     final weekday = weekdays[now.weekday - 1];
     final dateLabel = '${now.month}月${now.day}日（$weekday）';
 
+    // 天気×時間帯のシーンキーを解決（取得失敗時は null）
+    final weatherCondition = weatherAsync.valueOrNull?.condition;
+    final sceneKey = weatherCondition != null
+        ? WeatherSceneKey(
+            condition: weatherCondition,
+            period: TimeOfDayPeriod.fromNow(),
+          )
+        : null;
+
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         bottomLeft: Radius.circular(32),
         bottomRight: Radius.circular(32),
       ),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
-        padding: EdgeInsets.fromLTRB(24, topPadding + 20, 24, 36),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: theme.gradientColors,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        dateLabel,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge
-                            ?.copyWith(
-                              color: theme.onSceneColor.withValues(alpha: 0.7),
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        theme.greeting,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                              color: theme.onSceneColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
+            // ── グラデーション背景（フォールバック兼ベース） ──
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: sceneTheme.gradientColors,
+                  ),
+                ),
+              ),
+            ),
+            // ── 天気×時間帯の画像（取得できた場合のみ） ──
+            if (sceneKey != null)
+              Positioned.fill(
+                child: Image.asset(
+                  sceneKey.assetPath,
+                  fit: BoxFit.cover,
+                  // 画像が存在しない場合（プレースホルダー中）はグラデーションを表示
+                  errorBuilder: (context, error, stackTrace) =>
+                      const SizedBox.shrink(),
+                ),
+              ),
+            // ── 読みやすさのための暗めのグラデーションオーバーレイ ──
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withValues(alpha: 0.15),
+                      Colors.black.withValues(alpha: 0.45),
                     ],
                   ),
                 ),
-                _SceneIcon(theme: theme),
-              ],
+              ),
             ),
-            const SizedBox(height: 28),
-            Text(
-              'NantoNack',
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.w900,
-                    color: theme.onSceneColor,
-                    letterSpacing: -1,
+            // ── コンテンツ ──
+            Padding(
+              padding: EdgeInsets.fromLTRB(24, topPadding + 20, 24, 36),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              dateLabel,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(
+                                    color: sceneTheme.onSceneColor
+                                        .withValues(alpha: 0.7),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              sceneTheme.greeting,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    color: sceneTheme.onSceneColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _SceneIcon(theme: sceneTheme),
+                    ],
                   ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'UI/UX 直感クイズ',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: theme.onSceneColor.withValues(alpha: 0.65),
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0.5,
+                  const SizedBox(height: 28),
+                  Text(
+                    'NantoNack',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(
+                          fontWeight: FontWeight.w900,
+                          color: sceneTheme.onSceneColor,
+                          letterSpacing: -1,
+                        ),
                   ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'UI/UX 直感クイズ',
+                    style:
+                        Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: sceneTheme.onSceneColor
+                                  .withValues(alpha: 0.65),
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.5,
+                            ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
