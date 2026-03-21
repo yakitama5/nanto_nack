@@ -47,6 +47,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsPurchaseJa purchase = TranslationsPurchaseJa.internal(_root);
 	late final TranslationsErrorJa error = TranslationsErrorJa.internal(_root);
 	late final TranslationsDashboardJa dashboard = TranslationsDashboardJa.internal(_root);
+	late final TranslationsPlayJa play = TranslationsPlayJa.internal(_root);
 }
 
 // Path: app
@@ -208,6 +209,31 @@ class TranslationsDashboardJa {
 	String get noActivity => 'まだプレイ履歴がありません';
 }
 
+// Path: play
+class TranslationsPlayJa {
+	TranslationsPlayJa.internal(this._root);
+
+	// ignore: unused_field
+	final dynamic _root;
+
+	// Translations
+
+	/// ja: 'プレイする'
+	String get startPlay => 'プレイする';
+
+	/// ja: 'カテゴリー選択'
+	String get selectCategory => 'カテゴリー選択';
+
+	/// ja: 'チャレンジするカテゴリーを選んでください'
+	String get selectCategoryDescription => 'チャレンジするカテゴリーを選んでください';
+
+	/// ja: 'ステージ選択'
+	String get selectStage => 'ステージ選択';
+
+	/// ja: '{count}ステージ'
+	String get stageCount => '{count}ステージ';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -248,6 +274,11 @@ extension on Translations {
 			'dashboard.streakDays' => '{days}日連続',
 			'dashboard.activityHistory' => 'プレイ履歴',
 			'dashboard.noActivity' => 'まだプレイ履歴がありません',
+			'play.startPlay' => 'プレイする',
+			'play.selectCategory' => 'カテゴリー選択',
+			'play.selectCategoryDescription' => 'チャレンジするカテゴリーを選んでください',
+			'play.selectStage' => 'ステージ選択',
+			'play.stageCount' => '{count}ステージ',
 			_ => null,
 		};
 	}

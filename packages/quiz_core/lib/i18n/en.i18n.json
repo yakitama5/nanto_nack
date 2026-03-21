@@ -49,5 +49,13 @@
     "@streakDays": { "param": "days" },
     "activityHistory": "Play History",
     "noActivity": "No play history yet"
+  },
+  "play": {
+    "startPlay": "Play Now",
+    "selectCategory": "Select Category",
+    "selectCategoryDescription": "Choose a category to challenge",
+    "selectStage": "Select Stage",
+    "stageCount": "{count} stages",
+    "@stageCount": { "param": "count" }
   }
 }

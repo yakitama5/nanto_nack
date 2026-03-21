@@ -3,6 +3,7 @@ export 'src/entities/quiz_state.dart';
 export 'src/theme/app_colors.dart';
 export 'src/theme/app_text_styles.dart';
 export 'src/theme/app_theme.dart';
+export 'src/theme/nanto_nack_theme_extension.dart';
 export 'src/utils/haptic_feedback_service.dart';
 export 'src/utils/score_rank.dart';
 export 'src/widgets/floating_mission_bar.dart';

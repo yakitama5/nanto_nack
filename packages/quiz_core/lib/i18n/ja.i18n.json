@@ -49,5 +49,13 @@
     "@streakDays": { "param": "days" },
     "activityHistory": "プレイ履歴",
     "noActivity": "まだプレイ履歴がありません"
+  },
+  "play": {
+    "startPlay": "プレイする",
+    "selectCategory": "カテゴリー選択",
+    "selectCategoryDescription": "チャレンジするカテゴリーを選んでください",
+    "selectStage": "ステージ選択",
+    "stageCount": "{count}ステージ",
+    "@stageCount": { "param": "count" }
   }
 }

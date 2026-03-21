@@ -46,6 +46,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsPurchaseEn purchase = _TranslationsPurchaseEn._(_root);
 	@override late final _TranslationsErrorEn error = _TranslationsErrorEn._(_root);
 	@override late final _TranslationsDashboardEn dashboard = _TranslationsDashboardEn._(_root);
+	@override late final _TranslationsPlayEn play = _TranslationsPlayEn._(_root);
 }
 
 // Path: app
@@ -143,6 +144,20 @@ class _TranslationsDashboardEn extends TranslationsDashboardJa {
 	@override String get noActivity => 'No play history yet';
 }
 
+// Path: play
+class _TranslationsPlayEn extends TranslationsPlayJa {
+	_TranslationsPlayEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get startPlay => 'Play Now';
+	@override String get selectCategory => 'Select Category';
+	@override String get selectCategoryDescription => 'Choose a category to challenge';
+	@override String get selectStage => 'Select Stage';
+	@override String get stageCount => '{count} stages';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -183,6 +198,11 @@ extension on TranslationsEn {
 			'dashboard.streakDays' => '{days} day streak',
 			'dashboard.activityHistory' => 'Play History',
 			'dashboard.noActivity' => 'No play history yet',
+			'play.startPlay' => 'Play Now',
+			'play.selectCategory' => 'Select Category',
+			'play.selectCategoryDescription' => 'Choose a category to challenge',
+			'play.selectStage' => 'Select Stage',
+			'play.stageCount' => '{count} stages',
 			_ => null,
 		};
 	}
