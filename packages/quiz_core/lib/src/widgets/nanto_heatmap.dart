@@ -11,6 +11,8 @@ class NantoHeatmap extends StatelessWidget {
     super.key,
     required this.activities,
     this.columns = 10,
+    this.cellSize = 20,
+    this.cellSpacing = 4,
   });
 
   /// 日付 → クリア数 のマップ（過去60日分）
@@ -18,6 +20,12 @@ class NantoHeatmap extends StatelessWidget {
 
   /// 横に並べるセルの列数
   final int columns;
+
+  /// セルのサイズ（幅・高さ共通）
+  final double cellSize;
+
+  /// セル間のスペース
+  final double cellSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +43,16 @@ class NantoHeatmap extends StatelessWidget {
         final rowItems = activities.sublist(start, end);
 
         return Padding(
-          padding: const EdgeInsets.only(bottom: 4),
+          padding: EdgeInsets.only(bottom: cellSpacing),
           child: Row(
             children: rowItems
                 .map(
                   (item) => Padding(
-                    padding: const EdgeInsets.only(right: 4),
+                    padding: EdgeInsets.only(right: cellSpacing),
                     child: _HeatmapCell(
                       date: item.date,
                       clearCount: item.clearCount,
+                      size: cellSize,
                     ),
                   ),
                 )
@@ -59,10 +68,12 @@ class _HeatmapCell extends StatelessWidget {
   const _HeatmapCell({
     required this.date,
     required this.clearCount,
+    this.size = 20,
   });
 
   final DateTime date;
   final int clearCount;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +82,11 @@ class _HeatmapCell extends StatelessWidget {
     return Tooltip(
       message: '${date.month}/${date.day}: $clearCount クリア',
       child: Container(
-        width: 20,
-        height: 20,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(size * 0.2),
         ),
       ),
     );

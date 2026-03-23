@@ -19,7 +19,6 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dashboardAsync = ref.watch(dashboardProvider);
-    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -47,22 +46,12 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              // ===== ボトムパディング（FABの高さ分） =====
-              const SliverToBoxAdapter(child: SizedBox(height: 100)),
+              // ===== ボトムパディング =====
+              const SliverToBoxAdapter(child: SizedBox(height: 40)),
             ],
           ),
         ),
       ),
-      // ===== プレイ開始FAB =====
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.push('/play'),
-        icon: const Icon(Icons.play_arrow_rounded),
-        label: Text(t.play.startPlay),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: colorScheme.onPrimary,
-        elevation: 6,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
@@ -275,6 +264,11 @@ class _DashboardContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // プレイヒーローカード（残りプレイ数 + プレイボタン）
+          _PlayHeroCard(
+            remainingPlayCount: dashboard.remainingPlayCount,
+          ),
+          const SizedBox(height: 16),
           // 今日のUI/UXヒント
           _TipCard(
             label: t.dashboard.todayTip,
@@ -282,9 +276,8 @@ class _DashboardContent extends StatelessWidget {
             content: dashboard.dailyTip.content,
           ),
           const SizedBox(height: 16),
-          // 連続プレイカード（全幅・スタンプカレンダー付き）
-          _StreakCard(
-            currentStreak: dashboard.currentStreak,
+          // 連続プレイ + 60日ヒートマップ統合カード
+          _AccumulationCard(
             activityHistory: dashboard.activityHistory,
             streakLabel: t.dashboard.streak,
             streakValue: t.dashboard.streakDays.replaceAll(
@@ -292,24 +285,9 @@ class _DashboardContent extends StatelessWidget {
               dashboard.currentStreak.toString(),
             ),
           ),
-          const SizedBox(height: 12),
-          // 残りプレイ数（コンパクト横型カード）
-          _PlayCountCard(
-            label: t.dashboard.remainingPlays,
-            value: dashboard.remainingPlayCount == null
-                ? t.dashboard.unlimitedPlays
-                : t.dashboard.remainingPlaysCount.replaceAll(
-                    '{count}',
-                    dashboard.remainingPlayCount.toString(),
-                  ),
-          ),
           const SizedBox(height: 16),
-          // プレイ履歴（ヒートマップ）
-          _ActivityHistorySection(
-            label: t.dashboard.activityHistory,
-            noActivityLabel: t.dashboard.noActivity,
-            activities: dashboard.activityHistory,
-          ),
+          // カテゴリーカルーセル
+          const _CategoryCarousel(),
         ],
       ),
     );
@@ -349,7 +327,7 @@ class _TipCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(24),
       ),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -384,53 +362,154 @@ class _TipCard extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────
-// 連続プレイカード（スタンプカレンダー付き）
+// プレイヒーローカード
 // ─────────────────────────────────────────
 
-/// 過去7日分のスタンプカレンダーを表示する連続プレイカード。
-///
-/// activityHistory から今日を含む直近7日分を取り出してセルを描画する。
-class _StreakCard extends StatelessWidget {
-  const _StreakCard({
-    required this.currentStreak,
+/// 残りプレイ数の円形インジケーターと「プレイする」ボタンを持つカード。
+class _PlayHeroCard extends ConsumerWidget {
+  const _PlayHeroCard({required this.remainingPlayCount});
+
+  final int? remainingPlayCount; // null = 無制限（プレミアム）
+
+  static const _maxPlays = 5;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final isUnlimited = remainingPlayCount == null;
+    final remaining = remainingPlayCount ?? _maxPlays;
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            colorScheme.primary,
+            colorScheme.tertiary,
+          ],
+        ),
+        borderRadius: BorderRadius.circular(28),
+        boxShadow: [
+          BoxShadow(
+            color: colorScheme.primary.withValues(alpha: 0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // ── 左側：円形インジケーター + 残りプレイ数 ──
+          Column(
+            children: [
+              SizedBox(
+                width: 76,
+                height: 76,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      value: isUnlimited ? 1.0 : remaining / _maxPlays,
+                      strokeWidth: 5,
+                      backgroundColor: Colors.white.withValues(alpha: 0.25),
+                      color: Colors.white,
+                    ),
+                    Icon(
+                      Icons.sports_esports_rounded,
+                      size: 32,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                isUnlimited
+                    ? '∞ / ∞'
+                    : '$remaining / $_maxPlays',
+                style: textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                '本日の残りプレイ回数',
+                style: textTheme.labelSmall?.copyWith(
+                  color: Colors.white.withValues(alpha: 0.7),
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          // ── 右側：プレイボタン ──
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              FilledButton.icon(
+                onPressed: () => context.push('/play'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: colorScheme.primary,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 22,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  elevation: 0,
+                ),
+                icon: const Icon(Icons.play_arrow_rounded, size: 22),
+                label: Text(
+                  'プレイする',
+                  style: textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.primary,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '次のステージへ進む',
+                style: textTheme.labelSmall?.copyWith(
+                  color: Colors.white.withValues(alpha: 0.7),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────
+// 連続プレイ + 60日ヒートマップ統合カード
+// ─────────────────────────────────────────
+
+/// ストリーク情報と60日間のヒートマップを1枚のカードに統合して表示する。
+class _AccumulationCard extends StatelessWidget {
+  const _AccumulationCard({
     required this.activityHistory,
     required this.streakLabel,
     required this.streakValue,
   });
 
-  final int currentStreak;
   final List<UserActivity> activityHistory;
   final String streakLabel;
   final String streakValue;
-
-  /// 今日を含む過去7日分のデータを構築する
-  List<_DayCellData> _buildWeekData() {
-    final now = clock.now();
-    final today = DateTime(now.year, now.month, now.day);
-
-    return List.generate(7, (i) {
-      final date = today.subtract(Duration(days: 6 - i));
-      final activity = activityHistory.firstWhere(
-        (a) => a.date.year == date.year &&
-            a.date.month == date.month &&
-            a.date.day == date.day,
-        orElse: () => UserActivity(date: date, clearCount: 0, totalScore: 0),
-      );
-      return _DayCellData(
-        date: date,
-        isToday: date == today,
-        hasPlayed: activity.hasActivity,
-        clearCount: activity.clearCount,
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final weekData = _buildWeekData();
+    final hasActivity = activityHistory.any((a) => a.hasActivity);
 
     return Container(
       width: double.infinity,
@@ -442,62 +521,78 @@ class _StreakCard extends StatelessWidget {
         ),
       ),
       padding: const EdgeInsets.all(20),
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── ヘッダー ──
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              // アイコン
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: ext.streakColor.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.local_fire_department_rounded,
-                  size: 22,
-                  color: ext.streakColor,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    streakLabel,
-                    style: textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      letterSpacing: 0.2,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    streakValue,
-                    style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+          // ── 左：ストリーク情報 ──
+          SizedBox(
+            width: 116,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.local_fire_department_rounded,
                       color: ext.streakColor,
-                      height: 1.0,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 4),
+                    Flexible(
+                      child: Text(
+                        streakLabel,
+                        style: textTheme.labelSmall?.copyWith(
+                          color: ext.streakColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  streakValue,
+                  style: textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: ext.streakColor,
+                    height: 1.1,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '過去60日間の\nクリア記録',
+                  style: textTheme.labelSmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    height: 1.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          // ── 右：コンパクトヒートマップ ──
+          Expanded(
+            child: hasActivity
+                ? NantoHeatmap(
+                    activities: activityHistory
+                        .map((a) => (date: a.date, clearCount: a.clearCount))
+                        .toList(),
+                    cellSize: 14,
+                    cellSpacing: 2,
+                  )
+                : Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Text(
+                        'まだプレイ履歴が\nありません',
+                        style: textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurface.withValues(alpha: 0.45),
+                          height: 1.5,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          // ── スタンプカレンダー ──
-          Row(
-            children: weekData.asMap().entries.map((entry) {
-              return Expanded(
-                child: _DayStampCell(
-                  data: entry.value,
-                  stampIndex: entry.key,
-                ),
-              );
-            }).toList(),
           ),
         ],
       ),
@@ -505,293 +600,164 @@ class _StreakCard extends StatelessWidget {
   }
 }
 
-/// 各日のデータ
-class _DayCellData {
-  const _DayCellData({
-    required this.date,
-    required this.isToday,
-    required this.hasPlayed,
-    required this.clearCount,
+// ─────────────────────────────────────────
+// カテゴリーカルーセル
+// ─────────────────────────────────────────
+
+class _CategoryData {
+  const _CategoryData({
+    required this.emoji,
+    required this.label,
+    required this.cleared,
+    required this.total,
+    this.isLocked = false,
   });
 
-  final DateTime date;
-  final bool isToday;
-  final bool hasPlayed;
-  final int clearCount;
+  final String emoji;
+  final String label;
+  final int cleared;
+  final int total;
+  final bool isLocked;
 }
 
-/// 1日分のスタンプセル
-class _DayStampCell extends StatelessWidget {
-  const _DayStampCell({
-    required this.data,
-    required this.stampIndex,
-  });
+// サンプルカテゴリーデータ（将来的にDashboardStateから取得）
+const _sampleCategories = [
+  _CategoryData(emoji: '🛍️', label: 'ショッピング', cleared: 8, total: 10),
+  _CategoryData(emoji: '💬', label: 'SNS', cleared: 2, total: 5),
+  _CategoryData(emoji: '📱', label: 'アプリUI', cleared: 3, total: 8),
+  _CategoryData(
+    emoji: '🔐',
+    label: '認証フロー',
+    cleared: 0,
+    total: 6,
+    isLocked: true,
+  ),
+];
 
-  final _DayCellData data;
-
-  /// スタンプの傾き計算に使うインデックス
-  final int stampIndex;
+class _CategoryCarousel extends StatelessWidget {
+  const _CategoryCarousel();
 
   @override
   Widget build(BuildContext context) {
-    final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    const weekdays = ['月', '火', '水', '木', '金', '土', '日'];
-    final weekdayLabel = weekdays[data.date.weekday - 1];
-    final dayLabel = data.date.day.toString();
-
-    // 曜日ラベルの色（土=青、日=赤）
-    final weekdayColor = switch (data.date.weekday) {
-      6 => Colors.blue.shade400,    // 土
-      7 => Colors.red.shade400,     // 日
-      _ => colorScheme.onSurfaceVariant,
-    };
-
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 曜日ラベル
-        Text(
-          weekdayLabel,
-          style: textTheme.labelSmall?.copyWith(
-            color: weekdayColor,
-            fontWeight: FontWeight.w600,
-            fontSize: 10,
-          ),
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                Icons.grid_view_rounded,
+                size: 16,
+                color: colorScheme.primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              'カテゴリー',
+              style: textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 6),
-        // スタンプ本体
-        _buildStamp(context, ext, colorScheme),
-        const SizedBox(height: 5),
-        // 日付ラベル
-        Text(
-          dayLabel,
-          style: textTheme.labelSmall?.copyWith(
-            color: data.isToday
-                ? ext.streakColor
-                : colorScheme.onSurface.withValues(alpha: 0.5),
-            fontWeight: data.isToday ? FontWeight.w700 : FontWeight.w400,
-            fontSize: 11,
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 118,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: _sampleCategories.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (context, index) =>
+                _CategoryCard(category: _sampleCategories[index]),
           ),
         ),
       ],
     );
   }
-
-  Widget _buildStamp(
-    BuildContext context,
-    NantoNackThemeExtension ext,
-    ColorScheme colorScheme,
-  ) {
-    if (data.hasPlayed) {
-      // ── プレイ済みスタンプ ──
-      // インデックスで微妙に傾きを変えてスタンプらしさを演出
-      final angle = (stampIndex % 2 == 0) ? -0.08 : 0.06;
-      return Transform.rotate(
-        angle: angle,
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: ext.streakColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: ext.streakColor.withValues(alpha: 0.35),
-                blurRadius: 8,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: const Icon(
-            Icons.local_fire_department_rounded,
-            size: 22,
-            color: Colors.white,
-          ),
-        ),
-      );
-    }
-
-    if (data.isToday) {
-      // ── 今日・未プレイ：点線枠でアピール ──
-      return Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: ext.streakColor.withValues(alpha: 0.06),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: ext.streakColor.withValues(alpha: 0.5),
-            width: 1.5,
-            // ignore: prefer_const_constructors
-            strokeAlign: BorderSide.strokeAlignInside,
-          ),
-        ),
-        child: Icon(
-          Icons.add_rounded,
-          size: 20,
-          color: ext.streakColor.withValues(alpha: 0.6),
-        ),
-      );
-    }
-
-    // ── 過去・未プレイ：薄いグレー ──
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        color: colorScheme.onSurface.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Icon(
-        Icons.remove_rounded,
-        size: 18,
-        color: colorScheme.onSurface.withValues(alpha: 0.2),
-      ),
-    );
-  }
 }
 
-// ─────────────────────────────────────────
-// 残りプレイ数カード（コンパクト横型）
-// ─────────────────────────────────────────
+class _CategoryCard extends StatelessWidget {
+  const _CategoryCard({required this.category});
 
-class _PlayCountCard extends StatelessWidget {
-  const _PlayCountCard({
-    required this.label,
-    required this.value,
-  });
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: ext.playCountContainerColor,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: ext.playCountColor.withValues(alpha: 0.2),
-        ),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      child: Row(
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: ext.playCountColor.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(9),
-            ),
-            child: Icon(
-              Icons.sports_esports_rounded,
-              size: 20,
-              color: ext.playCountColor,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            label,
-            style: textTheme.bodyMedium?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const Spacer(),
-          Text(
-            value,
-            style: textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: ext.playCountColor,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────
-// プレイ履歴（ヒートマップ）
-// ─────────────────────────────────────────
-
-class _ActivityHistorySection extends StatelessWidget {
-  const _ActivityHistorySection({
-    required this.label,
-    required this.noActivityLabel,
-    required this.activities,
-  });
-
-  final String label;
-  final String noActivityLabel;
-  final List<UserActivity> activities;
+  final _CategoryData category;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final progress =
+        category.total > 0 ? category.cleared / category.total : 0.0;
 
     return Container(
-      width: double.infinity,
+      width: 132,
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerLow,
+        color: category.isLocked
+            ? colorScheme.surfaceContainerLow
+            : colorScheme.primaryContainer.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.4),
+          color: category.isLocked
+              ? colorScheme.outlineVariant.withValues(alpha: 0.4)
+              : colorScheme.primary.withValues(alpha: 0.2),
         ),
       ),
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: colorScheme.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
+              Text(category.emoji, style: const TextStyle(fontSize: 20)),
+              const Spacer(),
+              if (category.isLocked)
+                Icon(
+                  Icons.lock_rounded,
+                  size: 14,
+                  color: colorScheme.onSurface.withValues(alpha: 0.3),
                 ),
-                child: Icon(
-                  Icons.bar_chart_rounded,
-                  size: 16,
-                  color: colorScheme.primary,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                label,
-                style: textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
             ],
           ),
-          const SizedBox(height: 16),
-          if (activities.every((a) => !a.hasActivity))
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                noActivityLabel,
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurface.withValues(alpha: 0.45),
-                ),
-              ),
-            )
-          else
-            NantoHeatmap(
-              activities: activities
-                  .map((a) => (date: a.date, clearCount: a.clearCount))
-                  .toList(),
+          const SizedBox(height: 6),
+          Text(
+            category.label,
+            style: textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: category.isLocked
+                  ? colorScheme.onSurface.withValues(alpha: 0.4)
+                  : colorScheme.onPrimaryContainer,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 6),
+          LinearProgressIndicator(
+            value: category.isLocked ? 0 : progress,
+            backgroundColor: colorScheme.surfaceContainerHighest,
+            color: category.isLocked
+                ? colorScheme.outline.withValues(alpha: 0.3)
+                : colorScheme.primary,
+            borderRadius: BorderRadius.circular(4),
+            minHeight: 4,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            category.isLocked
+                ? 'クリア後に解放'
+                : '${category.cleared}/${category.total} クリア',
+            style: textTheme.labelSmall?.copyWith(
+              color: category.isLocked
+                  ? colorScheme.onSurface.withValues(alpha: 0.3)
+                  : colorScheme.primary.withValues(alpha: 0.7),
+            ),
+          ),
         ],
       ),
     );
