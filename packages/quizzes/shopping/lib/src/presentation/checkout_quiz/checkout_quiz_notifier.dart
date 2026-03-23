@@ -8,11 +8,11 @@ import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.da
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
 
 final checkoutQuizProvider =
-    NotifierProvider<CheckoutQuizNotifier, CheckoutQuizState>(
+    AutoDisposeNotifierProvider<CheckoutQuizNotifier, CheckoutQuizState>(
   CheckoutQuizNotifier.new,
 );
 
-class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
+class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   static const _quizId = 'shopping_checkout';
   static const _timeLimitSeconds = 90;
 

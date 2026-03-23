@@ -9,11 +9,11 @@ import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.da
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_state.dart';
 
 final cartQuizProvider =
-    NotifierProvider<CartQuizNotifier, CartQuizState>(
+    AutoDisposeNotifierProvider<CartQuizNotifier, CartQuizState>(
   CartQuizNotifier.new,
 );
 
-class CartQuizNotifier extends Notifier<CartQuizState> {
+class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
   static const _quizId = 'shopping_cart';
   static const _timeLimitSeconds = 60;
 

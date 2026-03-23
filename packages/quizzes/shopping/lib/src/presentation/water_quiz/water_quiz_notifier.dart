@@ -10,11 +10,11 @@ import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.da
 import 'package:shopping/src/presentation/water_quiz/water_quiz_state.dart';
 
 final waterQuizProvider =
-    NotifierProvider<WaterQuizNotifier, WaterQuizState>(
+    AutoDisposeNotifierProvider<WaterQuizNotifier, WaterQuizState>(
   WaterQuizNotifier.new,
 );
 
-class WaterQuizNotifier extends Notifier<WaterQuizState> {
+class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   static const _quizId = 'shopping_water';
   static const _timeLimitSeconds = 60;
   // ヒント使用時のスコアペナルティ（ヒント使用で failureCount +1 換算）
