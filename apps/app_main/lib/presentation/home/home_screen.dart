@@ -264,16 +264,16 @@ class _DashboardContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // プレイヒーローカード（残りプレイ数 + プレイボタン）
-          _PlayHeroCard(
-            remainingPlayCount: dashboard.remainingPlayCount,
-          ),
-          const SizedBox(height: 16),
           // 今日のUI/UXヒント
           _TipCard(
             label: t.dashboard.todayTip,
             title: dashboard.dailyTip.title,
             content: dashboard.dailyTip.content,
+          ),
+          const SizedBox(height: 16),
+          // プレイヒーローカード（残りプレイ数 + プレイボタン）
+          _PlayHeroCard(
+            remainingPlayCount: dashboard.remainingPlayCount,
           ),
           const SizedBox(height: 16),
           // 連続プレイ + 60日ヒートマップ統合カード
