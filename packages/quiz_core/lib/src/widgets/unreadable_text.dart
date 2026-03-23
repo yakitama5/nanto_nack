@@ -59,7 +59,10 @@ class _UnreadableTextState extends State<UnreadableText>
       });
 
     if (widget.isObfuscated) {
+      // アニメーションなしで初期状態を文字化け済みにする。
+      // _controller.value も同期させないと reverse() が 0 から始まってしまう。
       _obfuscationLevel = 1.0;
+      _controller.value = 1.0;
     }
   }
 
@@ -75,7 +78,12 @@ class _UnreadableTextState extends State<UnreadableText>
           _controller.reverse();
         }
       } else {
-        setState(() => _obfuscationLevel = widget.isObfuscated ? 1.0 : 0.0);
+        // アニメーションなしで即時切り替え。
+        // _controller.value も同期させないと次回アニメーション時に
+        // 不正な開始位置から再生される。
+        final target = widget.isObfuscated ? 1.0 : 0.0;
+        _controller.value = target;
+        setState(() => _obfuscationLevel = target);
       }
     }
   }
