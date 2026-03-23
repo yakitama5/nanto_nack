@@ -39,6 +39,9 @@ class ShoppingItemTile extends StatelessWidget {
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 minimumSize: const Size(60, 28),
+                // ListTile.trailing の高さ制約（56px）内に収めるため
+                // タップターゲットのパディングを無効化する
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               onPressed: onAddToCart,
               child: const Text('カートに追加'),

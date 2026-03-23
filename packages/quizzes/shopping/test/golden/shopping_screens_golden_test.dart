@@ -5,6 +5,11 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/shopping.dart';
 
 // ─── ゴールデンテスト ─────────────────────────────────────────────────────────
+// NOTE: MaterialApp + Scaffold を各シナリオで使わないこと。
+// alchemist のラッパーがすでに MaterialApp でラップしており、
+// ネストした MaterialApp はルートアニメーションの FractionalTranslation に
+// 0×∞=NaN を引き起こしてクラッシュする（Scaffold の高さが無制限の場合）。
+// テーマが必要なウィジェットには Theme(data: AppTheme.light()) を使う。
 
 void main() {
   group('ShoppingItemTile golden tests', () {
@@ -17,10 +22,10 @@ void main() {
             name: 'normal',
             child: SizedBox(
               width: 400,
-              child: MaterialApp(
-                theme: AppTheme.light(),
-                home: Scaffold(
-                  body: ShoppingItemTile(
+              child: Theme(
+                data: AppTheme.light(),
+                child: Material(
+                  child: ShoppingItemTile(
                     item: const ShoppingItem(
                       id: 'water_500ml',
                       name: '天然水 500ml',
@@ -38,10 +43,10 @@ void main() {
             name: 'highlighted (hint)',
             child: SizedBox(
               width: 400,
-              child: MaterialApp(
-                theme: AppTheme.light(),
-                home: Scaffold(
-                  body: ShoppingItemTile(
+              child: Theme(
+                data: AppTheme.light(),
+                child: Material(
+                  child: ShoppingItemTile(
                     item: const ShoppingItem(
                       id: 'water_500ml',
                       name: '天然水 500ml',
@@ -71,10 +76,10 @@ void main() {
             name: 'time remaining (green)',
             child: SizedBox(
               width: 375,
-              child: MaterialApp(
-                theme: AppTheme.light(),
-                home: const Scaffold(
-                  body: Padding(
+              child: Theme(
+                data: AppTheme.light(),
+                child: const Material(
+                  child: Padding(
                     padding: EdgeInsets.all(16),
                     child: FloatingMissionBar(
                       remainingSeconds: 45,
@@ -91,10 +96,10 @@ void main() {
             name: 'time warning (orange)',
             child: SizedBox(
               width: 375,
-              child: MaterialApp(
-                theme: AppTheme.light(),
-                home: const Scaffold(
-                  body: Padding(
+              child: Theme(
+                data: AppTheme.light(),
+                child: const Material(
+                  child: Padding(
                     padding: EdgeInsets.all(16),
                     child: FloatingMissionBar(
                       remainingSeconds: 12,
@@ -120,38 +125,28 @@ void main() {
         children: [
           GoldenTestScenario(
             name: 'readable (isObfuscated: false)',
-            child: SizedBox(
+            child: const SizedBox(
               width: 300,
-              child: MaterialApp(
-                theme: AppTheme.light(),
-                home: const Scaffold(
-                  body: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: UnreadableText(
-                      '天然水 500ml',
-                      isObfuscated: false,
-                      animateOnObfuscate: false,
-                    ),
-                  ),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: UnreadableText(
+                  '天然水 500ml',
+                  isObfuscated: false,
+                  animateOnObfuscate: false,
                 ),
               ),
             ),
           ),
           GoldenTestScenario(
             name: 'obfuscated (isObfuscated: true)',
-            child: SizedBox(
+            child: const SizedBox(
               width: 300,
-              child: MaterialApp(
-                theme: AppTheme.light(),
-                home: const Scaffold(
-                  body: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: UnreadableText(
-                      '天然水 500ml',
-                      isObfuscated: true,
-                      animateOnObfuscate: false,
-                    ),
-                  ),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: UnreadableText(
+                  '天然水 500ml',
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
                 ),
               ),
             ),
