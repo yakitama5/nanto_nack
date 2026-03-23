@@ -57,6 +57,7 @@ class _FloatingMissionBarState extends State<FloatingMissionBar> {
   bool _expanded = false;
 
   Color get _timerColor {
+    if (widget.timeLimitSeconds <= 0) return Colors.green;
     final ratio = widget.remainingSeconds / widget.timeLimitSeconds;
     if (ratio > 0.5) return Colors.green;
     if (ratio > 0.25) return Colors.orange;
