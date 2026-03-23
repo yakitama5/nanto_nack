@@ -139,7 +139,10 @@ class _TranslationsDashboardEn extends TranslationsDashboardJa {
 	@override String get remainingPlaysCount => '{count} remaining';
 	@override String get unlimitedPlays => 'Unlimited';
 	@override String get streak => 'Streak';
-	@override String get streakDays => '{days} day streak';
+	@override String streakDays({required num n, required int days}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '$days day streak',
+		other: '$days days streak',
+	);
 	@override String get activityHistory => 'Play History';
 	@override String get noActivity => 'No play history yet';
 }
@@ -195,7 +198,7 @@ extension on TranslationsEn {
 			'dashboard.remainingPlaysCount' => '{count} remaining',
 			'dashboard.unlimitedPlays' => 'Unlimited',
 			'dashboard.streak' => 'Streak',
-			'dashboard.streakDays' => '{days} day streak',
+			'dashboard.streakDays' => ({required num n, required int days}) => _root.dashboard.streakDays(n: n, days: days),
 			'dashboard.activityHistory' => 'Play History',
 			'dashboard.noActivity' => 'No play history yet',
 			'play.startPlay' => 'Play Now',

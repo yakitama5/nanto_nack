@@ -199,8 +199,8 @@ class TranslationsDashboardJa {
 	/// ja: '連続プレイ'
 	String get streak => '連続プレイ';
 
-	/// ja: '{days}日連続'
-	String get streakDays => '{days}日連続';
+	/// ja: '{days}日連続' (one/other どちらも同じ形式)
+	String streakDays({required num n, required int days}) => '${days}日連続';
 
 	/// ja: 'プレイ履歴'
 	String get activityHistory => 'プレイ履歴';
@@ -271,7 +271,7 @@ extension on Translations {
 			'dashboard.remainingPlaysCount' => '残り{count}回',
 			'dashboard.unlimitedPlays' => '無制限',
 			'dashboard.streak' => '連続プレイ',
-			'dashboard.streakDays' => '{days}日連続',
+			'dashboard.streakDays' => ({required num n, required int days}) => _root.dashboard.streakDays(n: n, days: days),
 			'dashboard.activityHistory' => 'プレイ履歴',
 			'dashboard.noActivity' => 'まだプレイ履歴がありません',
 			'play.startPlay' => 'プレイする',
