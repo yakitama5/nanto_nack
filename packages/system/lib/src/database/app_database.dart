@@ -43,6 +43,13 @@ class AppDatabase extends _$AppDatabase {
         .getSingle();
   }
 
+  /// 指定日時以降にプレイされたクリア済みクイズ履歴を取得
+  Future<List<QuizResult>> getQuizHistorySince(DateTime since) =>
+      (select(quizResults)
+            ..where((t) => t.isCleared.equals(true))
+            ..where((t) => t.lastPlayedAt.isBiggerOrEqualValue(since)))
+          .get();
+
   /// ユーザーステータスを更新
   Future<void> updateUserStatus(UserStatusCompanion companion) =>
       (update(userStatus)..where((t) => t.key.equals('default')))

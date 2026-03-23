@@ -8,5 +8,8 @@
 	<true/>
 	<key>com.apple.security.network.server</key>
 	<true/>
+	<!-- 天気取得のための位置情報権限 -->
+	<key>com.apple.security.personal-information.location</key>
+	<true/>
 </dict>
 </plist>

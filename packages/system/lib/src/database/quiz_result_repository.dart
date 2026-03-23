@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:drift/drift.dart';
 import 'package:system/src/database/app_database.dart';
 
@@ -30,7 +31,7 @@ class QuizResultRepository {
           clearTimeMs: Value(clearTimeMs),
           score: Value(score),
           failureCount: Value(failureCount),
-          lastPlayedAt: Value(DateTime.now()),
+          lastPlayedAt: Value(clock.now()),
         ),
       );
 }

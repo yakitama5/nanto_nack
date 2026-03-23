@@ -21,6 +21,7 @@
   * **`packages/system/`**: アプリケーションの基盤パッケージ。メンテナンス制御、Firebase、ローカルDB（Drift）、およびアプリ内課金（IAP）の基盤設定を管理します。
   * **`packages/quiz_core/`**: 全カテゴリで共通利用するパッケージ。あるあるUIコンポーネント、解読不能フォント設定、クイズの共通エンティティを管理します。
   * **`packages/quizzes/<category_name>/`**: クイズの**カテゴリごと**の独立したワークスペース（例：`shopping`, `sns`）。1つのカテゴリパッケージ内に、関連する複数のクイズ（例：ショッピングカテゴリ内の「水を買う」「カートを見る」等）を内包し、ドメイン知識（カートモデル等）を共有します。
+* **fvmの利用:** Flutter/Dartのバージョン管理には **fvm** を使用します。fvmを使用する際は、必ず `fvm` コマンドを使用してください。また、`fvm` コマンドを使用する際は、`.fvm/flutter_sdk` を必ず使用してください。
 
 ## 🏛️ Application Architecture (アプリケーションアーキテクチャ)
 
@@ -35,6 +36,24 @@
 * **原則:** SOLID原則の適用、継承よりコンポジションの優先。
 * **イミュータビリティ:** 変更不可能なデータ構造を優先し、状態やモデルの定義・更新には必ず **`copyWith` メソッド** を実装して利用してください。
 * **静的解析:** **`altive_lints`** を利用して厳格なコード規約を適用し、高品質なコードベースを保ちます。
+
+## 🕐 現在日時の取得ルール
+
+現在日時が必要な箇所では、`DateTime.now()` を直接使用することを **禁止** します。
+代わりに `clock` パッケージのグローバル変数 `clock.now()` を使用してください。
+
+```dart
+// ❌ 禁止
+final now = DateTime.now();
+
+// ✅ 正しい
+import 'package:clock/clock.dart';
+final now = clock.now();
+```
+
+* **理由:** `clock.now()` はテスト時に `withClock()` で任意の日時に差し替えられるため、日時に依存するロジックの単体テストが決定的（再現性のある）結果を返せるようになります。
+* `clock` を使用するパッケージの `pubspec.yaml` に `clock: ^1.1.2` を追加してください。
+* テストでの使い方は「🧪 Testing」セクションを参照してください。
 
 ## ⚙️ State Management (状態管理)
 
@@ -71,3 +90,58 @@
 ## 🧪 Testing (テスティング)
 
 * **ユニット (`test`) / ウィジェット (`flutter_test`) / ゴールデン (`alchemist`) / E2E (`patrol`)** を利用し、`melos` スクリプトで一括実行します。
+* **日時を使うテストでは `withClock()` で時刻を固定すること。** `DateTime.now()` を直接参照するテストは実行タイミングに依存して不安定になるため禁止します。
+
+```dart
+import 'package:clock/clock.dart';
+
+// テストファイルのトップレベルに固定日時を定義
+final _fixedNow = DateTime(2026, 3, 20, 12, 0);
+
+test('今日だけプレイしていればストリーク 1', () async {
+  await withClock(Clock.fixed(_fixedNow), () async {
+    // このブロック内では clock.now() が _fixedNow を返す
+    final result = await useCase.execute();
+    expect(result.currentStreak, 1);
+  });
+});
+```
+
+## 📌 基本コミットルール
+
+1. **コミットの粒度**: 変更はできるだけ小さく、意味のある単位で細かく分割してコミットすること。複数の異なる機能変更や修正を1つのコミットに混ぜないでください。
+2. **実行方法**: コミット操作は必ずCLI（コマンドライン）から `git commit` コマンドを使用して実施してください。
+3. **メッセージ形式**: コミットメッセージの1行目は必ず以下のフォーマットで記述してください。
+   `{label}: {message}`
+4. **理由（Why）の明記**: 変更の内容（What）だけでなく、**「なぜその変更を行ったのか（Why）」** を必ず記載してください。1行の `{message}` 内に簡潔に含めるか、必要に応じて改行して本文（Body）に詳細な背景を記載してください。
+
+### 🏷️ コミットラベル一覧
+
+コミットメッセージの `{label}` には以下のいずれかを使用し、`{message}` にはその変更内容を簡潔に日本語で記載してください。
+
+| Label | Description |
+| :--- | :--- |
+| ✨feat | 新機能（New Feature） |
+| 🐛fix | バグ修正（Bugfix） |
+| ♻️refactor | リファクタリング(Refactoring) |
+| 📚doc | ドキュメント（Documentation） |
+| 🎨design | デザインUI/UX(Accessibility) |
+| 🐎perf | パフォーマンス（Performance） |
+| 🔧chore | ビルド、補助ツール、ライブラリ関連(Settings) |
+| 🚨test | テスト（Tests） |
+| 🗨️comment | コメント整理、TODOコメント(Comment) |
+| ♻️generete | コード(再)生成、Bootstrap(Generate) |
+| 🎉new | 初めてのコミット（Initial Commit） |
+| 🔖tag | バージョンタグ（Version Tag） |
+| 🚧wip | WIP(Work In Progress) |
+| 💩depre | 非推奨追加（Deprecation） |
+
+### 💡 コミットメッセージの例
+
+**例1（1行でWhyを含める場合）:**
+`✨feat: カート画面に合計金額を表示（ユーザーが購入前に総額を確認できるようにするため）`
+
+**例2（本文に詳細なWhyを書く場合）:**
+`🐛fix: カート画面で合計金額が正しく計算されない問題を修正`
+
+`特定の割引アイテムが含まれている場合に、割引率が二重に適用されてしまうバグがあったため、計算ロジックを修正。`

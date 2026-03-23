@@ -15,8 +15,12 @@ export 'src/infrastructure/shopping_quiz_repository_provider.dart';
 
 // Presentation
 export 'src/presentation/cart_badge.dart';
+export 'src/presentation/cart_quiz/cart_quiz_notifier.dart';
 export 'src/presentation/cart_quiz/cart_quiz_screen.dart';
+export 'src/presentation/cart_quiz/cart_quiz_state.dart';
+export 'src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 export 'src/presentation/checkout_quiz/checkout_quiz_screen.dart';
+export 'src/presentation/checkout_quiz/checkout_quiz_state.dart';
 export 'src/presentation/shopping_item_tile.dart';
 export 'src/presentation/water_quiz/water_quiz_notifier.dart';
 export 'src/presentation/water_quiz/water_quiz_screen.dart';

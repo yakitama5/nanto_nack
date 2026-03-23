@@ -171,3 +171,16 @@ Provide the user with the exact command to run the generated test:
 *   **Pump vs PumpAndSettle:** Use `tester.pump()` for single frame advances. Use `tester.pumpAndSettle()` strictly when waiting for animations or asynchronous UI updates to complete.
 *   **Immutability:** Treat test data models as immutable. Create new instances for state changes rather than mutating existing mock data.
 *   **Do not use `dart:mirrors`:** Flutter does not support reflection. Rely on code generation (e.g., `build_runner`, `mockito`, `mocktail`) for mocking.
+*   **日時を使うテストは `withClock()` で固定すること（必須）:** `DateTime.now()` を直接テストコードで使用することは禁止です。`clock` パッケージの `withClock(Clock.fixed(...), () { ... })` で現在時刻を固定し、実行タイミングに依存しない決定的なテストを書いてください。
+
+```dart
+import 'package:clock/clock.dart';
+
+final _fixedNow = DateTime(2026, 3, 20, 12, 0); // トップレベルに定義して共有
+
+test('description', () async {
+  await withClock(Clock.fixed(_fixedNow), () async {
+    // clock.now() は常に _fixedNow を返す
+  });
+});
+```

@@ -12,9 +12,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name == 'push' && 'production' || format('pr-{0}', github.event.number) }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
 
-env:
-  FLUTTER_VERSION: '3.41.5'
-
 jobs:
   # ──────────────────────────────────────────────
   # Job 1: ビルドとデプロイ
@@ -34,9 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Flutter バージョンの取得 (.fvmrc)
+        id: fvm
+        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          flutter-version: ${{ steps.fvm.outputs.version }}
           cache: true
 
       - name: Pub キャッシュの復元
@@ -56,12 +57,13 @@ jobs:
           FIREBASE_IOS_API_KEY=ci_placeholder
           FIREBASE_WEB_API_KEY=ci_placeholder
           EOF
+          echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/.env
 
       - name: 依存関係の解決 (melos bootstrap)
-        run: melos bootstrap
+        run: dart pub global run melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: melos run generate
+        run: dart pub global run melos run generate
 
       # デプロイ先パスと公開 URL を計算
       - name: デプロイ設定の計算

@@ -10,3 +10,37 @@ workspace:
   - packages/system
   - packages/quiz_core
   - packages/quizzes/shopping
+
+dev_dependencies:
+  melos: ^7.0.0
+
+melos:
+  scripts:
+    generate:
+      run: melos exec --depends-on="build_runner" -- dart run build_runner build --delete-conflicting-outputs
+      description: "コード生成 (drift_dev, slang, envied)"
+
+    lint:
+      run: melos exec --flutter -- flutter analyze .
+      description: "静的解析"
+
+    test:unit:
+      run: melos exec --flutter -- flutter test test/
+      description: "ユニットテスト実行"
+      packageFilters:
+        flutter: true
+        dirExists:
+          - test
+
+    test:all:
+      run: melos exec --flutter -- flutter test
+      description: "全テスト実行"
+      packageFilters:
+        flutter: true
+        dirExists:
+          - test
+
+    build:web:
+      run: |
+        cd apps/app_main && flutter build web
+      description: "Web ビルド"

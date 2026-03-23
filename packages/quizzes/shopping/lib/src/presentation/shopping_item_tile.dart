@@ -6,14 +6,21 @@ class ShoppingItemTile extends StatelessWidget {
     super.key,
     required this.item,
     required this.onAddToCart,
+    this.highlighted = false,
   });
 
   final ShoppingItem item;
   final VoidCallback onAddToCart;
 
+  /// ヒント時にこのアイテムを強調表示するか
+  final bool highlighted;
+
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: highlighted
+          ? Theme.of(context).colorScheme.primaryContainer
+          : null,
       child: ListTile(
         leading: Text(item.imageEmoji, style: const TextStyle(fontSize: 32)),
         title: Text(item.name),
@@ -32,6 +39,9 @@ class ShoppingItemTile extends StatelessWidget {
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 minimumSize: const Size(60, 28),
+                // ListTile.trailing の高さ制約（56px）内に収めるため
+                // タップターゲットのパディングを無効化する
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               onPressed: onAddToCart,
               child: const Text('カートに追加'),

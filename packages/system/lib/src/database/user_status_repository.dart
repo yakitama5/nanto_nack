@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:drift/drift.dart';
 import 'package:system/src/database/app_database.dart';
 
@@ -13,7 +14,7 @@ class UserStatusRepository {
   /// 本日のプレイ回数をインクリメント
   Future<void> incrementDailyPlayCount() async {
     final status = await _db.getUserStatus();
-    final today = DateTime.now();
+    final today = clock.now();
     final lastReset = status.lastResetDate;
 
     // 日付が変わっていたらカウントをリセット
@@ -35,7 +36,7 @@ class UserStatusRepository {
     final status = await _db.getUserStatus();
     if (status.isPremium) return false;
 
-    final today = DateTime.now();
+    final today = clock.now();
     final lastReset = status.lastResetDate;
     final isToday = lastReset != null &&
         lastReset.year == today.year &&

@@ -15,6 +15,7 @@
 ## 🏗️ Project Structure (モノレポ構成)
 
 Dartネイティブの **Pub Workspace** と **Melos** を採用しています。
+Flutter/Dartのバージョン管理には**fvm**を使用しています。fvmを使用する際は、`fvm`コマンドを必ず使用してください。また、`fvm`コマンドを使用する際は、`.fvm/flutter_sdk`を必ず使用してください。
 
 - `apps/app_main/`: メインアプリ。状態管理、ルーティング、UIの枠組み。
 - `packages/system/`: 基盤。Firebase, Drift(DB), IAP(課金), メンテナンス制御。
