@@ -31,23 +31,25 @@ class HomeScreen extends ConsumerWidget {
               ref.read(dashboardProvider.notifier).refresh(),
           child: CustomScrollView(
             slivers: [
-              // ===== 今日の1枚ヒーローカード =====
-              const SliverToBoxAdapter(child: _TodayHeroCard()),
-              // ===== ダッシュボードコンテンツ =====
-              SliverToBoxAdapter(
-                child: dashboardAsync.when(
-                  loading: () => const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 24, 20, 0),
-                    child: SkeletonDashboard(),
+              SliverList.list(
+                children: [
+                  // ===== 今日の1枚ヒーローカード =====
+                  const _TodayHeroCard(),
+                  // ===== ダッシュボードコンテンツ =====
+                  dashboardAsync.when(
+                    loading: () => const Padding(
+                      padding: EdgeInsets.fromLTRB(20, 24, 20, 0),
+                      child: SkeletonDashboard(),
+                    ),
+                    error: (_, __) => const SizedBox.shrink(),
+                    data: (dashboard) => _DashboardContent(
+                      dashboard: dashboard,
+                    ),
                   ),
-                  error: (_, __) => const SizedBox.shrink(),
-                  data: (dashboard) => _DashboardContent(
-                    dashboard: dashboard,
-                  ),
-                ),
+                  // ===== ボトムパディング =====
+                  const SizedBox(height: 40),
+                ],
               ),
-              // ===== ボトムパディング =====
-              const SliverToBoxAdapter(child: SizedBox(height: 40)),
             ],
           ),
         ),
@@ -73,7 +75,7 @@ class _TodayHeroCard extends ConsumerWidget {
     final weatherAsync = ref.watch(weatherProvider);
     final scene = DailySceneTheme.resolveFromNow();
     final sceneTheme = DailySceneTheme.of(scene);
-    final topPadding = MediaQuery.of(context).padding.top;
+    final topPadding = MediaQuery.paddingOf(context).top;
     final now = clock.now();
 
     const weekdays = ['月', '火', '水', '木', '金', '土', '日'];
