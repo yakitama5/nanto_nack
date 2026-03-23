@@ -174,7 +174,27 @@ class _TodayHeroCard extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      _SceneIcon(theme: sceneTheme),
+                      // ── 右上アイコンボタン群 ──
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _HeaderIconButton(
+                            icon: Icons.workspace_premium_rounded,
+                            color: sceneTheme.onSceneColor,
+                            onPressed: () {
+                              // TODO: プレミアムプラン案内モーダルを表示
+                            },
+                          ),
+                          const SizedBox(width: 4),
+                          _HeaderIconButton(
+                            icon: Icons.settings_rounded,
+                            color: sceneTheme.onSceneColor,
+                            onPressed: () {
+                              // TODO: 設定画面を開く
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 28),
@@ -210,38 +230,32 @@ class _TodayHeroCard extends ConsumerWidget {
   }
 }
 
-class _SceneIcon extends StatelessWidget {
-  const _SceneIcon({required this.theme});
+/// ヘッダー上に表示する半透明背景付きアイコンボタン。
+///
+/// グラデーション背景に対して視認性を高めるため、
+/// アイコンカラーと同色の半透明円形背景を持つ。
+class _HeaderIconButton extends StatelessWidget {
+  const _HeaderIconButton({
+    required this.icon,
+    required this.color,
+    required this.onPressed,
+  });
 
-  final DailySceneTheme theme;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: theme.iconGlowColor,
-          ),
-        ),
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: theme.onSceneColor.withValues(alpha: 0.1),
-          ),
-          child: Icon(
-            theme.icon,
-            size: 32,
-            color: theme.onSceneColor.withValues(alpha: 0.9),
-          ),
-        ),
-      ],
+    return IconButton(
+      icon: Icon(icon, size: 22, color: color),
+      style: IconButton.styleFrom(
+        backgroundColor: color.withValues(alpha: 0.15),
+        minimumSize: const Size(40, 40),
+        padding: EdgeInsets.zero,
+        shape: const CircleBorder(),
+      ),
+      onPressed: onPressed,
     );
   }
 }

@@ -10,12 +10,18 @@ void main() {
     goldenTest(
       'スケルトン（ローディング）表示のゴールデンテスト',
       fileName: 'skeleton_dashboard',
+      // シマーアニメーションが無限ループするため pumpAndSettle はタイムアウトする。
+      // 任意フレームで静止画像を撮影するため pump を1回のみ呼ぶ。
+      pumpBeforeTest: (tester) async {
+        await tester.pump(const Duration(milliseconds: 300));
+      },
       builder: () => GoldenTestGroup(
         children: [
           GoldenTestScenario(
             name: 'mobile (375px)',
             child: SizedBox(
               width: 375,
+              height: 812,
               child: MaterialApp(
                 theme: AppTheme.light(),
                 home: const Scaffold(
@@ -28,6 +34,7 @@ void main() {
             name: 'tablet (800px)',
             child: SizedBox(
               width: 800,
+              height: 1024,
               child: MaterialApp(
                 theme: AppTheme.light(),
                 home: const Scaffold(
@@ -63,6 +70,7 @@ void main() {
             name: 'with activities',
             child: SizedBox(
               width: 360,
+              height: 400,
               child: MaterialApp(
                 theme: AppTheme.light(),
                 home: Scaffold(
@@ -78,6 +86,7 @@ void main() {
             name: 'empty',
             child: SizedBox(
               width: 360,
+              height: 200,
               child: MaterialApp(
                 theme: AppTheme.light(),
                 home: const Scaffold(
