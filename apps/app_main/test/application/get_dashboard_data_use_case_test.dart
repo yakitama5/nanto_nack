@@ -26,7 +26,9 @@ class FakeDashboardRepository implements DashboardRepository {
 
   @override
   Future<List<QuizResult>> getQuizHistorySince(DateTime since) async =>
-      history;
+      history
+          .where((r) => r.lastPlayedAt != null && !r.lastPlayedAt!.isBefore(since))
+          .toList();
 
   @override
   Future<int> getTodayPlayCount() async => todayPlayCount;
