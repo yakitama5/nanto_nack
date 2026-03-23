@@ -138,7 +138,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
         // フローティングミッションバー
         if (quizState.status == QuizStatus.playing)
           Positioned(
-            top: MediaQuery.paddingOf(context).top + 8,
+            top: MediaQuery.paddingOf(context).top + kToolbarHeight + 8,
             left: 16,
             right: 16,
             child: FloatingMissionBar(
