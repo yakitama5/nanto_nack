@@ -1,14 +1,16 @@
+import 'dart:collection';
+
 import 'daily_tip.dart';
 import 'user_activity.dart';
 
 /// ダッシュボード画面の状態エンティティ
 class DashboardState {
-  const DashboardState({
+  DashboardState({
     required this.remainingPlayCount,
     required this.dailyTip,
-    required this.activityHistory,
+    required List<UserActivity> activityHistory,
     required this.currentStreak,
-  });
+  }) : activityHistory = UnmodifiableListView(activityHistory);
 
   /// 本日の残りプレイ可能数（null = 無制限/課金済み）
   final int? remainingPlayCount;
@@ -16,7 +18,7 @@ class DashboardState {
   /// 今日表示する Tips
   final DailyTip dailyTip;
 
-  /// 過去60日間のプレイ履歴リスト（日付昇順）
+  /// 過去60日間のプレイ履歴リスト（日付昇順・外部から変更不可）
   final List<UserActivity> activityHistory;
 
   /// 現在の連続プレイ日数
