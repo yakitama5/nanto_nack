@@ -29,12 +29,16 @@ melos:
       description: "ユニットテスト実行"
       packageFilters:
         flutter: true
+        dirExists:
+          - test
 
     test:all:
       run: melos exec --flutter -- flutter test
       description: "全テスト実行"
       packageFilters:
         flutter: true
+        dirExists:
+          - test
 
     build:web:
       run: |
