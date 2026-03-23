@@ -27,6 +27,7 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
 
   /// クイズを開始する（タイマー始動）
   void startQuiz() {
+    _timer?.cancel();
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -120,7 +121,11 @@ class CheckoutQuizNotifier extends Notifier<CheckoutQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
-    await _saveResult(isCleared: false, elapsedMs: elapsed);
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {
+      // 結果保存の失敗はUIに影響させない（次回起動時に再試行される）
+    }
   }
 
   Future<void> _saveResult({

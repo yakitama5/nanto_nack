@@ -19,6 +19,8 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
   static const _timeLimitSeconds = 60;
   // ヒント使用時のスコアペナルティ（ヒント使用で failureCount +1 換算）
   static const _hintPenaltyFailureCount = 2;
+  // ヒント対象アイテムID（ミッション「水を2つ購入」の対象）
+  static const _hintItemId = 'water_500ml';
 
   final _useCase = const QuizWaterUseCase();
   Timer? _timer;
@@ -63,7 +65,7 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
     if (state.status != QuizStatus.playing || state.hintUsed) return;
     state = state.copyWith(
       hintUsed: true,
-      hintItemId: 'water_500ml',
+      hintItemId: _hintItemId,
       // ヒント使用分のペナルティを failureCount に加算
       failureCount: state.failureCount + _hintPenaltyFailureCount,
     );
@@ -133,7 +135,11 @@ class WaterQuizNotifier extends Notifier<WaterQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
-    await _saveResult(isCleared: false, elapsedMs: elapsed);
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {
+      // 結果保存の失敗はUIに影響させない（次回起動時に再試行される）
+    }
   }
 
   Future<void> _saveResult({
