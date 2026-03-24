@@ -6,7 +6,7 @@ part 'app_env.g.dart';
 ///
 /// envied により難読化されたキーを保持する。
 /// dart-define の FLAVOR 値で dev/prod を切り替える。
-@Envied(path: '.env', obfuscate: true)
+@Envied(path: 'env/.env', obfuscate: true)
 abstract final class AppEnv {
   @EnviedField(varName: 'OPEN_WEATHER_API_KEY_DEV')
   static final String openWeatherApiKeyDev = _AppEnv.openWeatherApiKeyDev;
