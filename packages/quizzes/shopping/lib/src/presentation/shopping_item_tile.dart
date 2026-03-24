@@ -5,7 +5,7 @@ import 'package:shopping/src/domain/entities/shopping_item.dart';
 /// Amazon風の縦型商品カード
 ///
 /// [highlighted] が true のとき、ヒント対象商品として強調表示し、
-/// [UnreadableText] で文字化けしていたテキストを読める状態に戻す。
+/// テキストを読める状態（リアルテキスト）に戻す。
 class ShoppingItemTile extends StatelessWidget {
   const ShoppingItemTile({
     super.key,
@@ -33,6 +33,7 @@ class ShoppingItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final common = context.qt.shopping.common;
     return Card(
       elevation: highlighted ? 3 : 1,
       shape: const RoundedRectangleBorder(
@@ -70,12 +71,16 @@ class ShoppingItemTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 商品名: ヒント使用時のみ読める
-                  UnreadableText(
-                    item.name,
-                    isObfuscated: !highlighted,
-                    style: const TextStyle(fontSize: 12, height: 1.3),
-                  ),
+                  // 商品名: ヒント使用時のみ読める（通常はダミーテキストで表示）
+                  highlighted
+                      ? Text(
+                          item.name,
+                          style: const TextStyle(fontSize: 12, height: 1.3),
+                        )
+                      : UnreadableText(
+                          item.name,
+                          style: const TextStyle(fontSize: 12, height: 1.3),
+                        ),
                   const SizedBox(height: 4),
                   // レーティング（ダミー）
                   _RatingRow(
@@ -85,16 +90,27 @@ class ShoppingItemTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   // 価格
-                  Text(
-                    '¥${item.price}',
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  highlighted
+                      ? Text(
+                          '¥${item.price}',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : UnreadableText(
+                          '¥${item.price}',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                   const SizedBox(height: 2),
                   // Prime バッジ
-                  const _PrimeBadge(),
+                  _PrimeBadge(
+                    label: common.primeBadge,
+                    isObfuscated: !highlighted,
+                  ),
                   const Spacer(),
                   // カートに追加ボタン（Amazon黄色）
                   SizedBox(
@@ -111,10 +127,15 @@ class ShoppingItemTile extends StatelessWidget {
                         ),
                       ),
                       onPressed: onAddToCart,
-                      child: const Text(
-                        'カートに追加',
-                        style: TextStyle(fontSize: 11),
-                      ),
+                      child: highlighted
+                          ? Text(
+                              common.addToCart,
+                              style: const TextStyle(fontSize: 11),
+                            )
+                          : UnreadableText(
+                              common.addToCart,
+                              style: const TextStyle(fontSize: 11),
+                            ),
                     ),
                   ),
                 ],
@@ -171,7 +192,10 @@ class _RatingRow extends StatelessWidget {
 }
 
 class _PrimeBadge extends StatelessWidget {
-  const _PrimeBadge();
+  const _PrimeBadge({required this.label, required this.isObfuscated});
+
+  final String label;
+  final bool isObfuscated;
 
   @override
   Widget build(BuildContext context) {
@@ -181,9 +205,10 @@ class _PrimeBadge extends StatelessWidget {
         color: const Color(0xFF00A8E1),
         borderRadius: BorderRadius.circular(2),
       ),
-      child: const Text(
-        'prime',
-        style: TextStyle(
+      child: UnreadableText(
+        label,
+        isObfuscated: isObfuscated,
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 9,
           fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 export 'i18n/strings.g.dart';
+export 'src/i18n/quiz_translations_extension.dart';
 export 'src/entities/quiz_state.dart';
 export 'src/theme/app_colors.dart';
 export 'src/theme/app_text_styles.dart';

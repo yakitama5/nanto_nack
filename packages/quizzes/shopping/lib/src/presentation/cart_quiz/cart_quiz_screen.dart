@@ -36,7 +36,6 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   );
 
   static const _choices = [480, 580, 630, 750];
-  static const _missionText = 'このカートの合計金額を選んでください';
   static const _timeLimitSeconds = 60;
 
   @override
@@ -50,6 +49,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   @override
   Widget build(BuildContext context) {
     final quizState = ref.watch(cartQuizProvider);
+    final missionText = context.t.shopping.cart.missionText;
 
     return Stack(
       children: [
@@ -57,9 +57,9 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
           backgroundColor: const Color(0xFFF3F3F3),
           appBar: AppBar(
             backgroundColor: _kNavyColor,
-            title: const Text(
-              'ショッピングカート',
-              style: TextStyle(color: Colors.white),
+            title: Text(
+              context.qt.shopping.cart.appTitle,
+              style: const TextStyle(color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),
           ),
@@ -93,7 +93,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             right: 16,
             child: FloatingMissionBar(
               remainingSeconds: quizState.remainingSeconds,
-              missionText: _missionText,
+              missionText: missionText,
               hintUsed: quizState.hintUsed,
               timeLimitSeconds: _timeLimitSeconds,
               onHintTap: () => ref.read(cartQuizProvider.notifier).useHint(),
@@ -102,7 +102,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
         // カットイン演出
         if (_showCutIn)
           MissionCutIn(
-            missionText: _missionText,
+            missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
@@ -157,7 +157,7 @@ class _CartItemsSection extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  'カートの中身',
+                  context.qt.shopping.cart.itemsHeader,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -173,7 +173,7 @@ class _CartItemsSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    '${cart.totalCount}点',
+                    context.qt.shopping.cart.itemCount.replaceAll('{count}', cart.totalCount.toString()),
                     style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
@@ -225,10 +225,9 @@ class _CartItemTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 商品名（文字化け）
-                UnreadableText(
+                // 商品名（ダミーテキスト - アイテム名は意図的にダミー表示）
+                Text(
                   item.name,
-                  isObfuscated: true,
                   style: const TextStyle(fontSize: 13, height: 1.4),
                 ),
                 const SizedBox(height: 4),
@@ -242,9 +241,9 @@ class _CartItemTile extends StatelessWidget {
                     color: const Color(0xFF00A8E1),
                     borderRadius: BorderRadius.circular(2),
                   ),
-                  child: const Text(
-                    'prime',
-                    style: TextStyle(
+                  child: Text(
+                    context.qt.shopping.common.primeBadge,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 9,
                       fontWeight: FontWeight.bold,
@@ -267,7 +266,7 @@ class _CartItemTile extends StatelessWidget {
                         color: const Color(0xFFF3F3F3),
                       ),
                       child: Text(
-                        '数量: ${item.quantity}',
+                        context.qt.shopping.common.quantity.replaceAll('{qty}', item.quantity.toString()),
                         style: const TextStyle(fontSize: 12),
                       ),
                     ),
@@ -311,6 +310,7 @@ class _PriceSummarySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final qt = context.qt.shopping.cart;
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(16),
@@ -323,7 +323,7 @@ class _PriceSummarySection extends StatelessWidget {
               const Icon(Icons.calculate_outlined, color: Color(0xFF007185)),
               const SizedBox(width: 8),
               Text(
-                '合計金額はいくらですか？',
+                qt.questionTitle,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -332,7 +332,7 @@ class _PriceSummarySection extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '上のカートに入っている商品の合計を計算して選んでください',
+            qt.questionSubtitle,
             style: Theme.of(context)
                 .textTheme
                 .bodySmall
@@ -377,7 +377,7 @@ class _PriceSummarySection extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    '各商品の単価 × 数量を足すと合計が求まります',
+                    qt.hint,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],

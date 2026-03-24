@@ -5,20 +5,16 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
-part of 'strings.g.dart';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
 
 // Path: <root>
-typedef TranslationsJa = Translations; // ignore: unused_element
-class Translations with BaseTranslations<AppLocale, Translations> {
-	/// Returns the current translations of the given [context].
-	///
-	/// Usage:
-	/// final t = Translations.of(context);
-	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
-
+class TranslationsJa with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ja,
@@ -33,205 +29,245 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
-	late final Translations _root = this; // ignore: unused_field
+	late final TranslationsJa _root = this; // ignore: unused_field
 
-	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
+	@override 
+	TranslationsJa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsJa(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsAppJa app = TranslationsAppJa.internal(_root);
-	late final TranslationsHomeJa home = TranslationsHomeJa.internal(_root);
-	late final TranslationsStageJa stage = TranslationsStageJa.internal(_root);
-	late final TranslationsQuizJa quiz = TranslationsQuizJa.internal(_root);
-	late final TranslationsPurchaseJa purchase = TranslationsPurchaseJa.internal(_root);
-	late final TranslationsErrorJa error = TranslationsErrorJa.internal(_root);
-	late final TranslationsDashboardJa dashboard = TranslationsDashboardJa.internal(_root);
-	late final TranslationsPlayJa play = TranslationsPlayJa.internal(_root);
+	@override late final _TranslationsAppJa app = _TranslationsAppJa._(_root);
+	@override late final _TranslationsHomeJa home = _TranslationsHomeJa._(_root);
+	@override late final _TranslationsStageJa stage = _TranslationsStageJa._(_root);
+	@override late final _TranslationsQuizJa quiz = _TranslationsQuizJa._(_root);
+	@override late final _TranslationsPurchaseJa purchase = _TranslationsPurchaseJa._(_root);
+	@override late final _TranslationsErrorJa error = _TranslationsErrorJa._(_root);
+	@override late final _TranslationsDashboardJa dashboard = _TranslationsDashboardJa._(_root);
+	@override late final _TranslationsPlayJa play = _TranslationsPlayJa._(_root);
+	@override late final _TranslationsShoppingJa shopping = _TranslationsShoppingJa._(_root);
 }
 
 // Path: app
-class TranslationsAppJa {
-	TranslationsAppJa.internal(this._root);
+class _TranslationsAppJa implements TranslationsAppEn {
+	_TranslationsAppJa._(this._root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: 'NantoNack'
-	String get title => 'NantoNack';
-
-	/// ja: 'UI/UX直感クイズ'
-	String get subtitle => 'UI/UX直感クイズ';
+	@override String get title => 'NantoNack';
+	@override String get subtitle => 'UI/UX直感クイズ';
 }
 
 // Path: home
-class TranslationsHomeJa {
-	TranslationsHomeJa.internal(this._root);
+class _TranslationsHomeJa implements TranslationsHomeEn {
+	_TranslationsHomeJa._(this._root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: 'ステージ一覧'
-	String get stageList => 'ステージ一覧';
-
-	/// ja: '{count}回プレイ済み'
-	String get playCount => '{count}回プレイ済み';
+	@override String get stageList => 'ステージ一覧';
+	@override String get playCount => '{count}回プレイ済み';
 }
 
 // Path: stage
-class TranslationsStageJa {
-	TranslationsStageJa.internal(this._root);
+class _TranslationsStageJa implements TranslationsStageEn {
+	_TranslationsStageJa._(this._root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: 'クリア済み'
-	String get cleared => 'クリア済み';
-
-	/// ja: 'プレイ可能'
-	String get available => 'プレイ可能';
-
-	/// ja: 'クリア後に解放'
-	String get locked => 'クリア後に解放';
-
-	/// ja: 'プレイ'
-	String get play => 'プレイ';
-
-	/// ja: 'クリアタイム: {time}'
-	String get clearTime => 'クリアタイム: {time}';
-
-	/// ja: 'スコア: {score}点'
-	String get score => 'スコア: {score}点';
+	@override String get cleared => 'クリア済み';
+	@override String get available => 'プレイ可能';
+	@override String get locked => 'クリア後に解放';
+	@override String get play => 'プレイ';
+	@override String get clearTime => 'クリアタイム: {time}';
+	@override String get score => 'スコア: {score}点';
 }
 
 // Path: quiz
-class TranslationsQuizJa {
-	TranslationsQuizJa.internal(this._root);
+class _TranslationsQuizJa implements TranslationsQuizEn {
+	_TranslationsQuizJa._(this._root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: '正解！'
-	String get correct => '正解！';
-
-	/// ja: '不正解'
-	String get incorrect => '不正解';
-
-	/// ja: '時間切れ'
-	String get timeUp => '時間切れ';
-
-	/// ja: '結果'
-	String get result => '結果';
-
-	/// ja: 'もう一度'
-	String get retry => 'もう一度';
-
-	/// ja: '次へ'
-	String get next => '次へ';
-
-	/// ja: '戻る'
-	String get back => '戻る';
+	@override String get correct => '正解！';
+	@override String get incorrect => '不正解';
+	@override String get timeUp => '時間切れ';
+	@override String get result => '結果';
+	@override String get retry => 'もう一度';
+	@override String get next => '次へ';
+	@override String get back => '戻る';
 }
 
 // Path: purchase
-class TranslationsPurchaseJa {
-	TranslationsPurchaseJa.internal(this._root);
+class _TranslationsPurchaseJa implements TranslationsPurchaseEn {
+	_TranslationsPurchaseJa._(this._root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: '本日のプレイ上限に達しました'
-	String get limitReached => '本日のプレイ上限に達しました';
-
-	/// ja: 'プレミアムにアップグレードすると 無制限でプレイできます'
-	String get unlockDescription => 'プレミアムにアップグレードすると\n無制限でプレイできます';
-
-	/// ja: 'アップグレード'
-	String get upgrade => 'アップグレード';
-
-	/// ja: 'あとで'
-	String get later => 'あとで';
+	@override String get limitReached => '本日のプレイ上限に達しました';
+	@override String get unlockDescription => 'プレミアムにアップグレードすると\n無制限でプレイできます';
+	@override String get upgrade => 'アップグレード';
+	@override String get later => 'あとで';
 }
 
 // Path: error
-class TranslationsErrorJa {
-	TranslationsErrorJa.internal(this._root);
+class _TranslationsErrorJa implements TranslationsErrorEn {
+	_TranslationsErrorJa._(this._root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: 'エラーが発生しました'
-	String get unknown => 'エラーが発生しました';
-
-	/// ja: '再試行'
-	String get retry => '再試行';
+	@override String get unknown => 'エラーが発生しました';
+	@override String get retry => '再試行';
 }
 
 // Path: dashboard
-class TranslationsDashboardJa {
-	TranslationsDashboardJa.internal(this._root);
+class _TranslationsDashboardJa implements TranslationsDashboardEn {
+	_TranslationsDashboardJa._(this._root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-
-	/// ja: 'ダッシュボード'
-	String get title => 'ダッシュボード';
-
-	/// ja: '今日のUI/UXヒント'
-	String get todayTip => '今日のUI/UXヒント';
-
-	/// ja: '残りプレイ数'
-	String get remainingPlays => '残りプレイ数';
-
-	/// ja: '残り{count}回'
-	String get remainingPlaysCount => '残り{count}回';
-
-	/// ja: '無制限'
-	String get unlimitedPlays => '無制限';
-
-	/// ja: '連続プレイ'
-	String get streak => '連続プレイ';
-
-	/// ja: '{days}日連続' (one/other どちらも同じ形式)
-	String streakDays({required num n, required int days}) => '${days}日連続';
-
-	/// ja: 'プレイ履歴'
-	String get activityHistory => 'プレイ履歴';
-
-	/// ja: 'まだプレイ履歴がありません'
-	String get noActivity => 'まだプレイ履歴がありません';
+	@override String get title => 'ダッシュボード';
+	@override String get todayTip => '今日のUI/UXヒント';
+	@override String get remainingPlays => '残りプレイ数';
+	@override String get remainingPlaysCount => '残り{count}回';
+	@override String get unlimitedPlays => '無制限';
+	@override String get streak => '連続プレイ';
+	@override String get streakDays => '{days}日連続';
+	@override String get activityHistory => 'プレイ履歴';
+	@override String get noActivity => 'まだプレイ履歴がありません';
 }
 
 // Path: play
-class TranslationsPlayJa {
-	TranslationsPlayJa.internal(this._root);
+class _TranslationsPlayJa implements TranslationsPlayEn {
+	_TranslationsPlayJa._(this._root);
 
-	// ignore: unused_field
-	final dynamic _root;
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
+	@override String get startPlay => 'プレイする';
+	@override String get selectCategory => 'カテゴリー選択';
+	@override String get selectCategoryDescription => 'チャレンジするカテゴリーを選んでください';
+	@override String get selectStage => 'ステージ選択';
+	@override String get stageCount => '{count}ステージ';
+}
 
-	/// ja: 'プレイする'
-	String get startPlay => 'プレイする';
+// Path: shopping
+class _TranslationsShoppingJa implements TranslationsShoppingEn {
+	_TranslationsShoppingJa._(this._root);
 
-	/// ja: 'カテゴリー選択'
-	String get selectCategory => 'カテゴリー選択';
+	final TranslationsJa _root; // ignore: unused_field
 
-	/// ja: 'チャレンジするカテゴリーを選んでください'
-	String get selectCategoryDescription => 'チャレンジするカテゴリーを選んでください';
+	// Translations
+	@override late final _TranslationsShoppingWaterJa water = _TranslationsShoppingWaterJa._(_root);
+	@override late final _TranslationsShoppingCartJa cart = _TranslationsShoppingCartJa._(_root);
+	@override late final _TranslationsShoppingCheckoutJa checkout = _TranslationsShoppingCheckoutJa._(_root);
+	@override late final _TranslationsShoppingCommonJa common = _TranslationsShoppingCommonJa._(_root);
+	@override late final _TranslationsShoppingNavigationJa navigation = _TranslationsShoppingNavigationJa._(_root);
+	@override late final _TranslationsShoppingCategoriesJa categories = _TranslationsShoppingCategoriesJa._(_root);
+}
 
-	/// ja: 'ステージ選択'
-	String get selectStage => 'ステージ選択';
+// Path: shopping.water
+class _TranslationsShoppingWaterJa implements TranslationsShoppingWaterEn {
+	_TranslationsShoppingWaterJa._(this._root);
 
-	/// ja: '{count}ステージ'
-	String get stageCount => '{count}ステージ';
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get missionText => '水を2つ購入してください';
+	@override String get appTitle => 'nantomall';
+	@override String get searchPlaceholder => '商品を検索する';
+	@override String get cartTitle => 'ショッピングカート';
+	@override String get cartEmpty => 'カートは空です';
+	@override String get subtotal => '小計 ({count}点の商品):';
+	@override String get confirmOrder => '注文を確定する';
+}
+
+// Path: shopping.cart
+class _TranslationsShoppingCartJa implements TranslationsShoppingCartEn {
+	_TranslationsShoppingCartJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get missionText => 'このカートの合計金額を選んでください';
+	@override String get appTitle => 'ショッピングカート';
+	@override String get itemsHeader => 'カートの中身';
+	@override String get itemCount => '{count}点';
+	@override String get questionTitle => '合計金額はいくらですか？';
+	@override String get questionSubtitle => '上のカートに入っている商品の合計を計算して選んでください';
+	@override String get hint => '各商品の単価 × 数量を足すと合計が求まります';
+}
+
+// Path: shopping.checkout
+class _TranslationsShoppingCheckoutJa implements TranslationsShoppingCheckoutEn {
+	_TranslationsShoppingCheckoutJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get missionText => '購入手続きを完了してください';
+	@override String get appTitle => 'お支払い手続き';
+	@override String get step1 => 'カート';
+	@override String get step2 => 'お届け先・支払い';
+	@override String get step3 => '注文確認';
+	@override String get addressSection => 'お届け先住所';
+	@override String get addressPlaceholder => '例: 東京都渋谷区...';
+	@override String get paymentSection => 'お支払い方法';
+	@override String get paymentCreditCard => 'クレジットカード';
+	@override String get paymentConvenience => 'コンビニ払い';
+	@override String get paymentCOD => '代金引換';
+	@override String get summarySection => '注文サマリー';
+	@override String get subtotal => '商品合計';
+	@override String get shipping => '配送料・手数料';
+	@override String get total => '注文合計';
+	@override String get confirmCheck => '注文内容を確認しました';
+	@override String get confirmButton => '注文を確定する';
+}
+
+// Path: shopping.common
+class _TranslationsShoppingCommonJa implements TranslationsShoppingCommonEn {
+	_TranslationsShoppingCommonJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get addToCart => 'カートに追加';
+	@override String get quantity => '数量: {qty}';
+	@override String get primeBadge => 'prime';
+}
+
+// Path: shopping.navigation
+class _TranslationsShoppingNavigationJa implements TranslationsShoppingNavigationEn {
+	_TranslationsShoppingNavigationJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get home => 'ホーム';
+	@override String get search => '検索';
+	@override String get account => 'アカウント';
+	@override String get menu => 'メニュー';
+}
+
+// Path: shopping.categories
+class _TranslationsShoppingCategoriesJa implements TranslationsShoppingCategoriesEn {
+	_TranslationsShoppingCategoriesJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get daily => '日用品';
+	@override String get food => '食品・飲料';
+	@override String get electronics => '家電';
+	@override String get fashion => 'ファッション';
+	@override String get sports => 'スポーツ';
+	@override String get kitchen => 'キッチン';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -239,7 +275,7 @@ class TranslationsPlayJa {
 ///
 /// The Dart AOT compiler has issues with very large switch statements,
 /// so the map is split into smaller functions (512 entries each).
-extension on Translations {
+extension on TranslationsJa {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'NantoNack',
@@ -271,7 +307,7 @@ extension on Translations {
 			'dashboard.remainingPlaysCount' => '残り{count}回',
 			'dashboard.unlimitedPlays' => '無制限',
 			'dashboard.streak' => '連続プレイ',
-			'dashboard.streakDays' => ({required num n, required int days}) => _root.dashboard.streakDays(n: n, days: days),
+			'dashboard.streakDays' => '{days}日連続',
 			'dashboard.activityHistory' => 'プレイ履歴',
 			'dashboard.noActivity' => 'まだプレイ履歴がありません',
 			'play.startPlay' => 'プレイする',
@@ -279,6 +315,50 @@ extension on Translations {
 			'play.selectCategoryDescription' => 'チャレンジするカテゴリーを選んでください',
 			'play.selectStage' => 'ステージ選択',
 			'play.stageCount' => '{count}ステージ',
+			'shopping.water.missionText' => '水を2つ購入してください',
+			'shopping.water.appTitle' => 'nantomall',
+			'shopping.water.searchPlaceholder' => '商品を検索する',
+			'shopping.water.cartTitle' => 'ショッピングカート',
+			'shopping.water.cartEmpty' => 'カートは空です',
+			'shopping.water.subtotal' => '小計 ({count}点の商品):',
+			'shopping.water.confirmOrder' => '注文を確定する',
+			'shopping.cart.missionText' => 'このカートの合計金額を選んでください',
+			'shopping.cart.appTitle' => 'ショッピングカート',
+			'shopping.cart.itemsHeader' => 'カートの中身',
+			'shopping.cart.itemCount' => '{count}点',
+			'shopping.cart.questionTitle' => '合計金額はいくらですか？',
+			'shopping.cart.questionSubtitle' => '上のカートに入っている商品の合計を計算して選んでください',
+			'shopping.cart.hint' => '各商品の単価 × 数量を足すと合計が求まります',
+			'shopping.checkout.missionText' => '購入手続きを完了してください',
+			'shopping.checkout.appTitle' => 'お支払い手続き',
+			'shopping.checkout.step1' => 'カート',
+			'shopping.checkout.step2' => 'お届け先・支払い',
+			'shopping.checkout.step3' => '注文確認',
+			'shopping.checkout.addressSection' => 'お届け先住所',
+			'shopping.checkout.addressPlaceholder' => '例: 東京都渋谷区...',
+			'shopping.checkout.paymentSection' => 'お支払い方法',
+			'shopping.checkout.paymentCreditCard' => 'クレジットカード',
+			'shopping.checkout.paymentConvenience' => 'コンビニ払い',
+			'shopping.checkout.paymentCOD' => '代金引換',
+			'shopping.checkout.summarySection' => '注文サマリー',
+			'shopping.checkout.subtotal' => '商品合計',
+			'shopping.checkout.shipping' => '配送料・手数料',
+			'shopping.checkout.total' => '注文合計',
+			'shopping.checkout.confirmCheck' => '注文内容を確認しました',
+			'shopping.checkout.confirmButton' => '注文を確定する',
+			'shopping.common.addToCart' => 'カートに追加',
+			'shopping.common.quantity' => '数量: {qty}',
+			'shopping.common.primeBadge' => 'prime',
+			'shopping.navigation.home' => 'ホーム',
+			'shopping.navigation.search' => '検索',
+			'shopping.navigation.account' => 'アカウント',
+			'shopping.navigation.menu' => 'メニュー',
+			'shopping.categories.daily' => '日用品',
+			'shopping.categories.food' => '食品・飲料',
+			'shopping.categories.electronics' => '家電',
+			'shopping.categories.fashion' => 'ファッション',
+			'shopping.categories.sports' => 'スポーツ',
+			'shopping.categories.kitchen' => 'キッチン',
 			_ => null,
 		};
 	}

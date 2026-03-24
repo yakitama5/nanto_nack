@@ -9,7 +9,6 @@ import 'package:shopping/src/presentation/water_quiz/water_quiz_notifier.dart';
 
 // Amazon風カラー定数
 const _kNavyColor = Color(0xFF131921);
-const _kOrangeColor = Color(0xFFFF9900);
 
 // ボディ内の検索バー・カテゴリチップの高さ（FloatingMissionBar の位置計算に使用）
 const _kSearchBarHeight = 48.0;
@@ -25,7 +24,6 @@ class WaterQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
-  static const _missionText = '水を2つ購入してください';
   static const _timeLimitSeconds = 60;
 
   bool _showCutIn = true;
@@ -41,6 +39,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
   @override
   Widget build(BuildContext context) {
     final quizState = ref.watch(waterQuizProvider);
+    final missionText = context.t.shopping.water.missionText;
 
     return Stack(
       children: [
@@ -52,9 +51,9 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
           ),
           body: Column(
             children: [
-              // フェイク検索バー（文字化け）
+              // フェイク検索バー（ダミーテキスト）
               const _FakeSearchBar(),
-              // カテゴリナビ（文字化け）
+              // カテゴリナビ（ダミーテキスト）
               const _CategoryBar(),
               // 商品グリッド
               Expanded(
@@ -102,7 +101,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
             right: 16,
             child: FloatingMissionBar(
               remainingSeconds: quizState.remainingSeconds,
-              missionText: _missionText,
+              missionText: missionText,
               hintUsed: quizState.hintUsed,
               timeLimitSeconds: _timeLimitSeconds,
               onHintTap: () => ref.read(waterQuizProvider.notifier).useHint(),
@@ -111,7 +110,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
         // カットイン演出（クイズ開始時のみ）
         if (_showCutIn)
           MissionCutIn(
-            missionText: _missionText,
+            missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
@@ -163,26 +162,13 @@ class _AmazonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: _kNavyColor,
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'nanto',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-            ),
-          ),
-          Text(
-            'mall',
-            style: TextStyle(
-              color: _kOrangeColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-            ),
-          ),
-        ],
+      title: Text(
+        context.qt.shopping.water.appTitle,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+        ),
       ),
       actions: [
         CartBadge(count: cartCount, onTap: onCartTap),
@@ -193,7 +179,7 @@ class _AmazonAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-// ─── フェイク検索バー（文字化けプレースホルダー） ───────────────
+// ─── フェイク検索バー（ダミーテキスト） ───────────────
 
 class _FakeSearchBar extends StatelessWidget {
   const _FakeSearchBar();
@@ -215,9 +201,8 @@ class _FakeSearchBar extends StatelessWidget {
             const Icon(Icons.search, color: Colors.grey, size: 20),
             const SizedBox(width: 8),
             Expanded(
-              child: UnreadableText(
-                '商品を検索する',
-                isObfuscated: true,
+              child: Text(
+                context.qt.shopping.water.searchPlaceholder,
                 style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
               ),
             ),
@@ -229,29 +214,30 @@ class _FakeSearchBar extends StatelessWidget {
   }
 }
 
-// ─── カテゴリナビゲーションバー（文字化け） ──────────────────────
+// ─── カテゴリナビゲーションバー（ダミーテキスト） ──────────────────────
 
 class _CategoryBar extends StatelessWidget {
   const _CategoryBar();
 
-  static const _categories = [
-    '日用品',
-    '食品・飲料',
-    '家電',
-    'ファッション',
-    'スポーツ',
-    'キッチン',
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final cats = context.qt.shopping.categories;
+    final categories = [
+      cats.daily,
+      cats.food,
+      cats.electronics,
+      cats.fashion,
+      cats.sports,
+      cats.kitchen,
+    ];
+
     return Container(
       height: _kCategoryBarHeight,
       color: const Color(0xFF232F3E),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        itemCount: _categories.length,
+        itemCount: categories.length,
         separatorBuilder: (_, __) => const SizedBox(width: 4),
         itemBuilder: (context, index) => Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -259,9 +245,8 @@ class _CategoryBar extends StatelessWidget {
             border: Border.all(color: Colors.white30),
             borderRadius: BorderRadius.circular(2),
           ),
-          child: UnreadableText(
-            _categories[index],
-            isObfuscated: true,
+          child: Text(
+            categories[index],
             style: const TextStyle(color: Colors.white, fontSize: 12),
           ),
         ),
@@ -277,19 +262,20 @@ class _AmazonBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nav = context.qt.shopping.navigation;
     return Container(
       decoration: const BoxDecoration(
         color: _kNavyColor,
         border: Border(top: BorderSide(color: Color(0xFF3A4553))),
       ),
       padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _NavItem(icon: Icons.home_outlined, label: 'ホーム'),
-          _NavItem(icon: Icons.search, label: '検索'),
-          _NavItem(icon: Icons.person_outline, label: 'アカウント'),
-          _NavItem(icon: Icons.menu, label: 'メニュー'),
+          _NavItem(icon: Icons.home_outlined, label: nav.home),
+          _NavItem(icon: Icons.search, label: nav.search),
+          _NavItem(icon: Icons.person_outline, label: nav.account),
+          _NavItem(icon: Icons.menu, label: nav.menu),
         ],
       ),
     );
@@ -330,6 +316,7 @@ class _CartBottomSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final quizState = ref.watch(waterQuizProvider);
     final cart = quizState.cart;
+    final qt = context.qt.shopping.water;
 
     return SafeArea(
       child: Column(
@@ -345,7 +332,7 @@ class _CartBottomSheet extends ConsumerWidget {
                 const Icon(Icons.shopping_cart, color: Color(0xFF007185)),
                 const SizedBox(width: 8),
                 Text(
-                  'ショッピングカート',
+                  qt.cartTitle,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: const Color(0xFF007185),
                       ),
@@ -355,9 +342,9 @@ class _CartBottomSheet extends ConsumerWidget {
           ),
           const Divider(height: 1),
           if (cart.isEmpty)
-            const Padding(
-              padding: EdgeInsets.all(32),
-              child: Text('カートは空です'),
+            Padding(
+              padding: const EdgeInsets.all(32),
+              child: Text(qt.cartEmpty),
             )
           else ...[
             ...cart.items.map(
@@ -366,8 +353,8 @@ class _CartBottomSheet extends ConsumerWidget {
                   backgroundColor: Color(0xFFF3F3F3),
                   child: Text('📦', style: TextStyle(fontSize: 20)),
                 ),
-                title: Text(item.name),
-                subtitle: Text('¥${item.price} × ${item.quantity}'),
+                title: Text(context.qt.shopping.common.quantity.replaceAll('{qty}', item.quantity.toString())),
+                subtitle: Text('¥${item.price}'),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -393,7 +380,7 @@ class _CartBottomSheet extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '小計 (${cart.totalCount}点の商品):',
+                    qt.subtotal.replaceAll('{count}', cart.totalCount.toString()),
                     style: const TextStyle(fontSize: 13),
                   ),
                   Text(
@@ -426,9 +413,9 @@ class _CartBottomSheet extends ConsumerWidget {
                     Navigator.of(context).pop();
                     ref.read(waterQuizProvider.notifier).purchase();
                   },
-                  child: const Text(
-                    '注文を確定する',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  child: Text(
+                    qt.confirmOrder,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

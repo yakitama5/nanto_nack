@@ -19,7 +19,6 @@ class CheckoutQuizScreen extends ConsumerStatefulWidget {
 
 class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
   final _addressController = TextEditingController();
-  static const _missionText = '購入手続きを完了してください';
   static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
 
@@ -40,6 +39,8 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
   @override
   Widget build(BuildContext context) {
     final quizState = ref.watch(checkoutQuizProvider);
+    final missionText = context.t.shopping.checkout.missionText;
+    final qt = context.qt.shopping.checkout;
 
     // 住所変更をNotifierに反映（コントローラとの同期）
     ref.listen<CheckoutQuizState>(checkoutQuizProvider, (prev, next) {
@@ -54,9 +55,9 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
           backgroundColor: const Color(0xFFF3F3F3),
           appBar: AppBar(
             backgroundColor: _kNavyColor,
-            title: const Text(
-              'お支払い手続き',
-              style: TextStyle(color: Colors.white),
+            title: Text(
+              qt.appTitle,
+              style: const TextStyle(color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),
           ),
@@ -64,17 +65,17 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
             child: Column(
               children: [
                 // ステップインジケーター
-                const _StepIndicator(currentStep: 2),
+                _StepIndicator(currentStep: 2),
                 const SizedBox(height: 8),
                 // 1. お届け先住所
                 _SectionCard(
                   icon: Icons.location_on_outlined,
-                  title: 'お届け先住所',
+                  title: qt.addressSection,
                   child: TextField(
                     controller: _addressController,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      hintText: '例: 東京都渋谷区...',
+                      hintText: qt.addressPlaceholder,
                       filled: true,
                       fillColor: Colors.white,
                       contentPadding: const EdgeInsets.symmetric(
@@ -93,7 +94,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                 // 2. お支払い方法
                 _SectionCard(
                   icon: Icons.credit_card,
-                  title: 'お支払い方法',
+                  title: qt.paymentSection,
                   child: _PaymentMethodGroup(
                     selectedPayment: quizState.selectedPayment,
                     onChanged: (v) {
@@ -134,9 +135,9 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                           ? () =>
                               ref.read(checkoutQuizProvider.notifier).confirm()
                           : null,
-                      child: const Text(
-                        '注文を確定する',
-                        style: TextStyle(
+                      child: Text(
+                        qt.confirmButton,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -157,7 +158,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
             right: 16,
             child: FloatingMissionBar(
               remainingSeconds: quizState.remainingSeconds,
-              missionText: _missionText,
+              missionText: missionText,
               hintUsed: false,
               timeLimitSeconds: _timeLimitSeconds,
             ),
@@ -165,7 +166,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
         // カットイン演出
         if (_showCutIn)
           MissionCutIn(
-            missionText: _missionText,
+            missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
@@ -199,15 +200,16 @@ class _StepIndicator extends StatelessWidget {
 
   final int currentStep;
 
-  static const _steps = ['カート', 'お届け先・支払い', '注文確認'];
-
   @override
   Widget build(BuildContext context) {
+    final qt = context.qt.shopping.checkout;
+    final steps = [qt.step1, qt.step2, qt.step3];
+
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       child: Row(
-        children: List.generate(_steps.length * 2 - 1, (i) {
+        children: List.generate(steps.length * 2 - 1, (i) {
           if (i.isOdd) {
             return Expanded(
               child: Container(height: 1, color: Colors.grey.shade300),
@@ -244,7 +246,7 @@ class _StepIndicator extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                _steps[i ~/ 2],
+                steps[i ~/ 2],
                 style: TextStyle(
                   fontSize: 10,
                   color: isCurrent
@@ -319,26 +321,27 @@ class _PaymentMethodGroup extends StatelessWidget {
   final String? selectedPayment;
   final ValueChanged<String?> onChanged;
 
-  static const _methods = [
-    (value: 'クレジットカード', icon: Icons.credit_card, label: 'クレジットカード'),
-    (value: 'コンビニ払い', icon: Icons.store, label: 'コンビニ払い'),
-    (value: '代金引換', icon: Icons.local_shipping_outlined, label: '代金引換'),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final qt = context.qt.shopping.checkout;
+    final methods = [
+      (value: qt.paymentCreditCard, icon: Icons.credit_card),
+      (value: qt.paymentConvenience, icon: Icons.store),
+      (value: qt.paymentCOD, icon: Icons.local_shipping_outlined),
+    ];
+
     return RadioGroup<String>(
       groupValue: selectedPayment,
       onChanged: onChanged,
       child: Column(
-        children: _methods
+        children: methods
             .map(
               (method) => RadioListTile<String>(
                 title: Row(
                   children: [
                     Icon(method.icon, size: 18, color: Colors.grey.shade600),
                     const SizedBox(width: 8),
-                    Text(method.label, style: const TextStyle(fontSize: 14)),
+                    Text(method.value, style: const TextStyle(fontSize: 14)),
                   ],
                 ),
                 value: method.value,
@@ -366,6 +369,7 @@ class _OrderSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final qt = context.qt.shopping.checkout;
     return Container(
       color: Colors.white,
       child: Column(
@@ -382,7 +386,7 @@ class _OrderSummaryCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '注文サマリー',
+                  qt.summarySection,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -397,16 +401,15 @@ class _OrderSummaryCard extends StatelessWidget {
             child: Column(
               children: [
                 _SummaryRow(
-                  label: '商品合計',
-                  value: UnreadableText(
+                  label: qt.subtotal,
+                  value: const Text(
                     '¥780',
-                    isObfuscated: true,
-                    style: const TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14),
                   ),
                 ),
                 const SizedBox(height: 6),
                 _SummaryRow(
-                  label: '配送料・手数料',
+                  label: qt.shipping,
                   value: const Text(
                     '¥0',
                     style: TextStyle(fontSize: 14, color: Color(0xFF007185)),
@@ -414,11 +417,10 @@ class _OrderSummaryCard extends StatelessWidget {
                 ),
                 const Divider(height: 16),
                 _SummaryRow(
-                  label: '注文合計',
-                  value: UnreadableText(
+                  label: qt.total,
+                  value: const Text(
                     '¥780',
-                    isObfuscated: true,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -430,9 +432,9 @@ class _OrderSummaryCard extends StatelessWidget {
           const Divider(height: 1),
           // 確認チェックボックス
           CheckboxListTile(
-            title: const Text(
-              '注文内容を確認しました',
-              style: TextStyle(fontSize: 14),
+            title: Text(
+              qt.confirmCheck,
+              style: const TextStyle(fontSize: 14),
             ),
             value: isConfirmed,
             onChanged: onConfirmChanged,
