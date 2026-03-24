@@ -5,7 +5,10 @@ import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
 
-/// カートの合計金額を当てるクイズ画面
+// Amazon風カラー定数
+const _kNavyColor = Color(0xFF131921);
+
+/// カートの合計金額を当てるクイズ画面（Amazon風カートページ）
 class CartQuizScreen extends ConsumerStatefulWidget {
   const CartQuizScreen({super.key, this.onCompleted});
 
@@ -33,6 +36,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   );
 
   static const _choices = [480, 580, 630, 750];
+  static const _missionText = 'このカートの合計金額を選んでください';
   static const _timeLimitSeconds = 60;
 
   @override
@@ -50,67 +54,33 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
     return Stack(
       children: [
         Scaffold(
-          appBar: AppBar(title: const Text('NantoMall - カート確認')),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
+          backgroundColor: const Color(0xFFF3F3F3),
+          appBar: AppBar(
+            backgroundColor: _kNavyColor,
+            title: const Text(
+              'ショッピングカート',
+              style: TextStyle(color: Colors.white),
+            ),
+            iconTheme: const IconThemeData(color: Colors.white),
+          ),
+          body: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ミッションカード
-                Card(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.assignment,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 8),
-                        const Expanded(
-                          child: Text('ミッション: このカートの合計金額を選んでください'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'カートの中身',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                // カート内アイテム一覧
+                _CartItemsSection(cart: _cart),
                 const SizedBox(height: 8),
-                ..._cart.items.map(
-                  (item) => ListTile(
-                    title: Text(item.name),
-                    trailing: Text(
-                      '¥${item.price} × ${item.quantity} = ¥${item.totalPrice}',
-                    ),
-                  ),
+                // 合計金額クイズセクション
+                _PriceSummarySection(
+                  cart: _cart,
+                  choices: _choices,
+                  selectedChoice: quizState.selectedChoice,
+                  hintUsed: quizState.hintUsed,
+                  isPlaying: quizState.status == QuizStatus.playing,
+                  onChoiceSelect: (c) => ref
+                      .read(cartQuizProvider.notifier)
+                      .selectChoice(choice: c, cart: _cart),
                 ),
-                const Divider(),
-                const SizedBox(height: 16),
-                Text(
-                  '合計金額はいくらですか？',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: 16),
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: _choices
-                      .map(
-                        (c) => ChoiceChip(
-                          label: Text('¥$c'),
-                          selected: quizState.selectedChoice == c,
-                          onSelected: (_) => ref
-                              .read(cartQuizProvider.notifier)
-                              .selectChoice(choice: c, cart: _cart),
-                        ),
-                      )
-                      .toList(),
-                ),
+                const SizedBox(height: 80), // FloatingMissionBar 分の余白
               ],
             ),
           ),
@@ -123,17 +93,16 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             right: 16,
             child: FloatingMissionBar(
               remainingSeconds: quizState.remainingSeconds,
-              missionText: 'このカートの合計金額を選んでください',
+              missionText: _missionText,
               hintUsed: quizState.hintUsed,
               timeLimitSeconds: _timeLimitSeconds,
-              onHintTap: () =>
-                  ref.read(cartQuizProvider.notifier).useHint(),
+              onHintTap: () => ref.read(cartQuizProvider.notifier).useHint(),
             ),
           ),
         // カットイン演出
         if (_showCutIn)
           MissionCutIn(
-            missionText: 'このカートの合計金額を選んでください',
+            missionText: _missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
@@ -156,6 +125,310 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             ),
           ),
       ],
+    );
+  }
+}
+
+// ─── カート内アイテム一覧セクション ──────────────────────────────
+
+class _CartItemsSection extends StatelessWidget {
+  const _CartItemsSection({required this.cart});
+
+  final ShoppingCart cart;
+
+  // 商品IDに対応する絵文字
+  static const _emojiMap = {
+    'water_500ml': '💧',
+    'tea_500ml': '🍵',
+    'coffee_500ml': '☕',
+    'juice_500ml': '🍊',
+    'water_2l': '🫙',
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Row(
+              children: [
+                Text(
+                  'カートの中身',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF007185),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '${cart.totalCount}点',
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          ...cart.items.map((item) => _CartItemTile(item: item, emojiMap: _emojiMap)),
+        ],
+      ),
+    );
+  }
+}
+
+class _CartItemTile extends StatelessWidget {
+  const _CartItemTile({
+    required this.item,
+    required this.emojiMap,
+  });
+
+  final CartItem item;
+  final Map<String, String> emojiMap;
+
+  @override
+  Widget build(BuildContext context) {
+    final emoji = emojiMap[item.id] ?? '📦';
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 商品画像
+          Container(
+            width: 72,
+            height: 72,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              border: Border.all(color: Colors.grey.shade200),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Center(
+              child: Text(emoji, style: const TextStyle(fontSize: 36)),
+            ),
+          ),
+          const SizedBox(width: 12),
+          // 商品情報
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 商品名（文字化け）
+                UnreadableText(
+                  item.name,
+                  isObfuscated: true,
+                  style: const TextStyle(fontSize: 13, height: 1.4),
+                ),
+                const SizedBox(height: 4),
+                // Prime バッジ
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 1,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF00A8E1),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: const Text(
+                    'prime',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 9,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                // 数量・金額
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(4),
+                        color: const Color(0xFFF3F3F3),
+                      ),
+                      child: Text(
+                        '数量: ${item.quantity}',
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '¥${item.totalPrice}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── 合計金額クイズセクション ─────────────────────────────────────
+
+class _PriceSummarySection extends StatelessWidget {
+  const _PriceSummarySection({
+    required this.cart,
+    required this.choices,
+    required this.selectedChoice,
+    required this.hintUsed,
+    required this.isPlaying,
+    required this.onChoiceSelect,
+  });
+
+  final ShoppingCart cart;
+  final List<int> choices;
+  final int? selectedChoice;
+  final bool hintUsed;
+  final bool isPlaying;
+  final ValueChanged<int> onChoiceSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 合計金額の問いかけ
+          Row(
+            children: [
+              const Icon(Icons.calculate_outlined, color: Color(0xFF007185)),
+              const SizedBox(width: 8),
+              Text(
+                '合計金額はいくらですか？',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '上のカートに入っている商品の合計を計算して選んでください',
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: Colors.grey.shade600),
+          ),
+          const SizedBox(height: 16),
+          // 選択肢（2×2グリッド）
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2.8,
+            children: choices
+                .map(
+                  (c) => _ChoiceButton(
+                    price: c,
+                    isSelected: selectedChoice == c,
+                    onTap: isPlaying ? () => onChoiceSelect(c) : null,
+                  ),
+                )
+                .toList(),
+          ),
+          const SizedBox(height: 16),
+          // ヒント表示（使用済みの場合）
+          if (hintUsed)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF3CD),
+                border: Border.all(color: const Color(0xFFFF9900)),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.lightbulb_outline,
+                    color: Color(0xFFFF9900),
+                    size: 16,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '各商品の単価 × 数量を足すと合計が求まります',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChoiceButton extends StatelessWidget {
+  const _ChoiceButton({
+    required this.price,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final int price;
+  final bool isSelected;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFFFFF3CD) : Colors.white,
+          border: Border.all(
+            color: isSelected
+                ? const Color(0xFFFF9900)
+                : Colors.grey.shade300,
+            width: isSelected ? 2 : 1,
+          ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Center(
+          child: Text(
+            '¥$price',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: isSelected
+                  ? const Color(0xFFB45309)
+                  : Colors.black87,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

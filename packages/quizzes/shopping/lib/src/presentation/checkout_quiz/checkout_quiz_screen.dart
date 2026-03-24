@@ -4,6 +4,9 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
 
+// Amazon風カラー定数
+const _kNavyColor = Color(0xFF131921);
+
 class CheckoutQuizScreen extends ConsumerStatefulWidget {
   const CheckoutQuizScreen({super.key, this.onCompleted});
 
@@ -16,6 +19,7 @@ class CheckoutQuizScreen extends ConsumerStatefulWidget {
 
 class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
   final _addressController = TextEditingController();
+  static const _missionText = '購入手続きを完了してください';
   static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
 
@@ -47,90 +51,100 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
     return Stack(
       children: [
         Scaffold(
-          appBar: AppBar(title: const Text('NantoMall - お支払い')),
+          backgroundColor: const Color(0xFFF3F3F3),
+          appBar: AppBar(
+            backgroundColor: _kNavyColor,
+            title: const Text(
+              'お支払い手続き',
+              style: TextStyle(color: Colors.white),
+            ),
+            iconTheme: const IconThemeData(color: Colors.white),
+          ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.assignment,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 8),
-                        const Expanded(
-                          child: Text('ミッション: 購入手続きを完了してください'),
-                        ),
-                      ],
+                // ステップインジケーター
+                const _StepIndicator(currentStep: 2),
+                const SizedBox(height: 8),
+                // 1. お届け先住所
+                _SectionCard(
+                  icon: Icons.location_on_outlined,
+                  title: 'お届け先住所',
+                  child: TextField(
+                    controller: _addressController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: '例: 東京都渋谷区...',
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
                     ),
+                    onChanged: (v) =>
+                        ref.read(checkoutQuizProvider.notifier).updateAddress(v),
                   ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'お届け先住所',
-                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                TextField(
-                  controller: _addressController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: '例: 東京都渋谷区...',
+                // 2. お支払い方法
+                _SectionCard(
+                  icon: Icons.credit_card,
+                  title: 'お支払い方法',
+                  child: _PaymentMethodGroup(
+                    selectedPayment: quizState.selectedPayment,
+                    onChanged: (v) {
+                      if (v != null) {
+                        ref
+                            .read(checkoutQuizProvider.notifier)
+                            .selectPayment(v);
+                      }
+                    },
                   ),
-                  onChanged: (v) =>
-                      ref.read(checkoutQuizProvider.notifier).updateAddress(v),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'お支払い方法',
-                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                RadioGroup<String>(
-                  groupValue: quizState.selectedPayment,
-                  onChanged: (v) {
-                    if (v != null) {
-                      ref
-                          .read(checkoutQuizProvider.notifier)
-                          .selectPayment(v);
-                    }
-                  },
-                  child: Column(
-                    children: ['クレジットカード', 'コンビニ払い', '代金引換']
-                        .map(
-                          (method) => RadioListTile<String>(
-                            title: Text(method),
-                            value: method,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                CheckboxListTile(
-                  title: const Text('注文内容を確認しました'),
-                  value: quizState.isConfirmed,
-                  onChanged: (v) => ref
+                // 3. 注文内容の確認
+                _OrderSummaryCard(
+                  isConfirmed: quizState.isConfirmed,
+                  onConfirmChanged: (v) => ref
                       .read(checkoutQuizProvider.notifier)
                       .toggleConfirmed(value: v ?? false),
                 ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: quizState.status == QuizStatus.playing
-                        ? () =>
-                            ref.read(checkoutQuizProvider.notifier).confirm()
-                        : null,
-                    child: const Text('注文を確定する'),
+                const SizedBox(height: 16),
+                // 注文確定ボタン
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFFD814),
+                        foregroundColor: Colors.black87,
+                        elevation: 0,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: Color(0xFFFFA41C)),
+                        ),
+                      ),
+                      onPressed: quizState.status == QuizStatus.playing
+                          ? () =>
+                              ref.read(checkoutQuizProvider.notifier).confirm()
+                          : null,
+                      child: const Text(
+                        '注文を確定する',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
+                const SizedBox(height: 80), // FloatingMissionBar 分の余白
               ],
             ),
           ),
@@ -143,7 +157,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
             right: 16,
             child: FloatingMissionBar(
               remainingSeconds: quizState.remainingSeconds,
-              missionText: '購入手続きを完了してください',
+              missionText: _missionText,
               hintUsed: false,
               timeLimitSeconds: _timeLimitSeconds,
             ),
@@ -151,7 +165,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
         // カットイン演出
         if (_showCutIn)
           MissionCutIn(
-            missionText: '購入手続きを完了してください',
+            missionText: _missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
@@ -173,6 +187,281 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                   : null,
             ),
           ),
+      ],
+    );
+  }
+}
+
+// ─── ステップインジケーター ───────────────────────────────────────
+
+class _StepIndicator extends StatelessWidget {
+  const _StepIndicator({required this.currentStep});
+
+  final int currentStep;
+
+  static const _steps = ['カート', 'お届け先・支払い', '注文確認'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      child: Row(
+        children: List.generate(_steps.length * 2 - 1, (i) {
+          if (i.isOdd) {
+            return Expanded(
+              child: Container(height: 1, color: Colors.grey.shade300),
+            );
+          }
+          final stepIndex = i ~/ 2 + 1;
+          final isDone = stepIndex < currentStep;
+          final isCurrent = stepIndex == currentStep;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isDone || isCurrent
+                      ? const Color(0xFF232F3E)
+                      : Colors.grey.shade200,
+                ),
+                child: Center(
+                  child: isDone
+                      ? const Icon(Icons.check, color: Colors.white, size: 14)
+                      : Text(
+                          '$stepIndex',
+                          style: TextStyle(
+                            color:
+                                isCurrent ? Colors.white : Colors.grey.shade500,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                _steps[i ~/ 2],
+                style: TextStyle(
+                  fontSize: 10,
+                  color: isCurrent
+                      ? const Color(0xFF232F3E)
+                      : Colors.grey.shade500,
+                  fontWeight:
+                      isCurrent ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+}
+
+// ─── セクションカード ─────────────────────────────────────────────
+
+class _SectionCard extends StatelessWidget {
+  const _SectionCard({
+    required this.icon,
+    required this.title,
+    required this.child,
+  });
+
+  final IconData icon;
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
+            child: Row(
+              children: [
+                Icon(icon, size: 20, color: const Color(0xFF007185)),
+                const SizedBox(width: 8),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── お支払い方法選択グループ ─────────────────────────────────────
+
+class _PaymentMethodGroup extends StatelessWidget {
+  const _PaymentMethodGroup({
+    required this.selectedPayment,
+    required this.onChanged,
+  });
+
+  final String? selectedPayment;
+  final ValueChanged<String?> onChanged;
+
+  static const _methods = [
+    (value: 'クレジットカード', icon: Icons.credit_card, label: 'クレジットカード'),
+    (value: 'コンビニ払い', icon: Icons.store, label: 'コンビニ払い'),
+    (value: '代金引換', icon: Icons.local_shipping_outlined, label: '代金引換'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return RadioGroup<String>(
+      groupValue: selectedPayment,
+      onChanged: onChanged,
+      child: Column(
+        children: _methods
+            .map(
+              (method) => RadioListTile<String>(
+                title: Row(
+                  children: [
+                    Icon(method.icon, size: 18, color: Colors.grey.shade600),
+                    const SizedBox(width: 8),
+                    Text(method.label, style: const TextStyle(fontSize: 14)),
+                  ],
+                ),
+                value: method.value,
+                activeColor: const Color(0xFF007185),
+                contentPadding: EdgeInsets.zero,
+                dense: true,
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+}
+
+// ─── 注文確認サマリーカード ───────────────────────────────────────
+
+class _OrderSummaryCard extends StatelessWidget {
+  const _OrderSummaryCard({
+    required this.isConfirmed,
+    required this.onConfirmChanged,
+  });
+
+  final bool isConfirmed;
+  final ValueChanged<bool?> onConfirmChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.receipt_long_outlined,
+                  size: 20,
+                  color: Color(0xFF007185),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '注文サマリー',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          // 注文内容（ダミー）
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                _SummaryRow(
+                  label: '商品合計',
+                  value: UnreadableText(
+                    '¥780',
+                    isObfuscated: true,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                _SummaryRow(
+                  label: '配送料・手数料',
+                  value: const Text(
+                    '¥0',
+                    style: TextStyle(fontSize: 14, color: Color(0xFF007185)),
+                  ),
+                ),
+                const Divider(height: 16),
+                _SummaryRow(
+                  label: '注文合計',
+                  value: UnreadableText(
+                    '¥780',
+                    isObfuscated: true,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          // 確認チェックボックス
+          CheckboxListTile(
+            title: const Text(
+              '注文内容を確認しました',
+              style: TextStyle(fontSize: 14),
+            ),
+            value: isConfirmed,
+            onChanged: onConfirmChanged,
+            activeColor: const Color(0xFF007185),
+            controlAffinity: ListTileControlAffinity.leading,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SummaryRow extends StatelessWidget {
+  const _SummaryRow({required this.label, required this.value});
+
+  final String label;
+  final Widget value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 14, color: Colors.black87),
+        ),
+        value,
       ],
     );
   }
