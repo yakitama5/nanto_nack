@@ -2,6 +2,11 @@
 cmake_minimum_required(VERSION 3.14)
 project(nanto_nack LANGUAGES CXX)
 
+# 社内ネットワーク等で CRL/OCSP の到達に失敗するため、
+# FetchContent が使う HTTPS の証明書失効確認を無効化する。
+# 開発ビルド専用の設定（本番リリースビルドでは外すこと）。
+set(CMAKE_TLS_VERIFY OFF)
+
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "nanto_nack")
