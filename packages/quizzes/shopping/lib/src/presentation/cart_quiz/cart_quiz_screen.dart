@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
@@ -54,35 +55,42 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
 
     return Stack(
       children: [
-        Scaffold(
-          backgroundColor: const Color(0xFFF3F3F3),
-          appBar: AppBar(
-            backgroundColor: _kNavyColor,
-            title: Text(
-              context.sq.cart.appTitle,
-              style: const TextStyle(color: Colors.white),
+        Theme(
+          data: Theme.of(context).copyWith(
+            textTheme: GoogleFonts.notoSansTextTheme(
+              Theme.of(context).textTheme,
             ),
-            iconTheme: const IconThemeData(color: Colors.white),
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                // カート内アイテム一覧
-                _CartItemsSection(cart: _cart),
-                const SizedBox(height: 8),
-                // 合計金額クイズセクション
-                _PriceSummarySection(
-                  cart: _cart,
-                  choices: _choices,
-                  selectedChoice: quizState.selectedChoice,
-                  hintUsed: quizState.hintUsed,
-                  isPlaying: quizState.status == QuizStatus.playing,
-                  onChoiceSelect: (c) => ref
-                      .read(cartQuizProvider.notifier)
-                      .selectChoice(choice: c, cart: _cart),
-                ),
-                const SizedBox(height: 80), // FloatingMissionBar 分の余白
-              ],
+          child: Scaffold(
+            backgroundColor: const Color(0xFFF3F3F3),
+            appBar: AppBar(
+              backgroundColor: _kNavyColor,
+              title: Text(
+                context.sq.cart.appTitle,
+                style: const TextStyle(color: Colors.white),
+              ),
+              iconTheme: const IconThemeData(color: Colors.white),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // カート内アイテム一覧
+                  _CartItemsSection(cart: _cart),
+                  const SizedBox(height: 8),
+                  // 合計金額クイズセクション
+                  _PriceSummarySection(
+                    cart: _cart,
+                    choices: _choices,
+                    selectedChoice: quizState.selectedChoice,
+                    hintUsed: quizState.hintUsed,
+                    isPlaying: quizState.status == QuizStatus.playing,
+                    onChoiceSelect: (c) => ref
+                        .read(cartQuizProvider.notifier)
+                        .selectChoice(choice: c, cart: _cart),
+                  ),
+                  const SizedBox(height: 80), // FloatingMissionBar 分の余白
+                ],
+              ),
             ),
           ),
         ),
