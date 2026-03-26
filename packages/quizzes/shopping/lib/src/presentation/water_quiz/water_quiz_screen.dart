@@ -61,7 +61,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                   padding: const EdgeInsets.all(8),
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
-                    childAspectRatio: 0.72,
+                    childAspectRatio: 0.58,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                   ),
