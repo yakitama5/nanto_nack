@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/catalog.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
@@ -47,11 +46,13 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
       children: [
         Theme(
           data: Theme.of(context).copyWith(
-            textTheme: GoogleFonts.notoSansTextTheme(
-              Theme.of(context).textTheme,
+            textTheme: Theme.of(context).textTheme.apply(
+              fontFamily: 'NotoSans',
             ),
           ),
-          child: Scaffold(
+          child: DefaultTextStyle.merge(
+            style: const TextStyle(fontFamily: 'NotoSans'),
+            child: Scaffold(
           backgroundColor: const Color(0xFFF3F3F3),
           appBar: _AmazonAppBar(
             cartCount: quizState.cart.totalCount,
@@ -105,6 +106,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
             ],
           ),
           bottomNavigationBar: const _AmazonBottomNav(),
+          ),
           ),
         ),
         // フローティングミッションバー（検索バー＋カテゴリバーの下に配置）
