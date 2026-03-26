@@ -231,8 +231,10 @@ class _QuantityController extends StatelessWidget {
               onPressed: onDecrement,
             ),
           ),
-          Text(
+          UnreadableText(
             '$quantity',
+            isObfuscated: true,
+            animateOnObfuscate: false,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 12,

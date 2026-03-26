@@ -172,8 +172,10 @@ class _AmazonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: _kNavyColor,
-      title: Text(
+      title: UnreadableText(
         context.qt.shopping.water.appTitle,
+        isObfuscated: true,
+        animateOnObfuscate: false,
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -211,8 +213,10 @@ class _FakeSearchBar extends StatelessWidget {
             const Icon(Icons.search, color: Colors.grey, size: 20),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
+              child: UnreadableText(
                 context.qt.shopping.water.searchPlaceholder,
+                isObfuscated: true,
+                animateOnObfuscate: false,
                 style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
               ),
             ),
@@ -255,8 +259,10 @@ class _CategoryBar extends StatelessWidget {
             border: Border.all(color: Colors.white30),
             borderRadius: BorderRadius.circular(2),
           ),
-          child: Text(
+          child: UnreadableText(
             categories[index],
+            isObfuscated: true,
+            animateOnObfuscate: false,
             style: const TextStyle(color: Colors.white, fontSize: 12),
           ),
         ),
@@ -307,8 +313,10 @@ class _NavItem extends StatelessWidget {
         children: [
           Icon(icon, color: Colors.white, size: 22),
           const SizedBox(height: 2),
-          Text(
+          UnreadableText(
             label,
+            isObfuscated: true,
+            animateOnObfuscate: false,
             style: const TextStyle(color: Colors.white, fontSize: 10),
           ),
         ],
@@ -341,8 +349,10 @@ class _CartBottomSheet extends ConsumerWidget {
               children: [
                 const Icon(Icons.shopping_cart, color: Color(0xFF007185)),
                 const SizedBox(width: 8),
-                Text(
+                UnreadableText(
                   qt.cartTitle,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: const Color(0xFF007185),
                       ),
@@ -354,7 +364,11 @@ class _CartBottomSheet extends ConsumerWidget {
           if (cart.isEmpty)
             Padding(
               padding: const EdgeInsets.all(32),
-              child: Text(qt.cartEmpty),
+              child: UnreadableText(
+                qt.cartEmpty,
+                isObfuscated: true,
+                animateOnObfuscate: false,
+              ),
             )
           else ...[
             ...cart.items.map(
@@ -363,13 +377,26 @@ class _CartBottomSheet extends ConsumerWidget {
                   backgroundColor: Color(0xFFF3F3F3),
                   child: Text('📦', style: TextStyle(fontSize: 20)),
                 ),
-                title: Text(context.qt.shopping.common.quantity.replaceAll('{qty}', item.quantity.toString())),
-                subtitle: Text('¥${item.price}'),
+                title: UnreadableText(
+                  context.qt.shopping.common.quantity.replaceAll(
+                    '{qty}',
+                    item.quantity.toString(),
+                  ),
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                ),
+                subtitle: UnreadableText(
+                  '¥${item.price}',
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    UnreadableText(
                       '¥${item.totalPrice}',
+                      isObfuscated: true,
+                      animateOnObfuscate: false,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     IconButton(
@@ -389,12 +416,19 @@ class _CartBottomSheet extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    qt.subtotal.replaceAll('{count}', cart.totalCount.toString()),
+                  UnreadableText(
+                    qt.subtotal.replaceAll(
+                      '{count}',
+                      cart.totalCount.toString(),
+                    ),
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
                     style: const TextStyle(fontSize: 13),
                   ),
-                  Text(
+                  UnreadableText(
                     '¥${cart.totalPrice}',
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -423,8 +457,10 @@ class _CartBottomSheet extends ConsumerWidget {
                     Navigator.of(context).pop();
                     ref.read(waterQuizProvider.notifier).purchase();
                   },
-                  child: Text(
+                  child: UnreadableText(
                     qt.confirmOrder,
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
