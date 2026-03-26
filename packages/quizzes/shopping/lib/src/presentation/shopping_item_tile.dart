@@ -67,9 +67,8 @@ class _ShoppingItemTileState extends State<ShoppingItemTile> {
                         : null,
                   ),
                   alignment: Alignment.center,
-                  child: Text(
-                    widget.item.imageEmoji,
-                    style: const TextStyle(fontSize: 48),
+                  child: widget.item.image.image(
+                    fit: BoxFit.contain,
                   ),
                 ),
                 // 右上のアニメーション付きお気に入りボタン

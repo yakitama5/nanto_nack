@@ -2,6 +2,7 @@ import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:shopping/gen/assets.gen.dart';
 import 'package:shopping/shopping.dart';
 
 // ─── ゴールデンテスト ─────────────────────────────────────────────────────────
@@ -26,12 +27,12 @@ void main() {
                 data: AppTheme.light(),
                 child: Material(
                   child: ShoppingItemTile(
-                    item: const ShoppingItem(
+                    item: ShoppingItem(
                       id: 'water_500ml',
                       name: '天然水 500ml',
                       price: 100,
                       description: '国産天然水。まろやかな口当たり。',
-                      imageEmoji: '💧',
+                      image: Assets.item.waterPuraAqua,
                     ),
                     quantity: 0,
                     onIncrement: () {},
@@ -49,12 +50,12 @@ void main() {
                 data: AppTheme.light(),
                 child: Material(
                   child: ShoppingItemTile(
-                    item: const ShoppingItem(
+                    item: ShoppingItem(
                       id: 'water_500ml',
                       name: '天然水 500ml',
                       price: 100,
                       description: '国産天然水。まろやかな口当たり。',
-                      imageEmoji: '💧',
+                      image: Assets.item.waterPuraAqua,
                     ),
                     quantity: 2,
                     onIncrement: () {},
@@ -72,12 +73,12 @@ void main() {
                 data: AppTheme.light(),
                 child: Material(
                   child: ShoppingItemTile(
-                    item: const ShoppingItem(
+                    item: ShoppingItem(
                       id: 'water_500ml',
                       name: '天然水 500ml',
                       price: 100,
                       description: '国産天然水。まろやかな口当たり。',
-                      imageEmoji: '💧',
+                      image: Assets.item.waterPuraAqua,
                     ),
                     highlighted: true,
                     quantity: 1,
