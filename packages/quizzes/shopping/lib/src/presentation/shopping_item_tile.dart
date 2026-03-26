@@ -2,140 +2,122 @@ import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/shopping_item.dart';
 
-/// Amazon風の縦型商品カード
+/// Amazon風EC商品カード（お気に入り＆数量ステッパー統合版）
 ///
 /// [highlighted] が true のとき、ヒント対象商品として強調表示し、
 /// テキストを読める状態（リアルテキスト）に戻す。
-class ShoppingItemTile extends StatelessWidget {
+///
+/// お気に入り状態はカードローカルで管理する（クイズ結果には影響しない）。
+class ShoppingItemTile extends StatefulWidget {
   const ShoppingItemTile({
     super.key,
     required this.item,
-    required this.onAddToCart,
+    required this.quantity,
+    required this.onIncrement,
+    required this.onDecrement,
     this.highlighted = false,
   });
 
   final ShoppingItem item;
-  final VoidCallback onAddToCart;
+
+  /// カート内の現在の数量（0 = 未追加）
+  final int quantity;
+
+  /// 数量を1増やす
+  final VoidCallback onIncrement;
+
+  /// 数量を1減らす（0になるとカートから削除）
+  final VoidCallback onDecrement;
 
   /// ヒント時にこのアイテムを強調表示し、テキストを読めるようにするか
   final bool highlighted;
 
-  // 商品IDに基づく決定論的なダミー評価（再起動しても同じ値）
-  double get _rating {
-    final code = item.id.codeUnits.fold(0, (a, b) => a + b);
-    return 3.5 + (code % 3) * 0.5; // 3.5, 4.0, 4.5 のいずれか
-  }
+  @override
+  State<ShoppingItemTile> createState() => _ShoppingItemTileState();
+}
 
-  int get _reviewCount {
-    final code = item.id.codeUnits.fold(0, (a, b) => a + b);
-    return 50 + (code % 10) * 30;
-  }
+class _ShoppingItemTileState extends State<ShoppingItemTile> {
+  bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
-    final common = context.qt.shopping.common;
     return Card(
-      elevation: highlighted ? 3 : 1,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(4)),
-      ),
+      color: Colors.white,
+      elevation: widget.highlighted ? 3 : 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 商品画像エリア（正方形）
+          // 1. お気に入りボタン付き画像エリア（正方形）
           AspectRatio(
             aspectRatio: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                color:
-                    highlighted ? const Color(0xFFFFF3CD) : Colors.grey.shade50,
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(4),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: widget.highlighted
+                        ? const Color(0xFFFFF3CD)
+                        : Colors.grey[50],
+                    border: widget.highlighted
+                        ? Border.all(
+                            color: const Color(0xFFFF9900),
+                            width: 2,
+                          )
+                        : null,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    widget.item.imageEmoji,
+                    style: const TextStyle(fontSize: 48),
+                  ),
                 ),
-                border: highlighted
-                    ? Border.all(color: const Color(0xFFFF9900), width: 2)
-                    : null,
-              ),
-              child: Center(
-                child: Text(
-                  item.imageEmoji,
-                  style: const TextStyle(fontSize: 48),
+                // 右上のアニメーション付きお気に入りボタン
+                Positioned(
+                  top: 4,
+                  right: 4,
+                  child: _FavoriteButton(
+                    isFavorite: _isFavorite,
+                    onToggle: () =>
+                        setState(() => _isFavorite = !_isFavorite),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-          // 商品情報エリア
+          // 2. 情報エリア
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 商品名: ヒント使用時のみ読める（通常はダミーテキストで表示）
-                  highlighted
-                      ? Text(
-                          item.name,
-                          style: const TextStyle(fontSize: 12, height: 1.3),
-                        )
-                      : UnreadableText(
-                          item.name,
-                          style: const TextStyle(fontSize: 12, height: 1.3),
-                        ),
-                  const SizedBox(height: 4),
-                  // レーティング（ダミー）
-                  _RatingRow(
-                    rating: _rating,
-                    reviewCount: _reviewCount,
-                    isObfuscated: !highlighted,
-                  ),
-                  const SizedBox(height: 4),
-                  // 価格
-                  highlighted
-                      ? Text(
-                          '¥${item.price}',
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      : UnreadableText(
-                          '¥${item.price}',
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                  const SizedBox(height: 2),
-                  // Prime バッジ
-                  _PrimeBadge(
-                    label: common.primeBadge,
-                    isObfuscated: !highlighted,
+                  // 商品名（ヒント時のみ読める）
+                  UnreadableText(
+                    widget.item.name,
+                    isObfuscated: !widget.highlighted,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 12, height: 1.3),
                   ),
                   const Spacer(),
-                  // カートに追加ボタン（Amazon黄色）
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFFD814),
-                        foregroundColor: Colors.black87,
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: const BorderSide(color: Color(0xFFFFA41C)),
-                        ),
-                      ),
-                      onPressed: onAddToCart,
-                      child: highlighted
-                          ? Text(
-                              common.addToCart,
-                              style: const TextStyle(fontSize: 11),
-                            )
-                          : UnreadableText(
-                              common.addToCart,
-                              style: const TextStyle(fontSize: 11),
-                            ),
+                  // 価格
+                  UnreadableText(
+                    '¥${widget.item.price}',
+                    isObfuscated: !widget.highlighted,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  // 右下の数量コントロール
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: _QuantityController(
+                      quantity: widget.quantity,
+                      onIncrement: widget.onIncrement,
+                      onDecrement: widget.onDecrement,
                     ),
                   ),
                 ],
@@ -148,72 +130,123 @@ class ShoppingItemTile extends StatelessWidget {
   }
 }
 
-class _RatingRow extends StatelessWidget {
-  const _RatingRow({
-    required this.rating,
-    required this.reviewCount,
-    required this.isObfuscated,
+// ─── お気に入りボタン（アニメーション付き） ──────────────────────────
+
+class _FavoriteButton extends StatelessWidget {
+  const _FavoriteButton({
+    required this.isFavorite,
+    required this.onToggle,
   });
 
-  final double rating;
-  final int reviewCount;
-  final bool isObfuscated;
+  final bool isFavorite;
+  final VoidCallback onToggle;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ...List.generate(5, (i) {
-          if (i < rating.floor()) {
-            return const Icon(Icons.star, size: 11, color: Color(0xFFFF9900));
-          }
-          if (i < rating) {
-            return const Icon(
-              Icons.star_half,
-              size: 11,
-              color: Color(0xFFFF9900),
-            );
-          }
-          return const Icon(
-            Icons.star_outline,
-            size: 11,
-            color: Color(0xFFFF9900),
-          );
-        }),
-        const SizedBox(width: 3),
-        UnreadableText(
-          '$reviewCount',
-          isObfuscated: isObfuscated,
-          style: const TextStyle(fontSize: 10, color: Color(0xFF007185)),
-        ),
-      ],
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (child, animation) =>
+          ScaleTransition(scale: animation, child: child),
+      child: isFavorite
+          ? IconButton(
+              key: const ValueKey('fav'),
+              icon: const Icon(Icons.favorite, color: Colors.red, size: 20),
+              onPressed: onToggle,
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.white.withValues(alpha: 0.85),
+                padding: const EdgeInsets.all(4),
+                minimumSize: const Size(32, 32),
+              ),
+            )
+          : IconButton(
+              key: const ValueKey('fav_border'),
+              icon: const Icon(
+                Icons.favorite_border,
+                color: Colors.grey,
+                size: 20,
+              ),
+              onPressed: onToggle,
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.white.withValues(alpha: 0.85),
+                padding: const EdgeInsets.all(4),
+                minimumSize: const Size(32, 32),
+              ),
+            ),
     );
   }
 }
 
-class _PrimeBadge extends StatelessWidget {
-  const _PrimeBadge({required this.label, required this.isObfuscated});
+// ─── 数量コントロール（ステッパー） ─────────────────────────────────
 
-  final String label;
-  final bool isObfuscated;
+class _QuantityController extends StatelessWidget {
+  const _QuantityController({
+    required this.quantity,
+    required this.onIncrement,
+    required this.onDecrement,
+  });
+
+  final int quantity;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-      decoration: BoxDecoration(
-        color: const Color(0xFF00A8E1),
-        borderRadius: BorderRadius.circular(2),
-      ),
-      child: UnreadableText(
-        label,
-        isObfuscated: isObfuscated,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 9,
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.italic,
+    // 数量が 0 のとき：カートへの追加ボタン
+    if (quantity == 0) {
+      return SizedBox(
+        width: 32,
+        height: 32,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFFFD814),
+            foregroundColor: Colors.black87,
+            padding: EdgeInsets.zero,
+            shape: const CircleBorder(),
+            elevation: 0,
+          ),
+          onPressed: onIncrement,
+          child: const Icon(Icons.add_shopping_cart, size: 16),
         ),
+      );
+    }
+
+    // 数量が 1 以上のとき：ステッパー UI
+    return Container(
+      height: 28,
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFD814),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFFFFA41C)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: 28,
+            height: 28,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.remove, size: 14),
+              onPressed: onDecrement,
+            ),
+          ),
+          Text(
+            '$quantity',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+          SizedBox(
+            width: 28,
+            height: 28,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.add, size: 14),
+              onPressed: onIncrement,
+            ),
+          ),
+        ],
       ),
     );
   }

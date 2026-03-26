@@ -61,7 +61,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                   padding: const EdgeInsets.all(8),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.52,
+                    childAspectRatio: 0.72,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                   ),
@@ -69,10 +69,16 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                   itemBuilder: (context, index) {
                     final item = kShoppingCatalog[index];
                     final isHinted = quizState.hintItemId == item.id;
+                    final quantity = quizState.cart.items
+                            .where((ci) => ci.id == item.id)
+                            .firstOrNull
+                            ?.quantity ??
+                        0;
                     return ShoppingItemTile(
                       item: item,
                       highlighted: isHinted,
-                      onAddToCart: () =>
+                      quantity: quantity,
+                      onIncrement: () =>
                           ref.read(waterQuizProvider.notifier).addToCart(
                                 CartItem(
                                   id: item.id,
@@ -81,6 +87,9 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                                   quantity: 1,
                                 ),
                               ),
+                      onDecrement: () => ref
+                          .read(waterQuizProvider.notifier)
+                          .updateQuantity(item.id, quantity - 1),
                     );
                   },
                 ),

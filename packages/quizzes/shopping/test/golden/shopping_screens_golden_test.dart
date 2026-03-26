@@ -19,7 +19,7 @@ void main() {
       builder: () => GoldenTestGroup(
         children: [
           GoldenTestScenario(
-            name: 'normal',
+            name: 'normal (quantity: 0)',
             child: SizedBox(
               width: 400,
               child: Theme(
@@ -33,7 +33,32 @@ void main() {
                       description: '国産天然水。まろやかな口当たり。',
                       imageEmoji: '💧',
                     ),
-                    onAddToCart: () {},
+                    quantity: 0,
+                    onIncrement: () {},
+                    onDecrement: () {},
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'with quantity stepper',
+            child: SizedBox(
+              width: 400,
+              child: Theme(
+                data: AppTheme.light(),
+                child: Material(
+                  child: ShoppingItemTile(
+                    item: const ShoppingItem(
+                      id: 'water_500ml',
+                      name: '天然水 500ml',
+                      price: 100,
+                      description: '国産天然水。まろやかな口当たり。',
+                      imageEmoji: '💧',
+                    ),
+                    quantity: 2,
+                    onIncrement: () {},
+                    onDecrement: () {},
                   ),
                 ),
               ),
@@ -55,7 +80,9 @@ void main() {
                       imageEmoji: '💧',
                     ),
                     highlighted: true,
-                    onAddToCart: () {},
+                    quantity: 1,
+                    onIncrement: () {},
+                    onDecrement: () {},
                   ),
                 ),
               ),
