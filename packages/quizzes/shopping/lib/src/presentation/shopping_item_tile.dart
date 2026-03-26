@@ -69,6 +69,7 @@ class _ShoppingItemTileState extends State<ShoppingItemTile> {
                   alignment: Alignment.center,
                   child: Image.asset(
                     widget.item.imagePath,
+                    package: 'shopping',
                     fit: BoxFit.contain,
                   ),
                 ),
