@@ -67,7 +67,8 @@ class _ShoppingItemTileState extends State<ShoppingItemTile> {
                         : null,
                   ),
                   alignment: Alignment.center,
-                  child: widget.item.image.image(
+                  child: Image.asset(
+                    widget.item.imagePath,
                     fit: BoxFit.contain,
                   ),
                 ),

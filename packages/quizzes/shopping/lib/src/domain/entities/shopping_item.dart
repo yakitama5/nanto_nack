@@ -1,33 +1,33 @@
-import 'package:shopping/gen/assets.gen.dart';
-
 class ShoppingItem {
   const ShoppingItem({
     required this.id,
     required this.name,
     required this.price,
     required this.description,
-    required this.image,
+    required this.imagePath,
   });
 
   final String id;
   final String name;
   final int price;
   final String description;
-  final AssetGenImage image;
+
+  /// アセット画像のパス（例: 'assets/item/water_pura_aqua.png'）
+  final String imagePath;
 
   ShoppingItem copyWith({
     String? id,
     String? name,
     int? price,
     String? description,
-    AssetGenImage? image,
+    String? imagePath,
   }) {
     return ShoppingItem(
       id: id ?? this.id,
       name: name ?? this.name,
       price: price ?? this.price,
       description: description ?? this.description,
-      image: image ?? this.image,
+      imagePath: imagePath ?? this.imagePath,
     );
   }
 }
