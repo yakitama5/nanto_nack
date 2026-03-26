@@ -188,6 +188,7 @@ class _TranslationsShoppingWaterEn extends TranslationsShoppingWaterJa {
 	@override String get cartEmpty => 'Your cart is empty';
 	@override String get subtotal => 'Subtotal ({count} items):';
 	@override String get confirmOrder => 'Place order';
+	@override late final _TranslationsShoppingWaterInsightEn insight = _TranslationsShoppingWaterInsightEn._(_root);
 }
 
 // Path: shopping.cart
@@ -272,6 +273,23 @@ class _TranslationsShoppingCategoriesEn extends TranslationsShoppingCategoriesJa
 	@override String get kitchen => 'Kitchen';
 }
 
+// Path: shopping.water.insight
+class _TranslationsShoppingWaterInsightEn extends TranslationsShoppingWaterInsightJa {
+	_TranslationsShoppingWaterInsightEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Why could you figure it out without reading?';
+	@override String get subtitle => 'This UI has 3 tricks that work across languages';
+	@override String get iconTitle => 'Icons transcend language';
+	@override String get iconDesc => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.';
+	@override String get colorTitle => 'Color drives action';
+	@override String get colorDesc => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.';
+	@override String get patternTitle => 'UI patterns build intuition';
+	@override String get patternDesc => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -324,6 +342,14 @@ extension on TranslationsEn {
 			'shopping.water.cartEmpty' => 'Your cart is empty',
 			'shopping.water.subtotal' => 'Subtotal ({count} items):',
 			'shopping.water.confirmOrder' => 'Place order',
+			'shopping.water.insight.title' => 'Why could you figure it out without reading?',
+			'shopping.water.insight.subtitle' => 'This UI has 3 tricks that work across languages',
+			'shopping.water.insight.iconTitle' => 'Icons transcend language',
+			'shopping.water.insight.iconDesc' => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.',
+			'shopping.water.insight.colorTitle' => 'Color drives action',
+			'shopping.water.insight.colorDesc' => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.',
+			'shopping.water.insight.patternTitle' => 'UI patterns build intuition',
+			'shopping.water.insight.patternDesc' => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.',
 			'shopping.cart.missionText' => 'Select the total price of this cart',
 			'shopping.cart.appTitle' => 'Shopping Cart',
 			'shopping.cart.itemsHeader' => 'Cart Items',

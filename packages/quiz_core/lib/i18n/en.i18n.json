@@ -66,7 +66,17 @@
       "cartTitle": "Shopping Cart",
       "cartEmpty": "Your cart is empty",
       "subtotal": "Subtotal ({count} items):",
-      "confirmOrder": "Place order"
+      "confirmOrder": "Place order",
+      "insight": {
+        "title": "Why could you figure it out without reading?",
+        "subtitle": "This UI has 3 tricks that work across languages",
+        "iconTitle": "Icons transcend language",
+        "iconDesc": "🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.",
+        "colorTitle": "Color drives action",
+        "colorDesc": "The yellow 'Place Order' button has appeared on major e-commerce sites so often that the color itself now signals 'buy'.",
+        "patternTitle": "UI patterns build intuition",
+        "patternDesc": "Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct."
+      }
     },
     "cart": {
       "missionText": "Select the total price of this cart",

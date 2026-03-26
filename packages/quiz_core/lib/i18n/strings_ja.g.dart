@@ -277,6 +277,8 @@ class TranslationsShoppingWaterJa {
 
 	/// ja: '注文を確定する'
 	String get confirmOrder => '注文を確定する';
+
+	late final TranslationsShoppingWaterInsightJa insight = TranslationsShoppingWaterInsightJa.internal(_root);
 }
 
 // Path: shopping.cart
@@ -435,6 +437,39 @@ class TranslationsShoppingCategoriesJa {
 	String get kitchen => 'キッチン';
 }
 
+// Path: shopping.water.insight
+class TranslationsShoppingWaterInsightJa {
+	TranslationsShoppingWaterInsightJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'なぜ文字が読めなくてもわかった？'
+	String get title => 'なぜ文字が読めなくてもわかった？';
+
+	/// ja: 'このUIには、言語を超えて伝わる3つの工夫がある'
+	String get subtitle => 'このUIには、言語を超えて伝わる3つの工夫がある';
+
+	/// ja: 'アイコンは言語を超える'
+	String get iconTitle => 'アイコンは言語を超える';
+
+	/// ja: '🛒カート・🔍検索・❤️お気に入り。よく見るアイコンは世界共通の記号として定着しており、文字がなくても意味が伝わる。'
+	String get iconDesc => '🛒カート・🔍検索・❤️お気に入り。よく見るアイコンは世界共通の記号として定着しており、文字がなくても意味が伝わる。';
+
+	/// ja: '色が行動を促す'
+	String get colorTitle => '色が行動を促す';
+
+	/// ja: '黄色い「注文確定」ボタンはAmazonなど大手ECで繰り返し使われた結果、「この色＝買う」という意味が色自体に刷り込まれている。'
+	String get colorDesc => '黄色い「注文確定」ボタンはAmazonなど大手ECで繰り返し使われた結果、「この色＝買う」という意味が色自体に刷り込まれている。';
+
+	/// ja: 'UIパターンが直感を作る'
+	String get patternTitle => 'UIパターンが直感を作る';
+
+	/// ja: 'グリッド商品一覧×価格＝ネットショップ、±ボタン＝数量調整。体験を重ねるうちに、パターンそのものが「当たり前」になった。'
+	String get patternDesc => 'グリッド商品一覧×価格＝ネットショップ、±ボタン＝数量調整。体験を重ねるうちに、パターンそのものが「当たり前」になった。';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -487,6 +522,14 @@ extension on Translations {
 			'shopping.water.cartEmpty' => 'カートは空です',
 			'shopping.water.subtotal' => '小計 ({count}点の商品):',
 			'shopping.water.confirmOrder' => '注文を確定する',
+			'shopping.water.insight.title' => 'なぜ文字が読めなくてもわかった？',
+			'shopping.water.insight.subtitle' => 'このUIには、言語を超えて伝わる3つの工夫がある',
+			'shopping.water.insight.iconTitle' => 'アイコンは言語を超える',
+			'shopping.water.insight.iconDesc' => '🛒カート・🔍検索・❤️お気に入り。よく見るアイコンは世界共通の記号として定着しており、文字がなくても意味が伝わる。',
+			'shopping.water.insight.colorTitle' => '色が行動を促す',
+			'shopping.water.insight.colorDesc' => '黄色い「注文確定」ボタンはAmazonなど大手ECで繰り返し使われた結果、「この色＝買う」という意味が色自体に刷り込まれている。',
+			'shopping.water.insight.patternTitle' => 'UIパターンが直感を作る',
+			'shopping.water.insight.patternDesc' => 'グリッド商品一覧×価格＝ネットショップ、±ボタン＝数量調整。体験を重ねるうちに、パターンそのものが「当たり前」になった。',
 			'shopping.cart.missionText' => 'このカートの合計金額を選んでください',
 			'shopping.cart.appTitle' => 'ショッピングカート',
 			'shopping.cart.itemsHeader' => 'カートの中身',

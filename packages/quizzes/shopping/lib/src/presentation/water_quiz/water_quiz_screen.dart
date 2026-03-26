@@ -139,6 +139,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
               onNext: quizState.status == QuizStatus.correct
                   ? widget.onCompleted
                   : null,
+              insight: const _ShoppingUiInsight(),
             ),
           ),
       ],
@@ -430,6 +431,115 @@ class _CartBottomSheet extends ConsumerWidget {
               ),
             ),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+// ─── UX解説セクション ──────────────────────────────────────────
+
+/// 正解後リザルト画面に表示する「なぜわかったのか？」解説
+class _ShoppingUiInsight extends StatelessWidget {
+  const _ShoppingUiInsight();
+
+  @override
+  Widget build(BuildContext context) {
+    final insight = context.qt.shopping.water.insight;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                insight.title,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          insight.subtitle,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: Colors.grey.shade600),
+        ),
+        const SizedBox(height: 12),
+        _InsightItem(
+          emoji: '🛒',
+          title: insight.iconTitle,
+          desc: insight.iconDesc,
+        ),
+        const SizedBox(height: 10),
+        _InsightItem(
+          emoji: '🎨',
+          title: insight.colorTitle,
+          desc: insight.colorDesc,
+        ),
+        const SizedBox(height: 10),
+        _InsightItem(
+          emoji: '📱',
+          title: insight.patternTitle,
+          desc: insight.patternDesc,
+        ),
+      ],
+    );
+  }
+}
+
+class _InsightItem extends StatelessWidget {
+  const _InsightItem({
+    required this.emoji,
+    required this.title,
+    required this.desc,
+  });
+
+  final String emoji;
+  final String title;
+  final String desc;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFFBEB),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFFFE082)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(emoji, style: const TextStyle(fontSize: 20)),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  desc,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: Colors.grey.shade700, height: 1.4),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
