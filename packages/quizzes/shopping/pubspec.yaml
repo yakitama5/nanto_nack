@@ -15,6 +15,8 @@ dependencies:
   flutter_riverpod: ^2.6.1
   quiz_core:
     path: ../../quiz_core
+  slang: ^4.3.1
+  slang_flutter: ^4.3.1
   system:
     path: ../../system
 
@@ -26,6 +28,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
+  slang_build_runner: ^4.3.1
 
 flutter_gen:
   output: lib/gen/

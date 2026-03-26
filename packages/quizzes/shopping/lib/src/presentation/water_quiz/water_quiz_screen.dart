@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/catalog.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
+import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_badge.dart';
 import 'package:shopping/src/presentation/shopping_item_tile.dart';
 import 'package:shopping/src/presentation/water_quiz/water_quiz_notifier.dart';
@@ -39,7 +40,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
   @override
   Widget build(BuildContext context) {
     final quizState = ref.watch(waterQuizProvider);
-    final missionText = context.t.shopping.water.missionText;
+    final missionText = context.s.water.missionText;
 
     return Stack(
       children: [
@@ -173,7 +174,7 @@ class _AmazonAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: _kNavyColor,
       title: UnreadableText(
-        context.qt.shopping.water.appTitle,
+        context.sq.water.appTitle,
         isObfuscated: true,
         animateOnObfuscate: false,
         style: const TextStyle(
@@ -214,7 +215,7 @@ class _FakeSearchBar extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: UnreadableText(
-                context.qt.shopping.water.searchPlaceholder,
+                context.sq.water.searchPlaceholder,
                 isObfuscated: true,
                 animateOnObfuscate: false,
                 style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
@@ -235,7 +236,7 @@ class _CategoryBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cats = context.qt.shopping.categories;
+    final cats = context.sq.categories;
     final categories = [
       cats.daily,
       cats.food,
@@ -278,7 +279,7 @@ class _AmazonBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nav = context.qt.shopping.navigation;
+    final nav = context.sq.navigation;
     return Container(
       decoration: const BoxDecoration(
         color: _kNavyColor,
@@ -334,7 +335,7 @@ class _CartBottomSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final quizState = ref.watch(waterQuizProvider);
     final cart = quizState.cart;
-    final qt = context.qt.shopping.water;
+    final qt = context.sq.water;
 
     return SafeArea(
       child: Column(
@@ -378,7 +379,7 @@ class _CartBottomSheet extends ConsumerWidget {
                   child: Text('📦', style: TextStyle(fontSize: 20)),
                 ),
                 title: UnreadableText(
-                  context.qt.shopping.common.quantity.replaceAll(
+                  context.sq.common.quantity.replaceAll(
                     '{qty}',
                     item.quantity.toString(),
                   ),
@@ -481,7 +482,7 @@ class _ShoppingUiInsight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final insight = context.qt.shopping.water.insight;
+    final insight = context.s.water.insight;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

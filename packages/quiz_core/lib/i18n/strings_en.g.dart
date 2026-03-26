@@ -47,7 +47,6 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsErrorEn error = _TranslationsErrorEn._(_root);
 	@override late final _TranslationsDashboardEn dashboard = _TranslationsDashboardEn._(_root);
 	@override late final _TranslationsPlayEn play = _TranslationsPlayEn._(_root);
-	@override late final _TranslationsShoppingEn shopping = _TranslationsShoppingEn._(_root);
 }
 
 // Path: app
@@ -159,137 +158,6 @@ class _TranslationsPlayEn extends TranslationsPlayJa {
 	@override String get stageCount => '{count} stages';
 }
 
-// Path: shopping
-class _TranslationsShoppingEn extends TranslationsShoppingJa {
-	_TranslationsShoppingEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override late final _TranslationsShoppingWaterEn water = _TranslationsShoppingWaterEn._(_root);
-	@override late final _TranslationsShoppingCartEn cart = _TranslationsShoppingCartEn._(_root);
-	@override late final _TranslationsShoppingCheckoutEn checkout = _TranslationsShoppingCheckoutEn._(_root);
-	@override late final _TranslationsShoppingCommonEn common = _TranslationsShoppingCommonEn._(_root);
-	@override late final _TranslationsShoppingNavigationEn navigation = _TranslationsShoppingNavigationEn._(_root);
-	@override late final _TranslationsShoppingCategoriesEn categories = _TranslationsShoppingCategoriesEn._(_root);
-}
-
-// Path: shopping.water
-class _TranslationsShoppingWaterEn extends TranslationsShoppingWaterJa {
-	_TranslationsShoppingWaterEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get missionText => 'Buy 2 bottles of water';
-	@override String get appTitle => 'nantomall';
-	@override String get searchPlaceholder => 'Search items';
-	@override String get cartTitle => 'Shopping Cart';
-	@override String get cartEmpty => 'Your cart is empty';
-	@override String get subtotal => 'Subtotal ({count} items):';
-	@override String get confirmOrder => 'Place order';
-	@override late final _TranslationsShoppingWaterInsightEn insight = _TranslationsShoppingWaterInsightEn._(_root);
-}
-
-// Path: shopping.cart
-class _TranslationsShoppingCartEn extends TranslationsShoppingCartJa {
-	_TranslationsShoppingCartEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get missionText => 'Select the total price of this cart';
-	@override String get appTitle => 'Shopping Cart';
-	@override String get itemsHeader => 'Cart Items';
-	@override String get itemCount => '{count} items';
-	@override String get questionTitle => 'What is the total price?';
-	@override String get questionSubtitle => 'Calculate the total of items above and select';
-	@override String get hint => 'Multiply each unit price by quantity and sum them up';
-}
-
-// Path: shopping.checkout
-class _TranslationsShoppingCheckoutEn extends TranslationsShoppingCheckoutJa {
-	_TranslationsShoppingCheckoutEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get missionText => 'Complete the checkout process';
-	@override String get appTitle => 'Payment Checkout';
-	@override String get step1 => 'Cart';
-	@override String get step2 => 'Address & Payment';
-	@override String get step3 => 'Confirm';
-	@override String get addressSection => 'Delivery Address';
-	@override String get addressPlaceholder => 'e.g. 1-1 Shibuya, Tokyo...';
-	@override String get paymentSection => 'Payment Method';
-	@override String get paymentCreditCard => 'Credit Card';
-	@override String get paymentConvenience => 'Convenience Store';
-	@override String get paymentCOD => 'Cash on Delivery';
-	@override String get summarySection => 'Order Summary';
-	@override String get subtotal => 'Item Subtotal';
-	@override String get shipping => 'Shipping fee';
-	@override String get total => 'Order Total';
-	@override String get confirmCheck => 'I have confirmed the order details';
-	@override String get confirmButton => 'Place Order';
-}
-
-// Path: shopping.common
-class _TranslationsShoppingCommonEn extends TranslationsShoppingCommonJa {
-	_TranslationsShoppingCommonEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get addToCart => 'Add to Cart';
-	@override String get quantity => 'Qty: {qty}';
-	@override String get primeBadge => 'prime';
-}
-
-// Path: shopping.navigation
-class _TranslationsShoppingNavigationEn extends TranslationsShoppingNavigationJa {
-	_TranslationsShoppingNavigationEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get home => 'Home';
-	@override String get search => 'Search';
-	@override String get account => 'Account';
-	@override String get menu => 'Menu';
-}
-
-// Path: shopping.categories
-class _TranslationsShoppingCategoriesEn extends TranslationsShoppingCategoriesJa {
-	_TranslationsShoppingCategoriesEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get daily => 'Daily goods';
-	@override String get food => 'Food & Drinks';
-	@override String get electronics => 'Electronics';
-	@override String get fashion => 'Fashion';
-	@override String get sports => 'Sports';
-	@override String get kitchen => 'Kitchen';
-}
-
-// Path: shopping.water.insight
-class _TranslationsShoppingWaterInsightEn extends TranslationsShoppingWaterInsightJa {
-	_TranslationsShoppingWaterInsightEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Why could you figure it out without reading?';
-	@override String get subtitle => 'This UI has 3 tricks that work across languages';
-	@override String get iconTitle => 'Icons transcend language';
-	@override String get iconDesc => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.';
-	@override String get colorTitle => 'Color drives action';
-	@override String get colorDesc => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.';
-	@override String get patternTitle => 'UI patterns build intuition';
-	@override String get patternDesc => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.';
-}
-
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -335,58 +203,6 @@ extension on TranslationsEn {
 			'play.selectCategoryDescription' => 'Choose a category to challenge',
 			'play.selectStage' => 'Select Stage',
 			'play.stageCount' => '{count} stages',
-			'shopping.water.missionText' => 'Buy 2 bottles of water',
-			'shopping.water.appTitle' => 'nantomall',
-			'shopping.water.searchPlaceholder' => 'Search items',
-			'shopping.water.cartTitle' => 'Shopping Cart',
-			'shopping.water.cartEmpty' => 'Your cart is empty',
-			'shopping.water.subtotal' => 'Subtotal ({count} items):',
-			'shopping.water.confirmOrder' => 'Place order',
-			'shopping.water.insight.title' => 'Why could you figure it out without reading?',
-			'shopping.water.insight.subtitle' => 'This UI has 3 tricks that work across languages',
-			'shopping.water.insight.iconTitle' => 'Icons transcend language',
-			'shopping.water.insight.iconDesc' => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.',
-			'shopping.water.insight.colorTitle' => 'Color drives action',
-			'shopping.water.insight.colorDesc' => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.',
-			'shopping.water.insight.patternTitle' => 'UI patterns build intuition',
-			'shopping.water.insight.patternDesc' => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.',
-			'shopping.cart.missionText' => 'Select the total price of this cart',
-			'shopping.cart.appTitle' => 'Shopping Cart',
-			'shopping.cart.itemsHeader' => 'Cart Items',
-			'shopping.cart.itemCount' => '{count} items',
-			'shopping.cart.questionTitle' => 'What is the total price?',
-			'shopping.cart.questionSubtitle' => 'Calculate the total of items above and select',
-			'shopping.cart.hint' => 'Multiply each unit price by quantity and sum them up',
-			'shopping.checkout.missionText' => 'Complete the checkout process',
-			'shopping.checkout.appTitle' => 'Payment Checkout',
-			'shopping.checkout.step1' => 'Cart',
-			'shopping.checkout.step2' => 'Address & Payment',
-			'shopping.checkout.step3' => 'Confirm',
-			'shopping.checkout.addressSection' => 'Delivery Address',
-			'shopping.checkout.addressPlaceholder' => 'e.g. 1-1 Shibuya, Tokyo...',
-			'shopping.checkout.paymentSection' => 'Payment Method',
-			'shopping.checkout.paymentCreditCard' => 'Credit Card',
-			'shopping.checkout.paymentConvenience' => 'Convenience Store',
-			'shopping.checkout.paymentCOD' => 'Cash on Delivery',
-			'shopping.checkout.summarySection' => 'Order Summary',
-			'shopping.checkout.subtotal' => 'Item Subtotal',
-			'shopping.checkout.shipping' => 'Shipping fee',
-			'shopping.checkout.total' => 'Order Total',
-			'shopping.checkout.confirmCheck' => 'I have confirmed the order details',
-			'shopping.checkout.confirmButton' => 'Place Order',
-			'shopping.common.addToCart' => 'Add to Cart',
-			'shopping.common.quantity' => 'Qty: {qty}',
-			'shopping.common.primeBadge' => 'prime',
-			'shopping.navigation.home' => 'Home',
-			'shopping.navigation.search' => 'Search',
-			'shopping.navigation.account' => 'Account',
-			'shopping.navigation.menu' => 'Menu',
-			'shopping.categories.daily' => 'Daily goods',
-			'shopping.categories.food' => 'Food & Drinks',
-			'shopping.categories.electronics' => 'Electronics',
-			'shopping.categories.fashion' => 'Fashion',
-			'shopping.categories.sports' => 'Sports',
-			'shopping.categories.kitchen' => 'Kitchen',
 			_ => null,
 		};
 	}

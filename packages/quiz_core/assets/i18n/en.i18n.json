@@ -1,0 +1,61 @@
+{
+  "app": {
+    "title": "NantoNack",
+    "subtitle": "UI/UX Intuition Quiz"
+  },
+  "home": {
+    "stageList": "Stage List",
+    "playCount": "Played {count} times",
+    "@playCount": { "param": "count" }
+  },
+  "stage": {
+    "cleared": "Cleared",
+    "available": "Available",
+    "locked": "Complete previous stage",
+    "play": "Play",
+    "clearTime": "Clear Time: {time}",
+    "@clearTime": { "param": "time" },
+    "score": "Score: {score}pts",
+    "@score": { "param": "score" }
+  },
+  "quiz": {
+    "correct": "Correct!",
+    "incorrect": "Incorrect",
+    "timeUp": "Time's Up",
+    "result": "Result",
+    "retry": "Retry",
+    "next": "Next",
+    "back": "Back"
+  },
+  "purchase": {
+    "limitReached": "Daily play limit reached",
+    "unlockDescription": "Upgrade to Premium to play\nwithout limits",
+    "upgrade": "Upgrade",
+    "later": "Later"
+  },
+  "error": {
+    "unknown": "An error occurred",
+    "retry": "Retry"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "todayTip": "Today's UI/UX Tip",
+    "remainingPlays": "Remaining Plays",
+    "remainingPlaysCount": "{count} remaining",
+    "@remainingPlaysCount": { "param": "count" },
+    "unlimitedPlays": "Unlimited",
+    "streak": "Streak",
+    "streakDays(one)": "{days} day streak",
+    "streakDays(other)": "{days} days streak",
+    "activityHistory": "Play History",
+    "noActivity": "No play history yet"
+  },
+  "play": {
+    "startPlay": "Play Now",
+    "selectCategory": "Select Category",
+    "selectCategoryDescription": "Choose a category to challenge",
+    "selectStage": "Select Stage",
+    "stageCount": "{count} stages",
+    "@stageCount": { "param": "count" }
+  }
+}

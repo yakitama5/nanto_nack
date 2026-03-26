@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
+import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
 
 // Amazon風カラー定数
@@ -49,7 +50,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   @override
   Widget build(BuildContext context) {
     final quizState = ref.watch(cartQuizProvider);
-    final missionText = context.t.shopping.cart.missionText;
+    final missionText = context.s.cart.missionText;
 
     return Stack(
       children: [
@@ -58,7 +59,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
           appBar: AppBar(
             backgroundColor: _kNavyColor,
             title: Text(
-              context.qt.shopping.cart.appTitle,
+              context.sq.cart.appTitle,
               style: const TextStyle(color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),
@@ -157,7 +158,7 @@ class _CartItemsSection extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  context.qt.shopping.cart.itemsHeader,
+                  context.sq.cart.itemsHeader,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -173,7 +174,7 @@ class _CartItemsSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    context.qt.shopping.cart.itemCount.replaceAll('{count}', cart.totalCount.toString()),
+                    context.sq.cart.itemCount.replaceAll('{count}', cart.totalCount.toString()),
                     style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
@@ -242,7 +243,7 @@ class _CartItemTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(2),
                   ),
                   child: Text(
-                    context.qt.shopping.common.primeBadge,
+                    context.sq.common.primeBadge,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 9,
@@ -266,7 +267,7 @@ class _CartItemTile extends StatelessWidget {
                         color: const Color(0xFFF3F3F3),
                       ),
                       child: Text(
-                        context.qt.shopping.common.quantity.replaceAll('{qty}', item.quantity.toString()),
+                        context.sq.common.quantity.replaceAll('{qty}', item.quantity.toString()),
                         style: const TextStyle(fontSize: 12),
                       ),
                     ),
@@ -310,7 +311,7 @@ class _PriceSummarySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final qt = context.qt.shopping.cart;
+    final qt = context.sq.cart;
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(16),

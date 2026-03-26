@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
 
@@ -39,8 +40,8 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
   @override
   Widget build(BuildContext context) {
     final quizState = ref.watch(checkoutQuizProvider);
-    final missionText = context.t.shopping.checkout.missionText;
-    final qt = context.qt.shopping.checkout;
+    final missionText = context.s.checkout.missionText;
+    final qt = context.sq.checkout;
 
     // 住所変更をNotifierに反映（コントローラとの同期）
     ref.listen<CheckoutQuizState>(checkoutQuizProvider, (prev, next) {
@@ -202,7 +203,7 @@ class _StepIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final qt = context.qt.shopping.checkout;
+    final qt = context.sq.checkout;
     final steps = [qt.step1, qt.step2, qt.step3];
 
     return Container(
@@ -323,7 +324,7 @@ class _PaymentMethodGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final qt = context.qt.shopping.checkout;
+    final qt = context.sq.checkout;
     final methods = [
       (value: qt.paymentCreditCard, icon: Icons.credit_card),
       (value: qt.paymentConvenience, icon: Icons.store),
@@ -369,7 +370,7 @@ class _OrderSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final qt = context.qt.shopping.checkout;
+    final qt = context.sq.checkout;
     return Container(
       color: Colors.white,
       child: Column(
