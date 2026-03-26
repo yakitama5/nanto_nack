@@ -59,8 +59,8 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
               Expanded(
                 child: GridView.builder(
                   padding: const EdgeInsets.all(8),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
                     childAspectRatio: 0.72,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
