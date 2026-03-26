@@ -5,27 +5,25 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
-part of 'strings.g.dart';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
 
 // Path: <root>
-typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations with BaseTranslations<AppLocale, Translations> {
-	/// Returns the current translations of the given [context].
-	///
-	/// Usage:
-	/// final t = Translations.of(context);
-	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
-
+class TranslationsEn extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	TranslationsEn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -33,406 +31,245 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
-	late final Translations _root = this; // ignore: unused_field
+	late final TranslationsEn _root = this; // ignore: unused_field
 
-	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
+	@override 
+	TranslationsEn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEn(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsAppEn app = TranslationsAppEn._(_root);
-	late final TranslationsHomeEn home = TranslationsHomeEn._(_root);
-	late final TranslationsStageEn stage = TranslationsStageEn._(_root);
-	late final TranslationsQuizEn quiz = TranslationsQuizEn._(_root);
-	late final TranslationsPurchaseEn purchase = TranslationsPurchaseEn._(_root);
-	late final TranslationsErrorEn error = TranslationsErrorEn._(_root);
-	late final TranslationsDashboardEn dashboard = TranslationsDashboardEn._(_root);
-	late final TranslationsPlayEn play = TranslationsPlayEn._(_root);
-	late final TranslationsShoppingEn shopping = TranslationsShoppingEn._(_root);
+	@override late final _TranslationsAppEn app = _TranslationsAppEn._(_root);
+	@override late final _TranslationsHomeEn home = _TranslationsHomeEn._(_root);
+	@override late final _TranslationsStageEn stage = _TranslationsStageEn._(_root);
+	@override late final _TranslationsQuizEn quiz = _TranslationsQuizEn._(_root);
+	@override late final _TranslationsPurchaseEn purchase = _TranslationsPurchaseEn._(_root);
+	@override late final _TranslationsErrorEn error = _TranslationsErrorEn._(_root);
+	@override late final _TranslationsDashboardEn dashboard = _TranslationsDashboardEn._(_root);
+	@override late final _TranslationsPlayEn play = _TranslationsPlayEn._(_root);
+	@override late final _TranslationsShoppingEn shopping = _TranslationsShoppingEn._(_root);
 }
 
 // Path: app
-class TranslationsAppEn {
-	TranslationsAppEn._(this._root);
+class _TranslationsAppEn extends TranslationsAppJa {
+	_TranslationsAppEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'NantoNack'
-	String get title => 'NantoNack';
-
-	/// en: 'UI/UX Intuition Quiz'
-	String get subtitle => 'UI/UX Intuition Quiz';
+	@override String get title => 'NantoNack';
+	@override String get subtitle => 'UI/UX Intuition Quiz';
 }
 
 // Path: home
-class TranslationsHomeEn {
-	TranslationsHomeEn._(this._root);
+class _TranslationsHomeEn extends TranslationsHomeJa {
+	_TranslationsHomeEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Stage List'
-	String get stageList => 'Stage List';
-
-	/// en: 'Played {count} times'
-	String get playCount => 'Played {count} times';
+	@override String get stageList => 'Stage List';
+	@override String get playCount => 'Played {count} times';
 }
 
 // Path: stage
-class TranslationsStageEn {
-	TranslationsStageEn._(this._root);
+class _TranslationsStageEn extends TranslationsStageJa {
+	_TranslationsStageEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Cleared'
-	String get cleared => 'Cleared';
-
-	/// en: 'Available'
-	String get available => 'Available';
-
-	/// en: 'Complete previous stage'
-	String get locked => 'Complete previous stage';
-
-	/// en: 'Play'
-	String get play => 'Play';
-
-	/// en: 'Clear Time: {time}'
-	String get clearTime => 'Clear Time: {time}';
-
-	/// en: 'Score: {score}pts'
-	String get score => 'Score: {score}pts';
+	@override String get cleared => 'Cleared';
+	@override String get available => 'Available';
+	@override String get locked => 'Complete previous stage';
+	@override String get play => 'Play';
+	@override String get clearTime => 'Clear Time: {time}';
+	@override String get score => 'Score: {score}pts';
 }
 
 // Path: quiz
-class TranslationsQuizEn {
-	TranslationsQuizEn._(this._root);
+class _TranslationsQuizEn extends TranslationsQuizJa {
+	_TranslationsQuizEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Correct!'
-	String get correct => 'Correct!';
-
-	/// en: 'Incorrect'
-	String get incorrect => 'Incorrect';
-
-	/// en: 'Time's Up'
-	String get timeUp => 'Time\'s Up';
-
-	/// en: 'Result'
-	String get result => 'Result';
-
-	/// en: 'Retry'
-	String get retry => 'Retry';
-
-	/// en: 'Next'
-	String get next => 'Next';
-
-	/// en: 'Back'
-	String get back => 'Back';
+	@override String get correct => 'Correct!';
+	@override String get incorrect => 'Incorrect';
+	@override String get timeUp => 'Time\'s Up';
+	@override String get result => 'Result';
+	@override String get retry => 'Retry';
+	@override String get next => 'Next';
+	@override String get back => 'Back';
 }
 
 // Path: purchase
-class TranslationsPurchaseEn {
-	TranslationsPurchaseEn._(this._root);
+class _TranslationsPurchaseEn extends TranslationsPurchaseJa {
+	_TranslationsPurchaseEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Daily play limit reached'
-	String get limitReached => 'Daily play limit reached';
-
-	/// en: 'Upgrade to Premium to play without limits'
-	String get unlockDescription => 'Upgrade to Premium to play\nwithout limits';
-
-	/// en: 'Upgrade'
-	String get upgrade => 'Upgrade';
-
-	/// en: 'Later'
-	String get later => 'Later';
+	@override String get limitReached => 'Daily play limit reached';
+	@override String get unlockDescription => 'Upgrade to Premium to play\nwithout limits';
+	@override String get upgrade => 'Upgrade';
+	@override String get later => 'Later';
 }
 
 // Path: error
-class TranslationsErrorEn {
-	TranslationsErrorEn._(this._root);
+class _TranslationsErrorEn extends TranslationsErrorJa {
+	_TranslationsErrorEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'An error occurred'
-	String get unknown => 'An error occurred';
-
-	/// en: 'Retry'
-	String get retry => 'Retry';
+	@override String get unknown => 'An error occurred';
+	@override String get retry => 'Retry';
 }
 
 // Path: dashboard
-class TranslationsDashboardEn {
-	TranslationsDashboardEn._(this._root);
+class _TranslationsDashboardEn extends TranslationsDashboardJa {
+	_TranslationsDashboardEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Dashboard'
-	String get title => 'Dashboard';
-
-	/// en: 'Today's UI/UX Tip'
-	String get todayTip => 'Today\'s UI/UX Tip';
-
-	/// en: 'Remaining Plays'
-	String get remainingPlays => 'Remaining Plays';
-
-	/// en: '{count} remaining'
-	String get remainingPlaysCount => '{count} remaining';
-
-	/// en: 'Unlimited'
-	String get unlimitedPlays => 'Unlimited';
-
-	/// en: 'Streak'
-	String get streak => 'Streak';
-
-	/// en: '{days} days streak'
-	String get streakDays => '{days} days streak';
-
-	/// en: 'Play History'
-	String get activityHistory => 'Play History';
-
-	/// en: 'No play history yet'
-	String get noActivity => 'No play history yet';
+	@override String get title => 'Dashboard';
+	@override String get todayTip => 'Today\'s UI/UX Tip';
+	@override String get remainingPlays => 'Remaining Plays';
+	@override String get remainingPlaysCount => '{count} remaining';
+	@override String get unlimitedPlays => 'Unlimited';
+	@override String get streak => 'Streak';
+	@override String get streakDays => '{days} days streak';
+	@override String get activityHistory => 'Play History';
+	@override String get noActivity => 'No play history yet';
 }
 
 // Path: play
-class TranslationsPlayEn {
-	TranslationsPlayEn._(this._root);
+class _TranslationsPlayEn extends TranslationsPlayJa {
+	_TranslationsPlayEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Play Now'
-	String get startPlay => 'Play Now';
-
-	/// en: 'Select Category'
-	String get selectCategory => 'Select Category';
-
-	/// en: 'Choose a category to challenge'
-	String get selectCategoryDescription => 'Choose a category to challenge';
-
-	/// en: 'Select Stage'
-	String get selectStage => 'Select Stage';
-
-	/// en: '{count} stages'
-	String get stageCount => '{count} stages';
+	@override String get startPlay => 'Play Now';
+	@override String get selectCategory => 'Select Category';
+	@override String get selectCategoryDescription => 'Choose a category to challenge';
+	@override String get selectStage => 'Select Stage';
+	@override String get stageCount => '{count} stages';
 }
 
 // Path: shopping
-class TranslationsShoppingEn {
-	TranslationsShoppingEn._(this._root);
+class _TranslationsShoppingEn extends TranslationsShoppingJa {
+	_TranslationsShoppingEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsShoppingWaterEn water = TranslationsShoppingWaterEn._(_root);
-	late final TranslationsShoppingCartEn cart = TranslationsShoppingCartEn._(_root);
-	late final TranslationsShoppingCheckoutEn checkout = TranslationsShoppingCheckoutEn._(_root);
-	late final TranslationsShoppingCommonEn common = TranslationsShoppingCommonEn._(_root);
-	late final TranslationsShoppingNavigationEn navigation = TranslationsShoppingNavigationEn._(_root);
-	late final TranslationsShoppingCategoriesEn categories = TranslationsShoppingCategoriesEn._(_root);
+	@override late final _TranslationsShoppingWaterEn water = _TranslationsShoppingWaterEn._(_root);
+	@override late final _TranslationsShoppingCartEn cart = _TranslationsShoppingCartEn._(_root);
+	@override late final _TranslationsShoppingCheckoutEn checkout = _TranslationsShoppingCheckoutEn._(_root);
+	@override late final _TranslationsShoppingCommonEn common = _TranslationsShoppingCommonEn._(_root);
+	@override late final _TranslationsShoppingNavigationEn navigation = _TranslationsShoppingNavigationEn._(_root);
+	@override late final _TranslationsShoppingCategoriesEn categories = _TranslationsShoppingCategoriesEn._(_root);
 }
 
 // Path: shopping.water
-class TranslationsShoppingWaterEn {
-	TranslationsShoppingWaterEn._(this._root);
+class _TranslationsShoppingWaterEn extends TranslationsShoppingWaterJa {
+	_TranslationsShoppingWaterEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Buy 2 bottles of water'
-	String get missionText => 'Buy 2 bottles of water';
-
-	/// en: 'nantomall'
-	String get appTitle => 'nantomall';
-
-	/// en: 'Search items'
-	String get searchPlaceholder => 'Search items';
-
-	/// en: 'Shopping Cart'
-	String get cartTitle => 'Shopping Cart';
-
-	/// en: 'Your cart is empty'
-	String get cartEmpty => 'Your cart is empty';
-
-	/// en: 'Subtotal ({count} items):'
-	String get subtotal => 'Subtotal ({count} items):';
-
-	/// en: 'Place order'
-	String get confirmOrder => 'Place order';
+	@override String get missionText => 'Buy 2 bottles of water';
+	@override String get appTitle => 'nantomall';
+	@override String get searchPlaceholder => 'Search items';
+	@override String get cartTitle => 'Shopping Cart';
+	@override String get cartEmpty => 'Your cart is empty';
+	@override String get subtotal => 'Subtotal ({count} items):';
+	@override String get confirmOrder => 'Place order';
 }
 
 // Path: shopping.cart
-class TranslationsShoppingCartEn {
-	TranslationsShoppingCartEn._(this._root);
+class _TranslationsShoppingCartEn extends TranslationsShoppingCartJa {
+	_TranslationsShoppingCartEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Select the total price of this cart'
-	String get missionText => 'Select the total price of this cart';
-
-	/// en: 'Shopping Cart'
-	String get appTitle => 'Shopping Cart';
-
-	/// en: 'Cart Items'
-	String get itemsHeader => 'Cart Items';
-
-	/// en: '{count} items'
-	String get itemCount => '{count} items';
-
-	/// en: 'What is the total price?'
-	String get questionTitle => 'What is the total price?';
-
-	/// en: 'Calculate the total of items above and select'
-	String get questionSubtitle => 'Calculate the total of items above and select';
-
-	/// en: 'Multiply each unit price by quantity and sum them up'
-	String get hint => 'Multiply each unit price by quantity and sum them up';
+	@override String get missionText => 'Select the total price of this cart';
+	@override String get appTitle => 'Shopping Cart';
+	@override String get itemsHeader => 'Cart Items';
+	@override String get itemCount => '{count} items';
+	@override String get questionTitle => 'What is the total price?';
+	@override String get questionSubtitle => 'Calculate the total of items above and select';
+	@override String get hint => 'Multiply each unit price by quantity and sum them up';
 }
 
 // Path: shopping.checkout
-class TranslationsShoppingCheckoutEn {
-	TranslationsShoppingCheckoutEn._(this._root);
+class _TranslationsShoppingCheckoutEn extends TranslationsShoppingCheckoutJa {
+	_TranslationsShoppingCheckoutEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Complete the checkout process'
-	String get missionText => 'Complete the checkout process';
-
-	/// en: 'Payment Checkout'
-	String get appTitle => 'Payment Checkout';
-
-	/// en: 'Cart'
-	String get step1 => 'Cart';
-
-	/// en: 'Address & Payment'
-	String get step2 => 'Address & Payment';
-
-	/// en: 'Confirm'
-	String get step3 => 'Confirm';
-
-	/// en: 'Delivery Address'
-	String get addressSection => 'Delivery Address';
-
-	/// en: 'e.g. 1-1 Shibuya, Tokyo...'
-	String get addressPlaceholder => 'e.g. 1-1 Shibuya, Tokyo...';
-
-	/// en: 'Payment Method'
-	String get paymentSection => 'Payment Method';
-
-	/// en: 'Credit Card'
-	String get paymentCreditCard => 'Credit Card';
-
-	/// en: 'Convenience Store'
-	String get paymentConvenience => 'Convenience Store';
-
-	/// en: 'Cash on Delivery'
-	String get paymentCOD => 'Cash on Delivery';
-
-	/// en: 'Order Summary'
-	String get summarySection => 'Order Summary';
-
-	/// en: 'Item Subtotal'
-	String get subtotal => 'Item Subtotal';
-
-	/// en: 'Shipping fee'
-	String get shipping => 'Shipping fee';
-
-	/// en: 'Order Total'
-	String get total => 'Order Total';
-
-	/// en: 'I have confirmed the order details'
-	String get confirmCheck => 'I have confirmed the order details';
-
-	/// en: 'Place Order'
-	String get confirmButton => 'Place Order';
+	@override String get missionText => 'Complete the checkout process';
+	@override String get appTitle => 'Payment Checkout';
+	@override String get step1 => 'Cart';
+	@override String get step2 => 'Address & Payment';
+	@override String get step3 => 'Confirm';
+	@override String get addressSection => 'Delivery Address';
+	@override String get addressPlaceholder => 'e.g. 1-1 Shibuya, Tokyo...';
+	@override String get paymentSection => 'Payment Method';
+	@override String get paymentCreditCard => 'Credit Card';
+	@override String get paymentConvenience => 'Convenience Store';
+	@override String get paymentCOD => 'Cash on Delivery';
+	@override String get summarySection => 'Order Summary';
+	@override String get subtotal => 'Item Subtotal';
+	@override String get shipping => 'Shipping fee';
+	@override String get total => 'Order Total';
+	@override String get confirmCheck => 'I have confirmed the order details';
+	@override String get confirmButton => 'Place Order';
 }
 
 // Path: shopping.common
-class TranslationsShoppingCommonEn {
-	TranslationsShoppingCommonEn._(this._root);
+class _TranslationsShoppingCommonEn extends TranslationsShoppingCommonJa {
+	_TranslationsShoppingCommonEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Add to Cart'
-	String get addToCart => 'Add to Cart';
-
-	/// en: 'Qty: {qty}'
-	String get quantity => 'Qty: {qty}';
-
-	/// en: 'prime'
-	String get primeBadge => 'prime';
+	@override String get addToCart => 'Add to Cart';
+	@override String get quantity => 'Qty: {qty}';
+	@override String get primeBadge => 'prime';
 }
 
 // Path: shopping.navigation
-class TranslationsShoppingNavigationEn {
-	TranslationsShoppingNavigationEn._(this._root);
+class _TranslationsShoppingNavigationEn extends TranslationsShoppingNavigationJa {
+	_TranslationsShoppingNavigationEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Home'
-	String get home => 'Home';
-
-	/// en: 'Search'
-	String get search => 'Search';
-
-	/// en: 'Account'
-	String get account => 'Account';
-
-	/// en: 'Menu'
-	String get menu => 'Menu';
+	@override String get home => 'Home';
+	@override String get search => 'Search';
+	@override String get account => 'Account';
+	@override String get menu => 'Menu';
 }
 
 // Path: shopping.categories
-class TranslationsShoppingCategoriesEn {
-	TranslationsShoppingCategoriesEn._(this._root);
+class _TranslationsShoppingCategoriesEn extends TranslationsShoppingCategoriesJa {
+	_TranslationsShoppingCategoriesEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
-	final Translations _root; // ignore: unused_field
+	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Daily goods'
-	String get daily => 'Daily goods';
-
-	/// en: 'Food & Drinks'
-	String get food => 'Food & Drinks';
-
-	/// en: 'Electronics'
-	String get electronics => 'Electronics';
-
-	/// en: 'Fashion'
-	String get fashion => 'Fashion';
-
-	/// en: 'Sports'
-	String get sports => 'Sports';
-
-	/// en: 'Kitchen'
-	String get kitchen => 'Kitchen';
+	@override String get daily => 'Daily goods';
+	@override String get food => 'Food & Drinks';
+	@override String get electronics => 'Electronics';
+	@override String get fashion => 'Fashion';
+	@override String get sports => 'Sports';
+	@override String get kitchen => 'Kitchen';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -440,7 +277,7 @@ class TranslationsShoppingCategoriesEn {
 ///
 /// The Dart AOT compiler has issues with very large switch statements,
 /// so the map is split into smaller functions (512 entries each).
-extension on Translations {
+extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'NantoNack',

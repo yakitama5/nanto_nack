@@ -11,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsXx with BaseTranslations<AppLocale, Translations> implements Translations {
+class TranslationsXx extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsXx({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +21,9 @@ class TranslationsXx with BaseTranslations<AppLocale, Translations> implements T
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +31,7 @@ class TranslationsXx with BaseTranslations<AppLocale, Translations> implements T
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsXx _root = this; // ignore: unused_field
 
@@ -41,8 +43,8 @@ class TranslationsXx with BaseTranslations<AppLocale, Translations> implements T
 }
 
 // Path: shopping
-class _TranslationsShoppingXx implements TranslationsShoppingEn {
-	_TranslationsShoppingXx._(this._root);
+class _TranslationsShoppingXx extends TranslationsShoppingJa {
+	_TranslationsShoppingXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -56,8 +58,8 @@ class _TranslationsShoppingXx implements TranslationsShoppingEn {
 }
 
 // Path: shopping.water
-class _TranslationsShoppingWaterXx implements TranslationsShoppingWaterEn {
-	_TranslationsShoppingWaterXx._(this._root);
+class _TranslationsShoppingWaterXx extends TranslationsShoppingWaterJa {
+	_TranslationsShoppingWaterXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -72,8 +74,8 @@ class _TranslationsShoppingWaterXx implements TranslationsShoppingWaterEn {
 }
 
 // Path: shopping.cart
-class _TranslationsShoppingCartXx implements TranslationsShoppingCartEn {
-	_TranslationsShoppingCartXx._(this._root);
+class _TranslationsShoppingCartXx extends TranslationsShoppingCartJa {
+	_TranslationsShoppingCartXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -88,8 +90,8 @@ class _TranslationsShoppingCartXx implements TranslationsShoppingCartEn {
 }
 
 // Path: shopping.checkout
-class _TranslationsShoppingCheckoutXx implements TranslationsShoppingCheckoutEn {
-	_TranslationsShoppingCheckoutXx._(this._root);
+class _TranslationsShoppingCheckoutXx extends TranslationsShoppingCheckoutJa {
+	_TranslationsShoppingCheckoutXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -114,8 +116,8 @@ class _TranslationsShoppingCheckoutXx implements TranslationsShoppingCheckoutEn 
 }
 
 // Path: shopping.common
-class _TranslationsShoppingCommonXx implements TranslationsShoppingCommonEn {
-	_TranslationsShoppingCommonXx._(this._root);
+class _TranslationsShoppingCommonXx extends TranslationsShoppingCommonJa {
+	_TranslationsShoppingCommonXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -126,8 +128,8 @@ class _TranslationsShoppingCommonXx implements TranslationsShoppingCommonEn {
 }
 
 // Path: shopping.navigation
-class _TranslationsShoppingNavigationXx implements TranslationsShoppingNavigationEn {
-	_TranslationsShoppingNavigationXx._(this._root);
+class _TranslationsShoppingNavigationXx extends TranslationsShoppingNavigationJa {
+	_TranslationsShoppingNavigationXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -139,8 +141,8 @@ class _TranslationsShoppingNavigationXx implements TranslationsShoppingNavigatio
 }
 
 // Path: shopping.categories
-class _TranslationsShoppingCategoriesXx implements TranslationsShoppingCategoriesEn {
-	_TranslationsShoppingCategoriesXx._(this._root);
+class _TranslationsShoppingCategoriesXx extends TranslationsShoppingCategoriesJa {
+	_TranslationsShoppingCategoriesXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
