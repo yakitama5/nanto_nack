@@ -15,6 +15,8 @@ class UnreadableText extends StatefulWidget {
     this.isObfuscated = true,
     this.animateOnObfuscate = true,
     this.duration = const Duration(milliseconds: 1200),
+    this.maxLines,
+    this.overflow,
   });
 
   /// 表示するテキスト（非表示時も長さの計算に使用）
@@ -31,6 +33,12 @@ class UnreadableText extends StatefulWidget {
 
   /// アニメーション時間
   final Duration duration;
+
+  /// テキストの最大行数
+  final int? maxLines;
+
+  /// テキストオーバーフロー時の処理
+  final TextOverflow? overflow;
 
   @override
   State<UnreadableText> createState() => _UnreadableTextState();
@@ -133,6 +141,8 @@ class _UnreadableTextState extends State<UnreadableText>
     return Text(
       _buildDisplayText(),
       style: widget.style,
+      maxLines: widget.maxLines,
+      overflow: widget.overflow,
     );
   }
 }
