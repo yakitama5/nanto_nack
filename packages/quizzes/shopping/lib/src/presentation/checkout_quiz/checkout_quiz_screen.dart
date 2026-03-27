@@ -65,8 +65,10 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
           backgroundColor: const Color(0xFFF3F3F3),
           appBar: AppBar(
             backgroundColor: _kNavyColor,
-            title: Text(
+            title: UnreadableText(
               qt.appTitle,
+              isObfuscated: true,
+              animateOnObfuscate: false,
               style: const TextStyle(color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),
@@ -85,7 +87,9 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                     controller: _addressController,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      hintText: qt.addressPlaceholder,
+                      hintText: CustomLanguageEncoder.encode(
+                        qt.addressPlaceholder,
+                      ),
                       filled: true,
                       fillColor: Colors.white,
                       contentPadding: const EdgeInsets.symmetric(
@@ -145,8 +149,10 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                           ? () =>
                               ref.read(checkoutQuizProvider.notifier).confirm()
                           : null,
-                      child: Text(
+                      child: UnreadableText(
                         qt.confirmButton,
+                        isObfuscated: true,
+                        animateOnObfuscate: false,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -257,8 +263,10 @@ class _StepIndicator extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
+              UnreadableText(
                 steps[i ~/ 2],
+                isObfuscated: true,
+                animateOnObfuscate: false,
                 style: TextStyle(
                   fontSize: 10,
                   color: isCurrent
@@ -302,8 +310,10 @@ class _SectionCard extends StatelessWidget {
               children: [
                 Icon(icon, size: 20, color: const Color(0xFF007185)),
                 const SizedBox(width: 8),
-                Text(
+                UnreadableText(
                   title,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -353,7 +363,12 @@ class _PaymentMethodGroup extends StatelessWidget {
                   children: [
                     Icon(method.icon, size: 18, color: Colors.grey.shade600),
                     const SizedBox(width: 8),
-                    Text(method.value, style: const TextStyle(fontSize: 14)),
+                    UnreadableText(
+                      method.value,
+                      isObfuscated: true,
+                      animateOnObfuscate: false,
+                      style: const TextStyle(fontSize: 14),
+                    ),
                   ],
                 ),
                 value: method.value,
@@ -397,8 +412,10 @@ class _OrderSummaryCard extends StatelessWidget {
                   color: Color(0xFF007185),
                 ),
                 const SizedBox(width: 8),
-                Text(
+                UnreadableText(
                   qt.summarySection,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -414,25 +431,34 @@ class _OrderSummaryCard extends StatelessWidget {
               children: [
                 _SummaryRow(
                   label: qt.subtotal,
-                  value: const Text(
+                  value: UnreadableText(
                     '¥780',
-                    style: TextStyle(fontSize: 14),
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ),
                 const SizedBox(height: 6),
                 _SummaryRow(
                   label: qt.shipping,
-                  value: const Text(
+                  value: UnreadableText(
                     '¥0',
-                    style: TextStyle(fontSize: 14, color: Color(0xFF007185)),
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF007185),
+                    ),
                   ),
                 ),
                 const Divider(height: 16),
                 _SummaryRow(
                   label: qt.total,
-                  value: const Text(
+                  value: UnreadableText(
                     '¥780',
-                    style: TextStyle(
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -444,8 +470,10 @@ class _OrderSummaryCard extends StatelessWidget {
           const Divider(height: 1),
           // 確認チェックボックス
           CheckboxListTile(
-            title: Text(
+            title: UnreadableText(
               qt.confirmCheck,
+              isObfuscated: true,
+              animateOnObfuscate: false,
               style: const TextStyle(fontSize: 14),
             ),
             value: isConfirmed,
@@ -471,8 +499,10 @@ class _SummaryRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
+        UnreadableText(
           label,
+          isObfuscated: true,
+          animateOnObfuscate: false,
           style: const TextStyle(fontSize: 14, color: Colors.black87),
         ),
         value,

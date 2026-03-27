@@ -62,8 +62,10 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             backgroundColor: const Color(0xFFF3F3F3),
             appBar: AppBar(
               backgroundColor: _kNavyColor,
-              title: Text(
+              title: UnreadableText(
                 context.sq.cart.appTitle,
+                isObfuscated: true,
+                animateOnObfuscate: false,
                 style: const TextStyle(color: Colors.white),
               ),
               iconTheme: const IconThemeData(color: Colors.white),
@@ -163,8 +165,10 @@ class _CartItemsSection extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Row(
               children: [
-                Text(
+                UnreadableText(
                   context.sq.cart.itemsHeader,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -179,8 +183,10 @@ class _CartItemsSection extends StatelessWidget {
                     color: const Color(0xFF007185),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text(
+                  child: UnreadableText(
                     context.sq.cart.itemCount.replaceAll('{count}', cart.totalCount.toString()),
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
                     style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
@@ -252,8 +258,10 @@ class _CartItemTile extends StatelessWidget {
                     color: const Color(0xFF00A8E1),
                     borderRadius: BorderRadius.circular(2),
                   ),
-                  child: Text(
+                  child: UnreadableText(
                     context.sq.common.primeBadge,
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 9,
@@ -276,14 +284,18 @@ class _CartItemTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                         color: const Color(0xFFF3F3F3),
                       ),
-                      child: Text(
+                      child: UnreadableText(
                         context.sq.common.quantity.replaceAll('{qty}', item.quantity.toString()),
+                        isObfuscated: true,
+                        animateOnObfuscate: false,
                         style: const TextStyle(fontSize: 12),
                       ),
                     ),
                     const Spacer(),
-                    Text(
+                    UnreadableText(
                       '¥${item.totalPrice}',
+                      isObfuscated: true,
+                      animateOnObfuscate: false,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -333,8 +345,10 @@ class _PriceSummarySection extends StatelessWidget {
             children: [
               const Icon(Icons.calculate_outlined, color: Color(0xFF007185)),
               const SizedBox(width: 8),
-              Text(
+              UnreadableText(
                 qt.questionTitle,
+                isObfuscated: true,
+                animateOnObfuscate: false,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -342,8 +356,10 @@ class _PriceSummarySection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text(
+          UnreadableText(
             qt.questionSubtitle,
+            isObfuscated: true,
+            animateOnObfuscate: false,
             style: Theme.of(context)
                 .textTheme
                 .bodySmall
@@ -387,8 +403,10 @@ class _PriceSummarySection extends StatelessWidget {
                     size: 16,
                   ),
                   const SizedBox(width: 8),
-                  Text(
+                  UnreadableText(
                     qt.hint,
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
@@ -428,8 +446,10 @@ class _ChoiceButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
         ),
         child: Center(
-          child: Text(
+          child: UnreadableText(
             '¥$price',
+            isObfuscated: true,
+            animateOnObfuscate: false,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
