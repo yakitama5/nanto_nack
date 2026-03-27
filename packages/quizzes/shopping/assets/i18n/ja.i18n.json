@@ -73,6 +73,14 @@
     "primeBadge": "prime",
     "noResults": "該当する商品がありません"
   },
+  "home": {
+    "banner1": "季節のおすすめ特集",
+    "banner2": "新着アイテム入荷中",
+    "banner3": "まとめ買いでお得",
+    "recommended": "おすすめ商品",
+    "categories": "カテゴリから探す",
+    "dealOfTheDay": "本日のお得情報"
+  },
   "search": {
     "popularCategories": "人気のカテゴリ",
     "trendingItems": "注目の商品"

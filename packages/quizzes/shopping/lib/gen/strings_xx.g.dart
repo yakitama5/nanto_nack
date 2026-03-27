@@ -11,52 +11,49 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsEn extends Translations with BaseTranslations<AppLocale, Translations> {
+class TranslationsXx with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsEn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	TranslationsXx({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = meta ?? TranslationMetadata(
-		    locale: AppLocale.en,
+		    locale: AppLocale.xx,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ),
-		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		  ) {
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
-	/// Metadata for the translations of <en>.
+	/// Metadata for the translations of <xx>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
-	late final TranslationsEn _root = this; // ignore: unused_field
+	late final TranslationsXx _root = this; // ignore: unused_field
 
 	@override 
-	TranslationsEn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEn(meta: meta ?? this.$meta);
+	TranslationsXx $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsXx(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsWaterEn water = _TranslationsWaterEn._(_root);
-	@override late final _TranslationsCartEn cart = _TranslationsCartEn._(_root);
-	@override late final _TranslationsCheckoutEn checkout = _TranslationsCheckoutEn._(_root);
-	@override late final _TranslationsReorderEn reorder = _TranslationsReorderEn._(_root);
-	@override late final _TranslationsCommonEn common = _TranslationsCommonEn._(_root);
-	@override late final _TranslationsHomeEn home = _TranslationsHomeEn._(_root);
-	@override late final _TranslationsSearchEn search = _TranslationsSearchEn._(_root);
-	@override late final _TranslationsMenuEn menu = _TranslationsMenuEn._(_root);
-	@override late final _TranslationsNavigationEn navigation = _TranslationsNavigationEn._(_root);
-	@override late final _TranslationsCategoriesEn categories = _TranslationsCategoriesEn._(_root);
-	@override late final _TranslationsCatalogEn catalog = _TranslationsCatalogEn._(_root);
+	@override late final _TranslationsWaterXx water = _TranslationsWaterXx._(_root);
+	@override late final _TranslationsCartXx cart = _TranslationsCartXx._(_root);
+	@override late final _TranslationsCheckoutXx checkout = _TranslationsCheckoutXx._(_root);
+	@override late final _TranslationsReorderXx reorder = _TranslationsReorderXx._(_root);
+	@override late final _TranslationsCommonXx common = _TranslationsCommonXx._(_root);
+	@override late final _TranslationsSearchXx search = _TranslationsSearchXx._(_root);
+	@override late final _TranslationsMenuXx menu = _TranslationsMenuXx._(_root);
+	@override late final _TranslationsNavigationXx navigation = _TranslationsNavigationXx._(_root);
+	@override late final _TranslationsCategoriesXx categories = _TranslationsCategoriesXx._(_root);
+	@override late final _TranslationsCatalogXx catalog = _TranslationsCatalogXx._(_root);
 }
 
 // Path: water
-class _TranslationsWaterEn extends TranslationsWaterJa {
-	_TranslationsWaterEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsWaterXx implements TranslationsWaterEn {
+	_TranslationsWaterXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => 'Buy 2 bottles of water';
@@ -66,14 +63,13 @@ class _TranslationsWaterEn extends TranslationsWaterJa {
 	@override String get cartEmpty => 'Your cart is empty';
 	@override String get subtotal => 'Subtotal ({count} items):';
 	@override String get confirmOrder => 'Place order';
-	@override late final _TranslationsWaterInsightEn insight = _TranslationsWaterInsightEn._(_root);
 }
 
 // Path: cart
-class _TranslationsCartEn extends TranslationsCartJa {
-	_TranslationsCartEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsCartXx implements TranslationsCartEn {
+	_TranslationsCartXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => 'Select the total price of this cart';
@@ -86,10 +82,10 @@ class _TranslationsCartEn extends TranslationsCartJa {
 }
 
 // Path: checkout
-class _TranslationsCheckoutEn extends TranslationsCheckoutJa {
-	_TranslationsCheckoutEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsCheckoutXx implements TranslationsCheckoutEn {
+	_TranslationsCheckoutXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => 'Complete the checkout process';
@@ -112,10 +108,10 @@ class _TranslationsCheckoutEn extends TranslationsCheckoutJa {
 }
 
 // Path: reorder
-class _TranslationsReorderEn extends TranslationsReorderJa {
-	_TranslationsReorderEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsReorderXx implements TranslationsReorderEn {
+	_TranslationsReorderXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => 'Purchase your recently ordered item again';
@@ -127,14 +123,13 @@ class _TranslationsReorderEn extends TranslationsReorderJa {
 	@override String get cartEmpty => 'Your cart is empty';
 	@override String get subtotal => 'Subtotal ({count} items):';
 	@override String get confirmOrder => 'Place order';
-	@override late final _TranslationsReorderInsightEn insight = _TranslationsReorderInsightEn._(_root);
 }
 
 // Path: common
-class _TranslationsCommonEn extends TranslationsCommonJa {
-	_TranslationsCommonEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsCommonXx implements TranslationsCommonEn {
+	_TranslationsCommonXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get addToCart => 'Add to Cart';
@@ -143,26 +138,11 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get noResults => 'No items found';
 }
 
-// Path: home
-class _TranslationsHomeEn extends TranslationsHomeJa {
-	_TranslationsHomeEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get banner1 => 'Seasonal Recommendations';
-	@override String get banner2 => 'New Arrivals';
-	@override String get banner3 => 'Save More with Bundles';
-	@override String get recommended => 'Recommended for You';
-	@override String get categories => 'Shop by Category';
-	@override String get dealOfTheDay => 'Deal of the Day';
-}
-
 // Path: search
-class _TranslationsSearchEn extends TranslationsSearchJa {
-	_TranslationsSearchEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsSearchXx implements TranslationsSearchEn {
+	_TranslationsSearchXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get popularCategories => 'Popular Categories';
@@ -170,10 +150,10 @@ class _TranslationsSearchEn extends TranslationsSearchJa {
 }
 
 // Path: menu
-class _TranslationsMenuEn extends TranslationsMenuJa {
-	_TranslationsMenuEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsMenuXx implements TranslationsMenuEn {
+	_TranslationsMenuXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get programs => 'Programs & Features';
@@ -187,10 +167,10 @@ class _TranslationsMenuEn extends TranslationsMenuJa {
 }
 
 // Path: navigation
-class _TranslationsNavigationEn extends TranslationsNavigationJa {
-	_TranslationsNavigationEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsNavigationXx implements TranslationsNavigationEn {
+	_TranslationsNavigationXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get home => 'Home';
@@ -200,10 +180,10 @@ class _TranslationsNavigationEn extends TranslationsNavigationJa {
 }
 
 // Path: categories
-class _TranslationsCategoriesEn extends TranslationsCategoriesJa {
-	_TranslationsCategoriesEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsCategoriesXx implements TranslationsCategoriesEn {
+	_TranslationsCategoriesXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get daily => 'Daily goods';
@@ -215,10 +195,10 @@ class _TranslationsCategoriesEn extends TranslationsCategoriesJa {
 }
 
 // Path: catalog
-class _TranslationsCatalogEn extends TranslationsCatalogJa {
-	_TranslationsCatalogEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class _TranslationsCatalogXx implements TranslationsCatalogEn {
+	_TranslationsCatalogXx._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
 	@override String get waterPuraAqua => 'Natural Water 500ml';
@@ -246,46 +226,12 @@ class _TranslationsCatalogEn extends TranslationsCatalogJa {
 	@override String get coffee500ml => 'Black Coffee 500ml';
 }
 
-// Path: water.insight
-class _TranslationsWaterInsightEn extends TranslationsWaterInsightJa {
-	_TranslationsWaterInsightEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Why could you figure it out without reading?';
-	@override String get subtitle => 'This UI has 3 tricks that work across languages';
-	@override String get iconTitle => 'Icons transcend language';
-	@override String get iconDesc => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.';
-	@override String get colorTitle => 'Color drives action';
-	@override String get colorDesc => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.';
-	@override String get patternTitle => 'UI patterns build intuition';
-	@override String get patternDesc => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.';
-}
-
-// Path: reorder.insight
-class _TranslationsReorderInsightEn extends TranslationsReorderInsightJa {
-	_TranslationsReorderInsightEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Why could you figure it out without reading?';
-	@override String get subtitle => 'Visual patterns make reordering intuitive';
-	@override String get imageTitle => 'Product images trigger memory';
-	@override String get imageDesc => 'A product\'s appearance, color, and design link visually to past purchase experiences — visual memory transcends language.';
-	@override String get priceTitle => 'Price brings confirmation';
-	@override String get priceDesc => 'Matching prices confirm \'this is the same product\'. Numbers are a universal language that helps you recognize items at a glance.';
-	@override String get patternTitle => '\'Buy again\' completes the experience';
-	@override String get patternDesc => 'Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly.';
-}
-
-/// The flat map containing all translations for locale <en>.
+/// The flat map containing all translations for locale <xx>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
 /// The Dart AOT compiler has issues with very large switch statements,
 /// so the map is split into smaller functions (512 entries each).
-extension on TranslationsEn {
+extension on TranslationsXx {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'water.missionText' => 'Buy 2 bottles of water',
@@ -295,14 +241,6 @@ extension on TranslationsEn {
 			'water.cartEmpty' => 'Your cart is empty',
 			'water.subtotal' => 'Subtotal ({count} items):',
 			'water.confirmOrder' => 'Place order',
-			'water.insight.title' => 'Why could you figure it out without reading?',
-			'water.insight.subtitle' => 'This UI has 3 tricks that work across languages',
-			'water.insight.iconTitle' => 'Icons transcend language',
-			'water.insight.iconDesc' => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.',
-			'water.insight.colorTitle' => 'Color drives action',
-			'water.insight.colorDesc' => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.',
-			'water.insight.patternTitle' => 'UI patterns build intuition',
-			'water.insight.patternDesc' => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.',
 			'cart.missionText' => 'Select the total price of this cart',
 			'cart.appTitle' => 'Shopping Cart',
 			'cart.itemsHeader' => 'Cart Items',
@@ -336,24 +274,10 @@ extension on TranslationsEn {
 			'reorder.cartEmpty' => 'Your cart is empty',
 			'reorder.subtotal' => 'Subtotal ({count} items):',
 			'reorder.confirmOrder' => 'Place order',
-			'reorder.insight.title' => 'Why could you figure it out without reading?',
-			'reorder.insight.subtitle' => 'Visual patterns make reordering intuitive',
-			'reorder.insight.imageTitle' => 'Product images trigger memory',
-			'reorder.insight.imageDesc' => 'A product\'s appearance, color, and design link visually to past purchase experiences — visual memory transcends language.',
-			'reorder.insight.priceTitle' => 'Price brings confirmation',
-			'reorder.insight.priceDesc' => 'Matching prices confirm \'this is the same product\'. Numbers are a universal language that helps you recognize items at a glance.',
-			'reorder.insight.patternTitle' => '\'Buy again\' completes the experience',
-			'reorder.insight.patternDesc' => 'Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly.',
 			'common.addToCart' => 'Add to Cart',
 			'common.quantity' => 'Qty: {qty}',
 			'common.primeBadge' => 'prime',
 			'common.noResults' => 'No items found',
-			'home.banner1' => 'Seasonal Recommendations',
-			'home.banner2' => 'New Arrivals',
-			'home.banner3' => 'Save More with Bundles',
-			'home.recommended' => 'Recommended for You',
-			'home.categories' => 'Shop by Category',
-			'home.dealOfTheDay' => 'Deal of the Day',
 			'search.popularCategories' => 'Popular Categories',
 			'search.trendingItems' => 'Trending Items',
 			'menu.programs' => 'Programs & Features',

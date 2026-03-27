@@ -8,10 +8,10 @@ import '../../i18n/strings.g.dart' as $shopping;
 ///        quiz_core の [t] / [qt] と対応する shopping 版。
 extension ShoppingTranslationsExtension on BuildContext {
   /// ミッションテキスト等の読める日本語テキスト
-  $shopping.Translations get s => $shopping.AppLocale.ja.translations;
+  $shopping.Translations get s => $shopping.AppLocale.ja.buildSync();
 
   /// クイズUI用カスタム言語テキスト（常に xx ロケール）
-  $shopping.Translations get sq => $shopping.AppLocale.xx.translations;
+  $shopping.Translations get sq => $shopping.AppLocale.xx.buildSync();
 
   /// 商品IDに対応するカタログ商品名を返す（xx ロケール・英語）。
   ///

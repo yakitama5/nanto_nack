@@ -96,9 +96,8 @@ class _ShoppingAppState extends State<ShoppingApp> {
   final _searchController = TextEditingController();
   final _searchFocusNode = FocusNode();
 
-  /// 商品グリッド（ホーム/検索タブ）を表示中かどうか。
-  bool get _isProductGridTab =>
-      _selectedNavIndex == 0 || _selectedNavIndex == 1;
+  /// 商品グリッド（検索タブ）を表示中かどうか。
+  bool get _isProductGridTab => _selectedNavIndex == 1;
 
   @override
   void dispose() {
@@ -191,7 +190,18 @@ class _ShoppingAppState extends State<ShoppingApp> {
       return const _MenuTabView();
     }
 
-    // ホーム / 検索タブ: 商品グリッド
+    // ホームタブ: ダッシュボード
+    if (_selectedNavIndex == 0) {
+      return _HomeTabView(
+        cart: widget.cart,
+        hintUsed: widget.hintUsed,
+        highlightedItemId: widget.highlightedItemId,
+        onAddToCart: widget.onAddToCart,
+        onUpdateQuantity: widget.onUpdateQuantity,
+      );
+    }
+
+    // 検索タブ: 商品グリッド
     return Column(
       children: [
         _ShoppingSearchBar(
@@ -447,6 +457,331 @@ class _ShoppingCategoryBar extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+// ─── ホームタブビュー（ダッシュボード）────────────────────────────────────
+
+class _HomeTabView extends StatefulWidget {
+  const _HomeTabView({
+    required this.cart,
+    required this.hintUsed,
+    required this.highlightedItemId,
+    required this.onAddToCart,
+    required this.onUpdateQuantity,
+  });
+
+  final ShoppingCart cart;
+  final bool hintUsed;
+  final String? highlightedItemId;
+  final void Function(CartItem) onAddToCart;
+  final void Function(String id, int qty) onUpdateQuantity;
+
+  @override
+  State<_HomeTabView> createState() => _HomeTabViewState();
+}
+
+class _HomeTabViewState extends State<_HomeTabView> {
+  ShoppingCategory? _selectedCategory;
+  int _bannerPage = 0;
+  final _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final home = context.sq.home;
+    final cats = context.sq.categories;
+
+    final categoryItems = [
+      (label: cats.daily, value: ShoppingCategory.daily, icon: Icons.cleaning_services_outlined),
+      (label: cats.food, value: ShoppingCategory.food, icon: Icons.fastfood_outlined),
+      (label: cats.electronics, value: ShoppingCategory.electronics, icon: Icons.devices_outlined),
+      (label: cats.fashion, value: ShoppingCategory.fashion, icon: Icons.checkroom_outlined),
+      (label: cats.sports, value: ShoppingCategory.sports, icon: Icons.sports_outlined),
+      (label: cats.kitchen, value: ShoppingCategory.kitchen, icon: Icons.kitchen_outlined),
+    ];
+
+    final filteredCatalog = _selectedCategory == null
+        ? kShoppingCatalog
+        : kShoppingCatalog
+            .where((item) => item.category == _selectedCategory)
+            .toList();
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── バナーカルーセル ───────────────────────────────────────────
+          SizedBox(
+            height: 160,
+            child: Stack(
+              children: [
+                PageView(
+                  controller: _pageController,
+                  onPageChanged: (i) => setState(() => _bannerPage = i),
+                  children: [
+                    _HomeBanner(
+                      label: home.banner1,
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF007185), Color(0xFF00A8B4)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      icon: Icons.local_offer_outlined,
+                    ),
+                    _HomeBanner(
+                      label: home.banner2,
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF131921), Color(0xFF3A4553)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      icon: Icons.new_releases_outlined,
+                    ),
+                    _HomeBanner(
+                      label: home.banner3,
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFFF9900), Color(0xFFFFB84D)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      icon: Icons.shopping_bag_outlined,
+                    ),
+                  ],
+                ),
+                // ページインジケーター
+                Positioned(
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(3, (i) {
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        margin: const EdgeInsets.symmetric(horizontal: 3),
+                        width: _bannerPage == i ? 16 : 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: _bannerPage == i
+                              ? Colors.white
+                              : Colors.white54,
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // ── カテゴリショートカット ──────────────────────────────────────
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  child: UnreadableText(
+                    home.categories,
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 72,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: categoryItems.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 12),
+                    itemBuilder: (context, index) {
+                      final cat = categoryItems[index];
+                      final isSelected = _selectedCategory == cat.value;
+                      return GestureDetector(
+                        onTap: () => setState(() {
+                          _selectedCategory =
+                              _selectedCategory == cat.value ? null : cat.value;
+                        }),
+                        child: SizedBox(
+                          width: 60,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 150),
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? const Color(0xFFFF9900)
+                                      : const Color(0xFFF3F3F3),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: isSelected
+                                        ? const Color(0xFFFF9900)
+                                        : Colors.transparent,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Icon(
+                                  cat.icon,
+                                  size: 22,
+                                  color: isSelected
+                                      ? Colors.white
+                                      : const Color(0xFF555555),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              UnreadableText(
+                                cat.label,
+                                isObfuscated: true,
+                                animateOnObfuscate: false,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: isSelected
+                                      ? const Color(0xFFFF9900)
+                                      : Colors.black54,
+                                  fontWeight: isSelected
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          // ── おすすめ商品セクション ─────────────────────────────────────
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+            child: UnreadableText(
+              home.recommended,
+              isObfuscated: true,
+              animateOnObfuscate: false,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Container(
+            color: const Color(0xFFF3F3F3),
+            child: filteredCatalog.isEmpty
+                ? const _ShoppingEmptyResult()
+                : GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(8),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 0.58,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    itemCount: filteredCatalog.length,
+                    itemBuilder: (context, index) {
+                      final item = filteredCatalog[index];
+                      final isHighlighted =
+                          widget.hintUsed && item.id == widget.highlightedItemId;
+                      final quantity = widget.cart.items
+                              .where((CartItem ci) => ci.id == item.id)
+                              .firstOrNull
+                              ?.quantity ??
+                          0;
+                      return ShoppingItemTile(
+                        item: item,
+                        highlighted: isHighlighted,
+                        quantity: quantity,
+                        onIncrement: () => widget.onAddToCart(
+                          CartItem(
+                            id: item.id,
+                            price: item.price,
+                            quantity: 1,
+                          ),
+                        ),
+                        onDecrement: () =>
+                            widget.onUpdateQuantity(item.id, quantity - 1),
+                      );
+                    },
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HomeBanner extends StatelessWidget {
+  const _HomeBanner({
+    required this.label,
+    required this.gradient,
+    required this.icon,
+  });
+
+  final String label;
+  final LinearGradient gradient;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(gradient: gradient),
+      child: Stack(
+        children: [
+          // 装飾用の大きなアイコン（背景）
+          Positioned(
+            right: -20,
+            bottom: -20,
+            child: Icon(icon, size: 160, color: Colors.white12),
+          ),
+          // テキスト
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: 28, color: Colors.white70),
+                const SizedBox(height: 8),
+                UnreadableText(
+                  label,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

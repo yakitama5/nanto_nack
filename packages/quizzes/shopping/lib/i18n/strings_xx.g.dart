@@ -44,6 +44,7 @@ class TranslationsXx extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCheckoutXx checkout = _TranslationsCheckoutXx._(_root);
 	@override late final _TranslationsReorderXx reorder = _TranslationsReorderXx._(_root);
 	@override late final _TranslationsCommonXx common = _TranslationsCommonXx._(_root);
+	@override late final _TranslationsHomeXx home = _TranslationsHomeXx._(_root);
 	@override late final _TranslationsSearchXx search = _TranslationsSearchXx._(_root);
 	@override late final _TranslationsMenuXx menu = _TranslationsMenuXx._(_root);
 	@override late final _TranslationsNavigationXx navigation = _TranslationsNavigationXx._(_root);
@@ -138,6 +139,21 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get quantity => 'Qty: {qty}';
 	@override String get primeBadge => 'prime';
 	@override String get noResults => 'No items found';
+}
+
+// Path: home
+class _TranslationsHomeXx extends TranslationsHomeJa {
+	_TranslationsHomeXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get banner1 => 'Seasonal Recommendations';
+	@override String get banner2 => 'New Arrivals';
+	@override String get banner3 => 'Save More with Bundles';
+	@override String get recommended => 'Recommended for You';
+	@override String get categories => 'Shop by Category';
+	@override String get dealOfTheDay => 'Deal of the Day';
 }
 
 // Path: search
@@ -280,6 +296,12 @@ extension on TranslationsXx {
 			'common.quantity' => 'Qty: {qty}',
 			'common.primeBadge' => 'prime',
 			'common.noResults' => 'No items found',
+			'home.banner1' => 'Seasonal Recommendations',
+			'home.banner2' => 'New Arrivals',
+			'home.banner3' => 'Save More with Bundles',
+			'home.recommended' => 'Recommended for You',
+			'home.categories' => 'Shop by Category',
+			'home.dealOfTheDay' => 'Deal of the Day',
 			'search.popularCategories' => 'Popular Categories',
 			'search.trendingItems' => 'Trending Items',
 			'menu.programs' => 'Programs & Features',

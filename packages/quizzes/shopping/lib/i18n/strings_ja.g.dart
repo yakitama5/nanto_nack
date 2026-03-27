@@ -45,6 +45,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCheckoutJa checkout = TranslationsCheckoutJa.internal(_root);
 	late final TranslationsReorderJa reorder = TranslationsReorderJa.internal(_root);
 	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
+	late final TranslationsHomeJa home = TranslationsHomeJa.internal(_root);
 	late final TranslationsSearchJa search = TranslationsSearchJa.internal(_root);
 	late final TranslationsMenuJa menu = TranslationsMenuJa.internal(_root);
 	late final TranslationsNavigationJa navigation = TranslationsNavigationJa.internal(_root);
@@ -231,6 +232,33 @@ class TranslationsCommonJa {
 
 	/// ja: '該当する商品がありません'
 	String get noResults => '該当する商品がありません';
+}
+
+// Path: home
+class TranslationsHomeJa {
+	TranslationsHomeJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '季節のおすすめ特集'
+	String get banner1 => '季節のおすすめ特集';
+
+	/// ja: '新着アイテム入荷中'
+	String get banner2 => '新着アイテム入荷中';
+
+	/// ja: 'まとめ買いでお得'
+	String get banner3 => 'まとめ買いでお得';
+
+	/// ja: 'おすすめ商品'
+	String get recommended => 'おすすめ商品';
+
+	/// ja: 'カテゴリから探す'
+	String get categories => 'カテゴリから探す';
+
+	/// ja: '本日のお得情報'
+	String get dealOfTheDay => '本日のお得情報';
 }
 
 // Path: search
@@ -541,6 +569,12 @@ extension on Translations {
 			'common.quantity' => '数量: {qty}',
 			'common.primeBadge' => 'prime',
 			'common.noResults' => '該当する商品がありません',
+			'home.banner1' => '季節のおすすめ特集',
+			'home.banner2' => '新着アイテム入荷中',
+			'home.banner3' => 'まとめ買いでお得',
+			'home.recommended' => 'おすすめ商品',
+			'home.categories' => 'カテゴリから探す',
+			'home.dealOfTheDay' => '本日のお得情報',
 			'search.popularCategories' => '人気のカテゴリ',
 			'search.trendingItems' => '注目の商品',
 			'menu.programs' => 'プログラム＆機能',

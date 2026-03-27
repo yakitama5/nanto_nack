@@ -53,6 +53,14 @@
     "primeBadge": "prime",
     "noResults": "No items found"
   },
+  "home": {
+    "banner1": "Seasonal Recommendations",
+    "banner2": "New Arrivals",
+    "banner3": "Save More with Bundles",
+    "recommended": "Recommended for You",
+    "categories": "Shop by Category",
+    "dealOfTheDay": "Deal of the Day"
+  },
   "search": {
     "popularCategories": "Popular Categories",
     "trendingItems": "Trending Items"
