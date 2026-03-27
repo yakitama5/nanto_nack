@@ -64,5 +64,30 @@
     "fashion": "Fashion",
     "sports": "Sports",
     "kitchen": "Kitchen"
+  },
+  "catalog": {
+    "waterPuraAqua": "Natural Water 500ml",
+    "teaAqua": "Green Tea 500ml",
+    "coffeeCraft": "Craft Coffee",
+    "milkDaily": "Whole Milk 1L",
+    "snackChips": "Potato Chips",
+    "cocoaBar": "Chocolate Bar",
+    "bakeryBread": "Sliced Bread",
+    "eggs": "Eggs 10pk",
+    "noodleBowl": "Cup Noodle",
+    "apple": "Apple",
+    "banana": "Banana",
+    "detergentDailyWash": "Laundry Detergent",
+    "soapWashPower": "Hand Soap",
+    "dishSoapSparkle": "Dish Soap",
+    "sponge": "Kitchen Sponge",
+    "tissueSoft": "Tissue Paper 5box",
+    "toiletPaper": "Toilet Paper 12roll",
+    "haircareBotanicShine": "Hair Oil",
+    "notebook": "Ring Notebook",
+    "towel": "Face Towel",
+    "water500ml": "Natural Water 500ml",
+    "tea500ml": "Green Tea 500ml",
+    "coffee500ml": "Black Coffee 500ml"
   }
 }

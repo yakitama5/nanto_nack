@@ -8,8 +8,8 @@ void main() {
     test('選択金額がカート合計と一致すればクリア', () {
       final cart = ShoppingCart(
         items: const [
-          CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 3),
-          CartItem(id: 'tea_500ml', name: '緑茶 500ml', price: 150, quantity: 2),
+          CartItem(id: 'water_500ml', price: 100, quantity: 3),
+          CartItem(id: 'tea_500ml', price: 150, quantity: 2),
         ],
       );
       // 100*3 + 150*2 = 600
@@ -19,7 +19,7 @@ void main() {
     test('選択金額が違えばクリアでない', () {
       final cart = ShoppingCart(
         items: const [
-          CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 2),
+          CartItem(id: 'water_500ml', price: 100, quantity: 2),
         ],
       );
       expect(useCase.isClear(cart: cart, selectedTotal: 999), isFalse);

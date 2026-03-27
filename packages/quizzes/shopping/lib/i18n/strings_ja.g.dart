@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
 	late final TranslationsNavigationJa navigation = TranslationsNavigationJa.internal(_root);
 	late final TranslationsCategoriesJa categories = TranslationsCategoriesJa.internal(_root);
+	late final TranslationsCatalogJa catalog = TranslationsCatalogJa.internal(_root);
 }
 
 // Path: water
@@ -236,6 +237,84 @@ class TranslationsCategoriesJa {
 	String get kitchen => 'キッチン';
 }
 
+// Path: catalog
+class TranslationsCatalogJa {
+	TranslationsCatalogJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ナチュラルウォーター 500ml'
+	String get waterPuraAqua => 'ナチュラルウォーター 500ml';
+
+	/// ja: '緑茶 500ml'
+	String get teaAqua => '緑茶 500ml';
+
+	/// ja: 'クラフトコーヒー'
+	String get coffeeCraft => 'クラフトコーヒー';
+
+	/// ja: '牛乳 1L'
+	String get milkDaily => '牛乳 1L';
+
+	/// ja: 'ポテトチップス'
+	String get snackChips => 'ポテトチップス';
+
+	/// ja: 'チョコレートバー'
+	String get cocoaBar => 'チョコレートバー';
+
+	/// ja: '食パン'
+	String get bakeryBread => '食パン';
+
+	/// ja: '卵 10個入'
+	String get eggs => '卵 10個入';
+
+	/// ja: 'カップヌードル'
+	String get noodleBowl => 'カップヌードル';
+
+	/// ja: 'りんご'
+	String get apple => 'りんご';
+
+	/// ja: 'バナナ'
+	String get banana => 'バナナ';
+
+	/// ja: '洗濯洗剤'
+	String get detergentDailyWash => '洗濯洗剤';
+
+	/// ja: 'ハンドソープ'
+	String get soapWashPower => 'ハンドソープ';
+
+	/// ja: '食器用洗剤'
+	String get dishSoapSparkle => '食器用洗剤';
+
+	/// ja: 'キッチンスポンジ'
+	String get sponge => 'キッチンスポンジ';
+
+	/// ja: 'ティッシュペーパー 5箱'
+	String get tissueSoft => 'ティッシュペーパー 5箱';
+
+	/// ja: 'トイレットペーパー 12ロール'
+	String get toiletPaper => 'トイレットペーパー 12ロール';
+
+	/// ja: 'ヘアオイル'
+	String get haircareBotanicShine => 'ヘアオイル';
+
+	/// ja: 'リングノート'
+	String get notebook => 'リングノート';
+
+	/// ja: 'フェイスタオル'
+	String get towel => 'フェイスタオル';
+
+	/// ja: 'ウォーター 500ml'
+	String get water500ml => 'ウォーター 500ml';
+
+	/// ja: 'グリーンティー 500ml'
+	String get tea500ml => 'グリーンティー 500ml';
+
+	/// ja: 'ブラックコーヒー 500ml'
+	String get coffee500ml => 'ブラックコーヒー 500ml';
+}
+
 // Path: water.insight
 class TranslationsWaterInsightJa {
 	TranslationsWaterInsightJa.internal(this._root);
@@ -329,6 +408,29 @@ extension on Translations {
 			'categories.fashion' => 'ファッション',
 			'categories.sports' => 'スポーツ',
 			'categories.kitchen' => 'キッチン',
+			'catalog.waterPuraAqua' => 'ナチュラルウォーター 500ml',
+			'catalog.teaAqua' => '緑茶 500ml',
+			'catalog.coffeeCraft' => 'クラフトコーヒー',
+			'catalog.milkDaily' => '牛乳 1L',
+			'catalog.snackChips' => 'ポテトチップス',
+			'catalog.cocoaBar' => 'チョコレートバー',
+			'catalog.bakeryBread' => '食パン',
+			'catalog.eggs' => '卵 10個入',
+			'catalog.noodleBowl' => 'カップヌードル',
+			'catalog.apple' => 'りんご',
+			'catalog.banana' => 'バナナ',
+			'catalog.detergentDailyWash' => '洗濯洗剤',
+			'catalog.soapWashPower' => 'ハンドソープ',
+			'catalog.dishSoapSparkle' => '食器用洗剤',
+			'catalog.sponge' => 'キッチンスポンジ',
+			'catalog.tissueSoft' => 'ティッシュペーパー 5箱',
+			'catalog.toiletPaper' => 'トイレットペーパー 12ロール',
+			'catalog.haircareBotanicShine' => 'ヘアオイル',
+			'catalog.notebook' => 'リングノート',
+			'catalog.towel' => 'フェイスタオル',
+			'catalog.water500ml' => 'ウォーター 500ml',
+			'catalog.tea500ml' => 'グリーンティー 500ml',
+			'catalog.coffee500ml' => 'ブラックコーヒー 500ml',
 			_ => null,
 		};
 	}

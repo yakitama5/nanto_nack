@@ -64,5 +64,30 @@
     "fashion": "ファッション",
     "sports": "スポーツ",
     "kitchen": "キッチン"
+  },
+  "catalog": {
+    "waterPuraAqua": "ナチュラルウォーター 500ml",
+    "teaAqua": "緑茶 500ml",
+    "coffeeCraft": "クラフトコーヒー",
+    "milkDaily": "牛乳 1L",
+    "snackChips": "ポテトチップス",
+    "cocoaBar": "チョコレートバー",
+    "bakeryBread": "食パン",
+    "eggs": "卵 10個入",
+    "noodleBowl": "カップヌードル",
+    "apple": "りんご",
+    "banana": "バナナ",
+    "detergentDailyWash": "洗濯洗剤",
+    "soapWashPower": "ハンドソープ",
+    "dishSoapSparkle": "食器用洗剤",
+    "sponge": "キッチンスポンジ",
+    "tissueSoft": "ティッシュペーパー 5箱",
+    "toiletPaper": "トイレットペーパー 12ロール",
+    "haircareBotanicShine": "ヘアオイル",
+    "notebook": "リングノート",
+    "towel": "フェイスタオル",
+    "water500ml": "ウォーター 500ml",
+    "tea500ml": "グリーンティー 500ml",
+    "coffee500ml": "ブラックコーヒー 500ml"
   }
 }

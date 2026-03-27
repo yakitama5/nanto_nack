@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/shopping_item.dart';
+import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 
 /// Amazon風EC商品カード（お気に入り＆数量ステッパー統合版）
 ///
@@ -95,7 +96,7 @@ class _ShoppingItemTileState extends State<ShoppingItemTile> {
                 children: [
                   // 商品名（ヒント時のみ読める）
                   UnreadableText(
-                    widget.item.name,
+                    context.sqCatalogItemName(widget.item.id),
                     isObfuscated: !widget.highlighted,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

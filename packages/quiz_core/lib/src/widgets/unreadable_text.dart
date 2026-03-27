@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_core/src/utils/custom_language_encoder.dart';
 
 /// テキストを「解読不能な文字列」に見せるウィジェット
 ///
@@ -126,14 +127,12 @@ class _UnreadableTextState extends State<UnreadableText>
     return text.characters.map(_obfuscateChar).join();
   }
 
-  /// 1文字を記号に変換する（スペース・改行はそのまま）
+  /// 1文字をカスタム言語に変換する
+  ///
+  /// A-Z / a-z はカスタム言語マッピングで別のアルファベットに、
+  /// 0-9 はギリシャ文字に変換する。記号・スペース・非ASCII はそのまま保持。
   String _obfuscateChar(String char) {
-    if (char == ' ' || char == '\n' || char == '\t') return char;
-    // Unicode ブロック要素（U+2580〜U+259F）や記号をランダムに使用
-    final code = char.codeUnitAt(0);
-    // 文字コードから決定論的に記号を選ぶ（再現性のため）
-    const symbols = ['▪', '▫', '◆', '◇', '■', '□', '●', '○', '▲', '△'];
-    return symbols[code % symbols.length];
+    return CustomLanguageEncoder.encodeChar(char);
   }
 
   @override

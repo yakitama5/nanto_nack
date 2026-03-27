@@ -92,7 +92,6 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                           ref.read(waterQuizProvider.notifier).addToCart(
                                 CartItem(
                                   id: item.id,
-                                  name: item.name,
                                   price: item.price,
                                   quantity: 1,
                                 ),

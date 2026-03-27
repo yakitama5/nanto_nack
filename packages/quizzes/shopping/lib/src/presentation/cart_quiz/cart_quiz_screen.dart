@@ -26,14 +26,9 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   // クイズ問題として使用するカート（固定データ）
   static final _cart = ShoppingCart(
     items: const [
-      CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 3),
-      CartItem(id: 'tea_500ml', name: '緑茶 500ml', price: 150, quantity: 2),
-      CartItem(
-        id: 'coffee_500ml',
-        name: 'ブラックコーヒー 500ml',
-        price: 180,
-        quantity: 1,
-      ),
+      CartItem(id: 'water_500ml', price: 100, quantity: 3),
+      CartItem(id: 'tea_500ml', price: 150, quantity: 2),
+      CartItem(id: 'coffee_500ml', price: 180, quantity: 1),
     ],
   );
 
@@ -237,9 +232,13 @@ class _CartItemTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 商品名（ダミーテキスト - アイテム名は意図的にダミー表示）
-                Text(
-                  item.name,
+                // 商品名（カスタム言語で表示）
+                UnreadableText(
+                  context.sqCatalogItemName(item.id),
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontSize: 13, height: 1.4),
                 ),
                 const SizedBox(height: 4),

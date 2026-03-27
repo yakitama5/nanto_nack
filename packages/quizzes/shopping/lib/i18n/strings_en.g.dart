@@ -45,6 +45,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonEn common = _TranslationsCommonEn._(_root);
 	@override late final _TranslationsNavigationEn navigation = _TranslationsNavigationEn._(_root);
 	@override late final _TranslationsCategoriesEn categories = _TranslationsCategoriesEn._(_root);
+	@override late final _TranslationsCatalogEn catalog = _TranslationsCatalogEn._(_root);
 }
 
 // Path: water
@@ -146,6 +147,38 @@ class _TranslationsCategoriesEn extends TranslationsCategoriesJa {
 	@override String get kitchen => 'Kitchen';
 }
 
+// Path: catalog
+class _TranslationsCatalogEn extends TranslationsCatalogJa {
+	_TranslationsCatalogEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get waterPuraAqua => 'Natural Water 500ml';
+	@override String get teaAqua => 'Green Tea 500ml';
+	@override String get coffeeCraft => 'Craft Coffee';
+	@override String get milkDaily => 'Whole Milk 1L';
+	@override String get snackChips => 'Potato Chips';
+	@override String get cocoaBar => 'Chocolate Bar';
+	@override String get bakeryBread => 'Sliced Bread';
+	@override String get eggs => 'Eggs 10pk';
+	@override String get noodleBowl => 'Cup Noodle';
+	@override String get apple => 'Apple';
+	@override String get banana => 'Banana';
+	@override String get detergentDailyWash => 'Laundry Detergent';
+	@override String get soapWashPower => 'Hand Soap';
+	@override String get dishSoapSparkle => 'Dish Soap';
+	@override String get sponge => 'Kitchen Sponge';
+	@override String get tissueSoft => 'Tissue Paper 5box';
+	@override String get toiletPaper => 'Toilet Paper 12roll';
+	@override String get haircareBotanicShine => 'Hair Oil';
+	@override String get notebook => 'Ring Notebook';
+	@override String get towel => 'Face Towel';
+	@override String get water500ml => 'Natural Water 500ml';
+	@override String get tea500ml => 'Green Tea 500ml';
+	@override String get coffee500ml => 'Black Coffee 500ml';
+}
+
 // Path: water.insight
 class _TranslationsWaterInsightEn extends TranslationsWaterInsightJa {
 	_TranslationsWaterInsightEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -223,6 +256,29 @@ extension on TranslationsEn {
 			'categories.fashion' => 'Fashion',
 			'categories.sports' => 'Sports',
 			'categories.kitchen' => 'Kitchen',
+			'catalog.waterPuraAqua' => 'Natural Water 500ml',
+			'catalog.teaAqua' => 'Green Tea 500ml',
+			'catalog.coffeeCraft' => 'Craft Coffee',
+			'catalog.milkDaily' => 'Whole Milk 1L',
+			'catalog.snackChips' => 'Potato Chips',
+			'catalog.cocoaBar' => 'Chocolate Bar',
+			'catalog.bakeryBread' => 'Sliced Bread',
+			'catalog.eggs' => 'Eggs 10pk',
+			'catalog.noodleBowl' => 'Cup Noodle',
+			'catalog.apple' => 'Apple',
+			'catalog.banana' => 'Banana',
+			'catalog.detergentDailyWash' => 'Laundry Detergent',
+			'catalog.soapWashPower' => 'Hand Soap',
+			'catalog.dishSoapSparkle' => 'Dish Soap',
+			'catalog.sponge' => 'Kitchen Sponge',
+			'catalog.tissueSoft' => 'Tissue Paper 5box',
+			'catalog.toiletPaper' => 'Toilet Paper 12roll',
+			'catalog.haircareBotanicShine' => 'Hair Oil',
+			'catalog.notebook' => 'Ring Notebook',
+			'catalog.towel' => 'Face Towel',
+			'catalog.water500ml' => 'Natural Water 500ml',
+			'catalog.tea500ml' => 'Green Tea 500ml',
+			'catalog.coffee500ml' => 'Black Coffee 500ml',
 			_ => null,
 		};
 	}

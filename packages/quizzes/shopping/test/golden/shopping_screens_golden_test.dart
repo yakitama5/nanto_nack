@@ -28,9 +28,7 @@ void main() {
                   child: ShoppingItemTile(
                     item: const ShoppingItem(
                       id: 'water_500ml',
-                      name: '天然水 500ml',
                       price: 100,
-                      description: '国産天然水。まろやかな口当たり。',
                       imagePath: 'assets/item/water_pura_aqua.png',
                     ),
                     quantity: 0,
@@ -51,9 +49,7 @@ void main() {
                   child: ShoppingItemTile(
                     item: const ShoppingItem(
                       id: 'water_500ml',
-                      name: '天然水 500ml',
                       price: 100,
-                      description: '国産天然水。まろやかな口当たり。',
                       imagePath: 'assets/item/water_pura_aqua.png',
                     ),
                     quantity: 2,
@@ -74,9 +70,7 @@ void main() {
                   child: ShoppingItemTile(
                     item: const ShoppingItem(
                       id: 'water_500ml',
-                      name: '天然水 500ml',
                       price: 100,
-                      description: '国産天然水。まろやかな口当たり。',
                       imagePath: 'assets/item/water_pura_aqua.png',
                     ),
                     highlighted: true,

@@ -7,7 +7,6 @@ void main() {
       const cart = ShoppingCart();
       const item = CartItem(
         id: 'water_500ml',
-        name: '天然水 500ml',
         price: 100,
         quantity: 1,
       );
@@ -19,11 +18,10 @@ void main() {
     test('同じ商品を追加すると数量が増える', () {
       final cart = ShoppingCart(
         items: const [
-          CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 1),
+          CartItem(id: 'water_500ml', price: 100, quantity: 1),
         ],
       );
-      const newItem =
-          CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 1);
+      const newItem = CartItem(id: 'water_500ml', price: 100, quantity: 1);
       final updated = cart.addItem(newItem);
       expect(updated.items.length, 1);
       expect(updated.items.first.quantity, 2);
@@ -32,8 +30,8 @@ void main() {
     test('合計金額が正しく計算される', () {
       final cart = ShoppingCart(
         items: const [
-          CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 3),
-          CartItem(id: 'tea_500ml', name: '緑茶 500ml', price: 150, quantity: 2),
+          CartItem(id: 'water_500ml', price: 100, quantity: 3),
+          CartItem(id: 'tea_500ml', price: 150, quantity: 2),
         ],
       );
       // 100*3 + 150*2 = 600
@@ -43,8 +41,8 @@ void main() {
     test('商品を削除できる', () {
       final cart = ShoppingCart(
         items: const [
-          CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 1),
-          CartItem(id: 'tea_500ml', name: '緑茶 500ml', price: 150, quantity: 1),
+          CartItem(id: 'water_500ml', price: 100, quantity: 1),
+          CartItem(id: 'tea_500ml', price: 150, quantity: 1),
         ],
       );
       final updated = cart.removeItem('water_500ml');
@@ -55,7 +53,7 @@ void main() {
     test('数量を0以下にすると削除される', () {
       final cart = ShoppingCart(
         items: const [
-          CartItem(id: 'water_500ml', name: '天然水 500ml', price: 100, quantity: 2),
+          CartItem(id: 'water_500ml', price: 100, quantity: 2),
         ],
       );
       final updated = cart.updateQuantity('water_500ml', 0);

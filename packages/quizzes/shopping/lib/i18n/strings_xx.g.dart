@@ -45,6 +45,7 @@ class TranslationsXx extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonXx common = _TranslationsCommonXx._(_root);
 	@override late final _TranslationsNavigationXx navigation = _TranslationsNavigationXx._(_root);
 	@override late final _TranslationsCategoriesXx categories = _TranslationsCategoriesXx._(_root);
+	@override late final _TranslationsCatalogXx catalog = _TranslationsCatalogXx._(_root);
 }
 
 // Path: water
@@ -55,12 +56,12 @@ class _TranslationsWaterXx extends TranslationsWaterJa {
 
 	// Translations
 	@override String get missionText => 'Buy 2 bottles of water';
-	@override String get appTitle => 'jkjzsekcc';
-	@override String get searchPlaceholder => 'Wxkfuy rzxew';
-	@override String get cartTitle => 'Wysoorjp Ukfz';
-	@override String get cartEmpty => 'Ishf ukfz rw xeozi';
-	@override String get subtotal => 'Whdzszkc ({count} rzxew):';
-	@override String get confirmOrder => 'Ockux sfmxf';
+	@override String get appTitle => 'nantomall';
+	@override String get searchPlaceholder => 'Search items';
+	@override String get cartTitle => 'Shopping Cart';
+	@override String get cartEmpty => 'Your cart is empty';
+	@override String get subtotal => 'Subtotal ({count} items):';
+	@override String get confirmOrder => 'Place order';
 }
 
 // Path: cart
@@ -71,12 +72,12 @@ class _TranslationsCartXx extends TranslationsCartJa {
 
 	// Translations
 	@override String get missionText => 'Select the total price of this cart';
-	@override String get appTitle => 'Wysoorjp Ukfz';
-	@override String get itemsHeader => 'Ukfz Rzxew';
-	@override String get itemCount => '{count} rzxew';
-	@override String get questionTitle => 'Gykz rw zyx zszkc ofrux?';
-	@override String get questionSubtitle => 'Ukcuhckzx zyx zszkc sb rzxew kdsnx kjm wxcxuz';
-	@override String get hint => 'Ehczroci xkuy hjrz ofrux di lhkjzrzi kjm whe zyxe ho';
+	@override String get appTitle => 'Shopping Cart';
+	@override String get itemsHeader => 'Cart Items';
+	@override String get itemCount => '{count} items';
+	@override String get questionTitle => 'What is the total price?';
+	@override String get questionSubtitle => 'Calculate the total of items above and select';
+	@override String get hint => 'Multiply each unit price by quantity and sum them up';
 }
 
 // Path: checkout
@@ -87,22 +88,22 @@ class _TranslationsCheckoutXx extends TranslationsCheckoutJa {
 
 	// Translations
 	@override String get missionText => 'Complete the checkout process';
-	@override String get appTitle => 'Okiexjz Uyxuashz';
-	@override String get step1 => 'Ukfz';
-	@override String get step2 => 'Kmmfxww & Okiexjz';
-	@override String get step3 => 'Usjbrfe';
-	@override String get addressSection => 'Mxcrnxfi Kmmfxww';
-	@override String get addressPlaceholder => 'x.p. γ-γ Wyrdhik, Zsais...';
-	@override String get paymentSection => 'Okiexjz Exzysm';
-	@override String get paymentCreditCard => 'Ufxmrz Ukfm';
-	@override String get paymentConvenience => 'Usjnxjrxjux Wzsfx';
-	@override String get paymentCOD => 'Ukwy sj Mxcrnxfi';
-	@override String get summarySection => 'Sfmxf Wheekfi';
-	@override String get subtotal => 'Rzxe Whdzszkc';
-	@override String get shipping => 'Wyroorjp bxx';
-	@override String get total => 'Sfmxf Zszkc';
-	@override String get confirmCheck => 'R yknx usjbrfexm zyx sfmxf mxzkrcw';
-	@override String get confirmButton => 'Ockux Sfmxf';
+	@override String get appTitle => 'Payment Checkout';
+	@override String get step1 => 'Cart';
+	@override String get step2 => 'Address & Payment';
+	@override String get step3 => 'Confirm';
+	@override String get addressSection => 'Delivery Address';
+	@override String get addressPlaceholder => 'e.g. 1-1 Shibuya, Tokyo...';
+	@override String get paymentSection => 'Payment Method';
+	@override String get paymentCreditCard => 'Credit Card';
+	@override String get paymentConvenience => 'Convenience Store';
+	@override String get paymentCOD => 'Cash on Delivery';
+	@override String get summarySection => 'Order Summary';
+	@override String get subtotal => 'Item Subtotal';
+	@override String get shipping => 'Shipping fee';
+	@override String get total => 'Order Total';
+	@override String get confirmCheck => 'I have confirmed the order details';
+	@override String get confirmButton => 'Place Order';
 }
 
 // Path: common
@@ -112,9 +113,9 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get addToCart => 'Kmm zs Ukfz';
-	@override String get quantity => 'Lzi: {qty}';
-	@override String get primeBadge => 'ofrex';
+	@override String get addToCart => 'Add to Cart';
+	@override String get quantity => 'Qty: {qty}';
+	@override String get primeBadge => 'prime';
 }
 
 // Path: navigation
@@ -124,10 +125,10 @@ class _TranslationsNavigationXx extends TranslationsNavigationJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get home => 'Ysex';
-	@override String get search => 'Wxkfuy';
-	@override String get account => 'Kuushjz';
-	@override String get menu => 'Exjh';
+	@override String get home => 'Home';
+	@override String get search => 'Search';
+	@override String get account => 'Account';
+	@override String get menu => 'Menu';
 }
 
 // Path: categories
@@ -137,12 +138,44 @@ class _TranslationsCategoriesXx extends TranslationsCategoriesJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get daily => 'Mkrci pssmw';
-	@override String get food => 'Bssm & Mfrjaw';
-	@override String get electronics => 'Xcxuzfsjruw';
-	@override String get fashion => 'Bkwyrsj';
-	@override String get sports => 'Wosfzw';
-	@override String get kitchen => 'Arzuyxj';
+	@override String get daily => 'Daily goods';
+	@override String get food => 'Food & Drinks';
+	@override String get electronics => 'Electronics';
+	@override String get fashion => 'Fashion';
+	@override String get sports => 'Sports';
+	@override String get kitchen => 'Kitchen';
+}
+
+// Path: catalog
+class _TranslationsCatalogXx extends TranslationsCatalogJa {
+	_TranslationsCatalogXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get waterPuraAqua => 'Natural Water 500ml';
+	@override String get teaAqua => 'Green Tea 500ml';
+	@override String get coffeeCraft => 'Craft Coffee';
+	@override String get milkDaily => 'Whole Milk 1L';
+	@override String get snackChips => 'Potato Chips';
+	@override String get cocoaBar => 'Chocolate Bar';
+	@override String get bakeryBread => 'Sliced Bread';
+	@override String get eggs => 'Eggs 10pk';
+	@override String get noodleBowl => 'Cup Noodle';
+	@override String get apple => 'Apple';
+	@override String get banana => 'Banana';
+	@override String get detergentDailyWash => 'Laundry Detergent';
+	@override String get soapWashPower => 'Hand Soap';
+	@override String get dishSoapSparkle => 'Dish Soap';
+	@override String get sponge => 'Kitchen Sponge';
+	@override String get tissueSoft => 'Tissue Paper 5box';
+	@override String get toiletPaper => 'Toilet Paper 12roll';
+	@override String get haircareBotanicShine => 'Hair Oil';
+	@override String get notebook => 'Ring Notebook';
+	@override String get towel => 'Face Towel';
+	@override String get water500ml => 'Natural Water 500ml';
+	@override String get tea500ml => 'Green Tea 500ml';
+	@override String get coffee500ml => 'Black Coffee 500ml';
 }
 
 /// The flat map containing all translations for locale <xx>.
@@ -154,49 +187,72 @@ extension on TranslationsXx {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'water.missionText' => 'Buy 2 bottles of water',
-			'water.appTitle' => 'jkjzsekcc',
-			'water.searchPlaceholder' => 'Wxkfuy rzxew',
-			'water.cartTitle' => 'Wysoorjp Ukfz',
-			'water.cartEmpty' => 'Ishf ukfz rw xeozi',
-			'water.subtotal' => 'Whdzszkc ({count} rzxew):',
-			'water.confirmOrder' => 'Ockux sfmxf',
+			'water.appTitle' => 'nantomall',
+			'water.searchPlaceholder' => 'Search items',
+			'water.cartTitle' => 'Shopping Cart',
+			'water.cartEmpty' => 'Your cart is empty',
+			'water.subtotal' => 'Subtotal ({count} items):',
+			'water.confirmOrder' => 'Place order',
 			'cart.missionText' => 'Select the total price of this cart',
-			'cart.appTitle' => 'Wysoorjp Ukfz',
-			'cart.itemsHeader' => 'Ukfz Rzxew',
-			'cart.itemCount' => '{count} rzxew',
-			'cart.questionTitle' => 'Gykz rw zyx zszkc ofrux?',
-			'cart.questionSubtitle' => 'Ukcuhckzx zyx zszkc sb rzxew kdsnx kjm wxcxuz',
-			'cart.hint' => 'Ehczroci xkuy hjrz ofrux di lhkjzrzi kjm whe zyxe ho',
+			'cart.appTitle' => 'Shopping Cart',
+			'cart.itemsHeader' => 'Cart Items',
+			'cart.itemCount' => '{count} items',
+			'cart.questionTitle' => 'What is the total price?',
+			'cart.questionSubtitle' => 'Calculate the total of items above and select',
+			'cart.hint' => 'Multiply each unit price by quantity and sum them up',
 			'checkout.missionText' => 'Complete the checkout process',
-			'checkout.appTitle' => 'Okiexjz Uyxuashz',
-			'checkout.step1' => 'Ukfz',
-			'checkout.step2' => 'Kmmfxww & Okiexjz',
-			'checkout.step3' => 'Usjbrfe',
-			'checkout.addressSection' => 'Mxcrnxfi Kmmfxww',
-			'checkout.addressPlaceholder' => 'x.p. γ-γ Wyrdhik, Zsais...',
-			'checkout.paymentSection' => 'Okiexjz Exzysm',
-			'checkout.paymentCreditCard' => 'Ufxmrz Ukfm',
-			'checkout.paymentConvenience' => 'Usjnxjrxjux Wzsfx',
-			'checkout.paymentCOD' => 'Ukwy sj Mxcrnxfi',
-			'checkout.summarySection' => 'Sfmxf Wheekfi',
-			'checkout.subtotal' => 'Rzxe Whdzszkc',
-			'checkout.shipping' => 'Wyroorjp bxx',
-			'checkout.total' => 'Sfmxf Zszkc',
-			'checkout.confirmCheck' => 'R yknx usjbrfexm zyx sfmxf mxzkrcw',
-			'checkout.confirmButton' => 'Ockux Sfmxf',
-			'common.addToCart' => 'Kmm zs Ukfz',
-			'common.quantity' => 'Lzi: {qty}',
-			'common.primeBadge' => 'ofrex',
-			'navigation.home' => 'Ysex',
-			'navigation.search' => 'Wxkfuy',
-			'navigation.account' => 'Kuushjz',
-			'navigation.menu' => 'Exjh',
-			'categories.daily' => 'Mkrci pssmw',
-			'categories.food' => 'Bssm & Mfrjaw',
-			'categories.electronics' => 'Xcxuzfsjruw',
-			'categories.fashion' => 'Bkwyrsj',
-			'categories.sports' => 'Wosfzw',
-			'categories.kitchen' => 'Arzuyxj',
+			'checkout.appTitle' => 'Payment Checkout',
+			'checkout.step1' => 'Cart',
+			'checkout.step2' => 'Address & Payment',
+			'checkout.step3' => 'Confirm',
+			'checkout.addressSection' => 'Delivery Address',
+			'checkout.addressPlaceholder' => 'e.g. 1-1 Shibuya, Tokyo...',
+			'checkout.paymentSection' => 'Payment Method',
+			'checkout.paymentCreditCard' => 'Credit Card',
+			'checkout.paymentConvenience' => 'Convenience Store',
+			'checkout.paymentCOD' => 'Cash on Delivery',
+			'checkout.summarySection' => 'Order Summary',
+			'checkout.subtotal' => 'Item Subtotal',
+			'checkout.shipping' => 'Shipping fee',
+			'checkout.total' => 'Order Total',
+			'checkout.confirmCheck' => 'I have confirmed the order details',
+			'checkout.confirmButton' => 'Place Order',
+			'common.addToCart' => 'Add to Cart',
+			'common.quantity' => 'Qty: {qty}',
+			'common.primeBadge' => 'prime',
+			'navigation.home' => 'Home',
+			'navigation.search' => 'Search',
+			'navigation.account' => 'Account',
+			'navigation.menu' => 'Menu',
+			'categories.daily' => 'Daily goods',
+			'categories.food' => 'Food & Drinks',
+			'categories.electronics' => 'Electronics',
+			'categories.fashion' => 'Fashion',
+			'categories.sports' => 'Sports',
+			'categories.kitchen' => 'Kitchen',
+			'catalog.waterPuraAqua' => 'Natural Water 500ml',
+			'catalog.teaAqua' => 'Green Tea 500ml',
+			'catalog.coffeeCraft' => 'Craft Coffee',
+			'catalog.milkDaily' => 'Whole Milk 1L',
+			'catalog.snackChips' => 'Potato Chips',
+			'catalog.cocoaBar' => 'Chocolate Bar',
+			'catalog.bakeryBread' => 'Sliced Bread',
+			'catalog.eggs' => 'Eggs 10pk',
+			'catalog.noodleBowl' => 'Cup Noodle',
+			'catalog.apple' => 'Apple',
+			'catalog.banana' => 'Banana',
+			'catalog.detergentDailyWash' => 'Laundry Detergent',
+			'catalog.soapWashPower' => 'Hand Soap',
+			'catalog.dishSoapSparkle' => 'Dish Soap',
+			'catalog.sponge' => 'Kitchen Sponge',
+			'catalog.tissueSoft' => 'Tissue Paper 5box',
+			'catalog.toiletPaper' => 'Toilet Paper 12roll',
+			'catalog.haircareBotanicShine' => 'Hair Oil',
+			'catalog.notebook' => 'Ring Notebook',
+			'catalog.towel' => 'Face Towel',
+			'catalog.water500ml' => 'Natural Water 500ml',
+			'catalog.tea500ml' => 'Green Tea 500ml',
+			'catalog.coffee500ml' => 'Black Coffee 500ml',
 			_ => null,
 		};
 	}
