@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quiz_core/src/entities/quiz_state.dart';
@@ -43,6 +44,8 @@ class QuizResultOverlay extends StatefulWidget {
 class _QuizResultOverlayState extends State<QuizResultOverlay>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
+
+  final _audioPlayer = AudioPlayer();
 
   // 波紋リング（正解時のみ使用）
   late final Animation<double> _ring1;
@@ -114,7 +117,8 @@ class _QuizResultOverlayState extends State<QuizResultOverlay>
         );
       });
 
-      // 触覚フィードバック（小刻みな振動）
+      // 効果音 + 触覚フィードバック（同時発火）
+      _playClearSound();
       _triggerSuccessHaptics();
     } else {
       // ── 不正解・時間切れ: シンプルなフェードイン（総時間 650ms）──
@@ -154,6 +158,12 @@ class _QuizResultOverlayState extends State<QuizResultOverlay>
     _ctrl.forward();
   }
 
+  Future<void> _playClearSound() async {
+    await _audioPlayer.play(
+      AssetSource('packages/quiz_core/sounds/clear.mp3'),
+    );
+  }
+
   /// 短い小刻みな振動 → 最後にひと押し
   Future<void> _triggerSuccessHaptics() async {
     HapticFeedback.lightImpact();
@@ -170,6 +180,7 @@ class _QuizResultOverlayState extends State<QuizResultOverlay>
 
   @override
   void dispose() {
+    _audioPlayer.dispose();
     _ctrl.dispose();
     super.dispose();
   }
