@@ -55,12 +55,12 @@ class _TranslationsWaterXx extends TranslationsWaterJa {
 
 	// Translations
 	@override String get missionText => 'Buy 2 bottles of water';
-	@override String get appTitle => 'ŋɑŋʈθɱɑʟʟ';
-	@override String get searchPlaceholder => 'Ʃɛɑʀɔħ ıʈɛɱʃ';
-	@override String get cartTitle => 'Ʃħθρρıŋɣ Ɔɑʀʈ';
-	@override String get cartEmpty => 'Ƴθʊʀ ɔɑʀʈ ıʃ ɛɱρʈʎ';
-	@override String get subtotal => 'Ʃʊƀʈθʈɑʟ ({count} ıʈɛɱʃ):';
-	@override String get confirmOrder => 'Ρʟɑɔɛ θʀɗɛʀ';
+	@override String get appTitle => 'jkjzsekcc';
+	@override String get searchPlaceholder => 'Wxkfuy rzxew';
+	@override String get cartTitle => 'Wysoorjp Ukfz';
+	@override String get cartEmpty => 'Ishf ukfz rw xeozi';
+	@override String get subtotal => 'Whdzszkc ({count} rzxew):';
+	@override String get confirmOrder => 'Ockux sfmxf';
 }
 
 // Path: cart
@@ -71,12 +71,12 @@ class _TranslationsCartXx extends TranslationsCartJa {
 
 	// Translations
 	@override String get missionText => 'Select the total price of this cart';
-	@override String get appTitle => 'Ʃħθρρıŋɣ Ɔɑʀʈ';
-	@override String get itemsHeader => 'Ɔɑʀʈ Ɪʈɛɱʃ';
-	@override String get itemCount => '{count} ıʈɛɱʃ';
-	@override String get questionTitle => 'Ωħɑʈ ıʃ ʈħɛ ʈθʈɑʟ ρʀıɔɛ?';
-	@override String get questionSubtitle => 'Ɔɑʟɔʊʟɑʈɛ ʈħɛ ʈθʈɑʟ θƒ ıʈɛɱʃ ɑƀθʌɛ ɑŋɗ ʃɛʟɛɔʈ';
-	@override String get hint => 'Ɱʊʟʈıρʟʎ ɛɑɔħ ʊŋıʈ ρʀıɔɛ ƀʎ ϕʊɑŋʈıʈʎ ɑŋɗ ʃʊɱ ʈħɛɱ ʊρ';
+	@override String get appTitle => 'Wysoorjp Ukfz';
+	@override String get itemsHeader => 'Ukfz Rzxew';
+	@override String get itemCount => '{count} rzxew';
+	@override String get questionTitle => 'Gykz rw zyx zszkc ofrux?';
+	@override String get questionSubtitle => 'Ukcuhckzx zyx zszkc sb rzxew kdsnx kjm wxcxuz';
+	@override String get hint => 'Ehczroci xkuy hjrz ofrux di lhkjzrzi kjm whe zyxe ho';
 }
 
 // Path: checkout
@@ -87,22 +87,22 @@ class _TranslationsCheckoutXx extends TranslationsCheckoutJa {
 
 	// Translations
 	@override String get missionText => 'Complete the checkout process';
-	@override String get appTitle => 'Ρɑʎɱɛŋʈ Ɔħɛɔƙθʊʈ';
-	@override String get step1 => 'Ɔɑʀʈ';
-	@override String get step2 => 'Ɑɗɗʀɛʃʃ & Ρɑʎɱɛŋʈ';
-	@override String get step3 => 'Ɔθŋƒıʀɱ';
-	@override String get addressSection => 'Ɗɛʟıʌɛʀʎ Ɑɗɗʀɛʃʃ';
-	@override String get addressPlaceholder => 'ɛ.ɣ. ①-① Ʃħıƀʊʎɑ, Ʈθƙʎθ...';
-	@override String get paymentSection => 'Ρɑʎɱɛŋʈ Ɱɛʈħθɗ';
-	@override String get paymentCreditCard => 'Ɔʀɛɗıʈ Ɔɑʀɗ';
-	@override String get paymentConvenience => 'Ɔθŋʌɛŋıɛŋɔɛ Ʃʈθʀɛ';
-	@override String get paymentCOD => 'Ɔɑʃħ θŋ Ɗɛʟıʌɛʀʎ';
-	@override String get summarySection => 'Θʀɗɛʀ Ʃʊɱɱɑʀʎ';
-	@override String get subtotal => 'Ɪʈɛɱ Ʃʊƀʈθʈɑʟ';
-	@override String get shipping => 'Ʃħıρρıŋɣ ƒɛɛ';
-	@override String get total => 'Θʀɗɛʀ Ʈθʈɑʟ';
-	@override String get confirmCheck => 'Ɪ ħɑʌɛ ɔθŋƒıʀɱɛɗ ʈħɛ θʀɗɛʀ ɗɛʈɑıʟʃ';
-	@override String get confirmButton => 'Ρʟɑɔɛ Θʀɗɛʀ';
+	@override String get appTitle => 'Okiexjz Uyxuashz';
+	@override String get step1 => 'Ukfz';
+	@override String get step2 => 'Kmmfxww & Okiexjz';
+	@override String get step3 => 'Usjbrfe';
+	@override String get addressSection => 'Mxcrnxfi Kmmfxww';
+	@override String get addressPlaceholder => 'x.p. γ-γ Wyrdhik, Zsais...';
+	@override String get paymentSection => 'Okiexjz Exzysm';
+	@override String get paymentCreditCard => 'Ufxmrz Ukfm';
+	@override String get paymentConvenience => 'Usjnxjrxjux Wzsfx';
+	@override String get paymentCOD => 'Ukwy sj Mxcrnxfi';
+	@override String get summarySection => 'Sfmxf Wheekfi';
+	@override String get subtotal => 'Rzxe Whdzszkc';
+	@override String get shipping => 'Wyroorjp bxx';
+	@override String get total => 'Sfmxf Zszkc';
+	@override String get confirmCheck => 'R yknx usjbrfexm zyx sfmxf mxzkrcw';
+	@override String get confirmButton => 'Ockux Sfmxf';
 }
 
 // Path: common
@@ -112,9 +112,9 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get addToCart => 'Ɑɗɗ ʈθ Ɔɑʀʈ';
-	@override String get quantity => 'Φʈʎ: {qty}';
-	@override String get primeBadge => 'ρʀıɱɛ';
+	@override String get addToCart => 'Kmm zs Ukfz';
+	@override String get quantity => 'Lzi: {qty}';
+	@override String get primeBadge => 'ofrex';
 }
 
 // Path: navigation
@@ -124,10 +124,10 @@ class _TranslationsNavigationXx extends TranslationsNavigationJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get home => 'Ħθɱɛ';
-	@override String get search => 'Ʃɛɑʀɔħ';
-	@override String get account => 'Ɑɔɔθʊŋʈ';
-	@override String get menu => 'Ɱɛŋʊ';
+	@override String get home => 'Ysex';
+	@override String get search => 'Wxkfuy';
+	@override String get account => 'Kuushjz';
+	@override String get menu => 'Exjh';
 }
 
 // Path: categories
@@ -137,12 +137,12 @@ class _TranslationsCategoriesXx extends TranslationsCategoriesJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get daily => 'Ɗɑıʟʎ ɣθθɗʃ';
-	@override String get food => 'Ƒθθɗ & Ɗʀıŋƙʃ';
-	@override String get electronics => 'Ɛʟɛɔʈʀθŋıɔʃ';
-	@override String get fashion => 'Ƒɑʃħıθŋ';
-	@override String get sports => 'Ʃρθʀʈʃ';
-	@override String get kitchen => 'Ƙıʈɔħɛŋ';
+	@override String get daily => 'Mkrci pssmw';
+	@override String get food => 'Bssm & Mfrjaw';
+	@override String get electronics => 'Xcxuzfsjruw';
+	@override String get fashion => 'Bkwyrsj';
+	@override String get sports => 'Wosfzw';
+	@override String get kitchen => 'Arzuyxj';
 }
 
 /// The flat map containing all translations for locale <xx>.
@@ -154,49 +154,49 @@ extension on TranslationsXx {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'water.missionText' => 'Buy 2 bottles of water',
-			'water.appTitle' => 'ŋɑŋʈθɱɑʟʟ',
-			'water.searchPlaceholder' => 'Ʃɛɑʀɔħ ıʈɛɱʃ',
-			'water.cartTitle' => 'Ʃħθρρıŋɣ Ɔɑʀʈ',
-			'water.cartEmpty' => 'Ƴθʊʀ ɔɑʀʈ ıʃ ɛɱρʈʎ',
-			'water.subtotal' => 'Ʃʊƀʈθʈɑʟ ({count} ıʈɛɱʃ):',
-			'water.confirmOrder' => 'Ρʟɑɔɛ θʀɗɛʀ',
+			'water.appTitle' => 'jkjzsekcc',
+			'water.searchPlaceholder' => 'Wxkfuy rzxew',
+			'water.cartTitle' => 'Wysoorjp Ukfz',
+			'water.cartEmpty' => 'Ishf ukfz rw xeozi',
+			'water.subtotal' => 'Whdzszkc ({count} rzxew):',
+			'water.confirmOrder' => 'Ockux sfmxf',
 			'cart.missionText' => 'Select the total price of this cart',
-			'cart.appTitle' => 'Ʃħθρρıŋɣ Ɔɑʀʈ',
-			'cart.itemsHeader' => 'Ɔɑʀʈ Ɪʈɛɱʃ',
-			'cart.itemCount' => '{count} ıʈɛɱʃ',
-			'cart.questionTitle' => 'Ωħɑʈ ıʃ ʈħɛ ʈθʈɑʟ ρʀıɔɛ?',
-			'cart.questionSubtitle' => 'Ɔɑʟɔʊʟɑʈɛ ʈħɛ ʈθʈɑʟ θƒ ıʈɛɱʃ ɑƀθʌɛ ɑŋɗ ʃɛʟɛɔʈ',
-			'cart.hint' => 'Ɱʊʟʈıρʟʎ ɛɑɔħ ʊŋıʈ ρʀıɔɛ ƀʎ ϕʊɑŋʈıʈʎ ɑŋɗ ʃʊɱ ʈħɛɱ ʊρ',
+			'cart.appTitle' => 'Wysoorjp Ukfz',
+			'cart.itemsHeader' => 'Ukfz Rzxew',
+			'cart.itemCount' => '{count} rzxew',
+			'cart.questionTitle' => 'Gykz rw zyx zszkc ofrux?',
+			'cart.questionSubtitle' => 'Ukcuhckzx zyx zszkc sb rzxew kdsnx kjm wxcxuz',
+			'cart.hint' => 'Ehczroci xkuy hjrz ofrux di lhkjzrzi kjm whe zyxe ho',
 			'checkout.missionText' => 'Complete the checkout process',
-			'checkout.appTitle' => 'Ρɑʎɱɛŋʈ Ɔħɛɔƙθʊʈ',
-			'checkout.step1' => 'Ɔɑʀʈ',
-			'checkout.step2' => 'Ɑɗɗʀɛʃʃ & Ρɑʎɱɛŋʈ',
-			'checkout.step3' => 'Ɔθŋƒıʀɱ',
-			'checkout.addressSection' => 'Ɗɛʟıʌɛʀʎ Ɑɗɗʀɛʃʃ',
-			'checkout.addressPlaceholder' => 'ɛ.ɣ. ①-① Ʃħıƀʊʎɑ, Ʈθƙʎθ...',
-			'checkout.paymentSection' => 'Ρɑʎɱɛŋʈ Ɱɛʈħθɗ',
-			'checkout.paymentCreditCard' => 'Ɔʀɛɗıʈ Ɔɑʀɗ',
-			'checkout.paymentConvenience' => 'Ɔθŋʌɛŋıɛŋɔɛ Ʃʈθʀɛ',
-			'checkout.paymentCOD' => 'Ɔɑʃħ θŋ Ɗɛʟıʌɛʀʎ',
-			'checkout.summarySection' => 'Θʀɗɛʀ Ʃʊɱɱɑʀʎ',
-			'checkout.subtotal' => 'Ɪʈɛɱ Ʃʊƀʈθʈɑʟ',
-			'checkout.shipping' => 'Ʃħıρρıŋɣ ƒɛɛ',
-			'checkout.total' => 'Θʀɗɛʀ Ʈθʈɑʟ',
-			'checkout.confirmCheck' => 'Ɪ ħɑʌɛ ɔθŋƒıʀɱɛɗ ʈħɛ θʀɗɛʀ ɗɛʈɑıʟʃ',
-			'checkout.confirmButton' => 'Ρʟɑɔɛ Θʀɗɛʀ',
-			'common.addToCart' => 'Ɑɗɗ ʈθ Ɔɑʀʈ',
-			'common.quantity' => 'Φʈʎ: {qty}',
-			'common.primeBadge' => 'ρʀıɱɛ',
-			'navigation.home' => 'Ħθɱɛ',
-			'navigation.search' => 'Ʃɛɑʀɔħ',
-			'navigation.account' => 'Ɑɔɔθʊŋʈ',
-			'navigation.menu' => 'Ɱɛŋʊ',
-			'categories.daily' => 'Ɗɑıʟʎ ɣθθɗʃ',
-			'categories.food' => 'Ƒθθɗ & Ɗʀıŋƙʃ',
-			'categories.electronics' => 'Ɛʟɛɔʈʀθŋıɔʃ',
-			'categories.fashion' => 'Ƒɑʃħıθŋ',
-			'categories.sports' => 'Ʃρθʀʈʃ',
-			'categories.kitchen' => 'Ƙıʈɔħɛŋ',
+			'checkout.appTitle' => 'Okiexjz Uyxuashz',
+			'checkout.step1' => 'Ukfz',
+			'checkout.step2' => 'Kmmfxww & Okiexjz',
+			'checkout.step3' => 'Usjbrfe',
+			'checkout.addressSection' => 'Mxcrnxfi Kmmfxww',
+			'checkout.addressPlaceholder' => 'x.p. γ-γ Wyrdhik, Zsais...',
+			'checkout.paymentSection' => 'Okiexjz Exzysm',
+			'checkout.paymentCreditCard' => 'Ufxmrz Ukfm',
+			'checkout.paymentConvenience' => 'Usjnxjrxjux Wzsfx',
+			'checkout.paymentCOD' => 'Ukwy sj Mxcrnxfi',
+			'checkout.summarySection' => 'Sfmxf Wheekfi',
+			'checkout.subtotal' => 'Rzxe Whdzszkc',
+			'checkout.shipping' => 'Wyroorjp bxx',
+			'checkout.total' => 'Sfmxf Zszkc',
+			'checkout.confirmCheck' => 'R yknx usjbrfexm zyx sfmxf mxzkrcw',
+			'checkout.confirmButton' => 'Ockux Sfmxf',
+			'common.addToCart' => 'Kmm zs Ukfz',
+			'common.quantity' => 'Lzi: {qty}',
+			'common.primeBadge' => 'ofrex',
+			'navigation.home' => 'Ysex',
+			'navigation.search' => 'Wxkfuy',
+			'navigation.account' => 'Kuushjz',
+			'navigation.menu' => 'Exjh',
+			'categories.daily' => 'Mkrci pssmw',
+			'categories.food' => 'Bssm & Mfrjaw',
+			'categories.electronics' => 'Xcxuzfsjruw',
+			'categories.fashion' => 'Bkwyrsj',
+			'categories.sports' => 'Wosfzw',
+			'categories.kitchen' => 'Arzuyxj',
 			_ => null,
 		};
 	}

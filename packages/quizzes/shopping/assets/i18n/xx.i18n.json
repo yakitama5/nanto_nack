@@ -1,58 +1,58 @@
 {
   "water": {
     "missionText": "Buy 2 bottles of water",
-    "appTitle": "ŋɑŋʈθɱɑʟʟ",
-    "searchPlaceholder": "Ʃɛɑʀɔħ ıʈɛɱʃ",
-    "cartTitle": "Ʃħθρρıŋɣ Ɔɑʀʈ",
-    "cartEmpty": "Ƴθʊʀ ɔɑʀʈ ıʃ ɛɱρʈʎ",
-    "subtotal": "Ʃʊƀʈθʈɑʟ ({count} ıʈɛɱʃ):",
-    "confirmOrder": "Ρʟɑɔɛ θʀɗɛʀ"
+    "appTitle": "jkjzsekcc",
+    "searchPlaceholder": "Wxkfuy rzxew",
+    "cartTitle": "Wysoorjp Ukfz",
+    "cartEmpty": "Ishf ukfz rw xeozi",
+    "subtotal": "Whdzszkc ({count} rzxew):",
+    "confirmOrder": "Ockux sfmxf"
   },
   "cart": {
     "missionText": "Select the total price of this cart",
-    "appTitle": "Ʃħθρρıŋɣ Ɔɑʀʈ",
-    "itemsHeader": "Ɔɑʀʈ Ɪʈɛɱʃ",
-    "itemCount": "{count} ıʈɛɱʃ",
-    "questionTitle": "Ωħɑʈ ıʃ ʈħɛ ʈθʈɑʟ ρʀıɔɛ?",
-    "questionSubtitle": "Ɔɑʟɔʊʟɑʈɛ ʈħɛ ʈθʈɑʟ θƒ ıʈɛɱʃ ɑƀθʌɛ ɑŋɗ ʃɛʟɛɔʈ",
-    "hint": "Ɱʊʟʈıρʟʎ ɛɑɔħ ʊŋıʈ ρʀıɔɛ ƀʎ ϕʊɑŋʈıʈʎ ɑŋɗ ʃʊɱ ʈħɛɱ ʊρ"
+    "appTitle": "Wysoorjp Ukfz",
+    "itemsHeader": "Ukfz Rzxew",
+    "itemCount": "{count} rzxew",
+    "questionTitle": "Gykz rw zyx zszkc ofrux?",
+    "questionSubtitle": "Ukcuhckzx zyx zszkc sb rzxew kdsnx kjm wxcxuz",
+    "hint": "Ehczroci xkuy hjrz ofrux di lhkjzrzi kjm whe zyxe ho"
   },
   "checkout": {
     "missionText": "Complete the checkout process",
-    "appTitle": "Ρɑʎɱɛŋʈ Ɔħɛɔƙθʊʈ",
-    "step1": "Ɔɑʀʈ",
-    "step2": "Ɑɗɗʀɛʃʃ & Ρɑʎɱɛŋʈ",
-    "step3": "Ɔθŋƒıʀɱ",
-    "addressSection": "Ɗɛʟıʌɛʀʎ Ɑɗɗʀɛʃʃ",
-    "addressPlaceholder": "ɛ.ɣ. ①-① Ʃħıƀʊʎɑ, Ʈθƙʎθ...",
-    "paymentSection": "Ρɑʎɱɛŋʈ Ɱɛʈħθɗ",
-    "paymentCreditCard": "Ɔʀɛɗıʈ Ɔɑʀɗ",
-    "paymentConvenience": "Ɔθŋʌɛŋıɛŋɔɛ Ʃʈθʀɛ",
-    "paymentCOD": "Ɔɑʃħ θŋ Ɗɛʟıʌɛʀʎ",
-    "summarySection": "Θʀɗɛʀ Ʃʊɱɱɑʀʎ",
-    "subtotal": "Ɪʈɛɱ Ʃʊƀʈθʈɑʟ",
-    "shipping": "Ʃħıρρıŋɣ ƒɛɛ",
-    "total": "Θʀɗɛʀ Ʈθʈɑʟ",
-    "confirmCheck": "Ɪ ħɑʌɛ ɔθŋƒıʀɱɛɗ ʈħɛ θʀɗɛʀ ɗɛʈɑıʟʃ",
-    "confirmButton": "Ρʟɑɔɛ Θʀɗɛʀ"
+    "appTitle": "Okiexjz Uyxuashz",
+    "step1": "Ukfz",
+    "step2": "Kmmfxww & Okiexjz",
+    "step3": "Usjbrfe",
+    "addressSection": "Mxcrnxfi Kmmfxww",
+    "addressPlaceholder": "x.p. γ-γ Wyrdhik, Zsais...",
+    "paymentSection": "Okiexjz Exzysm",
+    "paymentCreditCard": "Ufxmrz Ukfm",
+    "paymentConvenience": "Usjnxjrxjux Wzsfx",
+    "paymentCOD": "Ukwy sj Mxcrnxfi",
+    "summarySection": "Sfmxf Wheekfi",
+    "subtotal": "Rzxe Whdzszkc",
+    "shipping": "Wyroorjp bxx",
+    "total": "Sfmxf Zszkc",
+    "confirmCheck": "R yknx usjbrfexm zyx sfmxf mxzkrcw",
+    "confirmButton": "Ockux Sfmxf"
   },
   "common": {
-    "addToCart": "Ɑɗɗ ʈθ Ɔɑʀʈ",
-    "quantity": "Φʈʎ: {qty}",
-    "primeBadge": "ρʀıɱɛ"
+    "addToCart": "Kmm zs Ukfz",
+    "quantity": "Lzi: {qty}",
+    "primeBadge": "ofrex"
   },
   "navigation": {
-    "home": "Ħθɱɛ",
-    "search": "Ʃɛɑʀɔħ",
-    "account": "Ɑɔɔθʊŋʈ",
-    "menu": "Ɱɛŋʊ"
+    "home": "Ysex",
+    "search": "Wxkfuy",
+    "account": "Kuushjz",
+    "menu": "Exjh"
   },
   "categories": {
-    "daily": "Ɗɑıʟʎ ɣθθɗʃ",
-    "food": "Ƒθθɗ & Ɗʀıŋƙʃ",
-    "electronics": "Ɛʟɛɔʈʀθŋıɔʃ",
-    "fashion": "Ƒɑʃħıθŋ",
-    "sports": "Ʃρθʀʈʃ",
-    "kitchen": "Ƙıʈɔħɛŋ"
+    "daily": "Mkrci pssmw",
+    "food": "Bssm & Mfrjaw",
+    "electronics": "Xcxuzfsjruw",
+    "fashion": "Bkwyrsj",
+    "sports": "Wosfzw",
+    "kitchen": "Arzuyxj"
   }
 }

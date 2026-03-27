@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
@@ -54,12 +55,12 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
       children: [
         Theme(
           data: Theme.of(context).copyWith(
-            textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'NotoSans',
+            textTheme: GoogleFonts.notoSansJpTextTheme(
+              Theme.of(context).textTheme,
             ),
           ),
           child: DefaultTextStyle.merge(
-            style: const TextStyle(fontFamily: 'NotoSans'),
+            style: GoogleFonts.notoSansJp(),
             child: Scaffold(
           backgroundColor: const Color(0xFFF3F3F3),
           appBar: AppBar(

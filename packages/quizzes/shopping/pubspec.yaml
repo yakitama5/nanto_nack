@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.6.1
+  google_fonts: ^6.2.1
   quiz_core:
     path: ../../quiz_core
   slang: ^4.3.1
@@ -38,9 +39,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/item/
-  fonts:
-    - family: NotoSans
-      fonts:
-        - asset: assets/fonts/NotoSans-Regular.ttf
-        - asset: assets/fonts/NotoSans-Bold.ttf
-          weight: 700
