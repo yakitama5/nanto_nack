@@ -15,11 +15,33 @@ const kShoppingNavyColor = Color(0xFF131921);
 const kShoppingSearchBarHeight = 48.0;
 const kShoppingCategoryBarHeight = 40.0;
 
+/// アカウントタブの「注文履歴」に表示する最近の注文データ。
+///
+/// クイズ画面から [ShoppingApp] に渡すことで注文履歴ビューが有効になる。
+/// null の場合は注文履歴メニューが非活性表示になる。
+class ShoppingRecentOrder {
+  const ShoppingRecentOrder({
+    required this.targetItemId,
+    required this.isPlayable,
+    required this.onReorder,
+  });
+
+  /// 再注文対象の商品 ID
+  final String targetItemId;
+
+  /// 「もう一度買う」ボタンを有効にするか（クイズプレイ中のみ true）
+  final bool isPlayable;
+
+  /// 「もう一度買う」タップ時のコールバック
+  final VoidCallback onReorder;
+}
+
 /// EC サイト全体のシェル Widget。
 /// 水クイズ・再注文クイズなど複数のクイズが共有する。
 ///
 /// - タブ 0（ホーム）/ 1（検索）/ 3（メニュー）: 商品グリッド
-/// - タブ 2（アカウント）: [accountViewBuilder] で差し替え可能
+/// - タブ 2（アカウント）: 常に同一のアカウントビューを表示。
+///   [recentOrder] を渡すと注文履歴が有効になる。
 class ShoppingApp extends StatefulWidget {
   const ShoppingApp({
     super.key,
@@ -42,8 +64,8 @@ class ShoppingApp extends StatefulWidget {
     required this.cartBottomSheetBuilder,
     // ── クイズオーバーレイ（カットイン・リザルト等）──────────
     this.overlays = const [],
-    // ── アカウントタブのカスタムコンテンツ ───────────────────
-    this.accountViewBuilder,
+    // ── 注文履歴データ（null = 注文なし）────────────────────
+    this.recentOrder,
   });
 
   final ShoppingCart cart;
@@ -60,7 +82,7 @@ class ShoppingApp extends StatefulWidget {
   final VoidCallback? onHintTap;
   final WidgetBuilder cartBottomSheetBuilder;
   final List<Widget> overlays;
-  final WidgetBuilder? accountViewBuilder;
+  final ShoppingRecentOrder? recentOrder;
 
   @override
   State<ShoppingApp> createState() => _ShoppingAppState();
@@ -70,12 +92,11 @@ class _ShoppingAppState extends State<ShoppingApp> {
   ShoppingCategory? _selectedCategory;
   String _searchQuery = '';
   int _selectedNavIndex = 0;
+  bool _showOrderHistory = false;
   final _searchController = TextEditingController();
 
   /// ホームビュー（商品グリッド）を表示中かどうか。
-  /// アカウントタブが選択され、かつカスタムビューが存在する場合は false。
-  bool get _isHomeView =>
-      _selectedNavIndex != 2 || widget.accountViewBuilder == null;
+  bool get _isHomeView => _selectedNavIndex != 2;
 
   @override
   void dispose() {
@@ -122,7 +143,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
               body: _buildBody(filteredCatalog),
               bottomNavigationBar: _ShoppingBottomNav(
                 selectedIndex: _selectedNavIndex,
-                onTap: (i) => setState(() => _selectedNavIndex = i),
+                onTap: _onNavTap,
               ),
             ),
           ),
@@ -148,10 +169,21 @@ class _ShoppingAppState extends State<ShoppingApp> {
   }
 
   Widget _buildBody(List<ShoppingItem> filteredCatalog) {
-    if (!_isHomeView) {
-      return Builder(builder: widget.accountViewBuilder!);
+    // アカウントタブ
+    if (_selectedNavIndex == 2) {
+      return _showOrderHistory
+          ? _OrderHistoryView(
+              recentOrder: widget.recentOrder!,
+              onBack: () => setState(() => _showOrderHistory = false),
+            )
+          : _AccountMenuView(
+              recentOrder: widget.recentOrder,
+              onOrderHistoryTap: () =>
+                  setState(() => _showOrderHistory = true),
+            );
     }
 
+    // ホーム / 検索 / メニュータブ: 商品グリッド
     return Column(
       children: [
         _ShoppingSearchBar(
@@ -212,6 +244,14 @@ class _ShoppingAppState extends State<ShoppingApp> {
         ),
       ],
     );
+  }
+
+  void _onNavTap(int index) {
+    setState(() {
+      _selectedNavIndex = index;
+      // アカウントタブから離れたら注文履歴サブビューをリセット
+      if (index != 2) _showOrderHistory = false;
+    });
   }
 
   void _showCart(BuildContext context) {
@@ -503,6 +543,367 @@ class _ShoppingNavItem extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ─── アカウントメニュービュー ──────────────────────────────────────────────
+
+class _AccountMenuView extends StatelessWidget {
+  const _AccountMenuView({
+    required this.recentOrder,
+    required this.onOrderHistoryTap,
+  });
+
+  /// null のとき注文履歴メニューは非活性
+  final ShoppingRecentOrder? recentOrder;
+  final VoidCallback onOrderHistoryTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final hasOrder = recentOrder != null;
+
+    return ListView(
+      children: [
+        // プロフィールヘッダー
+        Container(
+          color: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          child: Row(
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFE8E8E8),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.person,
+                  size: 32,
+                  color: Color(0xFF888888),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: UnreadableText(
+                  context.sq.navigation.account,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        // メニューリスト
+        Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              _AccountMenuTile(
+                icon: Icons.local_shipping_outlined,
+                label: context.sq.reorder.orderHistoryTitle,
+                showDivider: true,
+              ),
+              // 注文履歴: recentOrder がある場合のみ活性化
+              _AccountMenuTile(
+                icon: Icons.receipt_long_outlined,
+                label: context.sq.reorder.appTitle,
+                onTap: hasOrder ? onOrderHistoryTap : null,
+                showDivider: true,
+                highlighted: hasOrder,
+              ),
+              _AccountMenuTile(
+                icon: Icons.favorite_border,
+                label: context.sq.common.addToCart,
+                showDivider: true,
+              ),
+              _AccountMenuTile(
+                icon: Icons.settings_outlined,
+                label: context.sq.navigation.menu,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AccountMenuTile extends StatelessWidget {
+  const _AccountMenuTile({
+    required this.icon,
+    required this.label,
+    this.onTap,
+    this.showDivider = false,
+    this.highlighted = false,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback? onTap;
+  final bool showDivider;
+  final bool highlighted;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: 24,
+                  color: highlighted
+                      ? const Color(0xFF007185)
+                      : const Color(0xFF888888),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: UnreadableText(
+                    label,
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight:
+                          highlighted ? FontWeight.bold : FontWeight.normal,
+                      color:
+                          highlighted ? const Color(0xFF007185) : Colors.black54,
+                    ),
+                  ),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  color: highlighted
+                      ? Colors.grey.shade500
+                      : Colors.grey.shade300,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (showDivider)
+          const Divider(height: 1, indent: 56),
+      ],
+    );
+  }
+}
+
+// ─── 注文履歴サブビュー ────────────────────────────────────────────────────
+
+class _OrderHistoryView extends StatelessWidget {
+  const _OrderHistoryView({
+    required this.recentOrder,
+    required this.onBack,
+  });
+
+  final ShoppingRecentOrder recentOrder;
+  final VoidCallback onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final targetItem =
+        kShoppingCatalog.firstWhere((i) => i.id == recentOrder.targetItemId);
+    final qt = context.sq.reorder;
+
+    return Column(
+      children: [
+        // ビュー内ヘッダー（戻るボタン付き）
+        Container(
+          color: kShoppingNavyColor,
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: onBack,
+              ),
+              Expanded(
+                child: UnreadableText(
+                  qt.appTitle,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        // 注文履歴リスト
+        Expanded(
+          child: ListView(
+            children: [
+              // セクションヘッダー
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                color: const Color(0xFFF3F3F3),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.history,
+                      size: 18,
+                      color: Color(0xFF007185),
+                    ),
+                    const SizedBox(width: 8),
+                    UnreadableText(
+                      qt.orderHistoryTitle,
+                      isObfuscated: true,
+                      animateOnObfuscate: false,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF007185),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // 注文カード
+              Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    // カードヘッダー（注文日）
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFF3F3F3),
+                        border: Border(
+                          bottom: BorderSide(color: Color(0xFFE0E0E0)),
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: UnreadableText(
+                          qt.lastOrderDate,
+                          isObfuscated: true,
+                          animateOnObfuscate: false,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // 商品情報
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade200),
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.grey.shade50,
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.asset(
+                                targetItem.imagePath,
+                                package: 'shopping',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                UnreadableText(
+                                  context.sqCatalogItemName(
+                                    recentOrder.targetItemId,
+                                  ),
+                                  isObfuscated: true,
+                                  animateOnObfuscate: false,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                const SizedBox(height: 6),
+                                UnreadableText(
+                                  '¥${targetItem.price}',
+                                  isObfuscated: true,
+                                  animateOnObfuscate: false,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // 「もう一度買う」ボタン
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFFD814),
+                            foregroundColor: Colors.black87,
+                            elevation: 0,
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              side: const BorderSide(
+                                color: Color(0xFFFFA41C),
+                              ),
+                            ),
+                          ),
+                          onPressed: recentOrder.isPlayable
+                              ? () {
+                                  recentOrder.onReorder();
+                                  onBack(); // カート追加後はアカウントメニューへ戻る
+                                }
+                              : null,
+                          child: UnreadableText(
+                            qt.reorderButton,
+                            isObfuscated: true,
+                            animateOnObfuscate: false,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
