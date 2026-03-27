@@ -94,13 +94,16 @@ class _ShoppingAppState extends State<ShoppingApp> {
   int _selectedNavIndex = 0;
   bool _showOrderHistory = false;
   final _searchController = TextEditingController();
+  final _searchFocusNode = FocusNode();
 
-  /// ホームビュー（商品グリッド）を表示中かどうか。
-  bool get _isHomeView => _selectedNavIndex != 2;
+  /// 商品グリッド（ホーム/検索タブ）を表示中かどうか。
+  bool get _isProductGridTab =>
+      _selectedNavIndex == 0 || _selectedNavIndex == 1;
 
   @override
   void dispose() {
     _searchController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
   }
 
@@ -119,7 +122,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
 
     final missionBarTop = MediaQuery.paddingOf(context).top +
         kToolbarHeight +
-        (_isHomeView
+        (_isProductGridTab
             ? kShoppingSearchBarHeight + kShoppingCategoryBarHeight
             : 0.0) +
         8;
@@ -183,11 +186,17 @@ class _ShoppingAppState extends State<ShoppingApp> {
             );
     }
 
-    // ホーム / 検索 / メニュータブ: 商品グリッド
+    // メニュータブ
+    if (_selectedNavIndex == 3) {
+      return const _MenuTabView();
+    }
+
+    // ホーム / 検索タブ: 商品グリッド
     return Column(
       children: [
         _ShoppingSearchBar(
           controller: _searchController,
+          focusNode: _searchFocusNode,
           searchQuery: _searchQuery,
           onChanged: (v) => setState(() => _searchQuery = v),
           onClear: () {
@@ -252,6 +261,10 @@ class _ShoppingAppState extends State<ShoppingApp> {
       // アカウントタブから離れたら注文履歴サブビューをリセット
       if (index != 2) _showOrderHistory = false;
     });
+    // 検索タブへの切り替え時に検索フィールドにフォーカスを当てる
+    if (index == 1) {
+      _searchFocusNode.requestFocus();
+    }
   }
 
   void _showCart(BuildContext context) {
@@ -308,12 +321,14 @@ class _ShoppingSearchBar extends StatelessWidget {
     required this.searchQuery,
     required this.onChanged,
     required this.onClear,
+    this.focusNode,
   });
 
   final TextEditingController controller;
   final String searchQuery;
   final ValueChanged<String> onChanged;
   final VoidCallback onClear;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -334,6 +349,7 @@ class _ShoppingSearchBar extends StatelessWidget {
             Expanded(
               child: TextField(
                 controller: controller,
+                focusNode: focusNode,
                 onChanged: onChanged,
                 style: const TextStyle(fontSize: 14),
                 decoration: InputDecoration(
@@ -432,6 +448,175 @@ class _ShoppingCategoryBar extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+// ─── メニュータブビュー ────────────────────────────────────────────────────
+
+class _MenuTabView extends StatelessWidget {
+  const _MenuTabView();
+
+  @override
+  Widget build(BuildContext context) {
+    final nav = context.sq.navigation;
+    final menu = context.sq.menu;
+
+    return ListView(
+      children: [
+        // ユーザーヘッダー
+        Container(
+          color: kShoppingNavyColor,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF3A4553),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.person, size: 24, color: Colors.white),
+              ),
+              const SizedBox(width: 12),
+              UnreadableText(
+                nav.account,
+                isObfuscated: true,
+                animateOnObfuscate: false,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        // プログラム＆機能セクション
+        _MenuSection(
+          title: menu.programs,
+          items: [
+            _MenuSectionItem(
+              icon: Icons.star_border,
+              label: menu.prime,
+              iconColor: const Color(0xFF00A8E1),
+            ),
+            _MenuSectionItem(
+              icon: Icons.cloud_outlined,
+              label: menu.digitalContent,
+              iconColor: const Color(0xFF007185),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        // 設定セクション
+        _MenuSection(
+          title: menu.settingsSection,
+          items: [
+            _MenuSectionItem(
+              icon: Icons.notifications_outlined,
+              label: menu.notification,
+            ),
+            _MenuSectionItem(
+              icon: Icons.headset_mic_outlined,
+              label: menu.customerService,
+            ),
+            _MenuSectionItem(
+              icon: Icons.help_outline,
+              label: menu.help,
+            ),
+            _MenuSectionItem(
+              icon: Icons.description_outlined,
+              label: menu.terms,
+              showDivider: false,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _MenuSection extends StatelessWidget {
+  const _MenuSection({
+    required this.title,
+    required this.items,
+  });
+
+  final String title;
+  final List<_MenuSectionItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          color: const Color(0xFFF3F3F3),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: UnreadableText(
+            title,
+            isObfuscated: true,
+            animateOnObfuscate: false,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF555555),
+            ),
+          ),
+        ),
+        Container(
+          color: Colors.white,
+          child: Column(children: items),
+        ),
+      ],
+    );
+  }
+}
+
+class _MenuSectionItem extends StatelessWidget {
+  const _MenuSectionItem({
+    required this.icon,
+    required this.label,
+    this.iconColor = const Color(0xFF888888),
+    this.showDivider = true,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color iconColor;
+  final bool showDivider;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Icon(icon, size: 22, color: iconColor),
+              const SizedBox(width: 16),
+              Expanded(
+                child: UnreadableText(
+                  label,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                  style: const TextStyle(fontSize: 14, color: Colors.black87),
+                ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                size: 20,
+                color: Colors.grey.shade400,
+              ),
+            ],
+          ),
+        ),
+        if (showDivider) const Divider(height: 1, indent: 54),
+      ],
     );
   }
 }

@@ -53,6 +53,20 @@
     "primeBadge": "prime",
     "noResults": "No items found"
   },
+  "search": {
+    "popularCategories": "Popular Categories",
+    "trendingItems": "Trending Items"
+  },
+  "menu": {
+    "programs": "Programs & Features",
+    "prime": "Join Prime",
+    "digitalContent": "Digital Content",
+    "settingsSection": "Settings",
+    "notification": "Notification Settings",
+    "customerService": "Customer Service",
+    "help": "Help",
+    "terms": "Terms of Use"
+  },
   "navigation": {
     "home": "Home",
     "search": "Search",

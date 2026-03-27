@@ -45,6 +45,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCheckoutJa checkout = TranslationsCheckoutJa.internal(_root);
 	late final TranslationsReorderJa reorder = TranslationsReorderJa.internal(_root);
 	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
+	late final TranslationsSearchJa search = TranslationsSearchJa.internal(_root);
+	late final TranslationsMenuJa menu = TranslationsMenuJa.internal(_root);
 	late final TranslationsNavigationJa navigation = TranslationsNavigationJa.internal(_root);
 	late final TranslationsCategoriesJa categories = TranslationsCategoriesJa.internal(_root);
 	late final TranslationsCatalogJa catalog = TranslationsCatalogJa.internal(_root);
@@ -229,6 +231,54 @@ class TranslationsCommonJa {
 
 	/// ja: '該当する商品がありません'
 	String get noResults => '該当する商品がありません';
+}
+
+// Path: search
+class TranslationsSearchJa {
+	TranslationsSearchJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '人気のカテゴリ'
+	String get popularCategories => '人気のカテゴリ';
+
+	/// ja: '注目の商品'
+	String get trendingItems => '注目の商品';
+}
+
+// Path: menu
+class TranslationsMenuJa {
+	TranslationsMenuJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'プログラム＆機能'
+	String get programs => 'プログラム＆機能';
+
+	/// ja: 'Primeに登録'
+	String get prime => 'Primeに登録';
+
+	/// ja: 'デジタルコンテンツ'
+	String get digitalContent => 'デジタルコンテンツ';
+
+	/// ja: '設定'
+	String get settingsSection => '設定';
+
+	/// ja: '通知設定'
+	String get notification => '通知設定';
+
+	/// ja: 'カスタマーサービス'
+	String get customerService => 'カスタマーサービス';
+
+	/// ja: 'ヘルプ'
+	String get help => 'ヘルプ';
+
+	/// ja: '利用規約'
+	String get terms => '利用規約';
 }
 
 // Path: navigation
@@ -491,6 +541,16 @@ extension on Translations {
 			'common.quantity' => '数量: {qty}',
 			'common.primeBadge' => 'prime',
 			'common.noResults' => '該当する商品がありません',
+			'search.popularCategories' => '人気のカテゴリ',
+			'search.trendingItems' => '注目の商品',
+			'menu.programs' => 'プログラム＆機能',
+			'menu.prime' => 'Primeに登録',
+			'menu.digitalContent' => 'デジタルコンテンツ',
+			'menu.settingsSection' => '設定',
+			'menu.notification' => '通知設定',
+			'menu.customerService' => 'カスタマーサービス',
+			'menu.help' => 'ヘルプ',
+			'menu.terms' => '利用規約',
 			'navigation.home' => 'ホーム',
 			'navigation.search' => '検索',
 			'navigation.account' => 'アカウント',

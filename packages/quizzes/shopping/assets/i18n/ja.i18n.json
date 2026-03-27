@@ -73,6 +73,20 @@
     "primeBadge": "prime",
     "noResults": "該当する商品がありません"
   },
+  "search": {
+    "popularCategories": "人気のカテゴリ",
+    "trendingItems": "注目の商品"
+  },
+  "menu": {
+    "programs": "プログラム＆機能",
+    "prime": "Primeに登録",
+    "digitalContent": "デジタルコンテンツ",
+    "settingsSection": "設定",
+    "notification": "通知設定",
+    "customerService": "カスタマーサービス",
+    "help": "ヘルプ",
+    "terms": "利用規約"
+  },
   "navigation": {
     "home": "ホーム",
     "search": "検索",

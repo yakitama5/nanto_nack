@@ -44,6 +44,8 @@ class TranslationsXx extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCheckoutXx checkout = _TranslationsCheckoutXx._(_root);
 	@override late final _TranslationsReorderXx reorder = _TranslationsReorderXx._(_root);
 	@override late final _TranslationsCommonXx common = _TranslationsCommonXx._(_root);
+	@override late final _TranslationsSearchXx search = _TranslationsSearchXx._(_root);
+	@override late final _TranslationsMenuXx menu = _TranslationsMenuXx._(_root);
 	@override late final _TranslationsNavigationXx navigation = _TranslationsNavigationXx._(_root);
 	@override late final _TranslationsCategoriesXx categories = _TranslationsCategoriesXx._(_root);
 	@override late final _TranslationsCatalogXx catalog = _TranslationsCatalogXx._(_root);
@@ -136,6 +138,34 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get quantity => 'Qty: {qty}';
 	@override String get primeBadge => 'prime';
 	@override String get noResults => 'No items found';
+}
+
+// Path: search
+class _TranslationsSearchXx extends TranslationsSearchJa {
+	_TranslationsSearchXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get popularCategories => 'Popular Categories';
+	@override String get trendingItems => 'Trending Items';
+}
+
+// Path: menu
+class _TranslationsMenuXx extends TranslationsMenuJa {
+	_TranslationsMenuXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get programs => 'Programs & Features';
+	@override String get prime => 'Join Prime';
+	@override String get digitalContent => 'Digital Content';
+	@override String get settingsSection => 'Settings';
+	@override String get notification => 'Notification Settings';
+	@override String get customerService => 'Customer Service';
+	@override String get help => 'Help';
+	@override String get terms => 'Terms of Use';
 }
 
 // Path: navigation
@@ -250,6 +280,16 @@ extension on TranslationsXx {
 			'common.quantity' => 'Qty: {qty}',
 			'common.primeBadge' => 'prime',
 			'common.noResults' => 'No items found',
+			'search.popularCategories' => 'Popular Categories',
+			'search.trendingItems' => 'Trending Items',
+			'menu.programs' => 'Programs & Features',
+			'menu.prime' => 'Join Prime',
+			'menu.digitalContent' => 'Digital Content',
+			'menu.settingsSection' => 'Settings',
+			'menu.notification' => 'Notification Settings',
+			'menu.customerService' => 'Customer Service',
+			'menu.help' => 'Help',
+			'menu.terms' => 'Terms of Use',
 			'navigation.home' => 'Home',
 			'navigation.search' => 'Search',
 			'navigation.account' => 'Account',
