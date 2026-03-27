@@ -43,6 +43,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsWaterJa water = TranslationsWaterJa.internal(_root);
 	late final TranslationsCartJa cart = TranslationsCartJa.internal(_root);
 	late final TranslationsCheckoutJa checkout = TranslationsCheckoutJa.internal(_root);
+	late final TranslationsReorderJa reorder = TranslationsReorderJa.internal(_root);
 	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
 	late final TranslationsNavigationJa navigation = TranslationsNavigationJa.internal(_root);
 	late final TranslationsCategoriesJa categories = TranslationsCategoriesJa.internal(_root);
@@ -171,6 +172,44 @@ class TranslationsCheckoutJa {
 	String get confirmButton => '注文を確定する';
 }
 
+// Path: reorder
+class TranslationsReorderJa {
+	TranslationsReorderJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '直近で注文した商品をもう一度購入してください'
+	String get missionText => '直近で注文した商品をもう一度購入してください';
+
+	/// ja: '注文履歴'
+	String get appTitle => '注文履歴';
+
+	/// ja: '最近の注文'
+	String get orderHistoryTitle => '最近の注文';
+
+	/// ja: 'もう一度買う'
+	String get reorderButton => 'もう一度買う';
+
+	/// ja: '3日前に注文'
+	String get lastOrderDate => '3日前に注文';
+
+	/// ja: 'ショッピングカート'
+	String get cartTitle => 'ショッピングカート';
+
+	/// ja: 'カートは空です'
+	String get cartEmpty => 'カートは空です';
+
+	/// ja: '小計 ({count}点の商品):'
+	String get subtotal => '小計 ({count}点の商品):';
+
+	/// ja: '注文を確定する'
+	String get confirmOrder => '注文を確定する';
+
+	late final TranslationsReorderInsightJa insight = TranslationsReorderInsightJa.internal(_root);
+}
+
 // Path: common
 class TranslationsCommonJa {
 	TranslationsCommonJa.internal(this._root);
@@ -187,6 +226,9 @@ class TranslationsCommonJa {
 
 	/// ja: 'prime'
 	String get primeBadge => 'prime';
+
+	/// ja: '該当する商品がありません'
+	String get noResults => '該当する商品がありません';
 }
 
 // Path: navigation
@@ -348,6 +390,39 @@ class TranslationsWaterInsightJa {
 	String get patternDesc => 'グリッド商品一覧×価格＝ネットショップ、±ボタン＝数量調整。体験を重ねるうちに、パターンそのものが「当たり前」になった。';
 }
 
+// Path: reorder.insight
+class TranslationsReorderInsightJa {
+	TranslationsReorderInsightJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'なぜ文字が読めなくてもわかった？'
+	String get title => 'なぜ文字が読めなくてもわかった？';
+
+	/// ja: '視覚パターンが「再注文」体験を作る'
+	String get subtitle => '視覚パターンが「再注文」体験を作る';
+
+	/// ja: '商品画像が記憶のトリガー'
+	String get imageTitle => '商品画像が記憶のトリガー';
+
+	/// ja: '商品の外観・色・デザインは、文字情報がなくても前回の購入体験と結びついている。視覚記憶は言語を超える。'
+	String get imageDesc => '商品の外観・色・デザインは、文字情報がなくても前回の購入体験と結びついている。視覚記憶は言語を超える。';
+
+	/// ja: '価格が確信を与える'
+	String get priceTitle => '価格が確信を与える';
+
+	/// ja: '金額の一致は「同じ商品だ」という確信をもたらす。数字は言語を超えた共通言語であり、価格を見ると商品を認識できる。'
+	String get priceDesc => '金額の一致は「同じ商品だ」という確信をもたらす。数字は言語を超えた共通言語であり、価格を見ると商品を認識できる。';
+
+	/// ja: '「もう一度買う」ボタンが体験を完結させる'
+	String get patternTitle => '「もう一度買う」ボタンが体験を完結させる';
+
+	/// ja: '再購入ボタンは大手ECサイトで定番のパターン。見たことのあるUIは直感的に操作でき、検索不要で素早く再注文できる。'
+	String get patternDesc => '再購入ボタンは大手ECサイトで定番のパターン。見たことのあるUIは直感的に操作でき、検索不要で素早く再注文できる。';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -395,9 +470,27 @@ extension on Translations {
 			'checkout.total' => '注文合計',
 			'checkout.confirmCheck' => '注文内容を確認しました',
 			'checkout.confirmButton' => '注文を確定する',
+			'reorder.missionText' => '直近で注文した商品をもう一度購入してください',
+			'reorder.appTitle' => '注文履歴',
+			'reorder.orderHistoryTitle' => '最近の注文',
+			'reorder.reorderButton' => 'もう一度買う',
+			'reorder.lastOrderDate' => '3日前に注文',
+			'reorder.cartTitle' => 'ショッピングカート',
+			'reorder.cartEmpty' => 'カートは空です',
+			'reorder.subtotal' => '小計 ({count}点の商品):',
+			'reorder.confirmOrder' => '注文を確定する',
+			'reorder.insight.title' => 'なぜ文字が読めなくてもわかった？',
+			'reorder.insight.subtitle' => '視覚パターンが「再注文」体験を作る',
+			'reorder.insight.imageTitle' => '商品画像が記憶のトリガー',
+			'reorder.insight.imageDesc' => '商品の外観・色・デザインは、文字情報がなくても前回の購入体験と結びついている。視覚記憶は言語を超える。',
+			'reorder.insight.priceTitle' => '価格が確信を与える',
+			'reorder.insight.priceDesc' => '金額の一致は「同じ商品だ」という確信をもたらす。数字は言語を超えた共通言語であり、価格を見ると商品を認識できる。',
+			'reorder.insight.patternTitle' => '「もう一度買う」ボタンが体験を完結させる',
+			'reorder.insight.patternDesc' => '再購入ボタンは大手ECサイトで定番のパターン。見たことのあるUIは直感的に操作でき、検索不要で素早く再注文できる。',
 			'common.addToCart' => 'カートに追加',
 			'common.quantity' => '数量: {qty}',
 			'common.primeBadge' => 'prime',
+			'common.noResults' => '該当する商品がありません',
 			'navigation.home' => 'ホーム',
 			'navigation.search' => '検索',
 			'navigation.account' => 'アカウント',

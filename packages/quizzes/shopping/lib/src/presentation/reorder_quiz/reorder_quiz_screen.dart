@@ -7,27 +7,28 @@ import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_category.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_badge.dart';
+import 'package:shopping/src/presentation/reorder_quiz/reorder_quiz_notifier.dart';
 import 'package:shopping/src/presentation/shopping_item_tile.dart';
-import 'package:shopping/src/presentation/water_quiz/water_quiz_notifier.dart';
 
 // Amazon風カラー定数
 const _kNavyColor = Color(0xFF131921);
 
-// ボディ内の検索バー・カテゴリチップの高さ（FloatingMissionBar の位置計算に使用）
+// 各固定セクションの高さ（FloatingMissionBar の位置計算に使用）
+const _kOrderHistorySectionHeight = 100.0;
 const _kSearchBarHeight = 48.0;
 const _kCategoryBarHeight = 40.0;
 
-class WaterQuizScreen extends ConsumerStatefulWidget {
-  const WaterQuizScreen({super.key, this.onCompleted});
+class ReorderQuizScreen extends ConsumerStatefulWidget {
+  const ReorderQuizScreen({super.key, this.onCompleted});
 
   final VoidCallback? onCompleted;
 
   @override
-  ConsumerState<WaterQuizScreen> createState() => _WaterQuizScreenState();
+  ConsumerState<ReorderQuizScreen> createState() => _ReorderQuizScreenState();
 }
 
-class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
-  static const _timeLimitSeconds = 60;
+class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
+  static const _timeLimitSeconds = 90;
 
   bool _showCutIn = true;
   ShoppingCategory? _selectedCategory;
@@ -39,7 +40,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(waterQuizProvider.notifier).startQuiz();
+      ref.read(reorderQuizProvider.notifier).startQuiz();
     });
   }
 
@@ -51,8 +52,8 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final quizState = ref.watch(waterQuizProvider);
-    final missionText = context.s.water.missionText;
+    final quizState = ref.watch(reorderQuizProvider);
+    final missionText = context.s.reorder.missionText;
 
     // カテゴリ・検索クエリによるフィルタリング
     final filteredCatalog = kShoppingCatalog.where((item) {
@@ -84,6 +85,13 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
               ),
               body: Column(
                 children: [
+                  // 注文履歴セクション（固定表示）
+                  _OrderHistorySection(
+                    targetItemId: quizState.targetItemId,
+                    isPlaying: quizState.status == QuizStatus.playing,
+                    onReorder: () =>
+                        ref.read(reorderQuizProvider.notifier).reorderFromHistory(),
+                  ),
                   // 検索バー（インタラクティブ）
                   _SearchBar(
                     controller: _searchController,
@@ -105,7 +113,9 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                   // 商品グリッド（フィルタリング済み）
                   Expanded(
                     child: filteredCatalog.isEmpty
-                        ? const _EmptyFilterResult()
+                        ? _EmptyFilterResult(
+                            message: context.sq.common.noResults,
+                          )
                         : GridView.builder(
                             padding: const EdgeInsets.all(8),
                             gridDelegate:
@@ -118,7 +128,9 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                             itemCount: filteredCatalog.length,
                             itemBuilder: (context, index) {
                               final item = filteredCatalog[index];
-                              final isHinted = quizState.hintItemId == item.id;
+                              // ヒント使用時はターゲット商品をハイライト
+                              final isHighlighted = quizState.hintUsed &&
+                                  item.id == quizState.targetItemId;
                               final quantity = quizState.cart.items
                                       .where((ci) => ci.id == item.id)
                                       .firstOrNull
@@ -126,10 +138,10 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                                   0;
                               return ShoppingItemTile(
                                 item: item,
-                                highlighted: isHinted,
+                                highlighted: isHighlighted,
                                 quantity: quantity,
                                 onIncrement: () => ref
-                                    .read(waterQuizProvider.notifier)
+                                    .read(reorderQuizProvider.notifier)
                                     .addToCart(
                                       CartItem(
                                         id: item.id,
@@ -138,7 +150,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                                       ),
                                     ),
                                 onDecrement: () => ref
-                                    .read(waterQuizProvider.notifier)
+                                    .read(reorderQuizProvider.notifier)
                                     .updateQuantity(item.id, quantity - 1),
                               );
                             },
@@ -153,11 +165,12 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
             ),
           ),
         ),
-        // フローティングミッションバー（検索バー＋カテゴリバーの下に配置）
+        // フローティングミッションバー（固定セクションの下に配置）
         if (quizState.status == QuizStatus.playing)
           Positioned(
             top: MediaQuery.paddingOf(context).top +
                 kToolbarHeight +
+                _kOrderHistorySectionHeight +
                 _kSearchBarHeight +
                 _kCategoryBarHeight +
                 8,
@@ -168,7 +181,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
               missionText: missionText,
               hintUsed: quizState.hintUsed,
               timeLimitSeconds: _timeLimitSeconds,
-              onHintTap: () => ref.read(waterQuizProvider.notifier).useHint(),
+              onHintTap: () => ref.read(reorderQuizProvider.notifier).useHint(),
             ),
           ),
         // カットイン演出（クイズ開始時のみ）
@@ -195,12 +208,12 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                   _selectedCategory = null;
                   _selectedNavIndex = 0;
                 });
-                ref.read(waterQuizProvider.notifier).retry();
+                ref.read(reorderQuizProvider.notifier).retry();
               },
               onNext: quizState.status == QuizStatus.correct
                   ? widget.onCompleted
                   : null,
-              insight: const _ShoppingUiInsight(),
+              insight: const _ReorderUiInsight(),
             ),
           ),
       ],
@@ -211,6 +224,161 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
     showModalBottomSheet<void>(
       context: context,
       builder: (context) => const _CartBottomSheet(),
+    );
+  }
+}
+
+// ─── 注文履歴セクション ────────────────────────────────────────────
+
+class _OrderHistorySection extends StatelessWidget {
+  const _OrderHistorySection({
+    required this.targetItemId,
+    required this.isPlaying,
+    required this.onReorder,
+  });
+
+  final String targetItemId;
+  final bool isPlaying;
+  final VoidCallback onReorder;
+
+  @override
+  Widget build(BuildContext context) {
+    final targetItem =
+        kShoppingCatalog.firstWhere((i) => i.id == targetItemId);
+    final qt = context.sq.reorder;
+
+    return SizedBox(
+      height: _kOrderHistorySectionHeight,
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            // ヘッダー
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              color: const Color(0xFFF3F3F3),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.history,
+                    size: 16,
+                    color: Color(0xFF007185),
+                  ),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: UnreadableText(
+                      qt.orderHistoryTitle,
+                      isObfuscated: true,
+                      animateOnObfuscate: false,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF007185),
+                      ),
+                    ),
+                  ),
+                  UnreadableText(
+                    qt.lastOrderDate,
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            // 商品行
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: Row(
+                  children: [
+                    // 商品画像
+                    Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade200),
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.grey.shade50,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: Image.asset(
+                          targetItem.imagePath,
+                          package: 'shopping',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    // 商品情報（名称・価格）
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          UnreadableText(
+                            context.sqCatalogItemName(targetItemId),
+                            isObfuscated: true,
+                            animateOnObfuscate: false,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          const SizedBox(height: 2),
+                          UnreadableText(
+                            '¥${targetItem.price}',
+                            isObfuscated: true,
+                            animateOnObfuscate: false,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    // 「もう一度買う」ボタン
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFFD814),
+                        foregroundColor: Colors.black87,
+                        elevation: 0,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          side: const BorderSide(color: Color(0xFFFFA41C)),
+                        ),
+                      ),
+                      onPressed: isPlaying ? onReorder : null,
+                      child: UnreadableText(
+                        qt.reorderButton,
+                        isObfuscated: true,
+                        animateOnObfuscate: false,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -234,7 +402,7 @@ class _AmazonAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: _kNavyColor,
       title: UnreadableText(
-        context.sq.water.appTitle,
+        context.sq.reorder.appTitle,
         isObfuscated: true,
         animateOnObfuscate: false,
         style: const TextStyle(
@@ -356,7 +524,8 @@ class _CategoryBar extends StatelessWidget {
             onTap: () => onCategorySelected(item.value),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 150),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               decoration: BoxDecoration(
                 color: isSelected
                     ? const Color(0xFFFF9900)
@@ -387,10 +556,12 @@ class _CategoryBar extends StatelessWidget {
   }
 }
 
-// ─── 検索・フィルタ結果が空のとき ───────────────────────────────────
+// ─── フィルタ結果が空のとき ─────────────────────────────────────────
 
 class _EmptyFilterResult extends StatelessWidget {
-  const _EmptyFilterResult();
+  const _EmptyFilterResult({required this.message});
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -401,7 +572,7 @@ class _EmptyFilterResult extends StatelessWidget {
           Icon(Icons.search_off, size: 48, color: Colors.grey.shade400),
           const SizedBox(height: 12),
           UnreadableText(
-            context.sq.common.noResults,
+            message,
             isObfuscated: true,
             animateOnObfuscate: false,
             style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
@@ -498,16 +669,16 @@ class _NavItem extends StatelessWidget {
   }
 }
 
-// ─── カートボトムシート（Amazon風） ──────────────────────────────
+// ─── カートボトムシート ───────────────────────────────────────────
 
 class _CartBottomSheet extends ConsumerWidget {
   const _CartBottomSheet();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quizState = ref.watch(waterQuizProvider);
+    final quizState = ref.watch(reorderQuizProvider);
     final cart = quizState.cart;
-    final qt = context.sq.water;
+    final qt = context.sq.reorder;
 
     return SafeArea(
       child: Column(
@@ -575,7 +746,7 @@ class _CartBottomSheet extends ConsumerWidget {
                     IconButton(
                       icon: const Icon(Icons.delete_outline, size: 20),
                       onPressed: () => ref
-                          .read(waterQuizProvider.notifier)
+                          .read(reorderQuizProvider.notifier)
                           .removeFromCart(item.id),
                     ),
                   ],
@@ -628,7 +799,7 @@ class _CartBottomSheet extends ConsumerWidget {
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
-                    ref.read(waterQuizProvider.notifier).purchase();
+                    ref.read(reorderQuizProvider.notifier).purchase();
                   },
                   child: UnreadableText(
                     qt.confirmOrder,
@@ -648,13 +819,12 @@ class _CartBottomSheet extends ConsumerWidget {
 
 // ─── UX解説セクション ──────────────────────────────────────────
 
-/// 正解後リザルト画面に表示する「なぜわかったのか？」解説
-class _ShoppingUiInsight extends StatelessWidget {
-  const _ShoppingUiInsight();
+class _ReorderUiInsight extends StatelessWidget {
+  const _ReorderUiInsight();
 
   @override
   Widget build(BuildContext context) {
-    final insight = context.s.water.insight;
+    final insight = context.s.reorder.insight;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -682,19 +852,19 @@ class _ShoppingUiInsight extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         _InsightItem(
-          emoji: '🛒',
-          title: insight.iconTitle,
-          desc: insight.iconDesc,
+          emoji: '🖼️',
+          title: insight.imageTitle,
+          desc: insight.imageDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '🎨',
-          title: insight.colorTitle,
-          desc: insight.colorDesc,
+          emoji: '💰',
+          title: insight.priceTitle,
+          desc: insight.priceDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '📱',
+          emoji: '🔄',
           title: insight.patternTitle,
           desc: insight.patternDesc,
         ),

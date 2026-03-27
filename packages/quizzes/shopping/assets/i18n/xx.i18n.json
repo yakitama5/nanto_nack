@@ -36,10 +36,22 @@
     "confirmCheck": "I have confirmed the order details",
     "confirmButton": "Place Order"
   },
+  "reorder": {
+    "missionText": "Purchase your recently ordered item again",
+    "appTitle": "Order History",
+    "orderHistoryTitle": "Recent Orders",
+    "reorderButton": "Buy again",
+    "lastOrderDate": "Ordered 3 days ago",
+    "cartTitle": "Shopping Cart",
+    "cartEmpty": "Your cart is empty",
+    "subtotal": "Subtotal ({count} items):",
+    "confirmOrder": "Place order"
+  },
   "common": {
     "addToCart": "Add to Cart",
     "quantity": "Qty: {qty}",
-    "primeBadge": "prime"
+    "primeBadge": "prime",
+    "noResults": "No items found"
   },
   "navigation": {
     "home": "Home",

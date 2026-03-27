@@ -46,10 +46,32 @@
     "confirmCheck": "注文内容を確認しました",
     "confirmButton": "注文を確定する"
   },
+  "reorder": {
+    "missionText": "直近で注文した商品をもう一度購入してください",
+    "appTitle": "注文履歴",
+    "orderHistoryTitle": "最近の注文",
+    "reorderButton": "もう一度買う",
+    "lastOrderDate": "3日前に注文",
+    "cartTitle": "ショッピングカート",
+    "cartEmpty": "カートは空です",
+    "subtotal": "小計 ({count}点の商品):",
+    "confirmOrder": "注文を確定する",
+    "insight": {
+      "title": "なぜ文字が読めなくてもわかった？",
+      "subtitle": "視覚パターンが「再注文」体験を作る",
+      "imageTitle": "商品画像が記憶のトリガー",
+      "imageDesc": "商品の外観・色・デザインは、文字情報がなくても前回の購入体験と結びついている。視覚記憶は言語を超える。",
+      "priceTitle": "価格が確信を与える",
+      "priceDesc": "金額の一致は「同じ商品だ」という確信をもたらす。数字は言語を超えた共通言語であり、価格を見ると商品を認識できる。",
+      "patternTitle": "「もう一度買う」ボタンが体験を完結させる",
+      "patternDesc": "再購入ボタンは大手ECサイトで定番のパターン。見たことのあるUIは直感的に操作でき、検索不要で素早く再注文できる。"
+    }
+  },
   "common": {
     "addToCart": "カートに追加",
     "quantity": "数量: {qty}",
-    "primeBadge": "prime"
+    "primeBadge": "prime",
+    "noResults": "該当する商品がありません"
   },
   "navigation": {
     "home": "ホーム",

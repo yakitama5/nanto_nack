@@ -2,11 +2,13 @@
 export 'src/domain/catalog.dart';
 export 'src/domain/entities/cart_item.dart';
 export 'src/domain/entities/shopping_cart.dart';
+export 'src/domain/entities/shopping_category.dart';
 export 'src/domain/entities/shopping_item.dart';
 
 // Application
 export 'src/application/quiz_cart_use_case.dart';
 export 'src/application/quiz_checkout_use_case.dart';
+export 'src/application/quiz_reorder_use_case.dart';
 export 'src/application/quiz_water_use_case.dart';
 
 // Infrastructure
@@ -21,6 +23,9 @@ export 'src/presentation/cart_quiz/cart_quiz_state.dart';
 export 'src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 export 'src/presentation/checkout_quiz/checkout_quiz_screen.dart';
 export 'src/presentation/checkout_quiz/checkout_quiz_state.dart';
+export 'src/presentation/reorder_quiz/reorder_quiz_notifier.dart';
+export 'src/presentation/reorder_quiz/reorder_quiz_screen.dart';
+export 'src/presentation/reorder_quiz/reorder_quiz_state.dart';
 export 'src/presentation/shopping_item_tile.dart';
 export 'src/presentation/water_quiz/water_quiz_notifier.dart';
 export 'src/presentation/water_quiz/water_quiz_screen.dart';

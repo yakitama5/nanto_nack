@@ -42,6 +42,7 @@ class TranslationsXx extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsWaterXx water = _TranslationsWaterXx._(_root);
 	@override late final _TranslationsCartXx cart = _TranslationsCartXx._(_root);
 	@override late final _TranslationsCheckoutXx checkout = _TranslationsCheckoutXx._(_root);
+	@override late final _TranslationsReorderXx reorder = _TranslationsReorderXx._(_root);
 	@override late final _TranslationsCommonXx common = _TranslationsCommonXx._(_root);
 	@override late final _TranslationsNavigationXx navigation = _TranslationsNavigationXx._(_root);
 	@override late final _TranslationsCategoriesXx categories = _TranslationsCategoriesXx._(_root);
@@ -106,6 +107,24 @@ class _TranslationsCheckoutXx extends TranslationsCheckoutJa {
 	@override String get confirmButton => 'Place Order';
 }
 
+// Path: reorder
+class _TranslationsReorderXx extends TranslationsReorderJa {
+	_TranslationsReorderXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get missionText => 'Purchase your recently ordered item again';
+	@override String get appTitle => 'Order History';
+	@override String get orderHistoryTitle => 'Recent Orders';
+	@override String get reorderButton => 'Buy again';
+	@override String get lastOrderDate => 'Ordered 3 days ago';
+	@override String get cartTitle => 'Shopping Cart';
+	@override String get cartEmpty => 'Your cart is empty';
+	@override String get subtotal => 'Subtotal ({count} items):';
+	@override String get confirmOrder => 'Place order';
+}
+
 // Path: common
 class _TranslationsCommonXx extends TranslationsCommonJa {
 	_TranslationsCommonXx._(TranslationsXx root) : this._root = root, super.internal(root);
@@ -116,6 +135,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get addToCart => 'Add to Cart';
 	@override String get quantity => 'Qty: {qty}';
 	@override String get primeBadge => 'prime';
+	@override String get noResults => 'No items found';
 }
 
 // Path: navigation
@@ -217,9 +237,19 @@ extension on TranslationsXx {
 			'checkout.total' => 'Order Total',
 			'checkout.confirmCheck' => 'I have confirmed the order details',
 			'checkout.confirmButton' => 'Place Order',
+			'reorder.missionText' => 'Purchase your recently ordered item again',
+			'reorder.appTitle' => 'Order History',
+			'reorder.orderHistoryTitle' => 'Recent Orders',
+			'reorder.reorderButton' => 'Buy again',
+			'reorder.lastOrderDate' => 'Ordered 3 days ago',
+			'reorder.cartTitle' => 'Shopping Cart',
+			'reorder.cartEmpty' => 'Your cart is empty',
+			'reorder.subtotal' => 'Subtotal ({count} items):',
+			'reorder.confirmOrder' => 'Place order',
 			'common.addToCart' => 'Add to Cart',
 			'common.quantity' => 'Qty: {qty}',
 			'common.primeBadge' => 'prime',
+			'common.noResults' => 'No items found',
 			'navigation.home' => 'Home',
 			'navigation.search' => 'Search',
 			'navigation.account' => 'Account',

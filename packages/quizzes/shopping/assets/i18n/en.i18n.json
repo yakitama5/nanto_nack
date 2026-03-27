@@ -46,10 +46,32 @@
     "confirmCheck": "I have confirmed the order details",
     "confirmButton": "Place Order"
   },
+  "reorder": {
+    "missionText": "Purchase your recently ordered item again",
+    "appTitle": "Order History",
+    "orderHistoryTitle": "Recent Orders",
+    "reorderButton": "Buy again",
+    "lastOrderDate": "Ordered 3 days ago",
+    "cartTitle": "Shopping Cart",
+    "cartEmpty": "Your cart is empty",
+    "subtotal": "Subtotal ({count} items):",
+    "confirmOrder": "Place order",
+    "insight": {
+      "title": "Why could you figure it out without reading?",
+      "subtitle": "Visual patterns make reordering intuitive",
+      "imageTitle": "Product images trigger memory",
+      "imageDesc": "A product's appearance, color, and design link visually to past purchase experiences — visual memory transcends language.",
+      "priceTitle": "Price brings confirmation",
+      "priceDesc": "Matching prices confirm 'this is the same product'. Numbers are a universal language that helps you recognize items at a glance.",
+      "patternTitle": "'Buy again' completes the experience",
+      "patternDesc": "Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly."
+    }
+  },
   "common": {
     "addToCart": "Add to Cart",
     "quantity": "Qty: {qty}",
-    "primeBadge": "prime"
+    "primeBadge": "prime",
+    "noResults": "No items found"
   },
   "navigation": {
     "home": "Home",

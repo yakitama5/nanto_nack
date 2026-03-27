@@ -42,6 +42,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsWaterEn water = _TranslationsWaterEn._(_root);
 	@override late final _TranslationsCartEn cart = _TranslationsCartEn._(_root);
 	@override late final _TranslationsCheckoutEn checkout = _TranslationsCheckoutEn._(_root);
+	@override late final _TranslationsReorderEn reorder = _TranslationsReorderEn._(_root);
 	@override late final _TranslationsCommonEn common = _TranslationsCommonEn._(_root);
 	@override late final _TranslationsNavigationEn navigation = _TranslationsNavigationEn._(_root);
 	@override late final _TranslationsCategoriesEn categories = _TranslationsCategoriesEn._(_root);
@@ -107,6 +108,25 @@ class _TranslationsCheckoutEn extends TranslationsCheckoutJa {
 	@override String get confirmButton => 'Place Order';
 }
 
+// Path: reorder
+class _TranslationsReorderEn extends TranslationsReorderJa {
+	_TranslationsReorderEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get missionText => 'Purchase your recently ordered item again';
+	@override String get appTitle => 'Order History';
+	@override String get orderHistoryTitle => 'Recent Orders';
+	@override String get reorderButton => 'Buy again';
+	@override String get lastOrderDate => 'Ordered 3 days ago';
+	@override String get cartTitle => 'Shopping Cart';
+	@override String get cartEmpty => 'Your cart is empty';
+	@override String get subtotal => 'Subtotal ({count} items):';
+	@override String get confirmOrder => 'Place order';
+	@override late final _TranslationsReorderInsightEn insight = _TranslationsReorderInsightEn._(_root);
+}
+
 // Path: common
 class _TranslationsCommonEn extends TranslationsCommonJa {
 	_TranslationsCommonEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -117,6 +137,7 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get addToCart => 'Add to Cart';
 	@override String get quantity => 'Qty: {qty}';
 	@override String get primeBadge => 'prime';
+	@override String get noResults => 'No items found';
 }
 
 // Path: navigation
@@ -196,6 +217,23 @@ class _TranslationsWaterInsightEn extends TranslationsWaterInsightJa {
 	@override String get patternDesc => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.';
 }
 
+// Path: reorder.insight
+class _TranslationsReorderInsightEn extends TranslationsReorderInsightJa {
+	_TranslationsReorderInsightEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Why could you figure it out without reading?';
+	@override String get subtitle => 'Visual patterns make reordering intuitive';
+	@override String get imageTitle => 'Product images trigger memory';
+	@override String get imageDesc => 'A product\'s appearance, color, and design link visually to past purchase experiences — visual memory transcends language.';
+	@override String get priceTitle => 'Price brings confirmation';
+	@override String get priceDesc => 'Matching prices confirm \'this is the same product\'. Numbers are a universal language that helps you recognize items at a glance.';
+	@override String get patternTitle => '\'Buy again\' completes the experience';
+	@override String get patternDesc => 'Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly.';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -243,9 +281,27 @@ extension on TranslationsEn {
 			'checkout.total' => 'Order Total',
 			'checkout.confirmCheck' => 'I have confirmed the order details',
 			'checkout.confirmButton' => 'Place Order',
+			'reorder.missionText' => 'Purchase your recently ordered item again',
+			'reorder.appTitle' => 'Order History',
+			'reorder.orderHistoryTitle' => 'Recent Orders',
+			'reorder.reorderButton' => 'Buy again',
+			'reorder.lastOrderDate' => 'Ordered 3 days ago',
+			'reorder.cartTitle' => 'Shopping Cart',
+			'reorder.cartEmpty' => 'Your cart is empty',
+			'reorder.subtotal' => 'Subtotal ({count} items):',
+			'reorder.confirmOrder' => 'Place order',
+			'reorder.insight.title' => 'Why could you figure it out without reading?',
+			'reorder.insight.subtitle' => 'Visual patterns make reordering intuitive',
+			'reorder.insight.imageTitle' => 'Product images trigger memory',
+			'reorder.insight.imageDesc' => 'A product\'s appearance, color, and design link visually to past purchase experiences — visual memory transcends language.',
+			'reorder.insight.priceTitle' => 'Price brings confirmation',
+			'reorder.insight.priceDesc' => 'Matching prices confirm \'this is the same product\'. Numbers are a universal language that helps you recognize items at a glance.',
+			'reorder.insight.patternTitle' => '\'Buy again\' completes the experience',
+			'reorder.insight.patternDesc' => 'Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly.',
 			'common.addToCart' => 'Add to Cart',
 			'common.quantity' => 'Qty: {qty}',
 			'common.primeBadge' => 'prime',
+			'common.noResults' => 'No items found',
 			'navigation.home' => 'Home',
 			'navigation.search' => 'Search',
 			'navigation.account' => 'Account',
