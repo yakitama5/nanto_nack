@@ -152,7 +152,10 @@ class StageListScreen extends ConsumerWidget {
     }
 
     if (context.mounted) {
-      context.push(item.stage.routePath);
+      // push が完了（クイズ画面が pop）したタイミングでリストを再取得する。
+      // クイズ画面内で保存した結果を反映させるために invalidate が必要。
+      await context.push(item.stage.routePath);
+      ref.invalidate(stageListProvider);
     }
   }
 }
