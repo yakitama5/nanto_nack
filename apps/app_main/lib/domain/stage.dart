@@ -27,18 +27,11 @@ const List<Stage> kAllStages = [
     routePath: '/shopping/water',
   ),
   Stage(
-    id: 'shopping_cart',
-    title: 'カートを確認しよう',
-    description: 'カートの中身を確認して正しい合計金額を選んでください',
+    id: 'shopping_reorder',
+    title: '直近の注文を再注文しよう',
+    description: '注文履歴から直近で注文した商品をもう一度購入してください',
     category: 'shopping',
-    routePath: '/shopping/cart',
-  ),
-  Stage(
-    id: 'shopping_checkout',
-    title: '購入を完了しよう',
-    description: '購入手続きを完了してください',
-    category: 'shopping',
-    routePath: '/shopping/checkout',
+    routePath: '/shopping/reorder',
   ),
 ];
 
