@@ -1,7 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/src/entities/quiz_state.dart';
+import 'package:quiz_core/src/providers/sound_providers.dart';
 import 'package:quiz_core/src/theme/app_colors.dart';
 
 /// クイズ結果表示オーバーレイ
@@ -13,7 +15,7 @@ import 'package:quiz_core/src/theme/app_colors.dart';
 ///   4. カード内の要素が順次 Fade+Slide で表示
 ///
 /// 不正解・時間切れ時: シンプルなフェードイン
-class QuizResultOverlay extends StatefulWidget {
+class QuizResultOverlay extends ConsumerStatefulWidget {
   const QuizResultOverlay({
     super.key,
     required this.status,
@@ -38,10 +40,10 @@ class QuizResultOverlay extends StatefulWidget {
   final Offset? rippleOrigin;
 
   @override
-  State<QuizResultOverlay> createState() => _QuizResultOverlayState();
+  ConsumerState<QuizResultOverlay> createState() => _QuizResultOverlayState();
 }
 
-class _QuizResultOverlayState extends State<QuizResultOverlay>
+class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
 
@@ -159,9 +161,10 @@ class _QuizResultOverlayState extends State<QuizResultOverlay>
   }
 
   Future<void> _playClearSound() async {
-    await _audioPlayer.play(
-      AssetSource('packages/quiz_core/sounds/clear.mp3'),
-    );
+    // 事前ロード済みの場合は即座に取得、未完了の場合は完了を待つ。
+    // DeviceFileSource で再生することで iOS が .mp3 拡張子からフォーマットを判別できる。
+    final path = await ref.read(clearSoundProvider.future);
+    await _audioPlayer.play(DeviceFileSource(path));
   }
 
   /// 短い小刻みな振動 → 最後にひと押し
