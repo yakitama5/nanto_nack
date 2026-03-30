@@ -28,6 +28,7 @@ class QuizResultOverlay extends ConsumerStatefulWidget {
     required this.elapsedMs,
     required this.onRetry,
     required this.onNext,
+    this.onBack,
     this.insight,
     this.rippleOrigin,
   });
@@ -37,6 +38,9 @@ class QuizResultOverlay extends ConsumerStatefulWidget {
   final int elapsedMs;
   final VoidCallback onRetry;
   final VoidCallback? onNext;
+
+  /// 失敗・諦め時に表示する「戻る」ボタンのコールバック
+  final VoidCallback? onBack;
 
   /// 正解時のみ表示する解説ウィジェット（クイズごとに差し込む）
   final Widget? insight;
@@ -363,12 +367,25 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    OutlinedButton(
-                      onPressed: widget.onRetry,
-                      child: Text(context.t.quiz.retry),
-                    ),
+                    if (!_isSuccess && widget.onBack != null) ...[
+                      OutlinedButton(
+                        onPressed: widget.onBack,
+                        child: Text(context.t.quiz.back),
+                      ),
+                      const SizedBox(width: 12),
+                    ],
+                    if (_isSuccess)
+                      OutlinedButton(
+                        onPressed: widget.onRetry,
+                        child: Text(context.t.quiz.retry),
+                      )
+                    else
+                      FilledButton(
+                        onPressed: widget.onRetry,
+                        child: Text(context.t.quiz.retry),
+                      ),
                     if (widget.onNext != null) ...[
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 12),
                       FilledButton(
                         onPressed: widget.onNext,
                         child: Text(context.t.quiz.next),

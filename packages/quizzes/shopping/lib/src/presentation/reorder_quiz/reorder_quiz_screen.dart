@@ -87,6 +87,7 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
               onNext: quizState.status == QuizStatus.correct
                   ? widget.onCompleted
                   : null,
+              onBack: () => Navigator.of(context).pop(),
               insight: const _ReorderUiInsight(),
             ),
           ),

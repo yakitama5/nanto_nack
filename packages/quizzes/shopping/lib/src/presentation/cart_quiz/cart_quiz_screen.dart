@@ -128,6 +128,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
               onNext: quizState.status == QuizStatus.correct
                   ? widget.onCompleted
                   : null,
+              onBack: () => Navigator.of(context).pop(),
             ),
           ),
       ],
