@@ -8,7 +8,7 @@ export 'src/theme/nanto_nack_theme_extension.dart';
 export 'src/utils/custom_language_encoder.dart';
 export 'src/utils/haptic_feedback_service.dart';
 export 'src/utils/score_rank.dart';
-export 'src/widgets/floating_mission_bar.dart';
+export 'src/widgets/floating_mission_bar.dart' show FloatingMissionBubble;
 export 'src/widgets/mission_cut_in.dart';
 export 'src/widgets/nanto_heatmap.dart';
 export 'src/widgets/play_limit_modal.dart';

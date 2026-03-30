@@ -87,26 +87,21 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
                         .read(cartQuizProvider.notifier)
                         .selectChoice(choice: c, cart: _cart),
                   ),
-                  const SizedBox(height: 80), // FloatingMissionBar 分の余白
+
                 ],
               ),
             ),
           ),
           ),
         ),
-        // フローティングミッションバー
+        // フローティングミッションバブル（ドラッグ可能な円形タイマー）
         if (quizState.status == QuizStatus.playing)
-          Positioned(
-            top: MediaQuery.paddingOf(context).top + kToolbarHeight + 8,
-            left: 16,
-            right: 16,
-            child: FloatingMissionBar(
-              remainingSeconds: quizState.remainingSeconds,
-              missionText: missionText,
-              hintUsed: quizState.hintUsed,
-              timeLimitSeconds: _timeLimitSeconds,
-              onHintTap: () => ref.read(cartQuizProvider.notifier).useHint(),
-            ),
+          FloatingMissionBubble(
+            remainingSeconds: quizState.remainingSeconds,
+            missionText: missionText,
+            hintUsed: quizState.hintUsed,
+            timeLimitSeconds: _timeLimitSeconds,
+            onHintTap: () => ref.read(cartQuizProvider.notifier).useHint(),
           ),
         // カットイン演出
         if (_showCutIn)

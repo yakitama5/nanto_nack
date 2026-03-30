@@ -96,9 +96,6 @@ class _ShoppingAppState extends State<ShoppingApp> {
   final _searchController = TextEditingController();
   final _searchFocusNode = FocusNode();
 
-  /// 商品グリッド（検索タブ）を表示中かどうか。
-  bool get _isProductGridTab => _selectedNavIndex == 1;
-
   @override
   void dispose() {
     _searchController.dispose();
@@ -118,13 +115,6 @@ class _ShoppingAppState extends State<ShoppingApp> {
       }
       return true;
     }).toList();
-
-    final missionBarTop = MediaQuery.paddingOf(context).top +
-        kToolbarHeight +
-        (_isProductGridTab
-            ? kShoppingSearchBarHeight + kShoppingCategoryBarHeight
-            : 0.0) +
-        8;
 
     return Stack(
       children: [
@@ -150,19 +140,14 @@ class _ShoppingAppState extends State<ShoppingApp> {
             ),
           ),
         ),
-        // ミッションバー（プレイ中のみ表示）
+        // フローティングミッションバブル（ドラッグ可能な円形タイマー、プレイ中のみ表示）
         if (widget.quizStatus == QuizStatus.playing)
-          Positioned(
-            top: missionBarTop,
-            left: 16,
-            right: 16,
-            child: FloatingMissionBar(
-              remainingSeconds: widget.remainingSeconds,
-              missionText: widget.missionText,
-              hintUsed: widget.hintUsed,
-              timeLimitSeconds: widget.timeLimitSeconds,
-              onHintTap: widget.onHintTap,
-            ),
+          FloatingMissionBubble(
+            remainingSeconds: widget.remainingSeconds,
+            missionText: widget.missionText,
+            hintUsed: widget.hintUsed,
+            timeLimitSeconds: widget.timeLimitSeconds,
+            onHintTap: widget.onHintTap,
           ),
         // クイズ固有のオーバーレイ（カットイン・リザルト等）
         ...widget.overlays,

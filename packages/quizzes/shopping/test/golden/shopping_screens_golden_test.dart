@@ -90,27 +90,30 @@ void main() {
     );
   });
 
-  group('FloatingMissionBar golden tests', () {
+  group('FloatingMissionBubble golden tests', () {
     goldenTest(
-      'フローティングミッションバーのゴールデンテスト',
-      fileName: 'floating_mission_bar',
+      'フローティングミッションバブルのゴールデンテスト',
+      fileName: 'floating_mission_bubble',
       builder: () => GoldenTestGroup(
         children: [
           GoldenTestScenario(
             name: 'time remaining (green)',
             child: SizedBox(
               width: 375,
+              height: 300,
               child: Theme(
                 data: AppTheme.light(),
                 child: const Material(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: FloatingMissionBar(
-                      remainingSeconds: 45,
-                      missionText: '水を2つ購入してください',
-                      hintUsed: false,
-                      timeLimitSeconds: 60,
-                    ),
+                  child: Stack(
+                    children: [
+                      FloatingMissionBubble(
+                        remainingSeconds: 45,
+                        missionText: '水を2つ購入してください',
+                        hintUsed: false,
+                        timeLimitSeconds: 60,
+                        initialOffset: Offset(16, 16),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -120,17 +123,20 @@ void main() {
             name: 'time warning (orange)',
             child: SizedBox(
               width: 375,
+              height: 300,
               child: Theme(
                 data: AppTheme.light(),
                 child: const Material(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: FloatingMissionBar(
-                      remainingSeconds: 12,
-                      missionText: '水を2つ購入してください',
-                      hintUsed: true,
-                      timeLimitSeconds: 60,
-                    ),
+                  child: Stack(
+                    children: [
+                      FloatingMissionBubble(
+                        remainingSeconds: 12,
+                        missionText: '水を2つ購入してください',
+                        hintUsed: true,
+                        timeLimitSeconds: 60,
+                        initialOffset: Offset(16, 16),
+                      ),
+                    ],
                   ),
                 ),
               ),

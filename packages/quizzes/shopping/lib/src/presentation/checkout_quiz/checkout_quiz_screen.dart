@@ -161,25 +161,19 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 80), // FloatingMissionBar 分の余白
               ],
             ),
           ),
           ),
           ),
         ),
-        // フローティングミッションバー
+        // フローティングミッションバブル（ドラッグ可能な円形タイマー）
         if (quizState.status == QuizStatus.playing)
-          Positioned(
-            top: MediaQuery.paddingOf(context).top + kToolbarHeight + 8,
-            left: 16,
-            right: 16,
-            child: FloatingMissionBar(
-              remainingSeconds: quizState.remainingSeconds,
-              missionText: missionText,
-              hintUsed: false,
-              timeLimitSeconds: _timeLimitSeconds,
-            ),
+          FloatingMissionBubble(
+            remainingSeconds: quizState.remainingSeconds,
+            missionText: missionText,
+            hintUsed: false,
+            timeLimitSeconds: _timeLimitSeconds,
           ),
         // カットイン演出
         if (_showCutIn)
