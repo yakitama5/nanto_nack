@@ -148,44 +148,48 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble>
     return Positioned(
       right: rightFromEdge,
       top: offset.dy,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // 円形バブル（タップ＆ドラッグ）
-          GestureDetector(
-            onPanUpdate: (details) {
-              setState(() {
-                _offset = ((_offset ?? offset) + details.delta);
-              });
-            },
-            onTap: _toggleMission,
-            child: _BubbleRing(
-              size: _bubbleSize,
-              progress: _progress,
-              timerColor: _timerColor,
-              timerLabel: _timerLabel,
-            ),
-          ),
-          // お題ポップアップ（バブル右上コーナーからスケール展開）
-          if (_showMission) ...[
-            const SizedBox(height: 6),
-            ScaleTransition(
-              scale: _popupScale,
-              alignment: Alignment.topRight,
-              child: FadeTransition(
-                opacity: _popupOpacity,
-                child: _MissionPopup(
-                  missionText: widget.missionText,
-                  hintUsed: widget.hintUsed,
-                  onHintTap: widget.hintUsed ? null : widget.onHintTap,
-                  onGiveUp: widget.onGiveUp,
-                  onClose: _toggleMission,
-                ),
+      // Material でラップし Text の黄色いデフォルト装飾を防ぐ
+      child: Material(
+        type: MaterialType.transparency,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // 円形バブル（タップ＆ドラッグ）
+            GestureDetector(
+              onPanUpdate: (details) {
+                setState(() {
+                  _offset = ((_offset ?? offset) + details.delta);
+                });
+              },
+              onTap: _toggleMission,
+              child: _BubbleRing(
+                size: _bubbleSize,
+                progress: _progress,
+                timerColor: _timerColor,
+                timerLabel: _timerLabel,
               ),
             ),
+            // お題ポップアップ（バブル右上コーナーからスケール展開）
+            if (_showMission) ...[
+              const SizedBox(height: 6),
+              ScaleTransition(
+                scale: _popupScale,
+                alignment: Alignment.topRight,
+                child: FadeTransition(
+                  opacity: _popupOpacity,
+                  child: _MissionPopup(
+                    missionText: widget.missionText,
+                    hintUsed: widget.hintUsed,
+                    onHintTap: widget.hintUsed ? null : widget.onHintTap,
+                    onGiveUp: widget.onGiveUp,
+                    onClose: _toggleMission,
+                  ),
+                ),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
