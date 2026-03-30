@@ -55,11 +55,56 @@ class FloatingMissionBubble extends StatefulWidget {
   State<FloatingMissionBubble> createState() => _FloatingMissionBubbleState();
 }
 
-class _FloatingMissionBubbleState extends State<FloatingMissionBubble> {
+class _FloatingMissionBubbleState extends State<FloatingMissionBubble>
+    with SingleTickerProviderStateMixin {
   Offset? _offset;
   bool _showMission = false;
 
+  late final AnimationController _popupController;
+
+  /// バブルの右上コーナーからスケール展開する
+  late final Animation<double> _popupScale;
+  late final Animation<double> _popupOpacity;
+
   static const double _bubbleSize = 72.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _popupController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 280),
+    );
+    _popupScale = CurvedAnimation(
+      parent: _popupController,
+      curve: Curves.easeOutBack,
+      reverseCurve: Curves.easeIn,
+    );
+    _popupOpacity = CurvedAnimation(
+      parent: _popupController,
+      curve: Curves.easeOut,
+      reverseCurve: Curves.easeIn,
+    );
+  }
+
+  @override
+  void dispose() {
+    _popupController.dispose();
+    super.dispose();
+  }
+
+  /// お題ポップアップの表示・非表示を切り替える。
+  /// 非表示時はアニメーション完了後に Widget をツリーから除去する。
+  void _toggleMission() {
+    if (_showMission) {
+      _popupController.reverse().then((_) {
+        if (mounted) setState(() => _showMission = false);
+      });
+    } else {
+      setState(() => _showMission = true);
+      _popupController.forward(from: 0);
+    }
+  }
 
   Color get _timerColor {
     if (widget.timeLimitSeconds <= 0) return Colors.green;
@@ -109,7 +154,7 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble> {
                 _offset = ((_offset ?? offset) + details.delta);
               });
             },
-            onTap: () => setState(() => _showMission = !_showMission),
+            onTap: _toggleMission,
             child: _BubbleRing(
               size: _bubbleSize,
               progress: _progress,
@@ -117,14 +162,21 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble> {
               timerLabel: _timerLabel,
             ),
           ),
-          // お題ポップアップ（タップで展開）
+          // お題ポップアップ（バブル右上コーナーからスケール展開）
           if (_showMission) ...[
             const SizedBox(height: 6),
-            _MissionPopup(
-              missionText: widget.missionText,
-              hintUsed: widget.hintUsed,
-              onHintTap: widget.hintUsed ? null : widget.onHintTap,
-              onClose: () => setState(() => _showMission = false),
+            ScaleTransition(
+              scale: _popupScale,
+              alignment: Alignment.topRight,
+              child: FadeTransition(
+                opacity: _popupOpacity,
+                child: _MissionPopup(
+                  missionText: widget.missionText,
+                  hintUsed: widget.hintUsed,
+                  onHintTap: widget.hintUsed ? null : widget.onHintTap,
+                  onClose: _toggleMission,
+                ),
+              ),
             ),
           ],
         ],
