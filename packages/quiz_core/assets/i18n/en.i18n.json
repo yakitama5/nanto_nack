@@ -22,10 +22,23 @@
     "correct": "Correct!",
     "incorrect": "Incorrect",
     "timeUp": "Time's Up",
+    "giveUp": "Gave Up...",
     "result": "Result",
     "retry": "Retry",
     "next": "Next",
-    "back": "Back"
+    "back": "Back",
+    "score": "Score: {score}pts",
+    "@score": { "param": "score" },
+    "elapsedTime": "Time: {time}s",
+    "@elapsedTime": { "param": "time" }
+  },
+  "mission": {
+    "title": "MISSION",
+    "topic": "Mission",
+    "useHint": "Use Hint",
+    "giveUp": "Give Up",
+    "timeLimit": "Time Limit: {seconds}s",
+    "@timeLimit": { "param": "seconds" }
   },
   "purchase": {
     "limitReached": "Daily play limit reached",

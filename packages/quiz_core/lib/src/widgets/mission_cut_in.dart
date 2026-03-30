@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_core/i18n/strings.g.dart';
 
 /// クイズ開始直後に全画面を暗転させてミッションを大きく表示し、
 /// 円形バブルへ縮小するアニメーションで消えるカットイン演出ウィジェット。
@@ -172,7 +173,7 @@ class _MissionCutInState extends State<MissionCutIn>
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                'MISSION',
+                                context.t.mission.title,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 48,
@@ -214,7 +215,10 @@ class _MissionCutInState extends State<MissionCutIn>
                               ),
                               const SizedBox(height: 20),
                               Text(
-                                '制限時間: ${widget.timeLimitSeconds}秒',
+                                context.t.mission.timeLimit.replaceAll(
+                                  '{seconds}',
+                                  widget.timeLimitSeconds.toString(),
+                                ),
                                 style: const TextStyle(
                                   color: Colors.white70,
                                   fontSize: 14,

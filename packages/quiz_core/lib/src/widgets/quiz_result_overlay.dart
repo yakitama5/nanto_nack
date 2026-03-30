@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/src/entities/quiz_state.dart';
+import 'package:quiz_core/i18n/strings.g.dart';
 import 'package:quiz_core/src/providers/sound_providers.dart';
 import 'package:quiz_core/src/theme/app_colors.dart';
 
@@ -322,10 +323,10 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
                 progress: _contentAnims[1].value,
                 child: Text(
                   _isSuccess
-                      ? '正解！'
+                      ? context.t.quiz.correct
                       : _isGiveUp
-                          ? '諦めた...'
-                          : '不正解',
+                          ? context.t.quiz.giveUp
+                          : context.t.quiz.incorrect,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: _isSuccess ? AppColors.cleared : AppColors.error,
@@ -340,11 +341,15 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
                   child: Column(
                     children: [
                       Text(
-                        'スコア: ${widget.score}点',
+                        context.t.quiz.score
+                            .replaceAll('{score}', widget.score.toString()),
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Text(
-                        'タイム: ${(widget.elapsedMs / 1000).toStringAsFixed(1)}秒',
+                        context.t.quiz.elapsedTime.replaceAll(
+                          '{time}',
+                          (widget.elapsedMs / 1000).toStringAsFixed(1),
+                        ),
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -360,13 +365,13 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
                   children: [
                     OutlinedButton(
                       onPressed: widget.onRetry,
-                      child: const Text('もう一度'),
+                      child: Text(context.t.quiz.retry),
                     ),
                     if (widget.onNext != null) ...[
                       const SizedBox(width: 16),
                       FilledButton(
                         onPressed: widget.onNext,
-                        child: const Text('次へ'),
+                        child: Text(context.t.quiz.next),
                       ),
                     ],
                   ],

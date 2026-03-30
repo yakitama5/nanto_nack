@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_core/i18n/strings.g.dart';
 
 /// ドラッグ可能な円形ミッションバブル
 ///
@@ -318,7 +319,7 @@ class _MissionPopup extends StatelessWidget {
               Icon(Icons.flag, size: 13, color: colorScheme.primary),
               const SizedBox(width: 5),
               Text(
-                'お題',
+                context.t.mission.topic,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
@@ -353,7 +354,7 @@ class _MissionPopup extends StatelessWidget {
                   const Icon(Icons.lightbulb, size: 13, color: Colors.amber),
                   const SizedBox(width: 4),
                   Text(
-                    'ヒントを使う',
+                    context.t.mission.useHint,
                     style: TextStyle(
                       fontSize: 12,
                       color: colorScheme.onSurface,
@@ -378,7 +379,7 @@ class _MissionPopup extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '諦める',
+                    context.t.mission.giveUp,
                     style: TextStyle(
                       fontSize: 12,
                       color: colorScheme.error,

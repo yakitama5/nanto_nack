@@ -44,6 +44,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsHomeJa home = TranslationsHomeJa.internal(_root);
 	late final TranslationsStageJa stage = TranslationsStageJa.internal(_root);
 	late final TranslationsQuizJa quiz = TranslationsQuizJa.internal(_root);
+	late final TranslationsMissionJa mission = TranslationsMissionJa.internal(_root);
 	late final TranslationsPurchaseJa purchase = TranslationsPurchaseJa.internal(_root);
 	late final TranslationsErrorJa error = TranslationsErrorJa.internal(_root);
 	late final TranslationsDashboardJa dashboard = TranslationsDashboardJa.internal(_root);
@@ -124,6 +125,9 @@ class TranslationsQuizJa {
 	/// ja: '時間切れ'
 	String get timeUp => '時間切れ';
 
+	/// ja: '諦めた...'
+	String get giveUp => '諦めた...';
+
 	/// ja: '結果'
 	String get result => '結果';
 
@@ -135,6 +139,36 @@ class TranslationsQuizJa {
 
 	/// ja: '戻る'
 	String get back => '戻る';
+
+	/// ja: 'スコア: {score}点'
+	String get score => 'スコア: {score}点';
+
+	/// ja: 'タイム: {time}秒'
+	String get elapsedTime => 'タイム: {time}秒';
+}
+
+// Path: mission
+class TranslationsMissionJa {
+	TranslationsMissionJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'MISSION'
+	String get title => 'MISSION';
+
+	/// ja: 'お題'
+	String get topic => 'お題';
+
+	/// ja: 'ヒントを使う'
+	String get useHint => 'ヒントを使う';
+
+	/// ja: '諦める'
+	String get giveUp => '諦める';
+
+	/// ja: '制限時間: {seconds}秒'
+	String get timeLimit => '制限時間: {seconds}秒';
 }
 
 // Path: purchase
@@ -254,10 +288,18 @@ extension on Translations {
 			'quiz.correct' => '正解！',
 			'quiz.incorrect' => '不正解',
 			'quiz.timeUp' => '時間切れ',
+			'quiz.giveUp' => '諦めた...',
 			'quiz.result' => '結果',
 			'quiz.retry' => 'もう一度',
 			'quiz.next' => '次へ',
 			'quiz.back' => '戻る',
+			'quiz.score' => 'スコア: {score}点',
+			'quiz.elapsedTime' => 'タイム: {time}秒',
+			'mission.title' => 'MISSION',
+			'mission.topic' => 'お題',
+			'mission.useHint' => 'ヒントを使う',
+			'mission.giveUp' => '諦める',
+			'mission.timeLimit' => '制限時間: {seconds}秒',
 			'purchase.limitReached' => '本日のプレイ上限に達しました',
 			'purchase.unlockDescription' => 'プレミアムにアップグレードすると\n無制限でプレイできます',
 			'purchase.upgrade' => 'アップグレード',
