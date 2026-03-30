@@ -119,6 +119,8 @@ class TranslationsCartJa {
 
 	/// ja: '数字対応表'
 	String get hintTableLabel => '数字対応表';
+
+	late final TranslationsCartInsightJa insight = TranslationsCartInsightJa.internal(_root);
 }
 
 // Path: checkout
@@ -179,6 +181,8 @@ class TranslationsCheckoutJa {
 
 	/// ja: '注文を確定する'
 	String get confirmButton => '注文を確定する';
+
+	late final TranslationsCheckoutInsightJa insight = TranslationsCheckoutInsightJa.internal(_root);
 }
 
 // Path: reorder
@@ -474,6 +478,72 @@ class TranslationsWaterInsightJa {
 	String get patternDesc => 'グリッド商品一覧×価格＝ネットショップ、±ボタン＝数量調整。体験を重ねるうちに、パターンそのものが「当たり前」になった。';
 }
 
+// Path: cart.insight
+class TranslationsCartInsightJa {
+	TranslationsCartInsightJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'なぜ文字が読めなくても答えが出せた？'
+	String get title => 'なぜ文字が読めなくても答えが出せた？';
+
+	/// ja: '暗号化されたUIでも、数字と構造が答えを導く'
+	String get subtitle => '暗号化されたUIでも、数字と構造が答えを導く';
+
+	/// ja: 'これは「暗号解読」と同じ仕組み'
+	String get cipherTitle => 'これは「暗号解読」と同じ仕組み';
+
+	/// ja: '文字は読めなくても、数字の対応表（ヒント）があれば記号を数字に置き換えながら計算できる。ルールさえ分かれば意味を読み解けるのは、暗号解読のロジックと同じだ。'
+	String get cipherDesc => '文字は読めなくても、数字の対応表（ヒント）があれば記号を数字に置き換えながら計算できる。ルールさえ分かれば意味を読み解けるのは、暗号解読のロジックと同じだ。';
+
+	/// ja: '「¥＋数字」は言語を超える'
+	String get priceTitle => '「¥＋数字」は言語を超える';
+
+	/// ja: '¥マーク＋数字の組み合わせは、文字が読めなくても「金額」を意味すると判断できる。価格表示は文化を超えた最も普遍的なUIパターンの一つだ。'
+	String get priceDesc => '¥マーク＋数字の組み合わせは、文字が読めなくても「金額」を意味すると判断できる。価格表示は文化を超えた最も普遍的なUIパターンの一つだ。';
+
+	/// ja: 'カートのレイアウトが計算を補助する'
+	String get layoutTitle => 'カートのレイアウトが計算を補助する';
+
+	/// ja: '商品→数量→金額が縦に並ぶ構造は「単価×数量を足す」という計算手順を視覚的に示している。レイアウト自体が言語を超えた取扱説明書になっている。'
+	String get layoutDesc => '商品→数量→金額が縦に並ぶ構造は「単価×数量を足す」という計算手順を視覚的に示している。レイアウト自体が言語を超えた取扱説明書になっている。';
+}
+
+// Path: checkout.insight
+class TranslationsCheckoutInsightJa {
+	TranslationsCheckoutInsightJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'なぜ手順がわかった？'
+	String get title => 'なぜ手順がわかった？';
+
+	/// ja: '購入フローは世界中のECサイトで共通化されたUIパターン'
+	String get subtitle => '購入フローは世界中のECサイトで共通化されたUIパターン';
+
+	/// ja: 'ステップバーが順序を示す'
+	String get stepTitle => 'ステップバーが順序を示す';
+
+	/// ja: '「1→2→3」のプログレス表示は、何をすべきかの道順を一目で示す。フロー型UIは言語を問わず直感的に理解でき、次に何をすべきかをUIが教えてくれる。'
+	String get stepDesc => '「1→2→3」のプログレス表示は、何をすべきかの道順を一目で示す。フロー型UIは言語を問わず直感的に理解でき、次に何をすべきかをUIが教えてくれる。';
+
+	/// ja: 'アイコンが選択肢を識別させる'
+	String get iconTitle => 'アイコンが選択肢を識別させる';
+
+	/// ja: 'クレジットカード・コンビニ・配送トラックのアイコンは、ラベルを読まなくても支払い手段の違いを伝える。アイコンによる分類は万国共通のUIパターンだ。'
+	String get iconDesc => 'クレジットカード・コンビニ・配送トラックのアイコンは、ラベルを読まなくても支払い手段の違いを伝える。アイコンによる分類は万国共通のUIパターンだ。';
+
+	/// ja: '「確認してから確定」パターンが安心感を生む'
+	String get confirmTitle => '「確認してから確定」パターンが安心感を生む';
+
+	/// ja: 'チェックボックスで内容を確認してからボタンで確定する流れは、大手ECで定番化した「取り消せないアクション前の安全装置」。このパターンを知っていれば、文字が読めなくても操作できる。'
+	String get confirmDesc => 'チェックボックスで内容を確認してからボタンで確定する流れは、大手ECで定番化した「取り消せないアクション前の安全装置」。このパターンを知っていれば、文字が読めなくても操作できる。';
+}
+
 // Path: reorder.insight
 class TranslationsReorderInsightJa {
 	TranslationsReorderInsightJa.internal(this._root);
@@ -539,6 +609,14 @@ extension on Translations {
 			'cart.hint' => '各商品の単価 × 数量を足すと合計が求まります',
 			'cart.decoderLabel' => '数字デコーダー',
 			'cart.hintTableLabel' => '数字対応表',
+			'cart.insight.title' => 'なぜ文字が読めなくても答えが出せた？',
+			'cart.insight.subtitle' => '暗号化されたUIでも、数字と構造が答えを導く',
+			'cart.insight.cipherTitle' => 'これは「暗号解読」と同じ仕組み',
+			'cart.insight.cipherDesc' => '文字は読めなくても、数字の対応表（ヒント）があれば記号を数字に置き換えながら計算できる。ルールさえ分かれば意味を読み解けるのは、暗号解読のロジックと同じだ。',
+			'cart.insight.priceTitle' => '「¥＋数字」は言語を超える',
+			'cart.insight.priceDesc' => '¥マーク＋数字の組み合わせは、文字が読めなくても「金額」を意味すると判断できる。価格表示は文化を超えた最も普遍的なUIパターンの一つだ。',
+			'cart.insight.layoutTitle' => 'カートのレイアウトが計算を補助する',
+			'cart.insight.layoutDesc' => '商品→数量→金額が縦に並ぶ構造は「単価×数量を足す」という計算手順を視覚的に示している。レイアウト自体が言語を超えた取扱説明書になっている。',
 			'checkout.missionText' => '購入手続きを完了してください',
 			'checkout.appTitle' => 'お支払い手続き',
 			'checkout.step1' => 'カート',
@@ -556,6 +634,14 @@ extension on Translations {
 			'checkout.total' => '注文合計',
 			'checkout.confirmCheck' => '注文内容を確認しました',
 			'checkout.confirmButton' => '注文を確定する',
+			'checkout.insight.title' => 'なぜ手順がわかった？',
+			'checkout.insight.subtitle' => '購入フローは世界中のECサイトで共通化されたUIパターン',
+			'checkout.insight.stepTitle' => 'ステップバーが順序を示す',
+			'checkout.insight.stepDesc' => '「1→2→3」のプログレス表示は、何をすべきかの道順を一目で示す。フロー型UIは言語を問わず直感的に理解でき、次に何をすべきかをUIが教えてくれる。',
+			'checkout.insight.iconTitle' => 'アイコンが選択肢を識別させる',
+			'checkout.insight.iconDesc' => 'クレジットカード・コンビニ・配送トラックのアイコンは、ラベルを読まなくても支払い手段の違いを伝える。アイコンによる分類は万国共通のUIパターンだ。',
+			'checkout.insight.confirmTitle' => '「確認してから確定」パターンが安心感を生む',
+			'checkout.insight.confirmDesc' => 'チェックボックスで内容を確認してからボタンで確定する流れは、大手ECで定番化した「取り消せないアクション前の安全装置」。このパターンを知っていれば、文字が読めなくても操作できる。',
 			'reorder.missionText' => '直近で注文した商品をもう一度購入してください',
 			'reorder.appTitle' => '注文履歴',
 			'reorder.orderHistoryTitle' => '最近の注文',

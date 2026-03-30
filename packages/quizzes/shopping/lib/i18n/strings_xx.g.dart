@@ -84,6 +84,7 @@ class _TranslationsCartXx extends TranslationsCartJa {
 	@override String get hint => 'Multiply each unit price by quantity and sum them up';
 	@override String get decoderLabel => 'Number Decoder';
 	@override String get hintTableLabel => 'Number Cipher Table';
+	@override late final _TranslationsCartInsightXx insight = _TranslationsCartInsightXx._(_root);
 }
 
 // Path: checkout
@@ -110,6 +111,7 @@ class _TranslationsCheckoutXx extends TranslationsCheckoutJa {
 	@override String get total => 'Order Total';
 	@override String get confirmCheck => 'I have confirmed the order details';
 	@override String get confirmButton => 'Place Order';
+	@override late final _TranslationsCheckoutInsightXx insight = _TranslationsCheckoutInsightXx._(_root);
 }
 
 // Path: reorder
@@ -246,6 +248,40 @@ class _TranslationsCatalogXx extends TranslationsCatalogJa {
 	@override String get coffee500ml => 'Black Coffee 500ml';
 }
 
+// Path: cart.insight
+class _TranslationsCartInsightXx extends TranslationsCartInsightJa {
+	_TranslationsCartInsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'How did you figure it out despite the scrambled text?';
+	@override String get subtitle => 'Numbers and layout guide you — just like decoding a cipher';
+	@override String get cipherTitle => 'It works like decoding a cipher';
+	@override String get cipherDesc => 'Even without reading the text, a symbol-to-number mapping (the hint) lets you decode and calculate. As long as you know the rules, meaning can be extracted — exactly like cracking a code.';
+	@override String get priceTitle => '¥ + numbers transcend language';
+	@override String get priceDesc => 'A currency symbol combined with numbers communicates price regardless of language. Price display is one of the most universal UI patterns across cultures.';
+	@override String get layoutTitle => 'Cart layout acts as a visual instruction';
+	@override String get layoutDesc => 'Items → quantity → amount stacked vertically visually implies \'multiply and sum\'. The layout itself becomes a language-free instruction manual.';
+}
+
+// Path: checkout.insight
+class _TranslationsCheckoutInsightXx extends TranslationsCheckoutInsightJa {
+	_TranslationsCheckoutInsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'How did you know what to do?';
+	@override String get subtitle => 'Checkout flow is a universal UI pattern shared across e-commerce worldwide';
+	@override String get stepTitle => 'Step indicators show the path';
+	@override String get stepDesc => 'A 1→2→3 progress bar tells you exactly what to do next at a glance. Flow-based UI is intuitively understood regardless of language — the UI itself guides you.';
+	@override String get iconTitle => 'Icons identify the options';
+	@override String get iconDesc => 'Credit card, convenience store, and delivery truck icons communicate payment methods without reading labels. Icon-based categorization is a universal UI pattern.';
+	@override String get confirmTitle => '\'Confirm then submit\' pattern builds trust';
+	@override String get confirmDesc => 'Checking a box before pressing the final button is a safety mechanism for irreversible actions, established by major e-commerce platforms. Knowing this pattern lets you navigate even without reading the text.';
+}
+
 /// The flat map containing all translations for locale <xx>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -270,6 +306,14 @@ extension on TranslationsXx {
 			'cart.hint' => 'Multiply each unit price by quantity and sum them up',
 			'cart.decoderLabel' => 'Number Decoder',
 			'cart.hintTableLabel' => 'Number Cipher Table',
+			'cart.insight.title' => 'How did you figure it out despite the scrambled text?',
+			'cart.insight.subtitle' => 'Numbers and layout guide you — just like decoding a cipher',
+			'cart.insight.cipherTitle' => 'It works like decoding a cipher',
+			'cart.insight.cipherDesc' => 'Even without reading the text, a symbol-to-number mapping (the hint) lets you decode and calculate. As long as you know the rules, meaning can be extracted — exactly like cracking a code.',
+			'cart.insight.priceTitle' => '¥ + numbers transcend language',
+			'cart.insight.priceDesc' => 'A currency symbol combined with numbers communicates price regardless of language. Price display is one of the most universal UI patterns across cultures.',
+			'cart.insight.layoutTitle' => 'Cart layout acts as a visual instruction',
+			'cart.insight.layoutDesc' => 'Items → quantity → amount stacked vertically visually implies \'multiply and sum\'. The layout itself becomes a language-free instruction manual.',
 			'checkout.missionText' => 'Complete the checkout process',
 			'checkout.appTitle' => 'Payment Checkout',
 			'checkout.step1' => 'Cart',
@@ -287,6 +331,14 @@ extension on TranslationsXx {
 			'checkout.total' => 'Order Total',
 			'checkout.confirmCheck' => 'I have confirmed the order details',
 			'checkout.confirmButton' => 'Place Order',
+			'checkout.insight.title' => 'How did you know what to do?',
+			'checkout.insight.subtitle' => 'Checkout flow is a universal UI pattern shared across e-commerce worldwide',
+			'checkout.insight.stepTitle' => 'Step indicators show the path',
+			'checkout.insight.stepDesc' => 'A 1→2→3 progress bar tells you exactly what to do next at a glance. Flow-based UI is intuitively understood regardless of language — the UI itself guides you.',
+			'checkout.insight.iconTitle' => 'Icons identify the options',
+			'checkout.insight.iconDesc' => 'Credit card, convenience store, and delivery truck icons communicate payment methods without reading labels. Icon-based categorization is a universal UI pattern.',
+			'checkout.insight.confirmTitle' => '\'Confirm then submit\' pattern builds trust',
+			'checkout.insight.confirmDesc' => 'Checking a box before pressing the final button is a safety mechanism for irreversible actions, established by major e-commerce platforms. Knowing this pattern lets you navigate even without reading the text.',
 			'reorder.missionText' => 'Purchase your recently ordered item again',
 			'reorder.appTitle' => 'Order History',
 			'reorder.orderHistoryTitle' => 'Recent Orders',

@@ -81,6 +81,8 @@ class _TranslationsCartJa implements TranslationsCartEn {
 	@override String get questionTitle => '合計金額はいくらですか？';
 	@override String get questionSubtitle => '上のカートに入っている商品の合計を計算して選んでください';
 	@override String get hint => '各商品の単価 × 数量を足すと合計が求まります';
+	@override String get decoderLabel => '数字デコーダー';
+	@override String get hintTableLabel => '数字対応表';
 }
 
 // Path: checkout
@@ -308,6 +310,8 @@ extension on TranslationsJa {
 			'cart.questionTitle' => '合計金額はいくらですか？',
 			'cart.questionSubtitle' => '上のカートに入っている商品の合計を計算して選んでください',
 			'cart.hint' => '各商品の単価 × 数量を足すと合計が求まります',
+			'cart.decoderLabel' => '数字デコーダー',
+			'cart.hintTableLabel' => '数字対応表',
 			'checkout.missionText' => '購入手続きを完了してください',
 			'checkout.appTitle' => 'お支払い手続き',
 			'checkout.step1' => 'カート',
