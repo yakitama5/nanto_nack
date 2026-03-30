@@ -32,7 +32,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
     ],
   );
 
-  static const _choices = [480, 580, 630, 750];
+  static const _choices = [580, 630, 750, 780];
   static const _timeLimitSeconds = 60;
 
   @override
