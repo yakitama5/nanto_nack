@@ -83,15 +83,20 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.widthOf(context);
     final offset = _offset ??
         widget.initialOffset ??
         Offset(
-          MediaQuery.widthOf(context) - _bubbleSize - 16,
+          screenWidth - _bubbleSize - 16,
           MediaQuery.paddingOf(context).top + kToolbarHeight + 8,
         );
 
+    // 右端を基準に固定することで、ポップアップ展開時に左方向へ伸び、
+    // バブル自体の位置がずれないようにする。
+    final rightFromEdge = screenWidth - offset.dx - _bubbleSize;
+
     return Positioned(
-      left: offset.dx,
+      right: rightFromEdge,
       top: offset.dy,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

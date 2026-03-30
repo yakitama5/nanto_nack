@@ -29,6 +29,7 @@ class MissionCutIn extends StatefulWidget {
     required this.timeLimitSeconds,
     required this.onFinished,
     this.displayDuration = const Duration(milliseconds: 3000),
+    this.bubbleOffset,
   });
 
   /// ミッション説明テキスト
@@ -43,6 +44,9 @@ class MissionCutIn extends StatefulWidget {
   /// 表示時間（デフォルト 3.0 秒）
   final Duration displayDuration;
 
+  /// 縮小先バブルの左上座標（省略時はスクリーンサイズから自動計算）
+  final Offset? bubbleOffset;
+
   @override
   State<MissionCutIn> createState() => _MissionCutInState();
 }
@@ -52,11 +56,16 @@ class _MissionCutInState extends State<MissionCutIn>
   late final AnimationController _controller;
 
   // フェードイン → 保持 → 縮小フェードアウト
+  // translateX/Y はスクリーンサイズ依存のため build() で動的計算する
   late final Animation<double> _opacity;
   late final Animation<double> _scale;
-  late final Animation<double> _translateX;
-  late final Animation<double> _translateY;
   late final Animation<double> _borderRadius;
+
+  /// バブルサイズ（FloatingMissionBubble と同じ値）
+  static const double _bubbleSize = 72.0;
+
+  /// Phase3 開始地点（0.0〜1.0）
+  static const double _phase3Start = 0.68;
 
   @override
   void initState() {
@@ -93,25 +102,6 @@ class _MissionCutInState extends State<MissionCutIn>
       ),
     ]).animate(_controller);
 
-    // Phase3 で右上方向へ移動
-    _translateX = TweenSequence<double>([
-      TweenSequenceItem(tween: ConstantTween(0.0), weight: 68),
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 130.0)
-            .chain(CurveTween(curve: Curves.easeInCubic)),
-        weight: 32,
-      ),
-    ]).animate(_controller);
-
-    _translateY = TweenSequence<double>([
-      TweenSequenceItem(tween: ConstantTween(0.0), weight: 68),
-      TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: -260.0)
-            .chain(CurveTween(curve: Curves.easeInCubic)),
-        weight: 32,
-      ),
-    ]).animate(_controller);
-
     // Phase3 で角丸を大きくして円形に近づける
     _borderRadius = TweenSequence<double>([
       TweenSequenceItem(tween: ConstantTween(0.0), weight: 68),
@@ -141,68 +131,106 @@ class _MissionCutInState extends State<MissionCutIn>
           return const SizedBox.shrink();
         }
 
-        return Opacity(
-          opacity: _opacity.value.clamp(0.0, 1.0),
-          child: Transform.translate(
-            offset: Offset(_translateX.value, _translateY.value),
-            child: Transform.scale(
-              scale: _scale.value,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(_borderRadius.value),
-                child: Container(
-                  color: Colors.black.withValues(alpha: 0.85),
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'MISSION',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 48,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 8,
-                            shadows: [
-                              Shadow(
-                                color: Theme.of(context).colorScheme.primary,
-                                blurRadius: 20,
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final screenW = constraints.maxWidth;
+            final screenH = constraints.maxHeight;
+            final padding = MediaQuery.paddingOf(context);
+
+            // バブルの左上座標（FloatingMissionBubble のデフォルト位置と一致）
+            final bubbleLeft = widget.bubbleOffset?.dx ??
+                (screenW - _bubbleSize - 16);
+            final bubbleTop = widget.bubbleOffset?.dy ??
+                (padding.top + kToolbarHeight + 8);
+
+            // バブル中心 → 画面中心 の差分 = 縮小先への移動量
+            final targetDx = (bubbleLeft + _bubbleSize / 2) - screenW / 2;
+            final targetDy = (bubbleTop + _bubbleSize / 2) - screenH / 2;
+
+            // Phase3 (68-100%) の進捗 [0, 1]
+            final phase3Raw = ((_controller.value - _phase3Start) /
+                    (1.0 - _phase3Start))
+                .clamp(0.0, 1.0);
+            final phase3 = Curves.easeInCubic.transform(phase3Raw);
+
+            return Opacity(
+              opacity: _opacity.value.clamp(0.0, 1.0),
+              child: Transform.translate(
+                offset: Offset(targetDx * phase3, targetDy * phase3),
+                child: Transform.scale(
+                  scale: _scale.value,
+                  child: ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(_borderRadius.value),
+                    // Material でラップし Text の黄色いデフォルト装飾を防ぐ
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Container(
+                        color: Colors.black.withValues(alpha: 0.85),
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'MISSION',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: 8,
+                                  decoration: TextDecoration.none,
+                                  shadows: [
+                                    Shadow(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary,
+                                      blurRadius: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                ),
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.white30),
+                                  borderRadius:
+                                      BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  widget.missionText,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    height: 1.5,
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              Text(
+                                '制限時間: ${widget.timeLimitSeconds}秒',
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(height: 24),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 32),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white30),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            widget.missionText,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              height: 1.5,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          '制限時間: ${widget.timeLimitSeconds}秒',
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );
