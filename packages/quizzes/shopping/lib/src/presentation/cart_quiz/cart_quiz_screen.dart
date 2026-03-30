@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +24,7 @@ class CartQuizScreen extends ConsumerStatefulWidget {
 
 class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   bool _showCutIn = true;
+  int _decoderValue = 0;
 
   // クイズ問題として使用するカート（固定データ）
   static final _cart = ShoppingCart(
@@ -75,6 +78,17 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
                 children: [
                   // カート内アイテム一覧
                   _CartItemsSection(cart: _cart),
+                  const SizedBox(height: 8),
+                  // 数字デコーダーセクション
+                  _NumberDecoderSection(
+                    value: _decoderValue,
+                    onDecrement: () => setState(
+                      () => _decoderValue = max(0, _decoderValue - 1),
+                    ),
+                    onIncrement: () => setState(
+                      () => _decoderValue = min(9, _decoderValue + 1),
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   // 合計金額クイズセクション
                   _PriceSummarySection(
@@ -132,6 +146,107 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             ),
           ),
       ],
+    );
+  }
+}
+
+// ─── 数字デコーダーセクション ─────────────────────────────────────
+
+class _NumberDecoderSection extends StatelessWidget {
+  const _NumberDecoderSection({
+    required this.value,
+    required this.onDecrement,
+    required this.onIncrement,
+  });
+
+  final int value;
+  final VoidCallback onDecrement;
+  final VoidCallback onIncrement;
+
+  @override
+  Widget build(BuildContext context) {
+    final customChar = CustomLanguageEncoder.encode(value.toString());
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.pin_outlined, size: 16, color: Color(0xFF007185)),
+              const SizedBox(width: 6),
+              UnreadableText(
+                context.sq.cart.decoderLabel,
+                isObfuscated: true,
+                animateOnObfuscate: false,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: const Color(0xFF007185),
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _DecoderButton(
+                icon: Icons.chevron_left,
+                onTap: value > 0 ? onDecrement : null,
+              ),
+              const SizedBox(width: 24),
+              SizedBox(
+                width: 56,
+                child: Center(
+                  child: Text(
+                    customChar,
+                    style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 24),
+              _DecoderButton(
+                icon: Icons.chevron_right,
+                onTap: value < 9 ? onIncrement : null,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DecoderButton extends StatelessWidget {
+  const _DecoderButton({required this.icon, this.onTap});
+
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final enabled = onTap != null;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: enabled ? Colors.grey.shade400 : Colors.grey.shade200,
+          ),
+          borderRadius: BorderRadius.circular(4),
+          color: enabled ? const Color(0xFFF3F3F3) : Colors.grey.shade50,
+        ),
+        child: Icon(
+          icon,
+          color: enabled ? Colors.black87 : Colors.grey.shade300,
+        ),
+      ),
     );
   }
 }
@@ -383,33 +498,83 @@ class _PriceSummarySection extends StatelessWidget {
                 .toList(),
           ),
           const SizedBox(height: 16),
-          // ヒント表示（使用済みの場合）
-          if (hintUsed)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFF3CD),
-                border: Border.all(color: const Color(0xFFFF9900)),
-                borderRadius: BorderRadius.circular(4),
+          // ヒント表示（使用済みの場合）: 数字対応表
+          if (hintUsed) _NumberCipherTable(labelText: qt.hintTableLabel),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── 数字対応表ウィジェット ───────────────────────────────────────
+
+class _NumberCipherTable extends StatelessWidget {
+  const _NumberCipherTable({required this.labelText});
+
+  final String labelText;
+
+  @override
+  Widget build(BuildContext context) {
+    final entries = CustomLanguageEncoder.digitMap.entries.toList()
+      ..sort((a, b) => a.key.compareTo(b.key));
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFF3CD),
+        border: Border.all(color: const Color(0xFFFF9900)),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.lightbulb_outline,
+                color: Color(0xFFFF9900),
+                size: 16,
               ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.lightbulb_outline,
-                    color: Color(0xFFFF9900),
-                    size: 16,
-                  ),
-                  const SizedBox(width: 8),
-                  UnreadableText(
-                    qt.hint,
-                    isObfuscated: true,
-                    animateOnObfuscate: false,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
+              const SizedBox(width: 6),
+              UnreadableText(
+                labelText,
+                isObfuscated: true,
+                animateOnObfuscate: false,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF92400E),
+                    ),
               ),
-            ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: entries
+                .map(
+                  (e) => Column(
+                    children: [
+                      // カスタム文字（エンコード済み文字をそのまま表示）
+                      Text(
+                        e.value,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      // 対応する数字
+                      Text(
+                        e.key,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.grey.shade700,
+                            ),
+                      ),
+                    ],
+                  ),
+                )
+                .toList(),
+          ),
         ],
       ),
     );
