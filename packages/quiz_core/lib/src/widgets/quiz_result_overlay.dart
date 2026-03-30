@@ -1,4 +1,7 @@
+import 'dart:math' as math;
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +16,7 @@ import 'package:quiz_core/src/theme/app_colors.dart';
 ///   2. 暗い背景が波紋に乗って出現
 ///   3. リザルトカードがスケール+フェードで登場
 ///   4. カード内の要素が順次 Fade+Slide で表示
+///   5. 画面左右から紙吹雪が舞う
 ///
 /// 不正解・時間切れ時: シンプルなフェードイン
 class QuizResultOverlay extends ConsumerStatefulWidget {
@@ -49,6 +53,10 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
 
   final _audioPlayer = AudioPlayer();
 
+  // 紙吹雪コントローラ（正解時のみ使用）
+  late final ConfettiController _leftConfetti;
+  late final ConfettiController _rightConfetti;
+
   // 波紋リング（正解時のみ使用）
   late final Animation<double> _ring1;
   late final Animation<double> _ring2;
@@ -68,9 +76,26 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
       widget.status == QuizStatus.correct ||
       widget.status == QuizStatus.completed;
 
+  /// 紙吹雪の色（波紋リング3色 + 差し色）
+  static const _confettiColors = [
+    AppColors.primary,   // 紫
+    Color(0xFFFF9900),   // オレンジ
+    AppColors.cleared,   // 緑
+    Colors.white,
+    Colors.yellow,
+    Colors.pink,
+  ];
+
   @override
   void initState() {
     super.initState();
+
+    _leftConfetti = ConfettiController(
+      duration: const Duration(seconds: 3),
+    );
+    _rightConfetti = ConfettiController(
+      duration: const Duration(seconds: 3),
+    );
 
     if (_isSuccess) {
       // ── 正解アニメーション（総時間 1800ms）──────────────────────────
@@ -119,9 +144,11 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
         );
       });
 
-      // 効果音 + 触覚フィードバック（同時発火）
+      // 効果音 + 触覚フィードバック + 紙吹雪（同時発火）
       _playClearSound();
       _triggerSuccessHaptics();
+      _leftConfetti.play();
+      _rightConfetti.play();
     } else {
       // ── 不正解・時間切れ: シンプルなフェードイン（総時間 650ms）──
       _ctrl = AnimationController(
@@ -185,6 +212,8 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
   void dispose() {
     _audioPlayer.dispose();
     _ctrl.dispose();
+    _leftConfetti.dispose();
+    _rightConfetti.dispose();
     super.dispose();
   }
 
@@ -222,6 +251,41 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
               ),
             ),
           ),
+          // ── 紙吹雪（正解時のみ）─────────────────────────────────────
+          if (_isSuccess) ...[
+            // 左側キャノン: 右上方向へ発射
+            Align(
+              alignment: Alignment.topLeft,
+              child: ConfettiWidget(
+                confettiController: _leftConfetti,
+                blastDirection: -math.pi / 4,
+                blastDirectionality: BlastDirectionality.directional,
+                numberOfParticles: 20,
+                emissionFrequency: 0.04,
+                maxBlastForce: 80,
+                minBlastForce: 30,
+                gravity: 0.3,
+                particleDrag: 0.05,
+                colors: _confettiColors,
+              ),
+            ),
+            // 右側キャノン: 左上方向へ発射
+            Align(
+              alignment: Alignment.topRight,
+              child: ConfettiWidget(
+                confettiController: _rightConfetti,
+                blastDirection: -(3 * math.pi / 4),
+                blastDirectionality: BlastDirectionality.directional,
+                numberOfParticles: 20,
+                emissionFrequency: 0.04,
+                maxBlastForce: 80,
+                minBlastForce: 30,
+                gravity: 0.3,
+                particleDrag: 0.05,
+                colors: _confettiColors,
+              ),
+            ),
+          ],
         ],
       ),
     );
