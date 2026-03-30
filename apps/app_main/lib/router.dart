@@ -29,6 +29,18 @@ final appRouter = GoRouter(
       ),
     ),
     GoRoute(
+      path: '/shopping/cart',
+      builder: (context, state) => CartQuizScreen(
+        onCompleted: () => context.pop(),
+      ),
+    ),
+    GoRoute(
+      path: '/shopping/checkout',
+      builder: (context, state) => CheckoutQuizScreen(
+        onCompleted: () => context.pop(),
+      ),
+    ),
+    GoRoute(
       path: '/shopping/reorder',
       builder: (context, state) => ReorderQuizScreen(
         onCompleted: () => context.pop(),
