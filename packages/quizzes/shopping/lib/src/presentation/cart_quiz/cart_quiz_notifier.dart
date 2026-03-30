@@ -76,6 +76,21 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
     state = state.copyWith(hintUsed: true);
   }
 
+  /// クイズを諦める（中止）
+  Future<void> giveUp() async {
+    if (state.status != QuizStatus.playing) return;
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      status: QuizStatus.giveUp,
+      remainingSeconds: 0,
+      elapsedMs: elapsed,
+    );
+    await _saveResult(isCleared: false, elapsedMs: elapsed);
+  }
+
   /// リトライ
   void retry() {
     _timer?.cancel();

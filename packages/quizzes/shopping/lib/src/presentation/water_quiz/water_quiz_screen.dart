@@ -54,6 +54,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
       hintUsed: quizState.hintUsed,
       timeLimitSeconds: _timeLimitSeconds,
       onHintTap: () => ref.read(waterQuizProvider.notifier).useHint(),
+      onGiveUp: () => ref.read(waterQuizProvider.notifier).giveUp(),
       cartBottomSheetBuilder: (context) => const _WaterCartSheet(),
       overlays: [
         if (_showCutIn)
@@ -64,7 +65,8 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
           ),
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||
-            quizState.status == QuizStatus.timeUp)
+            quizState.status == QuizStatus.timeUp ||
+            quizState.status == QuizStatus.giveUp)
           Positioned.fill(
             child: QuizResultOverlay(
               status: quizState.status,

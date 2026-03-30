@@ -60,6 +60,7 @@ class ShoppingApp extends StatefulWidget {
     required this.hintUsed,
     required this.timeLimitSeconds,
     this.onHintTap,
+    this.onGiveUp,
     // ── カートシート ─────────────────────────────────────────
     required this.cartBottomSheetBuilder,
     // ── クイズオーバーレイ（カットイン・リザルト等）──────────
@@ -80,6 +81,7 @@ class ShoppingApp extends StatefulWidget {
   final bool hintUsed;
   final int timeLimitSeconds;
   final VoidCallback? onHintTap;
+  final VoidCallback? onGiveUp;
   final WidgetBuilder cartBottomSheetBuilder;
   final List<Widget> overlays;
   final ShoppingRecentOrder? recentOrder;
@@ -148,6 +150,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
             hintUsed: widget.hintUsed,
             timeLimitSeconds: widget.timeLimitSeconds,
             onHintTap: widget.onHintTap,
+            onGiveUp: widget.onGiveUp,
           ),
         // クイズ固有のオーバーレイ（カットイン・リザルト等）
         ...widget.overlays,

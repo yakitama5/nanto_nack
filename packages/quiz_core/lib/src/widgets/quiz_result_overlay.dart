@@ -76,6 +76,8 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
       widget.status == QuizStatus.correct ||
       widget.status == QuizStatus.completed;
 
+  bool get _isGiveUp => widget.status == QuizStatus.giveUp;
+
   /// 紙吹雪の色（波紋リング3色 + 差し色）
   static const _confettiColors = [
     AppColors.primary,   // 紫
@@ -305,7 +307,11 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
               _FadeSlide(
                 progress: _contentAnims[0].value,
                 child: Icon(
-                  _isSuccess ? Icons.check_circle : Icons.cancel,
+                  _isSuccess
+                      ? Icons.check_circle
+                      : _isGiveUp
+                          ? Icons.flag
+                          : Icons.cancel,
                   size: 64,
                   color: _isSuccess ? AppColors.cleared : AppColors.error,
                 ),
@@ -315,7 +321,11 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
               _FadeSlide(
                 progress: _contentAnims[1].value,
                 child: Text(
-                  _isSuccess ? '正解！' : '不正解',
+                  _isSuccess
+                      ? '正解！'
+                      : _isGiveUp
+                          ? '諦めた...'
+                          : '不正解',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: _isSuccess ? AppColors.cleared : AppColors.error,

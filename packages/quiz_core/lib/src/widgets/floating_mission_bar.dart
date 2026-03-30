@@ -29,6 +29,7 @@ class FloatingMissionBubble extends StatefulWidget {
     required this.missionText,
     required this.hintUsed,
     this.onHintTap,
+    this.onGiveUp,
     this.timeLimitSeconds = 60,
     this.initialOffset,
   });
@@ -44,6 +45,9 @@ class FloatingMissionBubble extends StatefulWidget {
 
   /// ヒントボタンタップ時のコールバック
   final VoidCallback? onHintTap;
+
+  /// 「諦める」タップ時のコールバック
+  final VoidCallback? onGiveUp;
 
   /// 制限時間（プログレス・色変化の判定に使用）
   final int timeLimitSeconds;
@@ -174,6 +178,7 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble>
                   missionText: widget.missionText,
                   hintUsed: widget.hintUsed,
                   onHintTap: widget.hintUsed ? null : widget.onHintTap,
+                  onGiveUp: widget.onGiveUp,
                   onClose: _toggleMission,
                 ),
               ),
@@ -272,12 +277,14 @@ class _MissionPopup extends StatelessWidget {
     required this.missionText,
     required this.hintUsed,
     this.onHintTap,
+    this.onGiveUp,
     this.onClose,
   });
 
   final String missionText;
   final bool hintUsed;
   final VoidCallback? onHintTap;
+  final VoidCallback? onGiveUp;
   final VoidCallback? onClose;
 
   @override
@@ -350,6 +357,32 @@ class _MissionPopup extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       color: colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          // 諦めるボタン
+          if (onGiveUp != null) ...[
+            const Divider(height: 16),
+            GestureDetector(
+              onTap: onGiveUp,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.flag_outlined,
+                    size: 13,
+                    color: colorScheme.error,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '諦める',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: colorScheme.error,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],

@@ -174,6 +174,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
             missionText: missionText,
             hintUsed: false,
             timeLimitSeconds: _timeLimitSeconds,
+            onGiveUp: () => ref.read(checkoutQuizProvider.notifier).giveUp(),
           ),
         // カットイン演出
         if (_showCutIn)
@@ -185,7 +186,8 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
         // 正誤結果オーバーレイ
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||
-            quizState.status == QuizStatus.timeUp)
+            quizState.status == QuizStatus.timeUp ||
+            quizState.status == QuizStatus.giveUp)
           Positioned.fill(
             child: QuizResultOverlay(
               status: quizState.status,

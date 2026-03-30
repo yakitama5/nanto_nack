@@ -102,6 +102,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             hintUsed: quizState.hintUsed,
             timeLimitSeconds: _timeLimitSeconds,
             onHintTap: () => ref.read(cartQuizProvider.notifier).useHint(),
+            onGiveUp: () => ref.read(cartQuizProvider.notifier).giveUp(),
           ),
         // カットイン演出
         if (_showCutIn)
@@ -113,7 +114,8 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
         // 正誤結果オーバーレイ
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||
-            quizState.status == QuizStatus.timeUp)
+            quizState.status == QuizStatus.timeUp ||
+            quizState.status == QuizStatus.giveUp)
           Positioned.fill(
             child: QuizResultOverlay(
               status: quizState.status,

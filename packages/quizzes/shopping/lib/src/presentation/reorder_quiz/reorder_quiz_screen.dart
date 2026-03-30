@@ -53,6 +53,7 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
       hintUsed: quizState.hintUsed,
       timeLimitSeconds: _timeLimitSeconds,
       onHintTap: () => ref.read(reorderQuizProvider.notifier).useHint(),
+      onGiveUp: () => ref.read(reorderQuizProvider.notifier).giveUp(),
       cartBottomSheetBuilder: (context) => const _ReorderCartSheet(),
       recentOrder: ShoppingRecentOrder(
         targetItemId: quizState.targetItemId,
@@ -69,7 +70,8 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
           ),
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||
-            quizState.status == QuizStatus.timeUp)
+            quizState.status == QuizStatus.timeUp ||
+            quizState.status == QuizStatus.giveUp)
           Positioned.fill(
             child: QuizResultOverlay(
               status: quizState.status,

@@ -118,6 +118,25 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
     }
   }
 
+  /// クイズを諦める（中止）
+  Future<void> giveUp() async {
+    if (state.status != QuizStatus.playing) return;
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      status: QuizStatus.giveUp,
+      remainingSeconds: 0,
+      elapsedMs: elapsed,
+    );
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {
+      // 結果保存の失敗はUIに影響させない
+    }
+  }
+
   void retry() {
     _timer?.cancel();
     state =
