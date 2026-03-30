@@ -8,6 +8,7 @@ import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
+import 'package:shopping/src/presentation/shopping_app.dart' show ShoppingInsightItem;
 
 // Amazon風カラー定数
 const _kNavyColor = Color(0xFF131921);
@@ -143,8 +144,65 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              insight: const _CartUiInsight(),
             ),
           ),
+      ],
+    );
+  }
+}
+
+// ─── UX 解説 ──────────────────────────────────────────────────────────────
+
+class _CartUiInsight extends StatelessWidget {
+  const _CartUiInsight();
+
+  @override
+  Widget build(BuildContext context) {
+    final insight = context.s.cart.insight;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                insight.title,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          insight.subtitle,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: Colors.grey.shade600),
+        ),
+        const SizedBox(height: 12),
+        ShoppingInsightItem(
+          emoji: '🔐',
+          title: insight.cipherTitle,
+          desc: insight.cipherDesc,
+        ),
+        const SizedBox(height: 10),
+        ShoppingInsightItem(
+          emoji: '💴',
+          title: insight.priceTitle,
+          desc: insight.priceDesc,
+        ),
+        const SizedBox(height: 10),
+        ShoppingInsightItem(
+          emoji: '🧮',
+          title: insight.layoutTitle,
+          desc: insight.layoutDesc,
+        ),
       ],
     );
   }
