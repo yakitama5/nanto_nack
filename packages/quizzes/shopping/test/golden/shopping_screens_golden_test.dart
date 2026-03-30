@@ -106,6 +106,7 @@ void main() {
                 child: const Material(
                   child: Stack(
                     children: [
+                      SizedBox.expand(),
                       FloatingMissionBubble(
                         remainingSeconds: 45,
                         missionText: '水を2つ購入してください',
@@ -129,6 +130,7 @@ void main() {
                 child: const Material(
                   child: Stack(
                     children: [
+                      SizedBox.expand(),
                       FloatingMissionBubble(
                         remainingSeconds: 12,
                         missionText: '水を2つ購入してください',
