@@ -108,14 +108,14 @@ class TranslationsCartJa {
 	/// ja: '合計金額はいくらですか？'
 	String get questionTitle => '合計金額はいくらですか？';
 
-	/// ja: '上のカートに入っている商品の合計を計算して選んでください'
-	String get questionSubtitle => '上のカートに入っている商品の合計を計算して選んでください';
+	/// ja: '上のカートに入っている商品の合計を計算して入力してください'
+	String get questionSubtitle => '上のカートに入っている商品の合計を計算して入力してください';
+
+	/// ja: '確定'
+	String get confirmButton => '確定';
 
 	/// ja: '各商品の単価 × 数量を足すと合計が求まります'
 	String get hint => '各商品の単価 × 数量を足すと合計が求まります';
-
-	/// ja: '数字デコーダー'
-	String get decoderLabel => '数字デコーダー';
 
 	/// ja: '数字対応表'
 	String get hintTableLabel => '数字対応表';
@@ -605,9 +605,9 @@ extension on Translations {
 			'cart.itemsHeader' => 'カートの中身',
 			'cart.itemCount' => '{count}点',
 			'cart.questionTitle' => '合計金額はいくらですか？',
-			'cart.questionSubtitle' => '上のカートに入っている商品の合計を計算して選んでください',
+			'cart.questionSubtitle' => '上のカートに入っている商品の合計を計算して入力してください',
+			'cart.confirmButton' => '確定',
 			'cart.hint' => '各商品の単価 × 数量を足すと合計が求まります',
-			'cart.decoderLabel' => '数字デコーダー',
 			'cart.hintTableLabel' => '数字対応表',
 			'cart.insight.title' => 'なぜ文字が読めなくても答えが出せた？',
 			'cart.insight.subtitle' => '暗号化されたUIでも、数字と構造が答えを導く',

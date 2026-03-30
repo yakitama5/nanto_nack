@@ -80,9 +80,9 @@ class _TranslationsCartXx extends TranslationsCartJa {
 	@override String get itemsHeader => 'Cart Items';
 	@override String get itemCount => '{count} items';
 	@override String get questionTitle => 'What is the total price?';
-	@override String get questionSubtitle => 'Calculate the total of items above and select';
+	@override String get questionSubtitle => 'Calculate the total of items above and enter below';
+	@override String get confirmButton => 'Confirm';
 	@override String get hint => 'Multiply each unit price by quantity and sum them up';
-	@override String get decoderLabel => 'Number Decoder';
 	@override String get hintTableLabel => 'Number Cipher Table';
 	@override late final _TranslationsCartInsightXx insight = _TranslationsCartInsightXx._(_root);
 }
@@ -302,9 +302,9 @@ extension on TranslationsXx {
 			'cart.itemsHeader' => 'Cart Items',
 			'cart.itemCount' => '{count} items',
 			'cart.questionTitle' => 'What is the total price?',
-			'cart.questionSubtitle' => 'Calculate the total of items above and select',
+			'cart.questionSubtitle' => 'Calculate the total of items above and enter below',
+			'cart.confirmButton' => 'Confirm',
 			'cart.hint' => 'Multiply each unit price by quantity and sum them up',
-			'cart.decoderLabel' => 'Number Decoder',
 			'cart.hintTableLabel' => 'Number Cipher Table',
 			'cart.insight.title' => 'How did you figure it out despite the scrambled text?',
 			'cart.insight.subtitle' => 'Numbers and layout guide you — just like decoding a cipher',

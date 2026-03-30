@@ -24,9 +24,9 @@
     "itemsHeader": "Cart Items",
     "itemCount": "{count} items",
     "questionTitle": "What is the total price?",
-    "questionSubtitle": "Calculate the total of items above and select",
+    "questionSubtitle": "Calculate the total of items above and enter below",
+    "confirmButton": "Confirm",
     "hint": "Multiply each unit price by quantity and sum them up",
-    "decoderLabel": "Number Decoder",
     "hintTableLabel": "Number Cipher Table",
     "insight": {
       "title": "How did you figure it out despite the scrambled text?",

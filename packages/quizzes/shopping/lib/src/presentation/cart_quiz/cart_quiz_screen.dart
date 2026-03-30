@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +23,6 @@ class CartQuizScreen extends ConsumerStatefulWidget {
 
 class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   bool _showCutIn = true;
-  int _decoderValue = 0;
 
   // クイズ問題として使用するカート（固定データ）
   static final _cart = ShoppingCart(
@@ -36,7 +33,6 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
     ],
   );
 
-  static const _choices = [580, 630, 750, 780];
   static const _timeLimitSeconds = 60;
 
   @override
@@ -80,29 +76,20 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
                   // カート内アイテム一覧
                   _CartItemsSection(cart: _cart),
                   const SizedBox(height: 8),
-                  // 数字デコーダーセクション
-                  _NumberDecoderSection(
-                    value: _decoderValue,
-                    onDecrement: () => setState(
-                      () => _decoderValue = max(0, _decoderValue - 1),
-                    ),
-                    onIncrement: () => setState(
-                      () => _decoderValue = min(9, _decoderValue + 1),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  // 合計金額クイズセクション
+                  // 合計金額クイズセクション（暗証番号スタイル入力）
                   _PriceSummarySection(
                     cart: _cart,
-                    choices: _choices,
-                    selectedChoice: quizState.selectedChoice,
+                    enteredDigits: quizState.enteredDigits,
                     hintUsed: quizState.hintUsed,
                     isPlaying: quizState.status == QuizStatus.playing,
-                    onChoiceSelect: (c) => ref
+                    onDigitUp: (i) =>
+                        ref.read(cartQuizProvider.notifier).updateDigit(i, 1),
+                    onDigitDown: (i) =>
+                        ref.read(cartQuizProvider.notifier).updateDigit(i, -1),
+                    onConfirm: () => ref
                         .read(cartQuizProvider.notifier)
-                        .selectChoice(choice: c, cart: _cart),
+                        .confirmEntry(cart: _cart),
                   ),
-
                 ],
               ),
             ),
@@ -204,107 +191,6 @@ class _CartUiInsight extends StatelessWidget {
           desc: insight.layoutDesc,
         ),
       ],
-    );
-  }
-}
-
-// ─── 数字デコーダーセクション ─────────────────────────────────────
-
-class _NumberDecoderSection extends StatelessWidget {
-  const _NumberDecoderSection({
-    required this.value,
-    required this.onDecrement,
-    required this.onIncrement,
-  });
-
-  final int value;
-  final VoidCallback onDecrement;
-  final VoidCallback onIncrement;
-
-  @override
-  Widget build(BuildContext context) {
-    final customChar = CustomLanguageEncoder.encode(value.toString());
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.pin_outlined, size: 16, color: Color(0xFF007185)),
-              const SizedBox(width: 6),
-              UnreadableText(
-                context.sq.cart.decoderLabel,
-                isObfuscated: true,
-                animateOnObfuscate: false,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFF007185),
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _DecoderButton(
-                icon: Icons.chevron_left,
-                onTap: value > 0 ? onDecrement : null,
-              ),
-              const SizedBox(width: 24),
-              SizedBox(
-                width: 56,
-                child: Center(
-                  child: Text(
-                    customChar,
-                    style: const TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 24),
-              _DecoderButton(
-                icon: Icons.chevron_right,
-                onTap: value < 9 ? onIncrement : null,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DecoderButton extends StatelessWidget {
-  const _DecoderButton({required this.icon, this.onTap});
-
-  final IconData icon;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final enabled = onTap != null;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: enabled ? Colors.grey.shade400 : Colors.grey.shade200,
-          ),
-          borderRadius: BorderRadius.circular(4),
-          color: enabled ? const Color(0xFFF3F3F3) : Colors.grey.shade50,
-        ),
-        child: Icon(
-          icon,
-          color: enabled ? Colors.black87 : Colors.grey.shade300,
-        ),
-      ),
     );
   }
 }
@@ -483,24 +369,26 @@ class _CartItemTile extends StatelessWidget {
   }
 }
 
-// ─── 合計金額クイズセクション ─────────────────────────────────────
+// ─── 合計金額クイズセクション（暗証番号スタイル） ─────────────────
 
 class _PriceSummarySection extends StatelessWidget {
   const _PriceSummarySection({
     required this.cart,
-    required this.choices,
-    required this.selectedChoice,
+    required this.enteredDigits,
     required this.hintUsed,
     required this.isPlaying,
-    required this.onChoiceSelect,
+    required this.onDigitUp,
+    required this.onDigitDown,
+    required this.onConfirm,
   });
 
   final ShoppingCart cart;
-  final List<int> choices;
-  final int? selectedChoice;
+  final List<int> enteredDigits;
   final bool hintUsed;
   final bool isPlaying;
-  final ValueChanged<int> onChoiceSelect;
+  final ValueChanged<int> onDigitUp;
+  final ValueChanged<int> onDigitDown;
+  final VoidCallback onConfirm;
 
   @override
   Widget build(BuildContext context) {
@@ -536,29 +424,181 @@ class _PriceSummarySection extends StatelessWidget {
                 .bodySmall
                 ?.copyWith(color: Colors.grey.shade600),
           ),
+          const SizedBox(height: 20),
+          // 暗証番号スタイルの金額入力
+          _PriceSpinnerInput(
+            digits: enteredDigits,
+            isPlaying: isPlaying,
+            onDigitUp: onDigitUp,
+            onDigitDown: onDigitDown,
+          ),
           const SizedBox(height: 16),
-          // 選択肢（2×2グリッド）
-          GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 2.8,
-            children: choices
-                .map(
-                  (c) => _ChoiceButton(
-                    price: c,
-                    isSelected: selectedChoice == c,
-                    onTap: isPlaying ? () => onChoiceSelect(c) : null,
-                  ),
-                )
-                .toList(),
+          // 確定ボタン
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFFD814),
+                foregroundColor: Colors.black87,
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
+                  side: const BorderSide(color: Color(0xFFFFA41C)),
+                ),
+              ),
+              onPressed: isPlaying ? onConfirm : null,
+              child: UnreadableText(
+                qt.confirmButton,
+                isObfuscated: true,
+                animateOnObfuscate: false,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           // ヒント表示（使用済みの場合）: 数字対応表
           if (hintUsed) _NumberCipherTable(labelText: qt.hintTableLabel),
         ],
+      ),
+    );
+  }
+}
+
+// ─── 暗証番号スタイル入力ウィジェット ──────────────────────────────
+
+class _PriceSpinnerInput extends StatelessWidget {
+  const _PriceSpinnerInput({
+    required this.digits,
+    required this.isPlaying,
+    required this.onDigitUp,
+    required this.onDigitDown,
+  });
+
+  final List<int> digits;
+  final bool isPlaying;
+  final ValueChanged<int> onDigitUp;
+  final ValueChanged<int> onDigitDown;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // 円マーク
+        Padding(
+          padding: const EdgeInsets.only(right: 8, top: 4),
+          child: Text(
+            '¥',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87.withValues(alpha: 0.6),
+            ),
+          ),
+        ),
+        // 4桁のスピナー
+        ...List.generate(digits.length, (i) {
+          return Padding(
+            padding: EdgeInsets.only(left: i == 0 ? 0 : 8),
+            child: _DigitSpinner(
+              digit: digits[i],
+              isPlaying: isPlaying,
+              onUp: () => onDigitUp(i),
+              onDown: () => onDigitDown(i),
+            ),
+          );
+        }),
+      ],
+    );
+  }
+}
+
+class _DigitSpinner extends StatelessWidget {
+  const _DigitSpinner({
+    required this.digit,
+    required this.isPlaying,
+    required this.onUp,
+    required this.onDown,
+  });
+
+  final int digit;
+  final bool isPlaying;
+  final VoidCallback onUp;
+  final VoidCallback onDown;
+
+  @override
+  Widget build(BuildContext context) {
+    final customChar = CustomLanguageEncoder.encode(digit.toString());
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // 上ボタン（▲）
+        _SpinnerArrowButton(
+          icon: Icons.keyboard_arrow_up,
+          onTap: isPlaying ? onUp : null,
+        ),
+        const SizedBox(height: 4),
+        // 数字表示（カスタム言語）
+        Container(
+          width: 52,
+          height: 56,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: const Color(0xFF007185), width: 1.5),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Center(
+            child: Text(
+              customChar,
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                height: 1,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 4),
+        // 下ボタン（▼）
+        _SpinnerArrowButton(
+          icon: Icons.keyboard_arrow_down,
+          onTap: isPlaying ? onDown : null,
+        ),
+      ],
+    );
+  }
+}
+
+class _SpinnerArrowButton extends StatelessWidget {
+  const _SpinnerArrowButton({required this.icon, this.onTap});
+
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final enabled = onTap != null;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 52,
+        height: 36,
+        decoration: BoxDecoration(
+          color: enabled ? const Color(0xFFF3F3F3) : Colors.grey.shade50,
+          border: Border.all(
+            color: enabled ? Colors.grey.shade400 : Colors.grey.shade200,
+          ),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Icon(
+          icon,
+          size: 22,
+          color: enabled ? const Color(0xFF007185) : Colors.grey.shade300,
+        ),
       ),
     );
   }
@@ -639,48 +679,3 @@ class _NumberCipherTable extends StatelessWidget {
   }
 }
 
-class _ChoiceButton extends StatelessWidget {
-  const _ChoiceButton({
-    required this.price,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final int price;
-  final bool isSelected;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFFFF3CD) : Colors.white,
-          border: Border.all(
-            color: isSelected
-                ? const Color(0xFFFF9900)
-                : Colors.grey.shade300,
-            width: isSelected ? 2 : 1,
-          ),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Center(
-          child: UnreadableText(
-            '¥$price',
-            isObfuscated: true,
-            animateOnObfuscate: false,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: isSelected
-                  ? const Color(0xFFB45309)
-                  : Colors.black87,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
