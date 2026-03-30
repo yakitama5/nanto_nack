@@ -25,7 +25,9 @@
     "itemCount": "{count}点",
     "questionTitle": "合計金額はいくらですか？",
     "questionSubtitle": "上のカートに入っている商品の合計を計算して選んでください",
-    "hint": "各商品の単価 × 数量を足すと合計が求まります"
+    "hint": "各商品の単価 × 数量を足すと合計が求まります",
+    "decoderLabel": "数字デコーダー",
+    "hintTableLabel": "数字対応表"
   },
   "checkout": {
     "missionText": "購入手続きを完了してください",

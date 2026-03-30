@@ -27,6 +27,9 @@ abstract final class CustomLanguageEncoder {
     '5': 'θ', '6': 'β', '7': 'λ', '8': 'ζ', '9': 'δ',
   };
 
+  /// 数字（0〜9）とカスタム言語の対応表
+  static Map<String, String> get digitMap => _digitMap;
+
   /// テキストをカスタム言語にエンコードする
   static String encode(String text) {
     final buffer = StringBuffer();

@@ -82,6 +82,8 @@ class _TranslationsCartXx extends TranslationsCartJa {
 	@override String get questionTitle => 'What is the total price?';
 	@override String get questionSubtitle => 'Calculate the total of items above and select';
 	@override String get hint => 'Multiply each unit price by quantity and sum them up';
+	@override String get decoderLabel => 'Number Decoder';
+	@override String get hintTableLabel => 'Number Cipher Table';
 }
 
 // Path: checkout
@@ -266,6 +268,8 @@ extension on TranslationsXx {
 			'cart.questionTitle' => 'What is the total price?',
 			'cart.questionSubtitle' => 'Calculate the total of items above and select',
 			'cart.hint' => 'Multiply each unit price by quantity and sum them up',
+			'cart.decoderLabel' => 'Number Decoder',
+			'cart.hintTableLabel' => 'Number Cipher Table',
 			'checkout.missionText' => 'Complete the checkout process',
 			'checkout.appTitle' => 'Payment Checkout',
 			'checkout.step1' => 'Cart',

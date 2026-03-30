@@ -70,10 +70,15 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
     }
   }
 
-  /// ヒントを使用する（スコア減点）
+  static const _hintPenaltyFailureCount = 2;
+
+  /// ヒントを使用する（スコア減点 -200点相当）
   void useHint() {
     if (state.status != QuizStatus.playing || state.hintUsed) return;
-    state = state.copyWith(hintUsed: true);
+    state = state.copyWith(
+      hintUsed: true,
+      failureCount: state.failureCount + _hintPenaltyFailureCount,
+    );
   }
 
   /// クイズを諦める（中止）
