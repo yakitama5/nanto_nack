@@ -1,3 +1,4 @@
+import 'package:chat/chat.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopping/shopping.dart';
 
@@ -49,33 +50,29 @@ final appRouter = GoRouter(
         onCompleted: () => context.pop(),
       ),
     ),
-    // チャットカテゴリー（準備中）
+    // チャットカテゴリー
     GoRoute(
       path: '/chat/quiz1',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'chat_quiz1',
-        title: 'チャット Quiz 1',
+      builder: (context, state) => SendMessageQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/chat/quiz2',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'chat_quiz2',
-        title: 'チャット Quiz 2',
+      builder: (context, state) => SendStampQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/chat/quiz3',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'chat_quiz3',
-        title: 'チャット Quiz 3',
+      builder: (context, state) => DeleteMessageQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/chat/quiz4',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'chat_quiz4',
-        title: 'チャット Quiz 4',
+      builder: (context, state) => CreateGroupQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     // 動画カテゴリー（準備中）

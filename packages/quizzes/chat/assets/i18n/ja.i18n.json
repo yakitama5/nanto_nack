@@ -1,0 +1,84 @@
+{
+  "quiz1": {
+    "missionText": "メッセージを送ってください",
+    "insight": {
+      "title": "なぜ文字が読めなくても操作できた？",
+      "subtitle": "チャットUIの普遍的なパターンが操作を導く",
+      "inputTitle": "入力欄は世界共通のUI",
+      "inputDesc": "テキスト入力ボックス＋送信ボタンという組み合わせは、WhatsApp・LINE・Slack など世界中のチャットアプリで採用されている。このパターンを一度体験すると、言語に関係なく直感的に操作できるようになる。",
+      "sendTitle": "→ ボタンは「送信」の記号",
+      "sendDesc": "右向きの矢印（→）や紙飛行機アイコンは、「送る」「進む」を意味する記号として文化を超えて定着している。アイコンそのものが言語の役割を果たしている。",
+      "bubbleTitle": "吹き出しが会話を可視化する",
+      "bubbleDesc": "右側＝自分、左側＝相手という吹き出しレイアウトは、チャットUIのデファクトスタンダード。誰が何を言ったかを色と位置だけで瞬時に判断できる。"
+    }
+  },
+  "quiz2": {
+    "missionText": "スタンプを送ってください",
+    "insight": {
+      "title": "なぜスタンプボタンがわかった？",
+      "subtitle": "絵文字とスタンプは感情の「共通言語」",
+      "emojiTitle": "絵文字は言語を超えた感情表現",
+      "emojiDesc": "😊や👍などの絵文字は、言語に依存せず感情をダイレクトに伝える記号だ。1999年に日本で生まれたこの文化は、現在は全世界の標準となっている。",
+      "iconTitle": "スタンプボタンのアイコンが意味を伝える",
+      "iconDesc": "スマイルマーク（😊）や絵文字パレットのアイコンは、「ここを押すとスタンプが出る」ことを直感的に示す。UIアイコンは文字を読まずとも意味を伝える視覚的なコードだ。",
+      "colorTitle": "グリーンテーマが「チャット」を想起させる",
+      "colorDesc": "LINEの緑色は「メッセージアプリ」の記号として日本人に深く刷り込まれている。色だけで「これはチャットアプリだ」と認識できるのは、反復されたUIパターンが色に意味を与えた結果だ。"
+    }
+  },
+  "quiz3": {
+    "missionText": "メッセージを長押しして削除してください",
+    "insight": {
+      "title": "なぜ長押しで削除できるとわかった？",
+      "subtitle": "コンテキストメニューは「隠れた機能」への扉",
+      "longPressTitle": "長押しは「もっとできること」のサイン",
+      "longPressDesc": "タップして反応しないUIは、長押しで追加メニューが出ることが多い。iOS・Androidの標準的なインタラクションパターンとして定着しており、ユーザーは無意識に試してみるようになっている。",
+      "contextMenuTitle": "コンテキストメニューが操作を提示する",
+      "contextMenuDesc": "長押しで出現するメニューは「このアイテムに対して今できること」をリスト化したもの。削除・コピー・返信などの選択肢が並ぶパターンは、メッセージアプリの標準仕様だ。",
+      "destructiveTitle": "赤色が「危険な操作」を警告する",
+      "destructiveDesc": "削除ボタンが赤い理由は、「取り消せない操作」を色で警告するためだ。赤＝危険・警告は信号機から染み込んだ文化的な記号であり、UIデザインに意図的に取り込まれている。"
+    }
+  },
+  "quiz4": {
+    "missionText": "グループチャットを作成してください",
+    "insight": {
+      "title": "なぜグループ作成の手順がわかった？",
+      "subtitle": "ウィザード形式のUIが手順を自然に導く",
+      "plusTitle": "＋ボタンは「新しく作る」の記号",
+      "plusDesc": "＋（プラス）アイコンは「追加」「作成」を意味する世界共通の記号だ。FAB（フローティングアクションボタン）として画面右下に配置されるのもマテリアルデザインの標準パターンで、言語を問わず「ここで何かが作れる」と直感させる。",
+      "wizardTitle": "ステップ形式が複雑な操作を分解する",
+      "wizardDesc": "グループ名入力→メンバー選択→作成確認という流れは、複雑なアクションを小さなステップに分割するウィザードUIパターン。各ステップが「次に何をすべきか」を教えてくれるため、言語がわからなくても操作できる。",
+      "checkboxTitle": "チェックボックスが「選択済み」を視覚化する",
+      "checkboxDesc": "✓マークのチェックボックスは選択状態を直感的に示す。複数選択UIとしてフォーム・メンバー選択・フィルターで世界中で使われており、その意味は言語を超えて理解されている。"
+    }
+  },
+  "common": {
+    "appTitle": "Talks",
+    "talkTab": "Talks",
+    "searchTab": "Search",
+    "callTab": "Calls",
+    "walletTab": "Wallet",
+    "newsTab": "News",
+    "sendButton": "Send",
+    "stampButton": "Stamp",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel",
+    "confirmDelete": "Delete this message?",
+    "createGroup": "Create Group",
+    "groupName": "Group Name",
+    "selectMembers": "Select Members",
+    "createButton": "Create",
+    "backButton": "Back",
+    "members": "{count} members",
+    "online": "Online",
+    "typeMessage": "Type a message",
+    "newGroup": "New Group",
+    "newChat": "New Chat"
+  },
+  "contacts": {
+    "alice": "Alice",
+    "bob": "Bob",
+    "carol": "Carol",
+    "team": "Project Team",
+    "mom": "Mom"
+  }
+}

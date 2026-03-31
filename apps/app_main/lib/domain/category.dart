@@ -32,7 +32,6 @@ const List<Category> kAllCategories = [
     label: 'チャット',
     description: 'メッセージアプリのUI/UXを体験しよう',
     icon: Icons.chat_bubble_outline,
-    isComingSoon: true,
   ),
   Category(
     id: 'streaming',
