@@ -133,7 +133,9 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble>
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.widthOf(context);
+    final screenSize = MediaQuery.sizeOf(context);
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
     final offset = _offset ??
         widget.initialOffset ??
         Offset(
@@ -159,7 +161,11 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble>
             GestureDetector(
               onPanUpdate: (details) {
                 setState(() {
-                  _offset = ((_offset ?? offset) + details.delta);
+                  final next = ((_offset ?? offset) + details.delta);
+                  _offset = Offset(
+                    next.dx.clamp(0.0, screenWidth - _bubbleSize),
+                    next.dy.clamp(0.0, screenHeight - _bubbleSize),
+                  );
                 });
               },
               onTap: _toggleMission,
@@ -331,9 +337,12 @@ class _MissionPopup extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              GestureDetector(
-                onTap: onClose,
-                child: Icon(
+              IconButton(
+                onPressed: onClose,
+                visualDensity: VisualDensity.compact,
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                icon: Icon(
                   Icons.close,
                   size: 14,
                   color: colorScheme.onSurface.withValues(alpha: 0.5),
@@ -350,8 +359,9 @@ class _MissionPopup extends StatelessWidget {
           // ヒントボタン（未使用時のみ）
           if (!hintUsed && onHintTap != null) ...[
             const Divider(height: 16),
-            GestureDetector(
+            InkWell(
               onTap: onHintTap,
+              borderRadius: BorderRadius.circular(4),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -371,8 +381,9 @@ class _MissionPopup extends StatelessWidget {
           // 諦めるボタン
           if (onGiveUp != null) ...[
             const Divider(height: 16),
-            GestureDetector(
+            InkWell(
               onTap: onGiveUp,
+              borderRadius: BorderRadius.circular(4),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
