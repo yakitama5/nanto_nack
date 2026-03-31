@@ -4,6 +4,7 @@ import 'package:shopping/shopping.dart';
 import 'presentation/home/home_screen.dart';
 import 'presentation/play/category_list_screen.dart';
 import 'presentation/play/stage_list_screen.dart';
+import 'presentation/settings/settings_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -45,6 +46,10 @@ final appRouter = GoRouter(
       builder: (context, state) => ReorderQuizScreen(
         onCompleted: () => context.pop(),
       ),
+    ),
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => const SettingsScreen(),
     ),
   ],
 );

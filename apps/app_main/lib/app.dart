@@ -1,9 +1,12 @@
-import 'router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+
+import 'application/settings/settings_notifier.dart';
+import 'domain/settings/settings_state.dart';
+import 'router.dart';
 
 class NantoNackApp extends ConsumerStatefulWidget {
   const NantoNackApp({super.key});
@@ -24,11 +27,27 @@ class _NantoNackAppState extends ConsumerState<NantoNackApp> {
   @override
   Widget build(BuildContext context) {
     final locale = TranslationProvider.of(context).flutterLocale;
+    final settings = ref.watch(settingsProvider);
+
+    // AppThemeMode → Flutter の ThemeMode に変換
+    final themeMode = switch (settings.themeMode) {
+      AppThemeMode.system => ThemeMode.system,
+      AppThemeMode.light => ThemeMode.light,
+      AppThemeMode.dark => ThemeMode.dark,
+    };
+
+    // AppUiStyle → TargetPlatform に変換（null はシステム依存のまま）
+    final targetPlatform = switch (settings.uiStyle) {
+      AppUiStyle.material => TargetPlatform.android,
+      AppUiStyle.cupertino => TargetPlatform.iOS,
+      AppUiStyle.system => null,
+    };
 
     return MaterialApp.router(
       title: 'NantoNack',
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
+      theme: AppTheme.light().copyWith(platform: targetPlatform),
+      darkTheme: AppTheme.dark().copyWith(platform: targetPlatform),
+      themeMode: themeMode,
       locale: locale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
