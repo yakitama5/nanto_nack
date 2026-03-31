@@ -107,12 +107,16 @@ class _ShoppingAppState extends State<ShoppingApp> {
 
   @override
   Widget build(BuildContext context) {
+    final normalizedQuery = _searchQuery.trim().toLowerCase();
     final filteredCatalog = kShoppingCatalog.where((ShoppingItem item) {
       if (_selectedCategory != null && item.category != _selectedCategory) {
         return false;
       }
-      if (_searchQuery.isNotEmpty &&
-          !item.id.contains(_searchQuery.toLowerCase())) {
+      final searchKey = [
+        item.id,
+        context.sqCatalogItemName(item.id),
+      ].join(' ').toLowerCase();
+      if (normalizedQuery.isNotEmpty && !searchKey.contains(normalizedQuery)) {
         return false;
       }
       return true;
@@ -161,9 +165,13 @@ class _ShoppingAppState extends State<ShoppingApp> {
   Widget _buildBody(List<ShoppingItem> filteredCatalog) {
     // アカウントタブ
     if (_selectedNavIndex == 2) {
-      return _showOrderHistory
+      final order = widget.recentOrder;
+      final canShowHistory = _showOrderHistory &&
+          order != null &&
+          kShoppingCatalog.any((i) => i.id == order.targetItemId);
+      return canShowHistory
           ? _OrderHistoryView(
-              recentOrder: widget.recentOrder!,
+              recentOrder: order,
               onBack: () => setState(() => _showOrderHistory = false),
             )
           : _AccountMenuView(
@@ -1472,40 +1480,46 @@ class AmazonCartSheet extends StatelessWidget {
               ),
             )
           else ...[
-            ...cart.items.map(
-              (CartItem item) => ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: Color(0xFFF3F3F3),
-                  child: Text('📦', style: TextStyle(fontSize: 20)),
-                ),
-                title: UnreadableText(
-                  context.sq.common.quantity.replaceAll(
-                    '{qty}',
-                    item.quantity.toString(),
-                  ),
-                  isObfuscated: true,
-                  animateOnObfuscate: false,
-                ),
-                subtitle: UnreadableText(
-                  '¥${item.price}',
-                  isObfuscated: true,
-                  animateOnObfuscate: false,
-                ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    UnreadableText(
-                      '¥${item.totalPrice}',
+            Flexible(
+              child: ListView.builder(
+                itemCount: cart.items.length,
+                itemBuilder: (context, index) {
+                  final item = cart.items[index];
+                  return ListTile(
+                    leading: const CircleAvatar(
+                      backgroundColor: Color(0xFFF3F3F3),
+                      child: Text('📦', style: TextStyle(fontSize: 20)),
+                    ),
+                    title: UnreadableText(
+                      context.sqCatalogItemName(item.id),
                       isObfuscated: true,
                       animateOnObfuscate: false,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.delete_outline, size: 20),
-                      onPressed: () => onRemoveFromCart(item.id),
+                    subtitle: UnreadableText(
+                      context.sq.common.quantity.replaceAll(
+                        '{qty}',
+                        item.quantity.toString(),
+                      ),
+                      isObfuscated: true,
+                      animateOnObfuscate: false,
                     ),
-                  ],
-                ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        UnreadableText(
+                          '¥${item.totalPrice}',
+                          isObfuscated: true,
+                          animateOnObfuscate: false,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete_outline, size: 20),
+                          onPressed: () => onRemoveFromCart(item.id),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
             const Divider(),
