@@ -70,5 +70,38 @@
     "selectStage": "Select Stage",
     "stageCount": "{count} stages",
     "@stageCount": { "param": "count" }
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "themeSystem": "System Default",
+      "themeLight": "Light Theme",
+      "themeDark": "Dark Theme",
+      "uiStyle": "UI Style",
+      "uiStyleSystem": "System Default",
+      "uiStyleMaterial": "Material (Android)",
+      "uiStyleCupertino": "Cupertino (iOS)"
+    },
+    "data": {
+      "title": "Data & Account",
+      "restorePurchase": "Restore Purchase",
+      "resetData": "Reset Play Data",
+      "resetDataDialogTitle": "Erase your memory?",
+      "resetDataDialogMessage": "All your learning will vanish…🥺\nAll clear records and play history will be deleted.",
+      "resetDataCancel": "Keep it",
+      "resetDataOk": "Erase",
+      "resetDataSuccess": "Data has been reset"
+    },
+    "about": {
+      "title": "About",
+      "developerX": "Developer X (Twitter)",
+      "terms": "Terms of Service",
+      "contact": "Contact",
+      "licenses": "Licenses",
+      "version": "Version {version}",
+      "@version": { "param": "version" }
+    }
   }
 }

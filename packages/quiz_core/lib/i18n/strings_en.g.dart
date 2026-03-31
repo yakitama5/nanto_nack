@@ -48,6 +48,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsErrorEn error = _TranslationsErrorEn._(_root);
 	@override late final _TranslationsDashboardEn dashboard = _TranslationsDashboardEn._(_root);
 	@override late final _TranslationsPlayEn play = _TranslationsPlayEn._(_root);
+	@override late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(_root);
 }
 
 // Path: app
@@ -176,6 +177,69 @@ class _TranslationsPlayEn extends TranslationsPlayJa {
 	@override String get stageCount => '{count} stages';
 }
 
+// Path: settings
+class _TranslationsSettingsEn extends TranslationsSettingsJa {
+	_TranslationsSettingsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Settings';
+	@override late final _TranslationsSettingsAppearanceEn appearance = _TranslationsSettingsAppearanceEn._(_root);
+	@override late final _TranslationsSettingsDataEn data = _TranslationsSettingsDataEn._(_root);
+	@override late final _TranslationsSettingsAboutEn about = _TranslationsSettingsAboutEn._(_root);
+}
+
+// Path: settings.appearance
+class _TranslationsSettingsAppearanceEn extends TranslationsSettingsAppearanceJa {
+	_TranslationsSettingsAppearanceEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Appearance';
+	@override String get theme => 'Theme';
+	@override String get themeSystem => 'System Default';
+	@override String get themeLight => 'Light Theme';
+	@override String get themeDark => 'Dark Theme';
+	@override String get uiStyle => 'UI Style';
+	@override String get uiStyleSystem => 'System Default';
+	@override String get uiStyleMaterial => 'Material (Android)';
+	@override String get uiStyleCupertino => 'Cupertino (iOS)';
+}
+
+// Path: settings.data
+class _TranslationsSettingsDataEn extends TranslationsSettingsDataJa {
+	_TranslationsSettingsDataEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Data & Account';
+	@override String get restorePurchase => 'Restore Purchase';
+	@override String get resetData => 'Reset Play Data';
+	@override String get resetDataDialogTitle => 'Erase your memory?';
+	@override String get resetDataDialogMessage => 'All your learning will vanish…🥺\nAll clear records and play history will be deleted.';
+	@override String get resetDataCancel => 'Keep it';
+	@override String get resetDataOk => 'Erase';
+	@override String get resetDataSuccess => 'Data has been reset';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutEn extends TranslationsSettingsAboutJa {
+	_TranslationsSettingsAboutEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'About';
+	@override String get developerX => 'Developer X (Twitter)';
+	@override String get terms => 'Terms of Service';
+	@override String get contact => 'Contact';
+	@override String get licenses => 'Licenses';
+	@override String get version => 'Version {version}';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -229,6 +293,30 @@ extension on TranslationsEn {
 			'play.selectCategoryDescription' => 'Choose a category to challenge',
 			'play.selectStage' => 'Select Stage',
 			'play.stageCount' => '{count} stages',
+			'settings.title' => 'Settings',
+			'settings.appearance.title' => 'Appearance',
+			'settings.appearance.theme' => 'Theme',
+			'settings.appearance.themeSystem' => 'System Default',
+			'settings.appearance.themeLight' => 'Light Theme',
+			'settings.appearance.themeDark' => 'Dark Theme',
+			'settings.appearance.uiStyle' => 'UI Style',
+			'settings.appearance.uiStyleSystem' => 'System Default',
+			'settings.appearance.uiStyleMaterial' => 'Material (Android)',
+			'settings.appearance.uiStyleCupertino' => 'Cupertino (iOS)',
+			'settings.data.title' => 'Data & Account',
+			'settings.data.restorePurchase' => 'Restore Purchase',
+			'settings.data.resetData' => 'Reset Play Data',
+			'settings.data.resetDataDialogTitle' => 'Erase your memory?',
+			'settings.data.resetDataDialogMessage' => 'All your learning will vanish…🥺\nAll clear records and play history will be deleted.',
+			'settings.data.resetDataCancel' => 'Keep it',
+			'settings.data.resetDataOk' => 'Erase',
+			'settings.data.resetDataSuccess' => 'Data has been reset',
+			'settings.about.title' => 'About',
+			'settings.about.developerX' => 'Developer X (Twitter)',
+			'settings.about.terms' => 'Terms of Service',
+			'settings.about.contact' => 'Contact',
+			'settings.about.licenses' => 'Licenses',
+			'settings.about.version' => 'Version {version}',
 			_ => null,
 		};
 	}

@@ -70,5 +70,38 @@
     "selectStage": "ステージ選択",
     "stageCount": "{count}ステージ",
     "@stageCount": { "param": "count" }
+  },
+  "settings": {
+    "title": "設定",
+    "appearance": {
+      "title": "アピアランス",
+      "theme": "テーマ",
+      "themeSystem": "システム設定",
+      "themeLight": "ライトテーマ",
+      "themeDark": "ダークテーマ",
+      "uiStyle": "UIスタイル",
+      "uiStyleSystem": "システム設定",
+      "uiStyleMaterial": "Android風",
+      "uiStyleCupertino": "iOS風"
+    },
+    "data": {
+      "title": "データとアカウント",
+      "restorePurchase": "購入の復元",
+      "resetData": "プレイデータの初期化",
+      "resetDataDialogTitle": "記憶を消去しますか？",
+      "resetDataDialogMessage": "これまでの学びが消え去ります…🥺\nクリア記録・プレイ履歴がすべて削除されます。",
+      "resetDataCancel": "やめておく",
+      "resetDataOk": "消去する",
+      "resetDataSuccess": "データを初期化しました"
+    },
+    "about": {
+      "title": "アプリについて",
+      "developerX": "開発者X（Twitter）",
+      "terms": "利用規約",
+      "contact": "お問い合わせ",
+      "licenses": "ライセンス",
+      "version": "バージョン {version}",
+      "@version": { "param": "version" }
+    }
   }
 }

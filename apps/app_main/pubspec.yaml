@@ -24,6 +24,9 @@ dependencies:
     path: ../../packages/geolocator_windows_stub
   go_router: ^14.8.1
   http: ^1.2.2
+  package_info_plus: ^8.3.0
+  shared_preferences: ^2.5.3
+  url_launcher: ^6.3.1
   quiz_core:
     path: ../../packages/quiz_core
   responsive_framework: ^1.5.1

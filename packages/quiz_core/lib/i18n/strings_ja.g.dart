@@ -49,6 +49,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsErrorJa error = TranslationsErrorJa.internal(_root);
 	late final TranslationsDashboardJa dashboard = TranslationsDashboardJa.internal(_root);
 	late final TranslationsPlayJa play = TranslationsPlayJa.internal(_root);
+	late final TranslationsSettingsJa settings = TranslationsSettingsJa.internal(_root);
 }
 
 // Path: app
@@ -267,6 +268,118 @@ class TranslationsPlayJa {
 	String get stageCount => '{count}ステージ';
 }
 
+// Path: settings
+class TranslationsSettingsJa {
+	TranslationsSettingsJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '設定'
+	String get title => '設定';
+
+	late final TranslationsSettingsAppearanceJa appearance = TranslationsSettingsAppearanceJa.internal(_root);
+	late final TranslationsSettingsDataJa data = TranslationsSettingsDataJa.internal(_root);
+	late final TranslationsSettingsAboutJa about = TranslationsSettingsAboutJa.internal(_root);
+}
+
+// Path: settings.appearance
+class TranslationsSettingsAppearanceJa {
+	TranslationsSettingsAppearanceJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アピアランス'
+	String get title => 'アピアランス';
+
+	/// ja: 'テーマ'
+	String get theme => 'テーマ';
+
+	/// ja: 'システム設定'
+	String get themeSystem => 'システム設定';
+
+	/// ja: 'ライトテーマ'
+	String get themeLight => 'ライトテーマ';
+
+	/// ja: 'ダークテーマ'
+	String get themeDark => 'ダークテーマ';
+
+	/// ja: 'UIスタイル'
+	String get uiStyle => 'UIスタイル';
+
+	/// ja: 'システム設定'
+	String get uiStyleSystem => 'システム設定';
+
+	/// ja: 'Android風'
+	String get uiStyleMaterial => 'Android風';
+
+	/// ja: 'iOS風'
+	String get uiStyleCupertino => 'iOS風';
+}
+
+// Path: settings.data
+class TranslationsSettingsDataJa {
+	TranslationsSettingsDataJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'データとアカウント'
+	String get title => 'データとアカウント';
+
+	/// ja: '購入の復元'
+	String get restorePurchase => '購入の復元';
+
+	/// ja: 'プレイデータの初期化'
+	String get resetData => 'プレイデータの初期化';
+
+	/// ja: '記憶を消去しますか？'
+	String get resetDataDialogTitle => '記憶を消去しますか？';
+
+	/// ja: 'これまでの学びが消え去ります…🥺 クリア記録・プレイ履歴がすべて削除されます。'
+	String get resetDataDialogMessage => 'これまでの学びが消え去ります…🥺\nクリア記録・プレイ履歴がすべて削除されます。';
+
+	/// ja: 'やめておく'
+	String get resetDataCancel => 'やめておく';
+
+	/// ja: '消去する'
+	String get resetDataOk => '消去する';
+
+	/// ja: 'データを初期化しました'
+	String get resetDataSuccess => 'データを初期化しました';
+}
+
+// Path: settings.about
+class TranslationsSettingsAboutJa {
+	TranslationsSettingsAboutJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アプリについて'
+	String get title => 'アプリについて';
+
+	/// ja: '開発者X（Twitter）'
+	String get developerX => '開発者X（Twitter）';
+
+	/// ja: '利用規約'
+	String get terms => '利用規約';
+
+	/// ja: 'お問い合わせ'
+	String get contact => 'お問い合わせ';
+
+	/// ja: 'ライセンス'
+	String get licenses => 'ライセンス';
+
+	/// ja: 'バージョン {version}'
+	String get version => 'バージョン {version}';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -320,6 +433,30 @@ extension on Translations {
 			'play.selectCategoryDescription' => 'チャレンジするカテゴリーを選んでください',
 			'play.selectStage' => 'ステージ選択',
 			'play.stageCount' => '{count}ステージ',
+			'settings.title' => '設定',
+			'settings.appearance.title' => 'アピアランス',
+			'settings.appearance.theme' => 'テーマ',
+			'settings.appearance.themeSystem' => 'システム設定',
+			'settings.appearance.themeLight' => 'ライトテーマ',
+			'settings.appearance.themeDark' => 'ダークテーマ',
+			'settings.appearance.uiStyle' => 'UIスタイル',
+			'settings.appearance.uiStyleSystem' => 'システム設定',
+			'settings.appearance.uiStyleMaterial' => 'Android風',
+			'settings.appearance.uiStyleCupertino' => 'iOS風',
+			'settings.data.title' => 'データとアカウント',
+			'settings.data.restorePurchase' => '購入の復元',
+			'settings.data.resetData' => 'プレイデータの初期化',
+			'settings.data.resetDataDialogTitle' => '記憶を消去しますか？',
+			'settings.data.resetDataDialogMessage' => 'これまでの学びが消え去ります…🥺\nクリア記録・プレイ履歴がすべて削除されます。',
+			'settings.data.resetDataCancel' => 'やめておく',
+			'settings.data.resetDataOk' => '消去する',
+			'settings.data.resetDataSuccess' => 'データを初期化しました',
+			'settings.about.title' => 'アプリについて',
+			'settings.about.developerX' => '開発者X（Twitter）',
+			'settings.about.terms' => '利用規約',
+			'settings.about.contact' => 'お問い合わせ',
+			'settings.about.licenses' => 'ライセンス',
+			'settings.about.version' => 'バージョン {version}',
 			_ => null,
 		};
 	}
