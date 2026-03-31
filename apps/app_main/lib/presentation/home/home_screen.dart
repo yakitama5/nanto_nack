@@ -191,9 +191,7 @@ class _TodayHeroCard extends ConsumerWidget {
                           _HeaderIconButton(
                             icon: Icons.settings_rounded,
                             color: sceneTheme.onSceneColor,
-                            onPressed: () {
-                              // TODO: 設定画面を開く
-                            },
+                            onPressed: () => context.push('/settings'),
                           ),
                         ],
                       ),

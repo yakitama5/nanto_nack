@@ -79,6 +79,17 @@ class QuizResultRepository {
     }
   }
 
+  /// すべてのプレイデータを初期化する
+  ///
+  /// プレイログ（[PlayLogs]）とクイズ結果（[QuizResults]）をすべて削除する。
+  /// ユーザーステータス（プレミアム状態・プレイ回数）は保持する。
+  Future<void> deleteAllPlayData() async {
+    await _db.transaction(() async {
+      await _db.deleteAllPlayLogs();
+      await _db.deleteAllQuizResults();
+    });
+  }
+
   /// プレイログを記録する（PlayLogs相当）
   ///
   /// 諦め・失敗・クリアを問わず、すべてのプレイ結果を記録する。
