@@ -197,8 +197,13 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
   Future<void> _playClearSound() async {
     // 事前ロード済みの場合は即座に取得、未完了の場合は完了を待つ。
     // DeviceFileSource で再生することで iOS が .mp3 拡張子からフォーマットを判別できる。
-    final path = await ref.read(clearSoundProvider.future);
-    await _audioPlayer.play(DeviceFileSource(path));
+    try {
+      final path = await ref.read(clearSoundProvider.future);
+      if (!mounted) return;
+      await _audioPlayer.play(DeviceFileSource(path));
+    } catch (_) {
+      // 音声再生の失敗はリザルト表示に影響させない
+    }
   }
 
   /// 短い小刻みな振動 → 最後にひと押し
@@ -364,16 +369,16 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
               // [3] ボタン
               _FadeSlide(
                 progress: _contentAnims[3].value,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 12,
+                  runSpacing: 12,
                   children: [
-                    if (!_isSuccess && widget.onBack != null) ...[
+                    if (!_isSuccess && widget.onBack != null)
                       OutlinedButton(
                         onPressed: widget.onBack,
                         child: Text(context.t.quiz.back),
                       ),
-                      const SizedBox(width: 12),
-                    ],
                     if (_isSuccess)
                       OutlinedButton(
                         onPressed: widget.onRetry,
@@ -384,13 +389,11 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
                         onPressed: widget.onRetry,
                         child: Text(context.t.quiz.retry),
                       ),
-                    if (widget.onNext != null) ...[
-                      const SizedBox(width: 12),
+                    if (widget.onNext != null)
                       FilledButton(
                         onPressed: widget.onNext,
                         child: Text(context.t.quiz.next),
                       ),
-                    ],
                   ],
                 ),
               ),
