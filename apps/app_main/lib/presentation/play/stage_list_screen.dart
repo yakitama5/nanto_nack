@@ -27,6 +27,11 @@ class StageListScreen extends ConsumerWidget {
 
     final categoryColor = switch (categoryId) {
       'shopping' => ext.shoppingCategoryColor,
+      'chat' => ext.chatCategoryColor,
+      'streaming' => ext.streamingCategoryColor,
+      'map' => ext.mapCategoryColor,
+      'alarm' => ext.alarmCategoryColor,
+      'payment' => ext.paymentCategoryColor,
       _ => colorScheme.primary,
     };
 
