@@ -86,19 +86,21 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
     );
 
     if (reason == null) {
-      await hapticFeedback.playSuccessFeedback();
+      // await の前に状態を確定させ、giveUp() との競合を防ぐ
       state = newState.copyWith(
         status: QuizStatus.correct,
         elapsedMs: elapsed,
       );
+      await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
     } else {
-      await hapticFeedback.playErrorFeedback();
+      // await の前に状態を確定させ、giveUp() との競合を防ぐ
       state = newState.copyWith(
         status: QuizStatus.incorrect,
         failureCount: state.failureCount + 1,
         elapsedMs: elapsed,
       );
+      await hapticFeedback.playErrorFeedback();
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     }
   }
@@ -127,7 +129,6 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
     state = WaterQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
-      failureCount: state.failureCount,
     );
     _startTimer();
   }
