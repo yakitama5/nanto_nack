@@ -1,0 +1,13 @@
+# .gtrconfig - commit this file to share settings with your team
+
+[copy]
+    include = **/.env
+
+[hooks]
+    postCreate = fvm flutter pub get
+    postCreate = fvm dart run melos bs
+    postCreate = fvm dart run melos run generate
+
+[defaults]
+    editor = antigravity
+    ai = claude
