@@ -226,7 +226,7 @@ class _AboutCardState extends State<_AboutCard> {
         _ActionItem(
           label: t.settings.about.developerX,
           icon: Icons.open_in_new_rounded,
-          onTap: () => _launchUrl('https://x.com/yakitama5'),
+          onTap: () => _launchUrl('https://x.com/yakuran1'),
         ),
         _ActionItem(
           label: t.settings.about.terms,
@@ -236,7 +236,7 @@ class _AboutCardState extends State<_AboutCard> {
         _ActionItem(
           label: t.settings.about.contact,
           icon: Icons.open_in_new_rounded,
-          onTap: () => _launchUrl('https://yakitama5.github.io/nanto_nack/contact'),
+          onTap: () => _launchUrl('https://forms.gle/x8hA5bKNM4yHpd8A9'),
         ),
         _ActionItem(
           label: t.settings.about.licenses,
