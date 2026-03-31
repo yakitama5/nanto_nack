@@ -32,20 +32,12 @@ const List<Stage> kAllStages = [
     difficulty: 1,
   ),
   Stage(
-    id: 'shopping_cart',
-    title: 'カートの合計金額を選ぼう',
-    description: 'カート内の商品の合計金額を4択から選んでください',
-    category: 'shopping',
-    routePath: '/shopping/cart',
-    difficulty: 3,
-  ),
-  Stage(
     id: 'shopping_checkout',
     title: '購入手続きを完了しよう',
     description: '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
     category: 'shopping',
     routePath: '/shopping/checkout',
-    difficulty: 4,
+    difficulty: 2,
   ),
   Stage(
     id: 'shopping_reorder',
@@ -53,7 +45,15 @@ const List<Stage> kAllStages = [
     description: '注文履歴から直近で注文した商品をもう一度購入してください',
     category: 'shopping',
     routePath: '/shopping/reorder',
-    difficulty: 2,
+    difficulty: 3,
+  ),
+  Stage(
+    id: 'shopping_cart',
+    title: 'カートの合計金額を選ぼう',
+    description: 'カート内の商品の合計金額を4択から選んでください',
+    category: 'shopping',
+    routePath: '/shopping/cart',
+    difficulty: 5,
   ),
 ];
 

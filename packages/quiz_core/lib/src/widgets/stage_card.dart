@@ -128,17 +128,28 @@ class _DifficultyIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMaxDifficulty = difficulty >= 5;
     return Row(
-      children: List.generate(5, (i) {
-        final isActive = i < difficulty;
-        return Opacity(
-          opacity: isLocked ? 0.3 : (isActive ? 1.0 : 0.2),
-          child: const Text(
-            '🍛',
-            style: TextStyle(fontSize: 13),
+      children: [
+        ...List.generate(5, (i) {
+          final isActive = i < difficulty;
+          return Opacity(
+            opacity: isLocked ? 0.3 : (isActive ? 1.0 : 0.2),
+            child: const Text(
+              '🍛',
+              style: TextStyle(fontSize: 13),
+            ),
+          );
+        }),
+        if (isMaxDifficulty)
+          Opacity(
+            opacity: isLocked ? 0.3 : 1.0,
+            child: const Text(
+              '🔥',
+              style: TextStyle(fontSize: 13),
+            ),
           ),
-        );
-      }),
+      ],
     );
   }
 }
