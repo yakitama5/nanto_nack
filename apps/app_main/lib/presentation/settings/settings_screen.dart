@@ -122,10 +122,10 @@ class _DataCard extends ConsumerWidget {
       icon: Icons.storage_outlined,
       iconColor: const Color(0xFFE65100),
       children: [
+        // TODO(yakitama5): IAP実装後に有効化する
         _ActionItem(
           label: t.settings.data.restorePurchase,
           icon: Icons.restore_rounded,
-          onTap: () => _restorePurchase(context, ref),
         ),
         _ActionItem(
           label: t.settings.data.resetData,
@@ -137,15 +137,6 @@ class _DataCard extends ConsumerWidget {
     );
   }
 
-  Future<void> _restorePurchase(BuildContext context, WidgetRef ref) async {
-    // TODO: IAP restore purchase 実装
-    // 現時点では購入の復元ロジックは未実装のため、スタブ
-    final messenger = ScaffoldMessenger.of(context);
-    messenger.showSnackBar(
-      const SnackBar(content: Text('購入の復元を確認中...')),
-    );
-  }
-
   Future<void> _showResetConfirmDialog(
     BuildContext context,
     WidgetRef ref,
@@ -153,6 +144,7 @@ class _DataCard extends ConsumerWidget {
     final t = Translations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (context) => AlertDialog(
         title: Text(t.settings.data.resetDataDialogTitle),
         content: Text(t.settings.data.resetDataDialogMessage),
@@ -269,7 +261,10 @@ class _AboutCardState extends State<_AboutCard> {
   Future<void> _launchUrl(String url) async {
     final uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      // URLが開けない場合は何もしない（デバイス依存）
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(Translations.of(context).error.unknown)),
+      );
     }
   }
 }
@@ -418,13 +413,13 @@ class _ActionItem extends StatelessWidget {
   const _ActionItem({
     required this.label,
     required this.icon,
-    required this.onTap,
+    this.onTap,
     this.labelColor,
   });
 
   final String label;
   final IconData icon;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Color? labelColor;
 
   @override

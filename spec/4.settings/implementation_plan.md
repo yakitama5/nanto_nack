@@ -2,7 +2,7 @@
 
 本計画は、ダッシュボード画面の右上（⚙️アイコン）から遷移する、NantoNackの世界観を踏襲した設定画面を実装するための詳細なステップを定義します。
 
-## Phase 1: 設定基盤と状態管理の準備 (`packages/app_main`, `quiz_core`)
+## Phase 1: 設定基盤と状態管理の準備 (`apps/app_main`, `packages/quiz_core`)
 
 設定値の保存や外部連携に必要なパッケージと、状態管理を準備します。
 
@@ -11,7 +11,7 @@
 2. **状態管理 (Riverpod Notifier):**
    * `shared_preferences` を用いて「テーマ設定」と「UIスタイル設定」を保存・読み込み、アプリ全体（`MaterialApp`）に即座に反映させるための `SettingsNotifier` を構築。
 3. **多言語化 (`slang`):**
-   * 設定項目のテキスト、および初期化時の警告ダイアログの文言（「記憶を消去しますか？」等）を `translations.g.dart` に追加。
+   * 設定項目のテキスト、および初期化時の警告ダイアログの文言（「記憶を消去しますか？」等）を i18n 定義に追加し、`packages/quiz_core/lib/i18n/strings*.g.dart` を再生成。
 
 ## Phase 2: UIレイアウトと共通コンポーネントの構築
 
