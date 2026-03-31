@@ -22,10 +22,23 @@
     "correct": "正解！",
     "incorrect": "不正解",
     "timeUp": "時間切れ",
+    "giveUp": "諦めた...",
     "result": "結果",
     "retry": "もう一度",
     "next": "次へ",
-    "back": "戻る"
+    "back": "戻る",
+    "score": "スコア: {score}点",
+    "@score": { "param": "score" },
+    "elapsedTime": "タイム: {time}秒",
+    "@elapsedTime": { "param": "time" }
+  },
+  "mission": {
+    "title": "MISSION",
+    "topic": "お題",
+    "useHint": "ヒントを使う",
+    "giveUp": "諦める",
+    "timeLimit": "制限時間: {seconds}秒",
+    "@timeLimit": { "param": "seconds" }
   },
   "purchase": {
     "limitReached": "本日のプレイ上限に達しました",

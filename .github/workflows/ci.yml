@@ -45,7 +45,8 @@ jobs:
           FIREBASE_IOS_API_KEY=ci_placeholder
           FIREBASE_WEB_API_KEY=ci_placeholder
           EOF
-          echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/.env
+          mkdir -p apps/app_main/env
+          echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/env/.env
 
       - name: 依存関係の解決 (melos bootstrap)
         run: dart pub global run melos bootstrap
@@ -92,7 +93,8 @@ jobs:
           FIREBASE_IOS_API_KEY=ci_placeholder
           FIREBASE_WEB_API_KEY=ci_placeholder
           EOF
-          echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/.env
+          mkdir -p apps/app_main/env
+          echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/env/.env
 
       - name: 依存関係の解決 (melos bootstrap)
         run: dart pub global run melos bootstrap

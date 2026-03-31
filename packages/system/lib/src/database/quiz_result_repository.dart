@@ -16,22 +16,86 @@ class QuizResultRepository {
   Future<List<QuizResult>> findByCategory(String category) =>
       _db.getQuizResultsByCategory(category);
 
-  /// クイズ結果を保存 (upsert)
-  Future<void> save({
+  /// クイズの最高記録を保存する（StageRecords相当）
+  ///
+  /// - 初回プレイ: そのまま保存
+  /// - 2回目以降:
+  ///   - [isCleared] が true になる場合のみ `isCleared` を更新（クリア済みは降格しない）
+  ///   - [score] が既存の最高スコアを上回る場合のみ `score` / `clearTimeMs` / `failureCount` を更新
+  ///   - [isCleared] が false（諦め・失敗）かつスコアが低い場合は何も更新しない
+  ///   - `lastPlayedAt` は常に更新する
+  Future<void> saveBestRecord({
     required String quizId,
     required bool isCleared,
     int? clearTimeMs,
     int score = 0,
     int failureCount = 0,
-  }) =>
-      _db.saveQuizResult(
+  }) async {
+    final existing = await findById(quizId);
+    final now = clock.now();
+
+    if (existing == null) {
+      // 初回：そのまま保存
+      await _db.saveQuizResult(
         QuizResultsCompanion(
           quizId: Value(quizId),
           isCleared: Value(isCleared),
           clearTimeMs: Value(clearTimeMs),
           score: Value(score),
           failureCount: Value(failureCount),
-          lastPlayedAt: Value(clock.now()),
+          lastPlayedAt: Value(now),
+        ),
+      );
+      return;
+    }
+
+    // 最高スコアを上回るか、初めてクリアした場合のみ記録を更新する
+    final isNewBestScore = score > existing.score;
+    final isFirstClear = isCleared && !existing.isCleared;
+
+    if (isNewBestScore || isFirstClear) {
+      await _db.saveQuizResult(
+        QuizResultsCompanion(
+          quizId: Value(quizId),
+          isCleared: Value(existing.isCleared || isCleared),
+          clearTimeMs: Value(isCleared ? clearTimeMs : existing.clearTimeMs),
+          score: Value(isNewBestScore ? score : existing.score),
+          failureCount: Value(isNewBestScore ? failureCount : existing.failureCount),
+          lastPlayedAt: Value(now),
+        ),
+      );
+    } else {
+      // スコア更新なし・クリア状態変化なし → lastPlayedAt のみ更新
+      await _db.saveQuizResult(
+        QuizResultsCompanion(
+          quizId: Value(quizId),
+          isCleared: Value(existing.isCleared),
+          clearTimeMs: Value(existing.clearTimeMs),
+          score: Value(existing.score),
+          failureCount: Value(existing.failureCount),
+          lastPlayedAt: Value(now),
+        ),
+      );
+    }
+  }
+
+  /// プレイログを記録する（PlayLogs相当）
+  ///
+  /// 諦め・失敗・クリアを問わず、すべてのプレイ結果を記録する。
+  /// 今日のプレイ回数制限やヒートマップ描画に使用する。
+  Future<void> logPlay({
+    required String quizId,
+    required bool isCleared,
+    int score = 0,
+    int failureCount = 0,
+  }) =>
+      _db.insertPlayLog(
+        PlayLogsCompanion(
+          quizId: Value(quizId),
+          isCleared: Value(isCleared),
+          score: Value(score),
+          failureCount: Value(failureCount),
+          playedAt: Value(clock.now()),
         ),
       );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_core/quiz_core.dart';
 
 class CartBadge extends StatelessWidget {
   const CartBadge({super.key, required this.count, required this.onTap});
@@ -24,8 +25,10 @@ class CartBadge extends StatelessWidget {
                 color: Theme.of(context).colorScheme.error,
                 shape: BoxShape.circle,
               ),
-              child: Text(
+              child: UnreadableText(
                 '$count',
+                isObfuscated: true,
+                animateOnObfuscate: false,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Theme.of(context).colorScheme.onError,
                     ),

@@ -43,6 +43,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsHomeEn home = _TranslationsHomeEn._(_root);
 	@override late final _TranslationsStageEn stage = _TranslationsStageEn._(_root);
 	@override late final _TranslationsQuizEn quiz = _TranslationsQuizEn._(_root);
+	@override late final _TranslationsMissionEn mission = _TranslationsMissionEn._(_root);
 	@override late final _TranslationsPurchaseEn purchase = _TranslationsPurchaseEn._(_root);
 	@override late final _TranslationsErrorEn error = _TranslationsErrorEn._(_root);
 	@override late final _TranslationsDashboardEn dashboard = _TranslationsDashboardEn._(_root);
@@ -96,10 +97,27 @@ class _TranslationsQuizEn extends TranslationsQuizJa {
 	@override String get correct => 'Correct!';
 	@override String get incorrect => 'Incorrect';
 	@override String get timeUp => 'Time\'s Up';
+	@override String get giveUp => 'Gave Up...';
 	@override String get result => 'Result';
 	@override String get retry => 'Retry';
 	@override String get next => 'Next';
 	@override String get back => 'Back';
+	@override String get score => 'Score: {score}pts';
+	@override String get elapsedTime => 'Time: {time}s';
+}
+
+// Path: mission
+class _TranslationsMissionEn extends TranslationsMissionJa {
+	_TranslationsMissionEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'MISSION';
+	@override String get topic => 'Mission';
+	@override String get useHint => 'Use Hint';
+	@override String get giveUp => 'Give Up';
+	@override String get timeLimit => 'Time Limit: {seconds}s';
 }
 
 // Path: purchase
@@ -139,10 +157,7 @@ class _TranslationsDashboardEn extends TranslationsDashboardJa {
 	@override String get remainingPlaysCount => '{count} remaining';
 	@override String get unlimitedPlays => 'Unlimited';
 	@override String get streak => 'Streak';
-	@override String streakDays({required num n, required int days}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: '$days day streak',
-		other: '$days days streak',
-	);
+	@override String get streakDays => '{days} days streak';
 	@override String get activityHistory => 'Play History';
 	@override String get noActivity => 'No play history yet';
 }
@@ -182,10 +197,18 @@ extension on TranslationsEn {
 			'quiz.correct' => 'Correct!',
 			'quiz.incorrect' => 'Incorrect',
 			'quiz.timeUp' => 'Time\'s Up',
+			'quiz.giveUp' => 'Gave Up...',
 			'quiz.result' => 'Result',
 			'quiz.retry' => 'Retry',
 			'quiz.next' => 'Next',
 			'quiz.back' => 'Back',
+			'quiz.score' => 'Score: {score}pts',
+			'quiz.elapsedTime' => 'Time: {time}s',
+			'mission.title' => 'MISSION',
+			'mission.topic' => 'Mission',
+			'mission.useHint' => 'Use Hint',
+			'mission.giveUp' => 'Give Up',
+			'mission.timeLimit' => 'Time Limit: {seconds}s',
 			'purchase.limitReached' => 'Daily play limit reached',
 			'purchase.unlockDescription' => 'Upgrade to Premium to play\nwithout limits',
 			'purchase.upgrade' => 'Upgrade',
@@ -198,7 +221,7 @@ extension on TranslationsEn {
 			'dashboard.remainingPlaysCount' => '{count} remaining',
 			'dashboard.unlimitedPlays' => 'Unlimited',
 			'dashboard.streak' => 'Streak',
-			'dashboard.streakDays' => ({required num n, required int days}) => _root.dashboard.streakDays(n: n, days: days),
+			'dashboard.streakDays' => '{days} days streak',
 			'dashboard.activityHistory' => 'Play History',
 			'dashboard.noActivity' => 'No play history yet',
 			'play.startPlay' => 'Play Now',

@@ -60,7 +60,13 @@ class StageListNotifier extends AsyncNotifier<List<StageWithStatus>> {
     required int failureCount,
   }) async {
     final repo = ref.read(quizResultRepositoryProvider);
-    await repo.save(
+    await repo.logPlay(
+      quizId: quizId,
+      isCleared: true,
+      score: score,
+      failureCount: failureCount,
+    );
+    await repo.saveBestRecord(
       quizId: quizId,
       isCleared: true,
       clearTimeMs: clearTimeMs,

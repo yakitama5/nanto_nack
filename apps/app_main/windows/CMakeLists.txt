@@ -2,6 +2,17 @@
 cmake_minimum_required(VERSION 3.14)
 project(nanto_nack LANGUAGES CXX)
 
+# 開発者が明示的に指定した場合のみ TLS 検証を無効化する（既定は安全側）。
+# 社内ネットワーク等で CRL/OCSP の到達に失敗する場合は
+# cmake -DNANTO_ALLOW_INSECURE_TLS=ON ... で有効化すること。
+option(NANTO_ALLOW_INSECURE_TLS "Disable TLS verification for local development only" OFF)
+if(NANTO_ALLOW_INSECURE_TLS)
+  message(WARNING "TLS verification is DISABLED. For local development use only.")
+  set(CMAKE_TLS_VERIFY OFF)
+else()
+  set(CMAKE_TLS_VERIFY ON)
+endif()
+
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "nanto_nack")

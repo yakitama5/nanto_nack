@@ -44,6 +44,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsHomeJa home = TranslationsHomeJa.internal(_root);
 	late final TranslationsStageJa stage = TranslationsStageJa.internal(_root);
 	late final TranslationsQuizJa quiz = TranslationsQuizJa.internal(_root);
+	late final TranslationsMissionJa mission = TranslationsMissionJa.internal(_root);
 	late final TranslationsPurchaseJa purchase = TranslationsPurchaseJa.internal(_root);
 	late final TranslationsErrorJa error = TranslationsErrorJa.internal(_root);
 	late final TranslationsDashboardJa dashboard = TranslationsDashboardJa.internal(_root);
@@ -124,6 +125,9 @@ class TranslationsQuizJa {
 	/// ja: '時間切れ'
 	String get timeUp => '時間切れ';
 
+	/// ja: '諦めた...'
+	String get giveUp => '諦めた...';
+
 	/// ja: '結果'
 	String get result => '結果';
 
@@ -135,6 +139,36 @@ class TranslationsQuizJa {
 
 	/// ja: '戻る'
 	String get back => '戻る';
+
+	/// ja: 'スコア: {score}点'
+	String get score => 'スコア: {score}点';
+
+	/// ja: 'タイム: {time}秒'
+	String get elapsedTime => 'タイム: {time}秒';
+}
+
+// Path: mission
+class TranslationsMissionJa {
+	TranslationsMissionJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'MISSION'
+	String get title => 'MISSION';
+
+	/// ja: 'お題'
+	String get topic => 'お題';
+
+	/// ja: 'ヒントを使う'
+	String get useHint => 'ヒントを使う';
+
+	/// ja: '諦める'
+	String get giveUp => '諦める';
+
+	/// ja: '制限時間: {seconds}秒'
+	String get timeLimit => '制限時間: {seconds}秒';
 }
 
 // Path: purchase
@@ -199,8 +233,8 @@ class TranslationsDashboardJa {
 	/// ja: '連続プレイ'
 	String get streak => '連続プレイ';
 
-	/// ja: '{days}日連続' (one/other どちらも同じ形式)
-	String streakDays({required num n, required int days}) => '${days}日連続';
+	/// ja: '{days}日連続'
+	String get streakDays => '{days}日連続';
 
 	/// ja: 'プレイ履歴'
 	String get activityHistory => 'プレイ履歴';
@@ -213,8 +247,7 @@ class TranslationsDashboardJa {
 class TranslationsPlayJa {
 	TranslationsPlayJa.internal(this._root);
 
-	// ignore: unused_field
-	final dynamic _root;
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 
@@ -255,10 +288,18 @@ extension on Translations {
 			'quiz.correct' => '正解！',
 			'quiz.incorrect' => '不正解',
 			'quiz.timeUp' => '時間切れ',
+			'quiz.giveUp' => '諦めた...',
 			'quiz.result' => '結果',
 			'quiz.retry' => 'もう一度',
 			'quiz.next' => '次へ',
 			'quiz.back' => '戻る',
+			'quiz.score' => 'スコア: {score}点',
+			'quiz.elapsedTime' => 'タイム: {time}秒',
+			'mission.title' => 'MISSION',
+			'mission.topic' => 'お題',
+			'mission.useHint' => 'ヒントを使う',
+			'mission.giveUp' => '諦める',
+			'mission.timeLimit' => '制限時間: {seconds}秒',
 			'purchase.limitReached' => '本日のプレイ上限に達しました',
 			'purchase.unlockDescription' => 'プレミアムにアップグレードすると\n無制限でプレイできます',
 			'purchase.upgrade' => 'アップグレード',
@@ -271,7 +312,7 @@ extension on Translations {
 			'dashboard.remainingPlaysCount' => '残り{count}回',
 			'dashboard.unlimitedPlays' => '無制限',
 			'dashboard.streak' => '連続プレイ',
-			'dashboard.streakDays' => ({required num n, required int days}) => _root.dashboard.streakDays(n: n, days: days),
+			'dashboard.streakDays' => '{days}日連続',
 			'dashboard.activityHistory' => 'プレイ履歴',
 			'dashboard.noActivity' => 'まだプレイ履歴がありません',
 			'play.startPlay' => 'プレイする',

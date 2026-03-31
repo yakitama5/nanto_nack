@@ -1,0 +1,159 @@
+{
+  "water": {
+    "missionText": "Buy 2 bottles of water",
+    "appTitle": "nantomall",
+    "searchPlaceholder": "Search items",
+    "cartTitle": "Shopping Cart",
+    "cartEmpty": "Your cart is empty",
+    "subtotal": "Subtotal ({count} items):",
+    "confirmOrder": "Place order",
+    "insight": {
+      "title": "Why could you figure it out without reading?",
+      "subtitle": "This UI has 3 tricks that work across languages",
+      "iconTitle": "Icons transcend language",
+      "iconDesc": "🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.",
+      "colorTitle": "Color drives action",
+      "colorDesc": "The yellow 'Place Order' button has appeared on major e-commerce sites so often that the color itself now signals 'buy'.",
+      "patternTitle": "UI patterns build intuition",
+      "patternDesc": "Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct."
+    }
+  },
+  "cart": {
+    "missionText": "Select the total price of this cart",
+    "appTitle": "Shopping Cart",
+    "itemsHeader": "Cart Items",
+    "itemCount": "{count} items",
+    "questionTitle": "What is the total price?",
+    "questionSubtitle": "Calculate the total of items above and enter below",
+    "confirmButton": "Confirm",
+    "hint": "Multiply each unit price by quantity and sum them up",
+    "hintTableLabel": "Number Cipher Table",
+    "insight": {
+      "title": "How did you figure it out despite the scrambled text?",
+      "subtitle": "Numbers and layout guide you — just like decoding a cipher",
+      "cipherTitle": "It works like decoding a cipher",
+      "cipherDesc": "Even without reading the text, a symbol-to-number mapping (the hint) lets you decode and calculate. As long as you know the rules, meaning can be extracted — exactly like cracking a code.",
+      "priceTitle": "¥ + numbers transcend language",
+      "priceDesc": "A currency symbol combined with numbers communicates price regardless of language. Price display is one of the most universal UI patterns across cultures.",
+      "layoutTitle": "Cart layout acts as a visual instruction",
+      "layoutDesc": "Items → quantity → amount stacked vertically visually implies 'multiply and sum'. The layout itself becomes a language-free instruction manual."
+    }
+  },
+  "checkout": {
+    "missionText": "Complete the checkout process",
+    "appTitle": "Payment Checkout",
+    "step1": "Cart",
+    "step2": "Address & Payment",
+    "step3": "Confirm",
+    "addressSection": "Delivery Address",
+    "addressPlaceholder": "e.g. 1-1 Shibuya, Tokyo...",
+    "paymentSection": "Payment Method",
+    "paymentCreditCard": "Credit Card",
+    "paymentConvenience": "Convenience Store",
+    "paymentCOD": "Cash on Delivery",
+    "summarySection": "Order Summary",
+    "subtotal": "Item Subtotal",
+    "shipping": "Shipping fee",
+    "total": "Order Total",
+    "confirmCheck": "I have confirmed the order details",
+    "confirmButton": "Place Order",
+    "insight": {
+      "title": "How did you know what to do?",
+      "subtitle": "Checkout flow is a universal UI pattern shared across e-commerce worldwide",
+      "stepTitle": "Step indicators show the path",
+      "stepDesc": "A 1→2→3 progress bar tells you exactly what to do next at a glance. Flow-based UI is intuitively understood regardless of language — the UI itself guides you.",
+      "iconTitle": "Icons identify the options",
+      "iconDesc": "Credit card, convenience store, and delivery truck icons communicate payment methods without reading labels. Icon-based categorization is a universal UI pattern.",
+      "confirmTitle": "'Confirm then submit' pattern builds trust",
+      "confirmDesc": "Checking a box before pressing the final button is a safety mechanism for irreversible actions, established by major e-commerce platforms. Knowing this pattern lets you navigate even without reading the text."
+    }
+  },
+  "reorder": {
+    "missionText": "Purchase your recently ordered item again",
+    "appTitle": "Order History",
+    "orderHistoryTitle": "Recent Orders",
+    "reorderButton": "Buy again",
+    "lastOrderDate": "Ordered 3 days ago",
+    "cartTitle": "Shopping Cart",
+    "cartEmpty": "Your cart is empty",
+    "subtotal": "Subtotal ({count} items):",
+    "confirmOrder": "Place order",
+    "insight": {
+      "title": "Why could you figure it out without reading?",
+      "subtitle": "Visual patterns make reordering intuitive",
+      "imageTitle": "Product images trigger memory",
+      "imageDesc": "A product's appearance, color, and design link visually to past purchase experiences — visual memory transcends language.",
+      "priceTitle": "Price brings confirmation",
+      "priceDesc": "Matching prices confirm 'this is the same product'. Numbers are a universal language that helps you recognize items at a glance.",
+      "patternTitle": "'Buy again' completes the experience",
+      "patternDesc": "Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly."
+    }
+  },
+  "common": {
+    "addToCart": "Add to Cart",
+    "quantity": "Qty: {qty}",
+    "primeBadge": "prime",
+    "noResults": "No items found"
+  },
+  "home": {
+    "banner1": "Seasonal Recommendations",
+    "banner2": "New Arrivals",
+    "banner3": "Save More with Bundles",
+    "recommended": "Recommended for You",
+    "categories": "Shop by Category",
+    "dealOfTheDay": "Deal of the Day"
+  },
+  "search": {
+    "popularCategories": "Popular Categories",
+    "trendingItems": "Trending Items"
+  },
+  "menu": {
+    "programs": "Programs & Features",
+    "prime": "Join Prime",
+    "digitalContent": "Digital Content",
+    "settingsSection": "Settings",
+    "notification": "Notification Settings",
+    "customerService": "Customer Service",
+    "help": "Help",
+    "terms": "Terms of Use"
+  },
+  "navigation": {
+    "home": "Home",
+    "search": "Search",
+    "account": "Account",
+    "menu": "Menu"
+  },
+  "categories": {
+    "daily": "Daily goods",
+    "food": "Food & Drinks",
+    "electronics": "Electronics",
+    "fashion": "Fashion",
+    "sports": "Sports",
+    "kitchen": "Kitchen"
+  },
+  "catalog": {
+    "waterPuraAqua": "Natural Water 500ml",
+    "teaAqua": "Green Tea 500ml",
+    "coffeeCraft": "Craft Coffee",
+    "milkDaily": "Whole Milk 1L",
+    "snackChips": "Potato Chips",
+    "cocoaBar": "Chocolate Bar",
+    "bakeryBread": "Sliced Bread",
+    "eggs": "Eggs 10pk",
+    "noodleBowl": "Cup Noodle",
+    "apple": "Apple",
+    "banana": "Banana",
+    "detergentDailyWash": "Laundry Detergent",
+    "soapWashPower": "Hand Soap",
+    "dishSoapSparkle": "Dish Soap",
+    "sponge": "Kitchen Sponge",
+    "tissueSoft": "Tissue Paper 5box",
+    "toiletPaper": "Toilet Paper 12roll",
+    "haircareBotanicShine": "Hair Oil",
+    "notebook": "Ring Notebook",
+    "towel": "Face Towel",
+    "water500ml": "Natural Water 500ml",
+    "tea500ml": "Green Tea 500ml",
+    "coffee500ml": "Black Coffee 500ml"
+  }
+}

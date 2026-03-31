@@ -296,9 +296,9 @@ class _DashboardContent extends StatelessWidget {
           _AccumulationCard(
             activityHistory: dashboard.activityHistory,
             streakLabel: t.dashboard.streak,
-            streakValue: t.dashboard.streakDays(
-              n: dashboard.currentStreak,
-              days: dashboard.currentStreak,
+            streakValue: t.dashboard.streakDays.replaceAll(
+              '{days}',
+              dashboard.currentStreak.toString(),
             ),
           ),
           const SizedBox(height: 16),

@@ -8,6 +8,7 @@ class Stage {
     required this.description,
     required this.category,
     required this.routePath,
+    required this.difficulty,
   });
 
   final String id;
@@ -15,6 +16,9 @@ class Stage {
   final String description;
   final String category;
   final String routePath;
+
+  /// 難易度 (1〜5)
+  final int difficulty;
 }
 
 /// アプリで定義するステージ一覧
@@ -25,20 +29,31 @@ const List<Stage> kAllStages = [
     description: 'ECサイトで水を2つカートに入れて購入してください',
     category: 'shopping',
     routePath: '/shopping/water',
-  ),
-  Stage(
-    id: 'shopping_cart',
-    title: 'カートを確認しよう',
-    description: 'カートの中身を確認して正しい合計金額を選んでください',
-    category: 'shopping',
-    routePath: '/shopping/cart',
+    difficulty: 1,
   ),
   Stage(
     id: 'shopping_checkout',
-    title: '購入を完了しよう',
-    description: '購入手続きを完了してください',
+    title: '購入手続きを完了しよう',
+    description: '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
     category: 'shopping',
     routePath: '/shopping/checkout',
+    difficulty: 2,
+  ),
+  Stage(
+    id: 'shopping_reorder',
+    title: '直近の注文を再注文しよう',
+    description: '注文履歴から直近で注文した商品をもう一度購入してください',
+    category: 'shopping',
+    routePath: '/shopping/reorder',
+    difficulty: 3,
+  ),
+  Stage(
+    id: 'shopping_cart',
+    title: 'カートの合計金額を選ぼう',
+    description: 'カート内の商品の合計金額を4択から選んでください',
+    category: 'shopping',
+    routePath: '/shopping/cart',
+    difficulty: 5,
   ),
 ];
 

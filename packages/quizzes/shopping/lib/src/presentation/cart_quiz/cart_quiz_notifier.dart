@@ -36,11 +36,17 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
     _startTimer();
   }
 
-  /// 選択肢をタップして正誤判定する
-  Future<void> selectChoice({
-    required int choice,
-    required ShoppingCart cart,
-  }) async {
+  /// 指定桁の数字を増減する（0-9のループ）
+  void updateDigit(int index, int delta) {
+    if (state.status != QuizStatus.playing) return;
+    final digits = List<int>.from(state.enteredDigits);
+    digits[index] = (digits[index] + delta) % 10;
+    if (digits[index] < 0) digits[index] += 10;
+    state = state.copyWith(enteredDigits: digits);
+  }
+
+  /// 入力値を確定して正誤判定する
+  Future<void> confirmEntry({required ShoppingCart cart}) async {
     if (state.status != QuizStatus.playing) return;
     _timer?.cancel();
 
@@ -48,13 +54,13 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
         ? clock.now().difference(state.startedAt!).inMilliseconds
         : 0;
 
-    final isCorrect = _useCase.isClear(cart: cart, selectedTotal: choice);
+    final enteredValue = state.enteredValue;
+    final isCorrect = _useCase.isClear(cart: cart, selectedTotal: enteredValue);
 
     if (isCorrect) {
       await hapticFeedback.playSuccessFeedback();
       state = state.copyWith(
         status: QuizStatus.correct,
-        selectedChoice: choice,
         elapsedMs: elapsed,
       );
       await _saveResult(isCleared: true, elapsedMs: elapsed);
@@ -62,7 +68,6 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
       await hapticFeedback.playErrorFeedback();
       state = state.copyWith(
         status: QuizStatus.incorrect,
-        selectedChoice: choice,
         elapsedMs: elapsed,
         failureCount: state.failureCount + 1,
       );
@@ -70,13 +75,33 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
     }
   }
 
-  /// ヒントを使用する（スコア減点）
+  static const _hintPenaltyFailureCount = 2;
+
+  /// ヒントを使用する（スコア減点 -200点相当）
   void useHint() {
     if (state.status != QuizStatus.playing || state.hintUsed) return;
-    state = state.copyWith(hintUsed: true);
+    state = state.copyWith(
+      hintUsed: true,
+      failureCount: state.failureCount + _hintPenaltyFailureCount,
+    );
   }
 
-  /// リトライ
+  /// クイズを諦める（中止）
+  Future<void> giveUp() async {
+    if (state.status != QuizStatus.playing) return;
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      status: QuizStatus.giveUp,
+      remainingSeconds: 0,
+      elapsedMs: elapsed,
+    );
+    await _saveResult(isCleared: false, elapsedMs: elapsed);
+  }
+
+  /// リトライ（桁入力をリセット）
   void retry() {
     _timer?.cancel();
     state = CartQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(

@@ -17,6 +17,9 @@ enum QuizStatus {
 
   /// 完了
   completed,
+
+  /// 諦め（プレイヤーによる中止）
+  giveUp,
 }
 
 /// クイズ状態の基底クラス

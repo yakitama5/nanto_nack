@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  geolocator_windows
+  audioplayers_windows
   sqlite3_flutter_libs
 )
 

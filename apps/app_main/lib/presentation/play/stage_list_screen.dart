@@ -99,28 +99,35 @@ class StageListScreen extends ConsumerWidget {
                   else
                     SliverPadding(
                       padding: const EdgeInsets.all(16),
-                      sliver: SliverList.builder(
-                        itemCount: categoryStages.length,
-                        itemBuilder: (context, index) {
-                          final item = categoryStages[index];
-                          // 全ステージの中でのインデックスを計算
-                          final globalIndex = kAllStages.indexWhere(
-                            (s) => s.id == item.stage.id,
-                          );
-                          final stageNumber = globalIndex + 1;
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: StageCard(
+                      sliver: SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 0.9,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            final item = categoryStages[index];
+                            // 全ステージの中でのインデックスを計算
+                            final globalIndex = kAllStages.indexWhere(
+                              (s) => s.id == item.stage.id,
+                            );
+                            final stageNumber = globalIndex + 1;
+                            return StageCard(
                               stageNumber: stageNumber,
                               title: item.stage.title,
                               status: item.status,
+                              difficulty: item.stage.difficulty,
                               clearTimeMs: item.clearTimeMs,
                               score: item.score,
                               onTap: () =>
                                   _onStageTap(context, ref, item),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                          childCount: categoryStages.length,
+                        ),
                       ),
                     ),
                 ],
@@ -152,7 +159,10 @@ class StageListScreen extends ConsumerWidget {
     }
 
     if (context.mounted) {
-      context.push(item.stage.routePath);
+      // push が完了（クイズ画面が pop）したタイミングでリストを再取得する。
+      // クイズ画面内で保存した結果を反映させるために invalidate が必要。
+      await context.push(item.stage.routePath);
+      ref.invalidate(stageListProvider);
     }
   }
 }

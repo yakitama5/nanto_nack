@@ -19,7 +19,7 @@ void main() {
       builder: () => GoldenTestGroup(
         children: [
           GoldenTestScenario(
-            name: 'normal',
+            name: 'normal (quantity: 0)',
             child: SizedBox(
               width: 400,
               child: Theme(
@@ -28,12 +28,35 @@ void main() {
                   child: ShoppingItemTile(
                     item: const ShoppingItem(
                       id: 'water_500ml',
-                      name: '天然水 500ml',
                       price: 100,
-                      description: '国産天然水。まろやかな口当たり。',
-                      imageEmoji: '💧',
+                      imagePath: 'assets/item/water_pura_aqua.png',
+                      category: ShoppingCategory.food,
                     ),
-                    onAddToCart: () {},
+                    quantity: 0,
+                    onIncrement: () {},
+                    onDecrement: () {},
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GoldenTestScenario(
+            name: 'with quantity stepper',
+            child: SizedBox(
+              width: 400,
+              child: Theme(
+                data: AppTheme.light(),
+                child: Material(
+                  child: ShoppingItemTile(
+                    item: const ShoppingItem(
+                      id: 'water_500ml',
+                      price: 100,
+                      imagePath: 'assets/item/water_pura_aqua.png',
+                      category: ShoppingCategory.food,
+                    ),
+                    quantity: 2,
+                    onIncrement: () {},
+                    onDecrement: () {},
                   ),
                 ),
               ),
@@ -49,13 +72,14 @@ void main() {
                   child: ShoppingItemTile(
                     item: const ShoppingItem(
                       id: 'water_500ml',
-                      name: '天然水 500ml',
                       price: 100,
-                      description: '国産天然水。まろやかな口当たり。',
-                      imageEmoji: '💧',
+                      imagePath: 'assets/item/water_pura_aqua.png',
+                      category: ShoppingCategory.food,
                     ),
                     highlighted: true,
-                    onAddToCart: () {},
+                    quantity: 1,
+                    onIncrement: () {},
+                    onDecrement: () {},
                   ),
                 ),
               ),
@@ -66,27 +90,31 @@ void main() {
     );
   });
 
-  group('FloatingMissionBar golden tests', () {
+  group('FloatingMissionBubble golden tests', () {
     goldenTest(
-      'フローティングミッションバーのゴールデンテスト',
-      fileName: 'floating_mission_bar',
+      'フローティングミッションバブルのゴールデンテスト',
+      fileName: 'floating_mission_bubble',
       builder: () => GoldenTestGroup(
         children: [
           GoldenTestScenario(
             name: 'time remaining (green)',
             child: SizedBox(
               width: 375,
+              height: 300,
               child: Theme(
                 data: AppTheme.light(),
                 child: const Material(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: FloatingMissionBar(
-                      remainingSeconds: 45,
-                      missionText: '水を2つ購入してください',
-                      hintUsed: false,
-                      timeLimitSeconds: 60,
-                    ),
+                  child: Stack(
+                    children: [
+                      SizedBox.expand(),
+                      FloatingMissionBubble(
+                        remainingSeconds: 45,
+                        missionText: '水を2つ購入してください',
+                        hintUsed: false,
+                        timeLimitSeconds: 60,
+                        initialOffset: Offset(16, 16),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -96,17 +124,21 @@ void main() {
             name: 'time warning (orange)',
             child: SizedBox(
               width: 375,
+              height: 300,
               child: Theme(
                 data: AppTheme.light(),
                 child: const Material(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: FloatingMissionBar(
-                      remainingSeconds: 12,
-                      missionText: '水を2つ購入してください',
-                      hintUsed: true,
-                      timeLimitSeconds: 60,
-                    ),
+                  child: Stack(
+                    children: [
+                      SizedBox.expand(),
+                      FloatingMissionBubble(
+                        remainingSeconds: 12,
+                        missionText: '水を2つ購入してください',
+                        hintUsed: true,
+                        timeLimitSeconds: 60,
+                        initialOffset: Offset(16, 16),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -1,0 +1,159 @@
+{
+  "water": {
+    "missionText": "水を2つ購入してください",
+    "appTitle": "nantomall",
+    "searchPlaceholder": "商品を検索する",
+    "cartTitle": "ショッピングカート",
+    "cartEmpty": "カートは空です",
+    "subtotal": "小計 ({count}点の商品):",
+    "confirmOrder": "注文を確定する",
+    "insight": {
+      "title": "なぜ文字が読めなくてもわかった？",
+      "subtitle": "このUIには、言語を超えて伝わる3つの工夫がある",
+      "iconTitle": "アイコンは言語を超える",
+      "iconDesc": "🛒カート・🔍検索・❤️お気に入り。よく見るアイコンは世界共通の記号として定着しており、文字がなくても意味が伝わる。",
+      "colorTitle": "色が行動を促す",
+      "colorDesc": "黄色い「注文確定」ボタンはAmazonなど大手ECで繰り返し使われた結果、「この色＝買う」という意味が色自体に刷り込まれている。",
+      "patternTitle": "UIパターンが直感を作る",
+      "patternDesc": "グリッド商品一覧×価格＝ネットショップ、±ボタン＝数量調整。体験を重ねるうちに、パターンそのものが「当たり前」になった。"
+    }
+  },
+  "cart": {
+    "missionText": "このカートの合計金額を選んでください",
+    "appTitle": "ショッピングカート",
+    "itemsHeader": "カートの中身",
+    "itemCount": "{count}点",
+    "questionTitle": "合計金額はいくらですか？",
+    "questionSubtitle": "上のカートに入っている商品の合計を計算して入力してください",
+    "confirmButton": "確定",
+    "hint": "各商品の単価 × 数量を足すと合計が求まります",
+    "hintTableLabel": "数字対応表",
+    "insight": {
+      "title": "なぜ文字が読めなくても答えが出せた？",
+      "subtitle": "暗号化されたUIでも、数字と構造が答えを導く",
+      "cipherTitle": "これは「暗号解読」と同じ仕組み",
+      "cipherDesc": "文字は読めなくても、数字の対応表（ヒント）があれば記号を数字に置き換えながら計算できる。ルールさえ分かれば意味を読み解けるのは、暗号解読のロジックと同じだ。",
+      "priceTitle": "「¥＋数字」は言語を超える",
+      "priceDesc": "¥マーク＋数字の組み合わせは、文字が読めなくても「金額」を意味すると判断できる。価格表示は文化を超えた最も普遍的なUIパターンの一つだ。",
+      "layoutTitle": "カートのレイアウトが計算を補助する",
+      "layoutDesc": "商品→数量→金額が縦に並ぶ構造は「単価×数量を足す」という計算手順を視覚的に示している。レイアウト自体が言語を超えた取扱説明書になっている。"
+    }
+  },
+  "checkout": {
+    "missionText": "購入手続きを完了してください",
+    "appTitle": "お支払い手続き",
+    "step1": "カート",
+    "step2": "お届け先・支払い",
+    "step3": "注文確認",
+    "addressSection": "お届け先住所",
+    "addressPlaceholder": "例: 東京都渋谷区...",
+    "paymentSection": "お支払い方法",
+    "paymentCreditCard": "クレジットカード",
+    "paymentConvenience": "コンビニ払い",
+    "paymentCOD": "代金引換",
+    "summarySection": "注文サマリー",
+    "subtotal": "商品合計",
+    "shipping": "配送料・手数料",
+    "total": "注文合計",
+    "confirmCheck": "注文内容を確認しました",
+    "confirmButton": "注文を確定する",
+    "insight": {
+      "title": "なぜ手順がわかった？",
+      "subtitle": "購入フローは世界中のECサイトで共通化されたUIパターン",
+      "stepTitle": "ステップバーが順序を示す",
+      "stepDesc": "「1→2→3」のプログレス表示は、何をすべきかの道順を一目で示す。フロー型UIは言語を問わず直感的に理解でき、次に何をすべきかをUIが教えてくれる。",
+      "iconTitle": "アイコンが選択肢を識別させる",
+      "iconDesc": "クレジットカード・コンビニ・配送トラックのアイコンは、ラベルを読まなくても支払い手段の違いを伝える。アイコンによる分類は万国共通のUIパターンだ。",
+      "confirmTitle": "「確認してから確定」パターンが安心感を生む",
+      "confirmDesc": "チェックボックスで内容を確認してからボタンで確定する流れは、大手ECで定番化した「取り消せないアクション前の安全装置」。このパターンを知っていれば、文字が読めなくても操作できる。"
+    }
+  },
+  "reorder": {
+    "missionText": "直近で注文した商品をもう一度購入してください",
+    "appTitle": "注文履歴",
+    "orderHistoryTitle": "最近の注文",
+    "reorderButton": "もう一度買う",
+    "lastOrderDate": "3日前に注文",
+    "cartTitle": "ショッピングカート",
+    "cartEmpty": "カートは空です",
+    "subtotal": "小計 ({count}点の商品):",
+    "confirmOrder": "注文を確定する",
+    "insight": {
+      "title": "なぜ文字が読めなくてもわかった？",
+      "subtitle": "視覚パターンが「再注文」体験を作る",
+      "imageTitle": "商品画像が記憶のトリガー",
+      "imageDesc": "商品の外観・色・デザインは、文字情報がなくても前回の購入体験と結びついている。視覚記憶は言語を超える。",
+      "priceTitle": "価格が確信を与える",
+      "priceDesc": "金額の一致は「同じ商品だ」という確信をもたらす。数字は言語を超えた共通言語であり、価格を見ると商品を認識できる。",
+      "patternTitle": "「もう一度買う」ボタンが体験を完結させる",
+      "patternDesc": "再購入ボタンは大手ECサイトで定番のパターン。見たことのあるUIは直感的に操作でき、検索不要で素早く再注文できる。"
+    }
+  },
+  "common": {
+    "addToCart": "カートに追加",
+    "quantity": "数量: {qty}",
+    "primeBadge": "prime",
+    "noResults": "該当する商品がありません"
+  },
+  "home": {
+    "banner1": "季節のおすすめ特集",
+    "banner2": "新着アイテム入荷中",
+    "banner3": "まとめ買いでお得",
+    "recommended": "おすすめ商品",
+    "categories": "カテゴリから探す",
+    "dealOfTheDay": "本日のお得情報"
+  },
+  "search": {
+    "popularCategories": "人気のカテゴリ",
+    "trendingItems": "注目の商品"
+  },
+  "menu": {
+    "programs": "プログラム＆機能",
+    "prime": "Primeに登録",
+    "digitalContent": "デジタルコンテンツ",
+    "settingsSection": "設定",
+    "notification": "通知設定",
+    "customerService": "カスタマーサービス",
+    "help": "ヘルプ",
+    "terms": "利用規約"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "search": "検索",
+    "account": "アカウント",
+    "menu": "メニュー"
+  },
+  "categories": {
+    "daily": "日用品",
+    "food": "食品・飲料",
+    "electronics": "家電",
+    "fashion": "ファッション",
+    "sports": "スポーツ",
+    "kitchen": "キッチン"
+  },
+  "catalog": {
+    "waterPuraAqua": "ナチュラルウォーター 500ml",
+    "teaAqua": "緑茶 500ml",
+    "coffeeCraft": "クラフトコーヒー",
+    "milkDaily": "牛乳 1L",
+    "snackChips": "ポテトチップス",
+    "cocoaBar": "チョコレートバー",
+    "bakeryBread": "食パン",
+    "eggs": "卵 10個入",
+    "noodleBowl": "カップヌードル",
+    "apple": "りんご",
+    "banana": "バナナ",
+    "detergentDailyWash": "洗濯洗剤",
+    "soapWashPower": "ハンドソープ",
+    "dishSoapSparkle": "食器用洗剤",
+    "sponge": "キッチンスポンジ",
+    "tissueSoft": "ティッシュペーパー 5箱",
+    "toiletPaper": "トイレットペーパー 12ロール",
+    "haircareBotanicShine": "ヘアオイル",
+    "notebook": "リングノート",
+    "towel": "フェイスタオル",
+    "water500ml": "ウォーター 500ml",
+    "tea500ml": "グリーンティー 500ml",
+    "coffee500ml": "ブラックコーヒー 500ml"
+  }
+}

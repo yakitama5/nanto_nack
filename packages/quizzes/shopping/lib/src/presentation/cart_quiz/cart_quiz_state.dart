@@ -8,18 +8,25 @@ class CartQuizState extends QuizStateBase {
     required super.elapsedMs,
     required super.startedAt,
     required this.remainingSeconds,
-    this.selectedChoice,
+    this.enteredDigits = const [0, 0, 0, 0],
     this.hintUsed = false,
   });
 
   /// 残り時間（秒）
   final int remainingSeconds;
 
-  /// ユーザーが選択した合計金額
-  final int? selectedChoice;
+  /// ユーザーが入力した各桁の数字（千・百・十・一の位）
+  final List<int> enteredDigits;
 
   /// ヒントを使用済みかどうか
   final bool hintUsed;
+
+  /// 入力された4桁の数値
+  int get enteredValue =>
+      enteredDigits[0] * 1000 +
+      enteredDigits[1] * 100 +
+      enteredDigits[2] * 10 +
+      enteredDigits[3];
 
   CartQuizState copyWith({
     QuizStatus? status,
@@ -27,7 +34,7 @@ class CartQuizState extends QuizStateBase {
     int? elapsedMs,
     DateTime? startedAt,
     int? remainingSeconds,
-    int? selectedChoice,
+    List<int>? enteredDigits,
     bool? hintUsed,
   }) {
     return CartQuizState(
@@ -36,7 +43,7 @@ class CartQuizState extends QuizStateBase {
       elapsedMs: elapsedMs ?? this.elapsedMs,
       startedAt: startedAt ?? this.startedAt,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
-      selectedChoice: selectedChoice ?? this.selectedChoice,
+      enteredDigits: enteredDigits ?? this.enteredDigits,
       hintUsed: hintUsed ?? this.hintUsed,
     );
   }

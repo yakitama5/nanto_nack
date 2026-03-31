@@ -13,11 +13,13 @@ void main() {
           GoldenTestScenario(
             name: 'cleared',
             child: SizedBox(
-              width: 400,
+              width: 200,
+              height: 220,
               child: StageCard(
                 stageNumber: 1,
                 title: '水を2つ買おう',
                 status: StageStatus.cleared,
+                difficulty: 1,
                 clearTimeMs: 3500,
                 score: 850,
               ),
@@ -35,11 +37,13 @@ void main() {
           GoldenTestScenario(
             name: 'locked',
             child: SizedBox(
-              width: 400,
+              width: 200,
+              height: 220,
               child: StageCard(
                 stageNumber: 2,
                 title: 'カートを確認しよう',
                 status: StageStatus.locked,
+                difficulty: 3,
               ),
             ),
           ),
@@ -55,11 +59,13 @@ void main() {
           GoldenTestScenario(
             name: 'available',
             child: SizedBox(
-              width: 400,
+              width: 200,
+              height: 220,
               child: StageCard(
                 stageNumber: 1,
                 title: '水を2つ買おう',
                 status: StageStatus.available,
+                difficulty: 1,
               ),
             ),
           ),

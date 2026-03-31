@@ -1,31 +1,33 @@
+import 'package:shopping/src/domain/entities/shopping_category.dart';
+
 class ShoppingItem {
   const ShoppingItem({
     required this.id,
-    required this.name,
     required this.price,
-    required this.description,
-    this.imageEmoji = '📦',
+    required this.imagePath,
+    required this.category,
   });
 
   final String id;
-  final String name;
   final int price;
-  final String description;
-  final String imageEmoji;
+
+  /// アセット画像のパス（例: 'assets/item/water_pura_aqua.png'）
+  final String imagePath;
+
+  /// 商品のカテゴリ（カテゴリフィルタリングに使用）
+  final ShoppingCategory category;
 
   ShoppingItem copyWith({
     String? id,
-    String? name,
     int? price,
-    String? description,
-    String? imageEmoji,
+    String? imagePath,
+    ShoppingCategory? category,
   }) {
     return ShoppingItem(
       id: id ?? this.id,
-      name: name ?? this.name,
       price: price ?? this.price,
-      description: description ?? this.description,
-      imageEmoji: imageEmoji ?? this.imageEmoji,
+      imagePath: imagePath ?? this.imagePath,
+      category: category ?? this.category,
     );
   }
 }

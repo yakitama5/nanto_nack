@@ -40,5 +40,11 @@ final appRouter = GoRouter(
         onCompleted: () => context.pop(),
       ),
     ),
+    GoRoute(
+      path: '/shopping/reorder',
+      builder: (context, state) => ReorderQuizScreen(
+        onCompleted: () => context.pop(),
+      ),
+    ),
   ],
 );

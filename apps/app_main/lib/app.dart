@@ -5,11 +5,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-class NantoNackApp extends ConsumerWidget {
+class NantoNackApp extends ConsumerStatefulWidget {
   const NantoNackApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<NantoNackApp> createState() => _NantoNackAppState();
+}
+
+class _NantoNackAppState extends ConsumerState<NantoNackApp> {
+  @override
+  void initState() {
+    super.initState();
+    // 音声データをバックグラウンドで事前ロード（完了を待たない）。
+    // クイズ正解時に再生する際、ロード済みであれば即座に再生される。
+    ref.read(clearSoundProvider.future).ignore();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final locale = TranslationProvider.of(context).flutterLocale;
 
     return MaterialApp.router(
