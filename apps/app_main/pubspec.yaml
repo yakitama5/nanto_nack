@@ -32,6 +32,8 @@ dependencies:
   responsive_framework: ^1.5.1
   chat:
     path: ../../packages/quizzes/chat
+  streaming:
+    path: ../../packages/quizzes/streaming
   shopping:
     path: ../../packages/quizzes/shopping
   slang_flutter: ^4.3.1

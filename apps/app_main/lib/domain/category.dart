@@ -38,7 +38,6 @@ const List<Category> kAllCategories = [
     label: '動画',
     description: '動画アプリのUI/UXを体験しよう',
     icon: Icons.play_circle_outline,
-    isComingSoon: true,
   ),
   Category(
     id: 'map',

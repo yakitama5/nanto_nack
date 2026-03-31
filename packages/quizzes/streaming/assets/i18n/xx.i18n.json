@@ -1,0 +1,90 @@
+{
+  "quiz1": {
+    "missionText": "Play a video",
+    "insight": {
+      "title": "How did you know the play button?",
+      "subtitle": "The triangle is the universal play symbol",
+      "playTitle": "The play triangle has not changed for 60 years",
+      "playDesc": "The right-pointing triangle remains universally understood as play.",
+      "thumbnailTitle": "Thumbnails preview content",
+      "thumbnailDesc": "Visual previews communicate content without text.",
+      "progressTitle": "Progress bar shows position",
+      "progressDesc": "The seek bar pattern is standard in media players worldwide."
+    }
+  },
+  "quiz2": {
+    "missionText": "Share a video",
+    "insight": {
+      "title": "How did you find the share button?",
+      "subtitle": "Share icons visualize connection",
+      "shareTitle": "Share icon shape tells its meaning",
+      "shareDesc": "Connected dots or upward arrows visualize sending outward.",
+      "actionTitle": "Action buttons are arranged in a row",
+      "actionDesc": "Like, share, save arranged horizontally is a standard pattern.",
+      "modalTitle": "Share sheet presents options",
+      "modalDesc": "The bottom sheet for sharing is an OS standard component."
+    }
+  },
+  "quiz3": {
+    "missionText": "Save this video to favorites",
+    "insight": {
+      "title": "How did you find the save button?",
+      "subtitle": "Flag symbols mean save universally",
+      "saveTitle": "Bookmark icons mean save",
+      "saveDesc": "Flags and ribbons consistently mean hold this item.",
+      "feedbackTitle": "Color change shows completion",
+      "feedbackDesc": "Icons changing color show the registration state transition.",
+      "listTitle": "Watch later list stores content",
+      "listDesc": "Watch later lists are common across streaming platforms."
+    }
+  },
+  "quiz4": {
+    "missionText": "Turn on subtitles",
+    "insight": {
+      "title": "How did you find the subtitle setting?",
+      "subtitle": "Settings hide behind the three dots menu",
+      "menuTitle": "Three dots is the gateway to more features",
+      "menuDesc": "Three dots indicate more features exist including subtitles.",
+      "ccTitle": "CC is an international subtitle symbol",
+      "ccDesc": "CC box is an international standard symbol for subtitles.",
+      "settingsTitle": "Toggle switches are intuitive",
+      "settingsDesc": "Toggle switches communicate state through color and position."
+    }
+  },
+  "common": {
+    "appTitle": "StreamHub",
+    "homeTab": "Home",
+    "exploreTab": "Explore",
+    "shortsTab": "Shorts",
+    "subsTab": "Subscriptions",
+    "youTab": "You",
+    "likeButton": "Like",
+    "dislikeButton": "Dislike",
+    "shareButton": "Share",
+    "saveButton": "Save",
+    "moreButton": "More",
+    "subscribeButton": "Subscribe",
+    "views": "views",
+    "subtitles": "Subtitles",
+    "quality": "Quality",
+    "playbackSpeed": "Playback speed",
+    "reportButton": "Report",
+    "subtitlesOff": "Off",
+    "subtitlesOn": "On (Auto)",
+    "shareTitle": "Share to",
+    "linkCopied": "Link copied",
+    "savedToList": "Saved to playlist"
+  },
+  "videos": {
+    "v1Title": "Amazing Nature Documentary 4K",
+    "v1Channel": "NatureWorld",
+    "v2Title": "Learn Programming in 10 Minutes",
+    "v2Channel": "CodeMaster",
+    "v3Title": "Top 10 Travel Destinations 2026",
+    "v3Channel": "TravelVlog",
+    "v4Title": "Cooking Easy Pasta Recipe",
+    "v4Channel": "ChefKitchen",
+    "v5Title": "Morning Yoga for Beginners",
+    "v5Channel": "YogaLife"
+  }
+}

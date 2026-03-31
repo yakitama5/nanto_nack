@@ -1,6 +1,7 @@
 import 'package:chat/chat.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shopping/shopping.dart';
+import 'package:streaming/streaming.dart';
 
 import 'presentation/home/home_screen.dart';
 import 'presentation/play/category_list_screen.dart';
@@ -75,33 +76,29 @@ final appRouter = GoRouter(
         onCompleted: () => context.pop(),
       ),
     ),
-    // 動画カテゴリー（準備中）
+    // 動画カテゴリー
     GoRoute(
       path: '/streaming/quiz1',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'streaming_quiz1',
-        title: '動画 Quiz 1',
+      builder: (context, state) => PlayVideoQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/streaming/quiz2',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'streaming_quiz2',
-        title: '動画 Quiz 2',
+      builder: (context, state) => ShareVideoQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/streaming/quiz3',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'streaming_quiz3',
-        title: '動画 Quiz 3',
+      builder: (context, state) => SaveVideoQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/streaming/quiz4',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'streaming_quiz4',
-        title: '動画 Quiz 4',
+      builder: (context, state) => SubtitleQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     // マップカテゴリー（準備中）

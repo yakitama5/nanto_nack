@@ -1,0 +1,90 @@
+{
+  "quiz1": {
+    "missionText": "Please play a video",
+    "insight": {
+      "title": "How did you know the play button?",
+      "subtitle": "▶ is the universal play symbol",
+      "playTitle": "The ▶ mark has not changed for 60+ years",
+      "playDesc": "Used since the tape recorder era (1960s), ▶ (right-pointing triangle) remains universally understood as play even in the digital age.",
+      "thumbnailTitle": "Thumbnails preview content",
+      "thumbnailDesc": "Thumbnails showing video previews communicate content without text descriptions.",
+      "progressTitle": "Progress bar shows remaining time",
+      "progressDesc": "The thin bar at the bottom shows how much has been watched. This seek bar pattern is standard in media players worldwide."
+    }
+  },
+  "quiz2": {
+    "missionText": "Please share a video",
+    "insight": {
+      "title": "How did you find the share button?",
+      "subtitle": "Share icons visualize connection",
+      "shareTitle": "Share icon shape tells its meaning",
+      "shareDesc": "Three dots connected by lines (Android) or upward arrow (iOS) visualize sending outward. Unified across global apps.",
+      "actionTitle": "Action button row arranges functions",
+      "actionDesc": "Like, share, save, more arranged horizontally is standard on YouTube, TikTok, Twitter.",
+      "modalTitle": "Share sheet presents options",
+      "modalDesc": "The bottom sheet showing app icons for sharing is an OS standard component, consistent across iOS and Android."
+    }
+  },
+  "quiz3": {
+    "missionText": "Please save the video to favorites",
+    "insight": {
+      "title": "How did you find the save button?",
+      "subtitle": "Flag symbols are the universal language for save",
+      "saveTitle": "Flag/bookmark icons mean save",
+      "saveDesc": "Flags, ribbons, + icons used for favorites and watch later consistently mean hold this item.",
+      "feedbackTitle": "Color change communicates completion",
+      "feedbackDesc": "Icons changing from gray to red/yellow/blue show the registered state transition visually.",
+      "listTitle": "Watch later list creates motivation",
+      "listDesc": "List functionality to store content is common across Netflix, YouTube, Spotify."
+    }
+  },
+  "quiz4": {
+    "missionText": "Please turn on subtitles for the video",
+    "insight": {
+      "title": "How did you find the subtitle setting?",
+      "subtitle": "Settings are hidden behind ⋮ or ⚙",
+      "menuTitle": "⋮ menu is the gateway to hidden features",
+      "menuDesc": "Three dots ⋮ or hamburger ≡ indicate more features exist. Advanced settings like subtitles are often hidden here.",
+      "ccTitle": "CC is an international standard symbol",
+      "ccDesc": "CC or subtitle icon (box with lines) is an international standard symbol for subtitles from broadcast TV era.",
+      "settingsTitle": "Toggle switch UI is intuitive",
+      "settingsDesc": "Toggle switches modeled on physical switches communicate state through color and position without language."
+    }
+  },
+  "common": {
+    "appTitle": "StreamHub",
+    "homeTab": "Home",
+    "exploreTab": "Explore",
+    "shortsTab": "Shorts",
+    "subsTab": "Subscriptions",
+    "youTab": "You",
+    "likeButton": "Like",
+    "dislikeButton": "Dislike",
+    "shareButton": "Share",
+    "saveButton": "Save",
+    "moreButton": "More",
+    "subscribeButton": "Subscribe",
+    "views": "views",
+    "subtitles": "Subtitles",
+    "quality": "Quality",
+    "playbackSpeed": "Playback speed",
+    "reportButton": "Report",
+    "subtitlesOff": "Off",
+    "subtitlesOn": "On (Auto)",
+    "shareTitle": "Share to",
+    "linkCopied": "Link copied",
+    "savedToList": "Saved to playlist"
+  },
+  "videos": {
+    "v1Title": "Amazing Nature Documentary 4K",
+    "v1Channel": "NatureWorld",
+    "v2Title": "Learn Programming in 10 Minutes",
+    "v2Channel": "CodeMaster",
+    "v3Title": "Top 10 Travel Destinations 2026",
+    "v3Channel": "TravelVlog",
+    "v4Title": "Cooking Easy Pasta Recipe",
+    "v4Channel": "ChefKitchen",
+    "v5Title": "Morning Yoga for Beginners",
+    "v5Channel": "YogaLife"
+  }
+}
