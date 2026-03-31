@@ -84,4 +84,10 @@ class AppDatabase extends _$AppDatabase {
       (select(playLogs)
             ..where((t) => t.playedAt.isBiggerOrEqualValue(since)))
           .get();
+
+  /// すべてのクイズ結果を削除（データ初期化用）
+  Future<void> deleteAllQuizResults() => delete(quizResults).go();
+
+  /// すべてのプレイログを削除（データ初期化用）
+  Future<void> deleteAllPlayLogs() => delete(playLogs).go();
 }
