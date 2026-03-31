@@ -88,42 +88,40 @@ class _ShoppingItemTileState extends State<ShoppingItemTile> {
             ),
           ),
           // 2. 情報エリア
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // 商品名（ヒント時のみ読める）
-                  UnreadableText(
-                    context.sqCatalogItemName(widget.item.id),
-                    isObfuscated: !widget.highlighted,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12, height: 1.3),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 商品名（ヒント時のみ読める）
+                UnreadableText(
+                  context.sqCatalogItemName(widget.item.id),
+                  isObfuscated: !widget.highlighted,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 12, height: 1.3),
+                ),
+                const SizedBox(height: 4),
+                // 価格
+                UnreadableText(
+                  '¥${widget.item.price}',
+                  isObfuscated: !widget.highlighted,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Spacer(),
-                  // 価格
-                  UnreadableText(
-                    '¥${widget.item.price}',
-                    isObfuscated: !widget.highlighted,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                const SizedBox(height: 6),
+                // 右下の数量コントロール
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: _QuantityController(
+                    quantity: widget.quantity,
+                    onIncrement: widget.onIncrement,
+                    onDecrement: widget.onDecrement,
                   ),
-                  const SizedBox(height: 6),
-                  // 右下の数量コントロール
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: _QuantityController(
-                      quantity: widget.quantity,
-                      onIncrement: widget.onIncrement,
-                      onDecrement: widget.onDecrement,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
