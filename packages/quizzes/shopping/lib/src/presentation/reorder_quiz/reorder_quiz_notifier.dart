@@ -139,11 +139,12 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
 
   void retry() {
     _timer?.cancel();
-    state =
-        ReorderQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(
+    state = ReorderQuizState.initial(
+      timeLimitSeconds: _timeLimitSeconds,
+      targetItemId: _targetItemId,
+    ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
-      failureCount: state.failureCount,
     );
     _startTimer();
   }
