@@ -110,6 +110,7 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
 
 class _OverlayMenu extends StatelessWidget {
   const _OverlayMenu({required this.onDismiss, required this.child});
+
   final VoidCallback onDismiss;
   final Widget child;
 

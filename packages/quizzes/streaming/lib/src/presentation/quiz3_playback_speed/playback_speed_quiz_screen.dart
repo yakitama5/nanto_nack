@@ -108,6 +108,7 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
 
 class _OverlayMenu extends StatelessWidget {
   const _OverlayMenu({required this.onDismiss, required this.child});
+
   final VoidCallback onDismiss;
   final Widget child;
 
