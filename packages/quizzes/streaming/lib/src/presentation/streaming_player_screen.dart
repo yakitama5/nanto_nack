@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/entities/streaming_video.dart';
@@ -18,17 +19,29 @@ class StreamingPlayerScreen extends StatelessWidget {
     required this.onGiveUp,
     required this.overlays,
     this.onPlayTap,
+    this.onNextTap,
+    this.onSeek,
+    this.onLongPressStart,
+    this.onLongPressEnd,
     this.onShareTap,
     this.onSaveTap,
+    this.onDownloadTap,
     this.onMoreTap,
     this.onSubtitleToggle,
+    this.onQualitySelect,
+    this.onSpeedSelect,
     this.showShareButton = true,
     this.showSaveButton = true,
-    this.showMoreButton = false,
+    this.showDownloadButton = true,
+    this.showMoreButton = true,
     this.showSubtitleToggle = false,
     this.highlightPlay = false,
+    this.highlightNext = false,
+    this.highlightSeek = false,
+    this.highlightCC = false,
     this.highlightShare = false,
     this.highlightSave = false,
+    this.highlightDownload = false,
     this.highlightMore = false,
   });
 
@@ -43,20 +56,32 @@ class StreamingPlayerScreen extends StatelessWidget {
   final List<Widget> overlays;
 
   final VoidCallback? onPlayTap;
+  final VoidCallback? onNextTap;
+  final ValueChanged<double>? onSeek;
+  final VoidCallback? onLongPressStart;
+  final VoidCallback? onLongPressEnd;
   final VoidCallback? onShareTap;
   final VoidCallback? onSaveTap;
+  final VoidCallback? onDownloadTap;
   final VoidCallback? onMoreTap;
   final VoidCallback? onSubtitleToggle;
+  final ValueChanged<String>? onQualitySelect;
+  final ValueChanged<double>? onSpeedSelect;
 
   final bool showShareButton;
   final bool showSaveButton;
+  final bool showDownloadButton;
   final bool showMoreButton;
   final bool showSubtitleToggle;
 
   /// ボタンハイライト（ヒント）
   final bool highlightPlay;
+  final bool highlightNext;
+  final bool highlightSeek;
+  final bool highlightCC;
   final bool highlightShare;
   final bool highlightSave;
+  final bool highlightDownload;
   final bool highlightMore;
 
   @override
@@ -78,24 +103,35 @@ class StreamingPlayerScreen extends StatelessWidget {
                 isPlaying: isPlaying,
                 progressSeconds: progressSeconds,
                 onPlayTap: onPlayTap,
+                onNextTap: onNextTap,
+                onSeek: onSeek,
+                onLongPressStart: onLongPressStart,
+                onLongPressEnd: onLongPressEnd,
+                onCCSelect: onSubtitleToggle,
                 highlightPlay: highlightPlay,
+                highlightNext: highlightNext,
+                highlightSeek: highlightSeek,
+                highlightCC: highlightCC,
               ),
               // 動画情報・アクションボタン
               Expanded(
-                child: ColoredBox(
+                child: Container(
                   color: Colors.white,
                   child: _VideoInfoSection(
                     video: video,
                     onShareTap: onShareTap,
                     onSaveTap: onSaveTap,
+                    onDownloadTap: onDownloadTap,
                     onMoreTap: onMoreTap,
                     onSubtitleToggle: onSubtitleToggle,
                     showShareButton: showShareButton,
                     showSaveButton: showSaveButton,
+                    showDownloadButton: showDownloadButton,
                     showMoreButton: showMoreButton,
                     showSubtitleToggle: showSubtitleToggle,
                     highlightShare: highlightShare,
                     highlightSave: highlightSave,
+                    highlightDownload: highlightDownload,
                     highlightMore: highlightMore,
                   ),
                 ),
@@ -134,7 +170,7 @@ class _StreamingAppBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
           const Spacer(),
@@ -150,123 +186,251 @@ class _StreamingAppBar extends StatelessWidget {
 
 // ─── 動画プレイヤー ──────────────────────────────────────────────────────────
 
-class _VideoPlayer extends StatelessWidget {
+class _VideoPlayer extends StatefulWidget {
   const _VideoPlayer({
     required this.video,
     required this.isPlaying,
     required this.progressSeconds,
     this.onPlayTap,
+    this.onNextTap,
+    this.onSeek,
+    this.onLongPressStart,
+    this.onLongPressEnd,
+    this.onCCSelect,
     this.highlightPlay = false,
+    this.highlightNext = false,
+    this.highlightSeek = false,
+    this.highlightCC = false,
   });
 
   final StreamingVideo video;
   final bool isPlaying;
   final int progressSeconds;
   final VoidCallback? onPlayTap;
+  final VoidCallback? onNextTap;
+  final ValueChanged<double>? onSeek;
+  final VoidCallback? onLongPressStart;
+  final VoidCallback? onLongPressEnd;
+  final VoidCallback? onCCSelect;
   final bool highlightPlay;
+  final bool highlightNext;
+  final bool highlightSeek;
+  final bool highlightCC;
+
+  @override
+  State<_VideoPlayer> createState() => _VideoPlayerState();
+}
+
+class _VideoPlayerState extends State<_VideoPlayer> {
+  bool _showControls = true;
+  Timer? _hideTimer;
+
+  void _startHideTimer() {
+    _hideTimer?.cancel();
+    _hideTimer = Timer(const Duration(seconds: 3), () {
+      if (mounted && widget.isPlaying) {
+        setState(() => _showControls = false);
+      }
+    });
+  }
+
+  void _toggleControls() {
+    setState(() {
+      _showControls = !_showControls;
+      if (_showControls) {
+        _startHideTimer();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _hideTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final thumbnailColor =
-        StreamingCatalog.thumbnailColors[video.colorSeed % StreamingCatalog.thumbnailColors.length];
+        StreamingCatalog.thumbnailColors[widget.video.colorSeed % StreamingCatalog.thumbnailColors.length];
     final thumbnailIcon =
-        StreamingCatalog.thumbnailIcons[video.colorSeed % StreamingCatalog.thumbnailIcons.length];
-    final progress = video.durationSeconds > 0
-        ? (progressSeconds / video.durationSeconds).clamp(0.0, 1.0)
+        StreamingCatalog.thumbnailIcons[widget.video.colorSeed % StreamingCatalog.thumbnailIcons.length];
+    final progress = widget.video.durationSeconds > 0
+        ? (widget.progressSeconds / widget.video.durationSeconds).clamp(0.0, 1.0)
         : 0.0;
 
     return AspectRatio(
       aspectRatio: 16 / 9,
-      child: Stack(
-        children: [
-          // サムネイル背景
-          Container(
-            color: thumbnailColor,
-            child: Center(
-              child: Icon(thumbnailIcon, size: 72, color: Colors.white54),
-            ),
-          ),
-          // 再生中オーバーレイ（暗転 + 一時停止アイコン）
-          if (isPlaying)
+      child: GestureDetector(
+        onTap: _toggleControls,
+        onLongPressStart: (_) => widget.onLongPressStart?.call(),
+        onLongPressEnd: (_) => widget.onLongPressEnd?.call(),
+        child: Stack(
+          children: [
+            // サムネイル背景
             Container(
-              color: Colors.black.withValues(alpha: 0.3),
-              child: const Center(
-                child: Icon(
-                  Icons.pause,
-                  color: Colors.white,
-                  size: 60,
-                ),
-              ),
-            ),
-          // 再生ボタン（未再生のみ）
-          if (!isPlaying)
-            GestureDetector(
-              onTap: onPlayTap,
+              color: thumbnailColor,
               child: Center(
-                child: Container(
-                  width: 68,
-                  height: 68,
-                  decoration: BoxDecoration(
-                    color: highlightPlay
-                        ? Colors.red.withValues(alpha: 0.9)
-                        : Colors.black.withValues(alpha: 0.7),
-                    shape: BoxShape.circle,
-                    border: highlightPlay
-                        ? Border.all(color: Colors.yellow, width: 3)
-                        : null,
-                  ),
-                  child: const Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
-                    size: 44,
+                child: Icon(thumbnailIcon, size: 72, color: Colors.white54),
+              ),
+            ),
+            // 倍速再生中表示
+            if (widget.video.playbackSpeed > 1.0)
+              Positioned(
+                top: 10,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      '${widget.video.playbackSpeed}x ➡➡',
+                      style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),
-            ),
-          // プログレスバー
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Column(
-              children: [
-                // 時間表示
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        _formatDuration(progressSeconds),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
+            // コントロールUI
+            if (_showControls)
+              Container(
+                color: Colors.black38,
+                child: Stack(
+                  children: [
+                    // 中央ボタン（再生・スキップ）
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.skip_previous, color: Colors.white, size: 32),
+                            onPressed: null,
+                          ),
+                          const SizedBox(width: 20),
+                          GestureDetector(
+                            onTap: widget.onPlayTap,
+                            child: Container(
+                              width: 64,
+                              height: 64,
+                              decoration: BoxDecoration(
+                                color: widget.highlightPlay
+                                    ? Colors.red.withValues(alpha: 0.8)
+                                    : Colors.transparent,
+                                shape: BoxShape.circle,
+                                border: widget.highlightPlay
+                                    ? Border.all(color: Colors.yellow, width: 2)
+                                    : null,
+                              ),
+                              child: Icon(
+                                widget.isPlaying ? Icons.pause : Icons.play_arrow,
+                                color: Colors.white,
+                                size: 48,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          IconButton(
+                            icon: Icon(
+                              Icons.skip_next,
+                              color: widget.highlightNext ? Colors.yellow : Colors.white,
+                              size: 32,
+                            ),
+                            onPressed: widget.onNextTap,
+                          ),
+                        ],
                       ),
-                      Text(
-                        _formatDuration(video.durationSeconds),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
+                    ),
+                    // 右上ボタン（CC, ⚙）
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                Icon(
+                                  Icons.closed_caption_outlined,
+                                  color: widget.video.subtitlesEnabled ? Colors.white : Colors.white70,
+                                ),
+                                if (widget.video.subtitlesEnabled)
+                                  Container(
+                                    width: 14,
+                                    height: 2,
+                                    color: Colors.red,
+                                  ),
+                              ],
+                            ),
+                            onPressed: widget.onCCSelect,
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            style: widget.highlightCC
+                                ? IconButton.styleFrom(backgroundColor: Colors.yellow.withValues(alpha: 0.3))
+                                : null,
+                          ),
+                          const SizedBox(width: 12),
+                          const Icon(Icons.settings_outlined, color: Colors.white70),
+                          const SizedBox(width: 8),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                // シークバー
-                SizedBox(
-                  height: 3,
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    backgroundColor: Colors.white30,
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(Colors.red),
+              ),
+            // プログレスバー（シーク対応）
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Column(
+                children: [
+                  // 時間表示（コントロール表示時のみ）
+                  if (_showControls)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        children: [
+                          Text(
+                            _formatDuration(widget.progressSeconds),
+                            style: const TextStyle(color: Colors.white, fontSize: 11),
+                          ),
+                          const Text(' / ', style: TextStyle(color: Colors.white54, fontSize: 11)),
+                          Text(
+                            _formatDuration(widget.video.durationSeconds),
+                            style: const TextStyle(color: Colors.white54, fontSize: 11),
+                          ),
+                        ],
+                      ),
+                    ),
+                  // シークバー
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      trackHeight: 2,
+                      thumbShape: widget.highlightSeek || _showControls
+                          ? const RoundSliderThumbShape(enabledThumbRadius: 6)
+                          : const RoundSliderThumbShape(enabledThumbRadius: 0),
+                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 14),
+                      activeTrackColor: Colors.red,
+                      inactiveTrackColor: Colors.white24,
+                      thumbColor: Colors.red,
+                    ),
+                    child: Slider(
+                      value: progress,
+                      onChanged: (val) {
+                        widget.onSeek?.call(val);
+                        _startHideTimer();
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -285,28 +449,34 @@ class _VideoInfoSection extends StatelessWidget {
     required this.video,
     this.onShareTap,
     this.onSaveTap,
+    this.onDownloadTap,
     this.onMoreTap,
     this.onSubtitleToggle,
     required this.showShareButton,
     required this.showSaveButton,
+    required this.showDownloadButton,
     required this.showMoreButton,
     required this.showSubtitleToggle,
     required this.highlightShare,
     required this.highlightSave,
+    required this.highlightDownload,
     required this.highlightMore,
   });
 
   final StreamingVideo video;
   final VoidCallback? onShareTap;
   final VoidCallback? onSaveTap;
+  final VoidCallback? onDownloadTap;
   final VoidCallback? onMoreTap;
   final VoidCallback? onSubtitleToggle;
   final bool showShareButton;
   final bool showSaveButton;
+  final bool showDownloadButton;
   final bool showMoreButton;
   final bool showSubtitleToggle;
   final bool highlightShare;
   final bool highlightSave;
+  final bool highlightDownload;
   final bool highlightMore;
 
   @override
@@ -326,7 +496,7 @@ class _VideoInfoSection extends StatelessWidget {
                 UnreadableText(
                   video.title,
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -336,19 +506,16 @@ class _VideoInfoSection extends StatelessWidget {
                     UnreadableText(
                       '${_formatViewCount(video.viewCount)} ${sq.common.views}',
                       style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey.shade600,
+                        fontSize: 12,
+                        color: Colors.grey.shade700,
                       ),
                     ),
-                    const Text(
-                      ' · ',
-                      style: TextStyle(color: Colors.grey),
-                    ),
+                    const Text(' · ', style: TextStyle(color: Colors.grey)),
                     UnreadableText(
                       video.uploadedAgo,
                       style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey.shade600,
+                        fontSize: 12,
+                        color: Colors.grey.shade700,
                       ),
                     ),
                   ],
@@ -361,19 +528,22 @@ class _VideoInfoSection extends StatelessWidget {
             video: video,
             onShareTap: onShareTap,
             onSaveTap: onSaveTap,
+            onDownloadTap: onDownloadTap,
             onMoreTap: onMoreTap,
             showShareButton: showShareButton,
             showSaveButton: showSaveButton,
+            showDownloadButton: showDownloadButton,
             showMoreButton: showMoreButton,
             highlightShare: highlightShare,
             highlightSave: highlightSave,
+            highlightDownload: highlightDownload,
             highlightMore: highlightMore,
           ),
           const Divider(height: 1),
           // チャンネル情報
           _ChannelRow(video: video),
           const Divider(height: 1),
-          // 字幕トグル（Quiz4で使用）
+          // 字幕トグル
           if (showSubtitleToggle)
             _SubtitleRow(
               video: video,
@@ -401,40 +571,44 @@ class _ActionButtonRow extends StatelessWidget {
     required this.video,
     this.onShareTap,
     this.onSaveTap,
+    this.onDownloadTap,
     this.onMoreTap,
     required this.showShareButton,
     required this.showSaveButton,
+    required this.showDownloadButton,
     required this.showMoreButton,
     required this.highlightShare,
     required this.highlightSave,
+    required this.highlightDownload,
     required this.highlightMore,
   });
 
   final StreamingVideo video;
   final VoidCallback? onShareTap;
   final VoidCallback? onSaveTap;
+  final VoidCallback? onDownloadTap;
   final VoidCallback? onMoreTap;
   final bool showShareButton;
   final bool showSaveButton;
+  final bool showDownloadButton;
   final bool showMoreButton;
   final bool highlightShare;
   final bool highlightSave;
+  final bool highlightDownload;
   final bool highlightMore;
 
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
 
-    return SizedBox(
-      height: 72,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // いいね
           _ActionButton(
-            icon: video.isLiked
-                ? Icons.thumb_up
-                : Icons.thumb_up_outlined,
+            icon: video.isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
             label: sq.common.likeButton,
             count: _formatCount(video.likeCount),
           ),
@@ -451,12 +625,19 @@ class _ActionButtonRow extends StatelessWidget {
               onTap: onShareTap,
               isHighlighted: highlightShare,
             ),
+          // ダウンロード (Quiz 4)
+          if (showDownloadButton)
+            _ActionButton(
+              icon: video.isDownloaded ? Icons.file_download_done : Icons.file_download_outlined,
+              label: sq.common.downloadButton,
+              onTap: onDownloadTap,
+              isHighlighted: highlightDownload,
+              isActive: video.isDownloaded,
+            ),
           // 保存
           if (showSaveButton)
             _ActionButton(
-              icon: video.isSaved
-                  ? Icons.bookmark
-                  : Icons.bookmark_border_outlined,
+              icon: video.isSaved ? Icons.bookmark : Icons.bookmark_border_outlined,
               label: sq.common.saveButton,
               onTap: onSaveTap,
               isHighlighted: highlightSave,
@@ -507,11 +688,11 @@ class _ActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: isHighlighted
             ? BoxDecoration(
                 border: Border.all(color: Colors.yellow, width: 2),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(20),
                 color: Colors.yellow.withValues(alpha: 0.1),
               )
             : null,
@@ -522,7 +703,7 @@ class _ActionButton extends StatelessWidget {
             const SizedBox(height: 2),
             UnreadableText(
               count != null ? '$label $count' : label,
-              style: TextStyle(fontSize: 11, color: color),
+              style: TextStyle(fontSize: 10, color: color),
             ),
           ],
         ),
@@ -549,7 +730,7 @@ class _ChannelRow extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            radius: 20,
+            radius: 18,
             backgroundColor: thumbnailColor,
             child: Text(
               video.channelName[0],
@@ -558,19 +739,35 @@ class _ChannelRow extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: UnreadableText(
-              video.channelName,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UnreadableText(
+                  video.channelName,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                UnreadableText(
+                  '1.2M subscribers',
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                ),
+              ],
             ),
           ),
           TextButton(
             onPressed: null,
-            child: UnreadableText(
-              sq.common.subscribeButton,
-              style: const TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: UnreadableText(
+                sq.common.subscribeButton,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
             ),
           ),
@@ -613,15 +810,11 @@ class _SubtitleRow extends StatelessWidget {
               width: 48,
               height: 28,
               decoration: BoxDecoration(
-                color: video.subtitlesEnabled
-                    ? Colors.blue
-                    : Colors.grey.shade300,
+                color: video.subtitlesEnabled ? Colors.blue : Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: AnimatedAlign(
-                alignment: video.subtitlesEnabled
-                    ? Alignment.centerRight
-                    : Alignment.centerLeft,
+                alignment: video.subtitlesEnabled ? Alignment.centerRight : Alignment.centerLeft,
                 duration: const Duration(milliseconds: 200),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
@@ -639,9 +832,7 @@ class _SubtitleRow extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           UnreadableText(
-            video.subtitlesEnabled
-                ? sq.common.subtitlesOn
-                : sq.common.subtitlesOff,
+            video.subtitlesEnabled ? sq.common.subtitlesOn : sq.common.subtitlesOff,
             style: TextStyle(
               fontSize: 12,
               color: video.subtitlesEnabled ? Colors.blue : Colors.grey,
@@ -653,110 +844,27 @@ class _SubtitleRow extends StatelessWidget {
   }
 }
 
-// ─── シェアシート ─────────────────────────────────────────────────────────────
+// ─── ⋮ メニュー (Settings) ────────────────────────────────────────────────────
 
-/// 動画シェアシート（iOS/Android 風ボトムシート）
-class StreamingShareSheet extends StatelessWidget {
-  const StreamingShareSheet({
-    super.key,
-    required this.onShare,
-    required this.onDismiss,
-  });
-
-  final VoidCallback onShare;
-  final VoidCallback onDismiss;
-
-  static const _shareApps = [
-    (icon: Icons.message, color: Color(0xFF25D366)),
-    (icon: Icons.email_outlined, color: Color(0xFF4285F4)),
-    (icon: Icons.chat_bubble_outline, color: Color(0xFF1DA1F2)),
-    (icon: Icons.facebook, color: Color(0xFF1877F2)),
-    (icon: Icons.content_copy, color: Color(0xFF757575)),
-    (icon: Icons.more_horiz, color: Color(0xFF757575)),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    final sq = context.sq;
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 16),
-            UnreadableText(
-              sq.common.shareTitle,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: _shareApps.map((app) {
-                return GestureDetector(
-                  onTap: onShare,
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: app.color.withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(app.icon, color: app.color, size: 26),
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 16),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ─── ⋮ メニュー ────────────────────────────────────────────────────────────
-
-/// 動画の「その他」メニュー（ボトムシート）
 class StreamingMoreMenu extends StatelessWidget {
   const StreamingMoreMenu({
     super.key,
     required this.video,
     required this.onSubtitleTap,
+    required this.onQualityTap,
+    required this.onSpeedTap,
     required this.onDismiss,
   });
 
   final StreamingVideo video;
   final VoidCallback onSubtitleTap;
+  final VoidCallback onQualityTap;
+  final VoidCallback onSpeedTap;
   final VoidCallback onDismiss;
 
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
-
-    final items = [
-      (icon: Icons.subtitles_outlined, label: sq.common.subtitles, onTap: onSubtitleTap),
-      (icon: Icons.high_quality, label: sq.common.quality, onTap: onDismiss),
-      (icon: Icons.speed, label: sq.common.playbackSpeed, onTap: onDismiss),
-      (icon: Icons.flag_outlined, label: sq.common.reportButton, onTap: onDismiss),
-    ];
 
     return Container(
       decoration: const BoxDecoration(
@@ -777,13 +885,82 @@ class StreamingMoreMenu extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            ...items.map(
-              (item) => ListTile(
-                leading: Icon(item.icon),
-                title: UnreadableText(item.label),
-                onTap: item.onTap,
+            ListTile(
+              leading: const Icon(Icons.subtitles_outlined),
+              title: UnreadableText(sq.common.subtitles),
+              trailing: UnreadableText(video.subtitlesEnabled ? sq.common.subtitlesOn : sq.common.subtitlesOff),
+              onTap: onSubtitleTap,
+            ),
+            ListTile(
+              leading: const Icon(Icons.high_quality),
+              title: UnreadableText(sq.common.quality),
+              trailing: UnreadableText(video.quality),
+              onTap: onQualityTap,
+            ),
+            ListTile(
+              leading: const Icon(Icons.speed),
+              title: UnreadableText(sq.common.playbackSpeed),
+              trailing: UnreadableText('${video.playbackSpeed}x'),
+              onTap: onSpeedTap,
+            ),
+            ListTile(
+              leading: const Icon(Icons.flag_outlined),
+              title: UnreadableText(sq.common.reportButton),
+              onTap: onDismiss,
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Selection Lists ─────────────────────────────────────────────────────────
+
+class StreamingSelectionList extends StatelessWidget {
+  const StreamingSelectionList({
+    super.key,
+    required this.title,
+    required this.items,
+    required this.selectedItem,
+    required this.onSelected,
+  });
+
+  final String title;
+  final List<String> items;
+  final String selectedItem;
+  final ValueChanged<String> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: UnreadableText(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
+            const Divider(height: 1),
+            ...items.map(
+              (item) => ListTile(
+                title: UnreadableText(item),
+                trailing: item == selectedItem ? const Icon(Icons.check, color: Colors.blue) : null,
+                onTap: () => onSelected(item),
+              ),
+            ),
+            const SizedBox(height: 16),
           ],
         ),
       ),

@@ -37,95 +37,56 @@ class TranslationsXx with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsXx $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsXx(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsWaterXx water = _TranslationsWaterXx._(_root);
-	@override late final _TranslationsCartXx cart = _TranslationsCartXx._(_root);
-	@override late final _TranslationsCheckoutXx checkout = _TranslationsCheckoutXx._(_root);
-	@override late final _TranslationsReorderXx reorder = _TranslationsReorderXx._(_root);
+	@override late final _TranslationsQuiz1Xx quiz1 = _TranslationsQuiz1Xx._(_root);
+	@override late final _TranslationsQuiz2Xx quiz2 = _TranslationsQuiz2Xx._(_root);
+	@override late final _TranslationsQuiz3Xx quiz3 = _TranslationsQuiz3Xx._(_root);
+	@override late final _TranslationsQuiz4Xx quiz4 = _TranslationsQuiz4Xx._(_root);
 	@override late final _TranslationsCommonXx common = _TranslationsCommonXx._(_root);
-	@override late final _TranslationsHomeXx home = _TranslationsHomeXx._(_root);
-	@override late final _TranslationsSearchXx search = _TranslationsSearchXx._(_root);
-	@override late final _TranslationsMenuXx menu = _TranslationsMenuXx._(_root);
-	@override late final _TranslationsNavigationXx navigation = _TranslationsNavigationXx._(_root);
-	@override late final _TranslationsCategoriesXx categories = _TranslationsCategoriesXx._(_root);
-	@override late final _TranslationsCatalogXx catalog = _TranslationsCatalogXx._(_root);
+	@override late final _TranslationsVideosXx videos = _TranslationsVideosXx._(_root);
 }
 
-// Path: water
-class _TranslationsWaterXx implements TranslationsWaterEn {
-	_TranslationsWaterXx._(this._root);
+// Path: quiz1
+class _TranslationsQuiz1Xx implements TranslationsQuiz1En {
+	_TranslationsQuiz1Xx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Buy 2 bottles of water';
-	@override String get appTitle => 'nantomall';
-	@override String get searchPlaceholder => 'Search items';
-	@override String get cartTitle => 'Shopping Cart';
-	@override String get cartEmpty => 'Your cart is empty';
-	@override String get subtotal => 'Subtotal ({count} items):';
-	@override String get confirmOrder => 'Place order';
+	@override String get missionText => 'Play a video';
+	@override late final _TranslationsQuiz1InsightXx insight = _TranslationsQuiz1InsightXx._(_root);
 }
 
-// Path: cart
-class _TranslationsCartXx implements TranslationsCartEn {
-	_TranslationsCartXx._(this._root);
+// Path: quiz2
+class _TranslationsQuiz2Xx implements TranslationsQuiz2En {
+	_TranslationsQuiz2Xx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Select the total price of this cart';
-	@override String get appTitle => 'Shopping Cart';
-	@override String get itemsHeader => 'Cart Items';
-	@override String get itemCount => '{count} items';
-	@override String get questionTitle => 'What is the total price?';
-	@override String get questionSubtitle => 'Calculate the total of items above and select';
-	@override String get hint => 'Multiply each unit price by quantity and sum them up';
-	@override String get decoderLabel => 'Number Decoder';
-	@override String get hintTableLabel => 'Number Cipher Table';
+	@override String get missionText => 'Share a video';
+	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
 
-// Path: checkout
-class _TranslationsCheckoutXx implements TranslationsCheckoutEn {
-	_TranslationsCheckoutXx._(this._root);
+// Path: quiz3
+class _TranslationsQuiz3Xx implements TranslationsQuiz3En {
+	_TranslationsQuiz3Xx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Complete the checkout process';
-	@override String get appTitle => 'Payment Checkout';
-	@override String get step1 => 'Cart';
-	@override String get step2 => 'Address & Payment';
-	@override String get step3 => 'Confirm';
-	@override String get addressSection => 'Delivery Address';
-	@override String get addressPlaceholder => 'e.g. 1-1 Shibuya, Tokyo...';
-	@override String get paymentSection => 'Payment Method';
-	@override String get paymentCreditCard => 'Credit Card';
-	@override String get paymentConvenience => 'Convenience Store';
-	@override String get paymentCOD => 'Cash on Delivery';
-	@override String get summarySection => 'Order Summary';
-	@override String get subtotal => 'Item Subtotal';
-	@override String get shipping => 'Shipping fee';
-	@override String get total => 'Order Total';
-	@override String get confirmCheck => 'I have confirmed the order details';
-	@override String get confirmButton => 'Place Order';
+	@override String get missionText => 'Save this video to favorites';
+	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
 
-// Path: reorder
-class _TranslationsReorderXx implements TranslationsReorderEn {
-	_TranslationsReorderXx._(this._root);
+// Path: quiz4
+class _TranslationsQuiz4Xx implements TranslationsQuiz4En {
+	_TranslationsQuiz4Xx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Purchase your recently ordered item again';
-	@override String get appTitle => 'Order History';
-	@override String get orderHistoryTitle => 'Recent Orders';
-	@override String get reorderButton => 'Buy again';
-	@override String get lastOrderDate => 'Ordered 3 days ago';
-	@override String get cartTitle => 'Shopping Cart';
-	@override String get cartEmpty => 'Your cart is empty';
-	@override String get subtotal => 'Subtotal ({count} items):';
-	@override String get confirmOrder => 'Place order';
+	@override String get missionText => 'Turn on subtitles';
+	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
 }
 
 // Path: common
@@ -135,113 +96,115 @@ class _TranslationsCommonXx implements TranslationsCommonEn {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get addToCart => 'Add to Cart';
-	@override String get quantity => 'Qty: {qty}';
-	@override String get primeBadge => 'prime';
-	@override String get noResults => 'No items found';
+	@override String get appTitle => 'StreamHub';
+	@override String get homeTab => 'Home';
+	@override String get exploreTab => 'Explore';
+	@override String get shortsTab => 'Shorts';
+	@override String get subsTab => 'Subscriptions';
+	@override String get youTab => 'You';
+	@override String get likeButton => 'Like';
+	@override String get dislikeButton => 'Dislike';
+	@override String get shareButton => 'Share';
+	@override String get saveButton => 'Save';
+	@override String get moreButton => 'More';
+	@override String get subscribeButton => 'Subscribe';
+	@override String get views => '{count} views';
+	@override String get subtitles => 'Subtitles';
+	@override String get quality => 'Quality';
+	@override String get playbackSpeed => 'Playback speed';
+	@override String get reportButton => 'Report';
+	@override String get subtitlesOff => 'Off';
+	@override String get subtitlesOn => 'On (Auto)';
+	@override String get shareTitle => 'Share to';
+	@override String get linkCopied => 'Link copied';
+	@override String get savedToList => 'Saved to playlist';
 }
 
-// Path: home
-class _TranslationsHomeXx implements TranslationsHomeEn {
-	_TranslationsHomeXx._(this._root);
+// Path: videos
+class _TranslationsVideosXx implements TranslationsVideosEn {
+	_TranslationsVideosXx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get banner1 => 'Seasonal Recommendations';
-	@override String get banner2 => 'New Arrivals';
-	@override String get banner3 => 'Save More with Bundles';
-	@override String get recommended => 'Recommended for You';
-	@override String get categories => 'Shop by Category';
-	@override String get dealOfTheDay => 'Deal of the Day';
+	@override String get v1Title => 'Amazing Nature Documentary 4K';
+	@override String get v1Channel => 'NatureWorld';
+	@override String get v2Title => 'Learn Programming in 10 Minutes';
+	@override String get v2Channel => 'CodeMaster';
+	@override String get v3Title => 'Top 10 Travel Destinations 2026';
+	@override String get v3Channel => 'TravelVlog';
+	@override String get v4Title => 'Cooking Easy Pasta Recipe';
+	@override String get v4Channel => 'ChefKitchen';
+	@override String get v5Title => 'Morning Yoga for Beginners';
+	@override String get v5Channel => 'YogaLife';
 }
 
-// Path: search
-class _TranslationsSearchXx implements TranslationsSearchEn {
-	_TranslationsSearchXx._(this._root);
+// Path: quiz1.insight
+class _TranslationsQuiz1InsightXx implements TranslationsQuiz1InsightEn {
+	_TranslationsQuiz1InsightXx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get popularCategories => 'Popular Categories';
-	@override String get trendingItems => 'Trending Items';
+	@override String get title => 'How did you know the play button?';
+	@override String get subtitle => 'The triangle is the universal play symbol';
+	@override String get playTitle => 'The play triangle has not changed for 60 years';
+	@override String get playDesc => 'The right-pointing triangle remains universally understood as play.';
+	@override String get thumbnailTitle => 'Thumbnails preview content';
+	@override String get thumbnailDesc => 'Visual previews communicate content without text.';
+	@override String get progressTitle => 'Progress bar shows position';
+	@override String get progressDesc => 'The seek bar pattern is standard in media players worldwide.';
 }
 
-// Path: menu
-class _TranslationsMenuXx implements TranslationsMenuEn {
-	_TranslationsMenuXx._(this._root);
+// Path: quiz2.insight
+class _TranslationsQuiz2InsightXx implements TranslationsQuiz2InsightEn {
+	_TranslationsQuiz2InsightXx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get programs => 'Programs & Features';
-	@override String get prime => 'Join Prime';
-	@override String get digitalContent => 'Digital Content';
-	@override String get settingsSection => 'Settings';
-	@override String get notification => 'Notification Settings';
-	@override String get customerService => 'Customer Service';
-	@override String get help => 'Help';
-	@override String get terms => 'Terms of Use';
+	@override String get title => 'How did you find the share button?';
+	@override String get subtitle => 'Share icons visualize connection';
+	@override String get shareTitle => 'Share icon shape tells its meaning';
+	@override String get shareDesc => 'Connected dots or upward arrows visualize sending outward.';
+	@override String get actionTitle => 'Action buttons are arranged in a row';
+	@override String get actionDesc => 'Like, share, save arranged horizontally is a standard pattern.';
+	@override String get modalTitle => 'Share sheet presents options';
+	@override String get modalDesc => 'The bottom sheet for sharing is an OS standard component.';
 }
 
-// Path: navigation
-class _TranslationsNavigationXx implements TranslationsNavigationEn {
-	_TranslationsNavigationXx._(this._root);
+// Path: quiz3.insight
+class _TranslationsQuiz3InsightXx implements TranslationsQuiz3InsightEn {
+	_TranslationsQuiz3InsightXx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get home => 'Home';
-	@override String get search => 'Search';
-	@override String get account => 'Account';
-	@override String get menu => 'Menu';
+	@override String get title => 'How did you find the save button?';
+	@override String get subtitle => 'Flag symbols mean save universally';
+	@override String get saveTitle => 'Bookmark icons mean save';
+	@override String get saveDesc => 'Flags and ribbons consistently mean hold this item.';
+	@override String get feedbackTitle => 'Color change shows completion';
+	@override String get feedbackDesc => 'Icons changing color show the registration state transition.';
+	@override String get listTitle => 'Watch later list stores content';
+	@override String get listDesc => 'Watch later lists are common across streaming platforms.';
 }
 
-// Path: categories
-class _TranslationsCategoriesXx implements TranslationsCategoriesEn {
-	_TranslationsCategoriesXx._(this._root);
+// Path: quiz4.insight
+class _TranslationsQuiz4InsightXx implements TranslationsQuiz4InsightEn {
+	_TranslationsQuiz4InsightXx._(this._root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get daily => 'Daily goods';
-	@override String get food => 'Food & Drinks';
-	@override String get electronics => 'Electronics';
-	@override String get fashion => 'Fashion';
-	@override String get sports => 'Sports';
-	@override String get kitchen => 'Kitchen';
-}
-
-// Path: catalog
-class _TranslationsCatalogXx implements TranslationsCatalogEn {
-	_TranslationsCatalogXx._(this._root);
-
-	final TranslationsXx _root; // ignore: unused_field
-
-	// Translations
-	@override String get waterPuraAqua => 'Natural Water 500ml';
-	@override String get teaAqua => 'Green Tea 500ml';
-	@override String get coffeeCraft => 'Craft Coffee';
-	@override String get milkDaily => 'Whole Milk 1L';
-	@override String get snackChips => 'Potato Chips';
-	@override String get cocoaBar => 'Chocolate Bar';
-	@override String get bakeryBread => 'Sliced Bread';
-	@override String get eggs => 'Eggs 10pk';
-	@override String get noodleBowl => 'Cup Noodle';
-	@override String get apple => 'Apple';
-	@override String get banana => 'Banana';
-	@override String get detergentDailyWash => 'Laundry Detergent';
-	@override String get soapWashPower => 'Hand Soap';
-	@override String get dishSoapSparkle => 'Dish Soap';
-	@override String get sponge => 'Kitchen Sponge';
-	@override String get tissueSoft => 'Tissue Paper 5box';
-	@override String get toiletPaper => 'Toilet Paper 12roll';
-	@override String get haircareBotanicShine => 'Hair Oil';
-	@override String get notebook => 'Ring Notebook';
-	@override String get towel => 'Face Towel';
-	@override String get water500ml => 'Natural Water 500ml';
-	@override String get tea500ml => 'Green Tea 500ml';
-	@override String get coffee500ml => 'Black Coffee 500ml';
+	@override String get title => 'How did you find the subtitle setting?';
+	@override String get subtitle => 'Settings hide behind the three dots menu';
+	@override String get menuTitle => 'Three dots is the gateway to more features';
+	@override String get menuDesc => 'Three dots indicate more features exist including subtitles.';
+	@override String get ccTitle => 'CC is an international subtitle symbol';
+	@override String get ccDesc => 'CC box is an international standard symbol for subtitles.';
+	@override String get settingsTitle => 'Toggle switches are intuitive';
+	@override String get settingsDesc => 'Toggle switches communicate state through color and position.';
 }
 
 /// The flat map containing all translations for locale <xx>.
@@ -252,101 +215,74 @@ class _TranslationsCatalogXx implements TranslationsCatalogEn {
 extension on TranslationsXx {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'water.missionText' => 'Buy 2 bottles of water',
-			'water.appTitle' => 'nantomall',
-			'water.searchPlaceholder' => 'Search items',
-			'water.cartTitle' => 'Shopping Cart',
-			'water.cartEmpty' => 'Your cart is empty',
-			'water.subtotal' => 'Subtotal ({count} items):',
-			'water.confirmOrder' => 'Place order',
-			'cart.missionText' => 'Select the total price of this cart',
-			'cart.appTitle' => 'Shopping Cart',
-			'cart.itemsHeader' => 'Cart Items',
-			'cart.itemCount' => '{count} items',
-			'cart.questionTitle' => 'What is the total price?',
-			'cart.questionSubtitle' => 'Calculate the total of items above and select',
-			'cart.hint' => 'Multiply each unit price by quantity and sum them up',
-			'cart.decoderLabel' => 'Number Decoder',
-			'cart.hintTableLabel' => 'Number Cipher Table',
-			'checkout.missionText' => 'Complete the checkout process',
-			'checkout.appTitle' => 'Payment Checkout',
-			'checkout.step1' => 'Cart',
-			'checkout.step2' => 'Address & Payment',
-			'checkout.step3' => 'Confirm',
-			'checkout.addressSection' => 'Delivery Address',
-			'checkout.addressPlaceholder' => 'e.g. 1-1 Shibuya, Tokyo...',
-			'checkout.paymentSection' => 'Payment Method',
-			'checkout.paymentCreditCard' => 'Credit Card',
-			'checkout.paymentConvenience' => 'Convenience Store',
-			'checkout.paymentCOD' => 'Cash on Delivery',
-			'checkout.summarySection' => 'Order Summary',
-			'checkout.subtotal' => 'Item Subtotal',
-			'checkout.shipping' => 'Shipping fee',
-			'checkout.total' => 'Order Total',
-			'checkout.confirmCheck' => 'I have confirmed the order details',
-			'checkout.confirmButton' => 'Place Order',
-			'reorder.missionText' => 'Purchase your recently ordered item again',
-			'reorder.appTitle' => 'Order History',
-			'reorder.orderHistoryTitle' => 'Recent Orders',
-			'reorder.reorderButton' => 'Buy again',
-			'reorder.lastOrderDate' => 'Ordered 3 days ago',
-			'reorder.cartTitle' => 'Shopping Cart',
-			'reorder.cartEmpty' => 'Your cart is empty',
-			'reorder.subtotal' => 'Subtotal ({count} items):',
-			'reorder.confirmOrder' => 'Place order',
-			'common.addToCart' => 'Add to Cart',
-			'common.quantity' => 'Qty: {qty}',
-			'common.primeBadge' => 'prime',
-			'common.noResults' => 'No items found',
-			'home.banner1' => 'Seasonal Recommendations',
-			'home.banner2' => 'New Arrivals',
-			'home.banner3' => 'Save More with Bundles',
-			'home.recommended' => 'Recommended for You',
-			'home.categories' => 'Shop by Category',
-			'home.dealOfTheDay' => 'Deal of the Day',
-			'search.popularCategories' => 'Popular Categories',
-			'search.trendingItems' => 'Trending Items',
-			'menu.programs' => 'Programs & Features',
-			'menu.prime' => 'Join Prime',
-			'menu.digitalContent' => 'Digital Content',
-			'menu.settingsSection' => 'Settings',
-			'menu.notification' => 'Notification Settings',
-			'menu.customerService' => 'Customer Service',
-			'menu.help' => 'Help',
-			'menu.terms' => 'Terms of Use',
-			'navigation.home' => 'Home',
-			'navigation.search' => 'Search',
-			'navigation.account' => 'Account',
-			'navigation.menu' => 'Menu',
-			'categories.daily' => 'Daily goods',
-			'categories.food' => 'Food & Drinks',
-			'categories.electronics' => 'Electronics',
-			'categories.fashion' => 'Fashion',
-			'categories.sports' => 'Sports',
-			'categories.kitchen' => 'Kitchen',
-			'catalog.waterPuraAqua' => 'Natural Water 500ml',
-			'catalog.teaAqua' => 'Green Tea 500ml',
-			'catalog.coffeeCraft' => 'Craft Coffee',
-			'catalog.milkDaily' => 'Whole Milk 1L',
-			'catalog.snackChips' => 'Potato Chips',
-			'catalog.cocoaBar' => 'Chocolate Bar',
-			'catalog.bakeryBread' => 'Sliced Bread',
-			'catalog.eggs' => 'Eggs 10pk',
-			'catalog.noodleBowl' => 'Cup Noodle',
-			'catalog.apple' => 'Apple',
-			'catalog.banana' => 'Banana',
-			'catalog.detergentDailyWash' => 'Laundry Detergent',
-			'catalog.soapWashPower' => 'Hand Soap',
-			'catalog.dishSoapSparkle' => 'Dish Soap',
-			'catalog.sponge' => 'Kitchen Sponge',
-			'catalog.tissueSoft' => 'Tissue Paper 5box',
-			'catalog.toiletPaper' => 'Toilet Paper 12roll',
-			'catalog.haircareBotanicShine' => 'Hair Oil',
-			'catalog.notebook' => 'Ring Notebook',
-			'catalog.towel' => 'Face Towel',
-			'catalog.water500ml' => 'Natural Water 500ml',
-			'catalog.tea500ml' => 'Green Tea 500ml',
-			'catalog.coffee500ml' => 'Black Coffee 500ml',
+			'quiz1.missionText' => 'Play a video',
+			'quiz1.insight.title' => 'How did you know the play button?',
+			'quiz1.insight.subtitle' => 'The triangle is the universal play symbol',
+			'quiz1.insight.playTitle' => 'The play triangle has not changed for 60 years',
+			'quiz1.insight.playDesc' => 'The right-pointing triangle remains universally understood as play.',
+			'quiz1.insight.thumbnailTitle' => 'Thumbnails preview content',
+			'quiz1.insight.thumbnailDesc' => 'Visual previews communicate content without text.',
+			'quiz1.insight.progressTitle' => 'Progress bar shows position',
+			'quiz1.insight.progressDesc' => 'The seek bar pattern is standard in media players worldwide.',
+			'quiz2.missionText' => 'Share a video',
+			'quiz2.insight.title' => 'How did you find the share button?',
+			'quiz2.insight.subtitle' => 'Share icons visualize connection',
+			'quiz2.insight.shareTitle' => 'Share icon shape tells its meaning',
+			'quiz2.insight.shareDesc' => 'Connected dots or upward arrows visualize sending outward.',
+			'quiz2.insight.actionTitle' => 'Action buttons are arranged in a row',
+			'quiz2.insight.actionDesc' => 'Like, share, save arranged horizontally is a standard pattern.',
+			'quiz2.insight.modalTitle' => 'Share sheet presents options',
+			'quiz2.insight.modalDesc' => 'The bottom sheet for sharing is an OS standard component.',
+			'quiz3.missionText' => 'Save this video to favorites',
+			'quiz3.insight.title' => 'How did you find the save button?',
+			'quiz3.insight.subtitle' => 'Flag symbols mean save universally',
+			'quiz3.insight.saveTitle' => 'Bookmark icons mean save',
+			'quiz3.insight.saveDesc' => 'Flags and ribbons consistently mean hold this item.',
+			'quiz3.insight.feedbackTitle' => 'Color change shows completion',
+			'quiz3.insight.feedbackDesc' => 'Icons changing color show the registration state transition.',
+			'quiz3.insight.listTitle' => 'Watch later list stores content',
+			'quiz3.insight.listDesc' => 'Watch later lists are common across streaming platforms.',
+			'quiz4.missionText' => 'Turn on subtitles',
+			'quiz4.insight.title' => 'How did you find the subtitle setting?',
+			'quiz4.insight.subtitle' => 'Settings hide behind the three dots menu',
+			'quiz4.insight.menuTitle' => 'Three dots is the gateway to more features',
+			'quiz4.insight.menuDesc' => 'Three dots indicate more features exist including subtitles.',
+			'quiz4.insight.ccTitle' => 'CC is an international subtitle symbol',
+			'quiz4.insight.ccDesc' => 'CC box is an international standard symbol for subtitles.',
+			'quiz4.insight.settingsTitle' => 'Toggle switches are intuitive',
+			'quiz4.insight.settingsDesc' => 'Toggle switches communicate state through color and position.',
+			'common.appTitle' => 'StreamHub',
+			'common.homeTab' => 'Home',
+			'common.exploreTab' => 'Explore',
+			'common.shortsTab' => 'Shorts',
+			'common.subsTab' => 'Subscriptions',
+			'common.youTab' => 'You',
+			'common.likeButton' => 'Like',
+			'common.dislikeButton' => 'Dislike',
+			'common.shareButton' => 'Share',
+			'common.saveButton' => 'Save',
+			'common.moreButton' => 'More',
+			'common.subscribeButton' => 'Subscribe',
+			'common.views' => '{count} views',
+			'common.subtitles' => 'Subtitles',
+			'common.quality' => 'Quality',
+			'common.playbackSpeed' => 'Playback speed',
+			'common.reportButton' => 'Report',
+			'common.subtitlesOff' => 'Off',
+			'common.subtitlesOn' => 'On (Auto)',
+			'common.shareTitle' => 'Share to',
+			'common.linkCopied' => 'Link copied',
+			'common.savedToList' => 'Saved to playlist',
+			'videos.v1Title' => 'Amazing Nature Documentary 4K',
+			'videos.v1Channel' => 'NatureWorld',
+			'videos.v2Title' => 'Learn Programming in 10 Minutes',
+			'videos.v2Channel' => 'CodeMaster',
+			'videos.v3Title' => 'Top 10 Travel Destinations 2026',
+			'videos.v3Channel' => 'TravelVlog',
+			'videos.v4Title' => 'Cooking Easy Pasta Recipe',
+			'videos.v4Channel' => 'ChefKitchen',
+			'videos.v5Title' => 'Morning Yoga for Beginners',
+			'videos.v5Channel' => 'YogaLife',
 			_ => null,
 		};
 	}

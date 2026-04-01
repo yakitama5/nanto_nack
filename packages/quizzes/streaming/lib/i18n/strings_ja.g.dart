@@ -56,8 +56,8 @@ class TranslationsQuiz1Ja {
 
 	// Translations
 
-	/// ja: '動画を再生してください'
-	String get missionText => '動画を再生してください';
+	/// ja: '動画の字幕をオンにしてください'
+	String get missionText => '動画の字幕をオンにしてください';
 
 	late final TranslationsQuiz1InsightJa insight = TranslationsQuiz1InsightJa.internal(_root);
 }
@@ -70,8 +70,8 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: '動画をシェアしてください'
-	String get missionText => '動画をシェアしてください';
+	/// ja: '次の動画へ移動し、動画の中盤まで進めてください'
+	String get missionText => '次の動画へ移動し、動画の中盤まで進めてください';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -84,8 +84,8 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: '動画をお気に入りに追加してください'
-	String get missionText => '動画をお気に入りに追加してください';
+	/// ja: '動画を「2倍速」で再生してください'
+	String get missionText => '動画を「2倍速」で再生してください';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -98,8 +98,8 @@ class TranslationsQuiz4Ja {
 
 	// Translations
 
-	/// ja: '動画の字幕をオンにしてください'
-	String get missionText => '動画の字幕をオンにしてください';
+	/// ja: '動画を最高画質に変更し、端末にダウンロードしてください'
+	String get missionText => '動画を最高画質に変更し、端末にダウンロードしてください';
 
 	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
 }
@@ -141,6 +141,9 @@ class TranslationsCommonJa {
 
 	/// ja: 'Save'
 	String get saveButton => 'Save';
+
+	/// ja: 'Download'
+	String get downloadButton => 'Download';
 
 	/// ja: 'More'
 	String get moreButton => 'More';
@@ -226,29 +229,29 @@ class TranslationsQuiz1InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ再生ボタンがわかった？'
-	String get title => 'なぜ再生ボタンがわかった？';
+	/// ja: 'なぜ字幕設定の場所がわかった？'
+	String get title => 'なぜ字幕設定の場所がわかった？';
 
-	/// ja: '▶ は世界共通の「再生」の記号'
-	String get subtitle => '▶ は世界共通の「再生」の記号';
+	/// ja: 'CCは国際標準の記号'
+	String get subtitle => 'CCは国際標準の記号';
 
-	/// ja: '▶ マークは60年以上前から変わらない'
-	String get playTitle => '▶ マークは60年以上前から変わらない';
+	/// ja: 'CC（Closed Captions）は世界共通'
+	String get ccTitle => 'CC（Closed Captions）は世界共通';
 
-	/// ja: 'テープレコーダー時代（1960年代）から使われてきた▶（右向き三角）は、デジタル化されても「再生」を意味する記号として世界中で通用している。文字を読まなくてもわかる、最も普遍的なUIアイコンの一つだ。'
-	String get playDesc => 'テープレコーダー時代（1960年代）から使われてきた▶（右向き三角）は、デジタル化されても「再生」を意味する記号として世界中で通用している。文字を読まなくてもわかる、最も普遍的なUIアイコンの一つだ。';
+	/// ja: '「CC」または字幕アイコン（□に線が入った形）は、テレビ放送時代から続く字幕の国際標準記号。言語に関係なく「字幕」を意味すると認識されている。'
+	String get ccDesc => '「CC」または字幕アイコン（□に線が入った形）は、テレビ放送時代から続く字幕の国際標準記号。言語に関係なく「字幕」を意味すると認識されている。';
 
-	/// ja: 'サムネイルが内容を予告する'
-	String get thumbnailTitle => 'サムネイルが内容を予告する';
+	/// ja: 'コントロールは「隠れている」'
+	String get visibilityTitle => 'コントロールは「隠れている」';
 
-	/// ja: '動画の代表画面を事前表示するサムネイルは、文字説明がなくても動画の内容を伝える。視覚情報は言語を超えてコンテンツを伝達できる。'
-	String get thumbnailDesc => '動画の代表画面を事前表示するサムネイルは、文字説明がなくても動画の内容を伝える。視覚情報は言語を超えてコンテンツを伝達できる。';
+	/// ja: '動画プレイヤーの多くは、視聴を邪魔しないよう操作ボタンを自動で隠す。しかし、「一度タップすれば出てくる」という隠蔽UIの作法が、現代のユーザーには共通認識として根付いている。'
+	String get visibilityDesc => '動画プレイヤーの多くは、視聴を邪魔しないよう操作ボタンを自動で隠す。しかし、「一度タップすれば出てくる」という隠蔽UIの作法が、現代のユーザーには共通認識として根付いている。';
 
-	/// ja: 'プログレスバーが残り時間を見せる'
-	String get progressTitle => 'プログレスバーが残り時間を見せる';
+	/// ja: '下線や色変化が「ON」を伝える'
+	String get feedbackTitle => '下線や色変化が「ON」を伝える';
 
-	/// ja: '動画下部の細いバーは「ここまで見た/ここから見ていない」を直感的に示す。シークバーのUIパターンは音楽・動画プレイヤーで世界標準となっており、言語不要で操作できる。'
-	String get progressDesc => '動画下部の細いバーは「ここまで見た/ここから見ていない」を直感的に示す。シークバーのUIパターンは音楽・動画プレイヤーで世界標準となっており、言語不要で操作できる。';
+	/// ja: 'アイコンの下に赤い線がついたり、色が明るくなったりする変化は、その機能が有効であることを示す。ラベルを読まなくても状態を瞬時に把握できる。'
+	String get feedbackDesc => 'アイコンの下に赤い線がついたり、色が明るくなったりする変化は、その機能が有効であることを示す。ラベルを読まなくても状態を瞬時に把握できる。';
 }
 
 // Path: quiz2.insight
@@ -259,29 +262,29 @@ class TranslationsQuiz2InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜシェアボタンが見つかった？'
-	String get title => 'なぜシェアボタンが見つかった？';
+	/// ja: 'なぜ迷わず操作できた？'
+	String get title => 'なぜ迷わず操作できた？';
 
-	/// ja: 'シェアアイコンは「つながり」を形にした記号'
-	String get subtitle => 'シェアアイコンは「つながり」を形にした記号';
+	/// ja: 'プレイヤーUIは「配置」が命'
+	String get subtitle => 'プレイヤーUIは「配置」が命';
 
-	/// ja: 'シェアアイコンの形が意味を語る'
-	String get shareTitle => 'シェアアイコンの形が意味を語る';
+	/// ja: '右向き矢印＋棒 ＝ 次へ'
+	String get skipTitle => '右向き矢印＋棒 ＝ 次へ';
 
-	/// ja: '3つの点を2本の線でつなぐシェアアイコン（Androidスタイル）や矢印が上を向くアイコン（iOSスタイル）は、「外へ送り出す」という動作を視覚化している。世界中のアプリで統一されたこの形は、言語に依存しない意味記号だ。'
-	String get shareDesc => '3つの点を2本の線でつなぐシェアアイコン（Androidスタイル）や矢印が上を向くアイコン（iOSスタイル）は、「外へ送り出す」という動作を視覚化している。世界中のアプリで統一されたこの形は、言語に依存しない意味記号だ。';
+	/// ja: '「▶︎▶︎|」という記号は、カセットプレイヤーの時代から「次のトラックへスキップ」を意味する。中央の再生ボタンの右隣という配置も世界標準だ。'
+	String get skipDesc => '「▶︎▶︎|」という記号は、カセットプレイヤーの時代から「次のトラックへスキップ」を意味する。中央の再生ボタンの右隣という配置も世界標準だ。';
 
-	/// ja: 'アクションボタン群が機能を並べる'
-	String get actionTitle => 'アクションボタン群が機能を並べる';
+	/// ja: '赤い線は「時間の流れ」のメタファー'
+	String get seekTitle => '赤い線は「時間の流れ」のメタファー';
 
-	/// ja: 'いいね・シェア・保存・…（その他）が横並びになるボタン行は、YouTube・TikTok・Twitter など主要SNSで採用されている標準UIパターン。見慣れた配置は、ラベルを読まなくても機能を類推させる。'
-	String get actionDesc => 'いいね・シェア・保存・…（その他）が横並びになるボタン行は、YouTube・TikTok・Twitter など主要SNSで採用されている標準UIパターン。見慣れた配置は、ラベルを読まなくても機能を類推させる。';
+	/// ja: '動画下部のプログレスバーは、左から右へ流れる時間を表す。赤い色は「現在地」を強調し、ツマミを動かすことで過去や未来へ自由にジャンプできることを直感的に伝えている。'
+	String get seekDesc => '動画下部のプログレスバーは、左から右へ流れる時間を表す。赤い色は「現在地」を強調し、ツマミを動かすことで過去や未来へ自由にジャンプできることを直感的に伝えている。';
 
-	/// ja: 'シェアシートが選択肢を提示する'
-	String get modalTitle => 'シェアシートが選択肢を提示する';
+	/// ja: '中盤（中央）は視覚的に狙いやすい'
+	String get targetTitle => '中盤（中央）は視覚的に狙いやすい';
 
-	/// ja: 'タップで下から出てくるシェアシートはiOS/Androidの標準コンポーネント。並んだアプリアイコンから「どこへシェアするか」を選ぶ体験は、OS横断で統一されており、言語を超えて操作できる。'
-	String get modalDesc => 'タップで下から出てくるシェアシートはiOS/Androidの標準コンポーネント。並んだアプリアイコンから「どこへシェアするか」を選ぶ体験は、OS横断で統一されており、言語を超えて操作できる。';
+	/// ja: 'バーの中央付近を狙う操作は、物理的な長さの半分を感覚的に捉えることで、文字情報なしでも40〜60%という範囲に正確に辿り着ける。'
+	String get targetDesc => 'バーの中央付近を狙う操作は、物理的な長さの半分を感覚的に捉えることで、文字情報なしでも40〜60%という範囲に正確に辿り着ける。';
 }
 
 // Path: quiz3.insight
@@ -292,29 +295,29 @@ class TranslationsQuiz3InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ保存ボタンがわかった？'
-	String get title => 'なぜ保存ボタンがわかった？';
+	/// ja: '隠し操作に気づけた？'
+	String get title => '隠し操作に気づけた？';
 
-	/// ja: 'フラグ記号は「あとで見る」の万国共通語'
-	String get subtitle => 'フラグ記号は「あとで見る」の万国共通語';
+	/// ja: '長押しは「加速」のショートカット'
+	String get subtitle => '長押しは「加速」のショートカット';
 
-	/// ja: 'フラグ・ブックマーク系アイコンは「保存」の記号'
-	String get saveTitle => 'フラグ・ブックマーク系アイコンは「保存」の記号';
+	/// ja: '動画エリアの長押しジェスチャー'
+	String get gestureTitle => '動画エリアの長押しジェスチャー';
 
-	/// ja: '旗・リボン・＋アイコンなど「お気に入り登録」や「あとで見る」に使われるアイコン群は、形が違っても「これを保持する」という意味で一貫している。繰り返し使われた結果、形そのものが意味を持つようになった。'
-	String get saveDesc => '旗・リボン・＋アイコンなど「お気に入り登録」や「あとで見る」に使われるアイコン群は、形が違っても「これを保持する」という意味で一貫している。繰り返し使われた結果、形そのものが意味を持つようになった。';
+	/// ja: '多くの動画アプリでは、画面を長押しすると「倍速再生」が発動する。これはメニューを開く手間を省くための隠しショートカットだが、一度知ると手放せない「アハ体験」の一つだ。'
+	String get gestureDesc => '多くの動画アプリでは、画面を長押しすると「倍速再生」が発動する。これはメニューを開く手間を省くための隠しショートカットだが、一度知ると手放せない「アハ体験」の一つだ。';
 
-	/// ja: '色変化がアクション完了を伝える'
-	String get feedbackTitle => '色変化がアクション完了を伝える';
+	/// ja: '⚙アイコンは設定の入り口'
+	String get gearTitle => '⚙アイコンは設定の入り口';
 
-	/// ja: 'グレーから赤・黄・青などに変わるアイコンの色変化は、「未登録→登録済み」の状態遷移をビジュアルで伝える。状態の変化を色で示すUIパターンはSNS全般で共通しており、ラベルを読まなくても結果がわかる。'
-	String get feedbackDesc => 'グレーから赤・黄・青などに変わるアイコンの色変化は、「未登録→登録済み」の状態遷移をビジュアルで伝える。状態の変化を色で示すUIパターンはSNS全般で共通しており、ラベルを読まなくても結果がわかる。';
+	/// ja: '歯車のアイコンは、OSやアプリを問わず「設定」や「カスタマイズ」を意味する。文字が読めなくても、詳細な変更はここで行えるという信頼感がある。'
+	String get gearDesc => '歯車のアイコンは、OSやアプリを問わず「設定」や「カスタマイズ」を意味する。文字が読めなくても、詳細な変更はここで行えるという信頼感がある。';
 
-	/// ja: '「あとで見るリスト」UIが動機を生む'
-	String get listTitle => '「あとで見るリスト」UIが動機を生む';
+	/// ja: '数字と「x」の組み合わせ'
+	String get speedTitle => '数字と「x」の組み合わせ';
 
-	/// ja: '視聴したいコンテンツを貯めておくリスト機能は、Netflix・YouTube・Spotifyで共通の仕組み。「あとで」を可能にするUIはコンテンツ消費行動の基本パターンとして定着している。'
-	String get listDesc => '視聴したいコンテンツを貯めておくリスト機能は、Netflix・YouTube・Spotifyで共通の仕組み。「あとで」を可能にするUIはコンテンツ消費行動の基本パターンとして定着している。';
+	/// ja: '「1.5x」「2x」という表記は、倍率を意味する国際的な数学記号。言語の壁を超えて「速さ」を表現する手段として機能している。'
+	String get speedDesc => '「1.5x」「2x」という表記は、倍率を意味する国際的な数学記号。言語の壁を超えて「速さ」を表現する手段として機能している。';
 }
 
 // Path: quiz4.insight
@@ -325,29 +328,29 @@ class TranslationsQuiz4InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ字幕設定の場所がわかった？'
-	String get title => 'なぜ字幕設定の場所がわかった？';
+	/// ja: '最高難易度を突破！'
+	String get title => '最高難易度を突破！';
 
-	/// ja: '設定は「⋮」か「⚙」の奥にある'
-	String get subtitle => '設定は「⋮」か「⚙」の奥にある';
+	/// ja: '記号の関連付けが鍵'
+	String get subtitle => '記号の関連付けが鍵';
 
-	/// ja: '⋮（その他）メニューが隠し機能の入り口'
-	String get menuTitle => '⋮（その他）メニューが隠し機能の入り口';
+	/// ja: '数字が大きい ＝ 高画質'
+	String get qualityTitle => '数字が大きい ＝ 高画質';
 
-	/// ja: '3つの点（⋮）や3本線（≡）のアイコンは「まだ表示していない機能がある」を示す記号として定着している。詳細設定・字幕・品質変更などの発展的機能はここに隠されることが多く、ユーザーは経験的に学習している。'
-	String get menuDesc => '3つの点（⋮）や3本線（≡）のアイコンは「まだ表示していない機能がある」を示す記号として定着している。詳細設定・字幕・品質変更などの発展的機能はここに隠されることが多く、ユーザーは経験的に学習している。';
+	/// ja: '1080pや2160p(4K)といった数字は、画面の縦の解像度を表す。ユーザーは「大きい数字ほど綺麗」というルールを経験的に知っており、文字が読めなくても選択できる。'
+	String get qualityDesc => '1080pや2160p(4K)といった数字は、画面の縦の解像度を表す。ユーザーは「大きい数字ほど綺麗」というルールを経験的に知っており、文字が読めなくても選択できる。';
 
-	/// ja: 'CC（Closed Captions）は国際標準の記号'
-	String get ccTitle => 'CC（Closed Captions）は国際標準の記号';
+	/// ja: '↓アイコンは「手に入れる」動作'
+	String get downloadTitle => '↓アイコンは「手に入れる」動作';
 
-	/// ja: '「CC」または字幕アイコン（□に線が入った形）は、テレビ放送時代から続く字幕の国際標準記号。言語に関係なく「字幕」を意味すると認識されている。'
-	String get ccDesc => '「CC」または字幕アイコン（□に線が入った形）は、テレビ放送時代から続く字幕の国際標準記号。言語に関係なく「字幕」を意味すると認識されている。';
+	/// ja: '下向きの矢印は、クラウドやサーバーから自分の端末へデータを落とす（ダウンロード）という物理的な動作を視覚化したもの。保存ボタンとしての共通認識が確立されている。'
+	String get downloadDesc => '下向きの矢印は、クラウドやサーバーから自分の端末へデータを落す（ダウンロード）という物理的な動作を視覚化したもの。保存ボタンとしての共通認識が確立されている。';
 
-	/// ja: '設定画面のトグルUIは直感的'
-	String get settingsTitle => '設定画面のトグルUIは直感的';
+	/// ja: 'ボタンの「並び順」の重要性'
+	String get locationTitle => 'ボタンの「並び順」の重要性';
 
-	/// ja: 'オン/オフを切り替えるトグルスイッチは、物理スイッチを模した直感的なUI。色（グレー→カラー）と位置（左→右）の2つの手がかりで状態を伝えるため、言語を読まなくても操作できる。'
-	String get settingsDesc => 'オン/オフを切り替えるトグルスイッチは、物理スイッチを模した直感的なUI。色（グレー→カラー）と位置（左→右）の2つの手がかりで状態を伝えるため、言語を読まなくても操作できる。';
+	/// ja: '動画タイトル直下のメニュー行は、左から「いいね」「共有」「保存（ダウンロード）」と並ぶことが多い。この慣れ親しんだ順序が、不鮮明な文字の解読を助けている。'
+	String get locationDesc => '動画タイトル直下のメニュー行は、左から「いいね」「共有」「保存（ダウンロード）」と並ぶことが多い。この慣れ親しんだ順序が、不鮮明な文字の解読を助けている。';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -358,42 +361,42 @@ class TranslationsQuiz4InsightJa {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => '動画を再生してください',
-			'quiz1.insight.title' => 'なぜ再生ボタンがわかった？',
-			'quiz1.insight.subtitle' => '▶ は世界共通の「再生」の記号',
-			'quiz1.insight.playTitle' => '▶ マークは60年以上前から変わらない',
-			'quiz1.insight.playDesc' => 'テープレコーダー時代（1960年代）から使われてきた▶（右向き三角）は、デジタル化されても「再生」を意味する記号として世界中で通用している。文字を読まなくてもわかる、最も普遍的なUIアイコンの一つだ。',
-			'quiz1.insight.thumbnailTitle' => 'サムネイルが内容を予告する',
-			'quiz1.insight.thumbnailDesc' => '動画の代表画面を事前表示するサムネイルは、文字説明がなくても動画の内容を伝える。視覚情報は言語を超えてコンテンツを伝達できる。',
-			'quiz1.insight.progressTitle' => 'プログレスバーが残り時間を見せる',
-			'quiz1.insight.progressDesc' => '動画下部の細いバーは「ここまで見た/ここから見ていない」を直感的に示す。シークバーのUIパターンは音楽・動画プレイヤーで世界標準となっており、言語不要で操作できる。',
-			'quiz2.missionText' => '動画をシェアしてください',
-			'quiz2.insight.title' => 'なぜシェアボタンが見つかった？',
-			'quiz2.insight.subtitle' => 'シェアアイコンは「つながり」を形にした記号',
-			'quiz2.insight.shareTitle' => 'シェアアイコンの形が意味を語る',
-			'quiz2.insight.shareDesc' => '3つの点を2本の線でつなぐシェアアイコン（Androidスタイル）や矢印が上を向くアイコン（iOSスタイル）は、「外へ送り出す」という動作を視覚化している。世界中のアプリで統一されたこの形は、言語に依存しない意味記号だ。',
-			'quiz2.insight.actionTitle' => 'アクションボタン群が機能を並べる',
-			'quiz2.insight.actionDesc' => 'いいね・シェア・保存・…（その他）が横並びになるボタン行は、YouTube・TikTok・Twitter など主要SNSで採用されている標準UIパターン。見慣れた配置は、ラベルを読まなくても機能を類推させる。',
-			'quiz2.insight.modalTitle' => 'シェアシートが選択肢を提示する',
-			'quiz2.insight.modalDesc' => 'タップで下から出てくるシェアシートはiOS/Androidの標準コンポーネント。並んだアプリアイコンから「どこへシェアするか」を選ぶ体験は、OS横断で統一されており、言語を超えて操作できる。',
-			'quiz3.missionText' => '動画をお気に入りに追加してください',
-			'quiz3.insight.title' => 'なぜ保存ボタンがわかった？',
-			'quiz3.insight.subtitle' => 'フラグ記号は「あとで見る」の万国共通語',
-			'quiz3.insight.saveTitle' => 'フラグ・ブックマーク系アイコンは「保存」の記号',
-			'quiz3.insight.saveDesc' => '旗・リボン・＋アイコンなど「お気に入り登録」や「あとで見る」に使われるアイコン群は、形が違っても「これを保持する」という意味で一貫している。繰り返し使われた結果、形そのものが意味を持つようになった。',
-			'quiz3.insight.feedbackTitle' => '色変化がアクション完了を伝える',
-			'quiz3.insight.feedbackDesc' => 'グレーから赤・黄・青などに変わるアイコンの色変化は、「未登録→登録済み」の状態遷移をビジュアルで伝える。状態の変化を色で示すUIパターンはSNS全般で共通しており、ラベルを読まなくても結果がわかる。',
-			'quiz3.insight.listTitle' => '「あとで見るリスト」UIが動機を生む',
-			'quiz3.insight.listDesc' => '視聴したいコンテンツを貯めておくリスト機能は、Netflix・YouTube・Spotifyで共通の仕組み。「あとで」を可能にするUIはコンテンツ消費行動の基本パターンとして定着している。',
-			'quiz4.missionText' => '動画の字幕をオンにしてください',
-			'quiz4.insight.title' => 'なぜ字幕設定の場所がわかった？',
-			'quiz4.insight.subtitle' => '設定は「⋮」か「⚙」の奥にある',
-			'quiz4.insight.menuTitle' => '⋮（その他）メニューが隠し機能の入り口',
-			'quiz4.insight.menuDesc' => '3つの点（⋮）や3本線（≡）のアイコンは「まだ表示していない機能がある」を示す記号として定着している。詳細設定・字幕・品質変更などの発展的機能はここに隠されることが多く、ユーザーは経験的に学習している。',
-			'quiz4.insight.ccTitle' => 'CC（Closed Captions）は国際標準の記号',
-			'quiz4.insight.ccDesc' => '「CC」または字幕アイコン（□に線が入った形）は、テレビ放送時代から続く字幕の国際標準記号。言語に関係なく「字幕」を意味すると認識されている。',
-			'quiz4.insight.settingsTitle' => '設定画面のトグルUIは直感的',
-			'quiz4.insight.settingsDesc' => 'オン/オフを切り替えるトグルスイッチは、物理スイッチを模した直感的なUI。色（グレー→カラー）と位置（左→右）の2つの手がかりで状態を伝えるため、言語を読まなくても操作できる。',
+			'quiz1.missionText' => '動画の字幕をオンにしてください',
+			'quiz1.insight.title' => 'なぜ字幕設定の場所がわかった？',
+			'quiz1.insight.subtitle' => 'CCは国際標準の記号',
+			'quiz1.insight.ccTitle' => 'CC（Closed Captions）は世界共通',
+			'quiz1.insight.ccDesc' => '「CC」または字幕アイコン（□に線が入った形）は、テレビ放送時代から続く字幕の国際標準記号。言語に関係なく「字幕」を意味すると認識されている。',
+			'quiz1.insight.visibilityTitle' => 'コントロールは「隠れている」',
+			'quiz1.insight.visibilityDesc' => '動画プレイヤーの多くは、視聴を邪魔しないよう操作ボタンを自動で隠す。しかし、「一度タップすれば出てくる」という隠蔽UIの作法が、現代のユーザーには共通認識として根付いている。',
+			'quiz1.insight.feedbackTitle' => '下線や色変化が「ON」を伝える',
+			'quiz1.insight.feedbackDesc' => 'アイコンの下に赤い線がついたり、色が明るくなったりする変化は、その機能が有効であることを示す。ラベルを読まなくても状態を瞬時に把握できる。',
+			'quiz2.missionText' => '次の動画へ移動し、動画の中盤まで進めてください',
+			'quiz2.insight.title' => 'なぜ迷わず操作できた？',
+			'quiz2.insight.subtitle' => 'プレイヤーUIは「配置」が命',
+			'quiz2.insight.skipTitle' => '右向き矢印＋棒 ＝ 次へ',
+			'quiz2.insight.skipDesc' => '「▶︎▶︎|」という記号は、カセットプレイヤーの時代から「次のトラックへスキップ」を意味する。中央の再生ボタンの右隣という配置も世界標準だ。',
+			'quiz2.insight.seekTitle' => '赤い線は「時間の流れ」のメタファー',
+			'quiz2.insight.seekDesc' => '動画下部のプログレスバーは、左から右へ流れる時間を表す。赤い色は「現在地」を強調し、ツマミを動かすことで過去や未来へ自由にジャンプできることを直感的に伝えている。',
+			'quiz2.insight.targetTitle' => '中盤（中央）は視覚的に狙いやすい',
+			'quiz2.insight.targetDesc' => 'バーの中央付近を狙う操作は、物理的な長さの半分を感覚的に捉えることで、文字情報なしでも40〜60%という範囲に正確に辿り着ける。',
+			'quiz3.missionText' => '動画を「2倍速」で再生してください',
+			'quiz3.insight.title' => '隠し操作に気づけた？',
+			'quiz3.insight.subtitle' => '長押しは「加速」のショートカット',
+			'quiz3.insight.gestureTitle' => '動画エリアの長押しジェスチャー',
+			'quiz3.insight.gestureDesc' => '多くの動画アプリでは、画面を長押しすると「倍速再生」が発動する。これはメニューを開く手間を省くための隠しショートカットだが、一度知ると手放せない「アハ体験」の一つだ。',
+			'quiz3.insight.gearTitle' => '⚙アイコンは設定の入り口',
+			'quiz3.insight.gearDesc' => '歯車のアイコンは、OSやアプリを問わず「設定」や「カスタマイズ」を意味する。文字が読めなくても、詳細な変更はここで行えるという信頼感がある。',
+			'quiz3.insight.speedTitle' => '数字と「x」の組み合わせ',
+			'quiz3.insight.speedDesc' => '「1.5x」「2x」という表記は、倍率を意味する国際的な数学記号。言語の壁を超えて「速さ」を表現する手段として機能している。',
+			'quiz4.missionText' => '動画を最高画質に変更し、端末にダウンロードしてください',
+			'quiz4.insight.title' => '最高難易度を突破！',
+			'quiz4.insight.subtitle' => '記号の関連付けが鍵',
+			'quiz4.insight.qualityTitle' => '数字が大きい ＝ 高画質',
+			'quiz4.insight.qualityDesc' => '1080pや2160p(4K)といった数字は、画面の縦の解像度を表す。ユーザーは「大きい数字ほど綺麗」というルールを経験的に知っており、文字が読めなくても選択できる。',
+			'quiz4.insight.downloadTitle' => '↓アイコンは「手に入れる」動作',
+			'quiz4.insight.downloadDesc' => '下向きの矢印は、クラウドやサーバーから自分の端末へデータを落す（ダウンロード）という物理的な動作を視覚化したもの。保存ボタンとしての共通認識が確立されている。',
+			'quiz4.insight.locationTitle' => 'ボタンの「並び順」の重要性',
+			'quiz4.insight.locationDesc' => '動画タイトル直下のメニュー行は、左から「いいね」「共有」「保存（ダウンロード）」と並ぶことが多い。この慣れ親しんだ順序が、不鮮明な文字の解読を助けている。',
 			'common.appTitle' => 'StreamHub',
 			'common.homeTab' => 'Home',
 			'common.exploreTab' => 'Explore',
@@ -404,6 +407,7 @@ extension on Translations {
 			'common.dislikeButton' => 'Dislike',
 			'common.shareButton' => 'Share',
 			'common.saveButton' => 'Save',
+			'common.downloadButton' => 'Download',
 			'common.moreButton' => 'More',
 			'common.subscribeButton' => 'Subscribe',
 			'common.views' => '回再生',

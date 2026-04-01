@@ -54,7 +54,7 @@ class _TranslationsQuiz1Xx extends TranslationsQuiz1Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Play a video';
+	@override String get missionText => 'Please turn on subtitles for the video';
 	@override late final _TranslationsQuiz1InsightXx insight = _TranslationsQuiz1InsightXx._(_root);
 }
 
@@ -65,7 +65,7 @@ class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Share a video';
+	@override String get missionText => 'Go to the next video and seek to the middle';
 	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
 
@@ -76,7 +76,7 @@ class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Save this video to favorites';
+	@override String get missionText => 'Play at 2x speed';
 	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
 
@@ -87,7 +87,7 @@ class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Turn on subtitles';
+	@override String get missionText => 'Highest quality and download';
 	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
 }
 
@@ -108,6 +108,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get dislikeButton => 'Dislike';
 	@override String get shareButton => 'Share';
 	@override String get saveButton => 'Save';
+	@override String get downloadButton => 'Download';
 	@override String get moreButton => 'More';
 	@override String get subscribeButton => 'Subscribe';
 	@override String get views => 'views';
@@ -148,14 +149,14 @@ class _TranslationsQuiz1InsightXx extends TranslationsQuiz1InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you know the play button?';
-	@override String get subtitle => 'The triangle is the universal play symbol';
-	@override String get playTitle => 'The play triangle has not changed for 60 years';
-	@override String get playDesc => 'The right-pointing triangle remains universally understood as play.';
-	@override String get thumbnailTitle => 'Thumbnails preview content';
-	@override String get thumbnailDesc => 'Visual previews communicate content without text.';
-	@override String get progressTitle => 'Progress bar shows position';
-	@override String get progressDesc => 'The seek bar pattern is standard in media players worldwide.';
+	@override String get title => 'Subtitle Setting';
+	@override String get subtitle => 'CC icon';
+	@override String get ccTitle => 'CC Standard';
+	@override String get ccDesc => 'CC icon is universal.';
+	@override String get visibilityTitle => 'Hidden controls';
+	@override String get visibilityDesc => 'Tap to show controls.';
+	@override String get feedbackTitle => 'Visual feedback';
+	@override String get feedbackDesc => 'Color changes indicate state.';
 }
 
 // Path: quiz2.insight
@@ -165,14 +166,14 @@ class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the share button?';
-	@override String get subtitle => 'Share icons visualize connection';
-	@override String get shareTitle => 'Share icon shape tells its meaning';
-	@override String get shareDesc => 'Connected dots or upward arrows visualize sending outward.';
-	@override String get actionTitle => 'Action buttons are arranged in a row';
-	@override String get actionDesc => 'Like, share, save arranged horizontally is a standard pattern.';
-	@override String get modalTitle => 'Share sheet presents options';
-	@override String get modalDesc => 'The bottom sheet for sharing is an OS standard component.';
+	@override String get title => 'Player UI';
+	@override String get subtitle => 'Layout';
+	@override String get skipTitle => 'Skip icon';
+	@override String get skipDesc => 'Next track symbol.';
+	@override String get seekTitle => 'Seek bar';
+	@override String get seekDesc => 'Time flow metaphor.';
+	@override String get targetTitle => 'Targeting';
+	@override String get targetDesc => 'Middle is easy to find.';
 }
 
 // Path: quiz3.insight
@@ -182,14 +183,14 @@ class _TranslationsQuiz3InsightXx extends TranslationsQuiz3InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the save button?';
-	@override String get subtitle => 'Flag symbols mean save universally';
-	@override String get saveTitle => 'Bookmark icons mean save';
-	@override String get saveDesc => 'Flags and ribbons consistently mean hold this item.';
-	@override String get feedbackTitle => 'Color change shows completion';
-	@override String get feedbackDesc => 'Icons changing color show the registration state transition.';
-	@override String get listTitle => 'Watch later list stores content';
-	@override String get listDesc => 'Watch later lists are common across streaming platforms.';
+	@override String get title => 'Hidden Gestures';
+	@override String get subtitle => 'Long press';
+	@override String get gestureTitle => 'Fast-forward';
+	@override String get gestureDesc => 'Long press for 2x speed.';
+	@override String get gearTitle => 'Settings icon';
+	@override String get gearDesc => 'Gear means settings.';
+	@override String get speedTitle => 'Speed notation';
+	@override String get speedDesc => '2x notation is universal.';
 }
 
 // Path: quiz4.insight
@@ -199,14 +200,14 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the subtitle setting?';
-	@override String get subtitle => 'Settings hide behind the three dots menu';
-	@override String get menuTitle => 'Three dots is the gateway to more features';
-	@override String get menuDesc => 'Three dots indicate more features exist including subtitles.';
-	@override String get ccTitle => 'CC is an international subtitle symbol';
-	@override String get ccDesc => 'CC box is an international standard symbol for subtitles.';
-	@override String get settingsTitle => 'Toggle switches are intuitive';
-	@override String get settingsDesc => 'Toggle switches communicate state through color and position.';
+	@override String get title => 'Visual Association';
+	@override String get subtitle => 'Symbols';
+	@override String get qualityTitle => 'Numbers';
+	@override String get qualityDesc => 'High number means quality.';
+	@override String get downloadTitle => 'Download icon';
+	@override String get downloadDesc => 'Arrow means download.';
+	@override String get locationTitle => 'Order';
+	@override String get locationDesc => 'Button order matters.';
 }
 
 /// The flat map containing all translations for locale <xx>.
@@ -217,42 +218,42 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 extension on TranslationsXx {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'Play a video',
-			'quiz1.insight.title' => 'How did you know the play button?',
-			'quiz1.insight.subtitle' => 'The triangle is the universal play symbol',
-			'quiz1.insight.playTitle' => 'The play triangle has not changed for 60 years',
-			'quiz1.insight.playDesc' => 'The right-pointing triangle remains universally understood as play.',
-			'quiz1.insight.thumbnailTitle' => 'Thumbnails preview content',
-			'quiz1.insight.thumbnailDesc' => 'Visual previews communicate content without text.',
-			'quiz1.insight.progressTitle' => 'Progress bar shows position',
-			'quiz1.insight.progressDesc' => 'The seek bar pattern is standard in media players worldwide.',
-			'quiz2.missionText' => 'Share a video',
-			'quiz2.insight.title' => 'How did you find the share button?',
-			'quiz2.insight.subtitle' => 'Share icons visualize connection',
-			'quiz2.insight.shareTitle' => 'Share icon shape tells its meaning',
-			'quiz2.insight.shareDesc' => 'Connected dots or upward arrows visualize sending outward.',
-			'quiz2.insight.actionTitle' => 'Action buttons are arranged in a row',
-			'quiz2.insight.actionDesc' => 'Like, share, save arranged horizontally is a standard pattern.',
-			'quiz2.insight.modalTitle' => 'Share sheet presents options',
-			'quiz2.insight.modalDesc' => 'The bottom sheet for sharing is an OS standard component.',
-			'quiz3.missionText' => 'Save this video to favorites',
-			'quiz3.insight.title' => 'How did you find the save button?',
-			'quiz3.insight.subtitle' => 'Flag symbols mean save universally',
-			'quiz3.insight.saveTitle' => 'Bookmark icons mean save',
-			'quiz3.insight.saveDesc' => 'Flags and ribbons consistently mean hold this item.',
-			'quiz3.insight.feedbackTitle' => 'Color change shows completion',
-			'quiz3.insight.feedbackDesc' => 'Icons changing color show the registration state transition.',
-			'quiz3.insight.listTitle' => 'Watch later list stores content',
-			'quiz3.insight.listDesc' => 'Watch later lists are common across streaming platforms.',
-			'quiz4.missionText' => 'Turn on subtitles',
-			'quiz4.insight.title' => 'How did you find the subtitle setting?',
-			'quiz4.insight.subtitle' => 'Settings hide behind the three dots menu',
-			'quiz4.insight.menuTitle' => 'Three dots is the gateway to more features',
-			'quiz4.insight.menuDesc' => 'Three dots indicate more features exist including subtitles.',
-			'quiz4.insight.ccTitle' => 'CC is an international subtitle symbol',
-			'quiz4.insight.ccDesc' => 'CC box is an international standard symbol for subtitles.',
-			'quiz4.insight.settingsTitle' => 'Toggle switches are intuitive',
-			'quiz4.insight.settingsDesc' => 'Toggle switches communicate state through color and position.',
+			'quiz1.missionText' => 'Please turn on subtitles for the video',
+			'quiz1.insight.title' => 'Subtitle Setting',
+			'quiz1.insight.subtitle' => 'CC icon',
+			'quiz1.insight.ccTitle' => 'CC Standard',
+			'quiz1.insight.ccDesc' => 'CC icon is universal.',
+			'quiz1.insight.visibilityTitle' => 'Hidden controls',
+			'quiz1.insight.visibilityDesc' => 'Tap to show controls.',
+			'quiz1.insight.feedbackTitle' => 'Visual feedback',
+			'quiz1.insight.feedbackDesc' => 'Color changes indicate state.',
+			'quiz2.missionText' => 'Go to the next video and seek to the middle',
+			'quiz2.insight.title' => 'Player UI',
+			'quiz2.insight.subtitle' => 'Layout',
+			'quiz2.insight.skipTitle' => 'Skip icon',
+			'quiz2.insight.skipDesc' => 'Next track symbol.',
+			'quiz2.insight.seekTitle' => 'Seek bar',
+			'quiz2.insight.seekDesc' => 'Time flow metaphor.',
+			'quiz2.insight.targetTitle' => 'Targeting',
+			'quiz2.insight.targetDesc' => 'Middle is easy to find.',
+			'quiz3.missionText' => 'Play at 2x speed',
+			'quiz3.insight.title' => 'Hidden Gestures',
+			'quiz3.insight.subtitle' => 'Long press',
+			'quiz3.insight.gestureTitle' => 'Fast-forward',
+			'quiz3.insight.gestureDesc' => 'Long press for 2x speed.',
+			'quiz3.insight.gearTitle' => 'Settings icon',
+			'quiz3.insight.gearDesc' => 'Gear means settings.',
+			'quiz3.insight.speedTitle' => 'Speed notation',
+			'quiz3.insight.speedDesc' => '2x notation is universal.',
+			'quiz4.missionText' => 'Highest quality and download',
+			'quiz4.insight.title' => 'Visual Association',
+			'quiz4.insight.subtitle' => 'Symbols',
+			'quiz4.insight.qualityTitle' => 'Numbers',
+			'quiz4.insight.qualityDesc' => 'High number means quality.',
+			'quiz4.insight.downloadTitle' => 'Download icon',
+			'quiz4.insight.downloadDesc' => 'Arrow means download.',
+			'quiz4.insight.locationTitle' => 'Order',
+			'quiz4.insight.locationDesc' => 'Button order matters.',
 			'common.appTitle' => 'StreamHub',
 			'common.homeTab' => 'Home',
 			'common.exploreTab' => 'Explore',
@@ -263,6 +264,7 @@ extension on TranslationsXx {
 			'common.dislikeButton' => 'Dislike',
 			'common.shareButton' => 'Share',
 			'common.saveButton' => 'Save',
+			'common.downloadButton' => 'Download',
 			'common.moreButton' => 'More',
 			'common.subscribeButton' => 'Subscribe',
 			'common.views' => 'views',

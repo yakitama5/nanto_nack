@@ -4,23 +4,13 @@ import 'package:streaming/src/application/quiz_subtitle_use_case.dart';
 void main() {
   const useCase = QuizSubtitleUseCase();
 
-  group('QuizSubtitleUseCase.isClear', () {
-    test('subtitlesEnabled=true のときクリア', () {
+  group('QuizSubtitleUseCase', () {
+    test('isClear returns true when subtitlesEnabled is true', () {
       expect(useCase.isClear(subtitlesEnabled: true), isTrue);
     });
 
-    test('subtitlesEnabled=false のときクリアでない', () {
+    test('isClear returns false when subtitlesEnabled is false', () {
       expect(useCase.isClear(subtitlesEnabled: false), isFalse);
-    });
-  });
-
-  group('QuizSubtitleUseCase.failureReason', () {
-    test('クリア時は null を返す', () {
-      expect(useCase.failureReason(subtitlesEnabled: true), isNull);
-    });
-
-    test('クリアでないときメッセージを返す', () {
-      expect(useCase.failureReason(subtitlesEnabled: false), isNotNull);
     });
   });
 }

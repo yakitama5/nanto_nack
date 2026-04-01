@@ -79,25 +79,25 @@ final appRouter = GoRouter(
     // 動画カテゴリー
     GoRoute(
       path: '/streaming/quiz1',
-      builder: (context, state) => PlayVideoQuizScreen(
+      builder: (context, state) => SubtitleQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/streaming/quiz2',
-      builder: (context, state) => ShareVideoQuizScreen(
+      builder: (context, state) => SkipSeekQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/streaming/quiz3',
-      builder: (context, state) => SaveVideoQuizScreen(
+      builder: (context, state) => PlaybackSpeedQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/streaming/quiz4',
-      builder: (context, state) => SubtitleQuizScreen(
+      builder: (context, state) => OfflineSaveQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),

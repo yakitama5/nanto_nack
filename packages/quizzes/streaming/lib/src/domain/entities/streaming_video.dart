@@ -10,7 +10,10 @@ class StreamingVideo {
     this.likeCount = 0,
     this.isLiked = false,
     this.isSaved = false,
+    this.isDownloaded = false,
     this.subtitlesEnabled = false,
+    this.playbackSpeed = 1.0,
+    this.quality = '1080p',
     this.colorSeed = 0,
   });
 
@@ -32,7 +35,10 @@ class StreamingVideo {
   final int likeCount;
   final bool isLiked;
   final bool isSaved;
+  final bool isDownloaded;
   final bool subtitlesEnabled;
+  final double playbackSpeed;
+  final String quality;
 
   /// サムネイル色のシード（アセット画像なし → 色で代用）
   final int colorSeed;
@@ -47,7 +53,10 @@ class StreamingVideo {
     int? likeCount,
     bool? isLiked,
     bool? isSaved,
+    bool? isDownloaded,
     bool? subtitlesEnabled,
+    double? playbackSpeed,
+    String? quality,
     int? colorSeed,
   }) {
     return StreamingVideo(
@@ -60,7 +69,10 @@ class StreamingVideo {
       likeCount: likeCount ?? this.likeCount,
       isLiked: isLiked ?? this.isLiked,
       isSaved: isSaved ?? this.isSaved,
+      isDownloaded: isDownloaded ?? this.isDownloaded,
       subtitlesEnabled: subtitlesEnabled ?? this.subtitlesEnabled,
+      playbackSpeed: playbackSpeed ?? this.playbackSpeed,
+      quality: quality ?? this.quality,
       colorSeed: colorSeed ?? this.colorSeed,
     );
   }

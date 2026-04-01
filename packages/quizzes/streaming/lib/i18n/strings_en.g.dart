@@ -54,7 +54,7 @@ class _TranslationsQuiz1En extends TranslationsQuiz1Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please play a video';
+	@override String get missionText => 'Please turn on subtitles for the video';
 	@override late final _TranslationsQuiz1InsightEn insight = _TranslationsQuiz1InsightEn._(_root);
 }
 
@@ -65,7 +65,7 @@ class _TranslationsQuiz2En extends TranslationsQuiz2Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please share a video';
+	@override String get missionText => 'Go to the next video and seek to the middle';
 	@override late final _TranslationsQuiz2InsightEn insight = _TranslationsQuiz2InsightEn._(_root);
 }
 
@@ -76,7 +76,7 @@ class _TranslationsQuiz3En extends TranslationsQuiz3Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please save the video to favorites';
+	@override String get missionText => 'Play the video at \'2x speed\'';
 	@override late final _TranslationsQuiz3InsightEn insight = _TranslationsQuiz3InsightEn._(_root);
 }
 
@@ -87,7 +87,7 @@ class _TranslationsQuiz4En extends TranslationsQuiz4Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please turn on subtitles for the video';
+	@override String get missionText => 'Change to highest quality and download to device';
 	@override late final _TranslationsQuiz4InsightEn insight = _TranslationsQuiz4InsightEn._(_root);
 }
 
@@ -108,6 +108,7 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get dislikeButton => 'Dislike';
 	@override String get shareButton => 'Share';
 	@override String get saveButton => 'Save';
+	@override String get downloadButton => 'Download';
 	@override String get moreButton => 'More';
 	@override String get subscribeButton => 'Subscribe';
 	@override String get views => 'views';
@@ -148,14 +149,14 @@ class _TranslationsQuiz1InsightEn extends TranslationsQuiz1InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you know the play button?';
-	@override String get subtitle => '▶ is the universal play symbol';
-	@override String get playTitle => 'The ▶ mark has not changed for 60+ years';
-	@override String get playDesc => 'Used since the tape recorder era (1960s), ▶ (right-pointing triangle) remains universally understood as play even in the digital age.';
-	@override String get thumbnailTitle => 'Thumbnails preview content';
-	@override String get thumbnailDesc => 'Thumbnails showing video previews communicate content without text descriptions.';
-	@override String get progressTitle => 'Progress bar shows remaining time';
-	@override String get progressDesc => 'The thin bar at the bottom shows how much has been watched. This seek bar pattern is standard in media players worldwide.';
+	@override String get title => 'How did you find the subtitle setting?';
+	@override String get subtitle => 'CC is an international standard symbol';
+	@override String get ccTitle => 'CC (Closed Captions) is universal';
+	@override String get ccDesc => 'The \'CC\' or subtitle icon (box with lines) is an international standard for subtitles since the TV broadcast era. It\'s recognized regardless of language.';
+	@override String get visibilityTitle => 'Controls are \'hidden\'';
+	@override String get visibilityDesc => 'Most video players hide controls to avoid blocking the view. However, the \'tap to show\' convention is deeply rooted in modern users.';
+	@override String get feedbackTitle => 'Underlines or color changes indicate \'ON\'';
+	@override String get feedbackDesc => 'Changes like a red underline or brighter color indicate a feature is active, helping users understand state without reading labels.';
 }
 
 // Path: quiz2.insight
@@ -165,14 +166,14 @@ class _TranslationsQuiz2InsightEn extends TranslationsQuiz2InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the share button?';
-	@override String get subtitle => 'Share icons visualize connection';
-	@override String get shareTitle => 'Share icon shape tells its meaning';
-	@override String get shareDesc => 'Three dots connected by lines (Android) or upward arrow (iOS) visualize sending outward. Unified across global apps.';
-	@override String get actionTitle => 'Action button row arranges functions';
-	@override String get actionDesc => 'Like, share, save, more arranged horizontally is standard on YouTube, TikTok, Twitter.';
-	@override String get modalTitle => 'Share sheet presents options';
-	@override String get modalDesc => 'The bottom sheet showing app icons for sharing is an OS standard component, consistent across iOS and Android.';
+	@override String get title => 'How did you operate without hesitation?';
+	@override String get subtitle => 'Player UI layout is key';
+	@override String get skipTitle => 'Right arrow + bar = Next';
+	@override String get skipDesc => 'The \'▶︎▶︎|\' symbol has meant \'skip to next track\' since the cassette era. Placing it next to the play button is a global standard.';
+	@override String get seekTitle => 'Red line is a metaphor for flow of time';
+	@override String get seekDesc => 'The progress bar represents time flowing from left to right. Red highlights the \'current position\', intuitively showing how to jump to past or future.';
+	@override String get targetTitle => 'Middle is easy to target visually';
+	@override String get targetDesc => 'Targeting the middle of the bar by sensing half of its physical length allows users to accurately reach 40-60% without text info.';
 }
 
 // Path: quiz3.insight
@@ -182,14 +183,14 @@ class _TranslationsQuiz3InsightEn extends TranslationsQuiz3InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the save button?';
-	@override String get subtitle => 'Flag symbols are the universal language for save';
-	@override String get saveTitle => 'Flag/bookmark icons mean save';
-	@override String get saveDesc => 'Flags, ribbons, + icons used for favorites and watch later consistently mean hold this item.';
-	@override String get feedbackTitle => 'Color change communicates completion';
-	@override String get feedbackDesc => 'Icons changing from gray to red/yellow/blue show the registered state transition visually.';
-	@override String get listTitle => 'Watch later list creates motivation';
-	@override String get listDesc => 'List functionality to store content is common across Netflix, YouTube, Spotify.';
+	@override String get title => 'Did you notice the hidden operation?';
+	@override String get subtitle => 'Long press is a shortcut for acceleration';
+	@override String get gestureTitle => 'Long press gesture on video area';
+	@override String get gestureDesc => 'In many video apps, long pressing the screen triggers \'2x speed\' playback. This \'Aha!\' moment shortcut saves time opening menus.';
+	@override String get gearTitle => '⚙ icon is the gateway to settings';
+	@override String get gearDesc => 'The gear icon means \'settings\' or \'customization\' across all OS/apps. It builds trust that detailed changes happen here without reading text.';
+	@override String get speedTitle => 'Numbers combined with \'x\'';
+	@override String get speedDesc => '\'1.5x\' or \'2x\' are international mathematical symbols for magnification, serving as a language-free way to express speed.';
 }
 
 // Path: quiz4.insight
@@ -199,14 +200,14 @@ class _TranslationsQuiz4InsightEn extends TranslationsQuiz4InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the subtitle setting?';
-	@override String get subtitle => 'Settings are hidden behind ⋮ or ⚙';
-	@override String get menuTitle => '⋮ menu is the gateway to hidden features';
-	@override String get menuDesc => 'Three dots ⋮ or hamburger ≡ indicate more features exist. Advanced settings like subtitles are often hidden here.';
-	@override String get ccTitle => 'CC is an international standard symbol';
-	@override String get ccDesc => 'CC or subtitle icon (box with lines) is an international standard symbol for subtitles from broadcast TV era.';
-	@override String get settingsTitle => 'Toggle switch UI is intuitive';
-	@override String get settingsDesc => 'Toggle switches modeled on physical switches communicate state through color and position without language.';
+	@override String get title => 'Highest difficulty cleared!';
+	@override String get subtitle => 'Symbol association is key';
+	@override String get qualityTitle => 'Larger numbers = Higher quality';
+	@override String get qualityDesc => 'Numbers like 1080p or 2160p represent vertical resolution. Users know larger numbers mean better quality from experience, even without reading.';
+	@override String get downloadTitle => '↓ icon means \'getting\' action';
+	@override String get downloadDesc => 'The downward arrow visualizes the physical action of dropping data from the cloud to your device (downloading), establishing its role as a save button.';
+	@override String get locationTitle => 'Importance of button \'order\'';
+	@override String get locationDesc => 'The menu row under the title often lists Like, Share, and Save (Download) from left to right. This familiar order helps decode unreadable text.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -217,42 +218,42 @@ class _TranslationsQuiz4InsightEn extends TranslationsQuiz4InsightJa {
 extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'Please play a video',
-			'quiz1.insight.title' => 'How did you know the play button?',
-			'quiz1.insight.subtitle' => '▶ is the universal play symbol',
-			'quiz1.insight.playTitle' => 'The ▶ mark has not changed for 60+ years',
-			'quiz1.insight.playDesc' => 'Used since the tape recorder era (1960s), ▶ (right-pointing triangle) remains universally understood as play even in the digital age.',
-			'quiz1.insight.thumbnailTitle' => 'Thumbnails preview content',
-			'quiz1.insight.thumbnailDesc' => 'Thumbnails showing video previews communicate content without text descriptions.',
-			'quiz1.insight.progressTitle' => 'Progress bar shows remaining time',
-			'quiz1.insight.progressDesc' => 'The thin bar at the bottom shows how much has been watched. This seek bar pattern is standard in media players worldwide.',
-			'quiz2.missionText' => 'Please share a video',
-			'quiz2.insight.title' => 'How did you find the share button?',
-			'quiz2.insight.subtitle' => 'Share icons visualize connection',
-			'quiz2.insight.shareTitle' => 'Share icon shape tells its meaning',
-			'quiz2.insight.shareDesc' => 'Three dots connected by lines (Android) or upward arrow (iOS) visualize sending outward. Unified across global apps.',
-			'quiz2.insight.actionTitle' => 'Action button row arranges functions',
-			'quiz2.insight.actionDesc' => 'Like, share, save, more arranged horizontally is standard on YouTube, TikTok, Twitter.',
-			'quiz2.insight.modalTitle' => 'Share sheet presents options',
-			'quiz2.insight.modalDesc' => 'The bottom sheet showing app icons for sharing is an OS standard component, consistent across iOS and Android.',
-			'quiz3.missionText' => 'Please save the video to favorites',
-			'quiz3.insight.title' => 'How did you find the save button?',
-			'quiz3.insight.subtitle' => 'Flag symbols are the universal language for save',
-			'quiz3.insight.saveTitle' => 'Flag/bookmark icons mean save',
-			'quiz3.insight.saveDesc' => 'Flags, ribbons, + icons used for favorites and watch later consistently mean hold this item.',
-			'quiz3.insight.feedbackTitle' => 'Color change communicates completion',
-			'quiz3.insight.feedbackDesc' => 'Icons changing from gray to red/yellow/blue show the registered state transition visually.',
-			'quiz3.insight.listTitle' => 'Watch later list creates motivation',
-			'quiz3.insight.listDesc' => 'List functionality to store content is common across Netflix, YouTube, Spotify.',
-			'quiz4.missionText' => 'Please turn on subtitles for the video',
-			'quiz4.insight.title' => 'How did you find the subtitle setting?',
-			'quiz4.insight.subtitle' => 'Settings are hidden behind ⋮ or ⚙',
-			'quiz4.insight.menuTitle' => '⋮ menu is the gateway to hidden features',
-			'quiz4.insight.menuDesc' => 'Three dots ⋮ or hamburger ≡ indicate more features exist. Advanced settings like subtitles are often hidden here.',
-			'quiz4.insight.ccTitle' => 'CC is an international standard symbol',
-			'quiz4.insight.ccDesc' => 'CC or subtitle icon (box with lines) is an international standard symbol for subtitles from broadcast TV era.',
-			'quiz4.insight.settingsTitle' => 'Toggle switch UI is intuitive',
-			'quiz4.insight.settingsDesc' => 'Toggle switches modeled on physical switches communicate state through color and position without language.',
+			'quiz1.missionText' => 'Please turn on subtitles for the video',
+			'quiz1.insight.title' => 'How did you find the subtitle setting?',
+			'quiz1.insight.subtitle' => 'CC is an international standard symbol',
+			'quiz1.insight.ccTitle' => 'CC (Closed Captions) is universal',
+			'quiz1.insight.ccDesc' => 'The \'CC\' or subtitle icon (box with lines) is an international standard for subtitles since the TV broadcast era. It\'s recognized regardless of language.',
+			'quiz1.insight.visibilityTitle' => 'Controls are \'hidden\'',
+			'quiz1.insight.visibilityDesc' => 'Most video players hide controls to avoid blocking the view. However, the \'tap to show\' convention is deeply rooted in modern users.',
+			'quiz1.insight.feedbackTitle' => 'Underlines or color changes indicate \'ON\'',
+			'quiz1.insight.feedbackDesc' => 'Changes like a red underline or brighter color indicate a feature is active, helping users understand state without reading labels.',
+			'quiz2.missionText' => 'Go to the next video and seek to the middle',
+			'quiz2.insight.title' => 'How did you operate without hesitation?',
+			'quiz2.insight.subtitle' => 'Player UI layout is key',
+			'quiz2.insight.skipTitle' => 'Right arrow + bar = Next',
+			'quiz2.insight.skipDesc' => 'The \'▶︎▶︎|\' symbol has meant \'skip to next track\' since the cassette era. Placing it next to the play button is a global standard.',
+			'quiz2.insight.seekTitle' => 'Red line is a metaphor for flow of time',
+			'quiz2.insight.seekDesc' => 'The progress bar represents time flowing from left to right. Red highlights the \'current position\', intuitively showing how to jump to past or future.',
+			'quiz2.insight.targetTitle' => 'Middle is easy to target visually',
+			'quiz2.insight.targetDesc' => 'Targeting the middle of the bar by sensing half of its physical length allows users to accurately reach 40-60% without text info.',
+			'quiz3.missionText' => 'Play the video at \'2x speed\'',
+			'quiz3.insight.title' => 'Did you notice the hidden operation?',
+			'quiz3.insight.subtitle' => 'Long press is a shortcut for acceleration',
+			'quiz3.insight.gestureTitle' => 'Long press gesture on video area',
+			'quiz3.insight.gestureDesc' => 'In many video apps, long pressing the screen triggers \'2x speed\' playback. This \'Aha!\' moment shortcut saves time opening menus.',
+			'quiz3.insight.gearTitle' => '⚙ icon is the gateway to settings',
+			'quiz3.insight.gearDesc' => 'The gear icon means \'settings\' or \'customization\' across all OS/apps. It builds trust that detailed changes happen here without reading text.',
+			'quiz3.insight.speedTitle' => 'Numbers combined with \'x\'',
+			'quiz3.insight.speedDesc' => '\'1.5x\' or \'2x\' are international mathematical symbols for magnification, serving as a language-free way to express speed.',
+			'quiz4.missionText' => 'Change to highest quality and download to device',
+			'quiz4.insight.title' => 'Highest difficulty cleared!',
+			'quiz4.insight.subtitle' => 'Symbol association is key',
+			'quiz4.insight.qualityTitle' => 'Larger numbers = Higher quality',
+			'quiz4.insight.qualityDesc' => 'Numbers like 1080p or 2160p represent vertical resolution. Users know larger numbers mean better quality from experience, even without reading.',
+			'quiz4.insight.downloadTitle' => '↓ icon means \'getting\' action',
+			'quiz4.insight.downloadDesc' => 'The downward arrow visualizes the physical action of dropping data from the cloud to your device (downloading), establishing its role as a save button.',
+			'quiz4.insight.locationTitle' => 'Importance of button \'order\'',
+			'quiz4.insight.locationDesc' => 'The menu row under the title often lists Like, Share, and Save (Download) from left to right. This familiar order helps decode unreadable text.',
 			'common.appTitle' => 'StreamHub',
 			'common.homeTab' => 'Home',
 			'common.exploreTab' => 'Explore',
@@ -263,6 +264,7 @@ extension on TranslationsEn {
 			'common.dislikeButton' => 'Dislike',
 			'common.shareButton' => 'Share',
 			'common.saveButton' => 'Save',
+			'common.downloadButton' => 'Download',
 			'common.moreButton' => 'More',
 			'common.subscribeButton' => 'Subscribe',
 			'common.views' => 'views',

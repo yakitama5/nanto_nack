@@ -40,177 +40,68 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsWaterEn water = TranslationsWaterEn._(_root);
-	late final TranslationsCartEn cart = TranslationsCartEn._(_root);
-	late final TranslationsCheckoutEn checkout = TranslationsCheckoutEn._(_root);
-	late final TranslationsReorderEn reorder = TranslationsReorderEn._(_root);
+	late final TranslationsQuiz1En quiz1 = TranslationsQuiz1En._(_root);
+	late final TranslationsQuiz2En quiz2 = TranslationsQuiz2En._(_root);
+	late final TranslationsQuiz3En quiz3 = TranslationsQuiz3En._(_root);
+	late final TranslationsQuiz4En quiz4 = TranslationsQuiz4En._(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
-	late final TranslationsHomeEn home = TranslationsHomeEn._(_root);
-	late final TranslationsSearchEn search = TranslationsSearchEn._(_root);
-	late final TranslationsMenuEn menu = TranslationsMenuEn._(_root);
-	late final TranslationsNavigationEn navigation = TranslationsNavigationEn._(_root);
-	late final TranslationsCategoriesEn categories = TranslationsCategoriesEn._(_root);
-	late final TranslationsCatalogEn catalog = TranslationsCatalogEn._(_root);
+	late final TranslationsVideosEn videos = TranslationsVideosEn._(_root);
 }
 
-// Path: water
-class TranslationsWaterEn {
-	TranslationsWaterEn._(this._root);
+// Path: quiz1
+class TranslationsQuiz1En {
+	TranslationsQuiz1En._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Buy 2 bottles of water'
-	String get missionText => 'Buy 2 bottles of water';
+	/// en: 'Please play a video'
+	String get missionText => 'Please play a video';
 
-	/// en: 'nantomall'
-	String get appTitle => 'nantomall';
-
-	/// en: 'Search items'
-	String get searchPlaceholder => 'Search items';
-
-	/// en: 'Shopping Cart'
-	String get cartTitle => 'Shopping Cart';
-
-	/// en: 'Your cart is empty'
-	String get cartEmpty => 'Your cart is empty';
-
-	/// en: 'Subtotal ({count} items):'
-	String get subtotal => 'Subtotal ({count} items):';
-
-	/// en: 'Place order'
-	String get confirmOrder => 'Place order';
-
-	late final TranslationsWaterInsightEn insight = TranslationsWaterInsightEn._(_root);
+	late final TranslationsQuiz1InsightEn insight = TranslationsQuiz1InsightEn._(_root);
 }
 
-// Path: cart
-class TranslationsCartEn {
-	TranslationsCartEn._(this._root);
+// Path: quiz2
+class TranslationsQuiz2En {
+	TranslationsQuiz2En._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Select the total price of this cart'
-	String get missionText => 'Select the total price of this cart';
+	/// en: 'Please share a video'
+	String get missionText => 'Please share a video';
 
-	/// en: 'Shopping Cart'
-	String get appTitle => 'Shopping Cart';
-
-	/// en: 'Cart Items'
-	String get itemsHeader => 'Cart Items';
-
-	/// en: '{count} items'
-	String get itemCount => '{count} items';
-
-	/// en: 'What is the total price?'
-	String get questionTitle => 'What is the total price?';
-
-	/// en: 'Calculate the total of items above and select'
-	String get questionSubtitle => 'Calculate the total of items above and select';
-
-	/// en: 'Multiply each unit price by quantity and sum them up'
-	String get hint => 'Multiply each unit price by quantity and sum them up';
+	late final TranslationsQuiz2InsightEn insight = TranslationsQuiz2InsightEn._(_root);
 }
 
-// Path: checkout
-class TranslationsCheckoutEn {
-	TranslationsCheckoutEn._(this._root);
+// Path: quiz3
+class TranslationsQuiz3En {
+	TranslationsQuiz3En._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Complete the checkout process'
-	String get missionText => 'Complete the checkout process';
+	/// en: 'Please save the video to favorites'
+	String get missionText => 'Please save the video to favorites';
 
-	/// en: 'Payment Checkout'
-	String get appTitle => 'Payment Checkout';
-
-	/// en: 'Cart'
-	String get step1 => 'Cart';
-
-	/// en: 'Address & Payment'
-	String get step2 => 'Address & Payment';
-
-	/// en: 'Confirm'
-	String get step3 => 'Confirm';
-
-	/// en: 'Delivery Address'
-	String get addressSection => 'Delivery Address';
-
-	/// en: 'e.g. 1-1 Shibuya, Tokyo...'
-	String get addressPlaceholder => 'e.g. 1-1 Shibuya, Tokyo...';
-
-	/// en: 'Payment Method'
-	String get paymentSection => 'Payment Method';
-
-	/// en: 'Credit Card'
-	String get paymentCreditCard => 'Credit Card';
-
-	/// en: 'Convenience Store'
-	String get paymentConvenience => 'Convenience Store';
-
-	/// en: 'Cash on Delivery'
-	String get paymentCOD => 'Cash on Delivery';
-
-	/// en: 'Order Summary'
-	String get summarySection => 'Order Summary';
-
-	/// en: 'Item Subtotal'
-	String get subtotal => 'Item Subtotal';
-
-	/// en: 'Shipping fee'
-	String get shipping => 'Shipping fee';
-
-	/// en: 'Order Total'
-	String get total => 'Order Total';
-
-	/// en: 'I have confirmed the order details'
-	String get confirmCheck => 'I have confirmed the order details';
-
-	/// en: 'Place Order'
-	String get confirmButton => 'Place Order';
+	late final TranslationsQuiz3InsightEn insight = TranslationsQuiz3InsightEn._(_root);
 }
 
-// Path: reorder
-class TranslationsReorderEn {
-	TranslationsReorderEn._(this._root);
+// Path: quiz4
+class TranslationsQuiz4En {
+	TranslationsQuiz4En._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Purchase your recently ordered item again'
-	String get missionText => 'Purchase your recently ordered item again';
+	/// en: 'Please turn on subtitles for the video'
+	String get missionText => 'Please turn on subtitles for the video';
 
-	/// en: 'Order History'
-	String get appTitle => 'Order History';
-
-	/// en: 'Recent Orders'
-	String get orderHistoryTitle => 'Recent Orders';
-
-	/// en: 'Buy again'
-	String get reorderButton => 'Buy again';
-
-	/// en: 'Ordered 3 days ago'
-	String get lastOrderDate => 'Ordered 3 days ago';
-
-	/// en: 'Shopping Cart'
-	String get cartTitle => 'Shopping Cart';
-
-	/// en: 'Your cart is empty'
-	String get cartEmpty => 'Your cart is empty';
-
-	/// en: 'Subtotal ({count} items):'
-	String get subtotal => 'Subtotal ({count} items):';
-
-	/// en: 'Place order'
-	String get confirmOrder => 'Place order';
-
-	late final TranslationsReorderInsightEn insight = TranslationsReorderInsightEn._(_root);
+	late final TranslationsQuiz4InsightEn insight = TranslationsQuiz4InsightEn._(_root);
 }
 
 // Path: common
@@ -221,284 +112,242 @@ class TranslationsCommonEn {
 
 	// Translations
 
-	/// en: 'Add to Cart'
-	String get addToCart => 'Add to Cart';
-
-	/// en: 'Qty: {qty}'
-	String get quantity => 'Qty: {qty}';
-
-	/// en: 'prime'
-	String get primeBadge => 'prime';
-
-	/// en: 'No items found'
-	String get noResults => 'No items found';
-}
-
-// Path: home
-class TranslationsHomeEn {
-	TranslationsHomeEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Seasonal Recommendations'
-	String get banner1 => 'Seasonal Recommendations';
-
-	/// en: 'New Arrivals'
-	String get banner2 => 'New Arrivals';
-
-	/// en: 'Save More with Bundles'
-	String get banner3 => 'Save More with Bundles';
-
-	/// en: 'Recommended for You'
-	String get recommended => 'Recommended for You';
-
-	/// en: 'Shop by Category'
-	String get categories => 'Shop by Category';
-
-	/// en: 'Deal of the Day'
-	String get dealOfTheDay => 'Deal of the Day';
-}
-
-// Path: search
-class TranslationsSearchEn {
-	TranslationsSearchEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Popular Categories'
-	String get popularCategories => 'Popular Categories';
-
-	/// en: 'Trending Items'
-	String get trendingItems => 'Trending Items';
-}
-
-// Path: menu
-class TranslationsMenuEn {
-	TranslationsMenuEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Programs & Features'
-	String get programs => 'Programs & Features';
-
-	/// en: 'Join Prime'
-	String get prime => 'Join Prime';
-
-	/// en: 'Digital Content'
-	String get digitalContent => 'Digital Content';
-
-	/// en: 'Settings'
-	String get settingsSection => 'Settings';
-
-	/// en: 'Notification Settings'
-	String get notification => 'Notification Settings';
-
-	/// en: 'Customer Service'
-	String get customerService => 'Customer Service';
-
-	/// en: 'Help'
-	String get help => 'Help';
-
-	/// en: 'Terms of Use'
-	String get terms => 'Terms of Use';
-}
-
-// Path: navigation
-class TranslationsNavigationEn {
-	TranslationsNavigationEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
+	/// en: 'StreamHub'
+	String get appTitle => 'StreamHub';
 
 	/// en: 'Home'
-	String get home => 'Home';
+	String get homeTab => 'Home';
 
-	/// en: 'Search'
-	String get search => 'Search';
+	/// en: 'Explore'
+	String get exploreTab => 'Explore';
 
-	/// en: 'Account'
-	String get account => 'Account';
+	/// en: 'Shorts'
+	String get shortsTab => 'Shorts';
 
-	/// en: 'Menu'
-	String get menu => 'Menu';
+	/// en: 'Subscriptions'
+	String get subsTab => 'Subscriptions';
+
+	/// en: 'You'
+	String get youTab => 'You';
+
+	/// en: 'Like'
+	String get likeButton => 'Like';
+
+	/// en: 'Dislike'
+	String get dislikeButton => 'Dislike';
+
+	/// en: 'Share'
+	String get shareButton => 'Share';
+
+	/// en: 'Save'
+	String get saveButton => 'Save';
+
+	/// en: 'More'
+	String get moreButton => 'More';
+
+	/// en: 'Subscribe'
+	String get subscribeButton => 'Subscribe';
+
+	/// en: '{count} views'
+	String get views => '{count} views';
+
+	/// en: 'Subtitles'
+	String get subtitles => 'Subtitles';
+
+	/// en: 'Quality'
+	String get quality => 'Quality';
+
+	/// en: 'Playback speed'
+	String get playbackSpeed => 'Playback speed';
+
+	/// en: 'Report'
+	String get reportButton => 'Report';
+
+	/// en: 'Off'
+	String get subtitlesOff => 'Off';
+
+	/// en: 'On (Auto)'
+	String get subtitlesOn => 'On (Auto)';
+
+	/// en: 'Share to'
+	String get shareTitle => 'Share to';
+
+	/// en: 'Link copied'
+	String get linkCopied => 'Link copied';
+
+	/// en: 'Saved to playlist'
+	String get savedToList => 'Saved to playlist';
 }
 
-// Path: categories
-class TranslationsCategoriesEn {
-	TranslationsCategoriesEn._(this._root);
+// Path: videos
+class TranslationsVideosEn {
+	TranslationsVideosEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Daily goods'
-	String get daily => 'Daily goods';
+	/// en: 'Amazing Nature Documentary 4K'
+	String get v1Title => 'Amazing Nature Documentary 4K';
 
-	/// en: 'Food & Drinks'
-	String get food => 'Food & Drinks';
+	/// en: 'NatureWorld'
+	String get v1Channel => 'NatureWorld';
 
-	/// en: 'Electronics'
-	String get electronics => 'Electronics';
+	/// en: 'Learn Programming in 10 Minutes'
+	String get v2Title => 'Learn Programming in 10 Minutes';
 
-	/// en: 'Fashion'
-	String get fashion => 'Fashion';
+	/// en: 'CodeMaster'
+	String get v2Channel => 'CodeMaster';
 
-	/// en: 'Sports'
-	String get sports => 'Sports';
+	/// en: 'Top 10 Travel Destinations 2026'
+	String get v3Title => 'Top 10 Travel Destinations 2026';
 
-	/// en: 'Kitchen'
-	String get kitchen => 'Kitchen';
+	/// en: 'TravelVlog'
+	String get v3Channel => 'TravelVlog';
+
+	/// en: 'Cooking Easy Pasta Recipe'
+	String get v4Title => 'Cooking Easy Pasta Recipe';
+
+	/// en: 'ChefKitchen'
+	String get v4Channel => 'ChefKitchen';
+
+	/// en: 'Morning Yoga for Beginners'
+	String get v5Title => 'Morning Yoga for Beginners';
+
+	/// en: 'YogaLife'
+	String get v5Channel => 'YogaLife';
 }
 
-// Path: catalog
-class TranslationsCatalogEn {
-	TranslationsCatalogEn._(this._root);
+// Path: quiz1.insight
+class TranslationsQuiz1InsightEn {
+	TranslationsQuiz1InsightEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Natural Water 500ml'
-	String get waterPuraAqua => 'Natural Water 500ml';
+	/// en: 'How did you know the play button?'
+	String get title => 'How did you know the play button?';
 
-	/// en: 'Green Tea 500ml'
-	String get teaAqua => 'Green Tea 500ml';
+	/// en: '▶ is the universal play symbol'
+	String get subtitle => '▶ is the universal play symbol';
 
-	/// en: 'Craft Coffee'
-	String get coffeeCraft => 'Craft Coffee';
+	/// en: 'The ▶ mark has not changed for 60+ years'
+	String get playTitle => 'The ▶ mark has not changed for 60+ years';
 
-	/// en: 'Whole Milk 1L'
-	String get milkDaily => 'Whole Milk 1L';
+	/// en: 'Used since the tape recorder era (1960s), ▶ (right-pointing triangle) remains universally understood as play even in the digital age.'
+	String get playDesc => 'Used since the tape recorder era (1960s), ▶ (right-pointing triangle) remains universally understood as play even in the digital age.';
 
-	/// en: 'Potato Chips'
-	String get snackChips => 'Potato Chips';
+	/// en: 'Thumbnails preview content'
+	String get thumbnailTitle => 'Thumbnails preview content';
 
-	/// en: 'Chocolate Bar'
-	String get cocoaBar => 'Chocolate Bar';
+	/// en: 'Thumbnails showing video previews communicate content without text descriptions.'
+	String get thumbnailDesc => 'Thumbnails showing video previews communicate content without text descriptions.';
 
-	/// en: 'Sliced Bread'
-	String get bakeryBread => 'Sliced Bread';
+	/// en: 'Progress bar shows remaining time'
+	String get progressTitle => 'Progress bar shows remaining time';
 
-	/// en: 'Eggs 10pk'
-	String get eggs => 'Eggs 10pk';
-
-	/// en: 'Cup Noodle'
-	String get noodleBowl => 'Cup Noodle';
-
-	/// en: 'Apple'
-	String get apple => 'Apple';
-
-	/// en: 'Banana'
-	String get banana => 'Banana';
-
-	/// en: 'Laundry Detergent'
-	String get detergentDailyWash => 'Laundry Detergent';
-
-	/// en: 'Hand Soap'
-	String get soapWashPower => 'Hand Soap';
-
-	/// en: 'Dish Soap'
-	String get dishSoapSparkle => 'Dish Soap';
-
-	/// en: 'Kitchen Sponge'
-	String get sponge => 'Kitchen Sponge';
-
-	/// en: 'Tissue Paper 5box'
-	String get tissueSoft => 'Tissue Paper 5box';
-
-	/// en: 'Toilet Paper 12roll'
-	String get toiletPaper => 'Toilet Paper 12roll';
-
-	/// en: 'Hair Oil'
-	String get haircareBotanicShine => 'Hair Oil';
-
-	/// en: 'Ring Notebook'
-	String get notebook => 'Ring Notebook';
-
-	/// en: 'Face Towel'
-	String get towel => 'Face Towel';
-
-	/// en: 'Natural Water 500ml'
-	String get water500ml => 'Natural Water 500ml';
-
-	/// en: 'Green Tea 500ml'
-	String get tea500ml => 'Green Tea 500ml';
-
-	/// en: 'Black Coffee 500ml'
-	String get coffee500ml => 'Black Coffee 500ml';
+	/// en: 'The thin bar at the bottom shows how much has been watched. This seek bar pattern is standard in media players worldwide.'
+	String get progressDesc => 'The thin bar at the bottom shows how much has been watched. This seek bar pattern is standard in media players worldwide.';
 }
 
-// Path: water.insight
-class TranslationsWaterInsightEn {
-	TranslationsWaterInsightEn._(this._root);
+// Path: quiz2.insight
+class TranslationsQuiz2InsightEn {
+	TranslationsQuiz2InsightEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Why could you figure it out without reading?'
-	String get title => 'Why could you figure it out without reading?';
+	/// en: 'How did you find the share button?'
+	String get title => 'How did you find the share button?';
 
-	/// en: 'This UI has 3 tricks that work across languages'
-	String get subtitle => 'This UI has 3 tricks that work across languages';
+	/// en: 'Share icons visualize connection'
+	String get subtitle => 'Share icons visualize connection';
 
-	/// en: 'Icons transcend language'
-	String get iconTitle => 'Icons transcend language';
+	/// en: 'Share icon shape tells its meaning'
+	String get shareTitle => 'Share icon shape tells its meaning';
 
-	/// en: '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.'
-	String get iconDesc => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.';
+	/// en: 'Three dots connected by lines (Android) or upward arrow (iOS) visualize sending outward. Unified across global apps.'
+	String get shareDesc => 'Three dots connected by lines (Android) or upward arrow (iOS) visualize sending outward. Unified across global apps.';
 
-	/// en: 'Color drives action'
-	String get colorTitle => 'Color drives action';
+	/// en: 'Action button row arranges functions'
+	String get actionTitle => 'Action button row arranges functions';
 
-	/// en: 'The yellow 'Place Order' button has appeared on major e-commerce sites so often that the color itself now signals 'buy'.'
-	String get colorDesc => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.';
+	/// en: 'Like, share, save, more arranged horizontally is standard on YouTube, TikTok, Twitter.'
+	String get actionDesc => 'Like, share, save, more arranged horizontally is standard on YouTube, TikTok, Twitter.';
 
-	/// en: 'UI patterns build intuition'
-	String get patternTitle => 'UI patterns build intuition';
+	/// en: 'Share sheet presents options'
+	String get modalTitle => 'Share sheet presents options';
 
-	/// en: 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.'
-	String get patternDesc => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.';
+	/// en: 'The bottom sheet showing app icons for sharing is an OS standard component, consistent across iOS and Android.'
+	String get modalDesc => 'The bottom sheet showing app icons for sharing is an OS standard component, consistent across iOS and Android.';
 }
 
-// Path: reorder.insight
-class TranslationsReorderInsightEn {
-	TranslationsReorderInsightEn._(this._root);
+// Path: quiz3.insight
+class TranslationsQuiz3InsightEn {
+	TranslationsQuiz3InsightEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Why could you figure it out without reading?'
-	String get title => 'Why could you figure it out without reading?';
+	/// en: 'How did you find the save button?'
+	String get title => 'How did you find the save button?';
 
-	/// en: 'Visual patterns make reordering intuitive'
-	String get subtitle => 'Visual patterns make reordering intuitive';
+	/// en: 'Flag symbols are the universal language for save'
+	String get subtitle => 'Flag symbols are the universal language for save';
 
-	/// en: 'Product images trigger memory'
-	String get imageTitle => 'Product images trigger memory';
+	/// en: 'Flag/bookmark icons mean save'
+	String get saveTitle => 'Flag/bookmark icons mean save';
 
-	/// en: 'A product's appearance, color, and design link visually to past purchase experiences — visual memory transcends language.'
-	String get imageDesc => 'A product\'s appearance, color, and design link visually to past purchase experiences — visual memory transcends language.';
+	/// en: 'Flags, ribbons, + icons used for favorites and watch later consistently mean hold this item.'
+	String get saveDesc => 'Flags, ribbons, + icons used for favorites and watch later consistently mean hold this item.';
 
-	/// en: 'Price brings confirmation'
-	String get priceTitle => 'Price brings confirmation';
+	/// en: 'Color change communicates completion'
+	String get feedbackTitle => 'Color change communicates completion';
 
-	/// en: 'Matching prices confirm 'this is the same product'. Numbers are a universal language that helps you recognize items at a glance.'
-	String get priceDesc => 'Matching prices confirm \'this is the same product\'. Numbers are a universal language that helps you recognize items at a glance.';
+	/// en: 'Icons changing from gray to red/yellow/blue show the registered state transition visually.'
+	String get feedbackDesc => 'Icons changing from gray to red/yellow/blue show the registered state transition visually.';
 
-	/// en: ''Buy again' completes the experience'
-	String get patternTitle => '\'Buy again\' completes the experience';
+	/// en: 'Watch later list creates motivation'
+	String get listTitle => 'Watch later list creates motivation';
 
-	/// en: 'Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly.'
-	String get patternDesc => 'Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly.';
+	/// en: 'List functionality to store content is common across Netflix, YouTube, Spotify.'
+	String get listDesc => 'List functionality to store content is common across Netflix, YouTube, Spotify.';
+}
+
+// Path: quiz4.insight
+class TranslationsQuiz4InsightEn {
+	TranslationsQuiz4InsightEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'How did you find the subtitle setting?'
+	String get title => 'How did you find the subtitle setting?';
+
+	/// en: 'Settings are hidden behind ⋮ or ⚙'
+	String get subtitle => 'Settings are hidden behind ⋮ or ⚙';
+
+	/// en: '⋮ menu is the gateway to hidden features'
+	String get menuTitle => '⋮ menu is the gateway to hidden features';
+
+	/// en: 'Three dots ⋮ or hamburger ≡ indicate more features exist. Advanced settings like subtitles are often hidden here.'
+	String get menuDesc => 'Three dots ⋮ or hamburger ≡ indicate more features exist. Advanced settings like subtitles are often hidden here.';
+
+	/// en: 'CC is an international standard symbol'
+	String get ccTitle => 'CC is an international standard symbol';
+
+	/// en: 'CC or subtitle icon (box with lines) is an international standard symbol for subtitles from broadcast TV era.'
+	String get ccDesc => 'CC or subtitle icon (box with lines) is an international standard symbol for subtitles from broadcast TV era.';
+
+	/// en: 'Toggle switch UI is intuitive'
+	String get settingsTitle => 'Toggle switch UI is intuitive';
+
+	/// en: 'Toggle switches modeled on physical switches communicate state through color and position without language.'
+	String get settingsDesc => 'Toggle switches modeled on physical switches communicate state through color and position without language.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -509,115 +358,74 @@ class TranslationsReorderInsightEn {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'water.missionText' => 'Buy 2 bottles of water',
-			'water.appTitle' => 'nantomall',
-			'water.searchPlaceholder' => 'Search items',
-			'water.cartTitle' => 'Shopping Cart',
-			'water.cartEmpty' => 'Your cart is empty',
-			'water.subtotal' => 'Subtotal ({count} items):',
-			'water.confirmOrder' => 'Place order',
-			'water.insight.title' => 'Why could you figure it out without reading?',
-			'water.insight.subtitle' => 'This UI has 3 tricks that work across languages',
-			'water.insight.iconTitle' => 'Icons transcend language',
-			'water.insight.iconDesc' => '🛒Cart · 🔍Search · ❤️Favorite. Familiar icons are universal symbols — their meaning is understood without words.',
-			'water.insight.colorTitle' => 'Color drives action',
-			'water.insight.colorDesc' => 'The yellow \'Place Order\' button has appeared on major e-commerce sites so often that the color itself now signals \'buy\'.',
-			'water.insight.patternTitle' => 'UI patterns build intuition',
-			'water.insight.patternDesc' => 'Grid of products + prices = online shop. ± buttons = quantity control. Repeated exposure turns patterns into instinct.',
-			'cart.missionText' => 'Select the total price of this cart',
-			'cart.appTitle' => 'Shopping Cart',
-			'cart.itemsHeader' => 'Cart Items',
-			'cart.itemCount' => '{count} items',
-			'cart.questionTitle' => 'What is the total price?',
-			'cart.questionSubtitle' => 'Calculate the total of items above and select',
-			'cart.hint' => 'Multiply each unit price by quantity and sum them up',
-			'checkout.missionText' => 'Complete the checkout process',
-			'checkout.appTitle' => 'Payment Checkout',
-			'checkout.step1' => 'Cart',
-			'checkout.step2' => 'Address & Payment',
-			'checkout.step3' => 'Confirm',
-			'checkout.addressSection' => 'Delivery Address',
-			'checkout.addressPlaceholder' => 'e.g. 1-1 Shibuya, Tokyo...',
-			'checkout.paymentSection' => 'Payment Method',
-			'checkout.paymentCreditCard' => 'Credit Card',
-			'checkout.paymentConvenience' => 'Convenience Store',
-			'checkout.paymentCOD' => 'Cash on Delivery',
-			'checkout.summarySection' => 'Order Summary',
-			'checkout.subtotal' => 'Item Subtotal',
-			'checkout.shipping' => 'Shipping fee',
-			'checkout.total' => 'Order Total',
-			'checkout.confirmCheck' => 'I have confirmed the order details',
-			'checkout.confirmButton' => 'Place Order',
-			'reorder.missionText' => 'Purchase your recently ordered item again',
-			'reorder.appTitle' => 'Order History',
-			'reorder.orderHistoryTitle' => 'Recent Orders',
-			'reorder.reorderButton' => 'Buy again',
-			'reorder.lastOrderDate' => 'Ordered 3 days ago',
-			'reorder.cartTitle' => 'Shopping Cart',
-			'reorder.cartEmpty' => 'Your cart is empty',
-			'reorder.subtotal' => 'Subtotal ({count} items):',
-			'reorder.confirmOrder' => 'Place order',
-			'reorder.insight.title' => 'Why could you figure it out without reading?',
-			'reorder.insight.subtitle' => 'Visual patterns make reordering intuitive',
-			'reorder.insight.imageTitle' => 'Product images trigger memory',
-			'reorder.insight.imageDesc' => 'A product\'s appearance, color, and design link visually to past purchase experiences — visual memory transcends language.',
-			'reorder.insight.priceTitle' => 'Price brings confirmation',
-			'reorder.insight.priceDesc' => 'Matching prices confirm \'this is the same product\'. Numbers are a universal language that helps you recognize items at a glance.',
-			'reorder.insight.patternTitle' => '\'Buy again\' completes the experience',
-			'reorder.insight.patternDesc' => 'Reorder buttons are a standard pattern on major e-commerce sites. Familiar UI is intuitive — no searching needed to reorder quickly.',
-			'common.addToCart' => 'Add to Cart',
-			'common.quantity' => 'Qty: {qty}',
-			'common.primeBadge' => 'prime',
-			'common.noResults' => 'No items found',
-			'home.banner1' => 'Seasonal Recommendations',
-			'home.banner2' => 'New Arrivals',
-			'home.banner3' => 'Save More with Bundles',
-			'home.recommended' => 'Recommended for You',
-			'home.categories' => 'Shop by Category',
-			'home.dealOfTheDay' => 'Deal of the Day',
-			'search.popularCategories' => 'Popular Categories',
-			'search.trendingItems' => 'Trending Items',
-			'menu.programs' => 'Programs & Features',
-			'menu.prime' => 'Join Prime',
-			'menu.digitalContent' => 'Digital Content',
-			'menu.settingsSection' => 'Settings',
-			'menu.notification' => 'Notification Settings',
-			'menu.customerService' => 'Customer Service',
-			'menu.help' => 'Help',
-			'menu.terms' => 'Terms of Use',
-			'navigation.home' => 'Home',
-			'navigation.search' => 'Search',
-			'navigation.account' => 'Account',
-			'navigation.menu' => 'Menu',
-			'categories.daily' => 'Daily goods',
-			'categories.food' => 'Food & Drinks',
-			'categories.electronics' => 'Electronics',
-			'categories.fashion' => 'Fashion',
-			'categories.sports' => 'Sports',
-			'categories.kitchen' => 'Kitchen',
-			'catalog.waterPuraAqua' => 'Natural Water 500ml',
-			'catalog.teaAqua' => 'Green Tea 500ml',
-			'catalog.coffeeCraft' => 'Craft Coffee',
-			'catalog.milkDaily' => 'Whole Milk 1L',
-			'catalog.snackChips' => 'Potato Chips',
-			'catalog.cocoaBar' => 'Chocolate Bar',
-			'catalog.bakeryBread' => 'Sliced Bread',
-			'catalog.eggs' => 'Eggs 10pk',
-			'catalog.noodleBowl' => 'Cup Noodle',
-			'catalog.apple' => 'Apple',
-			'catalog.banana' => 'Banana',
-			'catalog.detergentDailyWash' => 'Laundry Detergent',
-			'catalog.soapWashPower' => 'Hand Soap',
-			'catalog.dishSoapSparkle' => 'Dish Soap',
-			'catalog.sponge' => 'Kitchen Sponge',
-			'catalog.tissueSoft' => 'Tissue Paper 5box',
-			'catalog.toiletPaper' => 'Toilet Paper 12roll',
-			'catalog.haircareBotanicShine' => 'Hair Oil',
-			'catalog.notebook' => 'Ring Notebook',
-			'catalog.towel' => 'Face Towel',
-			'catalog.water500ml' => 'Natural Water 500ml',
-			'catalog.tea500ml' => 'Green Tea 500ml',
-			'catalog.coffee500ml' => 'Black Coffee 500ml',
+			'quiz1.missionText' => 'Please play a video',
+			'quiz1.insight.title' => 'How did you know the play button?',
+			'quiz1.insight.subtitle' => '▶ is the universal play symbol',
+			'quiz1.insight.playTitle' => 'The ▶ mark has not changed for 60+ years',
+			'quiz1.insight.playDesc' => 'Used since the tape recorder era (1960s), ▶ (right-pointing triangle) remains universally understood as play even in the digital age.',
+			'quiz1.insight.thumbnailTitle' => 'Thumbnails preview content',
+			'quiz1.insight.thumbnailDesc' => 'Thumbnails showing video previews communicate content without text descriptions.',
+			'quiz1.insight.progressTitle' => 'Progress bar shows remaining time',
+			'quiz1.insight.progressDesc' => 'The thin bar at the bottom shows how much has been watched. This seek bar pattern is standard in media players worldwide.',
+			'quiz2.missionText' => 'Please share a video',
+			'quiz2.insight.title' => 'How did you find the share button?',
+			'quiz2.insight.subtitle' => 'Share icons visualize connection',
+			'quiz2.insight.shareTitle' => 'Share icon shape tells its meaning',
+			'quiz2.insight.shareDesc' => 'Three dots connected by lines (Android) or upward arrow (iOS) visualize sending outward. Unified across global apps.',
+			'quiz2.insight.actionTitle' => 'Action button row arranges functions',
+			'quiz2.insight.actionDesc' => 'Like, share, save, more arranged horizontally is standard on YouTube, TikTok, Twitter.',
+			'quiz2.insight.modalTitle' => 'Share sheet presents options',
+			'quiz2.insight.modalDesc' => 'The bottom sheet showing app icons for sharing is an OS standard component, consistent across iOS and Android.',
+			'quiz3.missionText' => 'Please save the video to favorites',
+			'quiz3.insight.title' => 'How did you find the save button?',
+			'quiz3.insight.subtitle' => 'Flag symbols are the universal language for save',
+			'quiz3.insight.saveTitle' => 'Flag/bookmark icons mean save',
+			'quiz3.insight.saveDesc' => 'Flags, ribbons, + icons used for favorites and watch later consistently mean hold this item.',
+			'quiz3.insight.feedbackTitle' => 'Color change communicates completion',
+			'quiz3.insight.feedbackDesc' => 'Icons changing from gray to red/yellow/blue show the registered state transition visually.',
+			'quiz3.insight.listTitle' => 'Watch later list creates motivation',
+			'quiz3.insight.listDesc' => 'List functionality to store content is common across Netflix, YouTube, Spotify.',
+			'quiz4.missionText' => 'Please turn on subtitles for the video',
+			'quiz4.insight.title' => 'How did you find the subtitle setting?',
+			'quiz4.insight.subtitle' => 'Settings are hidden behind ⋮ or ⚙',
+			'quiz4.insight.menuTitle' => '⋮ menu is the gateway to hidden features',
+			'quiz4.insight.menuDesc' => 'Three dots ⋮ or hamburger ≡ indicate more features exist. Advanced settings like subtitles are often hidden here.',
+			'quiz4.insight.ccTitle' => 'CC is an international standard symbol',
+			'quiz4.insight.ccDesc' => 'CC or subtitle icon (box with lines) is an international standard symbol for subtitles from broadcast TV era.',
+			'quiz4.insight.settingsTitle' => 'Toggle switch UI is intuitive',
+			'quiz4.insight.settingsDesc' => 'Toggle switches modeled on physical switches communicate state through color and position without language.',
+			'common.appTitle' => 'StreamHub',
+			'common.homeTab' => 'Home',
+			'common.exploreTab' => 'Explore',
+			'common.shortsTab' => 'Shorts',
+			'common.subsTab' => 'Subscriptions',
+			'common.youTab' => 'You',
+			'common.likeButton' => 'Like',
+			'common.dislikeButton' => 'Dislike',
+			'common.shareButton' => 'Share',
+			'common.saveButton' => 'Save',
+			'common.moreButton' => 'More',
+			'common.subscribeButton' => 'Subscribe',
+			'common.views' => '{count} views',
+			'common.subtitles' => 'Subtitles',
+			'common.quality' => 'Quality',
+			'common.playbackSpeed' => 'Playback speed',
+			'common.reportButton' => 'Report',
+			'common.subtitlesOff' => 'Off',
+			'common.subtitlesOn' => 'On (Auto)',
+			'common.shareTitle' => 'Share to',
+			'common.linkCopied' => 'Link copied',
+			'common.savedToList' => 'Saved to playlist',
+			'videos.v1Title' => 'Amazing Nature Documentary 4K',
+			'videos.v1Channel' => 'NatureWorld',
+			'videos.v2Title' => 'Learn Programming in 10 Minutes',
+			'videos.v2Channel' => 'CodeMaster',
+			'videos.v3Title' => 'Top 10 Travel Destinations 2026',
+			'videos.v3Channel' => 'TravelVlog',
+			'videos.v4Title' => 'Cooking Easy Pasta Recipe',
+			'videos.v4Channel' => 'ChefKitchen',
+			'videos.v5Title' => 'Morning Yoga for Beginners',
+			'videos.v5Channel' => 'YogaLife',
 			_ => null,
 		};
 	}

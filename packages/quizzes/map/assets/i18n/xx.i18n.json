@@ -1,0 +1,84 @@
+{
+  "quiz1": {
+    "missionText": "Show current location",
+    "insight": {
+      "title": "How did you find the location button?",
+      "subtitle": "Location icon is universal",
+      "locationTitle": "Pin icon means here",
+      "locationDesc": "The pin icon is a world standard symbol for current location.",
+      "compassTitle": "Compass shows direction",
+      "compassDesc": "Compass icon resets orientation to north.",
+      "zoomTitle": "Pinch to zoom",
+      "zoomDesc": "Two-finger pinch gesture is standard worldwide."
+    }
+  },
+  "quiz2": {
+    "missionText": "Search for a destination",
+    "insight": {
+      "title": "How did you find the search bar?",
+      "subtitle": "Magnifying glass means search",
+      "searchTitle": "Magnifying glass icon means search",
+      "searchDesc": "Unified search icon across all apps.",
+      "suggestTitle": "Suggestions aid navigation",
+      "suggestDesc": "Suggestion lists standard in map apps.",
+      "pinTitle": "Pin placed on map",
+      "pinDesc": "Tapping result shows pin on map."
+    }
+  },
+  "quiz3": {
+    "missionText": "Start navigation",
+    "insight": {
+      "title": "How did you find navigation?",
+      "subtitle": "Arrow represents navigate",
+      "routeTitle": "Arrow means navigation",
+      "routeDesc": "Upper-right arrow is standard navigation button.",
+      "transportTitle": "Transport options",
+      "transportDesc": "Car, train, walk icons in a row.",
+      "stepTitle": "Turn-by-turn is intuitive",
+      "stepDesc": "Large turn instructions continue from car navigation era."
+    }
+  },
+  "quiz4": {
+    "missionText": "Add to favorites",
+    "insight": {
+      "title": "How did you find favorites?",
+      "subtitle": "Star mark means favorites",
+      "starTitle": "Star is the international favorites symbol",
+      "starDesc": "Star unified for favorites across maps and SNS.",
+      "savedTitle": "Saved list accessible",
+      "savedDesc": "Saved places found in the list.",
+      "colorTitle": "Color change shows completion",
+      "colorDesc": "Gray to yellow star transition."
+    }
+  },
+  "common": {
+    "appTitle": "MapNavi",
+    "searchHint": "Search here",
+    "currentLocation": "Current location",
+    "directions": "Directions",
+    "startNavigation": "Start",
+    "savePlace": "Save",
+    "savedPlaces": "Saved places",
+    "drive": "Drive",
+    "walk": "Walk",
+    "transit": "Transit",
+    "bike": "Bike",
+    "nearby": "Nearby",
+    "explore": "Explore",
+    "go": "Go",
+    "min": "min",
+    "km": "km"
+  },
+  "places": {
+    "p1Name": "City Hall",
+    "p1Address": "1-1 Central Ave",
+    "p2Name": "Grand Park",
+    "p2Address": "2-5 Park Blvd",
+    "p3Name": "Main Station",
+    "p3Address": "3-10 Station St",
+    "p4Name": "Shopping Mall",
+    "p4Address": "4-2 Commerce Rd",
+    "p5Name": "University",
+    "p5Address": "5-8 Campus Dr"
+  }
+}

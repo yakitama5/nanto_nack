@@ -1,54 +1,54 @@
 {
   "quiz1": {
-    "missionText": "Play a video",
+    "missionText": "Please turn on subtitles for the video",
     "insight": {
-      "title": "How did you know the play button?",
-      "subtitle": "The triangle is the universal play symbol",
-      "playTitle": "The play triangle has not changed for 60 years",
-      "playDesc": "The right-pointing triangle remains universally understood as play.",
-      "thumbnailTitle": "Thumbnails preview content",
-      "thumbnailDesc": "Visual previews communicate content without text.",
-      "progressTitle": "Progress bar shows position",
-      "progressDesc": "The seek bar pattern is standard in media players worldwide."
+      "title": "Subtitle Setting",
+      "subtitle": "CC icon",
+      "ccTitle": "CC Standard",
+      "ccDesc": "CC icon is universal.",
+      "visibilityTitle": "Hidden controls",
+      "visibilityDesc": "Tap to show controls.",
+      "feedbackTitle": "Visual feedback",
+      "feedbackDesc": "Color changes indicate state."
     }
   },
   "quiz2": {
-    "missionText": "Share a video",
+    "missionText": "Go to the next video and seek to the middle",
     "insight": {
-      "title": "How did you find the share button?",
-      "subtitle": "Share icons visualize connection",
-      "shareTitle": "Share icon shape tells its meaning",
-      "shareDesc": "Connected dots or upward arrows visualize sending outward.",
-      "actionTitle": "Action buttons are arranged in a row",
-      "actionDesc": "Like, share, save arranged horizontally is a standard pattern.",
-      "modalTitle": "Share sheet presents options",
-      "modalDesc": "The bottom sheet for sharing is an OS standard component."
+      "title": "Player UI",
+      "subtitle": "Layout",
+      "skipTitle": "Skip icon",
+      "skipDesc": "Next track symbol.",
+      "seekTitle": "Seek bar",
+      "seekDesc": "Time flow metaphor.",
+      "targetTitle": "Targeting",
+      "targetDesc": "Middle is easy to find."
     }
   },
   "quiz3": {
-    "missionText": "Save this video to favorites",
+    "missionText": "Play at 2x speed",
     "insight": {
-      "title": "How did you find the save button?",
-      "subtitle": "Flag symbols mean save universally",
-      "saveTitle": "Bookmark icons mean save",
-      "saveDesc": "Flags and ribbons consistently mean hold this item.",
-      "feedbackTitle": "Color change shows completion",
-      "feedbackDesc": "Icons changing color show the registration state transition.",
-      "listTitle": "Watch later list stores content",
-      "listDesc": "Watch later lists are common across streaming platforms."
+      "title": "Hidden Gestures",
+      "subtitle": "Long press",
+      "gestureTitle": "Fast-forward",
+      "gestureDesc": "Long press for 2x speed.",
+      "gearTitle": "Settings icon",
+      "gearDesc": "Gear means settings.",
+      "speedTitle": "Speed notation",
+      "speedDesc": "2x notation is universal."
     }
   },
   "quiz4": {
-    "missionText": "Turn on subtitles",
+    "missionText": "Highest quality and download",
     "insight": {
-      "title": "How did you find the subtitle setting?",
-      "subtitle": "Settings hide behind the three dots menu",
-      "menuTitle": "Three dots is the gateway to more features",
-      "menuDesc": "Three dots indicate more features exist including subtitles.",
-      "ccTitle": "CC is an international subtitle symbol",
-      "ccDesc": "CC box is an international standard symbol for subtitles.",
-      "settingsTitle": "Toggle switches are intuitive",
-      "settingsDesc": "Toggle switches communicate state through color and position."
+      "title": "Visual Association",
+      "subtitle": "Symbols",
+      "qualityTitle": "Numbers",
+      "qualityDesc": "High number means quality.",
+      "downloadTitle": "Download icon",
+      "downloadDesc": "Arrow means download.",
+      "locationTitle": "Order",
+      "locationDesc": "Button order matters."
     }
   },
   "common": {
@@ -62,6 +62,7 @@
     "dislikeButton": "Dislike",
     "shareButton": "Share",
     "saveButton": "Save",
+    "downloadButton": "Download",
     "moreButton": "More",
     "subscribeButton": "Subscribe",
     "views": "views",
