@@ -1,6 +1,7 @@
 {
   "quiz1": {
     "missionText": "Show current location",
+    "failureReason": "Tap the current location button",
     "insight": {
       "title": "How did you find the location button?",
       "subtitle": "Location icon is universal",
@@ -14,6 +15,7 @@
   },
   "quiz2": {
     "missionText": "Search for a destination",
+    "failureReason": "Search for a destination in the search bar",
     "insight": {
       "title": "How did you find the search bar?",
       "subtitle": "Magnifying glass means search",
@@ -27,6 +29,7 @@
   },
   "quiz3": {
     "missionText": "Start navigation",
+    "failureReason": "Start route navigation",
     "insight": {
       "title": "How did you find navigation?",
       "subtitle": "Arrow represents navigate",
@@ -40,6 +43,7 @@
   },
   "quiz4": {
     "missionText": "Add to favorites",
+    "failureReason": "Add the place to favorites",
     "insight": {
       "title": "How did you find favorites?",
       "subtitle": "Star mark means favorites",
