@@ -51,7 +51,6 @@ app.*.map.json
 # 機密情報
 # --------------------
 packages/system/.env
-apps/app_main/.env
 apps/app_main/env/.env
 apps/app_main/dart_define/prod.json
 
