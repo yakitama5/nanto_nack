@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// マップの場所エンティティ
 class MapPlace {
+  /// コンストラクタ
   const MapPlace({
     required this.id,
     required this.name,
@@ -13,6 +14,7 @@ class MapPlace {
     this.icon = Icons.location_on,
   });
 
+  /// ID
   final String id;
 
   /// 場所名（カスタム言語で表示）
@@ -27,10 +29,16 @@ class MapPlace {
   /// 経度（擬似）
   final double lng;
 
+  /// お気に入りかどうか
   final bool isFavorite;
+
+  /// カラーシード
   final int colorSeed;
+
+  /// アイコン
   final IconData icon;
 
+  /// インスタンスをコピーする
   MapPlace copyWith({
     String? id,
     String? name,

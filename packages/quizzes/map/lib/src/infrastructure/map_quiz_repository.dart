@@ -1,10 +1,13 @@
 import 'package:system/system.dart';
 
+/// マップクイズのリポジトリ
 class MapQuizRepository {
+  /// コンストラクタ
   const MapQuizRepository(this._quizResultRepository);
 
   final QuizResultRepository _quizResultRepository;
 
+  /// 結果を保存する
   Future<void> saveResult({
     required String quizId,
     required bool isCleared,
