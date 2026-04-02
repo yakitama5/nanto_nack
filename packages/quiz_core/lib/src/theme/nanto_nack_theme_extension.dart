@@ -93,6 +93,18 @@ class NantoNackThemeExtension
     paymentCategoryContainerColor: Color(0xFFF3E5F5),
   );
 
+  /// マップのピンカラーリスト（colorSeed インデックスに対応）
+  ///
+  /// [MapPlace.colorSeed] の値をインデックスとして使用し、ピンカラーを取得する。
+  /// 既存の意味的カラーをマッピングして再利用する。
+  List<Color> get mapPinColors => [
+        shoppingCategoryColor,
+        mapCategoryColor,
+        streamingCategoryColor,
+        streakColor,
+        paymentCategoryColor,
+      ];
+
   /// ダークテーマ用デフォルト値
   static const dark = NantoNackThemeExtension(
     streakColor: Color(0xFFFFAB40),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:map/src/domain/entities/map_place.dart';
+import 'entities/map_place.dart';
 
 /// マップアプリのマスターデータカタログ
 class MapCatalog {
@@ -13,7 +13,6 @@ class MapCatalog {
       address: '1-1 Central Ave',
       lat: 35.681,
       lng: 139.767,
-      colorSeed: 0,
       icon: Icons.account_balance,
     ),
     MapPlace(
@@ -52,15 +51,6 @@ class MapCatalog {
       colorSeed: 4,
       icon: Icons.school,
     ),
-  ];
-
-  /// ピンカラーパレット
-  static const List<Color> pinColors = [
-    Color(0xFF1565C0),
-    Color(0xFF2E7D32),
-    Color(0xFFC62828),
-    Color(0xFFE65100),
-    Color(0xFF6A1B9A),
   ];
 
   /// クイズ3のルート情報
