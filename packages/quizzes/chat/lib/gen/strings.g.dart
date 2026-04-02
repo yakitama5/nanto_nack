@@ -1,12 +1,12 @@
 /// Generated file. Do not edit.
 ///
-/// Source: packages/quiz_core/assets/i18n
+/// Source: assets/i18n
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 204 (68 per locale)
+/// Strings: 186 (62 per locale)
 ///
-/// Built on 2026-03-31 at 06:14 UTC
+/// Built on 2026-04-02 at 05:00 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
