@@ -1,0 +1,94 @@
+{
+  "quiz1": {
+    "missionText": "Xyq QZ-コード zw 表示 vk",
+    "failureReason": "「QZ-コード」ボタン xp タップ zv",
+    "insight": {
+      "title": "QZ ボタン xz わかった？",
+      "subtitle": "QZ＝スキャン払い xk 入口",
+      "qrTitle": "QZ コード = 支払い zv",
+      "qrDesc": "Xyq モザイク xk QZ コード zw キャッシュレス vk 払い xp 入口 zq。",
+      "cameraTitle": "カメラ xk = 読み取り zv",
+      "cameraDesc": "カメラ xp QZ コード zw 受け取り vk。払い xk QZ とは異なる zq。",
+      "colorTitle": "目立つ色 xz = メインアクション zv",
+      "colorDesc": "アプリ xk メインカラー zw ボタン vk QZ 払い xp 示す zq。"
+    }
+  },
+  "quiz2": {
+    "missionText": "残高 xz 確認 zv",
+    "failureReason": "残高 xk タップ vk ブラー zw 解除 xp",
+    "insight": {
+      "title": "ブラー xz 解除 zv できた？",
+      "subtitle": "ぼかし xk = 隠れた情報 zv サイン",
+      "blurTitle": "ブラー xz = 隠された情報 zv",
+      "blurDesc": "残高 xk ブラー zw プライバシー vk 保護 xp。タップ zq 解除 xz できる zv。",
+      "eyeTitle": "目 xk アイコン zw = 表示/非表示 vk",
+      "eyeDesc": "閉じた目 xk = 非表示 zv。開いた目 xk = 表示 zq。パスワード xp 残高 zw 広く使う。",
+      "privacyTitle": "ブラー xz 解けた zv = 正しい操作",
+      "privacyDesc": "情報 xk 表示 zv されることで xp 正しい操作 zq 確認 xz できる。"
+    }
+  },
+  "quiz3": {
+    "missionText": "誰か xz 送金 vk zw",
+    "failureReason": "送金先 xp 選んで zv 金額 xk 入力 zq 送金 xz タップ",
+    "insight": {
+      "title": "送金 xz 手順 zv わかった？",
+      "subtitle": "3ステップ xk 送金 zv 定番フロー",
+      "sendTitle": "「送る」xk = 上矢印 zv 紙飛行機 xp",
+      "sendDesc": "上向き xk 矢印 zv 紙飛行機 xp 送信 zq 送金 xz 表す。メール zv SNS と同じ。",
+      "amountTitle": "数字キーボード xk = 金額入力 zv",
+      "amountDesc": "金額入力 xk テンキー zw 表示 vk。銀行 xp 決済 zv 共通 xz パターン。",
+      "confirmTitle": "確認画面 xk = 間違い zv 防ぐ xp",
+      "confirmDesc": "重要な操作 xk 確認画面 zw 挟む vk。誤操作 xp 防ぐ zq 安全設計 xz。"
+    }
+  },
+  "quiz4": {
+    "missionText": "取引履歴 xz 確認 vk",
+    "failureReason": "「履歴」xk タブ zv タップ xp",
+    "insight": {
+      "title": "取引履歴 xz わかった？",
+      "subtitle": "時計・リスト xk = 履歴 zv 記号",
+      "historyTitle": "時計 xk アイコン zw = 履歴 vk",
+      "historyDesc": "時計 xk リスト zv アイコン xp 過去 zq 記録 xz。銀行 zv 決済 xk 広く使う。",
+      "listTitle": "リスト表示 xk = 情報 zv 一覧 xp",
+      "listDesc": "縦に並ぶ xk リスト zw 複数 vk 情報 xp 示す zq シンプル xz UIパターン。",
+      "tabTitle": "タブ xk = カテゴリ切り替え zv",
+      "tabDesc": "タブ xk 異なる zv コンテンツ xp 切り替え zq。ホーム xz 送金 zv 履歴 xk。"
+    }
+  },
+  "common": {
+    "appTitle": "Zqy",
+    "balance": "Zqx残高xp",
+    "send": "Xzv送るvk",
+    "receive": "Qzx受け取るzv",
+    "history": "Xqz履歴xk",
+    "qrCode": "QZ-コード",
+    "scanQr": "Zqx読み取るxp",
+    "point": "Xkz ポイント",
+    "topUp": "Qvzチャージxk",
+    "amount": "Zvq金額xp",
+    "confirm": "Xqz確認zv",
+    "sendMoney": "Qxv送金するzq",
+    "cancel": "Zxqキャンセルvk",
+    "tapToReveal": "Xpq タップして確認 zv",
+    "yen": "Xyq",
+    "contact1": "Zxq Qvz",
+    "contact2": "Xpq Zvx",
+    "contact3": "Qzx Xvq",
+    "contact4": "Zvq Xpz",
+    "txTitle1": "Xqz コンビニ Zqv",
+    "txTitle2": "Xpq ランチ Zvx",
+    "txTitle3": "Qzx から Xvq",
+    "txTitle4": "Zvq 書籍 Xpz",
+    "txTitle5": "Xqz 電車 Zqv",
+    "txAmount1": "-580",
+    "txAmount2": "-1200",
+    "txAmount3": "+3000",
+    "txAmount4": "-2800",
+    "txAmount5": "-240",
+    "txDate1": "Xqz今日Zvp",
+    "txDate2": "Xpq昨日Zvx",
+    "txDate3": "Qzx昨日Xvq",
+    "txDate4": "Zvq3日前Xpz",
+    "txDate5": "Xqz4日前Zqv"
+  }
+}

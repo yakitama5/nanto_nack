@@ -1,0 +1,94 @@
+{
+  "quiz1": {
+    "missionText": "Show the QR code",
+    "failureReason": "Tap the 'QR Code' button",
+    "insight": {
+      "title": "How did you find the QR button?",
+      "subtitle": "QR code = entry to scan-and-pay",
+      "qrTitle": "QR code icon means 'payment'",
+      "qrDesc": "The mosaic-patterned QR code icon is used as the entry point for QR payments in cashless apps worldwide.",
+      "cameraTitle": "Camera icon means 'scan'",
+      "cameraDesc": "The camera/scan icon is for reading someone else's QR code — opposite of showing your own for payment.",
+      "colorTitle": "Highlighted color = main action",
+      "colorDesc": "Buttons emphasized in the app's primary color indicate the most-used action — usually QR payment in payment apps."
+    }
+  },
+  "quiz2": {
+    "missionText": "Check your balance",
+    "failureReason": "Tap the blurred balance area to reveal it",
+    "insight": {
+      "title": "How did you reveal the balance?",
+      "subtitle": "Blur = hidden info waiting to be shown",
+      "blurTitle": "Blur indicates hidden information",
+      "blurDesc": "Balance amounts are intentionally blurred for privacy. The blur itself signals 'tap to reveal' — a tappable UI element.",
+      "eyeTitle": "Eye icon means show/hide",
+      "eyeDesc": "A closed eye means info is hidden; an open eye means visible. Widely used for passwords and balance displays.",
+      "privacyTitle": "Revealed info = correct action",
+      "privacyDesc": "When information is shown correctly, it confirms you performed the right action. UI feedback guides correct usage."
+    }
+  },
+  "quiz3": {
+    "missionText": "Send money to someone",
+    "failureReason": "Select a recipient, enter amount, and tap Send",
+    "insight": {
+      "title": "How did you figure out how to send?",
+      "subtitle": "3 steps is the standard send flow",
+      "sendTitle": "Send icon = upward arrow or paper plane",
+      "sendDesc": "Upward arrows and paper plane icons are widely used to represent sending — familiar from email and messaging apps.",
+      "amountTitle": "Number pad = amount input",
+      "amountDesc": "A number keypad appears for entering amounts — common across banking and payment apps.",
+      "confirmTitle": "Confirmation screen prevents mistakes",
+      "confirmDesc": "Important actions like sending money include a confirmation step to prevent accidental transactions."
+    }
+  },
+  "quiz4": {
+    "missionText": "Check your transaction history",
+    "failureReason": "Tap the 'History' tab or statement button",
+    "insight": {
+      "title": "How did you find transaction history?",
+      "subtitle": "Clock + list = history UI symbols",
+      "historyTitle": "Clock icon = history",
+      "historyDesc": "Clock and list-style icons represent past records in banking and payment apps worldwide.",
+      "listTitle": "List layout = information overview",
+      "listDesc": "Vertical lists are the simplest and most intuitive UI for showing multiple items like transactions or messages.",
+      "tabTitle": "Tabs = category switching",
+      "tabDesc": "Tabs at the top or bottom of the screen switch between content categories — Home, Send, History, etc."
+    }
+  },
+  "common": {
+    "appTitle": "Pay",
+    "balance": "Balance",
+    "send": "Send",
+    "receive": "Receive",
+    "history": "History",
+    "qrCode": "QR Code",
+    "scanQr": "Scan",
+    "point": "Points",
+    "topUp": "Top Up",
+    "amount": "Amount",
+    "confirm": "Confirm",
+    "sendMoney": "Send Money",
+    "cancel": "Cancel",
+    "tapToReveal": "Tap to reveal",
+    "yen": "¥",
+    "contact1": "Taro Tanaka",
+    "contact2": "Hanako Yamada",
+    "contact3": "Jiro Suzuki",
+    "contact4": "Midori Sato",
+    "txTitle1": "Convenience Store",
+    "txTitle2": "Lunch",
+    "txTitle3": "From friend",
+    "txTitle4": "Books",
+    "txTitle5": "Train fare",
+    "txAmount1": "-580",
+    "txAmount2": "-1200",
+    "txAmount3": "+3000",
+    "txAmount4": "-2800",
+    "txAmount5": "-240",
+    "txDate1": "Today",
+    "txDate2": "Yesterday",
+    "txDate3": "Yesterday",
+    "txDate4": "3 days ago",
+    "txDate5": "4 days ago"
+  }
+}

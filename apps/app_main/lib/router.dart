@@ -1,5 +1,6 @@
 import 'package:alarm/alarm.dart';
 import 'package:chat/chat.dart';
+import 'package:payment/payment.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map/map.dart';
 import 'package:shopping/shopping.dart';
@@ -9,7 +10,6 @@ import 'presentation/home/home_screen.dart';
 import 'presentation/play/category_list_screen.dart';
 import 'presentation/play/stage_list_screen.dart';
 import 'presentation/settings/settings_screen.dart';
-import 'presentation/shopping/shopping_stub_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -153,33 +153,29 @@ final appRouter = GoRouter(
         onCompleted: () => context.pop(),
       ),
     ),
-    // 決済カテゴリー（準備中）
+    // 決済カテゴリー
     GoRoute(
       path: '/payment/quiz1',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'payment_quiz1',
-        title: '決済 Quiz 1',
+      builder: (context, state) => ShowQrQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/payment/quiz2',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'payment_quiz2',
-        title: '決済 Quiz 2',
+      builder: (context, state) => RevealBalanceQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/payment/quiz3',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'payment_quiz3',
-        title: '決済 Quiz 3',
+      builder: (context, state) => SendMoneyQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/payment/quiz4',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'payment_quiz4',
-        title: '決済 Quiz 4',
+      builder: (context, state) => ViewHistoryQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
