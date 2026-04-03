@@ -6,10 +6,10 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../application/dashboard_provider.dart';
+import '../../application/stage_list_provider.dart';
 import '../../application/weather_provider.dart';
 import '../../domain/category.dart';
 import '../../domain/daily_scene.dart';
-import '../../domain/stage.dart';
 import '../../domain/dashboard/dashboard_state.dart';
 import '../../domain/dashboard/user_activity.dart';
 import '../../domain/weather/time_of_day_period.dart';
@@ -659,14 +659,15 @@ class _AccumulationCard extends StatelessWidget {
 // カテゴリーカルーセル
 // ─────────────────────────────────────────
 
-class _CategoryCarousel extends StatelessWidget {
+class _CategoryCarousel extends ConsumerWidget {
   const _CategoryCarousel();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final stagesAsync = ref.watch(stageListProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -697,23 +698,33 @@ class _CategoryCarousel extends StatelessWidget {
         const SizedBox(height: 12),
         SizedBox(
           height: 118,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: kAllCategories.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              final cat = kAllCategories[index];
-              final total =
-                  kAllStages.where((s) => s.category == cat.id).length;
-              return _CategoryCard(
-                categoryId: cat.id,
-                icon: cat.icon,
-                label: _categoryLabel(cat.id, t),
-                cleared: 0,
-                total: total,
-                isLocked: false,
-              );
-            },
+          child: stagesAsync.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (_, __) => const SizedBox.shrink(),
+            data: (stages) => ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: kAllCategories.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 12),
+              itemBuilder: (context, index) {
+                final cat = kAllCategories[index];
+                final categoryStages =
+                    stages.where((s) => s.stage.category == cat.id).toList();
+                final cleared = categoryStages
+                    .where((s) => s.status == StageStatus.cleared)
+                    .length;
+                final total = categoryStages.length;
+                final isLocked = categoryStages.isNotEmpty &&
+                    categoryStages.first.status == StageStatus.locked;
+                return _CategoryCard(
+                  categoryId: cat.id,
+                  icon: cat.icon,
+                  label: _categoryLabel(cat.id, t),
+                  cleared: cleared,
+                  total: total,
+                  isLocked: isLocked,
+                );
+              },
+            ),
           ),
         ),
       ],
