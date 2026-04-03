@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/catalog.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
@@ -124,26 +123,16 @@ class _ShoppingAppState extends State<ShoppingApp> {
 
     return Stack(
       children: [
-        Theme(
-          data: Theme.of(context).copyWith(
-            textTheme: GoogleFonts.notoSansJpTextTheme(
-              Theme.of(context).textTheme,
-            ),
+        Scaffold(
+          backgroundColor: const Color(0xFFF3F3F3),
+          appBar: _ShoppingAppBar(
+            cartCount: widget.cart.totalCount,
+            onCartTap: () => _showCart(context),
           ),
-          child: DefaultTextStyle.merge(
-            style: GoogleFonts.notoSansJp(),
-            child: Scaffold(
-              backgroundColor: const Color(0xFFF3F3F3),
-              appBar: _ShoppingAppBar(
-                cartCount: widget.cart.totalCount,
-                onCartTap: () => _showCart(context),
-              ),
-              body: _buildBody(filteredCatalog),
-              bottomNavigationBar: _ShoppingBottomNav(
-                selectedIndex: _selectedNavIndex,
-                onTap: _onNavTap,
-              ),
-            ),
+          body: _buildBody(filteredCatalog),
+          bottomNavigationBar: _ShoppingBottomNav(
+            selectedIndex: _selectedNavIndex,
+            onTap: _onNavTap,
           ),
         ),
         // フローティングミッションバブル（ドラッグ可能な円形タイマー、プレイ中のみ表示）

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
@@ -50,25 +49,17 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
 
     return Stack(
       children: [
-        Theme(
-          data: Theme.of(context).copyWith(
-            textTheme: GoogleFonts.notoSansJpTextTheme(
-              Theme.of(context).textTheme,
+        Scaffold(
+          backgroundColor: const Color(0xFFF3F3F3),
+          appBar: AppBar(
+            backgroundColor: _kNavyColor,
+            title: UnreadableText(
+              context.sq.cart.appTitle,
+              isObfuscated: true,
+              animateOnObfuscate: false,
+              style: const TextStyle(color: Colors.white),
             ),
-          ),
-          child: DefaultTextStyle.merge(
-            style: GoogleFonts.notoSansJp(),
-            child: Scaffold(
-            backgroundColor: const Color(0xFFF3F3F3),
-            appBar: AppBar(
-              backgroundColor: _kNavyColor,
-              title: UnreadableText(
-                context.sq.cart.appTitle,
-                isObfuscated: true,
-                animateOnObfuscate: false,
-                style: const TextStyle(color: Colors.white),
-              ),
-              iconTheme: const IconThemeData(color: Colors.white),
+            iconTheme: const IconThemeData(color: Colors.white),
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -94,8 +85,6 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
               ),
             ),
           ),
-          ),
-        ),
         // フローティングミッションバブル（ドラッグ可能な円形タイマー）
         if (quizState.status == QuizStatus.playing)
           FloatingMissionBubble(
