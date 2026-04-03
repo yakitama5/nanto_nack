@@ -1,6 +1,6 @@
 # 🗂️ 実装タスク進捗レポート
 
-> 最終更新: 2026-04-03  
+> 最終更新: 2026-04-03（日本語i18n移行完了）  
 > ブランチ: `feature/quizzes`
 
 ---
@@ -17,6 +17,7 @@
 | Phase 3-D | alarm カテゴリ実装 | ✅ 完了 |
 | Phase 3-E | payment カテゴリ実装 | ✅ 完了 |
 | Phase 4 | 全カテゴリ結合・ポリッシュ | ⬜ 未着手 |
+| 追加作業 | app_main 日本語ベタ書き → slang i18n 移行 | ✅ 完了 |
 
 ---
 
@@ -62,6 +63,23 @@
 - [x] エントリファイル: `payment.dart`
 - [x] Router接続: `app_main/router.dart` 接続済み
 - [x] lint クリア（全10パッケージ No issues）
+
+---
+
+## ✅ 追加作業: app_main 日本語ベタ書き → slang i18n 移行（完了）
+
+- [x] `quiz_core/assets/i18n/ja.i18n.json` に新規キー追加（play.stageTitle.*, scene.greeting.*, home.* 等）
+- [x] `quiz_core/assets/i18n/en.i18n.json` 英語訳追加
+- [x] `fvm dart run slang` で再生成（310文字列、lib/i18n/ 配下）
+- [x] `domain/category.dart`: label / description フィールド削除
+- [x] `domain/stage.dart`: title / description フィールド削除
+- [x] `domain/daily_scene.dart`: greeting フィールド削除（i18n lookup に変更）
+- [x] `category_list_screen.dart`: _categoryLabel() ヘルパー関数追加
+- [x] `stage_list_screen.dart`: _categoryLabel() / _stageTitle() ヘルパー関数追加
+- [x] `home_screen.dart`: _sceneGreeting() / _categoryLabel() 追加、全UI文字列i18n化
+- [x] `home_screen.dart`: _CategoryCarousel を kAllCategories ベースに変更（サンプルデータ削除）
+- [x] `get_dashboard_data_use_case.dart`: デフォルトTipsのhardcoded日本語を除去
+- [x] lint: 全10パッケージ No issues
 
 ---
 
