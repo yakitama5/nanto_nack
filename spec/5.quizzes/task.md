@@ -1,6 +1,6 @@
 # 🗂️ 実装タスク進捗レポート
 
-> 最終更新: 2026-04-03（日本語i18n移行完了）  
+> 最終更新: 2026-04-03（Phase 4 ダッシュボード連携・テスト基盤整備）  
 > ブランチ: `feature/quizzes`
 
 ---
@@ -16,7 +16,7 @@
 | Phase 3-C | map カテゴリ実装 | ✅ 完了 |
 | Phase 3-D | alarm カテゴリ実装 | ✅ 完了 |
 | Phase 3-E | payment カテゴリ実装 | ✅ 完了 |
-| Phase 4 | 全カテゴリ結合・ポリッシュ | ⬜ 未着手 |
+| Phase 4 | 全カテゴリ結合・ポリッシュ | 🔄 進行中 |
 | 追加作業 | app_main 日本語ベタ書き → slang i18n 移行 | ✅ 完了 |
 
 ---
@@ -83,9 +83,15 @@
 
 ---
 
-## ⬜ Phase 4: 全カテゴリ結合・ポリッシュ（未着手）
+## 🔄 Phase 4: 全カテゴリ結合・ポリッシュ（進行中）
 
-- [ ] ダッシュボードのロック解除（Driftクリア状況と連携）
+- [x] ダッシュボードのカテゴリカルーセルをDriftクリア状況と連携（`stageListProvider` でクリア数・ロック状態を動的表示）
+- [x] テスト基盤整備: alarm/map/payment/chat の `flutter_test_config.dart` 追加（GoogleFonts無効化・alchemist設定統一）
+- [x] alarm カテゴリ ユースケーステスト（Quiz1〜4）
+- [x] map カテゴリ ユースケーステスト（Quiz1〜4）
+- [x] payment カテゴリ ユースケーステスト（Quiz1〜4）
+- [x] `.gitignore` に `golden/failures/` を追加（ビルド成果物）
+- [x] lint: 全10パッケージ No issues
 - [ ] 全体E2Eテスト (patrol)
 - [ ] パフォーマンス確認・チューニング
 
