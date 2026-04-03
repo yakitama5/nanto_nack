@@ -58,6 +58,11 @@ apps/app_main/dart_define/prod.json
 **/env.g.dart
 **/*env.g.dart
 
+# テスト関連
+# --------------------
+# alchemist のゴールデンテスト失敗時に生成される差分画像（ビルド成果物）
+**/test/golden/failures/
+
 # OS / その他
 # --------------------
 .DS_Store
