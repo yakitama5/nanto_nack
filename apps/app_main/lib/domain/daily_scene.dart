@@ -20,16 +20,12 @@ class DailySceneTheme {
   const DailySceneTheme({
     required this.gradientColors,
     required this.icon,
-    required this.greeting,
     required this.onSceneColor,
     required this.iconGlowColor,
   });
 
   final List<Color> gradientColors;
   final IconData icon;
-
-  /// 挨拶テキスト
-  final String greeting;
 
   /// グラデーション上のテキスト・アイコン色
   final Color onSceneColor;
@@ -46,7 +42,6 @@ class DailySceneTheme {
             Color(0xFFFFF0E0),
           ],
           icon: Icons.wb_twilight_rounded,
-          greeting: 'おはようございます',
           onSceneColor: Color(0xFF5D2E00),
           iconGlowColor: Color(0x33FF7043),
         ),
@@ -57,7 +52,6 @@ class DailySceneTheme {
             Color(0xFFE1F5FE),
           ],
           icon: Icons.wb_sunny_rounded,
-          greeting: '今日もいい天気',
           onSceneColor: Color(0xFF01579B),
           iconGlowColor: Color(0x33FFD54F),
         ),
@@ -68,7 +62,6 @@ class DailySceneTheme {
             Color(0xFFECEFF1),
           ],
           icon: Icons.cloud_rounded,
-          greeting: '曇り空の一日',
           onSceneColor: Color(0xFF263238),
           iconGlowColor: Color(0x33546E7A),
         ),
@@ -79,7 +72,6 @@ class DailySceneTheme {
             Color(0xFFBBDEFB),
           ],
           icon: Icons.water_drop_rounded,
-          greeting: '雨の一日',
           onSceneColor: Color(0xFF0D47A1),
           iconGlowColor: Color(0x3342A5F5),
         ),
@@ -90,7 +82,6 @@ class DailySceneTheme {
             Color(0xFFFFCC80),
           ],
           icon: Icons.nights_stay_outlined,
-          greeting: 'お疲れ様でした',
           onSceneColor: Color(0xFF4E1003),
           iconGlowColor: Color(0x33FF5722),
         ),
@@ -101,7 +92,6 @@ class DailySceneTheme {
             Color(0xFF3949AB),
           ],
           icon: Icons.nights_stay_rounded,
-          greeting: 'お疲れ様でした',
           onSceneColor: Color(0xFFE8EAF6),
           iconGlowColor: Color(0x337986CB),
         ),

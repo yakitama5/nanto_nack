@@ -7,7 +7,9 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../application/dashboard_provider.dart';
 import '../../application/weather_provider.dart';
+import '../../domain/category.dart';
 import '../../domain/daily_scene.dart';
+import '../../domain/stage.dart';
 import '../../domain/dashboard/dashboard_state.dart';
 import '../../domain/dashboard/user_activity.dart';
 import '../../domain/weather/time_of_day_period.dart';
@@ -72,15 +74,26 @@ class _TodayHeroCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final weatherAsync = ref.watch(weatherProvider);
     final scene = DailySceneTheme.resolveFromNow();
     final sceneTheme = DailySceneTheme.of(scene);
     final topPadding = MediaQuery.paddingOf(context).top;
     final now = clock.now();
 
-    const weekdays = ['月', '火', '水', '木', '金', '土', '日'];
-    final weekday = weekdays[now.weekday - 1];
-    final dateLabel = '${now.month}月${now.day}日（$weekday）';
+    final weekdayStr = switch (now.weekday) {
+      DateTime.monday => t.home.weekday.mon,
+      DateTime.tuesday => t.home.weekday.tue,
+      DateTime.wednesday => t.home.weekday.wed,
+      DateTime.thursday => t.home.weekday.thu,
+      DateTime.friday => t.home.weekday.fri,
+      DateTime.saturday => t.home.weekday.sat,
+      _ => t.home.weekday.sun,
+    };
+    final dateLabel = t.home.dateFormat
+        .replaceAll('{month}', now.month.toString())
+        .replaceAll('{day}', now.day.toString())
+        .replaceAll('{weekday}', weekdayStr);
 
     // 天気×時間帯のシーンキーを解決（取得失敗時は null）
     final weatherCondition = weatherAsync.valueOrNull?.condition;
@@ -164,7 +177,7 @@ class _TodayHeroCard extends ConsumerWidget {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              sceneTheme.greeting,
+                              _sceneGreeting(scene, t),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -211,7 +224,7 @@ class _TodayHeroCard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'UI/UX 直感クイズ',
+                    t.home.subtitle,
                     style:
                         Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: sceneTheme.onSceneColor
@@ -228,6 +241,29 @@ class _TodayHeroCard extends ConsumerWidget {
       ),
     );
   }
+}
+
+String _sceneGreeting(DailyScene scene, Translations t) {
+  return switch (scene) {
+    DailyScene.sunriseMorning => t.scene.greeting.sunriseMorning,
+    DailyScene.sunnyDay => t.scene.greeting.sunnyDay,
+    DailyScene.cloudyDay => t.scene.greeting.cloudyDay,
+    DailyScene.rainyDay => t.scene.greeting.rainyDay,
+    DailyScene.sunsetEvening => t.scene.greeting.sunsetEvening,
+    DailyScene.nightSky => t.scene.greeting.nightSky,
+  };
+}
+
+String _categoryLabel(String categoryId, Translations t) {
+  return switch (categoryId) {
+    'shopping' => t.play.categoryLabel.shopping,
+    'chat' => t.play.categoryLabel.chat,
+    'streaming' => t.play.categoryLabel.streaming,
+    'map' => t.play.categoryLabel.map,
+    'alarm' => t.play.categoryLabel.alarm,
+    'payment' => t.play.categoryLabel.payment,
+    _ => categoryId,
+  };
 }
 
 /// ヘッダー上に表示する半透明背景付きアイコンボタン。
@@ -281,8 +317,12 @@ class _DashboardContent extends StatelessWidget {
           // 今日のUI/UXヒント
           _TipCard(
             label: t.dashboard.todayTip,
-            title: dashboard.dailyTip.title,
-            content: dashboard.dailyTip.content,
+            title: dashboard.dailyTip.id == 'default'
+                ? t.tip.defaultTitle
+                : dashboard.dailyTip.title,
+            content: dashboard.dailyTip.id == 'default'
+                ? t.tip.defaultContent
+                : dashboard.dailyTip.content,
           ),
           const SizedBox(height: 16),
           // プレイヒーローカード（残りプレイ数 + プレイボタン）
@@ -389,6 +429,7 @@ class _PlayHeroCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final isUnlimited = remainingPlayCount == null;
@@ -452,7 +493,7 @@ class _PlayHeroCard extends ConsumerWidget {
                 ),
               ),
               Text(
-                '本日の残りプレイ回数',
+                t.home.remainingPlaysLabel,
                 style: textTheme.labelSmall?.copyWith(
                   color: Colors.white.withValues(alpha: 0.7),
                 ),
@@ -480,7 +521,7 @@ class _PlayHeroCard extends ConsumerWidget {
                 ),
                 icon: const Icon(Icons.play_arrow_rounded, size: 22),
                 label: Text(
-                  'プレイする',
+                  t.home.playButton,
                   style: textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: colorScheme.primary,
@@ -489,7 +530,7 @@ class _PlayHeroCard extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                '次のステージへ進む',
+                t.home.nextStageHint,
                 style: textTheme.labelSmall?.copyWith(
                   color: Colors.white.withValues(alpha: 0.7),
                 ),
@@ -574,7 +615,7 @@ class _AccumulationCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '過去60日間の\nクリア記録',
+                  Translations.of(context).home.past60Days,
                   style: textTheme.labelSmall?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                     height: 1.5,
@@ -598,7 +639,7 @@ class _AccumulationCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Text(
-                        'まだプレイ履歴が\nありません',
+                        Translations.of(context).home.noActivityHistory,
                         style: textTheme.bodySmall?.copyWith(
                           color: colorScheme.onSurface.withValues(alpha: 0.45),
                           height: 1.5,
@@ -618,41 +659,12 @@ class _AccumulationCard extends StatelessWidget {
 // カテゴリーカルーセル
 // ─────────────────────────────────────────
 
-class _CategoryData {
-  const _CategoryData({
-    required this.emoji,
-    required this.label,
-    required this.cleared,
-    required this.total,
-    this.isLocked = false,
-  });
-
-  final String emoji;
-  final String label;
-  final int cleared;
-  final int total;
-  final bool isLocked;
-}
-
-// サンプルカテゴリーデータ（将来的にDashboardStateから取得）
-const _sampleCategories = [
-  _CategoryData(emoji: '🛍️', label: 'ショッピング', cleared: 8, total: 10),
-  _CategoryData(emoji: '💬', label: 'SNS', cleared: 2, total: 5),
-  _CategoryData(emoji: '📱', label: 'アプリUI', cleared: 3, total: 8),
-  _CategoryData(
-    emoji: '🔐',
-    label: '認証フロー',
-    cleared: 0,
-    total: 6,
-    isLocked: true,
-  ),
-];
-
 class _CategoryCarousel extends StatelessWidget {
   const _CategoryCarousel();
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -675,7 +687,7 @@ class _CategoryCarousel extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Text(
-              'カテゴリー',
+              t.home.categoriesLabel,
               style: textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -687,10 +699,21 @@ class _CategoryCarousel extends StatelessWidget {
           height: 118,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: _sampleCategories.length,
+            itemCount: kAllCategories.length,
             separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) =>
-                _CategoryCard(category: _sampleCategories[index]),
+            itemBuilder: (context, index) {
+              final cat = kAllCategories[index];
+              final total =
+                  kAllStages.where((s) => s.category == cat.id).length;
+              return _CategoryCard(
+                categoryId: cat.id,
+                icon: cat.icon,
+                label: _categoryLabel(cat.id, t),
+                cleared: 0,
+                total: total,
+                isLocked: false,
+              );
+            },
           ),
         ),
       ],
@@ -699,26 +722,38 @@ class _CategoryCarousel extends StatelessWidget {
 }
 
 class _CategoryCard extends StatelessWidget {
-  const _CategoryCard({required this.category});
+  const _CategoryCard({
+    required this.categoryId,
+    required this.icon,
+    required this.label,
+    required this.cleared,
+    required this.total,
+    this.isLocked = false,
+  });
 
-  final _CategoryData category;
+  final String categoryId;
+  final IconData icon;
+  final String label;
+  final int cleared;
+  final int total;
+  final bool isLocked;
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final progress =
-        category.total > 0 ? category.cleared / category.total : 0.0;
+    final progress = total > 0 ? cleared / total : 0.0;
 
     return Container(
       width: 132,
       decoration: BoxDecoration(
-        color: category.isLocked
+        color: isLocked
             ? colorScheme.surfaceContainerLow
             : colorScheme.primaryContainer.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: category.isLocked
+          color: isLocked
               ? colorScheme.outlineVariant.withValues(alpha: 0.4)
               : colorScheme.primary.withValues(alpha: 0.2),
         ),
@@ -729,9 +764,9 @@ class _CategoryCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(category.emoji, style: const TextStyle(fontSize: 20)),
+              Icon(icon, size: 20, color: colorScheme.primary),
               const Spacer(),
-              if (category.isLocked)
+              if (isLocked)
                 Icon(
                   Icons.lock_rounded,
                   size: 14,
@@ -741,10 +776,10 @@ class _CategoryCard extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            category.label,
+            label,
             style: textTheme.labelMedium?.copyWith(
               fontWeight: FontWeight.w700,
-              color: category.isLocked
+              color: isLocked
                   ? colorScheme.onSurface.withValues(alpha: 0.4)
                   : colorScheme.onPrimaryContainer,
             ),
@@ -753,9 +788,9 @@ class _CategoryCard extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           LinearProgressIndicator(
-            value: category.isLocked ? 0 : progress,
+            value: isLocked ? 0 : progress,
             backgroundColor: colorScheme.surfaceContainerHighest,
-            color: category.isLocked
+            color: isLocked
                 ? colorScheme.outline.withValues(alpha: 0.3)
                 : colorScheme.primary,
             borderRadius: BorderRadius.circular(4),
@@ -763,11 +798,13 @@ class _CategoryCard extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            category.isLocked
-                ? 'クリア後に解放'
-                : '${category.cleared}/${category.total} クリア',
+            isLocked
+                ? t.home.categoryLockedLabel
+                : t.home.categoryClearCount
+                    .replaceAll('{cleared}', cleared.toString())
+                    .replaceAll('{total}', total.toString()),
             style: textTheme.labelSmall?.copyWith(
-              color: category.isLocked
+              color: isLocked
                   ? colorScheme.onSurface.withValues(alpha: 0.3)
                   : colorScheme.primary.withValues(alpha: 0.7),
             ),

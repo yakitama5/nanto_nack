@@ -131,7 +131,7 @@ class _CategoryCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    category.label,
+                    _categoryLabel(category.id, t),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: category.isComingSoon
@@ -178,7 +178,7 @@ class _CategoryCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 2),
                         Text(
-                          '準備中',
+                          t.play.comingSoon,
                           style:
                               Theme.of(context).textTheme.labelSmall?.copyWith(
                                     color: colorScheme.onSurfaceVariant,
@@ -194,6 +194,18 @@ class _CategoryCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _categoryLabel(String categoryId, Translations t) {
+    return switch (categoryId) {
+      'shopping' => t.play.categoryLabel.shopping,
+      'chat' => t.play.categoryLabel.chat,
+      'streaming' => t.play.categoryLabel.streaming,
+      'map' => t.play.categoryLabel.map,
+      'alarm' => t.play.categoryLabel.alarm,
+      'payment' => t.play.categoryLabel.payment,
+      _ => categoryId,
+    };
   }
 
   Color _categoryColor(String categoryId, NantoNackThemeExtension ext) {

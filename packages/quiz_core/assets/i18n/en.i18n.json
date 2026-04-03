@@ -6,7 +6,28 @@
   "home": {
     "stageList": "Stage List",
     "playCount": "Played {count} times",
-    "@playCount": { "param": "count" }
+    "@playCount": { "param": "count" },
+    "subtitle": "UI/UX Intuition Quiz",
+    "remainingPlaysLabel": "Remaining plays today",
+    "playButton": "Play",
+    "nextStageHint": "Proceed to next stage",
+    "past60Days": "Clear history\nof last 60 days",
+    "noActivityHistory": "No play history\nyet",
+    "categoriesLabel": "Categories",
+    "categoryLockedLabel": "Unlock after clearing",
+    "categoryClearCount": "{cleared}/{total} cleared",
+    "@categoryClearCount": { "param(cleared)": "cleared", "param(total)": "total" },
+    "dateFormat": "{month}/{day} ({weekday})",
+    "@dateFormat": { "param(month)": "month", "param(day)": "day", "param(weekday)": "weekday" },
+    "weekday": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
   },
   "stage": {
     "cleared": "Cleared",
@@ -69,7 +90,91 @@
     "selectCategoryDescription": "Choose a category to challenge",
     "selectStage": "Select Stage",
     "stageCount": "{count} stages",
-    "@stageCount": { "param": "count" }
+    "@stageCount": { "param": "count" },
+    "noStages": "No stages available",
+    "comingSoon": "Coming Soon",
+    "categoryLabel": {
+      "shopping": "Shopping",
+      "chat": "Chat",
+      "streaming": "Video",
+      "map": "Map",
+      "alarm": "Alarm",
+      "payment": "Payment"
+    },
+    "categoryDescription": {
+      "shopping": "Experience e-commerce UI/UX",
+      "chat": "Experience messaging app UI/UX",
+      "streaming": "Experience video app UI/UX",
+      "map": "Experience map app UI/UX",
+      "alarm": "Experience clock & alarm app UI/UX",
+      "payment": "Experience mobile payment app UI/UX"
+    },
+    "stageTitle": {
+      "shopping_water": "Buy 2 Waters",
+      "shopping_checkout": "Complete Checkout",
+      "shopping_reorder": "Reorder Recent Purchase",
+      "shopping_cart": "Select Cart Total",
+      "chat_quiz1": "Send a Message",
+      "chat_quiz2": "Send a Sticker",
+      "chat_quiz3": "Delete a Message",
+      "chat_quiz4": "Create a Group",
+      "streaming_quiz1": "Turn on Subtitles",
+      "streaming_quiz2": "Skip to the Middle",
+      "streaming_quiz3": "Play at 2x Speed",
+      "streaming_quiz4": "Download a Video",
+      "map_quiz1": "Show Current Location",
+      "map_quiz2": "Search for a Destination",
+      "map_quiz3": "Start Navigation",
+      "map_quiz4": "Add to Favorites",
+      "alarm_quiz1": "Add an Alarm",
+      "alarm_quiz2": "Set Weekday Only",
+      "alarm_quiz3": "Turn Off Snooze",
+      "alarm_quiz4": "Delete an Alarm",
+      "payment_quiz1": "Show QR Code",
+      "payment_quiz2": "Check Balance",
+      "payment_quiz3": "Send Money",
+      "payment_quiz4": "Check Transaction History"
+    },
+    "stageDescription": {
+      "shopping_water": "Add 2 waters to the cart and purchase on the e-commerce site",
+      "shopping_checkout": "Complete 3 steps: address, payment method, and order confirmation",
+      "shopping_reorder": "Reorder the most recently purchased item from order history",
+      "shopping_cart": "Select the total amount of items in the cart from 4 choices",
+      "chat_quiz1": "Send a message in the chat app",
+      "chat_quiz2": "Send a sticker in the chat app",
+      "chat_quiz3": "Delete a sent message",
+      "chat_quiz4": "Create a new group chat",
+      "streaming_quiz1": "Turn on the subtitle feature in the video app",
+      "streaming_quiz2": "Go to the next video and skip to the middle",
+      "streaming_quiz3": "Play a video at 2x speed in the video app",
+      "streaming_quiz4": "Change to highest quality and download the video",
+      "map_quiz1": "Show your current location in the map app",
+      "map_quiz2": "Search for a destination in the map app",
+      "map_quiz3": "Start route navigation in the map app",
+      "map_quiz4": "Save a location to favorites in the map app",
+      "alarm_quiz1": "Add a new alarm in the clock app",
+      "alarm_quiz2": "Set an alarm to repeat only Monday through Friday",
+      "alarm_quiz3": "Turn off the snooze feature and save",
+      "alarm_quiz4": "Delete the top alarm from the alarm list",
+      "payment_quiz1": "Show the QR code in the payment app",
+      "payment_quiz2": "Remove the blur and check the balance in the payment app",
+      "payment_quiz3": "Send money to someone in the payment app",
+      "payment_quiz4": "Check the transaction history in the payment app"
+    }
+  },
+  "scene": {
+    "greeting": {
+      "sunriseMorning": "Good morning",
+      "sunnyDay": "Beautiful day today",
+      "cloudyDay": "A cloudy day",
+      "rainyDay": "A rainy day",
+      "sunsetEvening": "Good work today",
+      "nightSky": "Good work today"
+    }
+  },
+  "tip": {
+    "defaultTitle": "Learn UI/UX",
+    "defaultContent": "Sharpen your UI/UX intuition by solving quizzes!"
   },
   "settings": {
     "title": "Settings",
