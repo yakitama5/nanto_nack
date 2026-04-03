@@ -1,0 +1,82 @@
+{
+  "quiz1": {
+    "missionText": "Please add a new alarm",
+    "failureReason": "Tap the + button, set the time, and save",
+    "insight": {
+      "title": "How did you find the add button?",
+      "subtitle": "Plus sign is the universal symbol for create new",
+      "plusTitle": "Plus button means add new",
+      "plusDesc": "The + (plus) icon is a standard UI pattern representing 'create new / add' on both iOS and Android.",
+      "pickerTitle": "Drum roll is the classic time input UI",
+      "pickerDesc": "The vertically scrolling drum roll picker is widely used for time and date entry in clock and reservation apps.",
+      "saveTitle": "'Save' is placed in the top right",
+      "saveDesc": "A common pattern on iOS/Android: the Save/Done action in editing screens is placed in the top right corner."
+    }
+  },
+  "quiz2": {
+    "missionText": "Please set the alarm to ring on weekdays only (Mon-Fri)",
+    "failureReason": "Please select the 5 weekday buttons (Mon-Fri)",
+    "insight": {
+      "title": "How did you find the day settings?",
+      "subtitle": "7 circles = 1 week mental model",
+      "dotTitle": "7 circles represent days of the week",
+      "dotDesc": "When 7 round buttons are arranged horizontally, they represent weekday selection — a mental model shared by calendar and alarm apps worldwide.",
+      "weekdayTitle": "5 consecutive = weekdays",
+      "weekdayDesc": "Selecting Monday through Friday's 5 days means 'weekdays only'. The highlight state visually communicates selection completion.",
+      "highlightTitle": "Color change indicates selection state",
+      "highlightDesc": "Selected buttons become highlighted (colored), making it easy to see which days are active — a universal UI pattern."
+    }
+  },
+  "quiz3": {
+    "missionText": "Please turn off the Snooze feature and save",
+    "failureReason": "Turn off the snooze toggle and save",
+    "insight": {
+      "title": "How did you turn off snooze?",
+      "subtitle": "Toggle switch = the symbol for on/off",
+      "toggleTitle": "Toggle switch represents on/off",
+      "toggleDesc": "A toggle switch (left/right switching UI) is a dedicated UI component for turning a feature on or off.",
+      "vs_arrow_title": "Arrow vs toggle: navigate vs switch",
+      "vs_arrow_desc": "'>' means navigate to another screen, while a toggle switches on/off on the same screen. Understanding this distinction helps you find what you need.",
+      "colorTitle": "Gray = off, colored = on",
+      "colorDesc": "When the toggle turns gray, it's off. When colored (often green), it's on — a universal color convention."
+    }
+  },
+  "quiz4": {
+    "missionText": "Please delete the top alarm",
+    "failureReason": "Swipe left on the alarm to delete it",
+    "insight": {
+      "title": "How did you delete with a swipe?",
+      "subtitle": "Left swipe = the classic hidden action gesture",
+      "swipeTitle": "Left swipe reveals hidden actions",
+      "swipeDesc": "Swiping left on a list item to reveal delete/archive actions is a pattern used in iOS, Gmail, Slack, and many other apps.",
+      "redTitle": "Red area = the international color for delete",
+      "redDesc": "The red area or trash icon revealed by swiping means delete. Red representing danger/delete is a universal UI design principle.",
+      "hiddenTitle": "Knowing hidden UIs matters",
+      "hiddenDesc": "Even UIs not visible on screen can be revealed by gestures. This hidden action pattern is part of what makes smartphone UIs deep."
+    }
+  },
+  "common": {
+    "appTitle": "Clock",
+    "alarmsTab": "Alarms",
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "snooze": "Snooze",
+    "label": "Label",
+    "sound": "Sound",
+    "repeat": "Repeat",
+    "am": "AM",
+    "pm": "PM",
+    "mon": "M",
+    "tue": "T",
+    "wed": "W",
+    "thu": "T",
+    "fri": "F",
+    "sat": "S",
+    "sun": "S",
+    "tomorrow": "Tomorrow",
+    "weekdays": "Weekdays",
+    "editAlarm": "Edit Alarm"
+  }
+}

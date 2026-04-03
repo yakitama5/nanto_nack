@@ -13,6 +13,7 @@ workspace:
   - packages/quizzes/chat
   - packages/quizzes/streaming
   - packages/quizzes/map
+  - packages/quizzes/alarm
   - packages/geolocator_windows_stub
 
 dev_dependencies:

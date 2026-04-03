@@ -1,3 +1,4 @@
+import 'package:alarm/alarm.dart';
 import 'package:chat/chat.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map/map.dart';
@@ -127,33 +128,29 @@ final appRouter = GoRouter(
         onCompleted: () => context.pop(),
       ),
     ),
-    // アラームカテゴリー（準備中）
+    // アラームカテゴリー
     GoRoute(
       path: '/alarm/quiz1',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'alarm_quiz1',
-        title: 'アラーム Quiz 1',
+      builder: (context, state) => AddAlarmQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/alarm/quiz2',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'alarm_quiz2',
-        title: 'アラーム Quiz 2',
+      builder: (context, state) => SetWeekdaysQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/alarm/quiz3',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'alarm_quiz3',
-        title: 'アラーム Quiz 3',
+      builder: (context, state) => DisableSnoozeQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/alarm/quiz4',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'alarm_quiz4',
-        title: 'アラーム Quiz 4',
+      builder: (context, state) => DeleteAlarmQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     // 決済カテゴリー（準備中）
