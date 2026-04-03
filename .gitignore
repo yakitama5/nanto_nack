@@ -75,3 +75,6 @@ apps/app_main/dart_define/prod.json
 *.pyc
 .buildlog/
 migrate_working_dir/
+
+# シンボリックリンク
+korehosi
