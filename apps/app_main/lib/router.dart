@@ -1,5 +1,6 @@
 import 'package:chat/chat.dart';
 import 'package:go_router/go_router.dart';
+import 'package:map/map.dart';
 import 'package:shopping/shopping.dart';
 import 'package:streaming/streaming.dart';
 
@@ -101,33 +102,29 @@ final appRouter = GoRouter(
         onCompleted: () => context.pop(),
       ),
     ),
-    // マップカテゴリー（準備中）
+    // マップカテゴリー
     GoRoute(
       path: '/map/quiz1',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'map_quiz1',
-        title: 'マップ Quiz 1',
+      builder: (context, state) => ShowLocationQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/map/quiz2',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'map_quiz2',
-        title: 'マップ Quiz 2',
+      builder: (context, state) => SearchPlaceQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/map/quiz3',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'map_quiz3',
-        title: 'マップ Quiz 3',
+      builder: (context, state) => StartNavigationQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/map/quiz4',
-      builder: (context, state) => const ShoppingStubScreen(
-        quizId: 'map_quiz4',
-        title: 'マップ Quiz 4',
+      builder: (context, state) => SavePlaceQuizScreen(
+        onCompleted: () => context.pop(),
       ),
     ),
     // アラームカテゴリー（準備中）
