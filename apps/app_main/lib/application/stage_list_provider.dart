@@ -28,15 +28,26 @@ class StageListNotifier extends AsyncNotifier<List<StageWithStatus>> {
       final StageStatus status;
       if (result != null && result.isCleared) {
         status = StageStatus.cleared;
-      } else if (i == 0) {
-        // 最初のステージは常に解放
-        status = StageStatus.available;
       } else {
-        // 前のステージがクリア済みなら解放
-        final prevResult = await repo.findById(stages[i - 1].id);
-        status = (prevResult != null && prevResult.isCleared)
-            ? StageStatus.available
-            : StageStatus.locked;
+        // 同カテゴリ内での前のステージを探す
+        Stage? sameCategoryPrev;
+        for (var j = i - 1; j >= 0; j--) {
+          if (stages[j].category == stage.category) {
+            sameCategoryPrev = stages[j];
+            break;
+          }
+        }
+
+        if (sameCategoryPrev == null) {
+          // カテゴリ内の最初のステージは常に解放
+          status = StageStatus.available;
+        } else {
+          // 同カテゴリの前のステージがクリア済みなら解放
+          final prevResult = await repo.findById(sameCategoryPrev.id);
+          status = (prevResult != null && prevResult.isCleared)
+              ? StageStatus.available
+              : StageStatus.locked;
+        }
       }
 
       results.add(
