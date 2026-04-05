@@ -55,7 +55,9 @@ class ViewHistoryQuizNotifier
         elapsedMs: elapsed,
       );
       await hapticFeedback.playSuccessFeedback();
-      await _saveResult(isCleared: true, elapsedMs: elapsed);
+      try {
+        await _saveResult(isCleared: true, elapsedMs: elapsed);
+      } on Exception catch (_) {}
     }
   }
 
