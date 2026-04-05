@@ -1,0 +1,91 @@
+{
+  "quiz1": {
+    "missionText": "Please turn on subtitles for the video",
+    "insight": {
+      "title": "Subtitle Setting",
+      "subtitle": "CC icon",
+      "ccTitle": "CC Standard",
+      "ccDesc": "CC icon is universal.",
+      "visibilityTitle": "Hidden controls",
+      "visibilityDesc": "Tap to show controls.",
+      "feedbackTitle": "Visual feedback",
+      "feedbackDesc": "Color changes indicate state."
+    }
+  },
+  "quiz2": {
+    "missionText": "Go to the next video and seek to the middle",
+    "insight": {
+      "title": "Player UI",
+      "subtitle": "Layout",
+      "skipTitle": "Skip icon",
+      "skipDesc": "Next track symbol.",
+      "seekTitle": "Seek bar",
+      "seekDesc": "Time flow metaphor.",
+      "targetTitle": "Targeting",
+      "targetDesc": "Middle is easy to find."
+    }
+  },
+  "quiz3": {
+    "missionText": "Play at 2x speed",
+    "insight": {
+      "title": "Hidden Gestures",
+      "subtitle": "Long press",
+      "gestureTitle": "Fast-forward",
+      "gestureDesc": "Long press for 2x speed.",
+      "gearTitle": "Settings icon",
+      "gearDesc": "Gear means settings.",
+      "speedTitle": "Speed notation",
+      "speedDesc": "2x notation is universal."
+    }
+  },
+  "quiz4": {
+    "missionText": "Highest quality and download",
+    "insight": {
+      "title": "Visual Association",
+      "subtitle": "Symbols",
+      "qualityTitle": "Numbers",
+      "qualityDesc": "High number means quality.",
+      "downloadTitle": "Download icon",
+      "downloadDesc": "Arrow means download.",
+      "locationTitle": "Order",
+      "locationDesc": "Button order matters."
+    }
+  },
+  "common": {
+    "appTitle": "StreamHub",
+    "homeTab": "Home",
+    "exploreTab": "Explore",
+    "shortsTab": "Shorts",
+    "subsTab": "Subscriptions",
+    "youTab": "You",
+    "likeButton": "Like",
+    "dislikeButton": "Dislike",
+    "shareButton": "Share",
+    "saveButton": "Save",
+    "downloadButton": "Download",
+    "moreButton": "More",
+    "subscribeButton": "Subscribe",
+    "views": "views",
+    "subtitles": "Subtitles",
+    "quality": "Quality",
+    "playbackSpeed": "Playback speed",
+    "reportButton": "Report",
+    "subtitlesOff": "Off",
+    "subtitlesOn": "On (Auto)",
+    "shareTitle": "Share to",
+    "linkCopied": "Link copied",
+    "savedToList": "Saved to playlist"
+  },
+  "videos": {
+    "v1Title": "Amazing Nature Documentary 4K",
+    "v1Channel": "NatureWorld",
+    "v2Title": "Learn Programming in 10 Minutes",
+    "v2Channel": "CodeMaster",
+    "v3Title": "Top 10 Travel Destinations 2026",
+    "v3Channel": "TravelVlog",
+    "v4Title": "Cooking Easy Pasta Recipe",
+    "v4Channel": "ChefKitchen",
+    "v5Title": "Morning Yoga for Beginners",
+    "v5Channel": "YogaLife"
+  }
+}

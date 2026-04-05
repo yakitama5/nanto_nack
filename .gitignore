@@ -51,13 +51,17 @@ app.*.map.json
 # 機密情報
 # --------------------
 packages/system/.env
-apps/app_main/.env
 apps/app_main/env/.env
 apps/app_main/dart_define/prod.json
 
 # envied 生成ファイル (機密情報を含む可能性)
 **/env.g.dart
 **/*env.g.dart
+
+# テスト関連
+# --------------------
+# alchemist のゴールデンテスト失敗時に生成される差分画像（ビルド成果物）
+**/test/golden/failures/
 
 # OS / その他
 # --------------------
@@ -71,3 +75,6 @@ apps/app_main/dart_define/prod.json
 *.pyc
 .buildlog/
 migrate_working_dir/
+
+# シンボリックリンク
+korehosi

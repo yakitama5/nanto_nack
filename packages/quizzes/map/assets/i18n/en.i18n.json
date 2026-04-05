@@ -1,0 +1,88 @@
+{
+  "quiz1": {
+    "missionText": "Please show your current location",
+    "failureReason": "Please tap the current location button",
+    "insight": {
+      "title": "How did you find the current location button?",
+      "subtitle": "Location icon is the universal symbol for 'here'",
+      "locationTitle": "Pin icon means 'I am here'",
+      "locationDesc": "The pin icon modeled after real map pins is a world standard symbol for current location in digital maps.",
+      "compassTitle": "Compass indicates direction",
+      "compassDesc": "Tapping the compass icon resets to north-up. A UI pattern that intuitively conveys orientation.",
+      "zoomTitle": "Pinch to zoom the map",
+      "zoomDesc": "Two-finger pinch in/out is the standard gesture for smartphone map apps, used worldwide across languages."
+    }
+  },
+  "quiz2": {
+    "missionText": "Please search for a destination",
+    "failureReason": "Please search for a destination in the search bar",
+    "insight": {
+      "title": "How did you find the search bar?",
+      "subtitle": "Magnifying glass is the universal symbol for search",
+      "searchTitle": "Magnifying glass icon means search",
+      "searchDesc": "The magnifying glass is unified as a search icon from Google to SNS across all apps.",
+      "suggestTitle": "Search suggestions aid navigation",
+      "suggestDesc": "Suggestion lists appearing while typing is a standard operation pattern in map apps.",
+      "pinTitle": "Result selection places a pin on the map",
+      "pinDesc": "Tapping a search result shows a pin on the map. A visual feedback pattern for destinations."
+    }
+  },
+  "quiz3": {
+    "missionText": "Please start route navigation",
+    "failureReason": "Please start route navigation",
+    "insight": {
+      "title": "How did you find the navigation button?",
+      "subtitle": "Arrow represents 'navigate'",
+      "routeTitle": "Arrow icon represents navigation",
+      "routeDesc": "The upper-right arrow has become the standard navigation start button common to Google Maps and Apple Maps.",
+      "transportTitle": "Transport options lined up",
+      "transportDesc": "Car, train, walk, bike icons in a row is a UI common across major map apps.",
+      "stepTitle": "Turn-by-turn navigation is intuitive",
+      "stepDesc": "Large turn-left/right instructions at the next intersection — turn-by-turn navigation continues from the car navigation era."
+    }
+  },
+  "quiz4": {
+    "missionText": "Please add this place to favorites",
+    "failureReason": "Please add the place to favorites",
+    "insight": {
+      "title": "How did you find the favorites button?",
+      "subtitle": "Star mark is the universal symbol for favorites",
+      "starTitle": "Star mark is the international standard for favorites",
+      "starDesc": "Star (★) is unified as an icon meaning bookmark, favorites, and rating in maps, reviews, and SNS.",
+      "savedTitle": "Saved list accessible anytime",
+      "savedDesc": "Places added to favorites can be found in the Saved list. Basic pattern for content management UI.",
+      "colorTitle": "Color change communicates completion",
+      "colorDesc": "Star changing from gray to yellow visually communicates the state transition from unregistered to registered."
+    }
+  },
+  "common": {
+    "appTitle": "MapNavi",
+    "searchHint": "Search here",
+    "currentLocation": "Current location",
+    "directions": "Directions",
+    "startNavigation": "Start",
+    "savePlace": "Save",
+    "savedPlaces": "Saved places",
+    "drive": "Drive",
+    "walk": "Walk",
+    "transit": "Transit",
+    "bike": "Bike",
+    "nearby": "Nearby",
+    "explore": "Explore",
+    "go": "Go",
+    "min": "min",
+    "km": "km"
+  },
+  "places": {
+    "p1Name": "City Hall",
+    "p1Address": "1-1 Central Ave",
+    "p2Name": "Grand Park",
+    "p2Address": "2-5 Park Blvd",
+    "p3Name": "Main Station",
+    "p3Address": "3-10 Station St",
+    "p4Name": "Shopping Mall",
+    "p4Address": "4-2 Commerce Rd",
+    "p5Name": "University",
+    "p5Address": "5-8 Campus Dr"
+  }
+}

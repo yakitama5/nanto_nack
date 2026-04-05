@@ -27,6 +27,11 @@ class StageListScreen extends ConsumerWidget {
 
     final categoryColor = switch (categoryId) {
       'shopping' => ext.shoppingCategoryColor,
+      'chat' => ext.chatCategoryColor,
+      'streaming' => ext.streamingCategoryColor,
+      'map' => ext.mapCategoryColor,
+      'alarm' => ext.alarmCategoryColor,
+      'payment' => ext.paymentCategoryColor,
       _ => colorScheme.primary,
     };
 
@@ -60,7 +65,7 @@ class StageListScreen extends ConsumerWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar.medium(
-                    title: Text(category.label),
+                    title: Text(_categoryLabel(categoryId, t)),
                     centerTitle: false,
                     backgroundColor: colorScheme.surface,
                     foregroundColor: colorScheme.onSurface,
@@ -91,7 +96,7 @@ class StageListScreen extends ConsumerWidget {
                     SliverFillRemaining(
                       child: Center(
                         child: Text(
-                          'ステージがありません',
+                          t.play.noStages,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
@@ -117,7 +122,7 @@ class StageListScreen extends ConsumerWidget {
                             final stageNumber = globalIndex + 1;
                             return StageCard(
                               stageNumber: stageNumber,
-                              title: item.stage.title,
+                              title: _stageTitle(item.stage.id, t),
                               status: item.status,
                               difficulty: item.stage.difficulty,
                               clearTimeMs: item.clearTimeMs,
@@ -137,6 +142,48 @@ class StageListScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  String _categoryLabel(String categoryId, Translations t) {
+    return switch (categoryId) {
+      'shopping' => t.play.categoryLabel.shopping,
+      'chat' => t.play.categoryLabel.chat,
+      'streaming' => t.play.categoryLabel.streaming,
+      'map' => t.play.categoryLabel.map,
+      'alarm' => t.play.categoryLabel.alarm,
+      'payment' => t.play.categoryLabel.payment,
+      _ => categoryId,
+    };
+  }
+
+  String _stageTitle(String stageId, Translations t) {
+    return switch (stageId) {
+      'shopping_water' => t.play.stageTitle.shopping_water,
+      'shopping_checkout' => t.play.stageTitle.shopping_checkout,
+      'shopping_reorder' => t.play.stageTitle.shopping_reorder,
+      'shopping_cart' => t.play.stageTitle.shopping_cart,
+      'chat_quiz1' => t.play.stageTitle.chat_quiz1,
+      'chat_quiz2' => t.play.stageTitle.chat_quiz2,
+      'chat_quiz3' => t.play.stageTitle.chat_quiz3,
+      'chat_quiz4' => t.play.stageTitle.chat_quiz4,
+      'streaming_quiz1' => t.play.stageTitle.streaming_quiz1,
+      'streaming_quiz2' => t.play.stageTitle.streaming_quiz2,
+      'streaming_quiz3' => t.play.stageTitle.streaming_quiz3,
+      'streaming_quiz4' => t.play.stageTitle.streaming_quiz4,
+      'map_quiz1' => t.play.stageTitle.map_quiz1,
+      'map_quiz2' => t.play.stageTitle.map_quiz2,
+      'map_quiz3' => t.play.stageTitle.map_quiz3,
+      'map_quiz4' => t.play.stageTitle.map_quiz4,
+      'alarm_quiz1' => t.play.stageTitle.alarm_quiz1,
+      'alarm_quiz2' => t.play.stageTitle.alarm_quiz2,
+      'alarm_quiz3' => t.play.stageTitle.alarm_quiz3,
+      'alarm_quiz4' => t.play.stageTitle.alarm_quiz4,
+      'payment_quiz1' => t.play.stageTitle.payment_quiz1,
+      'payment_quiz2' => t.play.stageTitle.payment_quiz2,
+      'payment_quiz3' => t.play.stageTitle.payment_quiz3,
+      'payment_quiz4' => t.play.stageTitle.payment_quiz4,
+      _ => stageId,
+    };
   }
 
   Future<void> _onStageTap(

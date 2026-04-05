@@ -1,0 +1,84 @@
+{
+  "quiz1": {
+    "missionText": "Send a message",
+    "insight": {
+      "title": "Why could you operate despite not reading the text?",
+      "subtitle": "Universal patterns in chat UI guide your actions",
+      "inputTitle": "Input field is a universal UI",
+      "inputDesc": "The text input box + send button combination is adopted in chat apps worldwide including WhatsApp, LINE, and Slack. Once experienced, you can intuitively operate it regardless of language.",
+      "sendTitle": "The arrow button means send",
+      "sendDesc": "Right-pointing arrow and paper plane icons have become established across cultures as symbols meaning send or proceed.",
+      "bubbleTitle": "Speech bubbles visualize conversation",
+      "bubbleDesc": "Right is me, Left is other. This bubble layout is the de facto standard of chat UI."
+    }
+  },
+  "quiz2": {
+    "missionText": "Send a stamp",
+    "insight": {
+      "title": "How did you know the stamp button?",
+      "subtitle": "Emoji and stamps are the common language of emotions",
+      "emojiTitle": "Emoji transcend language",
+      "emojiDesc": "Emoji convey emotions directly without relying on language.",
+      "iconTitle": "Stamp icons convey meaning",
+      "iconDesc": "Smiley face icons intuitively indicate press here for stamps.",
+      "colorTitle": "Green theme evokes chat",
+      "colorDesc": "The green color is deeply associated with messaging apps."
+    }
+  },
+  "quiz3": {
+    "missionText": "Long press a message to delete",
+    "insight": {
+      "title": "How did you know long press would delete?",
+      "subtitle": "Context menus are the door to hidden features",
+      "longPressTitle": "Long press reveals more options",
+      "longPressDesc": "UIs that do not respond to a tap often show additional menus on long press.",
+      "contextMenuTitle": "Context menus show available actions",
+      "contextMenuDesc": "The menu appearing on long press lists what you can do with this item.",
+      "destructiveTitle": "Red warns of dangerous operations",
+      "destructiveDesc": "Delete buttons are red to warn about irreversible actions."
+    }
+  },
+  "quiz4": {
+    "missionText": "Create a group chat",
+    "insight": {
+      "title": "How did you understand the group creation steps?",
+      "subtitle": "Wizard UI naturally guides through the process",
+      "plusTitle": "Plus button means create new",
+      "plusDesc": "The plus icon is a universal symbol meaning add or create.",
+      "wizardTitle": "Step format breaks down complex operations",
+      "wizardDesc": "The flow breaks complex actions into small steps teaching what to do next.",
+      "checkboxTitle": "Checkboxes show selected state",
+      "checkboxDesc": "Checkboxes with check marks intuitively indicate selection state."
+    }
+  },
+  "common": {
+    "appTitle": "Talks",
+    "talkTab": "Talks",
+    "searchTab": "Search",
+    "callTab": "Calls",
+    "walletTab": "Wallet",
+    "newsTab": "News",
+    "sendButton": "Send",
+    "stampButton": "Stamp",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel",
+    "confirmDelete": "Delete this message?",
+    "createGroup": "Create Group",
+    "groupName": "Group Name",
+    "selectMembers": "Select Members",
+    "createButton": "Create",
+    "backButton": "Back",
+    "members": "{count} members",
+    "online": "Online",
+    "typeMessage": "Type a message",
+    "newGroup": "New Group",
+    "newChat": "New Chat"
+  },
+  "contacts": {
+    "alice": "Alice",
+    "bob": "Bob",
+    "carol": "Carol",
+    "team": "Project Team",
+    "mom": "Mom"
+  }
+}

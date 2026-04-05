@@ -1,0 +1,33 @@
+name: alarm
+description: "NantoNack アラームカテゴリクイズパッケージ"
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.11.3
+
+resolution: workspace
+
+dependencies:
+  clock: ^1.1.2
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  quiz_core:
+    path: ../../quiz_core
+  slang: ^4.3.1
+  slang_flutter: ^4.3.1
+  system:
+    path: ../../system
+
+dev_dependencies:
+  alchemist: ^0.14.0
+  altive_lints: ^2.2.0
+  build_runner: ^2.4.15
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  slang_build_runner: ^4.3.1
+
+flutter:
+  uses-material-design: true

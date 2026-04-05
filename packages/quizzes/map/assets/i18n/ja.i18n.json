@@ -1,0 +1,88 @@
+{
+  "quiz1": {
+    "missionText": "現在地を表示してください",
+    "failureReason": "現在地ボタンをタップしてください",
+    "insight": {
+      "title": "なぜ現在地ボタンがわかった？",
+      "subtitle": "位置情報アイコンは世界共通の「現在地」の記号",
+      "locationTitle": "📍 ピンアイコンは「ここにいる」を表す",
+      "locationDesc": "実際の地図ピンを模したアイコンは、デジタル地図で「現在地」を意味する世界標準の記号として定着している。",
+      "compassTitle": "コンパスが方角を示す",
+      "compassDesc": "画面端のコンパスアイコンをタップすると北向きに戻る。向きの基準が直感的にわかるUIパターン。",
+      "zoomTitle": "地図の拡大・縮小はピンチで操作",
+      "zoomDesc": "2本指でのピンチイン/アウトは、スマートフォン地図アプリの標準ジェスチャー。言語を超えて世界中で使われている。"
+    }
+  },
+  "quiz2": {
+    "missionText": "目的地を検索してください",
+    "failureReason": "検索バーで目的地を検索してください",
+    "insight": {
+      "title": "なぜ検索バーを見つけられた？",
+      "subtitle": "🔍 虫眼鏡は「探す」の万国共通語",
+      "searchTitle": "虫眼鏡アイコンは「検索」を意味する",
+      "searchDesc": "虫眼鏡（マグニファイヤー）は、GoogleからSNSまであらゆるアプリで「検索」を意味するアイコンとして統一されている。",
+      "suggestTitle": "検索候補が操作を助ける",
+      "suggestDesc": "入力中に候補リストが表示されるサジェスト機能は、地図アプリで標準的な操作パターン。",
+      "pinTitle": "結果選択でマップにピンが立つ",
+      "pinDesc": "検索結果をタップするとマップ上にピンが表示される。目的地の視覚的なフィードバックパターン。"
+    }
+  },
+  "quiz3": {
+    "missionText": "ルート案内を開始してください",
+    "failureReason": "ルート案内を開始してください",
+    "insight": {
+      "title": "なぜルート案内ボタンを見つけられた？",
+      "subtitle": "↗ 矢印は「案内する」を表す記号",
+      "routeTitle": "矢印アイコンがナビゲーションを表す",
+      "routeDesc": "右上を向く矢印アイコンは、Google マップ・Apple マップ共通のナビゲーション開始ボタンとして定着している。",
+      "transportTitle": "交通手段の選択が並ぶ",
+      "transportDesc": "車・電車・徒歩・自転車のアイコンが横並びになるパターンは、主要地図アプリで共通のUI。",
+      "stepTitle": "ターンバイターン案内が直感的",
+      "stepDesc": "次の交差点での左右の指示が大きく表示されるターンバイターン案内は、カーナビ時代から続く直感的なUI。"
+    }
+  },
+  "quiz4": {
+    "missionText": "この場所をお気に入りに追加してください",
+    "failureReason": "場所をお気に入りに追加してください",
+    "insight": {
+      "title": "なぜお気に入りボタンを見つけられた？",
+      "subtitle": "⭐ 星マークは「お気に入り」の万国共通語",
+      "starTitle": "星マークはお気に入りの国際標準記号",
+      "starDesc": "星（★）はブックマーク・お気に入り・評価を意味するアイコンとして、地図・レビュー・SNSで統一されている。",
+      "savedTitle": "保存済み一覧でいつでも確認",
+      "savedDesc": "お気に入りに追加した場所は「保存済み」リストで確認できる。コンテンツ管理UIの基本パターン。",
+      "colorTitle": "色変化が登録完了を伝える",
+      "colorDesc": "グレーから黄色に変わる星の色変化は、「未登録→登録済み」の状態遷移を視覚的に伝えるUIパターン。"
+    }
+  },
+  "common": {
+    "appTitle": "MapNavi",
+    "searchHint": "Search here",
+    "currentLocation": "Current location",
+    "directions": "Directions",
+    "startNavigation": "Start",
+    "savePlace": "Save",
+    "savedPlaces": "Saved places",
+    "drive": "Drive",
+    "walk": "Walk",
+    "transit": "Transit",
+    "bike": "Bike",
+    "nearby": "Nearby",
+    "explore": "Explore",
+    "go": "Go",
+    "min": "min",
+    "km": "km"
+  },
+  "places": {
+    "p1Name": "City Hall",
+    "p1Address": "1-1 Central Ave",
+    "p2Name": "Grand Park",
+    "p2Address": "2-5 Park Blvd",
+    "p3Name": "Main Station",
+    "p3Address": "3-10 Station St",
+    "p4Name": "Shopping Mall",
+    "p4Address": "4-2 Commerce Rd",
+    "p5Name": "University",
+    "p5Address": "5-8 Campus Dr"
+  }
+}

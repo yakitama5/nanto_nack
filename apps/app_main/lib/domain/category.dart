@@ -4,23 +4,41 @@ import 'package:flutter/material.dart';
 class Category {
   const Category({
     required this.id,
-    required this.label,
-    required this.description,
     required this.icon,
+    this.isComingSoon = false,
   });
 
   final String id;
-  final String label;
-  final String description;
   final IconData icon;
+
+  /// Coming Soon フラグ（未実装カテゴリー）
+  final bool isComingSoon;
 }
 
 /// アプリで定義するカテゴリー一覧
 const List<Category> kAllCategories = [
   Category(
     id: 'shopping',
-    label: 'ショッピング',
-    description: 'ECサイトのUI/UXを体験しよう',
     icon: Icons.shopping_cart_outlined,
+  ),
+  Category(
+    id: 'chat',
+    icon: Icons.chat_bubble_outline,
+  ),
+  Category(
+    id: 'streaming',
+    icon: Icons.play_circle_outline,
+  ),
+  Category(
+    id: 'map',
+    icon: Icons.map_outlined,
+  ),
+  Category(
+    id: 'alarm',
+    icon: Icons.alarm_outlined,
+  ),
+  Category(
+    id: 'payment',
+    icon: Icons.payment_outlined,
   ),
 ];

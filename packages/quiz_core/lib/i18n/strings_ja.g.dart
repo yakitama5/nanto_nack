@@ -49,6 +49,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsErrorJa error = TranslationsErrorJa.internal(_root);
 	late final TranslationsDashboardJa dashboard = TranslationsDashboardJa.internal(_root);
 	late final TranslationsPlayJa play = TranslationsPlayJa.internal(_root);
+	late final TranslationsSceneJa scene = TranslationsSceneJa.internal(_root);
+	late final TranslationsTipJa tip = TranslationsTipJa.internal(_root);
 	late final TranslationsSettingsJa settings = TranslationsSettingsJa.internal(_root);
 }
 
@@ -80,6 +82,38 @@ class TranslationsHomeJa {
 
 	/// ja: '{count}回プレイ済み'
 	String get playCount => '{count}回プレイ済み';
+
+	/// ja: 'UI/UX 直感クイズ'
+	String get subtitle => 'UI/UX 直感クイズ';
+
+	/// ja: '本日の残りプレイ回数'
+	String get remainingPlaysLabel => '本日の残りプレイ回数';
+
+	/// ja: 'プレイする'
+	String get playButton => 'プレイする';
+
+	/// ja: '次のステージへ進む'
+	String get nextStageHint => '次のステージへ進む';
+
+	/// ja: '過去60日間の クリア記録'
+	String get past60Days => '過去60日間の\nクリア記録';
+
+	/// ja: 'まだプレイ履歴が ありません'
+	String get noActivityHistory => 'まだプレイ履歴が\nありません';
+
+	/// ja: 'カテゴリー'
+	String get categoriesLabel => 'カテゴリー';
+
+	/// ja: 'クリア後に解放'
+	String get categoryLockedLabel => 'クリア後に解放';
+
+	/// ja: '{cleared}/{total} クリア'
+	String get categoryClearCount => '{cleared}/{total} クリア';
+
+	/// ja: '{month}月{day}日（{weekday}）'
+	String get dateFormat => '{month}月{day}日（{weekday}）';
+
+	late final TranslationsHomeWeekdayJa weekday = TranslationsHomeWeekdayJa.internal(_root);
 }
 
 // Path: stage
@@ -266,6 +300,42 @@ class TranslationsPlayJa {
 
 	/// ja: '{count}ステージ'
 	String get stageCount => '{count}ステージ';
+
+	/// ja: 'ステージがありません'
+	String get noStages => 'ステージがありません';
+
+	/// ja: '準備中'
+	String get comingSoon => '準備中';
+
+	late final TranslationsPlayCategoryLabelJa categoryLabel = TranslationsPlayCategoryLabelJa.internal(_root);
+	late final TranslationsPlayCategoryDescriptionJa categoryDescription = TranslationsPlayCategoryDescriptionJa.internal(_root);
+	late final TranslationsPlayStageTitleJa stageTitle = TranslationsPlayStageTitleJa.internal(_root);
+	late final TranslationsPlayStageDescriptionJa stageDescription = TranslationsPlayStageDescriptionJa.internal(_root);
+}
+
+// Path: scene
+class TranslationsSceneJa {
+	TranslationsSceneJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsSceneGreetingJa greeting = TranslationsSceneGreetingJa.internal(_root);
+}
+
+// Path: tip
+class TranslationsTipJa {
+	TranslationsTipJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'UI/UXを学ぼう'
+	String get defaultTitle => 'UI/UXを学ぼう';
+
+	/// ja: 'クイズを解いてUI/UXの感覚を磨きましょう！'
+	String get defaultContent => 'クイズを解いてUI/UXの感覚を磨きましょう！';
 }
 
 // Path: settings
@@ -282,6 +352,279 @@ class TranslationsSettingsJa {
 	late final TranslationsSettingsAppearanceJa appearance = TranslationsSettingsAppearanceJa.internal(_root);
 	late final TranslationsSettingsDataJa data = TranslationsSettingsDataJa.internal(_root);
 	late final TranslationsSettingsAboutJa about = TranslationsSettingsAboutJa.internal(_root);
+}
+
+// Path: home.weekday
+class TranslationsHomeWeekdayJa {
+	TranslationsHomeWeekdayJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '月'
+	String get mon => '月';
+
+	/// ja: '火'
+	String get tue => '火';
+
+	/// ja: '水'
+	String get wed => '水';
+
+	/// ja: '木'
+	String get thu => '木';
+
+	/// ja: '金'
+	String get fri => '金';
+
+	/// ja: '土'
+	String get sat => '土';
+
+	/// ja: '日'
+	String get sun => '日';
+}
+
+// Path: play.categoryLabel
+class TranslationsPlayCategoryLabelJa {
+	TranslationsPlayCategoryLabelJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ショッピング'
+	String get shopping => 'ショッピング';
+
+	/// ja: 'チャット'
+	String get chat => 'チャット';
+
+	/// ja: '動画'
+	String get streaming => '動画';
+
+	/// ja: 'マップ'
+	String get map => 'マップ';
+
+	/// ja: 'アラーム'
+	String get alarm => 'アラーム';
+
+	/// ja: '決済'
+	String get payment => '決済';
+}
+
+// Path: play.categoryDescription
+class TranslationsPlayCategoryDescriptionJa {
+	TranslationsPlayCategoryDescriptionJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ECサイトのUI/UXを体験しよう'
+	String get shopping => 'ECサイトのUI/UXを体験しよう';
+
+	/// ja: 'メッセージアプリのUI/UXを体験しよう'
+	String get chat => 'メッセージアプリのUI/UXを体験しよう';
+
+	/// ja: '動画アプリのUI/UXを体験しよう'
+	String get streaming => '動画アプリのUI/UXを体験しよう';
+
+	/// ja: '地図アプリのUI/UXを体験しよう'
+	String get map => '地図アプリのUI/UXを体験しよう';
+
+	/// ja: '時計・アラームアプリのUI/UXを体験しよう'
+	String get alarm => '時計・アラームアプリのUI/UXを体験しよう';
+
+	/// ja: 'モバイル決済アプリのUI/UXを体験しよう'
+	String get payment => 'モバイル決済アプリのUI/UXを体験しよう';
+}
+
+// Path: play.stageTitle
+class TranslationsPlayStageTitleJa {
+	TranslationsPlayStageTitleJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '水を2つ買おう'
+	String get shopping_water => '水を2つ買おう';
+
+	/// ja: '購入手続きを完了しよう'
+	String get shopping_checkout => '購入手続きを完了しよう';
+
+	/// ja: '直近の注文を再注文しよう'
+	String get shopping_reorder => '直近の注文を再注文しよう';
+
+	/// ja: 'カートの合計金額を選ぼう'
+	String get shopping_cart => 'カートの合計金額を選ぼう';
+
+	/// ja: 'メッセージを送ろう'
+	String get chat_quiz1 => 'メッセージを送ろう';
+
+	/// ja: 'スタンプを送ろう'
+	String get chat_quiz2 => 'スタンプを送ろう';
+
+	/// ja: 'メッセージを削除しよう'
+	String get chat_quiz3 => 'メッセージを削除しよう';
+
+	/// ja: 'グループを作ろう'
+	String get chat_quiz4 => 'グループを作ろう';
+
+	/// ja: '字幕をオンにしよう'
+	String get streaming_quiz1 => '字幕をオンにしよう';
+
+	/// ja: '動画の中盤まで進めよう'
+	String get streaming_quiz2 => '動画の中盤まで進めよう';
+
+	/// ja: '2倍速で再生しよう'
+	String get streaming_quiz3 => '2倍速で再生しよう';
+
+	/// ja: '動画をダウンロードしよう'
+	String get streaming_quiz4 => '動画をダウンロードしよう';
+
+	/// ja: '現在地を表示しよう'
+	String get map_quiz1 => '現在地を表示しよう';
+
+	/// ja: '目的地を検索しよう'
+	String get map_quiz2 => '目的地を検索しよう';
+
+	/// ja: 'ルートを案内しよう'
+	String get map_quiz3 => 'ルートを案内しよう';
+
+	/// ja: '場所をお気に入りに追加しよう'
+	String get map_quiz4 => '場所をお気に入りに追加しよう';
+
+	/// ja: 'アラームを追加しよう'
+	String get alarm_quiz1 => 'アラームを追加しよう';
+
+	/// ja: '平日だけ鳴るよう設定しよう'
+	String get alarm_quiz2 => '平日だけ鳴るよう設定しよう';
+
+	/// ja: 'スヌーズをオフにしよう'
+	String get alarm_quiz3 => 'スヌーズをオフにしよう';
+
+	/// ja: 'アラームを削除しよう'
+	String get alarm_quiz4 => 'アラームを削除しよう';
+
+	/// ja: 'QRコードを表示しよう'
+	String get payment_quiz1 => 'QRコードを表示しよう';
+
+	/// ja: '残高を確認しよう'
+	String get payment_quiz2 => '残高を確認しよう';
+
+	/// ja: '送金しよう'
+	String get payment_quiz3 => '送金しよう';
+
+	/// ja: '取引履歴を確認しよう'
+	String get payment_quiz4 => '取引履歴を確認しよう';
+}
+
+// Path: play.stageDescription
+class TranslationsPlayStageDescriptionJa {
+	TranslationsPlayStageDescriptionJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ECサイトで水を2つカートに入れて購入してください'
+	String get shopping_water => 'ECサイトで水を2つカートに入れて購入してください';
+
+	/// ja: '住所入力・支払い方法選択・注文確認の3ステップを完了してください'
+	String get shopping_checkout => '住所入力・支払い方法選択・注文確認の3ステップを完了してください';
+
+	/// ja: '注文履歴から直近で注文した商品をもう一度購入してください'
+	String get shopping_reorder => '注文履歴から直近で注文した商品をもう一度購入してください';
+
+	/// ja: 'カート内の商品の合計金額を4択から選んでください'
+	String get shopping_cart => 'カート内の商品の合計金額を4択から選んでください';
+
+	/// ja: 'チャットアプリでメッセージを送信してください'
+	String get chat_quiz1 => 'チャットアプリでメッセージを送信してください';
+
+	/// ja: 'チャットアプリでスタンプを送信してください'
+	String get chat_quiz2 => 'チャットアプリでスタンプを送信してください';
+
+	/// ja: '送信したメッセージを削除してください'
+	String get chat_quiz3 => '送信したメッセージを削除してください';
+
+	/// ja: '新しいグループチャットを作成してください'
+	String get chat_quiz4 => '新しいグループチャットを作成してください';
+
+	/// ja: '動画アプリで字幕機能をオンにしてください'
+	String get streaming_quiz1 => '動画アプリで字幕機能をオンにしてください';
+
+	/// ja: '次の動画へ移動し、動画の中盤まで進めてください'
+	String get streaming_quiz2 => '次の動画へ移動し、動画の中盤まで進めてください';
+
+	/// ja: '動画アプリで動画を2倍速で再生してください'
+	String get streaming_quiz3 => '動画アプリで動画を2倍速で再生してください';
+
+	/// ja: '動画を最高画質に変更して端末にダウンロードしてください'
+	String get streaming_quiz4 => '動画を最高画質に変更して端末にダウンロードしてください';
+
+	/// ja: '地図アプリで現在地を表示してください'
+	String get map_quiz1 => '地図アプリで現在地を表示してください';
+
+	/// ja: '地図アプリで目的地を検索してください'
+	String get map_quiz2 => '地図アプリで目的地を検索してください';
+
+	/// ja: '地図アプリでルート案内を開始してください'
+	String get map_quiz3 => '地図アプリでルート案内を開始してください';
+
+	/// ja: '地図アプリで場所をお気に入りに保存してください'
+	String get map_quiz4 => '地図アプリで場所をお気に入りに保存してください';
+
+	/// ja: '時計アプリで新しいアラームを追加してください'
+	String get alarm_quiz1 => '時計アプリで新しいアラームを追加してください';
+
+	/// ja: 'アラームを月〜金曜日だけ繰り返すように設定してください'
+	String get alarm_quiz2 => 'アラームを月〜金曜日だけ繰り返すように設定してください';
+
+	/// ja: 'アラームのスヌーズ機能をオフにして保存してください'
+	String get alarm_quiz3 => 'アラームのスヌーズ機能をオフにして保存してください';
+
+	/// ja: 'アラーム一覧から一番上のアラームを削除してください'
+	String get alarm_quiz4 => 'アラーム一覧から一番上のアラームを削除してください';
+
+	/// ja: '決済アプリでQRコードを表示してください'
+	String get payment_quiz1 => '決済アプリでQRコードを表示してください';
+
+	/// ja: '決済アプリで残高のブラーを解除して確認してください'
+	String get payment_quiz2 => '決済アプリで残高のブラーを解除して確認してください';
+
+	/// ja: '決済アプリで誰かに送金してください'
+	String get payment_quiz3 => '決済アプリで誰かに送金してください';
+
+	/// ja: '決済アプリで取引履歴を確認してください'
+	String get payment_quiz4 => '決済アプリで取引履歴を確認してください';
+}
+
+// Path: scene.greeting
+class TranslationsSceneGreetingJa {
+	TranslationsSceneGreetingJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'おはようございます'
+	String get sunriseMorning => 'おはようございます';
+
+	/// ja: '今日もいい天気'
+	String get sunnyDay => '今日もいい天気';
+
+	/// ja: '曇り空の一日'
+	String get cloudyDay => '曇り空の一日';
+
+	/// ja: '雨の一日'
+	String get rainyDay => '雨の一日';
+
+	/// ja: 'お疲れ様でした'
+	String get sunsetEvening => 'お疲れ様でした';
+
+	/// ja: 'お疲れ様でした'
+	String get nightSky => 'お疲れ様でした';
 }
 
 // Path: settings.appearance
@@ -392,6 +735,23 @@ extension on Translations {
 			'app.subtitle' => 'UI/UX直感クイズ',
 			'home.stageList' => 'ステージ一覧',
 			'home.playCount' => '{count}回プレイ済み',
+			'home.subtitle' => 'UI/UX 直感クイズ',
+			'home.remainingPlaysLabel' => '本日の残りプレイ回数',
+			'home.playButton' => 'プレイする',
+			'home.nextStageHint' => '次のステージへ進む',
+			'home.past60Days' => '過去60日間の\nクリア記録',
+			'home.noActivityHistory' => 'まだプレイ履歴が\nありません',
+			'home.categoriesLabel' => 'カテゴリー',
+			'home.categoryLockedLabel' => 'クリア後に解放',
+			'home.categoryClearCount' => '{cleared}/{total} クリア',
+			'home.dateFormat' => '{month}月{day}日（{weekday}）',
+			'home.weekday.mon' => '月',
+			'home.weekday.tue' => '火',
+			'home.weekday.wed' => '水',
+			'home.weekday.thu' => '木',
+			'home.weekday.fri' => '金',
+			'home.weekday.sat' => '土',
+			'home.weekday.sun' => '日',
 			'stage.cleared' => 'クリア済み',
 			'stage.available' => 'プレイ可能',
 			'stage.locked' => 'クリア後に解放',
@@ -433,6 +793,76 @@ extension on Translations {
 			'play.selectCategoryDescription' => 'チャレンジするカテゴリーを選んでください',
 			'play.selectStage' => 'ステージ選択',
 			'play.stageCount' => '{count}ステージ',
+			'play.noStages' => 'ステージがありません',
+			'play.comingSoon' => '準備中',
+			'play.categoryLabel.shopping' => 'ショッピング',
+			'play.categoryLabel.chat' => 'チャット',
+			'play.categoryLabel.streaming' => '動画',
+			'play.categoryLabel.map' => 'マップ',
+			'play.categoryLabel.alarm' => 'アラーム',
+			'play.categoryLabel.payment' => '決済',
+			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
+			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
+			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
+			'play.categoryDescription.map' => '地図アプリのUI/UXを体験しよう',
+			'play.categoryDescription.alarm' => '時計・アラームアプリのUI/UXを体験しよう',
+			'play.categoryDescription.payment' => 'モバイル決済アプリのUI/UXを体験しよう',
+			'play.stageTitle.shopping_water' => '水を2つ買おう',
+			'play.stageTitle.shopping_checkout' => '購入手続きを完了しよう',
+			'play.stageTitle.shopping_reorder' => '直近の注文を再注文しよう',
+			'play.stageTitle.shopping_cart' => 'カートの合計金額を選ぼう',
+			'play.stageTitle.chat_quiz1' => 'メッセージを送ろう',
+			'play.stageTitle.chat_quiz2' => 'スタンプを送ろう',
+			'play.stageTitle.chat_quiz3' => 'メッセージを削除しよう',
+			'play.stageTitle.chat_quiz4' => 'グループを作ろう',
+			'play.stageTitle.streaming_quiz1' => '字幕をオンにしよう',
+			'play.stageTitle.streaming_quiz2' => '動画の中盤まで進めよう',
+			'play.stageTitle.streaming_quiz3' => '2倍速で再生しよう',
+			'play.stageTitle.streaming_quiz4' => '動画をダウンロードしよう',
+			'play.stageTitle.map_quiz1' => '現在地を表示しよう',
+			'play.stageTitle.map_quiz2' => '目的地を検索しよう',
+			'play.stageTitle.map_quiz3' => 'ルートを案内しよう',
+			'play.stageTitle.map_quiz4' => '場所をお気に入りに追加しよう',
+			'play.stageTitle.alarm_quiz1' => 'アラームを追加しよう',
+			'play.stageTitle.alarm_quiz2' => '平日だけ鳴るよう設定しよう',
+			'play.stageTitle.alarm_quiz3' => 'スヌーズをオフにしよう',
+			'play.stageTitle.alarm_quiz4' => 'アラームを削除しよう',
+			'play.stageTitle.payment_quiz1' => 'QRコードを表示しよう',
+			'play.stageTitle.payment_quiz2' => '残高を確認しよう',
+			'play.stageTitle.payment_quiz3' => '送金しよう',
+			'play.stageTitle.payment_quiz4' => '取引履歴を確認しよう',
+			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
+			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
+			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
+			'play.stageDescription.shopping_cart' => 'カート内の商品の合計金額を4択から選んでください',
+			'play.stageDescription.chat_quiz1' => 'チャットアプリでメッセージを送信してください',
+			'play.stageDescription.chat_quiz2' => 'チャットアプリでスタンプを送信してください',
+			'play.stageDescription.chat_quiz3' => '送信したメッセージを削除してください',
+			'play.stageDescription.chat_quiz4' => '新しいグループチャットを作成してください',
+			'play.stageDescription.streaming_quiz1' => '動画アプリで字幕機能をオンにしてください',
+			'play.stageDescription.streaming_quiz2' => '次の動画へ移動し、動画の中盤まで進めてください',
+			'play.stageDescription.streaming_quiz3' => '動画アプリで動画を2倍速で再生してください',
+			'play.stageDescription.streaming_quiz4' => '動画を最高画質に変更して端末にダウンロードしてください',
+			'play.stageDescription.map_quiz1' => '地図アプリで現在地を表示してください',
+			'play.stageDescription.map_quiz2' => '地図アプリで目的地を検索してください',
+			'play.stageDescription.map_quiz3' => '地図アプリでルート案内を開始してください',
+			'play.stageDescription.map_quiz4' => '地図アプリで場所をお気に入りに保存してください',
+			'play.stageDescription.alarm_quiz1' => '時計アプリで新しいアラームを追加してください',
+			'play.stageDescription.alarm_quiz2' => 'アラームを月〜金曜日だけ繰り返すように設定してください',
+			'play.stageDescription.alarm_quiz3' => 'アラームのスヌーズ機能をオフにして保存してください',
+			'play.stageDescription.alarm_quiz4' => 'アラーム一覧から一番上のアラームを削除してください',
+			'play.stageDescription.payment_quiz1' => '決済アプリでQRコードを表示してください',
+			'play.stageDescription.payment_quiz2' => '決済アプリで残高のブラーを解除して確認してください',
+			'play.stageDescription.payment_quiz3' => '決済アプリで誰かに送金してください',
+			'play.stageDescription.payment_quiz4' => '決済アプリで取引履歴を確認してください',
+			'scene.greeting.sunriseMorning' => 'おはようございます',
+			'scene.greeting.sunnyDay' => '今日もいい天気',
+			'scene.greeting.cloudyDay' => '曇り空の一日',
+			'scene.greeting.rainyDay' => '雨の一日',
+			'scene.greeting.sunsetEvening' => 'お疲れ様でした',
+			'scene.greeting.nightSky' => 'お疲れ様でした',
+			'tip.defaultTitle' => 'UI/UXを学ぼう',
+			'tip.defaultContent' => 'クイズを解いてUI/UXの感覚を磨きましょう！',
 			'settings.title' => '設定',
 			'settings.appearance.title' => 'アピアランス',
 			'settings.appearance.theme' => 'テーマ',

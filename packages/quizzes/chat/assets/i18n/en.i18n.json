@@ -1,0 +1,84 @@
+{
+  "quiz1": {
+    "missionText": "Please send a message",
+    "insight": {
+      "title": "Why could you operate despite not reading the text?",
+      "subtitle": "Universal patterns in chat UI guide your actions",
+      "inputTitle": "Input field is a universal UI",
+      "inputDesc": "The text input box + send button combination is adopted in chat apps worldwide including WhatsApp, LINE, and Slack. Once experienced, you can intuitively operate it regardless of language.",
+      "sendTitle": "The → button is a symbol for 'send'",
+      "sendDesc": "Right-pointing arrow (→) and paper plane icons have become established across cultures as symbols meaning 'send' or 'proceed'. Icons themselves serve as language.",
+      "bubbleTitle": "Speech bubbles visualize conversation",
+      "bubbleDesc": "Right = me, Left = other — this bubble layout is the de facto standard of chat UI. You can instantly judge who said what using only color and position."
+    }
+  },
+  "quiz2": {
+    "missionText": "Please send a stamp",
+    "insight": {
+      "title": "How did you know the stamp button?",
+      "subtitle": "Emoji and stamps are the 'common language' of emotions",
+      "emojiTitle": "Emoji transcend language as emotional expression",
+      "emojiDesc": "Emoji like 😊 and 👍 convey emotions directly without relying on language. Born in Japan in 1999, this culture is now a global standard.",
+      "iconTitle": "Stamp button icons convey meaning",
+      "iconDesc": "Smiley face (😊) or emoji palette icons intuitively indicate 'press here for stamps'. UI icons convey meaning visually without reading text.",
+      "colorTitle": "Green theme evokes 'chat'",
+      "colorDesc": "LINE's green color is deeply ingrained in Japanese people as the symbol of messaging apps. Recognizing by color alone that 'this is a chat app' is the result of repeated UI patterns giving meaning to colors."
+    }
+  },
+  "quiz3": {
+    "missionText": "Long press a message to delete it",
+    "insight": {
+      "title": "How did you know long press would delete?",
+      "subtitle": "Context menus are the door to hidden features",
+      "longPressTitle": "Long press is a sign of 'more things you can do'",
+      "longPressDesc": "UIs that don't respond to a tap often show additional menus on long press. Established as a standard iOS/Android interaction pattern, users unconsciously try it.",
+      "contextMenuTitle": "Context menus present available actions",
+      "contextMenuDesc": "The menu appearing on long press lists 'what you can do with this item now'. Patterns with delete, copy, reply options are standard spec in messaging apps.",
+      "destructiveTitle": "Red color warns of 'dangerous operations'",
+      "destructiveDesc": "Delete buttons are red to warn about irreversible actions with color. Red = danger/warning is a cultural symbol ingrained from traffic lights, intentionally incorporated into UI design."
+    }
+  },
+  "quiz4": {
+    "missionText": "Create a group chat",
+    "insight": {
+      "title": "How did you understand the group creation steps?",
+      "subtitle": "Wizard-style UI naturally guides through the process",
+      "plusTitle": "+ button is the symbol for 'create new'",
+      "plusDesc": "The + (plus) icon is a universal symbol meaning 'add' or 'create'. Placed at the bottom right as a FAB (Floating Action Button) is also Material Design standard, intuitively suggesting 'something can be created here'.",
+      "wizardTitle": "Step format breaks down complex operations",
+      "wizardDesc": "The flow of group name input → member selection → creation confirmation is a wizard UI pattern that breaks complex actions into small steps. Each step teaches 'what to do next', allowing operation even without understanding language.",
+      "checkboxTitle": "Checkboxes visualize 'selected' state",
+      "checkboxDesc": "Checkboxes with ✓ marks intuitively indicate selection state. Used worldwide in forms, member selection, and filters as multi-select UI, their meaning is understood across languages."
+    }
+  },
+  "common": {
+    "appTitle": "Talks",
+    "talkTab": "Talks",
+    "searchTab": "Search",
+    "callTab": "Calls",
+    "walletTab": "Wallet",
+    "newsTab": "News",
+    "sendButton": "Send",
+    "stampButton": "Stamp",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel",
+    "confirmDelete": "Delete this message?",
+    "createGroup": "Create Group",
+    "groupName": "Group Name",
+    "selectMembers": "Select Members",
+    "createButton": "Create",
+    "backButton": "Back",
+    "members": "{count} members",
+    "online": "Online",
+    "typeMessage": "Type a message",
+    "newGroup": "New Group",
+    "newChat": "New Chat"
+  },
+  "contacts": {
+    "alice": "Alice",
+    "bob": "Bob",
+    "carol": "Carol",
+    "team": "Project Team",
+    "mom": "Mom"
+  }
+}

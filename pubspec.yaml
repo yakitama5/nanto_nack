@@ -10,6 +10,11 @@ workspace:
   - packages/system
   - packages/quiz_core
   - packages/quizzes/shopping
+  - packages/quizzes/chat
+  - packages/quizzes/streaming
+  - packages/quizzes/map
+  - packages/quizzes/alarm
+  - packages/quizzes/payment
   - packages/geolocator_windows_stub
 
 dev_dependencies:

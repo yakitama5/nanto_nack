@@ -1,0 +1,91 @@
+{
+  "quiz1": {
+    "missionText": "Please turn on subtitles for the video",
+    "insight": {
+      "title": "How did you find the subtitle setting?",
+      "subtitle": "CC is an international standard symbol",
+      "ccTitle": "CC (Closed Captions) is universal",
+      "ccDesc": "The 'CC' or subtitle icon (box with lines) is an international standard for subtitles since the TV broadcast era. It's recognized regardless of language.",
+      "visibilityTitle": "Controls are 'hidden'",
+      "visibilityDesc": "Most video players hide controls to avoid blocking the view. However, the 'tap to show' convention is deeply rooted in modern users.",
+      "feedbackTitle": "Underlines or color changes indicate 'ON'",
+      "feedbackDesc": "Changes like a red underline or brighter color indicate a feature is active, helping users understand state without reading labels."
+    }
+  },
+  "quiz2": {
+    "missionText": "Go to the next video and seek to the middle",
+    "insight": {
+      "title": "How did you operate without hesitation?",
+      "subtitle": "Player UI layout is key",
+      "skipTitle": "Right arrow + bar = Next",
+      "skipDesc": "The '▶︎▶︎|' symbol has meant 'skip to next track' since the cassette era. Placing it next to the play button is a global standard.",
+      "seekTitle": "Red line is a metaphor for flow of time",
+      "seekDesc": "The progress bar represents time flowing from left to right. Red highlights the 'current position', intuitively showing how to jump to past or future.",
+      "targetTitle": "Middle is easy to target visually",
+      "targetDesc": "Targeting the middle of the bar by sensing half of its physical length allows users to accurately reach 40-60% without text info."
+    }
+  },
+  "quiz3": {
+    "missionText": "Play the video at '2x speed'",
+    "insight": {
+      "title": "Did you notice the hidden operation?",
+      "subtitle": "Long press is a shortcut for acceleration",
+      "gestureTitle": "Long press gesture on video area",
+      "gestureDesc": "In many video apps, long pressing the screen triggers '2x speed' playback. This 'Aha!' moment shortcut saves time opening menus.",
+      "gearTitle": "⚙ icon is the gateway to settings",
+      "gearDesc": "The gear icon means 'settings' or 'customization' across all OS/apps. It builds trust that detailed changes happen here without reading text.",
+      "speedTitle": "Numbers combined with 'x'",
+      "speedDesc": "'1.5x' or '2x' are international mathematical symbols for magnification, serving as a language-free way to express speed."
+    }
+  },
+  "quiz4": {
+    "missionText": "Change to highest quality and download to device",
+    "insight": {
+      "title": "Highest difficulty cleared!",
+      "subtitle": "Symbol association is key",
+      "qualityTitle": "Larger numbers = Higher quality",
+      "qualityDesc": "Numbers like 1080p or 2160p represent vertical resolution. Users know larger numbers mean better quality from experience, even without reading.",
+      "downloadTitle": "↓ icon means 'getting' action",
+      "downloadDesc": "The downward arrow visualizes the physical action of dropping data from the cloud to your device (downloading), establishing its role as a save button.",
+      "locationTitle": "Importance of button 'order'",
+      "locationDesc": "The menu row under the title often lists Like, Share, and Save (Download) from left to right. This familiar order helps decode unreadable text."
+    }
+  },
+  "common": {
+    "appTitle": "StreamHub",
+    "homeTab": "Home",
+    "exploreTab": "Explore",
+    "shortsTab": "Shorts",
+    "subsTab": "Subscriptions",
+    "youTab": "You",
+    "likeButton": "Like",
+    "dislikeButton": "Dislike",
+    "shareButton": "Share",
+    "saveButton": "Save",
+    "downloadButton": "Download",
+    "moreButton": "More",
+    "subscribeButton": "Subscribe",
+    "views": "views",
+    "subtitles": "Subtitles",
+    "quality": "Quality",
+    "playbackSpeed": "Playback speed",
+    "reportButton": "Report",
+    "subtitlesOff": "Off",
+    "subtitlesOn": "On (Auto)",
+    "shareTitle": "Share to",
+    "linkCopied": "Link copied",
+    "savedToList": "Saved to playlist"
+  },
+  "videos": {
+    "v1Title": "Amazing Nature Documentary 4K",
+    "v1Channel": "NatureWorld",
+    "v2Title": "Learn Programming in 10 Minutes",
+    "v2Channel": "CodeMaster",
+    "v3Title": "Top 10 Travel Destinations 2026",
+    "v3Channel": "TravelVlog",
+    "v4Title": "Cooking Easy Pasta Recipe",
+    "v4Channel": "ChefKitchen",
+    "v5Title": "Morning Yoga for Beginners",
+    "v5Channel": "YogaLife"
+  }
+}

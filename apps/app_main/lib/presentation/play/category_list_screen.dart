@@ -89,55 +89,106 @@ class _CategoryCard extends StatelessWidget {
     final categoryContainerColor =
         _categoryContainerColor(category.id, ext);
 
+    // Coming Soon の場合はグレースケール表示
+    final effectiveColor = category.isComingSoon
+        ? colorScheme.onSurfaceVariant.withValues(alpha: 0.4)
+        : categoryColor;
+    final effectiveContainerColor = category.isComingSoon
+        ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
+        : categoryContainerColor;
+
     return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
         side: BorderSide(
-          color: categoryColor.withValues(alpha: 0.3),
+          color: effectiveColor.withValues(alpha: 0.3),
         ),
       ),
-      color: categoryContainerColor,
+      color: effectiveContainerColor,
       child: InkWell(
-        onTap: onTap,
+        onTap: category.isComingSoon ? null : onTap,
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: categoryColor.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  category.icon,
-                  size: 28,
-                  color: categoryColor,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                category.label,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.onSurface,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: effectiveColor.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                t.play.stageCount.replaceAll(
-                  '{count}',
-                  stageCount.toString(),
-                ),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: categoryColor,
-                      fontWeight: FontWeight.w600,
+                    child: Icon(
+                      category.icon,
+                      size: 28,
+                      color: effectiveColor,
                     ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    _categoryLabel(category.id, t),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: category.isComingSoon
+                              ? colorScheme.onSurfaceVariant
+                              : colorScheme.onSurface,
+                        ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    category.isComingSoon
+                        ? 'Coming Soon'
+                        : t.play.stageCount.replaceAll(
+                            '{count}',
+                            stageCount.toString(),
+                          ),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: effectiveColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
               ),
+              // Coming Soon バッジ
+              if (category.isComingSoon)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
+                    decoration: BoxDecoration(
+                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.lock_outline,
+                          size: 10,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 2),
+                        Text(
+                          t.play.comingSoon,
+                          style:
+                              Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                    fontSize: 10,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
@@ -145,9 +196,26 @@ class _CategoryCard extends StatelessWidget {
     );
   }
 
+  String _categoryLabel(String categoryId, Translations t) {
+    return switch (categoryId) {
+      'shopping' => t.play.categoryLabel.shopping,
+      'chat' => t.play.categoryLabel.chat,
+      'streaming' => t.play.categoryLabel.streaming,
+      'map' => t.play.categoryLabel.map,
+      'alarm' => t.play.categoryLabel.alarm,
+      'payment' => t.play.categoryLabel.payment,
+      _ => categoryId,
+    };
+  }
+
   Color _categoryColor(String categoryId, NantoNackThemeExtension ext) {
     return switch (categoryId) {
       'shopping' => ext.shoppingCategoryColor,
+      'chat' => ext.chatCategoryColor,
+      'streaming' => ext.streamingCategoryColor,
+      'map' => ext.mapCategoryColor,
+      'alarm' => ext.alarmCategoryColor,
+      'payment' => ext.paymentCategoryColor,
       _ => ext.shoppingCategoryColor,
     };
   }
@@ -158,6 +226,11 @@ class _CategoryCard extends StatelessWidget {
   ) {
     return switch (categoryId) {
       'shopping' => ext.shoppingCategoryContainerColor,
+      'chat' => ext.chatCategoryContainerColor,
+      'streaming' => ext.streamingCategoryContainerColor,
+      'map' => ext.mapCategoryContainerColor,
+      'alarm' => ext.alarmCategoryContainerColor,
+      'payment' => ext.paymentCategoryContainerColor,
       _ => ext.shoppingCategoryContainerColor,
     };
   }

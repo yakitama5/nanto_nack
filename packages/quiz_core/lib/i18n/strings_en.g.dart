@@ -48,6 +48,8 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsErrorEn error = _TranslationsErrorEn._(_root);
 	@override late final _TranslationsDashboardEn dashboard = _TranslationsDashboardEn._(_root);
 	@override late final _TranslationsPlayEn play = _TranslationsPlayEn._(_root);
+	@override late final _TranslationsSceneEn scene = _TranslationsSceneEn._(_root);
+	@override late final _TranslationsTipEn tip = _TranslationsTipEn._(_root);
 	@override late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(_root);
 }
 
@@ -71,6 +73,17 @@ class _TranslationsHomeEn extends TranslationsHomeJa {
 	// Translations
 	@override String get stageList => 'Stage List';
 	@override String get playCount => 'Played {count} times';
+	@override String get subtitle => 'UI/UX Intuition Quiz';
+	@override String get remainingPlaysLabel => 'Remaining plays today';
+	@override String get playButton => 'Play';
+	@override String get nextStageHint => 'Proceed to next stage';
+	@override String get past60Days => 'Clear history\nof last 60 days';
+	@override String get noActivityHistory => 'No play history\nyet';
+	@override String get categoriesLabel => 'Categories';
+	@override String get categoryLockedLabel => 'Unlock after clearing';
+	@override String get categoryClearCount => '{cleared}/{total} cleared';
+	@override String get dateFormat => '{month}/{day} ({weekday})';
+	@override late final _TranslationsHomeWeekdayEn weekday = _TranslationsHomeWeekdayEn._(_root);
 }
 
 // Path: stage
@@ -175,6 +188,33 @@ class _TranslationsPlayEn extends TranslationsPlayJa {
 	@override String get selectCategoryDescription => 'Choose a category to challenge';
 	@override String get selectStage => 'Select Stage';
 	@override String get stageCount => '{count} stages';
+	@override String get noStages => 'No stages available';
+	@override String get comingSoon => 'Coming Soon';
+	@override late final _TranslationsPlayCategoryLabelEn categoryLabel = _TranslationsPlayCategoryLabelEn._(_root);
+	@override late final _TranslationsPlayCategoryDescriptionEn categoryDescription = _TranslationsPlayCategoryDescriptionEn._(_root);
+	@override late final _TranslationsPlayStageTitleEn stageTitle = _TranslationsPlayStageTitleEn._(_root);
+	@override late final _TranslationsPlayStageDescriptionEn stageDescription = _TranslationsPlayStageDescriptionEn._(_root);
+}
+
+// Path: scene
+class _TranslationsSceneEn extends TranslationsSceneJa {
+	_TranslationsSceneEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsSceneGreetingEn greeting = _TranslationsSceneGreetingEn._(_root);
+}
+
+// Path: tip
+class _TranslationsTipEn extends TranslationsTipJa {
+	_TranslationsTipEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get defaultTitle => 'Learn UI/UX';
+	@override String get defaultContent => 'Sharpen your UI/UX intuition by solving quizzes!';
 }
 
 // Path: settings
@@ -188,6 +228,133 @@ class _TranslationsSettingsEn extends TranslationsSettingsJa {
 	@override late final _TranslationsSettingsAppearanceEn appearance = _TranslationsSettingsAppearanceEn._(_root);
 	@override late final _TranslationsSettingsDataEn data = _TranslationsSettingsDataEn._(_root);
 	@override late final _TranslationsSettingsAboutEn about = _TranslationsSettingsAboutEn._(_root);
+}
+
+// Path: home.weekday
+class _TranslationsHomeWeekdayEn extends TranslationsHomeWeekdayJa {
+	_TranslationsHomeWeekdayEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get mon => 'Mon';
+	@override String get tue => 'Tue';
+	@override String get wed => 'Wed';
+	@override String get thu => 'Thu';
+	@override String get fri => 'Fri';
+	@override String get sat => 'Sat';
+	@override String get sun => 'Sun';
+}
+
+// Path: play.categoryLabel
+class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
+	_TranslationsPlayCategoryLabelEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get shopping => 'Shopping';
+	@override String get chat => 'Chat';
+	@override String get streaming => 'Video';
+	@override String get map => 'Map';
+	@override String get alarm => 'Alarm';
+	@override String get payment => 'Payment';
+}
+
+// Path: play.categoryDescription
+class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDescriptionJa {
+	_TranslationsPlayCategoryDescriptionEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get shopping => 'Experience e-commerce UI/UX';
+	@override String get chat => 'Experience messaging app UI/UX';
+	@override String get streaming => 'Experience video app UI/UX';
+	@override String get map => 'Experience map app UI/UX';
+	@override String get alarm => 'Experience clock & alarm app UI/UX';
+	@override String get payment => 'Experience mobile payment app UI/UX';
+}
+
+// Path: play.stageTitle
+class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
+	_TranslationsPlayStageTitleEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get shopping_water => 'Buy 2 Waters';
+	@override String get shopping_checkout => 'Complete Checkout';
+	@override String get shopping_reorder => 'Reorder Recent Purchase';
+	@override String get shopping_cart => 'Select Cart Total';
+	@override String get chat_quiz1 => 'Send a Message';
+	@override String get chat_quiz2 => 'Send a Sticker';
+	@override String get chat_quiz3 => 'Delete a Message';
+	@override String get chat_quiz4 => 'Create a Group';
+	@override String get streaming_quiz1 => 'Turn on Subtitles';
+	@override String get streaming_quiz2 => 'Skip to the Middle';
+	@override String get streaming_quiz3 => 'Play at 2x Speed';
+	@override String get streaming_quiz4 => 'Download a Video';
+	@override String get map_quiz1 => 'Show Current Location';
+	@override String get map_quiz2 => 'Search for a Destination';
+	@override String get map_quiz3 => 'Start Navigation';
+	@override String get map_quiz4 => 'Add to Favorites';
+	@override String get alarm_quiz1 => 'Add an Alarm';
+	@override String get alarm_quiz2 => 'Set Weekday Only';
+	@override String get alarm_quiz3 => 'Turn Off Snooze';
+	@override String get alarm_quiz4 => 'Delete an Alarm';
+	@override String get payment_quiz1 => 'Show QR Code';
+	@override String get payment_quiz2 => 'Check Balance';
+	@override String get payment_quiz3 => 'Send Money';
+	@override String get payment_quiz4 => 'Check Transaction History';
+}
+
+// Path: play.stageDescription
+class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescriptionJa {
+	_TranslationsPlayStageDescriptionEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get shopping_water => 'Add 2 waters to the cart and purchase on the e-commerce site';
+	@override String get shopping_checkout => 'Complete 3 steps: address, payment method, and order confirmation';
+	@override String get shopping_reorder => 'Reorder the most recently purchased item from order history';
+	@override String get shopping_cart => 'Select the total amount of items in the cart from 4 choices';
+	@override String get chat_quiz1 => 'Send a message in the chat app';
+	@override String get chat_quiz2 => 'Send a sticker in the chat app';
+	@override String get chat_quiz3 => 'Delete a sent message';
+	@override String get chat_quiz4 => 'Create a new group chat';
+	@override String get streaming_quiz1 => 'Turn on the subtitle feature in the video app';
+	@override String get streaming_quiz2 => 'Go to the next video and skip to the middle';
+	@override String get streaming_quiz3 => 'Play a video at 2x speed in the video app';
+	@override String get streaming_quiz4 => 'Change to highest quality and download the video';
+	@override String get map_quiz1 => 'Show your current location in the map app';
+	@override String get map_quiz2 => 'Search for a destination in the map app';
+	@override String get map_quiz3 => 'Start route navigation in the map app';
+	@override String get map_quiz4 => 'Save a location to favorites in the map app';
+	@override String get alarm_quiz1 => 'Add a new alarm in the clock app';
+	@override String get alarm_quiz2 => 'Set an alarm to repeat only Monday through Friday';
+	@override String get alarm_quiz3 => 'Turn off the snooze feature and save';
+	@override String get alarm_quiz4 => 'Delete the top alarm from the alarm list';
+	@override String get payment_quiz1 => 'Show the QR code in the payment app';
+	@override String get payment_quiz2 => 'Remove the blur and check the balance in the payment app';
+	@override String get payment_quiz3 => 'Send money to someone in the payment app';
+	@override String get payment_quiz4 => 'Check the transaction history in the payment app';
+}
+
+// Path: scene.greeting
+class _TranslationsSceneGreetingEn extends TranslationsSceneGreetingJa {
+	_TranslationsSceneGreetingEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get sunriseMorning => 'Good morning';
+	@override String get sunnyDay => 'Beautiful day today';
+	@override String get cloudyDay => 'A cloudy day';
+	@override String get rainyDay => 'A rainy day';
+	@override String get sunsetEvening => 'Good work today';
+	@override String get nightSky => 'Good work today';
 }
 
 // Path: settings.appearance
@@ -252,6 +419,23 @@ extension on TranslationsEn {
 			'app.subtitle' => 'UI/UX Intuition Quiz',
 			'home.stageList' => 'Stage List',
 			'home.playCount' => 'Played {count} times',
+			'home.subtitle' => 'UI/UX Intuition Quiz',
+			'home.remainingPlaysLabel' => 'Remaining plays today',
+			'home.playButton' => 'Play',
+			'home.nextStageHint' => 'Proceed to next stage',
+			'home.past60Days' => 'Clear history\nof last 60 days',
+			'home.noActivityHistory' => 'No play history\nyet',
+			'home.categoriesLabel' => 'Categories',
+			'home.categoryLockedLabel' => 'Unlock after clearing',
+			'home.categoryClearCount' => '{cleared}/{total} cleared',
+			'home.dateFormat' => '{month}/{day} ({weekday})',
+			'home.weekday.mon' => 'Mon',
+			'home.weekday.tue' => 'Tue',
+			'home.weekday.wed' => 'Wed',
+			'home.weekday.thu' => 'Thu',
+			'home.weekday.fri' => 'Fri',
+			'home.weekday.sat' => 'Sat',
+			'home.weekday.sun' => 'Sun',
 			'stage.cleared' => 'Cleared',
 			'stage.available' => 'Available',
 			'stage.locked' => 'Complete previous stage',
@@ -293,6 +477,76 @@ extension on TranslationsEn {
 			'play.selectCategoryDescription' => 'Choose a category to challenge',
 			'play.selectStage' => 'Select Stage',
 			'play.stageCount' => '{count} stages',
+			'play.noStages' => 'No stages available',
+			'play.comingSoon' => 'Coming Soon',
+			'play.categoryLabel.shopping' => 'Shopping',
+			'play.categoryLabel.chat' => 'Chat',
+			'play.categoryLabel.streaming' => 'Video',
+			'play.categoryLabel.map' => 'Map',
+			'play.categoryLabel.alarm' => 'Alarm',
+			'play.categoryLabel.payment' => 'Payment',
+			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
+			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
+			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
+			'play.categoryDescription.map' => 'Experience map app UI/UX',
+			'play.categoryDescription.alarm' => 'Experience clock & alarm app UI/UX',
+			'play.categoryDescription.payment' => 'Experience mobile payment app UI/UX',
+			'play.stageTitle.shopping_water' => 'Buy 2 Waters',
+			'play.stageTitle.shopping_checkout' => 'Complete Checkout',
+			'play.stageTitle.shopping_reorder' => 'Reorder Recent Purchase',
+			'play.stageTitle.shopping_cart' => 'Select Cart Total',
+			'play.stageTitle.chat_quiz1' => 'Send a Message',
+			'play.stageTitle.chat_quiz2' => 'Send a Sticker',
+			'play.stageTitle.chat_quiz3' => 'Delete a Message',
+			'play.stageTitle.chat_quiz4' => 'Create a Group',
+			'play.stageTitle.streaming_quiz1' => 'Turn on Subtitles',
+			'play.stageTitle.streaming_quiz2' => 'Skip to the Middle',
+			'play.stageTitle.streaming_quiz3' => 'Play at 2x Speed',
+			'play.stageTitle.streaming_quiz4' => 'Download a Video',
+			'play.stageTitle.map_quiz1' => 'Show Current Location',
+			'play.stageTitle.map_quiz2' => 'Search for a Destination',
+			'play.stageTitle.map_quiz3' => 'Start Navigation',
+			'play.stageTitle.map_quiz4' => 'Add to Favorites',
+			'play.stageTitle.alarm_quiz1' => 'Add an Alarm',
+			'play.stageTitle.alarm_quiz2' => 'Set Weekday Only',
+			'play.stageTitle.alarm_quiz3' => 'Turn Off Snooze',
+			'play.stageTitle.alarm_quiz4' => 'Delete an Alarm',
+			'play.stageTitle.payment_quiz1' => 'Show QR Code',
+			'play.stageTitle.payment_quiz2' => 'Check Balance',
+			'play.stageTitle.payment_quiz3' => 'Send Money',
+			'play.stageTitle.payment_quiz4' => 'Check Transaction History',
+			'play.stageDescription.shopping_water' => 'Add 2 waters to the cart and purchase on the e-commerce site',
+			'play.stageDescription.shopping_checkout' => 'Complete 3 steps: address, payment method, and order confirmation',
+			'play.stageDescription.shopping_reorder' => 'Reorder the most recently purchased item from order history',
+			'play.stageDescription.shopping_cart' => 'Select the total amount of items in the cart from 4 choices',
+			'play.stageDescription.chat_quiz1' => 'Send a message in the chat app',
+			'play.stageDescription.chat_quiz2' => 'Send a sticker in the chat app',
+			'play.stageDescription.chat_quiz3' => 'Delete a sent message',
+			'play.stageDescription.chat_quiz4' => 'Create a new group chat',
+			'play.stageDescription.streaming_quiz1' => 'Turn on the subtitle feature in the video app',
+			'play.stageDescription.streaming_quiz2' => 'Go to the next video and skip to the middle',
+			'play.stageDescription.streaming_quiz3' => 'Play a video at 2x speed in the video app',
+			'play.stageDescription.streaming_quiz4' => 'Change to highest quality and download the video',
+			'play.stageDescription.map_quiz1' => 'Show your current location in the map app',
+			'play.stageDescription.map_quiz2' => 'Search for a destination in the map app',
+			'play.stageDescription.map_quiz3' => 'Start route navigation in the map app',
+			'play.stageDescription.map_quiz4' => 'Save a location to favorites in the map app',
+			'play.stageDescription.alarm_quiz1' => 'Add a new alarm in the clock app',
+			'play.stageDescription.alarm_quiz2' => 'Set an alarm to repeat only Monday through Friday',
+			'play.stageDescription.alarm_quiz3' => 'Turn off the snooze feature and save',
+			'play.stageDescription.alarm_quiz4' => 'Delete the top alarm from the alarm list',
+			'play.stageDescription.payment_quiz1' => 'Show the QR code in the payment app',
+			'play.stageDescription.payment_quiz2' => 'Remove the blur and check the balance in the payment app',
+			'play.stageDescription.payment_quiz3' => 'Send money to someone in the payment app',
+			'play.stageDescription.payment_quiz4' => 'Check the transaction history in the payment app',
+			'scene.greeting.sunriseMorning' => 'Good morning',
+			'scene.greeting.sunnyDay' => 'Beautiful day today',
+			'scene.greeting.cloudyDay' => 'A cloudy day',
+			'scene.greeting.rainyDay' => 'A rainy day',
+			'scene.greeting.sunsetEvening' => 'Good work today',
+			'scene.greeting.nightSky' => 'Good work today',
+			'tip.defaultTitle' => 'Learn UI/UX',
+			'tip.defaultContent' => 'Sharpen your UI/UX intuition by solving quizzes!',
 			'settings.title' => 'Settings',
 			'settings.appearance.title' => 'Appearance',
 			'settings.appearance.theme' => 'Theme',

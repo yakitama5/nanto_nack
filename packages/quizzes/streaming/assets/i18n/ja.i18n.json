@@ -1,0 +1,91 @@
+{
+  "quiz1": {
+    "missionText": "動画の字幕をオンにしてください",
+    "insight": {
+      "title": "なぜ字幕設定の場所がわかった？",
+      "subtitle": "CCは国際標準の記号",
+      "ccTitle": "CC（Closed Captions）は世界共通",
+      "ccDesc": "「CC」または字幕アイコン（□に線が入った形）は、テレビ放送時代から続く字幕の国際標準記号。言語に関係なく「字幕」を意味すると認識されている。",
+      "visibilityTitle": "コントロールは「隠れている」",
+      "visibilityDesc": "動画プレイヤーの多くは、視聴を邪魔しないよう操作ボタンを自動で隠す。しかし、「一度タップすれば出てくる」という隠蔽UIの作法が、現代のユーザーには共通認識として根付いている。",
+      "feedbackTitle": "下線や色変化が「ON」を伝える",
+      "feedbackDesc": "アイコンの下に赤い線がついたり、色が明るくなったりする変化は、その機能が有効であることを示す。ラベルを読まなくても状態を瞬時に把握できる。"
+    }
+  },
+  "quiz2": {
+    "missionText": "次の動画へ移動し、動画の中盤まで進めてください",
+    "insight": {
+      "title": "なぜ迷わず操作できた？",
+      "subtitle": "プレイヤーUIは「配置」が命",
+      "skipTitle": "右向き矢印＋棒 ＝ 次へ",
+      "skipDesc": "「▶︎▶︎|」という記号は、カセットプレイヤーの時代から「次のトラックへスキップ」を意味する。中央の再生ボタンの右隣という配置も世界標準だ。",
+      "seekTitle": "赤い線は「時間の流れ」のメタファー",
+      "seekDesc": "動画下部のプログレスバーは、左から右へ流れる時間を表す。赤い色は「現在地」を強調し、ツマミを動かすことで過去や未来へ自由にジャンプできることを直感的に伝えている。",
+      "targetTitle": "中盤（中央）は視覚的に狙いやすい",
+      "targetDesc": "バーの中央付近を狙う操作は、物理的な長さの半分を感覚的に捉えることで、文字情報なしでも40〜60%という範囲に正確に辿り着ける。"
+    }
+  },
+  "quiz3": {
+    "missionText": "動画を「2倍速」で再生してください",
+    "insight": {
+      "title": "隠し操作に気づけた？",
+      "subtitle": "長押しは「加速」のショートカット",
+      "gestureTitle": "動画エリアの長押しジェスチャー",
+      "gestureDesc": "多くの動画アプリでは、画面を長押しすると「倍速再生」が発動する。これはメニューを開く手間を省くための隠しショートカットだが、一度知ると手放せない「アハ体験」の一つだ。",
+      "gearTitle": "⚙アイコンは設定の入り口",
+      "gearDesc": "歯車のアイコンは、OSやアプリを問わず「設定」や「カスタマイズ」を意味する。文字が読めなくても、詳細な変更はここで行えるという信頼感がある。",
+      "speedTitle": "数字と「x」の組み合わせ",
+      "speedDesc": "「1.5x」「2x」という表記は、倍率を意味する国際的な数学記号。言語の壁を超えて「速さ」を表現する手段として機能している。"
+    }
+  },
+  "quiz4": {
+    "missionText": "動画を最高画質に変更し、端末にダウンロードしてください",
+    "insight": {
+      "title": "最高難易度を突破！",
+      "subtitle": "記号の関連付けが鍵",
+      "qualityTitle": "数字が大きい ＝ 高画質",
+      "qualityDesc": "1080pや2160p(4K)といった数字は、画面の縦の解像度を表す。ユーザーは「大きい数字ほど綺麗」というルールを経験的に知っており、文字が読めなくても選択できる。",
+      "downloadTitle": "↓アイコンは「手に入れる」動作",
+      "downloadDesc": "下向きの矢印は、クラウドやサーバーから自分の端末へデータを落とす（ダウンロード）という物理的な動作を視覚化したもの。保存ボタンとしての共通認識が確立されている。",
+      "locationTitle": "ボタンの「並び順」の重要性",
+      "locationDesc": "動画タイトル直下のメニュー行は、左から「いいね」「共有」「保存（ダウンロード）」と並ぶことが多い。この慣れ親しんだ順序が、不鮮明な文字の解読を助けている。"
+    }
+  },
+  "common": {
+    "appTitle": "StreamHub",
+    "homeTab": "Home",
+    "exploreTab": "Explore",
+    "shortsTab": "Shorts",
+    "subsTab": "Subscriptions",
+    "youTab": "You",
+    "likeButton": "Like",
+    "dislikeButton": "Dislike",
+    "shareButton": "Share",
+    "saveButton": "Save",
+    "downloadButton": "Download",
+    "moreButton": "More",
+    "subscribeButton": "Subscribe",
+    "views": "回再生",
+    "subtitles": "Subtitles",
+    "quality": "Quality",
+    "playbackSpeed": "Playback speed",
+    "reportButton": "Report",
+    "subtitlesOff": "Off",
+    "subtitlesOn": "On (Auto)",
+    "shareTitle": "Share to",
+    "linkCopied": "Link copied",
+    "savedToList": "Saved to playlist"
+  },
+  "videos": {
+    "v1Title": "Amazing Nature Documentary 4K",
+    "v1Channel": "NatureWorld",
+    "v2Title": "Learn Programming in 10 Minutes",
+    "v2Channel": "CodeMaster",
+    "v3Title": "Top 10 Travel Destinations 2026",
+    "v3Channel": "TravelVlog",
+    "v4Title": "Cooking Easy Pasta Recipe",
+    "v4Channel": "ChefKitchen",
+    "v5Title": "Morning Yoga for Beginners",
+    "v5Channel": "YogaLife"
+  }
+}

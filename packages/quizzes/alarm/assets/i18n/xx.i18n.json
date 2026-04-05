@@ -1,0 +1,82 @@
+{
+  "quiz1": {
+    "missionText": "Add new alarm",
+    "failureReason": "Tap plus to add alarm",
+    "insight": {
+      "title": "How did you find the add button?",
+      "subtitle": "Plus sign means create",
+      "plusTitle": "Plus button means add",
+      "plusDesc": "Plus icon means add new on any platform.",
+      "pickerTitle": "Drum roll for time input",
+      "pickerDesc": "Scroll picker is standard for time entry.",
+      "saveTitle": "Save in top right",
+      "saveDesc": "Save action is top right corner."
+    }
+  },
+  "quiz2": {
+    "missionText": "Set weekdays only",
+    "failureReason": "Select 5 weekday buttons",
+    "insight": {
+      "title": "How did you find day settings?",
+      "subtitle": "7 circles equals one week",
+      "dotTitle": "7 circles are weekdays",
+      "dotDesc": "7 buttons in a row represent weekday selection.",
+      "weekdayTitle": "5 in a row equals weekdays",
+      "weekdayDesc": "Selecting 5 consecutive days means weekdays only.",
+      "highlightTitle": "Color shows selection",
+      "highlightDesc": "Highlighted buttons are the selected days."
+    }
+  },
+  "quiz3": {
+    "missionText": "Turn off snooze",
+    "failureReason": "Toggle snooze off and save",
+    "insight": {
+      "title": "How did you turn off snooze?",
+      "subtitle": "Toggle switch means on or off",
+      "toggleTitle": "Toggle switch is on or off",
+      "toggleDesc": "Toggle switches control feature on or off.",
+      "vs_arrow_title": "Arrow vs toggle",
+      "vs_arrow_desc": "Arrow navigates, toggle switches state.",
+      "colorTitle": "Gray off colored on",
+      "colorDesc": "Gray means off, colored means on."
+    }
+  },
+  "quiz4": {
+    "missionText": "Delete top alarm",
+    "failureReason": "Swipe left to delete",
+    "insight": {
+      "title": "How did you delete by swiping?",
+      "subtitle": "Left swipe reveals hidden actions",
+      "swipeTitle": "Left swipe shows hidden actions",
+      "swipeDesc": "Swipe left to reveal delete action.",
+      "redTitle": "Red means delete",
+      "redDesc": "Red area means delete universally.",
+      "hiddenTitle": "Hidden UIs exist",
+      "hiddenDesc": "Gestures reveal hidden UI actions."
+    }
+  },
+  "common": {
+    "appTitle": "Clock",
+    "alarmsTab": "Alarms",
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "snooze": "Snooze",
+    "label": "Label",
+    "sound": "Sound",
+    "repeat": "Repeat",
+    "am": "AM",
+    "pm": "PM",
+    "mon": "M",
+    "tue": "T",
+    "wed": "W",
+    "thu": "T",
+    "fri": "F",
+    "sat": "S",
+    "sun": "S",
+    "tomorrow": "Tomorrow",
+    "weekdays": "Weekdays",
+    "editAlarm": "Edit Alarm"
+  }
+}

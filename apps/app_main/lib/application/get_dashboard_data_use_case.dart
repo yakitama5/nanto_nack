@@ -43,8 +43,8 @@ class GetDashboardDataUseCase {
     if (tips.isEmpty) {
       return const DailyTip(
         id: 'default',
-        title: 'UI/UXを学ぼう',
-        content: 'クイズを解いてUI/UXの感覚を磨きましょう！',
+        title: '',
+        content: '',
       );
     }
     final today = clock.now();
