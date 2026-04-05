@@ -60,7 +60,7 @@ class SubtitleQuizNotifier extends AutoDisposeNotifier<SubtitleQuizState> {
         status: QuizStatus.correct,
         elapsedMs: elapsed,
       );
-      await hapticFeedback.playSuccessFeedback();
+      unawaited(hapticFeedback.playSuccessFeedback());
       await _saveResult(isCleared: true, elapsedMs: elapsed);
     } else {
       state = state.copyWith(video: updatedVideo);

@@ -9,6 +9,8 @@ import 'package:streaming/src/presentation/quiz3_playback_speed/playback_speed_q
 class MockStreamingQuizRepository extends Mock implements StreamingQuizRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late MockStreamingQuizRepository mockRepo;
   late ProviderContainer container;
 

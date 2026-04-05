@@ -10,6 +10,8 @@ import 'package:streaming/src/presentation/quiz1_subtitle/subtitle_quiz_notifier
 class MockStreamingQuizRepository extends Mock implements StreamingQuizRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late MockStreamingQuizRepository mockRepo;
   late ProviderContainer container;
 
@@ -50,12 +52,16 @@ void main() {
     });
 
     test('tapCC toggles subtitles and clears the quiz if clear condition is met', () async {
+      // AutoDisposeプロバイダーが非同期処理中にdisposeされないようリスナーを保持
+      final sub = container.listen(subtitleQuizProvider, (_, __) {}, fireImmediately: true);
+      addTearDown(sub.close);
+
       await withClock(Clock.fixed(DateTime(2026, 3, 31, 12, 0, 0)), () async {
         container.read(subtitleQuizProvider.notifier).startQuiz();
-        
+
         // Wait 1 second
         await Future<void>.delayed(const Duration(seconds: 1));
-        
+
         await container.read(subtitleQuizProvider.notifier).tapCC();
         
         final state = container.read(subtitleQuizProvider);

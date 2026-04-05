@@ -9,6 +9,8 @@ import 'package:streaming/src/presentation/quiz4_offline_save/offline_save_quiz_
 class MockStreamingQuizRepository extends Mock implements StreamingQuizRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late MockStreamingQuizRepository mockRepo;
   late ProviderContainer container;
 

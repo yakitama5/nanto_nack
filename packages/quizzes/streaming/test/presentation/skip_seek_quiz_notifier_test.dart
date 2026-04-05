@@ -9,6 +9,8 @@ import 'package:streaming/src/presentation/quiz2_skip_seek/skip_seek_quiz_notifi
 class MockStreamingQuizRepository extends Mock implements StreamingQuizRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late MockStreamingQuizRepository mockRepo;
   late ProviderContainer container;
 
