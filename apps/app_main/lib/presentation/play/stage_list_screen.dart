@@ -115,11 +115,8 @@ class StageListScreen extends ConsumerWidget {
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
                             final item = categoryStages[index];
-                            // 全ステージの中でのインデックスを計算
-                            final globalIndex = kAllStages.indexWhere(
-                              (s) => s.id == item.stage.id,
-                            );
-                            final stageNumber = globalIndex + 1;
+                            // カテゴリ内での連番を使用する（表示はカテゴリ内1始まり）
+                            final stageNumber = index + 1;
                             return StageCard(
                               stageNumber: stageNumber,
                               title: _stageTitle(item.stage.id, t),
