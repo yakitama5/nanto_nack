@@ -1,5 +1,6 @@
 import 'package:alarm/alarm.dart';
 import 'package:chat/chat.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:payment/payment.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map/map.dart';
@@ -13,6 +14,9 @@ import 'presentation/settings/settings_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
+  observers: [
+    FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+  ],
   routes: [
     GoRoute(
       path: '/',
