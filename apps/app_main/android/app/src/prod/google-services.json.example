@@ -1,0 +1,22 @@
+{
+  "project_info": {
+    "project_number": "TODO",
+    "project_id": "TODO",
+    "storage_bucket": "TODO.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "TODO",
+        "android_client_info": {
+          "package_name": "com.yakuran.nanto_nack"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "TODO"
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,6 @@
+// Add: `dart-define`でファイルを読み込みのため
+import java.util.Base64
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -5,8 +8,39 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// Add: dart-defines
+val dartDefines = if (project.hasProperty("dart-defines")) {
+    project.property("dart-defines")
+        .toString()
+        .split(",")
+        .associate { entry ->
+            val pair = String(Base64.getDecoder().decode(entry), Charsets.UTF_8).split("=")
+            // valueがemptyの時にlastがkeyになるので、lengthが2でなければ空のmapにする
+            if (pair.size == 2) pair[0] to pair[1] else "" to ""
+        }
+        .filterKeys { it.isNotEmpty() }
+} else {
+    emptyMap<String, String>()
+}
+
+// Add: アイコンや`google-services.json`の環境毎の読み替え
+val copySources by tasks.registering(Copy::class) {
+    copy {
+        from("src/${dartDefines["flavor"]}/res")
+        into("src/main/res")
+    }
+    copy {
+        from("src/${dartDefines["flavor"]}/google-services.json")
+        into("./.")
+    }
+}
+
+tasks.named("preBuild") {
+    dependsOn(copySources)
+}
+
 android {
-    namespace = "com.example.nanto_nack"
+    namespace = "com.yakuran.nanto_nack"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,14 +54,12 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.nanto_nack"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        applicationId = dartDefines["androidPackageName"] ?: "com.yakuran.nanto_nack.dev"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        resValue("string", "app_name", dartDefines["appName"] ?: "(dev)NantoNack")
     }
 
     buildTypes {
