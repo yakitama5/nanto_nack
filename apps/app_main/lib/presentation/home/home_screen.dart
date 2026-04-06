@@ -49,8 +49,8 @@ class HomeScreen extends ConsumerWidget {
                       dashboard: dashboard,
                     ),
                   ),
-                  // ===== ボトムパディング =====
-                  const SizedBox(height: 40),
+                  // ===== ボトムパディング（SafeArea + 余白）=====
+                  SizedBox(height: MediaQuery.paddingOf(context).bottom + 24),
                 ],
               ),
             ],
