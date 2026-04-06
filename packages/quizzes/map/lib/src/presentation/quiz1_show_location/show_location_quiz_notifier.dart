@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../application/quiz_show_location_use_case.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
@@ -37,6 +38,7 @@ class ShowLocationQuizNotifier
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -68,6 +70,9 @@ class ShowLocationQuizNotifier
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } on Exception catch (_) {}
@@ -76,6 +81,7 @@ class ShowLocationQuizNotifier
   /// クイズをリトライする
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ShowLocationQuizState.initial(
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
@@ -118,6 +124,14 @@ class ShowLocationQuizNotifier
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(mapQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,

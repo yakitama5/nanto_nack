@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/application/quiz_offline_save_use_case.dart';
+import 'package:system/system.dart';
 import 'package:streaming/src/domain/streaming_catalog.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz4_offline_save/offline_save_quiz_state.dart';
@@ -38,6 +39,7 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -109,6 +111,9 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {}
@@ -116,6 +121,7 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
 
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = OfflineSaveQuizState.initial(
       video: StreamingCatalog.videos[3].copyWith(quality: '360p'),
       timeLimitSeconds: _timeLimitSeconds,
@@ -157,6 +163,14 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(streamingQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,

@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/application/quiz_skip_seek_use_case.dart';
+import 'package:system/system.dart';
 import 'package:streaming/src/domain/streaming_catalog.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz2_skip_seek/skip_seek_quiz_state.dart';
@@ -38,6 +39,7 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -97,6 +99,9 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {}
@@ -104,6 +109,7 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
 
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SkipSeekQuizState.initial(
       video: StreamingCatalog.videos[1],
       timeLimitSeconds: _timeLimitSeconds,
@@ -145,6 +151,14 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(streamingQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,

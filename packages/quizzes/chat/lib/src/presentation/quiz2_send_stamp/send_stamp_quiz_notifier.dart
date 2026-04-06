@@ -8,6 +8,7 @@ import 'package:chat/src/presentation/quiz2_send_stamp/send_stamp_quiz_state.dar
 import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 final sendStampQuizProvider =
     AutoDisposeNotifierProvider<SendStampQuizNotifier, SendStampQuizState>(
@@ -39,6 +40,7 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
       remainingSeconds: _timeLimitSeconds,
       isStampPanelOpen: false,
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -95,6 +97,9 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {}
@@ -102,6 +107,7 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
 
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendStampQuizState.initial(
       initialMessages: ChatCatalog.quiz2InitialMessages(clock.now()),
       timeLimitSeconds: _timeLimitSeconds,
@@ -143,6 +149,14 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(chatQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,

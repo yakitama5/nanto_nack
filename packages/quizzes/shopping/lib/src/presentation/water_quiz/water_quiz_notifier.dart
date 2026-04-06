@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_water_use_case.dart';
+import 'package:system/system.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.dart';
@@ -40,6 +41,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
       isPurchased: false,
       remainingSeconds: _timeLimitSeconds,
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -117,6 +119,9 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {
@@ -126,6 +131,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
 
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = WaterQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -166,6 +172,14 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(shoppingQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,
@@ -175,5 +189,4 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
       failureCount: state.failureCount,
     );
   }
-
 }

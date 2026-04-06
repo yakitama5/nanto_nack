@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_checkout_use_case.dart';
+import 'package:system/system.dart';
 import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
 
@@ -33,6 +34,7 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
       startedAt: clock.now(),
       remainingSeconds: _timeLimitSeconds,
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -99,6 +101,9 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {
@@ -109,6 +114,7 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   /// リトライ
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = CheckoutQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
         .copyWith(
       status: QuizStatus.playing,
@@ -151,6 +157,14 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(shoppingQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,
@@ -160,5 +174,4 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
       failureCount: state.failureCount,
     );
   }
-
 }

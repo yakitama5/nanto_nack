@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../application/quiz_send_money_use_case.dart';
 import '../../infrastructure/payment_quiz_repository_provider.dart';
@@ -35,6 +36,7 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -111,6 +113,9 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } on Exception catch (_) {}
@@ -119,6 +124,7 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
   /// クイズをリトライする
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendMoneyQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
         .copyWith(
       status: QuizStatus.playing,
@@ -160,6 +166,14 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(paymentQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,

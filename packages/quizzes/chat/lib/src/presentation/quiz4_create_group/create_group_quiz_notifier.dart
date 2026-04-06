@@ -8,6 +8,7 @@ import 'package:chat/src/presentation/quiz4_create_group/create_group_quiz_state
 import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 final createGroupQuizProvider = AutoDisposeNotifierProvider<
     CreateGroupQuizNotifier, CreateGroupQuizState>(
@@ -38,6 +39,7 @@ class CreateGroupQuizNotifier
       selectedMembers: const [],
       groupCreated: false,
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -109,6 +111,9 @@ class CreateGroupQuizNotifier
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {}
@@ -116,6 +121,7 @@ class CreateGroupQuizNotifier
 
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = CreateGroupQuizState.initial(
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
@@ -156,6 +162,14 @@ class CreateGroupQuizNotifier
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(chatQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,
