@@ -180,18 +180,31 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
                 onBalanceVisibilityTap: widget.onBalanceVisibilityTap,
               ),
               Expanded(
-                child: _selectedTab == 0
-                    ? _HomeTabContent(
-                        sq: sq,
-                        pageController: _pageController,
-                        currentPaymentMethod: widget.currentPaymentMethod,
-                        highlightSendTile: widget.highlightSendTile,
-                        highlightPaymentCarousel: widget.highlightPaymentCarousel,
-                        onSendTap: widget.onSendTap,
-                        onPaymentMethodChanged: widget.onPaymentMethodChanged,
-                        balance: widget.balance,
-                      )
-                    : _DummyTabContent(tabIndex: _selectedTab, sq: sq),
+                child: switch (_selectedTab) {
+                  0 => _HomeTabContent(
+                      sq: sq,
+                      pageController: _pageController,
+                      currentPaymentMethod: widget.currentPaymentMethod,
+                      highlightSendTile: widget.highlightSendTile,
+                      highlightPaymentCarousel: widget.highlightPaymentCarousel,
+                      onSendTap: widget.onSendTap,
+                      onPaymentMethodChanged: widget.onPaymentMethodChanged,
+                      balance: widget.balance,
+                    ),
+                  1 => _HistoryTabContent(sq: sq),
+                  2 => _PointTabContent(sq: sq),
+                  3 => _AccountTabContent(sq: sq),
+                  _ => _HomeTabContent(
+                      sq: sq,
+                      pageController: _pageController,
+                      currentPaymentMethod: widget.currentPaymentMethod,
+                      highlightSendTile: widget.highlightSendTile,
+                      highlightPaymentCarousel: widget.highlightPaymentCarousel,
+                      onSendTap: widget.onSendTap,
+                      onPaymentMethodChanged: widget.onPaymentMethodChanged,
+                      balance: widget.balance,
+                    ),
+                },
               ),
             ],
           ),
@@ -896,39 +909,538 @@ class _TransactionItem extends StatelessWidget {
   }
 }
 
-/// ダミータブコンテンツ（ホーム以外のタブ）
-class _DummyTabContent extends StatelessWidget {
-  const _DummyTabContent({required this.tabIndex, required this.sq});
+/// 履歴タブのコンテンツ
+class _HistoryTabContent extends StatelessWidget {
+  const _HistoryTabContent({required this.sq});
 
-  final int tabIndex;
   final $payment.Translations sq;
 
   @override
   Widget build(BuildContext context) {
-    final (icon, label) = switch (tabIndex) {
-      1 => (Icons.history, sq.common.history),
-      2 => (Icons.stars, sq.common.point),
-      3 => (Icons.person, sq.common.account),
-      _ => (Icons.home, sq.common.home),
-    };
-
     return Container(
       color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 48, color: Colors.grey.shade300),
-            const SizedBox(height: 12),
-            UnreadableText(
-              label,
+      child: Column(
+        children: [
+          // フィルタータブ
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Row(
+              children: [
+                _FilterChip(label: sq.common.txFilterAll, isSelected: true),
+                const SizedBox(width: 8),
+                _FilterChip(label: sq.common.txFilterOut, isSelected: false),
+                const SizedBox(width: 8),
+                _FilterChip(label: sq.common.txFilterIn, isSelected: false),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          // 月ヘッダー
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
+            child: UnreadableText(
+              sq.common.txMonthLabel,
               style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey.shade400,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade700,
+              ),
+            ),
+          ),
+          // 取引リスト
+          Expanded(
+            child: ListView(
+              children: _DummyTransactionList._txData(sq)
+                  .map((tx) => _TransactionItem(tx: tx, sq: sq))
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FilterChip extends StatelessWidget {
+  const _FilterChip({required this.label, required this.isSelected});
+
+  final String label;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: isSelected ? const Color(0xFFFF3B3B) : Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: UnreadableText(
+        label,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: isSelected ? Colors.white : Colors.grey.shade600,
+        ),
+      ),
+    );
+  }
+}
+
+/// ポイントタブのコンテンツ
+class _PointTabContent extends StatelessWidget {
+  const _PointTabContent({required this.sq});
+
+  final $payment.Translations sq;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFFF5F5F5),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            // ポイント残高カード
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFFF3B3B), Color(0xFFFF6B6B)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UnreadableText(
+                    sq.common.pointBalance,
+                    style: const TextStyle(color: Colors.white70, fontSize: 13),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        '1,250',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: UnreadableText(
+                          sq.common.pointUnit,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.access_time,
+                        size: 12,
+                        color: Colors.white70,
+                      ),
+                      const SizedBox(width: 4),
+                      UnreadableText(
+                        sq.common.pointExpiry,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      UnreadableText(
+                        sq.common.expiryDate,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // ポイント獲得方法
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UnreadableText(
+                    sq.common.earnPoints,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _PointEarnItem(
+                        icon: Icons.shopping_bag_outlined,
+                        label: sq.common.shopService,
+                        color: const Color(0xFFFF3B3B),
+                      ),
+                      _PointEarnItem(
+                        icon: Icons.assignment_outlined,
+                        label: sq.common.missionService,
+                        color: Colors.orange,
+                      ),
+                      _PointEarnItem(
+                        icon: Icons.campaign_outlined,
+                        label: sq.common.campaignService,
+                        color: Colors.purple,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            // ポイント履歴
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UnreadableText(
+                    sq.common.pointHistory,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _PointHistoryItem(
+                    item: sq.common.pointItem1,
+                    gained: sq.common.pointGained1,
+                    date: sq.common.pointDate1,
+                  ),
+                  const Divider(height: 1),
+                  _PointHistoryItem(
+                    item: sq.common.pointItem2,
+                    gained: sq.common.pointGained2,
+                    date: sq.common.pointDate2,
+                  ),
+                  const Divider(height: 1),
+                  _PointHistoryItem(
+                    item: sq.common.pointItem3,
+                    gained: sq.common.pointGained3,
+                    date: sq.common.pointDate3,
+                  ),
+                ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _PointEarnItem extends StatelessWidget {
+  const _PointEarnItem({
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, color: color, size: 28),
+        ),
+        const SizedBox(height: 6),
+        UnreadableText(
+          label,
+          style: const TextStyle(fontSize: 11),
+        ),
+      ],
+    );
+  }
+}
+
+class _PointHistoryItem extends StatelessWidget {
+  const _PointHistoryItem({
+    required this.item,
+    required this.gained,
+    required this.date,
+  });
+
+  final String item;
+  final String gained;
+  final String date;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UnreadableText(
+                  item,
+                  style: const TextStyle(fontSize: 14),
+                ),
+                const SizedBox(height: 2),
+                UnreadableText(
+                  date,
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                ),
+              ],
+            ),
+          ),
+          UnreadableText(
+            gained,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFFF3B3B),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// アカウントタブのコンテンツ
+class _AccountTabContent extends StatelessWidget {
+  const _AccountTabContent({required this.sq});
+
+  final $payment.Translations sq;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFFF5F5F5),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            // プロフィールセクション
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 32,
+                    backgroundColor: Color(0xFFFF3B3B),
+                    child: Icon(Icons.person, size: 36, color: Colors.white),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        UnreadableText(
+                          sq.common.myAccount,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            UnreadableText(
+                              sq.common.userId,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey.shade500,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            UnreadableText(
+                              sq.common.userIdValue,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey.shade500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(Icons.chevron_right, color: Colors.grey),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            // 支払い方法セクション
+            _AccountSection(
+              items: [
+                _AccountMenuItem(
+                  icon: Icons.credit_card,
+                  iconColor: Colors.blue,
+                  label: sq.common.paymentMethods,
+                  subtitle: sq.common.addedCard,
+                ),
+                _AccountMenuItem(
+                  icon: Icons.account_balance,
+                  iconColor: Colors.teal,
+                  label: sq.common.bankAccount,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            // 設定セクション
+            _AccountSection(
+              items: [
+                _AccountMenuItem(
+                  icon: Icons.security,
+                  iconColor: const Color(0xFFFF3B3B),
+                  label: sq.common.securitySettings,
+                ),
+                _AccountMenuItem(
+                  icon: Icons.notifications_outlined,
+                  iconColor: Colors.orange,
+                  label: sq.common.notificationSettings,
+                ),
+                _AccountMenuItem(
+                  icon: Icons.settings_outlined,
+                  iconColor: Colors.grey,
+                  label: sq.common.appSettings,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            // ヘルプ・ログアウトセクション
+            _AccountSection(
+              items: [
+                _AccountMenuItem(
+                  icon: Icons.help_outline,
+                  iconColor: Colors.blue,
+                  label: sq.common.helpCenter,
+                ),
+                _AccountMenuItem(
+                  icon: Icons.logout,
+                  iconColor: Colors.red,
+                  label: sq.common.logOut,
+                  isDestructive: true,
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AccountSection extends StatelessWidget {
+  const _AccountSection({required this.items});
+
+  final List<_AccountMenuItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          for (int i = 0; i < items.length; i++) ...[
+            if (i > 0) const Divider(height: 1, indent: 56),
+            items[i],
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _AccountMenuItem extends StatelessWidget {
+  const _AccountMenuItem({
+    required this.icon,
+    required this.iconColor,
+    required this.label,
+    this.subtitle,
+    this.isDestructive = false,
+  });
+
+  final IconData icon;
+  final Color iconColor;
+  final String label;
+  final String? subtitle;
+  final bool isDestructive;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: iconColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: iconColor, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UnreadableText(
+                  label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: isDestructive ? Colors.red : Colors.black87,
+                  ),
+                ),
+                if (subtitle != null) ...[
+                  const SizedBox(height: 2),
+                  UnreadableText(
+                    subtitle!,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          if (!isDestructive)
+            const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+        ],
       ),
     );
   }

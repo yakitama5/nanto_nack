@@ -248,6 +248,108 @@ class TranslationsCommonJa {
 
 	/// ja: '4日前'
 	String get txDate5 => '4日前';
+
+	/// ja: 'すべて'
+	String get txFilterAll => 'すべて';
+
+	/// ja: '支払い'
+	String get txFilterOut => '支払い';
+
+	/// ja: '受け取り'
+	String get txFilterIn => '受け取り';
+
+	/// ja: '今月'
+	String get txMonthLabel => '今月';
+
+	/// ja: '今月の合計'
+	String get txMonthTotal => '今月の合計';
+
+	/// ja: 'ポイント残高'
+	String get pointBalance => 'ポイント残高';
+
+	/// ja: '有効期限'
+	String get pointExpiry => '有効期限';
+
+	/// ja: '2026年12月31日まで'
+	String get expiryDate => '2026年12月31日まで';
+
+	/// ja: 'ポイントを貯める'
+	String get earnPoints => 'ポイントを貯める';
+
+	/// ja: 'ショッピング'
+	String get shopService => 'ショッピング';
+
+	/// ja: 'ミッション'
+	String get missionService => 'ミッション';
+
+	/// ja: 'キャンペーン'
+	String get campaignService => 'キャンペーン';
+
+	/// ja: 'ポイント履歴'
+	String get pointHistory => 'ポイント履歴';
+
+	/// ja: 'お買い物'
+	String get pointItem1 => 'お買い物';
+
+	/// ja: 'デイリーボーナス'
+	String get pointItem2 => 'デイリーボーナス';
+
+	/// ja: '友達招待'
+	String get pointItem3 => '友達招待';
+
+	/// ja: '+50'
+	String get pointGained1 => '+50';
+
+	/// ja: '+10'
+	String get pointGained2 => '+10';
+
+	/// ja: '+200'
+	String get pointGained3 => '+200';
+
+	/// ja: '今日'
+	String get pointDate1 => '今日';
+
+	/// ja: '昨日'
+	String get pointDate2 => '昨日';
+
+	/// ja: '3日前'
+	String get pointDate3 => '3日前';
+
+	/// ja: 'マイアカウント'
+	String get myAccount => 'マイアカウント';
+
+	/// ja: 'ユーザーID'
+	String get userId => 'ユーザーID';
+
+	/// ja: 'user_12345'
+	String get userIdValue => 'user_12345';
+
+	/// ja: '支払い方法'
+	String get paymentMethods => '支払い方法';
+
+	/// ja: 'クレジットカード登録済み'
+	String get addedCard => 'クレジットカード登録済み';
+
+	/// ja: '銀行口座'
+	String get bankAccount => '銀行口座';
+
+	/// ja: 'セキュリティ設定'
+	String get securitySettings => 'セキュリティ設定';
+
+	/// ja: '通知設定'
+	String get notificationSettings => '通知設定';
+
+	/// ja: 'アプリ設定'
+	String get appSettings => 'アプリ設定';
+
+	/// ja: 'ヘルプセンター'
+	String get helpCenter => 'ヘルプセンター';
+
+	/// ja: 'ログアウト'
+	String get logOut => 'ログアウト';
+
+	/// ja: 'P'
+	String get pointUnit => 'P';
 }
 
 // Path: quiz1.insight
@@ -472,6 +574,40 @@ extension on Translations {
 			'common.txDate3' => '昨日',
 			'common.txDate4' => '3日前',
 			'common.txDate5' => '4日前',
+			'common.txFilterAll' => 'すべて',
+			'common.txFilterOut' => '支払い',
+			'common.txFilterIn' => '受け取り',
+			'common.txMonthLabel' => '今月',
+			'common.txMonthTotal' => '今月の合計',
+			'common.pointBalance' => 'ポイント残高',
+			'common.pointExpiry' => '有効期限',
+			'common.expiryDate' => '2026年12月31日まで',
+			'common.earnPoints' => 'ポイントを貯める',
+			'common.shopService' => 'ショッピング',
+			'common.missionService' => 'ミッション',
+			'common.campaignService' => 'キャンペーン',
+			'common.pointHistory' => 'ポイント履歴',
+			'common.pointItem1' => 'お買い物',
+			'common.pointItem2' => 'デイリーボーナス',
+			'common.pointItem3' => '友達招待',
+			'common.pointGained1' => '+50',
+			'common.pointGained2' => '+10',
+			'common.pointGained3' => '+200',
+			'common.pointDate1' => '今日',
+			'common.pointDate2' => '昨日',
+			'common.pointDate3' => '3日前',
+			'common.myAccount' => 'マイアカウント',
+			'common.userId' => 'ユーザーID',
+			'common.userIdValue' => 'user_12345',
+			'common.paymentMethods' => '支払い方法',
+			'common.addedCard' => 'クレジットカード登録済み',
+			'common.bankAccount' => '銀行口座',
+			'common.securitySettings' => 'セキュリティ設定',
+			'common.notificationSettings' => '通知設定',
+			'common.appSettings' => 'アプリ設定',
+			'common.helpCenter' => 'ヘルプセンター',
+			'common.logOut' => 'ログアウト',
+			'common.pointUnit' => 'P',
 			_ => null,
 		};
 	}
