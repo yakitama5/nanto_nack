@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=NantoNack
+Comment=UI/UXのセオリーを利用した直感謎解きクイズアプリ
+Exec=app_main
+Icon=${SNAP}/meta/gui/app_main.png
+Terminal=false
+Type=Application
+Categories=Entertainment;

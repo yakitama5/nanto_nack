@@ -1,0 +1,28 @@
+name: app_main
+version: 1.0.0
+summary: NantoNack - 直感謎解きクイズアプリ
+description: UI/UXのセオリーを利用した直感謎解きクイズアプリです。
+
+confinement: strict
+base: core22
+grade: stable
+
+slots:
+  dbus-app_main:
+    interface: dbus
+    bus: session
+    name: com.yakitama5.nantonack
+
+apps:
+  app_main:
+    command: app_main
+    extensions: [gnome] # gnome includes the libraries required by flutter
+    plugs:
+    - network
+    slots:
+      - dbus-app_main
+parts:
+  app_main:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart # The main entry-point file of the application

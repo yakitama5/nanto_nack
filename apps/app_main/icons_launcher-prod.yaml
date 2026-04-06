@@ -1,0 +1,16 @@
+icons_launcher:
+  image_path: "assets/launcher_icon/icon_prod.png"
+  platforms:
+    android:
+      enable: true
+      flavor: prod
+    ios:
+      enable: true
+    macos:
+      enable: true
+    web:
+      enable: true
+    windows:
+      enable: true
+    linux:
+      enable: true
