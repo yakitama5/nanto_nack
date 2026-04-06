@@ -458,17 +458,17 @@ class TranslationsPlayStageTitleJa {
 	/// ja: 'カートの合計金額を選ぼう'
 	String get shopping_cart => 'カートの合計金額を選ぼう';
 
-	/// ja: 'メッセージを送ろう'
-	String get chat_quiz1 => 'メッセージを送ろう';
+	/// ja: 'スタンプを返信しよう'
+	String get chat_quiz1 => 'スタンプを返信しよう';
 
-	/// ja: 'スタンプを送ろう'
-	String get chat_quiz2 => 'スタンプを送ろう';
+	/// ja: 'リアクションをしよう'
+	String get chat_quiz2 => 'リアクションをしよう';
 
-	/// ja: 'メッセージを削除しよう'
-	String get chat_quiz3 => 'メッセージを削除しよう';
+	/// ja: '写真を送ろう'
+	String get chat_quiz3 => '写真を送ろう';
 
-	/// ja: 'グループを作ろう'
-	String get chat_quiz4 => 'グループを作ろう';
+	/// ja: 'メッセージを取り消そう'
+	String get chat_quiz4 => 'メッセージを取り消そう';
 
 	/// ja: '字幕をオンにしよう'
 	String get streaming_quiz1 => '字幕をオンにしよう';
@@ -539,17 +539,17 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: 'カート内の商品の合計金額を4択から選んでください'
 	String get shopping_cart => 'カート内の商品の合計金額を4択から選んでください';
 
-	/// ja: 'チャットアプリでメッセージを送信してください'
-	String get chat_quiz1 => 'チャットアプリでメッセージを送信してください';
+	/// ja: 'チャットアプリでスタンプを1つ返信してください'
+	String get chat_quiz1 => 'チャットアプリでスタンプを1つ返信してください';
 
-	/// ja: 'チャットアプリでスタンプを送信してください'
-	String get chat_quiz2 => 'チャットアプリでスタンプを送信してください';
+	/// ja: '相手のメッセージにハートリアクションをしてください'
+	String get chat_quiz2 => '相手のメッセージにハートリアクションをしてください';
 
-	/// ja: '送信したメッセージを削除してください'
-	String get chat_quiz3 => '送信したメッセージを削除してください';
+	/// ja: 'チャットアプリで写真を1枚送信してください'
+	String get chat_quiz3 => 'チャットアプリで写真を1枚送信してください';
 
-	/// ja: '新しいグループチャットを作成してください'
-	String get chat_quiz4 => '新しいグループチャットを作成してください';
+	/// ja: '送信した自分のメッセージを取り消してください'
+	String get chat_quiz4 => '送信した自分のメッセージを取り消してください';
 
 	/// ja: '動画アプリで字幕機能をオンにしてください'
 	String get streaming_quiz1 => '動画アプリで字幕機能をオンにしてください';
@@ -811,10 +811,10 @@ extension on Translations {
 			'play.stageTitle.shopping_checkout' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_reorder' => '直近の注文を再注文しよう',
 			'play.stageTitle.shopping_cart' => 'カートの合計金額を選ぼう',
-			'play.stageTitle.chat_quiz1' => 'メッセージを送ろう',
-			'play.stageTitle.chat_quiz2' => 'スタンプを送ろう',
-			'play.stageTitle.chat_quiz3' => 'メッセージを削除しよう',
-			'play.stageTitle.chat_quiz4' => 'グループを作ろう',
+			'play.stageTitle.chat_quiz1' => 'スタンプを返信しよう',
+			'play.stageTitle.chat_quiz2' => 'リアクションをしよう',
+			'play.stageTitle.chat_quiz3' => '写真を送ろう',
+			'play.stageTitle.chat_quiz4' => 'メッセージを取り消そう',
 			'play.stageTitle.streaming_quiz1' => '字幕をオンにしよう',
 			'play.stageTitle.streaming_quiz2' => '動画の中盤まで進めよう',
 			'play.stageTitle.streaming_quiz3' => '2倍速で再生しよう',
@@ -835,10 +835,10 @@ extension on Translations {
 			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
 			'play.stageDescription.shopping_cart' => 'カート内の商品の合計金額を4択から選んでください',
-			'play.stageDescription.chat_quiz1' => 'チャットアプリでメッセージを送信してください',
-			'play.stageDescription.chat_quiz2' => 'チャットアプリでスタンプを送信してください',
-			'play.stageDescription.chat_quiz3' => '送信したメッセージを削除してください',
-			'play.stageDescription.chat_quiz4' => '新しいグループチャットを作成してください',
+			'play.stageDescription.chat_quiz1' => 'チャットアプリでスタンプを1つ返信してください',
+			'play.stageDescription.chat_quiz2' => '相手のメッセージにハートリアクションをしてください',
+			'play.stageDescription.chat_quiz3' => 'チャットアプリで写真を1枚送信してください',
+			'play.stageDescription.chat_quiz4' => '送信した自分のメッセージを取り消してください',
 			'play.stageDescription.streaming_quiz1' => '動画アプリで字幕機能をオンにしてください',
 			'play.stageDescription.streaming_quiz2' => '次の動画へ移動し、動画の中盤まで進めてください',
 			'play.stageDescription.streaming_quiz3' => '動画アプリで動画を2倍速で再生してください',
