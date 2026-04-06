@@ -68,25 +68,25 @@ final appRouter = GoRouter(
     // チャットカテゴリー
     GoRoute(
       path: '/chat/quiz1',
-      builder: (context, state) => SendMessageQuizScreen(
-        onCompleted: () => context.pop(),
-      ),
-    ),
-    GoRoute(
-      path: '/chat/quiz2',
       builder: (context, state) => SendStampQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
+      path: '/chat/quiz2',
+      builder: (context, state) => ReactionQuizScreen(
+        onCompleted: () => context.pop(),
+      ),
+    ),
+    GoRoute(
       path: '/chat/quiz3',
-      builder: (context, state) => DeleteMessageQuizScreen(
+      builder: (context, state) => SendImageQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),
     GoRoute(
       path: '/chat/quiz4',
-      builder: (context, state) => CreateGroupQuizScreen(
+      builder: (context, state) => CancelMessageQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),
