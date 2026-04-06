@@ -186,7 +186,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/payment/quiz4',
-      builder: (context, state) => ViewHistoryQuizScreen(
+      builder: (context, state) => ChangePaymentMethodQuizScreen(
         onCompleted: () => context.pop(),
       ),
     ),

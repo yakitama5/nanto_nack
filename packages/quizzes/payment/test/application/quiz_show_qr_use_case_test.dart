@@ -5,12 +5,12 @@ void main() {
   const useCase = QuizShowQrUseCase();
 
   group('QuizShowQrUseCase', () {
-    test('qrShown が true のとき isClear は true を返す', () {
-      expect(useCase.isClear(qrShown: true), isTrue);
+    test('paymentShown が true のとき isClear は true を返す', () {
+      expect(useCase.isClear(paymentShown: true), isTrue);
     });
 
-    test('qrShown が false のとき isClear は false を返す', () {
-      expect(useCase.isClear(qrShown: false), isFalse);
+    test('paymentShown が false のとき isClear は false を返す', () {
+      expect(useCase.isClear(paymentShown: false), isFalse);
     });
   });
 }

@@ -6,23 +6,24 @@ import '../../domain/payment_catalog.dart';
 import '../../domain/payment_method.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
-import 'send_money_quiz_notifier.dart';
-import 'send_money_quiz_state.dart';
+import 'change_payment_method_quiz_notifier.dart';
+import 'change_payment_method_quiz_state.dart';
 
-/// Quiz 3「友達に5,000円を送金してください」
-class SendMoneyQuizScreen extends ConsumerStatefulWidget {
+/// Quiz 4「支払い方法を変更してバーコードを提示してください」
+class ChangePaymentMethodQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
-  const SendMoneyQuizScreen({super.key, this.onCompleted});
+  const ChangePaymentMethodQuizScreen({super.key, this.onCompleted});
 
   /// クイズ完了コールバック
   final VoidCallback? onCompleted;
 
   @override
-  ConsumerState<SendMoneyQuizScreen> createState() =>
-      _SendMoneyQuizScreenState();
+  ConsumerState<ChangePaymentMethodQuizScreen> createState() =>
+      _ChangePaymentMethodQuizScreenState();
 }
 
-class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
+class _ChangePaymentMethodQuizScreenState
+    extends ConsumerState<ChangePaymentMethodQuizScreen> {
   static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
 
@@ -30,47 +31,55 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(sendMoneyQuizProvider.notifier).startQuiz();
+      ref.read(changePaymentMethodQuizProvider.notifier).startQuiz();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(sendMoneyQuizProvider);
-    final missionText = context.s.quiz3.missionText;
-    final notifier = ref.read(sendMoneyQuizProvider.notifier);
-
+    final state = ref.watch(changePaymentMethodQuizProvider);
+    final missionText = context.s.quiz4.missionText;
+    final notifier = ref.read(changePaymentMethodQuizProvider.notifier);
     final resultOverlays = _buildResultOverlays(state, notifier);
 
-    if (state.showSendScreen) {
-      return SendMoneyScreen(
-        contacts: PaymentCatalog.contacts,
-        selectedContactId: state.selectedContactId,
-        amount: state.amount,
+    // 支払い画面を表示する条件（クリア/タイムアップ/ギブアップ中は除く）
+    if (state.paymentScreenShown &&
+        state.status != QuizStatus.correct &&
+        state.status != QuizStatus.timeUp &&
+        state.status != QuizStatus.giveUp) {
+      return PaymentScreen(
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
         timeLimitSeconds: _timeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
-        onContactSelect: notifier.selectContact,
-        onAmountKey: notifier.onAmountKey,
-        onSend: notifier.tapSendMoney,
-        onBack: notifier.closeSendScreen,
+        onBack: notifier.closePaymentScreen,
         overlays: resultOverlays,
+        currentPaymentMethod: state.currentPaymentMethod,
+        onChangePaymentMethod: notifier.changePaymentMethod,
+        // 残高が選択されている間は支払い元ボタンをハイライト（変更を促す）
+        highlightPaymentMethodButton: state.status == QuizStatus.playing &&
+            state.currentPaymentMethod == PaymentMethod.balance,
       );
     }
 
     return PaymentHomeScreen(
       balance: PaymentCatalog.initialBalance,
       balanceHidden: false,
-      currentPaymentMethod: PaymentMethod.balance,
+      currentPaymentMethod: state.currentPaymentMethod,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightSendTile: state.status == QuizStatus.playing,
-      onSendTap: notifier.tapSend,
+      // 残高選択中はカルーセルをハイライト（スワイプで変更できることを示す）
+      highlightPaymentCarousel: state.status == QuizStatus.playing &&
+          state.currentPaymentMethod == PaymentMethod.balance,
+      // クレカ選択済みなら支払いボタンをハイライト（支払い画面を開くよう促す）
+      highlightPaymentButton: state.status == QuizStatus.playing &&
+          state.currentPaymentMethod == PaymentMethod.creditCard,
+      onPaymentTap: notifier.tapPayment,
+      onPaymentMethodChanged: notifier.changePaymentMethod,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
@@ -84,8 +93,8 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
   }
 
   List<Widget> _buildResultOverlays(
-    SendMoneyQuizState state,
-    SendMoneyQuizNotifier notifier,
+    ChangePaymentMethodQuizState state,
+    ChangePaymentMethodQuizNotifier notifier,
   ) {
     if (state.status == QuizStatus.correct ||
         state.status == QuizStatus.timeUp ||
@@ -104,7 +113,7 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
                 ? widget.onCompleted
                 : null,
             onBack: () => Navigator.of(context).pop(),
-            insight: _SendMoneyInsight(),
+            insight: _ChangePaymentMethodInsight(),
           ),
         ),
       ];
@@ -113,31 +122,31 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
   }
 }
 
-class _SendMoneyInsight extends StatelessWidget {
+class _ChangePaymentMethodInsight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final insight = context.s.quiz3.insight;
+    final insight = context.s.quiz4.insight;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _InsightHeader(title: insight.title, subtitle: insight.subtitle),
         const SizedBox(height: 12),
         _InsightItem(
-          emoji: '✈️',
-          title: insight.sendTitle,
-          desc: insight.sendDesc,
+          emoji: '💳',
+          title: insight.routeATitle,
+          desc: insight.routeADesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '🔢',
-          title: insight.amountTitle,
-          desc: insight.amountDesc,
+          emoji: '👆',
+          title: insight.routeBTitle,
+          desc: insight.routeBDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '✅',
-          title: insight.confirmTitle,
-          desc: insight.confirmDesc,
+          emoji: '🔽',
+          title: insight.dropdownTitle,
+          desc: insight.dropdownDesc,
         ),
       ],
     );

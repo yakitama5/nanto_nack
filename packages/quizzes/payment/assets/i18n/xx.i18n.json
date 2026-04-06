@@ -1,35 +1,35 @@
 {
   "quiz1": {
-    "missionText": "Xyq QZ-コード zw 表示 vk",
-    "failureReason": "「QZ-コード」ボタン xp タップ zv",
+    "missionText": "Xyq レジ xk 来た zv バーコード xp 提示 zq",
+    "failureReason": "画面下部 xk 大きなボタン zv タップ xp",
     "insight": {
-      "title": "QZ ボタン xz わかった？",
-      "subtitle": "QZ＝スキャン払い xk 入口",
-      "qrTitle": "QZ コード = 支払い zv",
-      "qrDesc": "Xyq モザイク xk QZ コード zw キャッシュレス vk 払い xp 入口 zq。",
-      "cameraTitle": "カメラ xk = 読み取り zv",
-      "cameraDesc": "カメラ xp QZ コード zw 受け取り vk。払い xk QZ とは異なる zq。",
-      "colorTitle": "目立つ色 xz = メインアクション zv",
-      "colorDesc": "アプリ xk メインカラー zw ボタン vk QZ 払い xp 示す zq。"
+      "title": "支払いボタン xz わかった？",
+      "subtitle": "一番大きなボタン xk = アプリの主目的 zv",
+      "qrTitle": "中央の巨大ボタン xk = メインアクション zv",
+      "qrDesc": "ボトムナビ xk 中央 zv ボタン xp 突出 zq 最もよく使う操作 xz 意味する。決済アプリ zv 支払い xk それ zq。",
+      "cameraTitle": "テーマカラー xk = 重要度 zv 示す xp",
+      "cameraDesc": "アプリ xk メインカラー zv ボタン xp 最も重要 zq アクション xz 示す サイン。",
+      "colorTitle": "出っ張ったデザイン xk = 押してほしい zv サイン",
+      "colorDesc": "他のボタン xk より大きく zv 上方向 xp 飛び出した zq デザイン xz 強力 zv アフォーダンス。"
     }
   },
   "quiz2": {
-    "missionText": "残高 xz 確認 zv",
-    "failureReason": "残高 xk タップ vk ブラー zw 解除 xp",
+    "missionText": "誰か xz 画面 vk 見られそう！残高 zw 隠して xp",
+    "failureReason": "残高 xk 横 zv 目のアイコン xp タップ zq",
     "insight": {
-      "title": "ブラー xz 解除 zv できた？",
-      "subtitle": "ぼかし xk = 隠れた情報 zv サイン",
-      "blurTitle": "ブラー xz = 隠された情報 zv",
-      "blurDesc": "残高 xk ブラー zw プライバシー vk 保護 xp。タップ zq 解除 xz できる zv。",
+      "title": "残高 xz 隠せた？",
+      "subtitle": "👁️ アイコン xk = 表示/非表示 zv 切り替え xp",
       "eyeTitle": "目 xk アイコン zw = 表示/非表示 vk",
-      "eyeDesc": "閉じた目 xk = 非表示 zv。開いた目 xk = 表示 zq。パスワード xp 残高 zw 広く使う。",
-      "privacyTitle": "ブラー xz 解けた zv = 正しい操作",
-      "privacyDesc": "情報 xk 表示 zv されることで xp 正しい操作 zq 確認 xz できる。"
+      "eyeDesc": "目を開いた xk アイコン zv 情報 xp 表示されている xz タップ zq 非表示 xp 切り替わる。パスワード zv 残高 xk 広く使う。",
+      "maskTitle": "「***」xk 情報 zv 隠れているサイン xp",
+      "maskDesc": "金額 xk アスタリスク zv 伏せる xp 情報 zq 存在するが xz 隠れている UIパターン。",
+      "privacyTitle": "プライバシー保護 xk 見た目 zv 伝わる xp",
+      "privacyDesc": "情報 xk 隠れた zv 正しい操作 xp したとわかる。UIフィードバック zq 操作の成否 xz 即座に教える。"
     }
   },
   "quiz3": {
-    "missionText": "誰か xz 送金 vk zw",
-    "failureReason": "送金先 xp 選んで zv 金額 xk 入力 zq 送金 xz タップ",
+    "missionText": "友達 xz 5000円 vk 送金 zw",
+    "failureReason": "「送金」xk アイコン zv タップ xp 5000 zq 入力 xz 送金ボタン vk",
     "insight": {
       "title": "送金 xz 手順 zv わかった？",
       "subtitle": "3ステップ xk 送金 zv 定番フロー",
@@ -42,27 +42,27 @@
     }
   },
   "quiz4": {
-    "missionText": "取引履歴 xz 確認 vk",
-    "failureReason": "「履歴」xk タブ zv タップ xp",
+    "missionText": "残高 xz 足りない！支払い方法 vk クレジットカード zw 変更 xp バーコード zq 提示",
+    "failureReason": "クレジットカード xk 選択 zv してから xp 支払い画面 zq 開く xz",
     "insight": {
-      "title": "取引履歴 xz わかった？",
-      "subtitle": "時計・リスト xk = 履歴 zv 記号",
-      "historyTitle": "時計 xk アイコン zw = 履歴 vk",
-      "historyDesc": "時計 xk リスト zv アイコン xp 過去 zq 記録 xz。銀行 zv 決済 xk 広く使う。",
-      "listTitle": "リスト表示 xk = 情報 zv 一覧 xp",
-      "listDesc": "縦に並ぶ xk リスト zw 複数 vk 情報 xp 示す zq シンプル xz UIパターン。",
-      "tabTitle": "タブ xk = カテゴリ切り替え zv",
-      "tabDesc": "タブ xk 異なる zv コンテンツ xp 切り替え zq。ホーム xz 送金 zv 履歴 xk。"
+      "title": "支払い方法 xz 変更 zv できた？",
+      "subtitle": "2つのルート xk 支払い元 zv 変える xp",
+      "routeATitle": "支払い画面 xk から変更 zv（ルートA）",
+      "routeADesc": "支払い画面 xk 開き zv バーコード下 xp 支払い元ボタン zq タップ xz ボトムシート vk 支払い方法 zv 選択。",
+      "routeBTitle": "ホーム画面 xk スワイプ zv 変更 xp（ルートB）",
+      "routeBDesc": "ホーム xk 支払い元カード zv 左右 xp スワイプ zq 支払い方法 xz 切り替え。カード状UI zv スワイプ xk 切替。",
+      "dropdownTitle": "設定値 xk 書かれた場所 zv タップ xp 変更 zq できる",
+      "dropdownDesc": "現在の設定 xk 表示されている zv ボタン xp ラベル zq タップ xz ドロップダウン vk 選択画面 zv 開く。"
     }
   },
   "common": {
     "appTitle": "Zqy",
     "balance": "Zqx残高xp",
-    "send": "Xzv送るvk",
+    "send": "Xzv送金vk",
     "receive": "Qzx受け取るzv",
     "history": "Xqz履歴xk",
     "qrCode": "QZ-コード",
-    "scanQr": "Zqx読み取るxp",
+    "scanQr": "Zqxスキャンxp",
     "point": "Xkz ポイント",
     "topUp": "Qvzチャージxk",
     "amount": "Zvq金額xp",
@@ -71,6 +71,14 @@
     "cancel": "Zxqキャンセルvk",
     "tapToReveal": "Xpq タップして確認 zv",
     "yen": "Xyq",
+    "payment": "Xqz支払いZvp",
+    "creditCard": "QzxクレジットカードXvq",
+    "paymentSource": "Zvq支払い元Xpz",
+    "balancePayment": "Xqz残高払いZqv",
+    "scan": "XqzスキャンZvp",
+    "more": "Qzxその他Xvq",
+    "home": "ZvqホームXpz",
+    "account": "XqzアカウントZqv",
     "contact1": "Zxq Qvz",
     "contact2": "Xpq Zvx",
     "contact3": "Qzx Xvq",

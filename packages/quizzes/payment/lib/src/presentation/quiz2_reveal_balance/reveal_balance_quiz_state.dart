@@ -1,6 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 
-/// Quiz 2「残高を確認する」の状態
+/// Quiz 2「残高を隠す」の状態
 class RevealBalanceQuizState extends QuizStateBase {
   /// コンストラクタ
   const RevealBalanceQuizState({
@@ -8,23 +8,24 @@ class RevealBalanceQuizState extends QuizStateBase {
     required super.failureCount,
     required super.elapsedMs,
     required super.startedAt,
-    required this.balanceRevealed,
+    required this.balanceHidden,
     required this.remainingSeconds,
   });
 
   /// 初期状態を生成する
-  factory RevealBalanceQuizState.initial({int timeLimitSeconds = 30}) =>
+  factory RevealBalanceQuizState.initial({int timeLimitSeconds = 45}) =>
       RevealBalanceQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
-        balanceRevealed: false,
+        // 初期状態: 残高は見えている（非表示フラグ = false）
+        balanceHidden: false,
         remainingSeconds: timeLimitSeconds,
       );
 
-  /// 残高ブラーが解除されたか
-  final bool balanceRevealed;
+  /// 残高が隠れているか（true = 隠れている = クリア状態）
+  final bool balanceHidden;
 
   /// 残り時間（秒）
   final int remainingSeconds;
@@ -35,7 +36,7 @@ class RevealBalanceQuizState extends QuizStateBase {
     int? failureCount,
     int? elapsedMs,
     DateTime? startedAt,
-    bool? balanceRevealed,
+    bool? balanceHidden,
     int? remainingSeconds,
   }) {
     return RevealBalanceQuizState(
@@ -43,7 +44,7 @@ class RevealBalanceQuizState extends QuizStateBase {
       failureCount: failureCount ?? this.failureCount,
       elapsedMs: elapsedMs ?? this.elapsedMs,
       startedAt: startedAt ?? this.startedAt,
-      balanceRevealed: balanceRevealed ?? this.balanceRevealed,
+      balanceHidden: balanceHidden ?? this.balanceHidden,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
     );
   }
