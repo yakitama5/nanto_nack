@@ -54,7 +54,13 @@ jobs:
 
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
-          cat > packages/system/.env << 'EOF'
+          mkdir -p packages/system/scripts/env
+          cat > packages/system/scripts/env/.env << 'EOF'
+          FIREBASE_ANDROID_API_KEY=ci_placeholder
+          FIREBASE_IOS_API_KEY=ci_placeholder
+          FIREBASE_WEB_API_KEY=ci_placeholder
+          EOF
+          cat > packages/system/scripts/env/.env.dev << 'EOF'
           FIREBASE_ANDROID_API_KEY=ci_placeholder
           FIREBASE_IOS_API_KEY=ci_placeholder
           FIREBASE_WEB_API_KEY=ci_placeholder
@@ -116,7 +122,13 @@ jobs:
 
       - name: .env ファイルの作成 (CI用プレースホルダー)
         run: |
-          cat > packages/system/.env << 'EOF'
+          mkdir -p packages/system/scripts/env
+          cat > packages/system/scripts/env/.env << 'EOF'
+          FIREBASE_ANDROID_API_KEY=ci_placeholder
+          FIREBASE_IOS_API_KEY=ci_placeholder
+          FIREBASE_WEB_API_KEY=ci_placeholder
+          EOF
+          cat > packages/system/scripts/env/.env.dev << 'EOF'
           FIREBASE_ANDROID_API_KEY=ci_placeholder
           FIREBASE_IOS_API_KEY=ci_placeholder
           FIREBASE_WEB_API_KEY=ci_placeholder
