@@ -103,25 +103,19 @@ class _CancelMessageQuizScreenState
     showModalBottomSheet<void>(
       context: context,
       builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // 取消ボタン（このクイズで操作するのは「送信取消」のみ）
-            ListTile(
-              leading: const Icon(Icons.undo, color: Colors.red),
-              title: UnreadableText(
-                sq.common.unsendMessage,
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(ctx).pop();
-                notifier.cancelMessage(message.id);
-              },
+        child: ListTile(
+          leading: const Icon(Icons.undo, color: Colors.red),
+          title: UnreadableText(
+            sq.common.unsendMessage,
+            style: const TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
             ),
-          ],
+          ),
+          onTap: () {
+            Navigator.of(ctx).pop();
+            notifier.cancelMessage(message.id);
+          },
         ),
       ),
     );
