@@ -1,6 +1,7 @@
 import 'package:alarm/alarm.dart';
 import 'package:chat/chat.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/widgets.dart';
 import 'package:payment/payment.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map/map.dart';
@@ -12,11 +13,18 @@ import 'presentation/play/category_list_screen.dart';
 import 'presentation/play/stage_list_screen.dart';
 import 'presentation/settings/settings_screen.dart';
 
+List<NavigatorObserver> _buildRouterObservers() {
+  try {
+    return [FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)];
+  } catch (_) {
+    // Firebase が初期化されていない場合（テスト環境等）はオブザーバーなしで起動
+    return [];
+  }
+}
+
 final appRouter = GoRouter(
   initialLocation: '/',
-  observers: [
-    FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
-  ],
+  observers: _buildRouterObservers(),
   routes: [
     GoRoute(
       path: '/',

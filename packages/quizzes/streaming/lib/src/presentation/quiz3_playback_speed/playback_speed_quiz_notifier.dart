@@ -168,14 +168,6 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
     required bool isCleared,
     required int elapsedMs,
   }) async {
-    if (isCleared) {
-      await ref.read(analyticsServiceProvider).logQuizCompleted(
-            quizId: _quizId,
-            score: state.score,
-            failureCount: state.failureCount,
-            clearTimeMs: elapsedMs,
-          );
-    }
     final repo = ref.read(streamingQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,
@@ -184,5 +176,13 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
       score: isCleared ? state.score : 0,
       failureCount: state.failureCount,
     );
+    if (isCleared) {
+      unawaited(ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          ));
+    }
   }
 }
