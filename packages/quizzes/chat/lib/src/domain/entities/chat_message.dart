@@ -1,3 +1,6 @@
+/// null をセンチネルとして区別するためのユニークな定数
+const _absent = Object();
+
 /// チャットメッセージエンティティ
 class ChatMessage {
   const ChatMessage({
@@ -8,6 +11,8 @@ class ChatMessage {
     this.isStamp = false,
     this.stampId,
     this.isDeleted = false,
+    this.reaction,
+    this.isImage = false,
   });
 
   final String id;
@@ -29,6 +34,15 @@ class ChatMessage {
   /// 削除済みかどうか
   final bool isDeleted;
 
+  /// リアクション絵文字（nullable）。
+  /// 相手のメッセージに付いたリアクションを保持する。
+  final String? reaction;
+
+  /// 画像メッセージかどうか
+  final bool isImage;
+
+  /// [reaction] は nullable フィールドのため、明示的に null に戻せるよう
+  /// sentinel パターン（_absent）を使用している。
   ChatMessage copyWith({
     String? id,
     String? text,
@@ -37,6 +51,9 @@ class ChatMessage {
     bool? isStamp,
     String? stampId,
     bool? isDeleted,
+    // ignore: avoid_annotating_with_dynamic
+    Object? reaction = _absent,
+    bool? isImage,
   }) {
     return ChatMessage(
       id: id ?? this.id,
@@ -46,6 +63,10 @@ class ChatMessage {
       isStamp: isStamp ?? this.isStamp,
       stampId: stampId ?? this.stampId,
       isDeleted: isDeleted ?? this.isDeleted,
+      reaction: identical(reaction, _absent)
+          ? this.reaction
+          : reaction as String?,
+      isImage: isImage ?? this.isImage,
     );
   }
 }

@@ -27,6 +27,15 @@ class ChatRoomScreen extends StatefulWidget {
     required this.onGiveUp,
     required this.overlays,
     this.highlightMyMessages = false,
+    // リアクション関連（Quiz2用）
+    this.onReactionButtonTap,
+    this.reactionPickerMessageId,
+    this.onReactionSelected,
+    // 画像送信関連（Quiz3用）
+    this.showImageButton = false,
+    this.isImagePickerOpen = false,
+    this.onImageButtonTap,
+    this.onImageSelected,
   });
 
   final ChatContact contact;
@@ -50,6 +59,27 @@ class ChatRoomScreen extends StatefulWidget {
 
   /// 自分のメッセージをハイライト表示（Quiz1 のヒント）
   final bool highlightMyMessages;
+
+  /// リアクションボタンタップ時のコールバック（Quiz2用）
+  final void Function(ChatMessage message)? onReactionButtonTap;
+
+  /// リアクションピッカーを表示するメッセージID（Quiz2用）
+  final String? reactionPickerMessageId;
+
+  /// リアクション選択時のコールバック（Quiz2用）
+  final void Function(String reaction, String messageId)? onReactionSelected;
+
+  /// 画像送信ボタンを表示するかどうか（Quiz3用）
+  final bool showImageButton;
+
+  /// 画像ピッカーが開いているかどうか（Quiz3用）
+  final bool isImagePickerOpen;
+
+  /// 画像ボタンタップ時のコールバック（Quiz3用）
+  final VoidCallback? onImageButtonTap;
+
+  /// 画像選択時のコールバック（Quiz3用）
+  final void Function(int imageIndex)? onImageSelected;
 
   @override
   State<ChatRoomScreen> createState() => _ChatRoomScreenState();
@@ -99,6 +129,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     final sq = context.sq;
     final colorScheme = Theme.of(context).colorScheme;
 
+    // スタンプパネルと画像ピッカーは排他表示
+    final showImagePicker = widget.isImagePickerOpen && !widget.isStampPanelOpen;
+    final showStampPanel = widget.isStampPanelOpen && !widget.isImagePickerOpen;
+
     return Scaffold(
       backgroundColor: const Color(0xFFB2DFDB),
       body: Stack(
@@ -135,16 +169,24 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         message: message,
                         isHighlighted: widget.highlightMyMessages &&
                             message.isMine,
+                        onReactionButtonTap: widget.onReactionButtonTap,
+                        reactionPickerMessageId:
+                            widget.reactionPickerMessageId,
+                        onReactionSelected: widget.onReactionSelected,
                       ),
                     );
                   },
                 ),
               ),
-              // スタンプパネル
-              if (widget.isStampPanelOpen)
+              // スタンプパネル / 画像ピッカーパネル
+              if (showStampPanel)
                 _StampPanel(
                   stamps: widget.stamps,
                   onStampSelected: widget.onStampSelected,
+                ),
+              if (showImagePicker)
+                _ImagePickerPanel(
+                  onImageSelected: widget.onImageSelected,
                 ),
               // 入力エリア
               _InputBar(
@@ -154,6 +196,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 onStampTap: widget.onStampTap,
                 showTextInput: widget.showTextInput,
                 showStampButton: widget.showStampButton,
+                showImageButton: widget.showImageButton,
+                onImageButtonTap: widget.onImageButtonTap,
                 squareText: UnreadableText(sq.common.sendButton),
                 stampHintText: UnreadableText(sq.common.typeMessage),
                 colorScheme: colorScheme,
@@ -265,77 +309,222 @@ class _MessageBubble extends StatelessWidget {
   const _MessageBubble({
     required this.message,
     this.isHighlighted = false,
+    this.onReactionButtonTap,
+    this.reactionPickerMessageId,
+    this.onReactionSelected,
   });
 
   final ChatMessage message;
   final bool isHighlighted;
+  final void Function(ChatMessage message)? onReactionButtonTap;
+  final String? reactionPickerMessageId;
+  final void Function(String reaction, String messageId)? onReactionSelected;
 
   @override
   Widget build(BuildContext context) {
     final isMine = message.isMine;
+    final showReactionPicker = reactionPickerMessageId == message.id;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment:
-            isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Column(
+        crossAxisAlignment:
+            isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          if (!isMine) ...[
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: Colors.grey.shade400,
-              child: const Icon(Icons.person, size: 16, color: Colors.white),
-            ),
-            const SizedBox(width: 8),
-          ],
-          if (message.isStamp)
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: isHighlighted
-                  ? BoxDecoration(
-                      border: Border.all(
-                        color: Colors.yellow,
-                        width: 3,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    )
-                  : null,
-              child: Text(message.stampId ?? message.text, style: const TextStyle(fontSize: 40)),
-            )
-          else
-            Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.widthOf(context) * 0.65,
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
-              ),
-              decoration: BoxDecoration(
-                color: isMine
-                    ? const Color(0xFFB2FF8C)
-                    : Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(16),
-                  topRight: const Radius.circular(16),
-                  bottomLeft: Radius.circular(isMine ? 16 : 4),
-                  bottomRight: Radius.circular(isMine ? 4 : 16),
+          Row(
+            mainAxisAlignment:
+                isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              if (!isMine) ...[
+                CircleAvatar(
+                  radius: 16,
+                  backgroundColor: Colors.grey.shade400,
+                  child: const Icon(Icons.person, size: 16, color: Colors.white),
                 ),
-                border: isHighlighted
-                    ? Border.all(color: Colors.yellow, width: 3)
-                    : null,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
+                const SizedBox(width: 8),
+              ],
+              // メッセージ本体
+              _buildMessageContent(context, isMine),
+              // 受信メッセージの右横にリアクションボタン（Quiz2用）
+              if (!isMine && onReactionButtonTap != null) ...[
+                const SizedBox(width: 4),
+                GestureDetector(
+                  onTap: () => onReactionButtonTap!(message),
+                  child: Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    child: const Center(
+                      child: Text('😊', style: TextStyle(fontSize: 12)),
+                    ),
                   ),
-                ],
+                ),
+              ],
+              if (isMine) const SizedBox(width: 8),
+            ],
+          ),
+          // リアクション表示
+          if (message.reaction != null) ...[
+            const SizedBox(height: 2),
+            Padding(
+              padding: EdgeInsets.only(left: isMine ? 0 : 48),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade300),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 2,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  message.reaction!,
+                  style: const TextStyle(fontSize: 14),
+                ),
               ),
-              child: UnreadableText(message.text),
             ),
-          if (isMine) const SizedBox(width: 8),
+          ],
+          // リアクションピッカー（このメッセージが選択中の場合）
+          if (showReactionPicker && onReactionSelected != null) ...[
+            const SizedBox(height: 4),
+            Padding(
+              padding: EdgeInsets.only(left: isMine ? 0 : 48),
+              child: _ReactionPicker(
+                messageId: message.id,
+                onReactionSelected: onReactionSelected!,
+              ),
+            ),
+          ],
         ],
+      ),
+    );
+  }
+
+  Widget _buildMessageContent(BuildContext context, bool isMine) {
+    if (message.isStamp) {
+      return Container(
+        padding: const EdgeInsets.all(8),
+        decoration: isHighlighted
+            ? BoxDecoration(
+                border: Border.all(
+                  color: Colors.yellow,
+                  width: 3,
+                ),
+                borderRadius: BorderRadius.circular(12),
+              )
+            : null,
+        child: Text(
+          message.stampId ?? message.text,
+          style: const TextStyle(fontSize: 40),
+        ),
+      );
+    }
+
+    if (message.isImage) {
+      // 画像メッセージはグレーの矩形にカメラアイコンで表示
+      return Container(
+        width: 150,
+        height: 110,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade400,
+          borderRadius: BorderRadius.circular(12),
+          border: isHighlighted
+              ? Border.all(color: Colors.yellow, width: 3)
+              : null,
+        ),
+        child: const Center(
+          child: Icon(Icons.camera_alt, size: 40, color: Colors.white),
+        ),
+      );
+    }
+
+    return Container(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.widthOf(context) * 0.65,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 14,
+        vertical: 10,
+      ),
+      decoration: BoxDecoration(
+        color: isMine
+            ? const Color(0xFFB2FF8C)
+            : Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(16),
+          topRight: const Radius.circular(16),
+          bottomLeft: Radius.circular(isMine ? 16 : 4),
+          bottomRight: Radius.circular(isMine ? 4 : 16),
+        ),
+        border: isHighlighted
+            ? Border.all(color: Colors.yellow, width: 3)
+            : null,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: UnreadableText(message.text),
+    );
+  }
+}
+
+// ─── リアクションピッカー ─────────────────────────────────────────────────
+
+class _ReactionPicker extends StatelessWidget {
+  const _ReactionPicker({
+    required this.messageId,
+    required this.onReactionSelected,
+  });
+
+  static const _reactions = ['❤️', '👍', '😊', '😢', '😡', '😲'];
+
+  final String messageId;
+  final void Function(String reaction, String messageId) onReactionSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: _reactions
+            .map(
+              (r) => GestureDetector(
+                onTap: () => onReactionSelected(r, messageId),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Text(r, style: const TextStyle(fontSize: 24)),
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -401,6 +590,77 @@ class _StampPanel extends StatelessWidget {
   }
 }
 
+// ─── 画像ピッカーパネル ────────────────────────────────────────────────────
+
+class _ImagePickerPanel extends StatelessWidget {
+  const _ImagePickerPanel({this.onImageSelected});
+
+  final void Function(int imageIndex)? onImageSelected;
+
+  static const _colors = [
+    Color(0xFFEF9A9A),
+    Color(0xFF80DEEA),
+    Color(0xFFA5D6A7),
+    Color(0xFFFFCC80),
+    Color(0xFFCE93D8),
+    Color(0xFFFFAB91),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final sq = context.sq;
+    return Container(
+      height: 220,
+      color: Colors.white,
+      child: Column(
+        children: [
+          Container(
+            height: 40,
+            color: Colors.grey.shade200,
+            child: Row(
+              children: [
+                const SizedBox(width: 16),
+                const Icon(Icons.photo_library_outlined),
+                const SizedBox(width: 8),
+                UnreadableText(sq.common.photoButton),
+              ],
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(4),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
+              ),
+              itemCount: _colors.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => onImageSelected?.call(index),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: _colors[index],
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 // ─── 入力バー ─────────────────────────────────────────────────────────────
 
 class _InputBar extends StatelessWidget {
@@ -411,9 +671,11 @@ class _InputBar extends StatelessWidget {
     required this.onStampTap,
     required this.showTextInput,
     required this.showStampButton,
+    required this.showImageButton,
     required this.squareText,
     required this.stampHintText,
     required this.colorScheme,
+    this.onImageButtonTap,
   });
 
   final TextEditingController controller;
@@ -422,6 +684,8 @@ class _InputBar extends StatelessWidget {
   final VoidCallback onStampTap;
   final bool showTextInput;
   final bool showStampButton;
+  final bool showImageButton;
+  final VoidCallback? onImageButtonTap;
   final Widget squareText;
   final Widget stampHintText;
   final ColorScheme colorScheme;
@@ -435,6 +699,12 @@ class _InputBar extends StatelessWidget {
         top: false,
         child: Row(
           children: [
+            // 画像ボタン（Quiz3用）
+            if (showImageButton)
+              IconButton(
+                icon: const Icon(Icons.add_circle_outline, size: 26),
+                onPressed: onImageButtonTap,
+              ),
             if (showStampButton)
               IconButton(
                 icon: const Text('😊', style: TextStyle(fontSize: 22)),
@@ -454,10 +724,10 @@ class _InputBar extends StatelessWidget {
                       fontFamily: 'monospace',
                       fontSize: 14,
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: '',
                       border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
+                      contentPadding: EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 8,
                       ),
