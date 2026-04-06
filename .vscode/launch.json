@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "dev-debug",
+      "cwd": "apps/app_main",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart",
+      "args": ["--dart-define-from-file=dart_define/dev.json"]
+    },
+    {
+      "name": "dev-profile",
+      "cwd": "apps/app_main",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart",
+      "args": [
+        "--dart-define-from-file=dart_define/dev.json",
+        "--profile"
+      ]
+    },
+    {
+      "name": "dev-release",
+      "cwd": "apps/app_main",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart",
+      "args": [
+        "--dart-define-from-file=dart_define/dev.json",
+        "--release"
+      ]
+    },
+    {
+      "name": "prod-debug",
+      "cwd": "apps/app_main",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "type": "dart",
+      "args": ["--dart-define-from-file=dart_define/prod.json"]
+    }
+  ]
+}

@@ -20,6 +20,8 @@ custom_lint.log
 
 # VS Code
 .vscode/
+!.vscode/launch.json
+!.vscode/settings.json
 
 # ツール関連
 # --------------------
@@ -50,9 +52,15 @@ app.*.map.json
 
 # 機密情報
 # --------------------
-packages/system/.env
+packages/system/scripts/env/.env
+packages/system/scripts/env/.env.dev
 apps/app_main/env/.env
 apps/app_main/dart_define/prod.json
+
+# Firebase 設定ファイル（機密情報を含む）
+apps/app_main/android/app/src/dev/google-services.json
+apps/app_main/android/app/src/prod/google-services.json
+apps/app_main/ios/Runner/GoogleService-Info.plist
 
 # envied 生成ファイル (機密情報を含む可能性)
 **/env.g.dart
