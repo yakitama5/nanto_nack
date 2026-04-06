@@ -195,6 +195,8 @@
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
 				F3F67D959553747CF586C539 /* [CP] Check Pods Manifest.lock */,
+				AA11223344556677889900AA /* Extract Dart Defines */,
+				BB11223344556677889900BB /* Copy GoogleService-Info.plist */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
@@ -342,6 +344,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+		};
+		AA11223344556677889900AA /* Extract Dart Defines */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Extract Dart Defines";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"${SRCROOT}/scripts/extract_dart_defines.sh\"\n";
+		};
+		BB11223344556677889900BB /* Copy GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy GoogleService-Info.plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# dart-defines から flavor を取得して GoogleService-Info.plist をコピー\nfunction decode_url() { echo \"${*}\" | base64 --decode; }\n\nIFS=',' read -r -a define_items <<<\"$DART_DEFINES\"\nFLAVOR=\"\"\n\nfor index in \"${!define_items[@]}\"\ndo\n    item=$(decode_url \"${define_items[$index]}\")\n    if [[ $item == flavor=* ]]; then\n        FLAVOR=\"${item#flavor=}\"\n    fi\ndone\n\nif [ -z \"$FLAVOR\" ]; then\n    echo \"warning: flavor not found in dart-defines, defaulting to dev\"\n    FLAVOR=\"dev\"\nfi\n\nSOURCE=\"${SRCROOT}/${FLAVOR}/GoogleService-Info.plist\"\nDEST=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n\nif [ -f \"$SOURCE\" ]; then\n    cp \"$SOURCE\" \"$DEST\"\n    echo \"Copied GoogleService-Info.plist for flavor: $FLAVOR\"\nelse\n    echo \"warning: GoogleService-Info.plist not found at $SOURCE\"\nfi\n";
 		};
 		F3F67D959553747CF586C539 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
