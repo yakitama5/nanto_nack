@@ -189,6 +189,138 @@ class TranslationsCommonJa {
 
 	/// ja: 'New Chat'
 	String get newChat => 'New Chat';
+
+	/// ja: '私のプロフィール'
+	String get myProfile => '私のプロフィール';
+
+	/// ja: 'よろしくお願いします'
+	String get statusMessage => 'よろしくお願いします';
+
+	/// ja: 'サービス'
+	String get services => 'サービス';
+
+	/// ja: 'ペイ'
+	String get payService => 'ペイ';
+
+	/// ja: 'ショップ'
+	String get shopService => 'ショップ';
+
+	/// ja: 'クーポン'
+	String get couponService => 'クーポン';
+
+	/// ja: 'ゲーム'
+	String get gamesService => 'ゲーム';
+
+	/// ja: 'テレビ'
+	String get tvService => 'テレビ';
+
+	/// ja: 'ミュージック'
+	String get musicService => 'ミュージック';
+
+	/// ja: 'ニュース'
+	String get newsService => 'ニュース';
+
+	/// ja: 'その他'
+	String get moreService => 'その他';
+
+	/// ja: '田中 さくら'
+	String get timelineName1 => '田中 さくら';
+
+	/// ja: '鈴木 ひろし'
+	String get timelineName2 => '鈴木 ひろし';
+
+	/// ja: '山田 あおい'
+	String get timelineName3 => '山田 あおい';
+
+	/// ja: '今日のランチ最高だった！また来よう🍜'
+	String get timelinePost1 => '今日のランチ最高だった！また来よう🍜';
+
+	/// ja: '週末の花見、一緒に行きませんか？🌸'
+	String get timelinePost2 => '週末の花見、一緒に行きませんか？🌸';
+
+	/// ja: '新しいカフェ発見。コーヒーが絶品☕'
+	String get timelinePost3 => '新しいカフェ発見。コーヒーが絶品☕';
+
+	/// ja: '1時間前'
+	String get timelineTime1 => '1時間前';
+
+	/// ja: '3時間前'
+	String get timelineTime2 => '3時間前';
+
+	/// ja: '5時間前'
+	String get timelineTime3 => '5時間前';
+
+	/// ja: '12'
+	String get timelineLikes1 => '12';
+
+	/// ja: '8'
+	String get timelineLikes2 => '8';
+
+	/// ja: '24'
+	String get timelineLikes3 => '24';
+
+	/// ja: 'いいね'
+	String get likeButton => 'いいね';
+
+	/// ja: 'コメント'
+	String get commentButton => 'コメント';
+
+	/// ja: 'シェア'
+	String get shareButton => 'シェア';
+
+	/// ja: 'おすすめ'
+	String get forYouTab => 'おすすめ';
+
+	/// ja: 'フォロー中'
+	String get followTab => 'フォロー中';
+
+	/// ja: '人気アプリの新機能が登場、利便性が大幅向上'
+	String get newsHeadline1 => '人気アプリの新機能が登場、利便性が大幅向上';
+
+	/// ja: '研究チーム、新たな発見を発表'
+	String get newsHeadline2 => '研究チーム、新たな発見を発表';
+
+	/// ja: '今週末のおすすめおでかけスポット'
+	String get newsHeadline3 => '今週末のおすすめおでかけスポット';
+
+	/// ja: 'テクノロジー企業、次世代製品を発表'
+	String get newsHeadline4 => 'テクノロジー企業、次世代製品を発表';
+
+	/// ja: 'デイリーニュース'
+	String get newsSource1 => 'デイリーニュース';
+
+	/// ja: 'サイエンスタイム'
+	String get newsSource2 => 'サイエンスタイム';
+
+	/// ja: 'シティライフ'
+	String get newsSource3 => 'シティライフ';
+
+	/// ja: 'テック レビュー'
+	String get newsSource4 => 'テック レビュー';
+
+	/// ja: 'テクノロジー'
+	String get newsTag1 => 'テクノロジー';
+
+	/// ja: 'サイエンス'
+	String get newsTag2 => 'サイエンス';
+
+	/// ja: 'ライフスタイル'
+	String get newsTag3 => 'ライフスタイル';
+
+	/// ja: 'ビジネス'
+	String get newsTag4 => 'ビジネス';
+
+	/// ja: '1時間前'
+	String get newsTime1 => '1時間前';
+
+	/// ja: '2時間前'
+	String get newsTime2 => '2時間前';
+
+	/// ja: '4時間前'
+	String get newsTime3 => '4時間前';
+
+	/// ja: '6時間前'
+	String get newsTime4 => '6時間前';
 }
 
 // Path: contacts
@@ -505,6 +637,50 @@ extension on Translations {
 			'common.members' => '{count} members',
 			'common.newGroup' => 'New Group',
 			'common.newChat' => 'New Chat',
+			'common.myProfile' => '私のプロフィール',
+			'common.statusMessage' => 'よろしくお願いします',
+			'common.services' => 'サービス',
+			'common.payService' => 'ペイ',
+			'common.shopService' => 'ショップ',
+			'common.couponService' => 'クーポン',
+			'common.gamesService' => 'ゲーム',
+			'common.tvService' => 'テレビ',
+			'common.musicService' => 'ミュージック',
+			'common.newsService' => 'ニュース',
+			'common.moreService' => 'その他',
+			'common.timelineName1' => '田中 さくら',
+			'common.timelineName2' => '鈴木 ひろし',
+			'common.timelineName3' => '山田 あおい',
+			'common.timelinePost1' => '今日のランチ最高だった！また来よう🍜',
+			'common.timelinePost2' => '週末の花見、一緒に行きませんか？🌸',
+			'common.timelinePost3' => '新しいカフェ発見。コーヒーが絶品☕',
+			'common.timelineTime1' => '1時間前',
+			'common.timelineTime2' => '3時間前',
+			'common.timelineTime3' => '5時間前',
+			'common.timelineLikes1' => '12',
+			'common.timelineLikes2' => '8',
+			'common.timelineLikes3' => '24',
+			'common.likeButton' => 'いいね',
+			'common.commentButton' => 'コメント',
+			'common.shareButton' => 'シェア',
+			'common.forYouTab' => 'おすすめ',
+			'common.followTab' => 'フォロー中',
+			'common.newsHeadline1' => '人気アプリの新機能が登場、利便性が大幅向上',
+			'common.newsHeadline2' => '研究チーム、新たな発見を発表',
+			'common.newsHeadline3' => '今週末のおすすめおでかけスポット',
+			'common.newsHeadline4' => 'テクノロジー企業、次世代製品を発表',
+			'common.newsSource1' => 'デイリーニュース',
+			'common.newsSource2' => 'サイエンスタイム',
+			'common.newsSource3' => 'シティライフ',
+			'common.newsSource4' => 'テック レビュー',
+			'common.newsTag1' => 'テクノロジー',
+			'common.newsTag2' => 'サイエンス',
+			'common.newsTag3' => 'ライフスタイル',
+			'common.newsTag4' => 'ビジネス',
+			'common.newsTime1' => '1時間前',
+			'common.newsTime2' => '2時間前',
+			'common.newsTime3' => '4時間前',
+			'common.newsTime4' => '6時間前',
 			'contacts.alice' => 'Alice',
 			'contacts.bob' => 'Bob',
 			'contacts.carol' => 'Carol',

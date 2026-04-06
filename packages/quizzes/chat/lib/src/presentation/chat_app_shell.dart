@@ -3,6 +3,7 @@ import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
+import '../../i18n/strings.g.dart' as $chat;
 
 /// LINE 風のアプリシェル（ボトムナビ付き）
 ///
@@ -69,47 +70,22 @@ class ChatAppShell extends StatelessWidget {
           // タブコンテンツ
           Expanded(
             child: switch (currentTab) {
-              ChatTab.home => _HomeTabContent(),
+              ChatTab.home => _HomeTabContent(sq: sq),
               ChatTab.talk => _TalkTabContent(
                   contacts: contacts,
                   onContactTap: onContactTap,
                 ),
-              ChatTab.news => const _NewsTabContent(),
+              ChatTab.news => _NewsTabContent(sq: sq),
             },
           ),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentTab.index,
-        onDestinationSelected: (index) =>
-            onTabChanged(ChatTab.values[index]),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            selectedIcon: const Icon(Icons.home),
-            label: sq.common.homeTab,
-          ),
-          NavigationDestination(
-            icon: talkTabBadgeCount > 0
-                ? Badge(
-                    label: Text('$talkTabBadgeCount'),
-                    child: const Icon(Icons.chat_bubble_outline),
-                  )
-                : const Icon(Icons.chat_bubble_outline),
-            selectedIcon: talkTabBadgeCount > 0
-                ? Badge(
-                    label: Text('$talkTabBadgeCount'),
-                    child: const Icon(Icons.chat_bubble),
-                  )
-                : const Icon(Icons.chat_bubble),
-            label: sq.common.talkTab,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.newspaper_outlined),
-            selectedIcon: const Icon(Icons.newspaper),
-            label: sq.common.newsTab,
-          ),
-        ],
+      // LINE 風カスタムボトムナビゲーションバー
+      bottomNavigationBar: _ChatNavBar(
+        currentTab: currentTab,
+        onTabChanged: onTabChanged,
+        talkTabBadgeCount: talkTabBadgeCount,
+        sq: sq,
       ),
     );
 
@@ -126,10 +102,212 @@ class ChatAppShell extends StatelessWidget {
   }
 }
 
+// ─── カスタムナビゲーションバー ────────────────────────────────────────────
+
+/// カスタム LINE 風ボトムナビゲーションバー
+///
+/// Material の NavigationBar ではなく独自実装を使うことで、
+/// LINE らしいグリーンアクセントのカスタムデザインを実現する。
+class _ChatNavBar extends StatelessWidget {
+  const _ChatNavBar({
+    required this.currentTab,
+    required this.onTabChanged,
+    required this.talkTabBadgeCount,
+    required this.sq,
+  });
+
+  final ChatTab currentTab;
+  final void Function(ChatTab) onTabChanged;
+  final int talkTabBadgeCount;
+  final $chat.Translations sq;
+
+  @override
+  Widget build(BuildContext context) {
+    const lineGreen = Color(0xFF00B900);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: 56,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _ChatNavItem(
+                icon: Icons.home_outlined,
+                selectedIcon: Icons.home,
+                label: sq.common.homeTab,
+                selected: currentTab == ChatTab.home,
+                color: lineGreen,
+                onTap: () => onTabChanged(ChatTab.home),
+              ),
+              _ChatNavItemWithBadge(
+                icon: Icons.chat_bubble_outline,
+                selectedIcon: Icons.chat_bubble,
+                label: sq.common.talkTab,
+                selected: currentTab == ChatTab.talk,
+                badgeCount: talkTabBadgeCount,
+                color: lineGreen,
+                onTap: () => onTabChanged(ChatTab.talk),
+              ),
+              _ChatNavItem(
+                icon: Icons.newspaper_outlined,
+                selectedIcon: Icons.newspaper,
+                label: sq.common.newsTab,
+                selected: currentTab == ChatTab.news,
+                color: lineGreen,
+                onTap: () => onTabChanged(ChatTab.news),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ChatNavItem extends StatelessWidget {
+  const _ChatNavItem({
+    required this.icon,
+    required this.selectedIcon,
+    required this.label,
+    required this.selected,
+    required this.color,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final IconData selectedIcon;
+  final String label;
+  final bool selected;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
+        width: 80,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              selected ? selectedIcon : icon,
+              size: 24,
+              color: selected ? color : Colors.grey.shade500,
+            ),
+            const SizedBox(height: 2),
+            UnreadableText(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                color: selected ? color : Colors.grey.shade500,
+                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ChatNavItemWithBadge extends StatelessWidget {
+  const _ChatNavItemWithBadge({
+    required this.icon,
+    required this.selectedIcon,
+    required this.label,
+    required this.selected,
+    required this.badgeCount,
+    required this.color,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final IconData selectedIcon;
+  final String label;
+  final bool selected;
+  final int badgeCount;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
+        width: 80,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(
+                  selected ? selectedIcon : icon,
+                  size: 24,
+                  color: selected ? color : Colors.grey.shade500,
+                ),
+                if (badgeCount > 0)
+                  Positioned(
+                    top: -6,
+                    right: -8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 1,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '$badgeCount',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 2),
+            UnreadableText(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                color: selected ? color : Colors.grey.shade500,
+                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ─── ホームタブ ────────────────────────────────────────────────────────────
 
 class _HomeTabContent extends StatelessWidget {
-  const _HomeTabContent();
+  const _HomeTabContent({required this.sq});
+
+  final $chat.Translations sq;
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +317,12 @@ class _HomeTabContent extends StatelessWidget {
           // プロフィールバナー
           Container(
             color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(
               children: [
                 CircleAvatar(
                   radius: 32,
-                  backgroundColor: Colors.grey.shade300,
+                  backgroundColor: const Color(0xFF00B900),
                   child: const Icon(Icons.person, size: 36, color: Colors.white),
                 ),
                 const SizedBox(width: 16),
@@ -153,7 +331,7 @@ class _HomeTabContent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       UnreadableText(
-                        'My Profile',
+                        sq.common.myProfile,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -161,7 +339,7 @@ class _HomeTabContent extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       UnreadableText(
-                        'Status message here',
+                        sq.common.statusMessage,
                         style: TextStyle(
                           color: Colors.grey.shade600,
                           fontSize: 12,
@@ -170,11 +348,18 @@ class _HomeTabContent extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(Icons.qr_code, color: Colors.grey),
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade300),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.qr_code, size: 20, color: Colors.grey),
+                ),
               ],
             ),
           ),
-          const SizedBox(height: 8),
+          const Divider(height: 1),
           // サービスアイコングリッド
           Container(
             color: Colors.white,
@@ -183,42 +368,101 @@ class _HomeTabContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 UnreadableText(
-                  'Services',
+                  sq.common.services,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _ServiceIcon(icon: Icons.payments_outlined, label: 'Pay'),
-                    _ServiceIcon(icon: Icons.store_outlined, label: 'Shop'),
-                    _ServiceIcon(icon: Icons.local_offer_outlined, label: 'Coupon'),
-                    _ServiceIcon(icon: Icons.games_outlined, label: 'Games'),
+                    _ServiceIcon(
+                      icon: Icons.payments_outlined,
+                      label: sq.common.payService,
+                      color: const Color(0xFF00B900),
+                    ),
+                    _ServiceIcon(
+                      icon: Icons.store_outlined,
+                      label: sq.common.shopService,
+                    ),
+                    _ServiceIcon(
+                      icon: Icons.local_offer_outlined,
+                      label: sq.common.couponService,
+                      color: Colors.orange,
+                    ),
+                    _ServiceIcon(
+                      icon: Icons.games_outlined,
+                      label: sq.common.gamesService,
+                      color: Colors.purple,
+                    ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _ServiceIcon(icon: Icons.tv_outlined, label: 'TV'),
-                    _ServiceIcon(icon: Icons.music_note_outlined, label: 'Music'),
-                    _ServiceIcon(icon: Icons.newspaper_outlined, label: 'News'),
-                    _ServiceIcon(icon: Icons.more_horiz, label: 'More'),
+                    _ServiceIcon(
+                      icon: Icons.tv_outlined,
+                      label: sq.common.tvService,
+                      color: Colors.red,
+                    ),
+                    _ServiceIcon(
+                      icon: Icons.music_note_outlined,
+                      label: sq.common.musicService,
+                      color: Colors.pink,
+                    ),
+                    _ServiceIcon(
+                      icon: Icons.newspaper_outlined,
+                      label: sq.common.newsService,
+                      color: Colors.blue,
+                    ),
+                    _ServiceIcon(
+                      icon: Icons.more_horiz,
+                      label: sq.common.moreService,
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           const SizedBox(height: 8),
-          // タイムラインプレースホルダー
+          // タイムライン
           Container(
             color: Colors.white,
-            padding: const EdgeInsets.all(16),
             child: Column(
-              children: List.generate(3, (i) => _TimelineItem(index: i)),
+              children: [
+                _TimelinePost(
+                  name: sq.common.timelineName1,
+                  content: sq.common.timelinePost1,
+                  time: sq.common.timelineTime1,
+                  likes: sq.common.timelineLikes1,
+                  likeLabel: sq.common.likeButton,
+                  commentLabel: sq.common.commentButton,
+                  avatarColor: const Color(0xFFE91E63),
+                ),
+                const Divider(height: 1, indent: 16),
+                _TimelinePost(
+                  name: sq.common.timelineName2,
+                  content: sq.common.timelinePost2,
+                  time: sq.common.timelineTime2,
+                  likes: sq.common.timelineLikes2,
+                  likeLabel: sq.common.likeButton,
+                  commentLabel: sq.common.commentButton,
+                  avatarColor: const Color(0xFF2196F3),
+                ),
+                const Divider(height: 1, indent: 16),
+                _TimelinePost(
+                  name: sq.common.timelineName3,
+                  content: sq.common.timelinePost3,
+                  time: sq.common.timelineTime3,
+                  likes: sq.common.timelineLikes3,
+                  likeLabel: sq.common.likeButton,
+                  commentLabel: sq.common.commentButton,
+                  avatarColor: const Color(0xFF9C27B0),
+                ),
+              ],
             ),
           ),
         ],
@@ -228,23 +472,25 @@ class _HomeTabContent extends StatelessWidget {
 }
 
 class _ServiceIcon extends StatelessWidget {
-  const _ServiceIcon({required this.icon, required this.label});
+  const _ServiceIcon({required this.icon, required this.label, this.color});
 
   final IconData icon;
   final String label;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    final iconColor = color ?? Colors.grey.shade600;
     return Column(
       children: [
         Container(
-          width: 56,
-          height: 56,
+          width: 52,
+          height: 52,
           decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(12),
+            color: (color ?? Colors.grey).withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(14),
           ),
-          child: Icon(icon, color: Colors.grey.shade600, size: 28),
+          child: Icon(icon, color: iconColor, size: 26),
         ),
         const SizedBox(height: 4),
         UnreadableText(
@@ -256,46 +502,121 @@ class _ServiceIcon extends StatelessWidget {
   }
 }
 
-class _TimelineItem extends StatelessWidget {
-  const _TimelineItem({required this.index});
+class _TimelinePost extends StatelessWidget {
+  const _TimelinePost({
+    required this.name,
+    required this.content,
+    required this.time,
+    required this.likes,
+    required this.likeLabel,
+    required this.commentLabel,
+    required this.avatarColor,
+  });
 
-  final int index;
+  final String name;
+  final String content;
+  final String time;
+  final String likes;
+  final String likeLabel;
+  final String commentLabel;
+  final Color avatarColor;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.grey.shade300,
-            child: const Icon(Icons.person, color: Colors.white, size: 20),
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: avatarColor,
+                child: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UnreadableText(
+                      name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                    UnreadableText(
+                      time,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.more_horiz, color: Colors.grey.shade400, size: 20),
+            ],
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 12,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
+          const SizedBox(height: 8),
+          UnreadableText(
+            content,
+            style: const TextStyle(fontSize: 14),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Icon(Icons.favorite_border, size: 16, color: Colors.grey.shade500),
+              const SizedBox(width: 4),
+              UnreadableText(
+                likes,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+              ),
+              const SizedBox(width: 16),
+              GestureDetector(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.thumb_up_outlined,
+                      size: 16,
+                      color: Colors.grey.shade500,
+                    ),
+                    const SizedBox(width: 4),
+                    UnreadableText(
+                      likeLabel,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 4),
-                Container(
-                  height: 10,
-                  width: 160,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(4),
+              ),
+              const SizedBox(width: 16),
+              Row(
+                children: [
+                  Icon(
+                    Icons.chat_bubble_outline,
+                    size: 16,
+                    color: Colors.grey.shade500,
                   ),
-                ),
-              ],
-            ),
+                  const SizedBox(width: 4),
+                  UnreadableText(
+                    commentLabel,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
@@ -361,56 +682,208 @@ class _TalkTabContent extends StatelessWidget {
 // ─── ニュースタブ ──────────────────────────────────────────────────────────
 
 class _NewsTabContent extends StatelessWidget {
-  const _NewsTabContent();
+  const _NewsTabContent({required this.sq});
+
+  final $chat.Translations sq;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: 4,
-      separatorBuilder: (_, __) => const Divider(height: 1),
-      itemBuilder: (context, index) {
-        return Container(
+    return Column(
+      children: [
+        // タブセレクタ
+        Container(
           color: Colors.white,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              _NewsTabSelector(
+                label: sq.common.forYouTab,
+                isSelected: true,
+              ),
+              const SizedBox(width: 16),
+              _NewsTabSelector(
+                label: sq.common.followTab,
+                isSelected: false,
+              ),
+            ],
+          ),
+        ),
+        const Divider(height: 1),
+        // ニュースリスト
+        Expanded(
+          child: ListView(
+            children: [
+              _NewsItem(
+                headline: sq.common.newsHeadline1,
+                source: sq.common.newsSource1,
+                tag: sq.common.newsTag1,
+                time: sq.common.newsTime1,
+                tagColor: Colors.blue,
+              ),
+              const Divider(height: 1, indent: 16),
+              _NewsItem(
+                headline: sq.common.newsHeadline2,
+                source: sq.common.newsSource2,
+                tag: sq.common.newsTag2,
+                time: sq.common.newsTime2,
+                tagColor: Colors.green,
+              ),
+              const Divider(height: 1, indent: 16),
+              _NewsItem(
+                headline: sq.common.newsHeadline3,
+                source: sq.common.newsSource3,
+                tag: sq.common.newsTag3,
+                time: sq.common.newsTime3,
+                tagColor: Colors.orange,
+              ),
+              const Divider(height: 1, indent: 16),
+              _NewsItem(
+                headline: sq.common.newsHeadline4,
+                source: sq.common.newsSource4,
+                tag: sq.common.newsTag4,
+                time: sq.common.newsTime4,
+                tagColor: Colors.purple,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _NewsTabSelector extends StatelessWidget {
+  const _NewsTabSelector({required this.label, required this.isSelected});
+
+  final String label;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    const lineGreen = Color(0xFF00B900);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        UnreadableText(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isSelected ? lineGreen : Colors.grey.shade600,
+          ),
+        ),
+        const SizedBox(height: 4),
+        if (isSelected)
+          Container(
+            height: 2,
+            width: 40,
+            decoration: BoxDecoration(
+              color: lineGreen,
+              borderRadius: BorderRadius.circular(1),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _NewsItem extends StatelessWidget {
+  const _NewsItem({
+    required this.headline,
+    required this.source,
+    required this.tag,
+    required this.time,
+    required this.tagColor,
+  });
+
+  final String headline;
+  final String source;
+  final String tag;
+  final String time;
+  final Color tagColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: tagColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: UnreadableText(
+                    tag,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: tagColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                UnreadableText(
+                  headline,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    height: 1.4,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 6),
+                Row(
                   children: [
-                    Container(
-                      height: 12,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(4),
+                    UnreadableText(
+                      source,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade500,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Container(
-                      height: 10,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(4),
+                    Text(
+                      ' · ',
+                      style: TextStyle(
+                        color: Colors.grey.shade500,
+                        fontSize: 11,
+                      ),
+                    ),
+                    UnreadableText(
+                      time,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade500,
                       ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(width: 12),
-              Container(
-                width: 64,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        );
-      },
+          const SizedBox(width: 12),
+          Container(
+            width: 72,
+            height: 60,
+            decoration: BoxDecoration(
+              color: tagColor.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              Icons.image_outlined,
+              color: tagColor.withValues(alpha: 0.5),
+              size: 28,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
