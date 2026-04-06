@@ -608,6 +608,7 @@ class _ImagePickerPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sq = context.sq;
     return Container(
       height: 220,
       color: Colors.white,
@@ -616,12 +617,12 @@ class _ImagePickerPanel extends StatelessWidget {
           Container(
             height: 40,
             color: Colors.grey.shade200,
-            child: const Row(
+            child: Row(
               children: [
-                SizedBox(width: 16),
-                Icon(Icons.photo_library_outlined),
-                SizedBox(width: 8),
-                Text('Photos'),
+                const SizedBox(width: 16),
+                const Icon(Icons.photo_library_outlined),
+                const SizedBox(width: 8),
+                UnreadableText(sq.common.photoButton),
               ],
             ),
           ),

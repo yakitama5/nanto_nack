@@ -106,17 +106,7 @@ class _CancelMessageQuizScreenState
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(
-              leading: const Icon(Icons.copy_outlined),
-              title: UnreadableText(sq.common.copyMessage),
-              onTap: () => Navigator.of(ctx).pop(),
-            ),
-            ListTile(
-              leading: const Icon(Icons.reply_outlined),
-              title: UnreadableText(sq.common.replyMessage),
-              onTap: () => Navigator.of(ctx).pop(),
-            ),
-            // 取消ボタン（赤色・一番下）
+            // 取消ボタン（このクイズで操作するのは「送信取消」のみ）
             ListTile(
               leading: const Icon(Icons.undo, color: Colors.red),
               title: UnreadableText(

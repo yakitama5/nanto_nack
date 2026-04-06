@@ -12,7 +12,7 @@ class ChatCatalog {
         ChatContact(
           id: 'alice',
           name: 'Alice',
-          lastMessage: 'Send me a sticker!',
+          lastMessage: 'Send me a stamp!',
           lastMessageAt: now.subtract(const Duration(minutes: 5)),
           unreadCount: 1,
           isOnline: true,
@@ -203,7 +203,7 @@ class ChatCatalog {
         ),
         ChatMessage(
           id: 'q1_2',
-          text: 'Send me a sticker!',
+          text: 'Send me a stamp!',
           isMine: false,
           sentAt: now.subtract(const Duration(minutes: 5)),
         ),

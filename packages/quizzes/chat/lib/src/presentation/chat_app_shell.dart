@@ -33,56 +33,50 @@ class ChatAppShell extends StatelessWidget {
     final sq = context.sq;
     const lineGreen = Color(0xFF00B900);
 
-    return Scaffold(
+    final scaffold = Scaffold(
       backgroundColor: Colors.grey.shade100,
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              // ヘッダー
-              Container(
-                color: lineGreen,
-                child: SafeArea(
-                  bottom: false,
-                  child: SizedBox(
-                    height: 56,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: UnreadableText(
-                            sq.common.appTitle,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
+          // ヘッダー
+          Container(
+            color: lineGreen,
+            child: SafeArea(
+              bottom: false,
+              child: SizedBox(
+                height: 56,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: UnreadableText(
+                        sq.common.appTitle,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                        const Icon(Icons.search, color: Colors.white),
-                        const SizedBox(width: 16),
-                        const Icon(Icons.more_vert, color: Colors.white),
-                        const SizedBox(width: 8),
-                      ],
+                      ),
                     ),
-                  ),
+                    const Icon(Icons.search, color: Colors.white),
+                    const SizedBox(width: 16),
+                    const Icon(Icons.more_vert, color: Colors.white),
+                    const SizedBox(width: 8),
+                  ],
                 ),
               ),
-              // タブコンテンツ
-              Expanded(
-                child: switch (currentTab) {
-                  ChatTab.home => _HomeTabContent(),
-                  ChatTab.talk => _TalkTabContent(
-                      contacts: contacts,
-                      onContactTap: onContactTap,
-                    ),
-                  ChatTab.news => const _NewsTabContent(),
-                },
-              ),
-            ],
+            ),
           ),
-          // オーバーレイ（MissionCutIn, QuizResultOverlay など）
-          ...overlays,
+          // タブコンテンツ
+          Expanded(
+            child: switch (currentTab) {
+              ChatTab.home => _HomeTabContent(),
+              ChatTab.talk => _TalkTabContent(
+                  contacts: contacts,
+                  onContactTap: onContactTap,
+                ),
+              ChatTab.news => const _NewsTabContent(),
+            },
+          ),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -117,6 +111,17 @@ class ChatAppShell extends StatelessWidget {
           ),
         ],
       ),
+    );
+
+    if (overlays.isEmpty) return scaffold;
+
+    // オーバーレイ（MissionCutIn, QuizResultOverlay など）を Scaffold 全体の上に重ねる
+    // bottomNavigationBar も含めた画面全体を覆うため、Scaffold の外側で Stack を使う
+    return Stack(
+      children: [
+        scaffold,
+        ...overlays,
+      ],
     );
   }
 }

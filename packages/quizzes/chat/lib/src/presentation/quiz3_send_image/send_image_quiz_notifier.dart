@@ -36,7 +36,6 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     _timer?.cancel();
     state = state.copyWith(
       status: QuizStatus.playing,
-      startedAt: clock.now(),
       currentTab: ChatTab.home,
       isInChatRoom: false,
       messages: ChatCatalog.quiz3InitialMessages(clock.now()),
@@ -44,6 +43,13 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
       isImagePickerOpen: false,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
+    // タイマーは MissionCutIn 終了後に startTimer() を呼んで開始する
+  }
+
+  /// MissionCutIn 演出が終わったあとに呼ぶ。ここからカウントダウンを開始する。
+  void startTimer() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(startedAt: clock.now());
     _startTimer();
   }
 
@@ -125,9 +131,8 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
+    // タイマーは MissionCutIn 終了後に startTimer() を呼んで開始する
   }
 
   void _startTimer() {

@@ -98,7 +98,10 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
         MissionCutIn(
           missionText: missionText,
           timeLimitSeconds: _timeLimitSeconds,
-          onFinished: () => setState(() => _showCutIn = false),
+          onFinished: () {
+            setState(() => _showCutIn = false);
+            notifier.startTimer();
+          },
         ),
       if (state.status == QuizStatus.correct ||
           state.status == QuizStatus.incorrect ||
