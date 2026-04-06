@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_cart_use_case.dart';
+import 'package:system/system.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_state.dart';
@@ -33,6 +34,7 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
       startedAt: clock.now(),
       remainingSeconds: _timeLimitSeconds,
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -98,12 +100,16 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     await _saveResult(isCleared: false, elapsedMs: elapsed);
   }
 
   /// リトライ（桁入力をリセット）
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = CartQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -141,6 +147,14 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(shoppingQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,
@@ -150,5 +164,4 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
       failureCount: state.failureCount,
     );
   }
-
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../application/quiz_delete_alarm_use_case.dart';
 import '../../domain/alarm_catalog.dart';
@@ -43,6 +44,7 @@ class DeleteAlarmQuizNotifier
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -97,6 +99,9 @@ class DeleteAlarmQuizNotifier
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } on Exception catch (_) {}
@@ -105,6 +110,7 @@ class DeleteAlarmQuizNotifier
   /// クイズをリトライする
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
       timeLimitSeconds: _timeLimitSeconds,
@@ -148,6 +154,14 @@ class DeleteAlarmQuizNotifier
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(alarmQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,

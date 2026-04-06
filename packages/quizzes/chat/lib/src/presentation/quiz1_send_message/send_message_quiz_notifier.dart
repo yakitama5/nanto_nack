@@ -8,6 +8,7 @@ import 'package:chat/src/presentation/quiz1_send_message/send_message_quiz_state
 import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 final sendMessageQuizProvider = AutoDisposeNotifierProvider<
     SendMessageQuizNotifier, SendMessageQuizState>(
@@ -40,6 +41,7 @@ class SendMessageQuizNotifier
       inputText: '',
       remainingSeconds: _timeLimitSeconds,
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -92,6 +94,9 @@ class SendMessageQuizNotifier
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {}
@@ -99,6 +104,7 @@ class SendMessageQuizNotifier
 
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz1InitialMessages(clock.now()),
       timeLimitSeconds: _timeLimitSeconds,
@@ -140,6 +146,14 @@ class SendMessageQuizNotifier
     required bool isCleared,
     required int elapsedMs,
   }) async {
+    if (isCleared) {
+      await ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          );
+    }
     final repo = ref.read(chatQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,

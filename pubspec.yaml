@@ -50,3 +50,37 @@ melos:
       run: |
         cd apps/app_main && flutter build web
       description: "Web ビルド"
+
+    firebase:dev:
+      run: >
+        flutterfire configure 
+        --out="$MELOS_ROOT_PATH/packages/system/lib/src/firebase/firebase_options_dev.dart" 
+        --android-out="android/app/src/dev/res/google-services.json" 
+        --ios-out="ios/dev/GoogleService-Info.plist" 
+        -p nanto-nack-dev 
+        --platforms=android,ios,web 
+        -i com.yakuran.nantoNack.dev 
+        -a com.yakuran.nanto_nack.dev
+        --yes
+      description: "Firebase設定を生成し、systemパッケージに出力します"
+      exec:
+        concurrency: 1
+      packageFilters:
+        scope: "app_main"
+
+    firebase:prod:
+      run: >
+        flutterfire configure 
+        --out="$MELOS_ROOT_PATH/packages/system/lib/src/firebase/firebase_options.dart" 
+        --android-out="android/app/src/prod/res/google-services.json" 
+        --ios-out="ios/prod/GoogleService-Info.plist" 
+        -p nanto-nack 
+        --platforms=android,ios,web 
+        -i com.yakuran.nantoNack 
+        -a com.yakuran.nanto_nack
+        --yes
+      description: "Firebase設定を生成し、systemパッケージに出力します"
+      exec:
+        concurrency: 1
+      packageFilters:
+        scope: "app_main"

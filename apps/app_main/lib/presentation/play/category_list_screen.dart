@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:system/system.dart';
 
 import '../../domain/category.dart';
 import '../../domain/stage.dart';
@@ -51,11 +53,19 @@ class CategoryListScreen extends StatelessWidget {
                   final stageCount = kAllStages
                       .where((s) => s.category == category.id)
                       .length;
-                  return _CategoryCard(
-                    category: category,
-                    stageCount: stageCount,
-                    onTap: () =>
-                        context.push('/play/${category.id}'),
+                  return Consumer(
+                    builder: (context, ref, _) => _CategoryCard(
+                      category: category,
+                      stageCount: stageCount,
+                      onTap: () {
+                        ref
+                            .read(analyticsServiceProvider)
+                            .logCategorySelected(
+                              categoryId: category.id,
+                            );
+                        context.push('/play/${category.id}');
+                      },
+                    ),
                   );
                 },
               ),

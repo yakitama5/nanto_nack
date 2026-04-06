@@ -1,20 +1,17 @@
-import 'package:flutter/foundation.dart';
-import 'package:logger/logger.dart';
-
-final _logger = Logger();
+import 'package:firebase_core/firebase_core.dart';
+import 'package:system/src/environment/flavor.dart';
+import 'package:system/src/firebase/firebase_options.dart' as prod;
+import 'package:system/src/firebase/firebase_options_dev.dart' as dev;
 
 /// Firebase サービスのラッパー
-/// Firebase を使用するには firebase_options.dart を設定してください
 class FirebaseService {
   const FirebaseService._();
 
-  static Future<void> initialize() async {
-    // TODO: Firebase プロジェクトを設定後、以下のコメントを外してください
-    // await Firebase.initializeApp(
-    //   options: DefaultFirebaseOptions.currentPlatform,
-    // );
-    if (kDebugMode) {
-      _logger.i('Firebase: 設定ファイル未作成のためスキップ');
-    }
+  static Future<void> initialize(Flavor flavor) async {
+    final options = switch (flavor) {
+      Flavor.prod => prod.DefaultFirebaseOptions.currentPlatform,
+      Flavor.dev => dev.DefaultFirebaseOptions.currentPlatform,
+    };
+    await Firebase.initializeApp(options: options);
   }
 }

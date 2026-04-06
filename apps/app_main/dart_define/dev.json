@@ -1,5 +1,6 @@
 {
-  "FLAVOR": "dev",
-  "APP_NAME": "NantoNack Dev",
-  "API_BASE_URL": "https://dev-api.example.com"
+    "flavor": "dev",
+    "appName": "(dev)NantoNack",
+    "androidPackageName": "com.yakuran.nanto_nack.dev",
+    "iosBundleId": "com.yakuran.nantoNack.dev"
 }

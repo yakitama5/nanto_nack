@@ -18,9 +18,6 @@ custom_lint.log
 *.ipr
 *.iws
 
-# VS Code
-.vscode/
-
 # ツール関連
 # --------------------
 # FVM (Flutter Version Management)
@@ -50,9 +47,13 @@ app.*.map.json
 
 # 機密情報
 # --------------------
-packages/system/.env
-apps/app_main/env/.env
+.env**
 apps/app_main/dart_define/prod.json
+
+# Firebase 設定ファイル（機密情報を含む）
+**/google-services.json
+**/firebase_options**.dart
+**/GoogleService-Info.plist
 
 # envied 生成ファイル (機密情報を含む可能性)
 **/env.g.dart

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:system/system.dart';
 
 import '../../application/dashboard_provider.dart';
 import '../../application/stage_list_provider.dart';
@@ -71,6 +72,7 @@ class HomeScreen extends ConsumerWidget {
 /// 取得失敗時は [DailySceneTheme] のグラデーションにフォールバックする。
 class _TodayHeroCard extends ConsumerWidget {
   const _TodayHeroCard();
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -197,6 +199,9 @@ class _TodayHeroCard extends ConsumerWidget {
                             icon: Icons.workspace_premium_rounded,
                             color: sceneTheme.onSceneColor,
                             onPressed: () {
+                              ref
+                                  .read(analyticsServiceProvider)
+                                  .logPremiumButtonTapped();
                               // TODO: プレミアムプラン案内モーダルを表示
                             },
                           ),
@@ -506,7 +511,10 @@ class _PlayHeroCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               FilledButton.icon(
-                onPressed: () => context.push('/play'),
+                onPressed: () {
+                  ref.read(analyticsServiceProvider).logPlayButtonTapped();
+                  context.push('/play');
+                },
                 style: FilledButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: colorScheme.primary,

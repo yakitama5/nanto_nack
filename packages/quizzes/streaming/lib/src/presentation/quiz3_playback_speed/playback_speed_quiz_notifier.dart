@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/application/quiz_playback_speed_use_case.dart';
+import 'package:system/system.dart';
 import 'package:streaming/src/domain/streaming_catalog.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz3_playback_speed/playback_speed_quiz_state.dart';
@@ -38,6 +39,7 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
+    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
   }
 
@@ -114,6 +116,9 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     } catch (_) {}
@@ -121,6 +126,7 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
 
   void retry() {
     _timer?.cancel();
+    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = PlaybackSpeedQuizState.initial(
       video: StreamingCatalog.videos[2],
       timeLimitSeconds: _timeLimitSeconds,
@@ -170,5 +176,13 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
       score: isCleared ? state.score : 0,
       failureCount: state.failureCount,
     );
+    if (isCleared) {
+      unawaited(ref.read(analyticsServiceProvider).logQuizCompleted(
+            quizId: _quizId,
+            score: state.score,
+            failureCount: state.failureCount,
+            clearTimeMs: elapsedMs,
+          ));
+    }
   }
 }

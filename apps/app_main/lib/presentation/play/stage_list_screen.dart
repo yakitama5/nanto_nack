@@ -196,20 +196,31 @@ class StageListScreen extends ConsumerWidget {
     final userStatusRepo = ref.read(userStatusRepositoryProvider);
     final isLimited = await userStatusRepo.isLimitReached();
     if (isLimited && context.mounted) {
-      await PlayLimitModal.show(
-        context,
-        onUpgrade: () {
-          // TODO: IAP 実装後に課金フローへ
-        },
-      );
+      await ref.read(analyticsServiceProvider).logPlayLimitReached(
+            stageId: item.stage.id,
+          );
+      if (context.mounted) {
+        await PlayLimitModal.show(
+          context,
+          onUpgrade: () {
+            // TODO: IAP 実装後に課金フローへ
+          },
+        );
+      }
       return;
     }
 
     if (context.mounted) {
-      // push が完了（クイズ画面が pop）したタイミングでリストを再取得する。
-      // クイズ画面内で保存した結果を反映させるために invalidate が必要。
-      await context.push(item.stage.routePath);
-      ref.invalidate(stageListProvider);
+      await ref.read(analyticsServiceProvider).logStageSelected(
+            stageId: item.stage.id,
+            categoryId: item.stage.category,
+          );
+      if (context.mounted) {
+        // push が完了（クイズ画面が pop）したタイミングでリストを再取得する。
+        // クイズ画面内で保存した結果を反映させるために invalidate が必要。
+        await context.push(item.stage.routePath);
+        ref.invalidate(stageListProvider);
+      }
     }
   }
 }

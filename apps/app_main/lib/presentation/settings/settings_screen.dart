@@ -69,17 +69,32 @@ class _AppearanceCard extends ConsumerWidget {
         _ChoiceItem(
           label: t.settings.appearance.themeSystem,
           selected: settings.themeMode == AppThemeMode.system,
-          onTap: () => notifier.setThemeMode(AppThemeMode.system),
+          onTap: () {
+            ref
+                .read(analyticsServiceProvider)
+                .logThemeChanged(themeMode: 'system');
+            notifier.setThemeMode(AppThemeMode.system);
+          },
         ),
         _ChoiceItem(
           label: t.settings.appearance.themeLight,
           selected: settings.themeMode == AppThemeMode.light,
-          onTap: () => notifier.setThemeMode(AppThemeMode.light),
+          onTap: () {
+            ref
+                .read(analyticsServiceProvider)
+                .logThemeChanged(themeMode: 'light');
+            notifier.setThemeMode(AppThemeMode.light);
+          },
         ),
         _ChoiceItem(
           label: t.settings.appearance.themeDark,
           selected: settings.themeMode == AppThemeMode.dark,
-          onTap: () => notifier.setThemeMode(AppThemeMode.dark),
+          onTap: () {
+            ref
+                .read(analyticsServiceProvider)
+                .logThemeChanged(themeMode: 'dark');
+            notifier.setThemeMode(AppThemeMode.dark);
+          },
         ),
         const SizedBox(height: 12),
         // UIスタイル選択
@@ -87,17 +102,32 @@ class _AppearanceCard extends ConsumerWidget {
         _ChoiceItem(
           label: t.settings.appearance.uiStyleSystem,
           selected: settings.uiStyle == AppUiStyle.system,
-          onTap: () => notifier.setUiStyle(AppUiStyle.system),
+          onTap: () {
+            ref
+                .read(analyticsServiceProvider)
+                .logUiStyleChanged(uiStyle: 'system');
+            notifier.setUiStyle(AppUiStyle.system);
+          },
         ),
         _ChoiceItem(
           label: t.settings.appearance.uiStyleMaterial,
           selected: settings.uiStyle == AppUiStyle.material,
-          onTap: () => notifier.setUiStyle(AppUiStyle.material),
+          onTap: () {
+            ref
+                .read(analyticsServiceProvider)
+                .logUiStyleChanged(uiStyle: 'material');
+            notifier.setUiStyle(AppUiStyle.material);
+          },
         ),
         _ChoiceItem(
           label: t.settings.appearance.uiStyleCupertino,
           selected: settings.uiStyle == AppUiStyle.cupertino,
-          onTap: () => notifier.setUiStyle(AppUiStyle.cupertino),
+          onTap: () {
+            ref
+                .read(analyticsServiceProvider)
+                .logUiStyleChanged(uiStyle: 'cupertino');
+            notifier.setUiStyle(AppUiStyle.cupertino);
+          },
         ),
       ],
     );
@@ -165,6 +195,7 @@ class _DataCard extends ConsumerWidget {
     if (confirmed != true) return;
     if (!context.mounted) return;
 
+    await ref.read(analyticsServiceProvider).logDataReset();
     final repository = ref.read(quizResultRepositoryProvider);
     await repository.deleteAllPlayData();
 
@@ -179,14 +210,14 @@ class _DataCard extends ConsumerWidget {
 // Card 3: アプリについて
 // ─────────────────────────────────────────
 
-class _AboutCard extends StatefulWidget {
+class _AboutCard extends ConsumerStatefulWidget {
   const _AboutCard();
 
   @override
-  State<_AboutCard> createState() => _AboutCardState();
+  ConsumerState<_AboutCard> createState() => _AboutCardState();
 }
 
-class _AboutCardState extends State<_AboutCard> {
+class _AboutCardState extends ConsumerState<_AboutCard> {
   String _version = '';
 
   @override
@@ -218,17 +249,26 @@ class _AboutCardState extends State<_AboutCard> {
         _ActionItem(
           label: t.settings.about.developerX,
           icon: Icons.open_in_new_rounded,
-          onTap: () => _launchUrl('https://x.com/yakuran1'),
+          onTap: () => _launchExternalUrl(
+            'https://x.com/yakuran1',
+            linkName: 'developer_x',
+          ),
         ),
         _ActionItem(
           label: t.settings.about.terms,
           icon: Icons.open_in_new_rounded,
-          onTap: () => _launchUrl('https://yakitama5.github.io/nanto_nack/terms'),
+          onTap: () => _launchExternalUrl(
+            'https://yakitama5.github.io/nanto_nack/terms',
+            linkName: 'terms',
+          ),
         ),
         _ActionItem(
           label: t.settings.about.contact,
           icon: Icons.open_in_new_rounded,
-          onTap: () => _launchUrl('https://forms.gle/x8hA5bKNM4yHpd8A9'),
+          onTap: () => _launchExternalUrl(
+            'https://forms.gle/x8hA5bKNM4yHpd8A9',
+            linkName: 'contact',
+          ),
         ),
         _ActionItem(
           label: t.settings.about.licenses,
@@ -258,7 +298,14 @@ class _AboutCardState extends State<_AboutCard> {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
+  Future<void> _launchExternalUrl(
+    String url, {
+    required String linkName,
+  }) async {
+    // Analytics は fire-and-forget（UI ブロックを避けるため）
+    ref
+        .read(analyticsServiceProvider)
+        .logExternalLinkTapped(linkName: linkName);
     final uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       if (!mounted) return;

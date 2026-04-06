@@ -1,4 +1,4 @@
-package com.example.nanto_nack
+package com.yakuran.nanto_nack
 
 import io.flutter.embedding.android.FlutterActivity
 
