@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "ja-JP"
+
+# 全体的なトーンやペルソナの指示
+tone_instructions: "あなたは経験豊富なFlutter/Dartエンジニアです。親しみやすく、かつ的確にレビューしてください。"
+
+reviews:
+  profile: "chill"
+  high_level_summary: true
+  collapse_walkthrough: false
+  poem: true
+
+  # 除外設定（自動生成ファイルやネイティブコードはAIレビューから外す）
+  # ※除外したいパスは先頭に「!」をつけるのが新ルールです
+  path_filters:
+    - "!**/*.g.dart"
+    - "!**/*.freezed.dart"
+    - "!**/translations.g.dart"
+    - "!**/drift/**/*.drift.dart"
+    - "!ios/**"
+    - "!android/**"
+    - "!macos/**"
+    - "!linux/**"
+    - "!windows/**"
+    - "!web/**"
+    - "!assets/**"
+    - "!**/*.png"
+
+  # 詳細なレビュー指示（対象の拡張子ごとに指定する新ルール）
+  path_instructions:
+    - path: "**/*.dart"
+      instructions: |
+        このプロジェクトは「NantoNack」という、UI/UXのセオリーを利用した直感謎解きクイズアプリです。
+        以下のガイドラインに従ってください。
+        1. アーキテクチャ: Riverpod と Drift, shared_preferences を利用しています。状態管理とDB処理の責務が混同されていないか確認し、無駄な再描画(rebuild)を引き起こす処理があれば指摘してください。
+        2. UI/UX: ユーザーの「直感」を大事にするアプリです。不自然なアニメーションの遅延や、ユーザー操作をブロックするような同期処理があれば指摘してください。
+        3. ハードコードされたユーザー向けテキストがあれば、多言語化パッケージ（Slang）を使用するよう提案してください。
+        4. フォーマッタで自動修正できるような細かいスタイル指摘よりも、ロジックのバグやパフォーマンスのボトルネックの発見を優先してください。
+
+chat:
+  # enabled は廃止され、auto_reply に統合されました
+  auto_reply: true
