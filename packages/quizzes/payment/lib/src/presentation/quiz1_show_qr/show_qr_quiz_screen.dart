@@ -38,7 +38,7 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
     final missionText = context.s.quiz1.missionText;
     final notifier = ref.read(showQrQuizProvider.notifier);
 
-    if (state.qrShown &&
+    if (state.paymentShown &&
         state.status != QuizStatus.correct &&
         state.status != QuizStatus.timeUp &&
         state.status != QuizStatus.giveUp) {

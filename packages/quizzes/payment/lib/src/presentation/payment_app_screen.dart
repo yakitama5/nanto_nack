@@ -880,7 +880,7 @@ class _TransactionItem extends StatelessWidget {
               Text(
                 tx.isIncome
                     ? '+${sq.common.yen}${tx.amount}'
-                    : '${sq.common.yen}${tx.amount.abs()}',
+                    : '-${sq.common.yen}${tx.amount.abs()}',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -1078,35 +1078,48 @@ class _PaymentMethodButton extends StatelessWidget {
     final icon = isBalance ? Icons.account_balance_wallet : Icons.credit_card;
     final label = isBalance ? sq.common.balancePayment : sq.common.creditCard;
 
+    final isDisabled = onChangePaymentMethod == null;
     return GestureDetector(
-      onTap: () => _showPaymentMethodSheet(context),
+      onTap: isDisabled ? null : () => _showPaymentMethodSheet(context),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          color: highlighted
-              ? const Color(0xFFFFE5E5)
-              : const Color(0xFFF5F5F5),
-          border: highlighted
-              ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
-              : Border.all(color: Colors.grey.shade300),
+          color: isDisabled
+              ? const Color(0xFFEEEEEE)
+              : highlighted
+                  ? const Color(0xFFFFE5E5)
+                  : const Color(0xFFF5F5F5),
+          border: isDisabled
+              ? Border.all(color: Colors.grey.shade300)
+              : highlighted
+                  ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
+                  : Border.all(color: Colors.grey.shade300),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 20, color: const Color(0xFFFF3B3B)),
+            Icon(
+              icon,
+              size: 20,
+              color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
+            ),
             const SizedBox(width: 8),
             UnreadableText(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: isDisabled ? Colors.grey : Colors.black87,
               ),
             ),
             const SizedBox(width: 6),
-            Icon(Icons.expand_more, size: 18, color: Colors.grey.shade500),
+            Icon(
+              Icons.expand_more,
+              size: 18,
+              color: isDisabled ? Colors.grey.shade400 : Colors.grey.shade500,
+            ),
           ],
         ),
       ),

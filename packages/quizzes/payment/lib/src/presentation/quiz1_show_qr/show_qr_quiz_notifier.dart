@@ -44,9 +44,9 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
   Future<void> tapPayment() async {
     if (state.status != QuizStatus.playing) return;
 
-    state = state.copyWith(qrShown: true);
+    state = state.copyWith(paymentShown: true);
 
-    final isClear = _useCase.isClear(qrShown: true);
+    final isClear = _useCase.isClear(paymentShown: true);
     if (isClear) {
       _timer?.cancel();
       final elapsed = _elapsed;
@@ -63,7 +63,7 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
 
   /// 支払い画面を閉じる（ホームに戻る）
   void closePaymentScreen() {
-    state = state.copyWith(qrShown: false);
+    state = state.copyWith(paymentShown: false);
   }
 
   /// 諦めてクイズを終了する

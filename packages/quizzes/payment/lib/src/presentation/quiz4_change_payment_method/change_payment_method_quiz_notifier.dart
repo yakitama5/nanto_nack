@@ -148,14 +148,6 @@ class ChangePaymentMethodQuizNotifier
     required bool isCleared,
     required int elapsedMs,
   }) async {
-    if (isCleared) {
-      await ref.read(analyticsServiceProvider).logQuizCompleted(
-            quizId: _quizId,
-            score: state.score,
-            failureCount: state.failureCount,
-            clearTimeMs: elapsedMs,
-          );
-    }
     final repo = ref.read(paymentQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,
@@ -164,5 +156,15 @@ class ChangePaymentMethodQuizNotifier
       score: isCleared ? state.score : 0,
       failureCount: state.failureCount,
     );
+    if (isCleared) {
+      try {
+        await ref.read(analyticsServiceProvider).logQuizCompleted(
+              quizId: _quizId,
+              score: state.score,
+              failureCount: state.failureCount,
+              clearTimeMs: elapsedMs,
+            );
+      } on Exception catch (_) {}
+    }
   }
 }
