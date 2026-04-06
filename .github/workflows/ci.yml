@@ -56,6 +56,7 @@ jobs:
         run: |
           mkdir -p apps/app_main/env
           echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/env/.env
+          echo "${{ secrets.APP_MAIN_ENV_DEV_BASE64 }}" | base64 -d > apps/app_main/env/.env.dev
 
       - name: 依存関係の解決 (melos bootstrap)
         run: dart pub global run melos bootstrap
@@ -113,6 +114,7 @@ jobs:
         run: |
           mkdir -p apps/app_main/env
           echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/env/.env
+          echo "${{ secrets.APP_MAIN_ENV_DEV_BASE64 }}" | base64 -d > apps/app_main/env/.env.dev
 
       - name: 依存関係の解決 (melos bootstrap)
         run: dart pub global run melos bootstrap

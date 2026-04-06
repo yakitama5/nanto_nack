@@ -47,9 +47,7 @@ app.*.map.json
 
 # 機密情報
 # --------------------
-packages/system/scripts/env/.env
-packages/system/scripts/env/.env.dev
-apps/app_main/env/.env
+.env**
 apps/app_main/dart_define/prod.json
 
 # Firebase 設定ファイル（機密情報を含む）
