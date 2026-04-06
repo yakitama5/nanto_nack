@@ -675,6 +675,7 @@ class _CategoryCarousel extends ConsumerWidget {
     final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
     final stagesAsync = ref.watch(stageListProvider);
 
     return Column(
@@ -723,6 +724,16 @@ class _CategoryCarousel extends ConsumerWidget {
                 final total = categoryStages.length;
                 final isLocked = categoryStages.isNotEmpty &&
                     categoryStages.first.status == StageStatus.locked;
+                // カテゴリ固有色を取得し、カードの配色に反映する
+                final categoryColor = switch (cat.id) {
+                  'shopping' => ext.shoppingCategoryColor,
+                  'chat' => ext.chatCategoryColor,
+                  'streaming' => ext.streamingCategoryColor,
+                  'map' => ext.mapCategoryColor,
+                  'alarm' => ext.alarmCategoryColor,
+                  'payment' => ext.paymentCategoryColor,
+                  _ => colorScheme.primary,
+                };
                 return _CategoryCard(
                   categoryId: cat.id,
                   icon: cat.icon,
@@ -730,6 +741,7 @@ class _CategoryCarousel extends ConsumerWidget {
                   cleared: cleared,
                   total: total,
                   isLocked: isLocked,
+                  categoryColor: categoryColor,
                 );
               },
             ),
@@ -747,6 +759,7 @@ class _CategoryCard extends StatelessWidget {
     required this.label,
     required this.cleared,
     required this.total,
+    required this.categoryColor,
     this.isLocked = false,
   });
 
@@ -756,6 +769,9 @@ class _CategoryCard extends StatelessWidget {
   final int cleared;
   final int total;
   final bool isLocked;
+
+  /// カテゴリ固有色。未ロック時の背景・ボーダー・アイコン・テキスト・プログレスの色に使用する。
+  final Color categoryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -769,12 +785,12 @@ class _CategoryCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: isLocked
             ? colorScheme.surfaceContainerLow
-            : colorScheme.primaryContainer.withValues(alpha: 0.6),
+            : categoryColor.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: isLocked
               ? colorScheme.outlineVariant.withValues(alpha: 0.4)
-              : colorScheme.primary.withValues(alpha: 0.2),
+              : categoryColor.withValues(alpha: 0.2),
         ),
       ),
       padding: const EdgeInsets.all(14),
@@ -783,7 +799,7 @@ class _CategoryCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon, size: 20, color: colorScheme.primary),
+              Icon(icon, size: 20, color: isLocked ? colorScheme.onSurface.withValues(alpha: 0.3) : categoryColor),
               const Spacer(),
               if (isLocked)
                 Icon(
@@ -800,7 +816,7 @@ class _CategoryCard extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: isLocked
                   ? colorScheme.onSurface.withValues(alpha: 0.4)
-                  : colorScheme.onPrimaryContainer,
+                  : categoryColor,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -811,7 +827,7 @@ class _CategoryCard extends StatelessWidget {
             backgroundColor: colorScheme.surfaceContainerHighest,
             color: isLocked
                 ? colorScheme.outline.withValues(alpha: 0.3)
-                : colorScheme.primary,
+                : categoryColor,
             borderRadius: BorderRadius.circular(4),
             minHeight: 4,
           ),
@@ -825,7 +841,7 @@ class _CategoryCard extends StatelessWidget {
             style: textTheme.labelSmall?.copyWith(
               color: isLocked
                   ? colorScheme.onSurface.withValues(alpha: 0.3)
-                  : colorScheme.primary.withValues(alpha: 0.7),
+                  : categoryColor.withValues(alpha: 0.7),
             ),
           ),
         ],
