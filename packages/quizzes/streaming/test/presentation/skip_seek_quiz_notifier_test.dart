@@ -5,18 +5,23 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz2_skip_seek/skip_seek_quiz_notifier.dart';
+import 'package:system/system.dart';
 
 class MockStreamingQuizRepository extends Mock implements StreamingQuizRepository {}
+
+class MockAnalyticsService extends Mock implements AnalyticsService {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late MockStreamingQuizRepository mockRepo;
+  late MockAnalyticsService mockAnalytics;
   late ProviderContainer container;
 
   setUp(() {
     mockRepo = MockStreamingQuizRepository();
-    
+    mockAnalytics = MockAnalyticsService();
+
     when(() => mockRepo.saveResult(
           quizId: any(named: 'quizId'),
           isCleared: any(named: 'isCleared'),
@@ -25,9 +30,23 @@ void main() {
           failureCount: any(named: 'failureCount'),
         )).thenAnswer((_) async {});
 
+    when(() => mockAnalytics.logQuizStarted(quizId: any(named: 'quizId')))
+        .thenAnswer((_) async {});
+    when(() => mockAnalytics.logQuizCompleted(
+          quizId: any(named: 'quizId'),
+          score: any(named: 'score'),
+          failureCount: any(named: 'failureCount'),
+          clearTimeMs: any(named: 'clearTimeMs'),
+        )).thenAnswer((_) async {});
+    when(() => mockAnalytics.logQuizGivenUp(quizId: any(named: 'quizId')))
+        .thenAnswer((_) async {});
+    when(() => mockAnalytics.logQuizRetried(quizId: any(named: 'quizId')))
+        .thenAnswer((_) async {});
+
     container = ProviderContainer(
       overrides: [
         streamingQuizRepositoryProvider.overrideWithValue(mockRepo),
+        analyticsServiceProvider.overrideWithValue(mockAnalytics),
       ],
     );
   });
