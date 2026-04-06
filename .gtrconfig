@@ -2,12 +2,16 @@
 
 [copy]
     include = **/.env
+    include = **/.env**
+    include = **/firebase_options**.dart
+    include = **/google-services.json
 
 [hooks]
+    postCreate = fvm use
     postCreate = fvm flutter pub get
     postCreate = fvm dart run melos bs
     postCreate = fvm dart run melos run generate
 
 [defaults]
-    editor = antigravity
+    editor = zed
     ai = claude

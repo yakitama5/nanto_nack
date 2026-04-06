@@ -57,6 +57,7 @@ apps/app_main/dart_define/prod.json
 
 # envied 生成ファイル (機密情報を含む可能性)
 **/env.g.dart
+**/app_env**.g.dart
 **/*env.g.dart
 
 # テスト関連
