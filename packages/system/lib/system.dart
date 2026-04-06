@@ -5,8 +5,6 @@ export 'src/database/quiz_result_repository_provider.dart';
 export 'src/database/user_status_repository.dart';
 export 'src/database/user_status_repository_provider.dart';
 export 'src/environment/app_environment.dart';
-export 'src/environment/env.dart';
-export 'src/environment/env.dev.dart';
 export 'src/environment/flavor.dart';
 export 'src/firebase/analytics_service.dart';
 export 'src/firebase/crashlytics_service.dart';
