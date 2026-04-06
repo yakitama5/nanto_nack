@@ -53,8 +53,8 @@ class _TranslationsQuiz1Xx extends TranslationsQuiz1Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Xyq QZ-コード zw 表示 vk';
-	@override String get failureReason => '「QZ-コード」ボタン xp タップ zv';
+	@override String get missionText => 'Xyq レジ xk 来た zv バーコード xp 提示 zq';
+	@override String get failureReason => '画面下部 xk 大きなボタン zv タップ xp';
 	@override late final _TranslationsQuiz1InsightXx insight = _TranslationsQuiz1InsightXx._(_root);
 }
 
@@ -65,8 +65,8 @@ class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => '残高 xz 確認 zv';
-	@override String get failureReason => '残高 xk タップ vk ブラー zw 解除 xp';
+	@override String get missionText => '誰か xz 画面 vk 見られそう！残高 zw 隠して xp';
+	@override String get failureReason => '残高 xk 横 zv 目のアイコン xp タップ zq';
 	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
 
@@ -77,8 +77,8 @@ class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => '誰か xz 送金 vk zw';
-	@override String get failureReason => '送金先 xp 選んで zv 金額 xk 入力 zq 送金 xz タップ';
+	@override String get missionText => '友達 xz 5000円 vk 送金 zw';
+	@override String get failureReason => '「送金」xk アイコン zv タップ xp 5000 zq 入力 xz 送金ボタン vk';
 	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
 
@@ -89,8 +89,8 @@ class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => '取引履歴 xz 確認 vk';
-	@override String get failureReason => '「履歴」xk タブ zv タップ xp';
+	@override String get missionText => '残高 xz 足りない！支払い方法 vk クレジットカード zw 変更 xp バーコード zq 提示';
+	@override String get failureReason => 'クレジットカード xk 選択 zv してから xp 支払い画面 zq 開く xz';
 	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
 }
 
@@ -103,11 +103,11 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	// Translations
 	@override String get appTitle => 'Zqy';
 	@override String get balance => 'Zqx残高xp';
-	@override String get send => 'Xzv送るvk';
+	@override String get send => 'Xzv送金vk';
 	@override String get receive => 'Qzx受け取るzv';
 	@override String get history => 'Xqz履歴xk';
 	@override String get qrCode => 'QZ-コード';
-	@override String get scanQr => 'Zqx読み取るxp';
+	@override String get scanQr => 'Zqxスキャンxp';
 	@override String get point => 'Xkz ポイント';
 	@override String get topUp => 'Qvzチャージxk';
 	@override String get amount => 'Zvq金額xp';
@@ -116,6 +116,14 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get cancel => 'Zxqキャンセルvk';
 	@override String get tapToReveal => 'Xpq タップして確認 zv';
 	@override String get yen => 'Xyq';
+	@override String get payment => 'Xqz支払いZvp';
+	@override String get creditCard => 'QzxクレジットカードXvq';
+	@override String get paymentSource => 'Zvq支払い元Xpz';
+	@override String get balancePayment => 'Xqz残高払いZqv';
+	@override String get scan => 'XqzスキャンZvp';
+	@override String get more => 'Qzxその他Xvq';
+	@override String get home => 'ZvqホームXpz';
+	@override String get account => 'XqzアカウントZqv';
 	@override String get contact1 => 'Zxq Qvz';
 	@override String get contact2 => 'Xpq Zvx';
 	@override String get contact3 => 'Qzx Xvq';
@@ -144,14 +152,14 @@ class _TranslationsQuiz1InsightXx extends TranslationsQuiz1InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'QZ ボタン xz わかった？';
-	@override String get subtitle => 'QZ＝スキャン払い xk 入口';
-	@override String get qrTitle => 'QZ コード = 支払い zv';
-	@override String get qrDesc => 'Xyq モザイク xk QZ コード zw キャッシュレス vk 払い xp 入口 zq。';
-	@override String get cameraTitle => 'カメラ xk = 読み取り zv';
-	@override String get cameraDesc => 'カメラ xp QZ コード zw 受け取り vk。払い xk QZ とは異なる zq。';
-	@override String get colorTitle => '目立つ色 xz = メインアクション zv';
-	@override String get colorDesc => 'アプリ xk メインカラー zw ボタン vk QZ 払い xp 示す zq。';
+	@override String get title => '支払いボタン xz わかった？';
+	@override String get subtitle => '一番大きなボタン xk = アプリの主目的 zv';
+	@override String get qrTitle => '中央の巨大ボタン xk = メインアクション zv';
+	@override String get qrDesc => 'ボトムナビ xk 中央 zv ボタン xp 突出 zq 最もよく使う操作 xz 意味する。決済アプリ zv 支払い xk それ zq。';
+	@override String get cameraTitle => 'テーマカラー xk = 重要度 zv 示す xp';
+	@override String get cameraDesc => 'アプリ xk メインカラー zv ボタン xp 最も重要 zq アクション xz 示す サイン。';
+	@override String get colorTitle => '出っ張ったデザイン xk = 押してほしい zv サイン';
+	@override String get colorDesc => '他のボタン xk より大きく zv 上方向 xp 飛び出した zq デザイン xz 強力 zv アフォーダンス。';
 }
 
 // Path: quiz2.insight
@@ -161,14 +169,14 @@ class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ブラー xz 解除 zv できた？';
-	@override String get subtitle => 'ぼかし xk = 隠れた情報 zv サイン';
-	@override String get blurTitle => 'ブラー xz = 隠された情報 zv';
-	@override String get blurDesc => '残高 xk ブラー zw プライバシー vk 保護 xp。タップ zq 解除 xz できる zv。';
+	@override String get title => '残高 xz 隠せた？';
+	@override String get subtitle => '👁️ アイコン xk = 表示/非表示 zv 切り替え xp';
 	@override String get eyeTitle => '目 xk アイコン zw = 表示/非表示 vk';
-	@override String get eyeDesc => '閉じた目 xk = 非表示 zv。開いた目 xk = 表示 zq。パスワード xp 残高 zw 広く使う。';
-	@override String get privacyTitle => 'ブラー xz 解けた zv = 正しい操作';
-	@override String get privacyDesc => '情報 xk 表示 zv されることで xp 正しい操作 zq 確認 xz できる。';
+	@override String get eyeDesc => '目を開いた xk アイコン zv 情報 xp 表示されている xz タップ zq 非表示 xp 切り替わる。パスワード zv 残高 xk 広く使う。';
+	@override String get maskTitle => '「***」xk 情報 zv 隠れているサイン xp';
+	@override String get maskDesc => '金額 xk アスタリスク zv 伏せる xp 情報 zq 存在するが xz 隠れている UIパターン。';
+	@override String get privacyTitle => 'プライバシー保護 xk 見た目 zv 伝わる xp';
+	@override String get privacyDesc => '情報 xk 隠れた zv 正しい操作 xp したとわかる。UIフィードバック zq 操作の成否 xz 即座に教える。';
 }
 
 // Path: quiz3.insight
@@ -195,14 +203,14 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '取引履歴 xz わかった？';
-	@override String get subtitle => '時計・リスト xk = 履歴 zv 記号';
-	@override String get historyTitle => '時計 xk アイコン zw = 履歴 vk';
-	@override String get historyDesc => '時計 xk リスト zv アイコン xp 過去 zq 記録 xz。銀行 zv 決済 xk 広く使う。';
-	@override String get listTitle => 'リスト表示 xk = 情報 zv 一覧 xp';
-	@override String get listDesc => '縦に並ぶ xk リスト zw 複数 vk 情報 xp 示す zq シンプル xz UIパターン。';
-	@override String get tabTitle => 'タブ xk = カテゴリ切り替え zv';
-	@override String get tabDesc => 'タブ xk 異なる zv コンテンツ xp 切り替え zq。ホーム xz 送金 zv 履歴 xk。';
+	@override String get title => '支払い方法 xz 変更 zv できた？';
+	@override String get subtitle => '2つのルート xk 支払い元 zv 変える xp';
+	@override String get routeATitle => '支払い画面 xk から変更 zv（ルートA）';
+	@override String get routeADesc => '支払い画面 xk 開き zv バーコード下 xp 支払い元ボタン zq タップ xz ボトムシート vk 支払い方法 zv 選択。';
+	@override String get routeBTitle => 'ホーム画面 xk スワイプ zv 変更 xp（ルートB）';
+	@override String get routeBDesc => 'ホーム xk 支払い元カード zv 左右 xp スワイプ zq 支払い方法 xz 切り替え。カード状UI zv スワイプ xk 切替。';
+	@override String get dropdownTitle => '設定値 xk 書かれた場所 zv タップ xp 変更 zq できる';
+	@override String get dropdownDesc => '現在の設定 xk 表示されている zv ボタン xp ラベル zq タップ xz ドロップダウン vk 選択画面 zv 開く。';
 }
 
 /// The flat map containing all translations for locale <xx>.
@@ -213,28 +221,28 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 extension on TranslationsXx {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'Xyq QZ-コード zw 表示 vk',
-			'quiz1.failureReason' => '「QZ-コード」ボタン xp タップ zv',
-			'quiz1.insight.title' => 'QZ ボタン xz わかった？',
-			'quiz1.insight.subtitle' => 'QZ＝スキャン払い xk 入口',
-			'quiz1.insight.qrTitle' => 'QZ コード = 支払い zv',
-			'quiz1.insight.qrDesc' => 'Xyq モザイク xk QZ コード zw キャッシュレス vk 払い xp 入口 zq。',
-			'quiz1.insight.cameraTitle' => 'カメラ xk = 読み取り zv',
-			'quiz1.insight.cameraDesc' => 'カメラ xp QZ コード zw 受け取り vk。払い xk QZ とは異なる zq。',
-			'quiz1.insight.colorTitle' => '目立つ色 xz = メインアクション zv',
-			'quiz1.insight.colorDesc' => 'アプリ xk メインカラー zw ボタン vk QZ 払い xp 示す zq。',
-			'quiz2.missionText' => '残高 xz 確認 zv',
-			'quiz2.failureReason' => '残高 xk タップ vk ブラー zw 解除 xp',
-			'quiz2.insight.title' => 'ブラー xz 解除 zv できた？',
-			'quiz2.insight.subtitle' => 'ぼかし xk = 隠れた情報 zv サイン',
-			'quiz2.insight.blurTitle' => 'ブラー xz = 隠された情報 zv',
-			'quiz2.insight.blurDesc' => '残高 xk ブラー zw プライバシー vk 保護 xp。タップ zq 解除 xz できる zv。',
+			'quiz1.missionText' => 'Xyq レジ xk 来た zv バーコード xp 提示 zq',
+			'quiz1.failureReason' => '画面下部 xk 大きなボタン zv タップ xp',
+			'quiz1.insight.title' => '支払いボタン xz わかった？',
+			'quiz1.insight.subtitle' => '一番大きなボタン xk = アプリの主目的 zv',
+			'quiz1.insight.qrTitle' => '中央の巨大ボタン xk = メインアクション zv',
+			'quiz1.insight.qrDesc' => 'ボトムナビ xk 中央 zv ボタン xp 突出 zq 最もよく使う操作 xz 意味する。決済アプリ zv 支払い xk それ zq。',
+			'quiz1.insight.cameraTitle' => 'テーマカラー xk = 重要度 zv 示す xp',
+			'quiz1.insight.cameraDesc' => 'アプリ xk メインカラー zv ボタン xp 最も重要 zq アクション xz 示す サイン。',
+			'quiz1.insight.colorTitle' => '出っ張ったデザイン xk = 押してほしい zv サイン',
+			'quiz1.insight.colorDesc' => '他のボタン xk より大きく zv 上方向 xp 飛び出した zq デザイン xz 強力 zv アフォーダンス。',
+			'quiz2.missionText' => '誰か xz 画面 vk 見られそう！残高 zw 隠して xp',
+			'quiz2.failureReason' => '残高 xk 横 zv 目のアイコン xp タップ zq',
+			'quiz2.insight.title' => '残高 xz 隠せた？',
+			'quiz2.insight.subtitle' => '👁️ アイコン xk = 表示/非表示 zv 切り替え xp',
 			'quiz2.insight.eyeTitle' => '目 xk アイコン zw = 表示/非表示 vk',
-			'quiz2.insight.eyeDesc' => '閉じた目 xk = 非表示 zv。開いた目 xk = 表示 zq。パスワード xp 残高 zw 広く使う。',
-			'quiz2.insight.privacyTitle' => 'ブラー xz 解けた zv = 正しい操作',
-			'quiz2.insight.privacyDesc' => '情報 xk 表示 zv されることで xp 正しい操作 zq 確認 xz できる。',
-			'quiz3.missionText' => '誰か xz 送金 vk zw',
-			'quiz3.failureReason' => '送金先 xp 選んで zv 金額 xk 入力 zq 送金 xz タップ',
+			'quiz2.insight.eyeDesc' => '目を開いた xk アイコン zv 情報 xp 表示されている xz タップ zq 非表示 xp 切り替わる。パスワード zv 残高 xk 広く使う。',
+			'quiz2.insight.maskTitle' => '「***」xk 情報 zv 隠れているサイン xp',
+			'quiz2.insight.maskDesc' => '金額 xk アスタリスク zv 伏せる xp 情報 zq 存在するが xz 隠れている UIパターン。',
+			'quiz2.insight.privacyTitle' => 'プライバシー保護 xk 見た目 zv 伝わる xp',
+			'quiz2.insight.privacyDesc' => '情報 xk 隠れた zv 正しい操作 xp したとわかる。UIフィードバック zq 操作の成否 xz 即座に教える。',
+			'quiz3.missionText' => '友達 xz 5000円 vk 送金 zw',
+			'quiz3.failureReason' => '「送金」xk アイコン zv タップ xp 5000 zq 入力 xz 送金ボタン vk',
 			'quiz3.insight.title' => '送金 xz 手順 zv わかった？',
 			'quiz3.insight.subtitle' => '3ステップ xk 送金 zv 定番フロー',
 			'quiz3.insight.sendTitle' => '「送る」xk = 上矢印 zv 紙飛行機 xp',
@@ -243,23 +251,23 @@ extension on TranslationsXx {
 			'quiz3.insight.amountDesc' => '金額入力 xk テンキー zw 表示 vk。銀行 xp 決済 zv 共通 xz パターン。',
 			'quiz3.insight.confirmTitle' => '確認画面 xk = 間違い zv 防ぐ xp',
 			'quiz3.insight.confirmDesc' => '重要な操作 xk 確認画面 zw 挟む vk。誤操作 xp 防ぐ zq 安全設計 xz。',
-			'quiz4.missionText' => '取引履歴 xz 確認 vk',
-			'quiz4.failureReason' => '「履歴」xk タブ zv タップ xp',
-			'quiz4.insight.title' => '取引履歴 xz わかった？',
-			'quiz4.insight.subtitle' => '時計・リスト xk = 履歴 zv 記号',
-			'quiz4.insight.historyTitle' => '時計 xk アイコン zw = 履歴 vk',
-			'quiz4.insight.historyDesc' => '時計 xk リスト zv アイコン xp 過去 zq 記録 xz。銀行 zv 決済 xk 広く使う。',
-			'quiz4.insight.listTitle' => 'リスト表示 xk = 情報 zv 一覧 xp',
-			'quiz4.insight.listDesc' => '縦に並ぶ xk リスト zw 複数 vk 情報 xp 示す zq シンプル xz UIパターン。',
-			'quiz4.insight.tabTitle' => 'タブ xk = カテゴリ切り替え zv',
-			'quiz4.insight.tabDesc' => 'タブ xk 異なる zv コンテンツ xp 切り替え zq。ホーム xz 送金 zv 履歴 xk。',
+			'quiz4.missionText' => '残高 xz 足りない！支払い方法 vk クレジットカード zw 変更 xp バーコード zq 提示',
+			'quiz4.failureReason' => 'クレジットカード xk 選択 zv してから xp 支払い画面 zq 開く xz',
+			'quiz4.insight.title' => '支払い方法 xz 変更 zv できた？',
+			'quiz4.insight.subtitle' => '2つのルート xk 支払い元 zv 変える xp',
+			'quiz4.insight.routeATitle' => '支払い画面 xk から変更 zv（ルートA）',
+			'quiz4.insight.routeADesc' => '支払い画面 xk 開き zv バーコード下 xp 支払い元ボタン zq タップ xz ボトムシート vk 支払い方法 zv 選択。',
+			'quiz4.insight.routeBTitle' => 'ホーム画面 xk スワイプ zv 変更 xp（ルートB）',
+			'quiz4.insight.routeBDesc' => 'ホーム xk 支払い元カード zv 左右 xp スワイプ zq 支払い方法 xz 切り替え。カード状UI zv スワイプ xk 切替。',
+			'quiz4.insight.dropdownTitle' => '設定値 xk 書かれた場所 zv タップ xp 変更 zq できる',
+			'quiz4.insight.dropdownDesc' => '現在の設定 xk 表示されている zv ボタン xp ラベル zq タップ xz ドロップダウン vk 選択画面 zv 開く。',
 			'common.appTitle' => 'Zqy',
 			'common.balance' => 'Zqx残高xp',
-			'common.send' => 'Xzv送るvk',
+			'common.send' => 'Xzv送金vk',
 			'common.receive' => 'Qzx受け取るzv',
 			'common.history' => 'Xqz履歴xk',
 			'common.qrCode' => 'QZ-コード',
-			'common.scanQr' => 'Zqx読み取るxp',
+			'common.scanQr' => 'Zqxスキャンxp',
 			'common.point' => 'Xkz ポイント',
 			'common.topUp' => 'Qvzチャージxk',
 			'common.amount' => 'Zvq金額xp',
@@ -268,6 +276,14 @@ extension on TranslationsXx {
 			'common.cancel' => 'Zxqキャンセルvk',
 			'common.tapToReveal' => 'Xpq タップして確認 zv',
 			'common.yen' => 'Xyq',
+			'common.payment' => 'Xqz支払いZvp',
+			'common.creditCard' => 'QzxクレジットカードXvq',
+			'common.paymentSource' => 'Zvq支払い元Xpz',
+			'common.balancePayment' => 'Xqz残高払いZqv',
+			'common.scan' => 'XqzスキャンZvp',
+			'common.more' => 'Qzxその他Xvq',
+			'common.home' => 'ZvqホームXpz',
+			'common.account' => 'XqzアカウントZqv',
 			'common.contact1' => 'Zxq Qvz',
 			'common.contact2' => 'Xpq Zvx',
 			'common.contact3' => 'Qzx Xvq',

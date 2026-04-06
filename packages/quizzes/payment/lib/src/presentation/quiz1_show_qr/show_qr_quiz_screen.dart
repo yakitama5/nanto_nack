@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
+import '../../domain/payment_method.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'show_qr_quiz_notifier.dart';
 
-/// Quiz 1「QRコードを表示してください」
+/// Quiz 1「バーコードを提示してください」
 class ShowQrQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const ShowQrQuizScreen({super.key, this.onCompleted});
@@ -41,27 +42,29 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
         state.status != QuizStatus.correct &&
         state.status != QuizStatus.timeUp &&
         state.status != QuizStatus.giveUp) {
-      return QrCodeScreen(
+      return PaymentScreen(
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
         timeLimitSeconds: _timeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
-        onBack: notifier.closeQr,
+        onBack: notifier.closePaymentScreen,
         overlays: const [],
+        currentPaymentMethod: PaymentMethod.balance,
       );
     }
 
     return PaymentHomeScreen(
       balance: PaymentCatalog.initialBalance,
-      balanceRevealed: false,
+      balanceHidden: false,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightQrButton: state.status == QuizStatus.playing,
-      onQrTap: notifier.tapQr,
+      currentPaymentMethod: PaymentMethod.balance,
+      highlightPaymentButton: state.status == QuizStatus.playing,
+      onPaymentTap: notifier.tapPayment,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
@@ -103,19 +106,19 @@ class _ShowQrInsight extends StatelessWidget {
         _InsightHeader(title: insight.title, subtitle: insight.subtitle),
         const SizedBox(height: 12),
         _InsightItem(
-          emoji: '📲',
+          emoji: '💳',
           title: insight.qrTitle,
           desc: insight.qrDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '📷',
+          emoji: '🎨',
           title: insight.cameraTitle,
           desc: insight.cameraDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '🎨',
+          emoji: '⬆️',
           title: insight.colorTitle,
           desc: insight.colorDesc,
         ),

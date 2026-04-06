@@ -55,11 +55,11 @@ class TranslationsQuiz1Ja {
 
 	// Translations
 
-	/// ja: 'QRコードを表示してください'
-	String get missionText => 'QRコードを表示してください';
+	/// ja: 'レジに来ました。バーコードを提示してください'
+	String get missionText => 'レジに来ました。バーコードを提示してください';
 
-	/// ja: '「QRコード」ボタンをタップしてください'
-	String get failureReason => '「QRコード」ボタンをタップしてください';
+	/// ja: '画面下部の一番大きなボタンをタップしてください'
+	String get failureReason => '画面下部の一番大きなボタンをタップしてください';
 
 	late final TranslationsQuiz1InsightJa insight = TranslationsQuiz1InsightJa.internal(_root);
 }
@@ -72,11 +72,11 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: '残高を確認してください'
-	String get missionText => '残高を確認してください';
+	/// ja: '誰かに画面を見られそう！残高を隠してください'
+	String get missionText => '誰かに画面を見られそう！残高を隠してください';
 
-	/// ja: '残高エリアをタップしてブラーを解除してください'
-	String get failureReason => '残高エリアをタップしてブラーを解除してください';
+	/// ja: '残高の横にある「目のアイコン」をタップしてください'
+	String get failureReason => '残高の横にある「目のアイコン」をタップしてください';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -89,11 +89,11 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: '誰かに送金してください'
-	String get missionText => '誰かに送金してください';
+	/// ja: '友達に5,000円を送金してください'
+	String get missionText => '友達に5,000円を送金してください';
 
-	/// ja: '送金先を選んで金額を入力し、送金ボタンをタップしてください'
-	String get failureReason => '送金先を選んで金額を入力し、送金ボタンをタップしてください';
+	/// ja: '「送金」アイコンをタップして、5000と入力し、送金ボタンを押してください'
+	String get failureReason => '「送金」アイコンをタップして、5000と入力し、送金ボタンを押してください';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -106,11 +106,11 @@ class TranslationsQuiz4Ja {
 
 	// Translations
 
-	/// ja: '取引履歴を確認してください'
-	String get missionText => '取引履歴を確認してください';
+	/// ja: '残高が足りません！支払い方法を「クレジットカード」に変更してバーコードを提示してください'
+	String get missionText => '残高が足りません！支払い方法を「クレジットカード」に変更してバーコードを提示してください';
 
-	/// ja: '「履歴」タブまたは明細ボタンをタップしてください'
-	String get failureReason => '「履歴」タブまたは明細ボタンをタップしてください';
+	/// ja: 'クレジットカードを選択してから支払い画面を開いてください'
+	String get failureReason => 'クレジットカードを選択してから支払い画面を開いてください';
 
 	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
 }
@@ -129,8 +129,8 @@ class TranslationsCommonJa {
 	/// ja: '残高'
 	String get balance => '残高';
 
-	/// ja: '送る'
-	String get send => '送る';
+	/// ja: '送金'
+	String get send => '送金';
 
 	/// ja: '受け取る'
 	String get receive => '受け取る';
@@ -141,8 +141,8 @@ class TranslationsCommonJa {
 	/// ja: 'QRコード'
 	String get qrCode => 'QRコード';
 
-	/// ja: '読み取る'
-	String get scanQr => '読み取る';
+	/// ja: 'スキャン'
+	String get scanQr => 'スキャン';
 
 	/// ja: 'ポイント'
 	String get point => 'ポイント';
@@ -167,6 +167,30 @@ class TranslationsCommonJa {
 
 	/// ja: '円'
 	String get yen => '円';
+
+	/// ja: '支払い'
+	String get payment => '支払い';
+
+	/// ja: 'クレジットカード'
+	String get creditCard => 'クレジットカード';
+
+	/// ja: '支払い元'
+	String get paymentSource => '支払い元';
+
+	/// ja: '残高払い'
+	String get balancePayment => '残高払い';
+
+	/// ja: 'スキャン'
+	String get scan => 'スキャン';
+
+	/// ja: 'その他'
+	String get more => 'その他';
+
+	/// ja: 'ホーム'
+	String get home => 'ホーム';
+
+	/// ja: 'アカウント'
+	String get account => 'アカウント';
 
 	/// ja: '田中 太郎'
 	String get contact1 => '田中 太郎';
@@ -234,29 +258,29 @@ class TranslationsQuiz1InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜQRコードボタンがわかった？'
-	String get title => 'なぜQRコードボタンがわかった？';
+	/// ja: 'なぜ支払いボタンがわかった？'
+	String get title => 'なぜ支払いボタンがわかった？';
 
-	/// ja: 'QRコード＝スキャン払いの入口'
-	String get subtitle => 'QRコード＝スキャン払いの入口';
+	/// ja: '一番大きなボタン＝アプリの主目的'
+	String get subtitle => '一番大きなボタン＝アプリの主目的';
 
-	/// ja: 'QRコードは「支払い」を意味する'
-	String get qrTitle => 'QRコードは「支払い」を意味する';
+	/// ja: '中央の巨大ボタンは「メインアクション」'
+	String get qrTitle => '中央の巨大ボタンは「メインアクション」';
 
-	/// ja: '四角いモザイク柄（QRコード）のアイコンは、キャッシュレス決済アプリで「QR払い」の入口として世界共通で使われている。'
-	String get qrDesc => '四角いモザイク柄（QRコード）のアイコンは、キャッシュレス決済アプリで「QR払い」の入口として世界共通で使われている。';
+	/// ja: 'ボトムナビゲーションの中央に突出したボタンは、そのアプリで最もよく使う操作を意味する。決済アプリでは「支払い」がそれにあたる。'
+	String get qrDesc => 'ボトムナビゲーションの中央に突出したボタンは、そのアプリで最もよく使う操作を意味する。決済アプリでは「支払い」がそれにあたる。';
 
-	/// ja: 'カメラアイコンは「読み取り」を意味する'
-	String get cameraTitle => 'カメラアイコンは「読み取り」を意味する';
+	/// ja: 'アプリのテーマカラーが「重要度」を示す'
+	String get cameraTitle => 'アプリのテーマカラーが「重要度」を示す';
 
-	/// ja: 'カメラや読み取りアイコンはQRコードを「受け取る側」の操作。支払い時に使うQRコード表示とは目的が異なる。'
-	String get cameraDesc => 'カメラや読み取りアイコンはQRコードを「受け取る側」の操作。支払い時に使うQRコード表示とは目的が異なる。';
+	/// ja: '赤や青など、アプリのメインカラーで強調されたボタンは、最も重要なアクションを示すサインとして使われる。'
+	String get cameraDesc => '赤や青など、アプリのメインカラーで強調されたボタンは、最も重要なアクションを示すサインとして使われる。';
 
-	/// ja: '目立つ色は「メインアクション」のサイン'
-	String get colorTitle => '目立つ色は「メインアクション」のサイン';
+	/// ja: '出っ張ったデザイン＝「押してほしい」サイン'
+	String get colorTitle => '出っ張ったデザイン＝「押してほしい」サイン';
 
-	/// ja: 'アプリのメインカラーで強調されたボタンは、最もよく使われる操作を示している。決済アプリでは多くの場合それがQRコード払い。'
-	String get colorDesc => 'アプリのメインカラーで強調されたボタンは、最もよく使われる操作を示している。決済アプリでは多くの場合それがQRコード払い。';
+	/// ja: '他のボタンより大きく、上方向に飛び出したデザインは「このボタンを使ってほしい」という強力なアフォーダンスを持つ。'
+	String get colorDesc => '他のボタンより大きく、上方向に飛び出したデザインは「このボタンを使ってほしい」という強力なアフォーダンスを持つ。';
 }
 
 // Path: quiz2.insight
@@ -267,29 +291,29 @@ class TranslationsQuiz2InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ残高のブラーを解除できた？'
-	String get title => 'なぜ残高のブラーを解除できた？';
+	/// ja: 'なぜ残高を隠せた？'
+	String get title => 'なぜ残高を隠せた？';
 
-	/// ja: 'ぼかし＝「隠れた情報がある」サイン'
-	String get subtitle => 'ぼかし＝「隠れた情報がある」サイン';
-
-	/// ja: 'ブラーは「隠された情報」を示す'
-	String get blurTitle => 'ブラーは「隠された情報」を示す';
-
-	/// ja: '残高などの金額にかかっているブラーは、プライバシー保護のために意図的に隠されている。タップで解除できるのは「タップ可能なUI」であるサイン。'
-	String get blurDesc => '残高などの金額にかかっているブラーは、プライバシー保護のために意図的に隠されている。タップで解除できるのは「タップ可能なUI」であるサイン。';
+	/// ja: '👁️ アイコン＝表示/非表示の切り替え'
+	String get subtitle => '👁️ アイコン＝表示/非表示の切り替え';
 
 	/// ja: '目のアイコンは「表示/非表示」を意味する'
 	String get eyeTitle => '目のアイコンは「表示/非表示」を意味する';
 
-	/// ja: '目を閉じたアイコンは「情報が非表示」、開いたアイコンは「表示」を意味する。パスワードフィールドや残高表示に広く使われるUIパターン。'
-	String get eyeDesc => '目を閉じたアイコンは「情報が非表示」、開いたアイコンは「表示」を意味する。パスワードフィールドや残高表示に広く使われるUIパターン。';
+	/// ja: '目を開いたアイコンは「情報が表示されている」状態で、タップすると非表示に切り替わる。パスワードフィールドや残高表示で広く使われるUIパターン。'
+	String get eyeDesc => '目を開いたアイコンは「情報が表示されている」状態で、タップすると非表示に切り替わる。パスワードフィールドや残高表示で広く使われるUIパターン。';
 
-	/// ja: 'ブラーが解けた＝正しい操作'
-	String get privacyTitle => 'ブラーが解けた＝正しい操作';
+	/// ja: '「***」は情報が隠れているサイン'
+	String get maskTitle => '「***」は情報が隠れているサイン';
 
-	/// ja: '情報が正しく表示されることで、自分が正しい操作をしたことがわかる。UIからのフィードバックが正しい操作を確認させてくれる。'
-	String get privacyDesc => '情報が正しく表示されることで、自分が正しい操作をしたことがわかる。UIからのフィードバックが正しい操作を確認させてくれる。';
+	/// ja: '金額などのセンシティブな情報をアスタリスク（***）で伏せる表示は、「情報は存在するが隠れている」ことを示すUIパターン。'
+	String get maskDesc => '金額などのセンシティブな情報をアスタリスク（***）で伏せる表示は、「情報は存在するが隠れている」ことを示すUIパターン。';
+
+	/// ja: 'プライバシー保護は「見た目」で伝わる'
+	String get privacyTitle => 'プライバシー保護は「見た目」で伝わる';
+
+	/// ja: '情報が隠れたことで、自分が正しい操作をしたとわかる。UIのフィードバックが操作の成否を即座に教えてくれる。'
+	String get privacyDesc => '情報が隠れたことで、自分が正しい操作をしたとわかる。UIのフィードバックが操作の成否を即座に教えてくれる。';
 }
 
 // Path: quiz3.insight
@@ -333,29 +357,29 @@ class TranslationsQuiz4InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ取引履歴がわかった？'
-	String get title => 'なぜ取引履歴がわかった？';
+	/// ja: 'なぜ支払い方法を変更できた？'
+	String get title => 'なぜ支払い方法を変更できた？';
 
-	/// ja: '時計・リスト＝履歴UIの記号'
-	String get subtitle => '時計・リスト＝履歴UIの記号';
+	/// ja: '2つのルートで支払い元を変えられる'
+	String get subtitle => '2つのルートで支払い元を変えられる';
 
-	/// ja: '時計アイコンは「履歴・過去」を表す'
-	String get historyTitle => '時計アイコンは「履歴・過去」を表す';
+	/// ja: '支払い画面から変更（ルートA）'
+	String get routeATitle => '支払い画面から変更（ルートA）';
 
-	/// ja: '時計やリスト形式のアイコンは「過去の記録・履歴」を表すUIパターンとして、銀行アプリや決済アプリで広く使われている。'
-	String get historyDesc => '時計やリスト形式のアイコンは「過去の記録・履歴」を表すUIパターンとして、銀行アプリや決済アプリで広く使われている。';
+	/// ja: '支払い画面を開き、バーコード下の「支払い元ボタン」をタップするとボトムシートが開いて支払い方法を選択できる。「現在の設定値＝タップで変更」というメンタルモデル。'
+	String get routeADesc => '支払い画面を開き、バーコード下の「支払い元ボタン」をタップするとボトムシートが開いて支払い方法を選択できる。「現在の設定値＝タップで変更」というメンタルモデル。';
 
-	/// ja: 'リスト表示は情報の一覧を意味する'
-	String get listTitle => 'リスト表示は情報の一覧を意味する';
+	/// ja: 'ホーム画面でスワイプして変更（ルートB）'
+	String get routeBTitle => 'ホーム画面でスワイプして変更（ルートB）';
 
-	/// ja: '縦に並んだリスト形式のUIは、複数の情報（取引・メッセージ・注文など）の一覧を示す最もシンプルで直感的なUIパターン。'
-	String get listDesc => '縦に並んだリスト形式のUIは、複数の情報（取引・メッセージ・注文など）の一覧を示す最もシンプルで直感的なUIパターン。';
+	/// ja: 'ホーム画面の「支払い元カード」を左右にスワイプすると支払い方法を切り替えられる。「カード状UIはスワイプで切替」という現代的なジェスチャーUIの理解。'
+	String get routeBDesc => 'ホーム画面の「支払い元カード」を左右にスワイプすると支払い方法を切り替えられる。「カード状UIはスワイプで切替」という現代的なジェスチャーUIの理解。';
 
-	/// ja: 'タブは「カテゴリ切り替え」を意味する'
-	String get tabTitle => 'タブは「カテゴリ切り替え」を意味する';
+	/// ja: '設定値が書かれた場所はタップで変更できる'
+	String get dropdownTitle => '設定値が書かれた場所はタップで変更できる';
 
-	/// ja: '画面下部や上部に並ぶタブは、異なるカテゴリのコンテンツへ切り替える操作。「ホーム」「送金」「履歴」などの機能分類に使われる。'
-	String get tabDesc => '画面下部や上部に並ぶタブは、異なるカテゴリのコンテンツへ切り替える操作。「ホーム」「送金」「履歴」などの機能分類に使われる。';
+	/// ja: '現在の設定が表示されているボタンやラベルは、タップでドロップダウンや選択画面が開くUIパターン。銀行・ショッピングアプリで広く使われる。'
+	String get dropdownDesc => '現在の設定が表示されているボタンやラベルは、タップでドロップダウンや選択画面が開くUIパターン。銀行・ショッピングアプリで広く使われる。';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -366,28 +390,28 @@ class TranslationsQuiz4InsightJa {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'QRコードを表示してください',
-			'quiz1.failureReason' => '「QRコード」ボタンをタップしてください',
-			'quiz1.insight.title' => 'なぜQRコードボタンがわかった？',
-			'quiz1.insight.subtitle' => 'QRコード＝スキャン払いの入口',
-			'quiz1.insight.qrTitle' => 'QRコードは「支払い」を意味する',
-			'quiz1.insight.qrDesc' => '四角いモザイク柄（QRコード）のアイコンは、キャッシュレス決済アプリで「QR払い」の入口として世界共通で使われている。',
-			'quiz1.insight.cameraTitle' => 'カメラアイコンは「読み取り」を意味する',
-			'quiz1.insight.cameraDesc' => 'カメラや読み取りアイコンはQRコードを「受け取る側」の操作。支払い時に使うQRコード表示とは目的が異なる。',
-			'quiz1.insight.colorTitle' => '目立つ色は「メインアクション」のサイン',
-			'quiz1.insight.colorDesc' => 'アプリのメインカラーで強調されたボタンは、最もよく使われる操作を示している。決済アプリでは多くの場合それがQRコード払い。',
-			'quiz2.missionText' => '残高を確認してください',
-			'quiz2.failureReason' => '残高エリアをタップしてブラーを解除してください',
-			'quiz2.insight.title' => 'なぜ残高のブラーを解除できた？',
-			'quiz2.insight.subtitle' => 'ぼかし＝「隠れた情報がある」サイン',
-			'quiz2.insight.blurTitle' => 'ブラーは「隠された情報」を示す',
-			'quiz2.insight.blurDesc' => '残高などの金額にかかっているブラーは、プライバシー保護のために意図的に隠されている。タップで解除できるのは「タップ可能なUI」であるサイン。',
+			'quiz1.missionText' => 'レジに来ました。バーコードを提示してください',
+			'quiz1.failureReason' => '画面下部の一番大きなボタンをタップしてください',
+			'quiz1.insight.title' => 'なぜ支払いボタンがわかった？',
+			'quiz1.insight.subtitle' => '一番大きなボタン＝アプリの主目的',
+			'quiz1.insight.qrTitle' => '中央の巨大ボタンは「メインアクション」',
+			'quiz1.insight.qrDesc' => 'ボトムナビゲーションの中央に突出したボタンは、そのアプリで最もよく使う操作を意味する。決済アプリでは「支払い」がそれにあたる。',
+			'quiz1.insight.cameraTitle' => 'アプリのテーマカラーが「重要度」を示す',
+			'quiz1.insight.cameraDesc' => '赤や青など、アプリのメインカラーで強調されたボタンは、最も重要なアクションを示すサインとして使われる。',
+			'quiz1.insight.colorTitle' => '出っ張ったデザイン＝「押してほしい」サイン',
+			'quiz1.insight.colorDesc' => '他のボタンより大きく、上方向に飛び出したデザインは「このボタンを使ってほしい」という強力なアフォーダンスを持つ。',
+			'quiz2.missionText' => '誰かに画面を見られそう！残高を隠してください',
+			'quiz2.failureReason' => '残高の横にある「目のアイコン」をタップしてください',
+			'quiz2.insight.title' => 'なぜ残高を隠せた？',
+			'quiz2.insight.subtitle' => '👁️ アイコン＝表示/非表示の切り替え',
 			'quiz2.insight.eyeTitle' => '目のアイコンは「表示/非表示」を意味する',
-			'quiz2.insight.eyeDesc' => '目を閉じたアイコンは「情報が非表示」、開いたアイコンは「表示」を意味する。パスワードフィールドや残高表示に広く使われるUIパターン。',
-			'quiz2.insight.privacyTitle' => 'ブラーが解けた＝正しい操作',
-			'quiz2.insight.privacyDesc' => '情報が正しく表示されることで、自分が正しい操作をしたことがわかる。UIからのフィードバックが正しい操作を確認させてくれる。',
-			'quiz3.missionText' => '誰かに送金してください',
-			'quiz3.failureReason' => '送金先を選んで金額を入力し、送金ボタンをタップしてください',
+			'quiz2.insight.eyeDesc' => '目を開いたアイコンは「情報が表示されている」状態で、タップすると非表示に切り替わる。パスワードフィールドや残高表示で広く使われるUIパターン。',
+			'quiz2.insight.maskTitle' => '「***」は情報が隠れているサイン',
+			'quiz2.insight.maskDesc' => '金額などのセンシティブな情報をアスタリスク（***）で伏せる表示は、「情報は存在するが隠れている」ことを示すUIパターン。',
+			'quiz2.insight.privacyTitle' => 'プライバシー保護は「見た目」で伝わる',
+			'quiz2.insight.privacyDesc' => '情報が隠れたことで、自分が正しい操作をしたとわかる。UIのフィードバックが操作の成否を即座に教えてくれる。',
+			'quiz3.missionText' => '友達に5,000円を送金してください',
+			'quiz3.failureReason' => '「送金」アイコンをタップして、5000と入力し、送金ボタンを押してください',
 			'quiz3.insight.title' => 'なぜ送金の手順がわかった？',
 			'quiz3.insight.subtitle' => '3ステップが送金UIの定番フロー',
 			'quiz3.insight.sendTitle' => '「送る」アイコンは上矢印または紙飛行機',
@@ -396,23 +420,23 @@ extension on Translations {
 			'quiz3.insight.amountDesc' => '金額入力にはテンキー（数字キーボード）が表示される。銀行アプリ・キャッシュレス決済アプリともに共通するUIパターン。',
 			'quiz3.insight.confirmTitle' => '最終確認画面は「間違えた時のため」',
 			'quiz3.insight.confirmDesc' => '送金などの重要な操作では、実行前に確認画面を挟むことが多い。これにより誤操作を防ぐ安全設計になっている。',
-			'quiz4.missionText' => '取引履歴を確認してください',
-			'quiz4.failureReason' => '「履歴」タブまたは明細ボタンをタップしてください',
-			'quiz4.insight.title' => 'なぜ取引履歴がわかった？',
-			'quiz4.insight.subtitle' => '時計・リスト＝履歴UIの記号',
-			'quiz4.insight.historyTitle' => '時計アイコンは「履歴・過去」を表す',
-			'quiz4.insight.historyDesc' => '時計やリスト形式のアイコンは「過去の記録・履歴」を表すUIパターンとして、銀行アプリや決済アプリで広く使われている。',
-			'quiz4.insight.listTitle' => 'リスト表示は情報の一覧を意味する',
-			'quiz4.insight.listDesc' => '縦に並んだリスト形式のUIは、複数の情報（取引・メッセージ・注文など）の一覧を示す最もシンプルで直感的なUIパターン。',
-			'quiz4.insight.tabTitle' => 'タブは「カテゴリ切り替え」を意味する',
-			'quiz4.insight.tabDesc' => '画面下部や上部に並ぶタブは、異なるカテゴリのコンテンツへ切り替える操作。「ホーム」「送金」「履歴」などの機能分類に使われる。',
+			'quiz4.missionText' => '残高が足りません！支払い方法を「クレジットカード」に変更してバーコードを提示してください',
+			'quiz4.failureReason' => 'クレジットカードを選択してから支払い画面を開いてください',
+			'quiz4.insight.title' => 'なぜ支払い方法を変更できた？',
+			'quiz4.insight.subtitle' => '2つのルートで支払い元を変えられる',
+			'quiz4.insight.routeATitle' => '支払い画面から変更（ルートA）',
+			'quiz4.insight.routeADesc' => '支払い画面を開き、バーコード下の「支払い元ボタン」をタップするとボトムシートが開いて支払い方法を選択できる。「現在の設定値＝タップで変更」というメンタルモデル。',
+			'quiz4.insight.routeBTitle' => 'ホーム画面でスワイプして変更（ルートB）',
+			'quiz4.insight.routeBDesc' => 'ホーム画面の「支払い元カード」を左右にスワイプすると支払い方法を切り替えられる。「カード状UIはスワイプで切替」という現代的なジェスチャーUIの理解。',
+			'quiz4.insight.dropdownTitle' => '設定値が書かれた場所はタップで変更できる',
+			'quiz4.insight.dropdownDesc' => '現在の設定が表示されているボタンやラベルは、タップでドロップダウンや選択画面が開くUIパターン。銀行・ショッピングアプリで広く使われる。',
 			'common.appTitle' => 'Pay',
 			'common.balance' => '残高',
-			'common.send' => '送る',
+			'common.send' => '送金',
 			'common.receive' => '受け取る',
 			'common.history' => '履歴',
 			'common.qrCode' => 'QRコード',
-			'common.scanQr' => '読み取る',
+			'common.scanQr' => 'スキャン',
 			'common.point' => 'ポイント',
 			'common.topUp' => 'チャージ',
 			'common.amount' => '金額',
@@ -421,6 +445,14 @@ extension on Translations {
 			'common.cancel' => 'キャンセル',
 			'common.tapToReveal' => 'タップして確認',
 			'common.yen' => '円',
+			'common.payment' => '支払い',
+			'common.creditCard' => 'クレジットカード',
+			'common.paymentSource' => '支払い元',
+			'common.balancePayment' => '残高払い',
+			'common.scan' => 'スキャン',
+			'common.more' => 'その他',
+			'common.home' => 'ホーム',
+			'common.account' => 'アカウント',
 			'common.contact1' => '田中 太郎',
 			'common.contact2' => '山田 花子',
 			'common.contact3' => '鈴木 次郎',

@@ -1,13 +1,22 @@
+// このファイルは quiz4 の旧実装（取引履歴クイズ）です。
+// quiz4 は「支払い元変更クイズ」にリニューアルされました。
+// 新しい実装は quiz4_change_payment_method/ ディレクトリを参照してください。
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
+import '../../domain/payment_method.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'view_history_quiz_notifier.dart';
 
-/// Quiz 4「取引履歴を確認してください」
+/// Quiz 4（旧）「取引履歴を確認してください」
+///
+/// このクラスは後方互換性のために残されていますが、
+/// payment.dart からはエクスポートされていません。
+@Deprecated('Use ChangePaymentMethodQuizScreen instead')
 class ViewHistoryQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const ViewHistoryQuizScreen({super.key, this.onCompleted});
@@ -22,7 +31,7 @@ class ViewHistoryQuizScreen extends ConsumerStatefulWidget {
 
 class _ViewHistoryQuizScreenState
     extends ConsumerState<ViewHistoryQuizScreen> {
-  static const _timeLimitSeconds = 30;
+  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
 
   @override
@@ -41,15 +50,13 @@ class _ViewHistoryQuizScreenState
 
     return PaymentHomeScreen(
       balance: PaymentCatalog.initialBalance,
-      balanceRevealed: true,
+      balanceHidden: false,
+      currentPaymentMethod: PaymentMethod.balance,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightHistoryTab:
-          state.status == QuizStatus.playing && !state.historyViewed,
-      onHistoryTap: notifier.tapHistory,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
@@ -91,21 +98,21 @@ class _ViewHistoryInsight extends StatelessWidget {
         _InsightHeader(title: insight.title, subtitle: insight.subtitle),
         const SizedBox(height: 12),
         _InsightItem(
-          emoji: '🕐',
-          title: insight.historyTitle,
-          desc: insight.historyDesc,
+          emoji: '💳',
+          title: insight.routeATitle,
+          desc: insight.routeADesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '📋',
-          title: insight.listTitle,
-          desc: insight.listDesc,
+          emoji: '👆',
+          title: insight.routeBTitle,
+          desc: insight.routeBDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '📑',
-          title: insight.tabTitle,
-          desc: insight.tabDesc,
+          emoji: '🔽',
+          title: insight.dropdownTitle,
+          desc: insight.dropdownDesc,
         ),
       ],
     );

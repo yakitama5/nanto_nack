@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
+import '../../domain/payment_method.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'reveal_balance_quiz_notifier.dart';
 
-/// Quiz 2「残高を確認してください」
+/// Quiz 2「残高を隠してください」
 class RevealBalanceQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const RevealBalanceQuizScreen({super.key, this.onCompleted});
@@ -22,7 +23,7 @@ class RevealBalanceQuizScreen extends ConsumerStatefulWidget {
 
 class _RevealBalanceQuizScreenState
     extends ConsumerState<RevealBalanceQuizScreen> {
-  static const _timeLimitSeconds = 30;
+  static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
 
   @override
@@ -41,14 +42,17 @@ class _RevealBalanceQuizScreenState
 
     return PaymentHomeScreen(
       balance: PaymentCatalog.initialBalance,
-      balanceRevealed: state.balanceRevealed,
+      balanceHidden: state.balanceHidden,
+      currentPaymentMethod: PaymentMethod.balance,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightBalance: state.status == QuizStatus.playing && !state.balanceRevealed,
-      onBalanceTap: notifier.tapBalance,
+      // 残高が見えている（未クリア）状態のときに目アイコンをハイライト
+      highlightEyeIcon:
+          state.status == QuizStatus.playing && !state.balanceHidden,
+      onBalanceVisibilityTap: notifier.tapEyeIcon,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
@@ -90,19 +94,19 @@ class _RevealBalanceInsight extends StatelessWidget {
         _InsightHeader(title: insight.title, subtitle: insight.subtitle),
         const SizedBox(height: 12),
         _InsightItem(
-          emoji: '🌫️',
-          title: insight.blurTitle,
-          desc: insight.blurDesc,
-        ),
-        const SizedBox(height: 10),
-        _InsightItem(
           emoji: '👁️',
           title: insight.eyeTitle,
           desc: insight.eyeDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '✅',
+          emoji: '***',
+          title: insight.maskTitle,
+          desc: insight.maskDesc,
+        ),
+        const SizedBox(height: 10),
+        _InsightItem(
+          emoji: '🔒',
           title: insight.privacyTitle,
           desc: insight.privacyDesc,
         ),

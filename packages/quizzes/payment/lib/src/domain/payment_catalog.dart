@@ -1,12 +1,16 @@
 import 'entities/payment_contact.dart';
 import 'entities/payment_transaction.dart';
+import 'payment_method.dart';
 
 /// 決済アプリのマスターデータカタログ
 class PaymentCatalog {
   PaymentCatalog._();
 
-  /// 初期残高（非表示状態）
+  /// 初期残高
   static const int initialBalance = 12480;
+
+  /// デフォルト支払い元（残高払い）
+  static const PaymentMethod defaultPaymentMethod = PaymentMethod.balance;
 
   /// コンタクト一覧
   static const List<PaymentContact> contacts = [

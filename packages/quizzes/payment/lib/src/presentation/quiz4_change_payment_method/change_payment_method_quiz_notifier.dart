@@ -5,36 +5,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
-import '../../application/quiz_reveal_balance_use_case.dart';
+import '../../application/quiz_change_payment_method_use_case.dart';
+import '../../domain/payment_method.dart';
 import '../../infrastructure/payment_quiz_repository_provider.dart';
-import 'reveal_balance_quiz_state.dart';
+import 'change_payment_method_quiz_state.dart';
 
-final revealBalanceQuizProvider = AutoDisposeNotifierProvider<
-    RevealBalanceQuizNotifier, RevealBalanceQuizState>(
-  RevealBalanceQuizNotifier.new,
+final changePaymentMethodQuizProvider = AutoDisposeNotifierProvider<
+    ChangePaymentMethodQuizNotifier, ChangePaymentMethodQuizState>(
+  ChangePaymentMethodQuizNotifier.new,
 );
 
-/// Quiz 2「残高を隠す」のNotifier
-class RevealBalanceQuizNotifier
-    extends AutoDisposeNotifier<RevealBalanceQuizState> {
-  static const _quizId = 'payment_quiz2';
-  static const _timeLimitSeconds = 45;
+/// Quiz 4「支払い元を変更してバーコードを提示する」のNotifier
+class ChangePaymentMethodQuizNotifier
+    extends AutoDisposeNotifier<ChangePaymentMethodQuizState> {
+  static const _quizId = 'payment_quiz4';
+  static const _timeLimitSeconds = 60;
 
-  final _useCase = const QuizRevealBalanceUseCase();
+  final _useCase = const QuizChangePaymentMethodUseCase();
   Timer? _timer;
 
   @override
-  RevealBalanceQuizState build() {
+  ChangePaymentMethodQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return RevealBalanceQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return ChangePaymentMethodQuizState.initial(
+      timeLimitSeconds: _timeLimitSeconds,
+    );
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
-    state =
-        RevealBalanceQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
-            .copyWith(
+    state = ChangePaymentMethodQuizState.initial(
+      timeLimitSeconds: _timeLimitSeconds,
+    ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
@@ -42,26 +45,23 @@ class RevealBalanceQuizNotifier
     _startTimer();
   }
 
-  /// 目アイコンをタップ（残高の表示/非表示を切り替え）
-  Future<void> tapEyeIcon() async {
+  /// ボトムナビ中央の支払いボタンをタップ → 支払い画面を開く
+  Future<void> tapPayment() async {
     if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(paymentScreenShown: true);
+    await _checkAndComplete();
+  }
 
-    // 残高を隠す（balanceHidden: true = クリア状態）
-    state = state.copyWith(balanceHidden: true);
+  /// 支払い画面を閉じる
+  void closePaymentScreen() {
+    state = state.copyWith(paymentScreenShown: false);
+  }
 
-    final isClear = _useCase.isClear(balanceHidden: true);
-    if (isClear) {
-      _timer?.cancel();
-      final elapsed = _elapsed;
-      state = state.copyWith(
-        status: QuizStatus.correct,
-        elapsedMs: elapsed,
-      );
-      await hapticFeedback.playSuccessFeedback();
-      try {
-        await _saveResult(isCleared: true, elapsedMs: elapsed);
-      } on Exception catch (_) {}
-    }
+  /// 支払い元を変更する（ホームカルーセルまたは支払い画面のボトムシートから）
+  Future<void> changePaymentMethod(PaymentMethod method) async {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(currentPaymentMethod: method);
+    await _checkAndComplete();
   }
 
   /// 諦めてクイズを終了する
@@ -86,13 +86,33 @@ class RevealBalanceQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state =
-        RevealBalanceQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
-            .copyWith(
+    state = ChangePaymentMethodQuizState.initial(
+      timeLimitSeconds: _timeLimitSeconds,
+    ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
     _startTimer();
+  }
+
+  /// クリア条件を確認し、満たしていれば完了処理を行う
+  Future<void> _checkAndComplete() async {
+    final isClear = _useCase.isClear(
+      currentPaymentMethod: state.currentPaymentMethod,
+      paymentScreenShown: state.paymentScreenShown,
+    );
+    if (isClear) {
+      _timer?.cancel();
+      final elapsed = _elapsed;
+      state = state.copyWith(
+        status: QuizStatus.correct,
+        elapsedMs: elapsed,
+      );
+      await hapticFeedback.playSuccessFeedback();
+      try {
+        await _saveResult(isCleared: true, elapsedMs: elapsed);
+      } on Exception catch (_) {}
+    }
   }
 
   int get _elapsed => state.startedAt != null

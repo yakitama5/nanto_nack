@@ -5,12 +5,12 @@ void main() {
   const useCase = QuizRevealBalanceUseCase();
 
   group('QuizRevealBalanceUseCase', () {
-    test('balanceRevealed が true のとき isClear は true を返す', () {
-      expect(useCase.isClear(balanceRevealed: true), isTrue);
+    test('balanceHidden が true のとき isClear は true を返す', () {
+      expect(useCase.isClear(balanceHidden: true), isTrue);
     });
 
-    test('balanceRevealed が false のとき isClear は false を返す', () {
-      expect(useCase.isClear(balanceRevealed: false), isFalse);
+    test('balanceHidden が false のとき isClear は false を返す', () {
+      expect(useCase.isClear(balanceHidden: false), isFalse);
     });
   });
 }
