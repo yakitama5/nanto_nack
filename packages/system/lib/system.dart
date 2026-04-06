@@ -12,5 +12,6 @@ export 'src/firebase/analytics_service.dart';
 export 'src/firebase/crashlytics_service.dart';
 export 'src/firebase/firebase_service.dart';
 export 'src/firebase/remote_config_service.dart';
+export 'src/firebase/tip.dart';
 export 'src/initializer.dart';
 export 'src/purchase/purchase_service.dart';
