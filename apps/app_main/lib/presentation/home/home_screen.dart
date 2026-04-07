@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:system/system.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-
 import '../../application/dashboard_provider.dart';
 import '../../application/stage_list_provider.dart';
 import '../../application/tutorial/tutorial_notifier.dart';
@@ -50,110 +48,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _showTutorial() {
-    final targets = [
-      // Step 1: ウェルカム（笑顔）- プレイボタンにフォーカス
-      TargetFocus(
-        identify: 'home_welcome',
-        keyTarget: _playButtonKey,
-        shape: ShapeLightFocus.RRect,
-        radius: 18,
-        paddingFocus: 8,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (ctx, ctl) => const NantomSpeechBubble(
-              expression: NantomExpression.smile,
-              text: 'ようこそ！ボクはナントム！',
-            ),
-          ),
-        ],
-      ),
-      // Step 2: アプリ紹介（通常）- プレイボタンにフォーカスしたまま
-      TargetFocus(
-        identify: 'home_app_intro',
-        keyTarget: _playButtonKey,
-        shape: ShapeLightFocus.RRect,
-        radius: 18,
-        paddingFocus: 8,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (ctx, ctl) => const NantomSpeechBubble(
-              expression: NantomExpression.normal,
-              text: 'ここではボクが作ったアプリをならべてるよ',
-            ),
-          ),
-        ],
-      ),
-      // Step 3: プレイボタン（笑顔）- フォーカスしたまま
-      TargetFocus(
-        identify: 'home_play_button',
-        keyTarget: _playButtonKey,
-        shape: ShapeLightFocus.RRect,
-        radius: 18,
-        paddingFocus: 8,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (ctx, ctl) => const NantomSpeechBubble(
-              expression: NantomExpression.smile,
-              text: '一生懸命作ったからさっそく使ってみて！',
-            ),
-          ),
-        ],
-      ),
-    ];
+    late OverlayEntry entry;
 
-    void navigateToPlay() {
-      ref.read(analyticsServiceProvider).logPlayButtonTapped();
-      ref
-          .read(tutorialNotifierProvider.notifier)
-          .advanceTo(TutorialScreen.categoryList);
-      context.push('/play');
-    }
-
-    TutorialCoachMark(
-      targets: targets,
-      colorShadow: Colors.black,
-      opacityShadow: 0.85,
-      textSkip: 'スキップ',
-      skipWidget: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
-        ),
-        child: const Text(
-          'スキップ',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+    entry = OverlayEntry(
+      builder: (_) => _HomeTutorialOverlay(
+        playButtonKey: _playButtonKey,
+        onComplete: () {
+          entry.remove();
+          ref.read(analyticsServiceProvider).logPlayButtonTapped();
+          ref
+              .read(tutorialNotifierProvider.notifier)
+              .advanceTo(TutorialScreen.categoryList);
+          context.push('/play');
+        },
+        onSkip: () {
+          entry.remove();
+          Future.microtask(
+            () => ref.read(tutorialNotifierProvider.notifier).complete(),
+          );
+        },
       ),
-      onClickTarget: (target) {
-        if (target.identify == 'home_play_button') {
-          navigateToPlay();
-        }
-      },
-      onClickOverlay: (target) {
-        if (target.identify == 'home_play_button') {
-          navigateToPlay();
-        }
-      },
-      onFinish: () {
-        // コーチマーク完了（プレイボタンクリック後のfinish）
-      },
-      onSkip: () {
-        ref.read(tutorialNotifierProvider.notifier).complete();
-        return true;
-      },
-    ).show(context: context);
+    );
+    Overlay.of(context).insert(entry);
   }
 
   @override
@@ -1033,4 +949,163 @@ class _LabelPill extends StatelessWidget {
       ),
     );
   }
+}
+
+// ─────────────────────────────────────────
+// ホーム画面チュートリアルオーバーレイ（Step 1〜3）
+// ─────────────────────────────────────────
+
+/// プレイボタンへのフォーカス穴を固定したまま、表情とテキストだけを切り替えるオーバーレイ。
+///
+/// `tutorial_coach_mark` のターゲット切り替えではアンフォーカス→再フォーカスの
+/// アニメーションが発生するため、Step1〜3 は独自の `OverlayEntry` + `CustomPainter`
+/// で実装し、`setState` による差分描画のみでコンテンツを更新する。
+class _HomeTutorialOverlay extends StatefulWidget {
+  const _HomeTutorialOverlay({
+    required this.playButtonKey,
+    required this.onComplete,
+    required this.onSkip,
+  });
+
+  final GlobalKey playButtonKey;
+  final VoidCallback onComplete;
+  final VoidCallback onSkip;
+
+  @override
+  State<_HomeTutorialOverlay> createState() => _HomeTutorialOverlayState();
+}
+
+class _HomeTutorialOverlayState extends State<_HomeTutorialOverlay> {
+  int _step = 0;
+
+  static const List<({NantomExpression expression, String text})> _steps = [
+    (expression: NantomExpression.smile, text: 'ようこそ！ボクはナントム！'),
+    (expression: NantomExpression.normal, text: 'ここではボクが作ったアプリをならべてるよ'),
+    (expression: NantomExpression.smile, text: '一生懸命作ったからさっそく使ってみて！'),
+  ];
+
+  void _onTap() {
+    if (_step < _steps.length - 1) {
+      setState(() => _step++);
+    } else {
+      widget.onComplete();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final renderBox =
+        widget.playButtonKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) return const SizedBox.shrink();
+
+    final position = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+    const padding = 8.0;
+    const radius = 18.0;
+
+    final focusRect = Rect.fromLTWH(
+      position.dx - padding,
+      position.dy - padding,
+      size.width + padding * 2,
+      size.height + padding * 2,
+    );
+
+    final screenSize = MediaQuery.sizeOf(context);
+    final topPadding = MediaQuery.paddingOf(context).top;
+    final currentStep = _steps[_step];
+
+    return Material(
+      color: Colors.transparent,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: _onTap,
+        child: Stack(
+          children: [
+            // ── ダークオーバーレイ（プレイボタン部分を穴あき）
+            CustomPaint(
+              painter: _FocusOverlayPainter(
+                focusRect: focusRect,
+                radius: radius,
+              ),
+              size: screenSize,
+              child: const SizedBox.expand(),
+            ),
+            // ── スピーチバブル（プレイボタンの上に表示）
+            Positioned(
+              left: 20,
+              right: 20,
+              bottom: screenSize.height - focusRect.top + 16,
+              child: NantomSpeechBubble(
+                expression: currentStep.expression,
+                text: currentStep.text,
+              ),
+            ),
+            // ── スキップボタン
+            Positioned(
+              top: topPadding + 16,
+              right: 16,
+              child: GestureDetector(
+                onTap: widget.onSkip,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  child: const Text(
+                    'スキップ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// プレイボタン部分を透明に切り抜いたダークオーバーレイを描画する Painter。
+class _FocusOverlayPainter extends CustomPainter {
+  const _FocusOverlayPainter({
+    required this.focusRect,
+    required this.radius,
+  });
+
+  final Rect focusRect;
+  final double radius;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.saveLayer(Offset.zero & size, Paint());
+
+    // 全体に暗いオーバーレイを描画
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()..color = Colors.black.withValues(alpha: 0.85),
+    );
+
+    // フォーカスエリアを切り抜いて透明にする
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(focusRect, Radius.circular(radius)),
+      Paint()..blendMode = BlendMode.clear,
+    );
+
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(_FocusOverlayPainter oldDelegate) =>
+      oldDelegate.focusRect != focusRect || oldDelegate.radius != radius;
 }
