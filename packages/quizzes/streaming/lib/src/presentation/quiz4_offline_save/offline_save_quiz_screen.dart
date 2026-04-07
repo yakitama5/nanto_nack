@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz4_offline_save/offline_save_quiz_notifier.dart';
+import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
 import 'package:streaming/src/presentation/streaming_player_screen.dart';
 
 class OfflineSaveQuizScreen extends ConsumerStatefulWidget {
@@ -17,6 +18,7 @@ class OfflineSaveQuizScreen extends ConsumerStatefulWidget {
 class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
   static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
+  bool _hintUsed = false;
 
   @override
   void initState() {
@@ -31,7 +33,8 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
     final state = ref.watch(offlineSaveQuizProvider);
     final missionText = context.s.quiz4.missionText;
 
-    final isHighestQuality = state.video.quality == '2160p' || state.video.quality == '1080p';
+    // 1080p以上の高画質（最高画質ではないが、ダウンロード可能な品質）かどうかを判定
+    final isHighQuality = state.video.quality == '2160p' || state.video.quality == '1080p';
 
     return StreamingPlayerScreen(
       video: state.video,
@@ -43,13 +46,21 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
       missionText: missionText,
       onGiveUp: () => ref.read(offlineSaveQuizProvider.notifier).giveUp(),
       onMoreTap: () => ref.read(offlineSaveQuizProvider.notifier).tapSettings(),
-      onDownloadTap: () => ref.read(offlineSaveQuizProvider.notifier).tapDownload(),
+      onDownloadTap: () =>
+          ref.read(offlineSaveQuizProvider.notifier).tapDownload(),
+      onLikeTap: () => ref.read(offlineSaveQuizProvider.notifier).tapLike(),
+      onDislikeTap: () =>
+          ref.read(offlineSaveQuizProvider.notifier).tapDislike(),
+      onShareTap: () => ref.read(offlineSaveQuizProvider.notifier).tapShare(),
+      onSaveTap: () => ref.read(offlineSaveQuizProvider.notifier).tapSave(),
       showShareButton: true,
       showSaveButton: true,
       showDownloadButton: true,
       showMoreButton: true,
-      highlightMore: state.status == QuizStatus.playing && !isHighestQuality && !state.isSettingsOpen,
-      highlightDownload: state.status == QuizStatus.playing && isHighestQuality && !state.video.isDownloaded,
+      hintUsed: _hintUsed,
+      onHintTap: () => setState(() => _hintUsed = true),
+      highlightMore: _hintUsed && state.status == QuizStatus.playing && !isHighQuality && !state.isSettingsOpen,
+      highlightDownload: _hintUsed && state.status == QuizStatus.playing && isHighQuality && !state.video.isDownloaded,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
@@ -59,7 +70,7 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
           ),
         // 設定メニュー
         if (state.isSettingsOpen && !state.isQualityListOpen)
-          _OverlayMenu(
+          StreamingOverlayMenu(
             onDismiss: () => ref.read(offlineSaveQuizProvider.notifier).dismissSettings(),
             child: StreamingMoreMenu(
               video: state.video,
@@ -71,7 +82,7 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
           ),
         // 画質選択リスト
         if (state.isQualityListOpen)
-          _OverlayMenu(
+          StreamingOverlayMenu(
             onDismiss: () => ref.read(offlineSaveQuizProvider.notifier).dismissSettings(),
             child: StreamingSelectionList(
               title: context.s.common.quality,
@@ -93,7 +104,10 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
               score: state.score,
               elapsedMs: state.elapsedMs,
               onRetry: () {
-                setState(() => _showCutIn = true);
+                setState(() {
+                  _showCutIn = true;
+                  _hintUsed = false;
+                });
                 ref.read(offlineSaveQuizProvider.notifier).retry();
               },
               onNext: state.status == QuizStatus.correct
@@ -104,32 +118,6 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
             ),
           ),
       ],
-    );
-  }
-}
-
-class _OverlayMenu extends StatelessWidget {
-  const _OverlayMenu({required this.onDismiss, required this.child});
-
-  final VoidCallback onDismiss;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: GestureDetector(
-        onTap: onDismiss,
-        child: ColoredBox(
-          color: Colors.black45,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: () {},
-              child: child,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

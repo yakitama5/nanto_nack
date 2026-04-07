@@ -74,7 +74,11 @@
     "subtitlesOn": "On (Auto)",
     "shareTitle": "Share to",
     "linkCopied": "Link copied",
-    "savedToList": "Saved to playlist"
+    "savedToList": "Saved to playlist",
+    "quitConfirmTitle": "ゲームを中断しますか？",
+    "quitConfirmMessage": "プレイ中のゲームを終了します。",
+    "continueButton": "続ける",
+    "quitButton": "終了する"
   },
   "videos": {
     "v1Title": "Amazing Nature Documentary 4K",

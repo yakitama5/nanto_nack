@@ -43,6 +43,44 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
     _startTimer();
   }
 
+  void tapLike() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isLiked: !state.video.isLiked),
+    );
+  }
+
+  void tapDislike() {
+    if (state.status != QuizStatus.playing) return;
+  }
+
+  void tapShare() {
+    if (state.status != QuizStatus.playing) return;
+  }
+
+  void tapSave() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isSaved: !state.video.isSaved),
+    );
+  }
+
+  void tapDownload() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isDownloaded: !state.video.isDownloaded),
+    );
+  }
+
+  void tapSettings() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(isSettingsOpen: true);
+  }
+
+  void dismissSettings() {
+    state = state.copyWith(isSettingsOpen: false);
+  }
+
   void tapNext() {
     if (state.status != QuizStatus.playing) return;
     

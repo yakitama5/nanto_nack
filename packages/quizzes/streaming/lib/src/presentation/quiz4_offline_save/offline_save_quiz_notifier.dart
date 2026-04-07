@@ -43,6 +43,28 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
     _startTimer();
   }
 
+  void tapLike() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isLiked: !state.video.isLiked),
+    );
+  }
+
+  void tapDislike() {
+    if (state.status != QuizStatus.playing) return;
+  }
+
+  void tapShare() {
+    if (state.status != QuizStatus.playing) return;
+  }
+
+  void tapSave() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isSaved: !state.video.isSaved),
+    );
+  }
+
   void tapSettings() {
     if (state.status != QuizStatus.playing) return;
     state = state.copyWith(isSettingsOpen: true);
@@ -74,8 +96,30 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
 
   Future<void> tapDownload() async {
     if (state.status != QuizStatus.playing) return;
-    
-    final updatedVideo = state.video.copyWith(isDownloaded: !state.video.isDownloaded);
+
+    // 1080p以上の高画質（最高画質ではないが、ダウンロード可能な品質）かどうかを判定
+    final isHighQuality =
+        state.video.quality == '2160p' || state.video.quality == '1080p';
+
+    if (!isHighQuality) {
+      // 高画質でない場合は不正解（高画質を選んでからダウンロードする必要がある）
+      _timer?.cancel();
+      final elapsed = state.startedAt != null
+          ? clock.now().difference(state.startedAt!).inMilliseconds
+          : 0;
+      state = state.copyWith(
+        status: QuizStatus.incorrect,
+        elapsedMs: elapsed,
+        failureCount: state.failureCount + 1,
+      );
+      try {
+        await _saveResult(isCleared: false, elapsedMs: elapsed);
+      } catch (_) {}
+      return;
+    }
+
+    final updatedVideo =
+        state.video.copyWith(isDownloaded: !state.video.isDownloaded);
     state = state.copyWith(video: updatedVideo);
     _checkClear();
   }

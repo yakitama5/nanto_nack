@@ -11,12 +11,14 @@ class SkipSeekQuizState extends QuizStateBase {
     required this.progressSeconds,
     required this.isSkipped,
     required this.remainingSeconds,
+    required this.isSettingsOpen,
   });
 
   final StreamingVideo video;
   final int progressSeconds;
   final bool isSkipped;
   final int remainingSeconds;
+  final bool isSettingsOpen;
 
   SkipSeekQuizState copyWith({
     QuizStatus? status,
@@ -27,6 +29,7 @@ class SkipSeekQuizState extends QuizStateBase {
     int? progressSeconds,
     bool? isSkipped,
     int? remainingSeconds,
+    bool? isSettingsOpen,
   }) {
     return SkipSeekQuizState(
       status: status ?? this.status,
@@ -37,6 +40,7 @@ class SkipSeekQuizState extends QuizStateBase {
       progressSeconds: progressSeconds ?? this.progressSeconds,
       isSkipped: isSkipped ?? this.isSkipped,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      isSettingsOpen: isSettingsOpen ?? this.isSettingsOpen,
     );
   }
 
@@ -53,5 +57,6 @@ class SkipSeekQuizState extends QuizStateBase {
         progressSeconds: 0,
         isSkipped: false,
         remainingSeconds: timeLimitSeconds,
+        isSettingsOpen: false,
       );
 }

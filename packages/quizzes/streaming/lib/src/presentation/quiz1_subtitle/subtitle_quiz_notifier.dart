@@ -88,6 +88,46 @@ class SubtitleQuizNotifier extends AutoDisposeNotifier<SubtitleQuizState> {
     } catch (_) {}
   }
 
+  void tapLike() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isLiked: !state.video.isLiked),
+    );
+  }
+
+  void tapDislike() {
+    if (state.status != QuizStatus.playing) return;
+    // 低評価トグル（視覚フィードバックのみ）
+  }
+
+  void tapShare() {
+    if (state.status != QuizStatus.playing) return;
+    // シェアアクション（状態変更なし）
+  }
+
+  void tapSave() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isSaved: !state.video.isSaved),
+    );
+  }
+
+  void tapDownload() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      video: state.video.copyWith(isDownloaded: !state.video.isDownloaded),
+    );
+  }
+
+  void tapSettings() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(isSettingsOpen: true);
+  }
+
+  void dismissSettings() {
+    state = state.copyWith(isSettingsOpen: false);
+  }
+
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);

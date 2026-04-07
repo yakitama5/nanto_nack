@@ -121,6 +121,10 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get shareTitle => 'Share to';
 	@override String get linkCopied => 'Link copied';
 	@override String get savedToList => 'Saved to playlist';
+	@override String get quitConfirmTitle => 'Quit Game?';
+	@override String get quitConfirmMessage => 'Your current game will end.';
+	@override String get continueButton => 'Continue';
+	@override String get quitButton => 'Quit';
 }
 
 // Path: videos
@@ -277,6 +281,10 @@ extension on TranslationsEn {
 			'common.shareTitle' => 'Share to',
 			'common.linkCopied' => 'Link copied',
 			'common.savedToList' => 'Saved to playlist',
+			'common.quitConfirmTitle' => 'Quit Game?',
+			'common.quitConfirmMessage' => 'Your current game will end.',
+			'common.continueButton' => 'Continue',
+			'common.quitButton' => 'Quit',
 			'videos.v1Title' => 'Amazing Nature Documentary 4K',
 			'videos.v1Channel' => 'NatureWorld',
 			'videos.v2Title' => 'Learn Programming in 10 Minutes',

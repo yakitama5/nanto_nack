@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz1_subtitle/subtitle_quiz_notifier.dart';
+import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
 import 'package:streaming/src/presentation/streaming_player_screen.dart';
 
 class SubtitleQuizScreen extends ConsumerStatefulWidget {
@@ -17,6 +18,7 @@ class SubtitleQuizScreen extends ConsumerStatefulWidget {
 class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
   static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
+  bool _hintUsed = false;
 
   @override
   void initState() {
@@ -42,17 +44,44 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
       onGiveUp: () => ref.read(subtitleQuizProvider.notifier).giveUp(),
       onSubtitleToggle: () =>
           ref.read(subtitleQuizProvider.notifier).tapCC(),
-      showShareButton: false,
-      showSaveButton: false,
-      showDownloadButton: false,
-      showMoreButton: false,
-      highlightCC: state.status == QuizStatus.playing && !state.video.subtitlesEnabled,
+      onLikeTap: () => ref.read(subtitleQuizProvider.notifier).tapLike(),
+      onDislikeTap: () =>
+          ref.read(subtitleQuizProvider.notifier).tapDislike(),
+      onShareTap: () => ref.read(subtitleQuizProvider.notifier).tapShare(),
+      onSaveTap: () => ref.read(subtitleQuizProvider.notifier).tapSave(),
+      onDownloadTap: () =>
+          ref.read(subtitleQuizProvider.notifier).tapDownload(),
+      onMoreTap: () =>
+          ref.read(subtitleQuizProvider.notifier).tapSettings(),
+      showShareButton: true,
+      showSaveButton: true,
+      showDownloadButton: true,
+      showMoreButton: true,
+      hintUsed: _hintUsed,
+      onHintTap: () => setState(() => _hintUsed = true),
+      highlightCC: _hintUsed && state.status == QuizStatus.playing && !state.video.subtitlesEnabled,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
+          ),
+        if (state.isSettingsOpen)
+          StreamingOverlayMenu(
+            onDismiss: () =>
+                ref.read(subtitleQuizProvider.notifier).dismissSettings(),
+            child: StreamingMoreMenu(
+              video: state.video,
+              onSubtitleTap: () {
+                ref.read(subtitleQuizProvider.notifier).dismissSettings();
+                ref.read(subtitleQuizProvider.notifier).tapCC();
+              },
+              onQualityTap: () {},
+              onSpeedTap: () {},
+              onDismiss: () =>
+                  ref.read(subtitleQuizProvider.notifier).dismissSettings(),
+            ),
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||
@@ -64,7 +93,10 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
               score: state.score,
               elapsedMs: state.elapsedMs,
               onRetry: () {
-                setState(() => _showCutIn = true);
+                setState(() {
+                  _showCutIn = true;
+                  _hintUsed = false;
+                });
                 ref.read(subtitleQuizProvider.notifier).retry();
               },
               onNext: state.status == QuizStatus.correct
@@ -166,3 +198,4 @@ class _InsightItem extends StatelessWidget {
     );
   }
 }
+
