@@ -7,9 +7,20 @@ import 'package:shopping/src/presentation/shopping_app.dart';
 import 'package:shopping/src/presentation/water_quiz/water_quiz_notifier.dart';
 
 class WaterQuizScreen extends ConsumerStatefulWidget {
-  const WaterQuizScreen({super.key, this.onCompleted});
+  const WaterQuizScreen({
+    super.key,
+    this.onCompleted,
+    this.timerBubbleKey,
+    this.onMissionCutInFinished,
+  });
 
   final VoidCallback? onCompleted;
+
+  /// チュートリアル用：FloatingMissionBubble に設定する GlobalKey。
+  final GlobalKey? timerBubbleKey;
+
+  /// チュートリアル用：MissionCutIn 完了後に呼ばれるコールバック。
+  final VoidCallback? onMissionCutInFinished;
 
   @override
   ConsumerState<WaterQuizScreen> createState() => _WaterQuizScreenState();
@@ -56,12 +67,16 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
       onHintTap: () => ref.read(waterQuizProvider.notifier).useHint(),
       onGiveUp: () => ref.read(waterQuizProvider.notifier).giveUp(),
       cartBottomSheetBuilder: (context) => const _WaterCartSheet(),
+      timerBubbleKey: widget.timerBubbleKey,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              setState(() => _showCutIn = false);
+              widget.onMissionCutInFinished?.call();
+            },
           ),
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||

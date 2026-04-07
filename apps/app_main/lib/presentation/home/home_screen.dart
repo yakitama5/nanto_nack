@@ -5,9 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:system/system.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../application/dashboard_provider.dart';
 import '../../application/stage_list_provider.dart';
+import '../../application/tutorial/tutorial_notifier.dart';
 import '../../application/weather_provider.dart';
 import '../../domain/category.dart';
 import '../../domain/daily_scene.dart';
@@ -15,12 +17,133 @@ import '../../domain/dashboard/dashboard_state.dart';
 import '../../domain/dashboard/user_activity.dart';
 import '../../domain/weather/time_of_day_period.dart';
 import '../../domain/weather/weather_scene_key.dart';
+import '../tutorial/nantom_speech_bubble.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final _playButtonKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTutorial());
+  }
+
+  Future<void> _maybeShowTutorial() async {
+    final tutState = await ref.read(tutorialNotifierProvider.future);
+    if (!mounted) return;
+    if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
+      _showTutorial();
+    }
+  }
+
+  void _showTutorial() {
+    final screenSize = MediaQuery.sizeOf(context);
+    final centerPos = TargetPosition(
+      const Size(1, 1),
+      Offset(screenSize.width / 2, screenSize.height / 2),
+    );
+
+    final targets = [
+      // Step 1: ウェルカム（笑顔）
+      TargetFocus(
+        identify: 'home_welcome',
+        targetPosition: centerPos,
+        enableOverlayTab: false,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (ctx, ctl) => const NantomSpeechBubble(
+              expression: NantomExpression.smile,
+              text: 'ようこそ！ボクはナントム！',
+            ),
+          ),
+        ],
+      ),
+      // Step 2: アプリ紹介（通常）
+      TargetFocus(
+        identify: 'home_app_intro',
+        targetPosition: centerPos,
+        enableOverlayTab: false,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (ctx, ctl) => const NantomSpeechBubble(
+              expression: NantomExpression.normal,
+              text: 'ここではボクが作ったアプリをならべてるよ',
+            ),
+          ),
+        ],
+      ),
+      // Step 3: プレイボタン（笑顔）- プレイする以外タップ不可
+      TargetFocus(
+        identify: 'home_play_button',
+        keyTarget: _playButtonKey,
+        shape: ShapeLightFocus.RRect,
+        radius: 18,
+        paddingFocus: 8,
+        enableOverlayTab: false,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (ctx, ctl) => const NantomSpeechBubble(
+              expression: NantomExpression.smile,
+              text: '一生懸命作ったからさっそく使ってみて！',
+            ),
+          ),
+        ],
+      ),
+    ];
+
+    TutorialCoachMark(
+      targets: targets,
+      colorShadow: Colors.black,
+      opacityShadow: 0.85,
+      textSkip: 'スキップ',
+      skipWidget: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+        ),
+        child: const Text(
+          'スキップ',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      onClickTarget: (target) {
+        // プレイボタンをクリックしたときに CategoryListScreen へ遷移
+        if (target.identify == 'home_play_button') {
+          ref.read(analyticsServiceProvider).logPlayButtonTapped();
+          ref
+              .read(tutorialNotifierProvider.notifier)
+              .advanceTo(TutorialScreen.categoryList);
+          context.push('/play');
+        }
+      },
+      onFinish: () {
+        // コーチマーク完了（プレイボタンクリック後のfinish）
+      },
+      onSkip: () {
+        ref.read(tutorialNotifierProvider.notifier).complete();
+        return true;
+      },
+    ).show(context: context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final dashboardAsync = ref.watch(dashboardProvider);
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -47,6 +170,7 @@ class HomeScreen extends ConsumerWidget {
                     error: (_, __) => const SizedBox.shrink(),
                     data: (dashboard) => _DashboardContent(
                       dashboard: dashboard,
+                      playButtonKey: _playButtonKey,
                     ),
                   ),
                   // ===== ボトムパディング（SafeArea + 余白）=====
@@ -297,9 +421,13 @@ class _HeaderIconButton extends StatelessWidget {
 // ─────────────────────────────────────────
 
 class _DashboardContent extends StatelessWidget {
-  const _DashboardContent({required this.dashboard});
+  const _DashboardContent({
+    required this.dashboard,
+    this.playButtonKey,
+  });
 
   final DashboardState dashboard;
+  final Key? playButtonKey;
 
   @override
   Widget build(BuildContext context) {
@@ -324,6 +452,7 @@ class _DashboardContent extends StatelessWidget {
           // プレイヒーローカード（残りプレイ数 + プレイボタン）
           _PlayHeroCard(
             remainingPlayCount: dashboard.remainingPlayCount,
+            playButtonKey: playButtonKey,
           ),
           const SizedBox(height: 16),
           // 連続プレイ + 60日ヒートマップ統合カード
@@ -417,9 +546,13 @@ class _TipCard extends StatelessWidget {
 
 /// 残りプレイ数の円形インジケーターと「プレイする」ボタンを持つカード。
 class _PlayHeroCard extends ConsumerWidget {
-  const _PlayHeroCard({required this.remainingPlayCount});
+  const _PlayHeroCard({
+    required this.remainingPlayCount,
+    this.playButtonKey,
+  });
 
   final int? remainingPlayCount; // null = 無制限（プレミアム）
+  final Key? playButtonKey;
 
   static const _maxPlays = 5;
 
@@ -502,6 +635,7 @@ class _PlayHeroCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               FilledButton.icon(
+                key: playButtonKey,
                 onPressed: () {
                   ref.read(analyticsServiceProvider).logPlayButtonTapped();
                   context.push('/play');

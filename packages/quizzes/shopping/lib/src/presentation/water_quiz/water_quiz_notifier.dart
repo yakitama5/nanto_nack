@@ -139,6 +139,18 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
     _startTimer();
   }
 
+  /// チュートリアル中にタイマーを一時停止する。
+  void pauseTimer() {
+    _timer?.cancel();
+    _timer = null;
+  }
+
+  /// チュートリアル終了後にタイマーを再開する。
+  void resumeTimer() {
+    if (state.status != QuizStatus.playing) return;
+    _startTimer();
+  }
+
   void _startTimer() {
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {

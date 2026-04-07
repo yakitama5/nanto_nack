@@ -4,17 +4,111 @@ import 'package:go_router/go_router.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:system/system.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+import '../../application/tutorial/tutorial_notifier.dart';
 import '../../domain/category.dart';
 import '../../domain/stage.dart';
+import '../tutorial/nantom_speech_bubble.dart';
 
-class CategoryListScreen extends StatelessWidget {
+class CategoryListScreen extends ConsumerStatefulWidget {
   const CategoryListScreen({super.key});
+
+  @override
+  ConsumerState<CategoryListScreen> createState() =>
+      _CategoryListScreenState();
+}
+
+class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
+  final _shoppingCardKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTutorial());
+  }
+
+  Future<void> _maybeShowTutorial() async {
+    final tutState = await ref.read(tutorialNotifierProvider.future);
+    if (!mounted) return;
+    if (!tutState.isCompleted &&
+        tutState.screen == TutorialScreen.categoryList) {
+      _showTutorial();
+    }
+  }
+
+  void _showTutorial() {
+    final targets = [
+      // Step 4: Shopping カテゴリタイル（笑顔）
+      TargetFocus(
+        identify: 'category_shopping',
+        keyTarget: _shoppingCardKey,
+        shape: ShapeLightFocus.RRect,
+        radius: 20,
+        paddingFocus: 8,
+        enableOverlayTab: false,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (ctx, ctl) => const NantomSpeechBubble(
+              expression: NantomExpression.smile,
+              text: 'まずはショッピングアプリを体験してみよう。いくよ！',
+            ),
+          ),
+        ],
+      ),
+    ];
+
+    TutorialCoachMark(
+      targets: targets,
+      colorShadow: Colors.black,
+      opacityShadow: 0.85,
+      textSkip: 'スキップ',
+      skipWidget: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+        ),
+        child: const Text(
+          'スキップ',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      onClickTarget: (target) {
+        // Shopping タイルのクリックで直接 WaterQuiz に遷移（クイズ選択をスキップ）
+        if (target.identify == 'category_shopping') {
+          ref
+              .read(tutorialNotifierProvider.notifier)
+              .advanceTo(TutorialScreen.waterQuiz);
+          context.push('/shopping/water', extra: true);
+        }
+      },
+      onFinish: () {
+        // コーチマーク自体の完了（ターゲットクリック後に呼ばれる）
+      },
+      onSkip: () {
+        ref.read(tutorialNotifierProvider.notifier).complete();
+        return true;
+      },
+    ).show(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
+
+    // チュートリアル状態を監視し、Shopping カードのキーを管理
+    final tutState = ref.watch(tutorialNotifierProvider).valueOrNull;
+    final isTutorialActive = tutState != null &&
+        !tutState.isCompleted &&
+        tutState.screen == TutorialScreen.categoryList;
 
     return Scaffold(
       body: MaxWidthBox(
@@ -58,8 +152,13 @@ class CategoryListScreen extends StatelessWidget {
                   final stageCount = kAllStages
                       .where((s) => s.category == category.id)
                       .length;
+                  // チュートリアル中は Shopping カードにキーを設定
+                  final cardKey = (isTutorialActive && category.id == 'shopping')
+                      ? _shoppingCardKey
+                      : null;
                   return Consumer(
                     builder: (context, ref, _) => _CategoryCard(
+                      key: cardKey,
                       category: category,
                       stageCount: stageCount,
                       onTap: () {
@@ -84,6 +183,7 @@ class CategoryListScreen extends StatelessWidget {
 
 class _CategoryCard extends StatelessWidget {
   const _CategoryCard({
+    super.key,
     required this.category,
     required this.stageCount,
     required this.onTap,
