@@ -4,7 +4,8 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
-import 'package:shopping/src/presentation/shopping_app.dart' show ShoppingInsightItem;
+import 'package:shopping/src/presentation/shopping_app.dart'
+    show ShoppingInsightItem;
 
 // Amazon風カラー定数
 const _kNavyColor = Color(0xFF131921);
@@ -15,8 +16,7 @@ class CheckoutQuizScreen extends ConsumerStatefulWidget {
   final VoidCallback? onCompleted;
 
   @override
-  ConsumerState<CheckoutQuizScreen> createState() =>
-      _CheckoutQuizScreenState();
+  ConsumerState<CheckoutQuizScreen> createState() => _CheckoutQuizScreenState();
 }
 
 class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
@@ -51,150 +51,178 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
       }
     });
 
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: const Color(0xFFF3F3F3),
-          appBar: AppBar(
-            backgroundColor: _kNavyColor,
-            title: UnreadableText(
-              qt.appTitle,
-              isObfuscated: true,
-              animateOnObfuscate: false,
-              style: const TextStyle(color: Colors.white),
-            ),
-            iconTheme: const IconThemeData(color: Colors.white),
+    return PopScope(
+      canPop: quizState.status != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('ゲームを中断しますか？'),
+            content: const Text('プレイ中のゲームを終了します。'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('続ける'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('終了する'),
+              ),
+            ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                // ステップインジケーター
-                _StepIndicator(currentStep: 2),
-                const SizedBox(height: 8),
-                // 1. お届け先住所
-                _SectionCard(
-                  icon: Icons.location_on_outlined,
-                  title: qt.addressSection,
-                  child: TextField(
-                    controller: _addressController,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      hintText: CustomLanguageEncoder.encode(
-                        qt.addressPlaceholder,
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                    onChanged: (v) =>
-                        ref.read(checkoutQuizProvider.notifier).updateAddress(v),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // 2. お支払い方法
-                _SectionCard(
-                  icon: Icons.credit_card,
-                  title: qt.paymentSection,
-                  child: _PaymentMethodGroup(
-                    selectedPayment: quizState.selectedPayment,
-                    onChanged: (v) {
-                      if (v != null) {
-                        ref
-                            .read(checkoutQuizProvider.notifier)
-                            .selectPayment(v);
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // 3. 注文内容の確認
-                _OrderSummaryCard(
-                  isConfirmed: quizState.isConfirmed,
-                  onConfirmChanged: (v) => ref
-                      .read(checkoutQuizProvider.notifier)
-                      .toggleConfirmed(value: v ?? false),
-                ),
-                const SizedBox(height: 16),
-                // 注文確定ボタン
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFFD814),
-                        foregroundColor: Colors.black87,
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: const BorderSide(color: Color(0xFFFFA41C)),
+        );
+        if (confirmed == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: const Color(0xFFF3F3F3),
+            appBar: AppBar(
+              backgroundColor: _kNavyColor,
+              title: UnreadableText(
+                qt.appTitle,
+                isObfuscated: true,
+                animateOnObfuscate: false,
+                style: const TextStyle(color: Colors.white),
+              ),
+              iconTheme: const IconThemeData(color: Colors.white),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // ステップインジケーター
+                  _StepIndicator(currentStep: 2),
+                  const SizedBox(height: 8),
+                  // 1. お届け先住所
+                  _SectionCard(
+                    icon: Icons.location_on_outlined,
+                    title: qt.addressSection,
+                    child: TextField(
+                      controller: _addressController,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        hintText: CustomLanguageEncoder.encode(
+                          qt.addressPlaceholder,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade300),
                         ),
                       ),
-                      onPressed: quizState.status == QuizStatus.playing
-                          ? () =>
-                              ref.read(checkoutQuizProvider.notifier).confirm()
-                          : null,
-                      child: UnreadableText(
-                        qt.confirmButton,
-                        isObfuscated: true,
-                        animateOnObfuscate: false,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      onChanged: (v) => ref
+                          .read(checkoutQuizProvider.notifier)
+                          .updateAddress(v),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  // 2. お支払い方法
+                  _SectionCard(
+                    icon: Icons.credit_card,
+                    title: qt.paymentSection,
+                    child: _PaymentMethodGroup(
+                      selectedPayment: quizState.selectedPayment,
+                      onChanged: (v) {
+                        if (v != null) {
+                          ref
+                              .read(checkoutQuizProvider.notifier)
+                              .selectPayment(v);
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  // 3. 注文内容の確認
+                  _OrderSummaryCard(
+                    isConfirmed: quizState.isConfirmed,
+                    onConfirmChanged: (v) => ref
+                        .read(checkoutQuizProvider.notifier)
+                        .toggleConfirmed(value: v ?? false),
+                  ),
+                  const SizedBox(height: 16),
+                  // 注文確定ボタン
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFFD814),
+                          foregroundColor: Colors.black87,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(color: Color(0xFFFFA41C)),
+                          ),
+                        ),
+                        onPressed: quizState.status == QuizStatus.playing
+                            ? () => ref
+                                  .read(checkoutQuizProvider.notifier)
+                                  .confirm()
+                            : null,
+                        child: UnreadableText(
+                          qt.confirmButton,
+                          isObfuscated: true,
+                          animateOnObfuscate: false,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        // フローティングミッションバブル（ドラッグ可能な円形タイマー）
-        if (quizState.status == QuizStatus.playing)
-          FloatingMissionBubble(
-            remainingSeconds: quizState.remainingSeconds,
-            missionText: missionText,
-            hintUsed: false,
-            timeLimitSeconds: _timeLimitSeconds,
-            onGiveUp: () => ref.read(checkoutQuizProvider.notifier).giveUp(),
-          ),
-        // カットイン演出
-        if (_showCutIn)
-          MissionCutIn(
-            missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
-          ),
-        // 正誤結果オーバーレイ
-        if (quizState.status == QuizStatus.correct ||
-            quizState.status == QuizStatus.incorrect ||
-            quizState.status == QuizStatus.timeUp ||
-            quizState.status == QuizStatus.giveUp)
-          Positioned.fill(
-            child: QuizResultOverlay(
-              status: quizState.status,
-              score: quizState.score,
-              elapsedMs: quizState.elapsedMs,
-              onRetry: () {
-                setState(() => _showCutIn = true);
-                ref.read(checkoutQuizProvider.notifier).retry();
-              },
-              onNext: quizState.status == QuizStatus.correct
-                  ? widget.onCompleted
-                  : null,
-              onBack: () => Navigator.of(context).pop(),
-              insight: const _CheckoutUiInsight(),
+          // フローティングミッションバブル（ドラッグ可能な円形タイマー）
+          if (quizState.status == QuizStatus.playing)
+            FloatingMissionBubble(
+              remainingSeconds: quizState.remainingSeconds,
+              missionText: missionText,
+              hintUsed: false,
+              timeLimitSeconds: _timeLimitSeconds,
+              onGiveUp: () => ref.read(checkoutQuizProvider.notifier).giveUp(),
             ),
-          ),
-      ],
+          // カットイン演出
+          if (_showCutIn)
+            MissionCutIn(
+              missionText: missionText,
+              timeLimitSeconds: _timeLimitSeconds,
+              onFinished: () => setState(() => _showCutIn = false),
+            ),
+          // 正誤結果オーバーレイ
+          if (quizState.status == QuizStatus.correct ||
+              quizState.status == QuizStatus.incorrect ||
+              quizState.status == QuizStatus.timeUp ||
+              quizState.status == QuizStatus.giveUp)
+            Positioned.fill(
+              child: QuizResultOverlay(
+                status: quizState.status,
+                score: quizState.score,
+                elapsedMs: quizState.elapsedMs,
+                onRetry: () {
+                  setState(() => _showCutIn = true);
+                  ref.read(checkoutQuizProvider.notifier).retry();
+                },
+                onNext: quizState.status == QuizStatus.correct
+                    ? widget.onCompleted
+                    : null,
+                onBack: () => Navigator.of(context).pop(),
+                insight: const _CheckoutUiInsight(),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -218,8 +246,8 @@ class _CheckoutUiInsight extends StatelessWidget {
               child: Text(
                 insight.title,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -227,10 +255,9 @@ class _CheckoutUiInsight extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           insight.subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(color: Colors.grey.shade600),
         ),
         const SizedBox(height: 12),
         ShoppingInsightItem(
@@ -298,8 +325,9 @@ class _StepIndicator extends StatelessWidget {
                       : Text(
                           '$stepIndex',
                           style: TextStyle(
-                            color:
-                                isCurrent ? Colors.white : Colors.grey.shade500,
+                            color: isCurrent
+                                ? Colors.white
+                                : Colors.grey.shade500,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -316,8 +344,7 @@ class _StepIndicator extends StatelessWidget {
                   color: isCurrent
                       ? const Color(0xFF232F3E)
                       : Colors.grey.shade500,
-                  fontWeight:
-                      isCurrent ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ],
@@ -359,8 +386,8 @@ class _SectionCard extends StatelessWidget {
                   isObfuscated: true,
                   animateOnObfuscate: false,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -461,8 +488,8 @@ class _OrderSummaryCard extends StatelessWidget {
                   isObfuscated: true,
                   animateOnObfuscate: false,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
