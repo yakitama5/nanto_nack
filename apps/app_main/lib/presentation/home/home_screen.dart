@@ -44,22 +44,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _showTutorial() {
-    final screenSize = MediaQuery.sizeOf(context);
-    final centerPos = TargetPosition(
-      const Size(1, 1),
-      Offset(screenSize.width / 2, screenSize.height / 2),
-    );
-
     final targets = [
-      // Step 1: ウェルカム（笑顔）- フォーカスなし
+      // Step 1: ウェルカム（笑顔）- プレイボタンにフォーカス
       TargetFocus(
         identify: 'home_welcome',
-        targetPosition: centerPos,
+        keyTarget: _playButtonKey,
+        shape: ShapeLightFocus.RRect,
+        radius: 18,
+        paddingFocus: 8,
         enableOverlayTab: true,
-        paddingFocus: 0,
         contents: [
           TargetContent(
-            align: ContentAlign.bottom,
+            align: ContentAlign.top,
             builder: (ctx, ctl) => const NantomSpeechBubble(
               expression: NantomExpression.smile,
               text: 'ようこそ！ボクはナントム！',
@@ -67,15 +63,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      // Step 2: アプリ紹介（通常）- フォーカスなし
+      // Step 2: アプリ紹介（通常）- プレイボタンにフォーカスしたまま
       TargetFocus(
         identify: 'home_app_intro',
-        targetPosition: centerPos,
+        keyTarget: _playButtonKey,
+        shape: ShapeLightFocus.RRect,
+        radius: 18,
+        paddingFocus: 8,
         enableOverlayTab: true,
-        paddingFocus: 0,
         contents: [
           TargetContent(
-            align: ContentAlign.bottom,
+            align: ContentAlign.top,
             builder: (ctx, ctl) => const NantomSpeechBubble(
               expression: NantomExpression.normal,
               text: 'ここではボクが作ったアプリをならべてるよ',
@@ -83,7 +81,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      // Step 3: プレイボタン（笑顔）- ここで初めてフォーカス表示
+      // Step 3: プレイボタン（笑顔）- フォーカスしたまま
       TargetFocus(
         identify: 'home_play_button',
         keyTarget: _playButtonKey,

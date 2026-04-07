@@ -105,7 +105,10 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         // コーチマーク自体の完了（ターゲットクリック後に呼ばれる）
       },
       onSkip: () {
-        ref.read(tutorialNotifierProvider.notifier).complete();
+        // ウィジェットツリーのビルド中に provider を更新するとエラーになるため遅延させる
+        Future.microtask(
+          () => ref.read(tutorialNotifierProvider.notifier).complete(),
+        );
         return true;
       },
     ).show(context: context);
@@ -115,12 +118,6 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
-
-    // チュートリアル状態を監視し、Shopping カードのキーを管理
-    final tutState = ref.watch(tutorialNotifierProvider).valueOrNull;
-    final isTutorialActive = tutState != null &&
-        !tutState.isCompleted &&
-        tutState.screen == TutorialScreen.categoryList;
 
     return Scaffold(
       body: MaxWidthBox(
@@ -164,10 +161,9 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
                   final stageCount = kAllStages
                       .where((s) => s.category == category.id)
                       .length;
-                  // チュートリアル中は Shopping カードにキーを設定
-                  final cardKey = (isTutorialActive && category.id == 'shopping')
-                      ? _shoppingCardKey
-                      : null;
+                  // Shopping カードは常にキーを設定（チュートリアルのタイミング問題を避けるため）
+                  final cardKey =
+                      category.id == 'shopping' ? _shoppingCardKey : null;
                   return Consumer(
                     builder: (context, ref, _) => _CategoryCard(
                       key: cardKey,
