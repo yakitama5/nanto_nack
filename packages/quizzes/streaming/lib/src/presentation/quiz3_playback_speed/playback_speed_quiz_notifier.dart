@@ -50,14 +50,6 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
     );
   }
 
-  void tapDislike() {
-    if (state.status != QuizStatus.playing) return;
-  }
-
-  void tapShare() {
-    if (state.status != QuizStatus.playing) return;
-  }
-
   void tapSave() {
     if (state.status != QuizStatus.playing) return;
     state = state.copyWith(

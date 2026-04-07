@@ -180,6 +180,18 @@ class TranslationsCommonJa {
 
 	/// ja: 'Saved to playlist'
 	String get savedToList => 'Saved to playlist';
+
+	/// ja: 'ゲームを中断しますか？'
+	String get quitConfirmTitle => 'ゲームを中断しますか？';
+
+	/// ja: 'プレイ中のゲームを終了します。'
+	String get quitConfirmMessage => 'プレイ中のゲームを終了します。';
+
+	/// ja: '続ける'
+	String get continueButton => '続ける';
+
+	/// ja: '終了する'
+	String get quitButton => '終了する';
 }
 
 // Path: videos
@@ -420,6 +432,10 @@ extension on Translations {
 			'common.shareTitle' => 'Share to',
 			'common.linkCopied' => 'Link copied',
 			'common.savedToList' => 'Saved to playlist',
+			'common.quitConfirmTitle' => 'ゲームを中断しますか？',
+			'common.quitConfirmMessage' => 'プレイ中のゲームを終了します。',
+			'common.continueButton' => '続ける',
+			'common.quitButton' => '終了する',
 			'videos.v1Title' => 'Amazing Nature Documentary 4K',
 			'videos.v1Channel' => 'NatureWorld',
 			'videos.v2Title' => 'Learn Programming in 10 Minutes',

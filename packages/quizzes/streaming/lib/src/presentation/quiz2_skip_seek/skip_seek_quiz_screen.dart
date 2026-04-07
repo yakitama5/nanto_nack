@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz2_skip_seek/skip_seek_quiz_notifier.dart';
+import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
 import 'package:streaming/src/presentation/streaming_player_screen.dart';
 
 class SkipSeekQuizScreen extends ConsumerStatefulWidget {
@@ -68,7 +69,7 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.isSettingsOpen)
-          _OverlayMenu(
+          StreamingOverlayMenu(
             onDismiss: () =>
                 ref.read(skipSeekQuizProvider.notifier).dismissSettings(),
             child: StreamingMoreMenu(
@@ -196,30 +197,3 @@ class _InsightItem extends StatelessWidget {
   }
 }
 
-// ─── オーバーレイメニュー ─────────────────────────────────────────────────────
-
-class _OverlayMenu extends StatelessWidget {
-  const _OverlayMenu({required this.onDismiss, required this.child});
-
-  final VoidCallback onDismiss;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: GestureDetector(
-        onTap: onDismiss,
-        child: ColoredBox(
-          color: Colors.black45,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: () {}, // メニュー内タップで閉じないように
-              child: child,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

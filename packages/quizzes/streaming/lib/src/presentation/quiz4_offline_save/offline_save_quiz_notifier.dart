@@ -97,11 +97,12 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
   Future<void> tapDownload() async {
     if (state.status != QuizStatus.playing) return;
 
-    final isHighestQuality =
+    // 1080p以上の高画質（最高画質ではないが、ダウンロード可能な品質）かどうかを判定
+    final isHighQuality =
         state.video.quality == '2160p' || state.video.quality == '1080p';
 
-    if (!isHighestQuality) {
-      // 最高画質でない場合は不正解（高画質を選んでからダウンロードする必要がある）
+    if (!isHighQuality) {
+      // 高画質でない場合は不正解（高画質を選んでからダウンロードする必要がある）
       _timer?.cancel();
       final elapsed = state.startedAt != null
           ? clock.now().difference(state.startedAt!).inMilliseconds

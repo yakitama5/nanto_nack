@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz3_playback_speed/playback_speed_quiz_notifier.dart';
+import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
 import 'package:streaming/src/presentation/streaming_player_screen.dart';
 
 class PlaybackSpeedQuizScreen extends ConsumerStatefulWidget {
@@ -45,9 +46,6 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
       onLongPressStart: () => ref.read(playbackSpeedQuizProvider.notifier).longPressStart(),
       onLongPressEnd: () => ref.read(playbackSpeedQuizProvider.notifier).longPressEnd(),
       onLikeTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapLike(),
-      onDislikeTap: () =>
-          ref.read(playbackSpeedQuizProvider.notifier).tapDislike(),
-      onShareTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapShare(),
       onSaveTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapSave(),
       onDownloadTap: () =>
           ref.read(playbackSpeedQuizProvider.notifier).tapDownload(),
@@ -67,7 +65,7 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
           ),
         // 設定メニュー
         if (state.isSettingsOpen && !state.isSpeedListOpen)
-          _OverlayMenu(
+          StreamingOverlayMenu(
             onDismiss: () => ref.read(playbackSpeedQuizProvider.notifier).dismissSettings(),
             child: StreamingMoreMenu(
               video: state.video,
@@ -79,7 +77,7 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
           ),
         // 再生速度リスト
         if (state.isSpeedListOpen)
-          _OverlayMenu(
+          StreamingOverlayMenu(
             onDismiss: () => ref.read(playbackSpeedQuizProvider.notifier).dismissSettings(),
             child: StreamingSelectionList(
               title: context.s.common.playbackSpeed,
@@ -115,32 +113,6 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
             ),
           ),
       ],
-    );
-  }
-}
-
-class _OverlayMenu extends StatelessWidget {
-  const _OverlayMenu({required this.onDismiss, required this.child});
-
-  final VoidCallback onDismiss;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: GestureDetector(
-        onTap: onDismiss,
-        child: ColoredBox(
-          color: Colors.black45,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: () {}, // メニュー内タップで閉じないように
-              child: child,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

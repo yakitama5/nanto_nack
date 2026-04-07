@@ -105,16 +105,16 @@ class StreamingPlayerScreen extends StatelessWidget {
         final confirmed = await showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('ゲームを中断しますか？'),
-            content: const Text('プレイ中のゲームを終了します。'),
+            title: Text(context.s.common.quitConfirmTitle),
+            content: Text(context.s.common.quitConfirmMessage),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('続ける'),
+                child: Text(context.s.common.continueButton),
               ),
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('終了する'),
+                child: Text(context.s.common.quitButton),
               ),
             ],
           ),
