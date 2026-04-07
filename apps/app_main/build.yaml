@@ -1,0 +1,10 @@
+# envied_generator は lib/env 配下の @Envied アノテーション付きファイルのみをスキャン対象とする
+# lib/presentation, lib/application 等は対象外とすることで生成を高速化
+targets:
+  $default:
+    sources:
+      include:
+        - lib/env/**
+        - $package$
+      exclude:
+        - lib/env/**/*.g.dart

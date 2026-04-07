@@ -1,0 +1,10 @@
+# drift_dev はデータベース関連ファイルのみをスキャン対象とする
+# lib/src/firebase, lib/src/purchase 等は対象外とすることで生成を高速化
+targets:
+  $default:
+    sources:
+      include:
+        - lib/src/database/**
+        - $package$
+      exclude:
+        - lib/src/database/**/*.g.dart
