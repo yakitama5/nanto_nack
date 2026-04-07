@@ -58,6 +58,7 @@ class ShoppingApp extends StatefulWidget {
     required this.missionText,
     required this.hintUsed,
     required this.timeLimitSeconds,
+    this.hintNavIndex = 0,
     this.onHintTap,
     this.onGiveUp,
     // ── カートシート ─────────────────────────────────────────
@@ -79,6 +80,7 @@ class ShoppingApp extends StatefulWidget {
   final String missionText;
   final bool hintUsed;
   final int timeLimitSeconds;
+  final int hintNavIndex;
   final VoidCallback? onHintTap;
   final VoidCallback? onGiveUp;
   final WidgetBuilder cartBottomSheetBuilder;
@@ -143,6 +145,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
               selectedIndex: _selectedNavIndex,
               onTap: _onNavTap,
               hintUsed: widget.hintUsed,
+              hintNavIndex: widget.hintNavIndex,
             ),
           ),
           // フローティングミッションバブル（ドラッグ可能な円形タイマー、プレイ中のみ表示）
@@ -192,6 +195,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
       return canShowHistory
           ? _OrderHistoryView(
               recentOrder: order,
+              hintUsed: widget.hintUsed,
               onBack: () => setState(() => _showOrderHistory = false),
             )
           : _AccountMenuView(
@@ -928,7 +932,7 @@ class _MenuSection extends StatelessWidget {
             ),
           ),
         ),
-        Container(
+        Material(
           color: Colors.white,
           child: Column(children: items),
         ),
@@ -1010,6 +1014,68 @@ class _ShoppingEmptyResult extends StatelessWidget {
   }
 }
 
+// ─── ヒント時に点滅するウィジェット ──────────────────────────────────────
+
+class _Blinker extends StatefulWidget {
+  const _Blinker({
+    required this.blinking,
+    required this.child,
+  });
+
+  final bool blinking;
+  final Widget child;
+
+  @override
+  State<_Blinker> createState() => _BlinkerState();
+}
+
+class _BlinkerState extends State<_Blinker>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    if (widget.blinking) _ctrl.repeat(reverse: true);
+  }
+
+  @override
+  void didUpdateWidget(_Blinker old) {
+    super.didUpdateWidget(old);
+    if (widget.blinking != old.blinking) {
+      if (widget.blinking) {
+        _ctrl.repeat(reverse: true);
+      } else {
+        _ctrl.stop();
+        _ctrl.reset();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!widget.blinking) return widget.child;
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (_, child) => Opacity(
+        opacity: 0.4 + _ctrl.value * 0.6,
+        child: child,
+      ),
+      child: widget.child,
+    );
+  }
+}
+
 // ─── ボトムナビゲーション ──────────────────────────────────────────────────
 
 class _ShoppingBottomNav extends StatelessWidget {
@@ -1017,11 +1083,13 @@ class _ShoppingBottomNav extends StatelessWidget {
     required this.selectedIndex,
     required this.onTap,
     this.hintUsed = false,
+    this.hintNavIndex = 0,
   });
 
   final int selectedIndex;
   final ValueChanged<int> onTap;
   final bool hintUsed;
+  final int hintNavIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -1054,7 +1122,7 @@ class _ShoppingBottomNav extends StatelessWidget {
                 icon: item.icon,
                 label: item.label,
                 isSelected: selectedIndex == i,
-                showHintBorder: hintUsed && i == 0,
+                showHintBorder: hintUsed && i == hintNavIndex,
               ),
             );
           }).toList(),
@@ -1101,18 +1169,23 @@ class _ShoppingNavItem extends StatelessWidget {
       ],
     );
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: showHintBorder
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.yellow, width: 2),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: content,
-            )
-          : content,
+    final innerWidget = showHintBorder
+        ? Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.yellow, width: 2),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: content,
+          )
+        : content;
+
+    return _Blinker(
+      blinking: showHintBorder,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: innerWidget,
+      ),
     );
   }
 }
@@ -1136,42 +1209,47 @@ class _AccountMenuView extends StatelessWidget {
     return ListView(
       children: [
         // プロフィールヘッダー
-        Container(
+        Material(
           color: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          child: Row(
-            children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFE8E8E8),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.person,
-                  size: 32,
-                  color: Color(0xFF888888),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: UnreadableText(
-                  context.sq.navigation.account,
-                  isObfuscated: true,
-                  animateOnObfuscate: false,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+          child: InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              child: Row(
+                children: [
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFE8E8E8),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      size: 32,
+                      color: Color(0xFF888888),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: UnreadableText(
+                      context.sq.navigation.account,
+                      isObfuscated: true,
+                      animateOnObfuscate: false,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
         const SizedBox(height: 8),
         // メニューリスト
-        Container(
+        Material(
           color: Colors.white,
           child: Column(
             children: [
@@ -1277,10 +1355,12 @@ class _OrderHistoryView extends StatelessWidget {
   const _OrderHistoryView({
     required this.recentOrder,
     required this.onBack,
+    this.hintUsed = false,
   });
 
   final ShoppingRecentOrder recentOrder;
   final VoidCallback onBack;
+  final bool hintUsed;
 
   @override
   Widget build(BuildContext context) {
@@ -1431,37 +1511,40 @@ class _OrderHistoryView extends StatelessWidget {
                       ),
                     ),
                     // 「もう一度買う」ボタン
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFFD814),
-                            foregroundColor: Colors.black87,
-                            elevation: 0,
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              side: const BorderSide(
-                                color: Color(0xFFFFA41C),
+                    _Blinker(
+                      blinking: hintUsed && recentOrder.isPlayable,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFFFD814),
+                              foregroundColor: Colors.black87,
+                              elevation: 0,
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                side: const BorderSide(
+                                  color: Color(0xFFFFA41C),
+                                ),
                               ),
                             ),
-                          ),
-                          onPressed: recentOrder.isPlayable
-                              ? () {
-                                  recentOrder.onReorder();
-                                  onBack(); // カート追加後はアカウントメニューへ戻る
-                                }
-                              : null,
-                          child: UnreadableText(
-                            qt.reorderButton,
-                            isObfuscated: true,
-                            animateOnObfuscate: false,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                            onPressed: recentOrder.isPlayable
+                                ? () {
+                                    recentOrder.onReorder();
+                                    onBack(); // カート追加後はアカウントメニューへ戻る
+                                  }
+                                : null,
+                            child: UnreadableText(
+                              qt.reorderButton,
+                              isObfuscated: true,
+                              animateOnObfuscate: false,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),

@@ -625,7 +625,7 @@ class _NumberCipherTable extends StatelessWidget {
               const SizedBox(width: 6),
               UnreadableText(
                 labelText,
-                isObfuscated: true,
+                isObfuscated: false,
                 animateOnObfuscate: false,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,

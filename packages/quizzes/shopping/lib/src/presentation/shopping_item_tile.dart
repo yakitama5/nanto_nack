@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/shopping_item.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
@@ -37,8 +38,41 @@ class ShoppingItemTile extends StatefulWidget {
   State<ShoppingItemTile> createState() => _ShoppingItemTileState();
 }
 
-class _ShoppingItemTileState extends State<ShoppingItemTile> {
+class _ShoppingItemTileState extends State<ShoppingItemTile>
+    with SingleTickerProviderStateMixin {
   bool _isFavorite = false;
+  late final AnimationController _blinkController;
+
+  @override
+  void initState() {
+    super.initState();
+    _blinkController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    if (widget.highlighted) {
+      _blinkController.repeat(reverse: true);
+    }
+  }
+
+  @override
+  void didUpdateWidget(ShoppingItemTile old) {
+    super.didUpdateWidget(old);
+    if (widget.highlighted != old.highlighted) {
+      if (widget.highlighted) {
+        _blinkController.repeat(reverse: true);
+      } else {
+        _blinkController.stop();
+        _blinkController.reset();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _blinkController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,19 +89,22 @@ class _ShoppingItemTileState extends State<ShoppingItemTile> {
             aspectRatio: 1,
             child: Stack(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: widget.highlighted
-                        ? const Color(0xFFFFF3CD)
-                        : Colors.grey[50],
-                    border: widget.highlighted
-                        ? Border.all(
-                            color: Colors.yellow,
-                            width: 2,
-                          )
-                        : null,
-                  ),
-                  alignment: Alignment.center,
+                AnimatedBuilder(
+                  animation: _blinkController,
+                  builder: (_, child) {
+                    final bg = widget.highlighted
+                        ? Color.lerp(
+                            Colors.grey[50]!,
+                            const Color(0xFFFFF3CD),
+                            _blinkController.value,
+                          )!
+                        : Colors.grey[50]!;
+                    return Container(
+                      decoration: BoxDecoration(color: bg),
+                      alignment: Alignment.center,
+                      child: child,
+                    );
+                  },
                   child: Image.asset(
                     widget.item.imagePath,
                     package: 'shopping',
@@ -143,35 +180,37 @@ class _FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      transitionBuilder: (child, animation) =>
-          ScaleTransition(scale: animation, child: child),
-      child: isFavorite
-          ? IconButton(
-              key: const ValueKey('fav'),
-              icon: const Icon(Icons.favorite, color: Colors.red, size: 20),
-              onPressed: onToggle,
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.white.withValues(alpha: 0.85),
-                padding: const EdgeInsets.all(4),
-                minimumSize: const Size(32, 32),
-              ),
-            )
-          : IconButton(
-              key: const ValueKey('fav_border'),
-              icon: const Icon(
-                Icons.favorite_border,
-                color: Colors.grey,
-                size: 20,
-              ),
-              onPressed: onToggle,
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.white.withValues(alpha: 0.85),
-                padding: const EdgeInsets.all(4),
-                minimumSize: const Size(32, 32),
-              ),
-            ),
+    return Container(
+      width: 32,
+      height: 32,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.85),
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: LikeButton(
+          size: 20,
+          isLiked: isFavorite,
+          onTap: (isLiked) async {
+            onToggle();
+            return !isLiked;
+          },
+          likeBuilder: (isLiked) => Icon(
+            isLiked ? Icons.favorite : Icons.favorite_border,
+            color: isLiked ? Colors.red : Colors.grey,
+            size: 20,
+          ),
+          circleColor: const CircleColor(
+            start: Color(0xFFFF69B4),
+            end: Color(0xFFFF0080),
+          ),
+          bubblesColor: const BubblesColor(
+            dotPrimaryColor: Color(0xFFFF69B4),
+            dotSecondaryColor: Color(0xFFFF8FB6),
+          ),
+          likeCountAnimationType: LikeCountAnimationType.none,
+        ),
+      ),
     );
   }
 }
