@@ -17,6 +17,7 @@ class SkipSeekQuizScreen extends ConsumerStatefulWidget {
 class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
   static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
+  bool _hintUsed = false;
 
   @override
   void initState() {
@@ -55,8 +56,10 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
       showSaveButton: true,
       showDownloadButton: true,
       showMoreButton: true,
-      highlightNext: state.status == QuizStatus.playing && !state.isSkipped,
-      highlightSeek: state.status == QuizStatus.playing && state.isSkipped,
+      hintUsed: _hintUsed,
+      onHintTap: () => setState(() => _hintUsed = true),
+      highlightNext: _hintUsed && state.status == QuizStatus.playing && !state.isSkipped,
+      highlightSeek: _hintUsed && state.status == QuizStatus.playing && state.isSkipped,
       overlays: [
         if (_showCutIn)
           MissionCutIn(

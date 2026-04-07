@@ -17,6 +17,7 @@ class SubtitleQuizScreen extends ConsumerStatefulWidget {
 class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
   static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
+  bool _hintUsed = false;
 
   @override
   void initState() {
@@ -55,7 +56,9 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
       showSaveButton: true,
       showDownloadButton: true,
       showMoreButton: true,
-      highlightCC: state.status == QuizStatus.playing && !state.video.subtitlesEnabled,
+      hintUsed: _hintUsed,
+      onHintTap: () => setState(() => _hintUsed = true),
+      highlightCC: _hintUsed && state.status == QuizStatus.playing && !state.video.subtitlesEnabled,
       overlays: [
         if (_showCutIn)
           MissionCutIn(

@@ -17,6 +17,7 @@ class OfflineSaveQuizScreen extends ConsumerStatefulWidget {
 class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
   static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
+  bool _hintUsed = false;
 
   @override
   void initState() {
@@ -54,8 +55,10 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
       showSaveButton: true,
       showDownloadButton: true,
       showMoreButton: true,
-      highlightMore: state.status == QuizStatus.playing && !isHighestQuality && !state.isSettingsOpen,
-      highlightDownload: state.status == QuizStatus.playing && isHighestQuality && !state.video.isDownloaded,
+      hintUsed: _hintUsed,
+      onHintTap: () => setState(() => _hintUsed = true),
+      highlightMore: _hintUsed && state.status == QuizStatus.playing && !isHighestQuality && !state.isSettingsOpen,
+      highlightDownload: _hintUsed && state.status == QuizStatus.playing && isHighestQuality && !state.video.isDownloaded,
       overlays: [
         if (_showCutIn)
           MissionCutIn(

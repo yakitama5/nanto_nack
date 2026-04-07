@@ -45,6 +45,8 @@ class StreamingPlayerScreen extends StatelessWidget {
     this.highlightSave = false,
     this.highlightDownload = false,
     this.highlightMore = false,
+    this.hintUsed = false,
+    this.onHintTap,
   });
 
   final StreamingVideo video;
@@ -87,6 +89,12 @@ class StreamingPlayerScreen extends StatelessWidget {
   final bool highlightSave;
   final bool highlightDownload;
   final bool highlightMore;
+
+  /// ヒントを使用済みかどうか
+  final bool hintUsed;
+
+  /// ヒントボタンタップ時のコールバック
+  final VoidCallback? onHintTap;
 
   @override
   Widget build(BuildContext context) {
@@ -137,10 +145,12 @@ class StreamingPlayerScreen extends StatelessWidget {
                 onLongPressStart: onLongPressStart,
                 onLongPressEnd: onLongPressEnd,
                 onCCSelect: onSubtitleToggle,
+                onMoreTap: onMoreTap,
                 highlightPlay: highlightPlay,
                 highlightNext: highlightNext,
                 highlightSeek: highlightSeek,
                 highlightCC: highlightCC,
+                highlightMore: highlightMore,
               ),
               // 動画情報・アクションボタン
               Expanded(
@@ -174,7 +184,8 @@ class StreamingPlayerScreen extends StatelessWidget {
             FloatingMissionBubble(
               remainingSeconds: remainingSeconds,
               missionText: missionText,
-              hintUsed: false,
+              hintUsed: hintUsed,
+              onHintTap: onHintTap,
               timeLimitSeconds: timeLimitSeconds,
               onGiveUp: onGiveUp,
             ),
@@ -203,7 +214,7 @@ class _StreamingAppBar extends StatelessWidget {
         children: [
           IconButton(
             icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.maybePop(context),
           ),
           const Spacer(),
           const Icon(Icons.cast, color: Colors.white),
@@ -229,10 +240,12 @@ class _VideoPlayer extends StatefulWidget {
     this.onLongPressStart,
     this.onLongPressEnd,
     this.onCCSelect,
+    this.onMoreTap,
     this.highlightPlay = false,
     this.highlightNext = false,
     this.highlightSeek = false,
     this.highlightCC = false,
+    this.highlightMore = false,
   });
 
   final StreamingVideo video;
@@ -244,10 +257,12 @@ class _VideoPlayer extends StatefulWidget {
   final VoidCallback? onLongPressStart;
   final VoidCallback? onLongPressEnd;
   final VoidCallback? onCCSelect;
+  final VoidCallback? onMoreTap;
   final bool highlightPlay;
   final bool highlightNext;
   final bool highlightSeek;
   final bool highlightCC;
+  final bool highlightMore;
 
   @override
   State<_VideoPlayer> createState() => _VideoPlayerState();
@@ -447,7 +462,20 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                                 : null,
                           ),
                           const SizedBox(width: 12),
-                          const Icon(Icons.settings_outlined, color: Colors.white70),
+                          GestureDetector(
+                            onTap: widget.onMoreTap,
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: widget.highlightMore
+                                  ? BoxDecoration(
+                                      color: Colors.yellow.withValues(alpha: 0.3),
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(color: Colors.yellow, width: 1.5),
+                                    )
+                                  : null,
+                              child: const Icon(Icons.settings_outlined, color: Colors.white70),
+                            ),
+                          ),
                           const SizedBox(width: 8),
                         ],
                       ),

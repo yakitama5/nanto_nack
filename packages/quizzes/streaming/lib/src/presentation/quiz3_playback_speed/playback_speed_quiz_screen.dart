@@ -17,6 +17,7 @@ class PlaybackSpeedQuizScreen extends ConsumerStatefulWidget {
 class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScreen> {
   static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
+  bool _hintUsed = false;
 
   @override
   void initState() {
@@ -54,7 +55,9 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
       showSaveButton: true,
       showDownloadButton: true,
       showMoreButton: true,
-      highlightMore: state.status == QuizStatus.playing && !state.isSettingsOpen,
+      hintUsed: _hintUsed,
+      onHintTap: () => setState(() => _hintUsed = true),
+      highlightMore: _hintUsed && state.status == QuizStatus.playing && !state.isSettingsOpen,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
