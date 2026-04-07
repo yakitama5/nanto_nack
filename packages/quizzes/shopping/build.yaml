@@ -4,8 +4,10 @@ targets:
   $default:
     sources:
       include:
+        - pubspec.yaml
         - assets/**
         - lib/gen/**
+        - lib/$lib$
         - $package$
       exclude:
         - lib/gen/**/*.g.dart
