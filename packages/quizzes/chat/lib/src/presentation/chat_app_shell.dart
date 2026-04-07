@@ -58,10 +58,15 @@ class ChatAppShell extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Icon(Icons.search, color: Colors.white),
-                    const SizedBox(width: 16),
-                    const Icon(Icons.more_vert, color: Colors.white),
-                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.search, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.more_vert, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                    const SizedBox(width: 4),
                   ],
                 ),
               ),
@@ -348,13 +353,17 @@ class _HomeTabContent extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
-                    borderRadius: BorderRadius.circular(8),
+                InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(Icons.qr_code, size: 20, color: Colors.grey),
                   ),
-                  child: const Icon(Icons.qr_code, size: 20, color: Colors.grey),
                 ),
               ],
             ),
@@ -481,23 +490,31 @@ class _ServiceIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconColor = color ?? Colors.grey.shade600;
-    return Column(
-      children: [
-        Container(
-          width: 52,
-          height: 52,
-          decoration: BoxDecoration(
-            color: (color ?? Colors.grey).withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Icon(icon, color: iconColor, size: 26),
+    final bgColor = (color ?? Colors.grey).withValues(alpha: 0.1);
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(14),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        child: Column(
+          children: [
+            Material(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(14),
+              child: SizedBox(
+                width: 52,
+                height: 52,
+                child: Icon(icon, color: iconColor, size: 26),
+              ),
+            ),
+            const SizedBox(height: 4),
+            UnreadableText(
+              label,
+              style: const TextStyle(fontSize: 10),
+            ),
+          ],
         ),
-        const SizedBox(height: 4),
-        UnreadableText(
-          label,
-          style: const TextStyle(fontSize: 10),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -523,102 +540,155 @@ class _TimelinePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: avatarColor,
-                child: const Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    UnreadableText(
-                      name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                    UnreadableText(
-                      time,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.more_horiz, color: Colors.grey.shade400, size: 20),
-            ],
-          ),
-          const SizedBox(height: 8),
-          UnreadableText(
-            content,
-            style: const TextStyle(fontSize: 14),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Icon(Icons.favorite_border, size: 16, color: Colors.grey.shade500),
-              const SizedBox(width: 4),
-              UnreadableText(
-                likes,
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-              ),
-              const SizedBox(width: 16),
-              GestureDetector(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.thumb_up_outlined,
-                      size: 16,
-                      color: Colors.grey.shade500,
-                    ),
-                    const SizedBox(width: 4),
-                    UnreadableText(
-                      likeLabel,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              Row(
-                children: [
-                  Icon(
-                    Icons.chat_bubble_outline,
-                    size: 16,
-                    color: Colors.grey.shade500,
+    return InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: avatarColor,
+                  child: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 20,
                   ),
-                  const SizedBox(width: 4),
-                  UnreadableText(
-                    commentLabel,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      UnreadableText(
+                        name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      UnreadableText(
+                        time,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(12),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Icon(
+                      Icons.more_horiz,
+                      color: Colors.grey.shade400,
+                      size: 20,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            UnreadableText(
+              content,
+              style: const TextStyle(fontSize: 14),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.favorite_border,
+                          size: 16,
+                          color: Colors.grey.shade500,
+                        ),
+                        const SizedBox(width: 4),
+                        UnreadableText(
+                          likes,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.thumb_up_outlined,
+                          size: 16,
+                          color: Colors.grey.shade500,
+                        ),
+                        const SizedBox(width: 4),
+                        UnreadableText(
+                          likeLabel,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                InkWell(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.chat_bubble_outline,
+                          size: 16,
+                          color: Colors.grey.shade500,
+                        ),
+                        const SizedBox(width: 4),
+                        UnreadableText(
+                          commentLabel,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -761,28 +831,35 @@ class _NewsTabSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const lineGreen = Color(0xFF00B900);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        UnreadableText(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            color: isSelected ? lineGreen : Colors.grey.shade600,
-          ),
-        ),
-        const SizedBox(height: 4),
-        if (isSelected)
-          Container(
-            height: 2,
-            width: 40,
-            decoration: BoxDecoration(
-              color: lineGreen,
-              borderRadius: BorderRadius.circular(1),
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(4),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            UnreadableText(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                color: isSelected ? lineGreen : Colors.grey.shade600,
+              ),
             ),
-          ),
-      ],
+            const SizedBox(height: 4),
+            if (isSelected)
+              Container(
+                height: 2,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: lineGreen,
+                  borderRadius: BorderRadius.circular(1),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -804,7 +881,9 @@ class _NewsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return InkWell(
+      onTap: () {},
+      child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -883,6 +962,7 @@ class _NewsItem extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }

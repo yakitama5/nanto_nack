@@ -52,6 +52,11 @@
 	<!-- 天気取得のための位置情報利用説明（App Store 審査に必須） -->
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>現在地の天気を取得してホーム画面の背景に反映します</string>
+	<!-- チャットクイズの写真送信機能（カメラ・フォトライブラリ） -->
+	<key>NSCameraUsageDescription</key>
+	<string>チャットのクイズで写真を撮影して送信するために使用します</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>チャットのクイズでフォトライブラリから写真を選択して送信するために使用します</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

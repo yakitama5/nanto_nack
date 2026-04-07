@@ -110,6 +110,8 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get cancelButton => 'Cancel';
 	@override String get typeMessage => 'Type a message';
 	@override String get photoButton => 'Photo';
+	@override String get cameraButton => 'Camera';
+	@override String get galleryButton => 'Gallery';
 	@override String get online => 'Online';
 	@override String get searchTab => 'Search';
 	@override String get callTab => 'Calls';
@@ -352,6 +354,8 @@ extension on TranslationsXx {
 			'common.cancelButton' => 'Cancel',
 			'common.typeMessage' => 'Type a message',
 			'common.photoButton' => 'Photo',
+			'common.cameraButton' => 'Camera',
+			'common.galleryButton' => 'Gallery',
 			'common.online' => 'Online',
 			'common.searchTab' => 'Search',
 			'common.callTab' => 'Calls',

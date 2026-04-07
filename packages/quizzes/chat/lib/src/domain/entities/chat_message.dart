@@ -13,6 +13,7 @@ class ChatMessage {
     this.isDeleted = false,
     this.reaction,
     this.isImage = false,
+    this.imagePath,
   });
 
   final String id;
@@ -41,6 +42,9 @@ class ChatMessage {
   /// 画像メッセージかどうか
   final bool isImage;
 
+  /// 画像ファイルのパス（isImage が true かつ端末から選択された場合）
+  final String? imagePath;
+
   /// [reaction] は nullable フィールドのため、明示的に null に戻せるよう
   /// sentinel パターン（_absent）を使用している。
   ChatMessage copyWith({
@@ -54,6 +58,7 @@ class ChatMessage {
     // ignore: avoid_annotating_with_dynamic
     Object? reaction = _absent,
     bool? isImage,
+    String? imagePath,
   }) {
     return ChatMessage(
       id: id ?? this.id,
@@ -67,6 +72,7 @@ class ChatMessage {
           ? this.reaction
           : reaction as String?,
       isImage: isImage ?? this.isImage,
+      imagePath: imagePath ?? this.imagePath,
     );
   }
 }

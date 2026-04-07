@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 /// LINE 風のチャットルーム UI（共通ウィジェット）
@@ -78,8 +81,8 @@ class ChatRoomScreen extends StatefulWidget {
   /// 画像ボタンタップ時のコールバック（Quiz3用）
   final VoidCallback? onImageButtonTap;
 
-  /// 画像選択時のコールバック（Quiz3用）
-  final void Function(int imageIndex)? onImageSelected;
+  /// 画像選択時のコールバック（Quiz3用）。選択した画像のパスを渡す
+  final void Function(String? imagePath)? onImageSelected;
 
   @override
   State<ChatRoomScreen> createState() => _ChatRoomScreenState();
@@ -305,7 +308,7 @@ class _ChatAppBar extends StatelessWidget {
 
 // ─── メッセージバブル ─────────────────────────────────────────────────────
 
-class _MessageBubble extends StatelessWidget {
+class _MessageBubble extends StatefulWidget {
   const _MessageBubble({
     required this.message,
     this.isHighlighted = false,
@@ -321,9 +324,42 @@ class _MessageBubble extends StatelessWidget {
   final void Function(String reaction, String messageId)? onReactionSelected;
 
   @override
+  State<_MessageBubble> createState() => _MessageBubbleState();
+}
+
+class _MessageBubbleState extends State<_MessageBubble>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _scale;
+  late final Animation<double> _fade;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _scale = CurvedAnimation(parent: _controller, curve: Curves.elasticOut);
+    _fade = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    if (widget.message.isStamp) {
+      _controller.forward();
+    } else {
+      _controller.value = 1.0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final isMine = message.isMine;
-    final showReactionPicker = reactionPickerMessageId == message.id;
+    final isMine = widget.message.isMine;
+    final showReactionPicker =
+        widget.reactionPickerMessageId == widget.message.id;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -347,10 +383,10 @@ class _MessageBubble extends StatelessWidget {
               // メッセージ本体
               _buildMessageContent(context, isMine),
               // 受信メッセージの右横にリアクションボタン（Quiz2用）
-              if (!isMine && onReactionButtonTap != null) ...[
+              if (!isMine && widget.onReactionButtonTap != null) ...[
                 const SizedBox(width: 4),
                 GestureDetector(
-                  onTap: () => onReactionButtonTap!(message),
+                  onTap: () => widget.onReactionButtonTap!(widget.message),
                   child: Container(
                     width: 24,
                     height: 24,
@@ -369,7 +405,7 @@ class _MessageBubble extends StatelessWidget {
             ],
           ),
           // リアクション表示
-          if (message.reaction != null) ...[
+          if (widget.message.reaction != null) ...[
             const SizedBox(height: 2),
             Padding(
               padding: EdgeInsets.only(left: isMine ? 0 : 48),
@@ -390,20 +426,20 @@ class _MessageBubble extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  message.reaction!,
+                  widget.message.reaction!,
                   style: const TextStyle(fontSize: 14),
                 ),
               ),
             ),
           ],
           // リアクションピッカー（このメッセージが選択中の場合）
-          if (showReactionPicker && onReactionSelected != null) ...[
+          if (showReactionPicker && widget.onReactionSelected != null) ...[
             const SizedBox(height: 4),
             Padding(
               padding: EdgeInsets.only(left: isMine ? 0 : 48),
               child: _ReactionPicker(
-                messageId: message.id,
-                onReactionSelected: onReactionSelected!,
+                messageId: widget.message.id,
+                onReactionSelected: widget.onReactionSelected!,
               ),
             ),
           ],
@@ -413,39 +449,51 @@ class _MessageBubble extends StatelessWidget {
   }
 
   Widget _buildMessageContent(BuildContext context, bool isMine) {
-    if (message.isStamp) {
-      return Container(
-        padding: const EdgeInsets.all(8),
-        decoration: isHighlighted
-            ? BoxDecoration(
-                border: Border.all(
-                  color: Colors.yellow,
-                  width: 3,
-                ),
-                borderRadius: BorderRadius.circular(12),
-              )
-            : null,
-        child: Text(
-          message.stampId ?? message.text,
-          style: const TextStyle(fontSize: 40),
+    if (widget.message.isStamp) {
+      // スタンプはポップインアニメーション付きで表示
+      return ScaleTransition(
+        scale: _scale,
+        child: FadeTransition(
+          opacity: _fade,
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: widget.isHighlighted
+                ? BoxDecoration(
+                    border: Border.all(
+                      color: Colors.yellow,
+                      width: 3,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  )
+                : null,
+            child: Text(
+              widget.message.stampId ?? widget.message.text,
+              style: const TextStyle(fontSize: 40),
+            ),
+          ),
         ),
       );
     }
 
-    if (message.isImage) {
-      // 画像メッセージはグレーの矩形にカメラアイコンで表示
-      return Container(
-        width: 150,
-        height: 110,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade400,
-          borderRadius: BorderRadius.circular(12),
-          border: isHighlighted
-              ? Border.all(color: Colors.yellow, width: 3)
-              : null,
-        ),
-        child: const Center(
-          child: Icon(Icons.camera_alt, size: 40, color: Colors.white),
+    if (widget.message.isImage) {
+      final imagePath = widget.message.imagePath;
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: 150,
+          height: 110,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade400,
+            borderRadius: BorderRadius.circular(12),
+            border: widget.isHighlighted
+                ? Border.all(color: Colors.yellow, width: 3)
+                : null,
+          ),
+          child: imagePath != null
+              ? Image.file(File(imagePath), fit: BoxFit.cover)
+              : const Center(
+                  child: Icon(Icons.camera_alt, size: 40, color: Colors.white),
+                ),
         ),
       );
     }
@@ -459,16 +507,14 @@ class _MessageBubble extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: isMine
-            ? const Color(0xFFB2FF8C)
-            : Colors.white,
+        color: isMine ? const Color(0xFFB2FF8C) : Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(16),
           topRight: const Radius.circular(16),
           bottomLeft: Radius.circular(isMine ? 16 : 4),
           bottomRight: Radius.circular(isMine ? 4 : 16),
         ),
-        border: isHighlighted
+        border: widget.isHighlighted
             ? Border.all(color: Colors.yellow, width: 3)
             : null,
         boxShadow: [
@@ -479,7 +525,7 @@ class _MessageBubble extends StatelessWidget {
           ),
         ],
       ),
-      child: UnreadableText(message.text),
+      child: UnreadableText(widget.message.text),
     );
   }
 }
@@ -592,25 +638,39 @@ class _StampPanel extends StatelessWidget {
 
 // ─── 画像ピッカーパネル ────────────────────────────────────────────────────
 
-class _ImagePickerPanel extends StatelessWidget {
+class _ImagePickerPanel extends StatefulWidget {
   const _ImagePickerPanel({this.onImageSelected});
 
-  final void Function(int imageIndex)? onImageSelected;
+  final void Function(String? imagePath)? onImageSelected;
 
-  static const _colors = [
-    Color(0xFFEF9A9A),
-    Color(0xFF80DEEA),
-    Color(0xFFA5D6A7),
-    Color(0xFFFFCC80),
-    Color(0xFFCE93D8),
-    Color(0xFFFFAB91),
-  ];
+  @override
+  State<_ImagePickerPanel> createState() => _ImagePickerPanelState();
+}
+
+class _ImagePickerPanelState extends State<_ImagePickerPanel> {
+  final _picker = ImagePicker();
+  bool _isPicking = false;
+
+  Future<void> _pickImage(ImageSource source) async {
+    if (_isPicking) return;
+    setState(() => _isPicking = true);
+    try {
+      final file = await _picker.pickImage(
+        source: source,
+        imageQuality: 80,
+        maxWidth: 1024,
+      );
+      widget.onImageSelected?.call(file?.path);
+    } finally {
+      if (mounted) setState(() => _isPicking = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
     return Container(
-      height: 220,
+      height: 180,
       color: Colors.white,
       child: Column(
         children: [
@@ -627,32 +687,77 @@ class _ImagePickerPanel extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(4),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 4,
-                mainAxisSpacing: 4,
-              ),
-              itemCount: _colors.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () => onImageSelected?.call(index),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: _colors[index],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: Colors.white,
-                        size: 28,
-                      ),
+            child: Row(
+              children: [
+                // カメラボタン
+                Expanded(
+                  child: InkWell(
+                    onTap: _isPicking ? null : () => _pickImage(ImageSource.camera),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey.shade600,
+                            size: 30,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          sq.common.cameraButton,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                );
-              },
+                ),
+                VerticalDivider(
+                  width: 1,
+                  color: Colors.grey.shade200,
+                ),
+                // ライブラリボタン
+                Expanded(
+                  child: InkWell(
+                    onTap: _isPicking ? null : () => _pickImage(ImageSource.gallery),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.photo_library_outlined,
+                            color: Colors.grey.shade600,
+                            size: 30,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          sq.common.galleryButton,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -72,7 +72,7 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   }
 
   /// 画像を送信（isImage=true のメッセージを追加）
-  Future<void> sendImage(int imageIndex) async {
+  Future<void> sendImage(String? imagePath) async {
     if (state.status != QuizStatus.playing) return;
     _timer?.cancel();
 
@@ -82,6 +82,7 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
       isMine: true,
       sentAt: clock.now(),
       isImage: true,
+      imagePath: imagePath,
     );
     final newMessages = [...state.messages, newMessage];
     final elapsed = state.startedAt != null

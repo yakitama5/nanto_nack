@@ -86,6 +86,8 @@
     "cancelButton": "Cancel",
     "typeMessage": "Type a message",
     "photoButton": "Photo",
+    "cameraButton": "Camera",
+    "galleryButton": "Gallery",
     "online": "Online",
     "searchTab": "Search",
     "callTab": "Calls",

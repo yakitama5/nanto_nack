@@ -148,6 +148,12 @@ class TranslationsCommonJa {
 	/// ja: 'Photo'
 	String get photoButton => 'Photo';
 
+	/// ja: 'カメラ'
+	String get cameraButton => 'カメラ';
+
+	/// ja: 'ライブラリ'
+	String get galleryButton => 'ライブラリ';
+
 	/// ja: 'Online'
 	String get online => 'Online';
 
@@ -623,6 +629,8 @@ extension on Translations {
 			'common.cancelButton' => 'Cancel',
 			'common.typeMessage' => 'Type a message',
 			'common.photoButton' => 'Photo',
+			'common.cameraButton' => 'カメラ',
+			'common.galleryButton' => 'ライブラリ',
 			'common.online' => 'Online',
 			'common.searchTab' => 'Search',
 			'common.callTab' => 'Calls',
