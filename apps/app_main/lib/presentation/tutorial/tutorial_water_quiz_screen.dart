@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shopping/shopping.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+import '../../application/stage_list_provider.dart';
 import '../../application/tutorial/tutorial_notifier.dart';
 import 'nantom_speech_bubble.dart';
 
@@ -22,6 +23,7 @@ class TutorialWaterQuizScreen extends ConsumerStatefulWidget {
 class _TutorialWaterQuizScreenState
     extends ConsumerState<TutorialWaterQuizScreen> {
   final _timerBubbleKey = GlobalKey();
+  final _waterItemKey = GlobalKey();
 
   void _onMissionCutInFinished() {
     // MissionCutIn が終わったタイミングでタイマーを止め、コーチマーク表示
@@ -65,13 +67,16 @@ class _TutorialWaterQuizScreenState
 
   List<TargetFocus> _buildTargets() {
     return [
-      // Step 5: タイマーバブル（驚き）
+      // Step 5: 水商品カード（驚き）- 水の商品カードにフォーカス
       TargetFocus(
-        identify: 'quiz_timer_surprised',
-        keyTarget: _timerBubbleKey,
-        shape: ShapeLightFocus.Circle,
-        paddingFocus: 16,
-        enableOverlayTab: false,
+        identify: 'quiz_water_surprised',
+        keyTarget: _waterItemKey,
+        shape: ShapeLightFocus.RRect,
+        radius: 16,
+        paddingFocus: 8,
+        enableOverlayTab: true,
+        // Step 5 → 6 の遷移でフォーカスアニメーションを省く
+        unFocusAnimationDuration: Duration.zero,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
@@ -82,13 +87,16 @@ class _TutorialWaterQuizScreenState
           ),
         ],
       ),
-      // Step 6: 同じ位置、表情変更（悲しい）
+      // Step 6: 同じ水商品カード（悲しい）- フォーカス位置はそのまま、テキストと表情だけ変わる
       TargetFocus(
-        identify: 'quiz_timer_sad',
-        keyTarget: _timerBubbleKey,
-        shape: ShapeLightFocus.Circle,
-        paddingFocus: 16,
-        enableOverlayTab: false,
+        identify: 'quiz_water_sad',
+        keyTarget: _waterItemKey,
+        shape: ShapeLightFocus.RRect,
+        radius: 16,
+        paddingFocus: 8,
+        enableOverlayTab: true,
+        // Step 5 → 6 はアニメーションなし（フォーカスが戻る演出なし）
+        focusAnimationDuration: Duration.zero,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
@@ -99,7 +107,7 @@ class _TutorialWaterQuizScreenState
           ),
         ],
       ),
-      // Step 7: 同じ位置、表情変更（笑顔）
+      // Step 7: タイマーバブル（笑顔）
       TargetFocus(
         identify: 'quiz_timer_hint',
         keyTarget: _timerBubbleKey,
@@ -130,8 +138,14 @@ class _TutorialWaterQuizScreenState
   Widget build(BuildContext context) {
     return WaterQuizScreen(
       timerBubbleKey: _timerBubbleKey,
+      waterItemKey: _waterItemKey,
       onMissionCutInFinished: _onMissionCutInFinished,
-      onCompleted: () => context.pop(),
+      onCompleted: () {
+        // チュートリアル経由のクリアでは StageListScreen の invalidate が行われないため、
+        // ここでキャッシュを無効化してショッピングクイズ2が解放されるようにする
+        ref.invalidate(stageListProvider);
+        context.pop();
+      },
     );
   }
 }

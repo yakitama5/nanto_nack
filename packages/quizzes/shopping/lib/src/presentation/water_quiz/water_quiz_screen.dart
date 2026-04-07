@@ -12,6 +12,7 @@ class WaterQuizScreen extends ConsumerStatefulWidget {
     this.onCompleted,
     this.timerBubbleKey,
     this.onMissionCutInFinished,
+    this.waterItemKey,
   });
 
   final VoidCallback? onCompleted;
@@ -21,6 +22,9 @@ class WaterQuizScreen extends ConsumerStatefulWidget {
 
   /// チュートリアル用：MissionCutIn 完了後に呼ばれるコールバック。
   final VoidCallback? onMissionCutInFinished;
+
+  /// チュートリアル用：water_pura_aqua アイテムタイルに設定する GlobalKey。
+  final GlobalKey? waterItemKey;
 
   @override
   ConsumerState<WaterQuizScreen> createState() => _WaterQuizScreenState();
@@ -68,6 +72,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
       onGiveUp: () => ref.read(waterQuizProvider.notifier).giveUp(),
       cartBottomSheetBuilder: (context) => const _WaterCartSheet(),
       timerBubbleKey: widget.timerBubbleKey,
+      waterItemKey: widget.waterItemKey,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
