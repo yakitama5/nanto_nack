@@ -56,8 +56,8 @@ class TranslationsQuiz1Ja {
 
 	// Translations
 
-	/// ja: 'メッセージを送ってください'
-	String get missionText => 'メッセージを送ってください';
+	/// ja: 'スタンプを1つ返信してください'
+	String get missionText => 'スタンプを1つ返信してください';
 
 	late final TranslationsQuiz1InsightJa insight = TranslationsQuiz1InsightJa.internal(_root);
 }
@@ -70,8 +70,8 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: 'スタンプを送ってください'
-	String get missionText => 'スタンプを送ってください';
+	/// ja: '相手のメッセージに❤️リアクションをしてください'
+	String get missionText => '相手のメッセージに❤️リアクションをしてください';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -84,8 +84,8 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: 'メッセージを長押しして削除してください'
-	String get missionText => 'メッセージを長押しして削除してください';
+	/// ja: '写真を1枚送信してください'
+	String get missionText => '写真を1枚送信してください';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -98,8 +98,8 @@ class TranslationsQuiz4Ja {
 
 	// Translations
 
-	/// ja: 'グループチャットを作成してください'
-	String get missionText => 'グループチャットを作成してください';
+	/// ja: '自分の最後のメッセージを取り消してください'
+	String get missionText => '自分の最後のメッセージを取り消してください';
 
 	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
 }
@@ -115,17 +115,11 @@ class TranslationsCommonJa {
 	/// ja: 'Talks'
 	String get appTitle => 'Talks';
 
+	/// ja: 'Home'
+	String get homeTab => 'Home';
+
 	/// ja: 'Talks'
 	String get talkTab => 'Talks';
-
-	/// ja: 'Search'
-	String get searchTab => 'Search';
-
-	/// ja: 'Calls'
-	String get callTab => 'Calls';
-
-	/// ja: 'Wallet'
-	String get walletTab => 'Wallet';
 
 	/// ja: 'News'
 	String get newsTab => 'News';
@@ -136,11 +130,38 @@ class TranslationsCommonJa {
 	/// ja: 'Stamp'
 	String get stampButton => 'Stamp';
 
-	/// ja: 'Delete'
-	String get deleteButton => 'Delete';
+	/// ja: 'Unsend'
+	String get unsendMessage => 'Unsend';
+
+	/// ja: 'Copy'
+	String get copyMessage => 'Copy';
+
+	/// ja: 'Reply'
+	String get replyMessage => 'Reply';
 
 	/// ja: 'Cancel'
 	String get cancelButton => 'Cancel';
+
+	/// ja: 'Type a message'
+	String get typeMessage => 'Type a message';
+
+	/// ja: 'Photo'
+	String get photoButton => 'Photo';
+
+	/// ja: 'Online'
+	String get online => 'Online';
+
+	/// ja: 'Search'
+	String get searchTab => 'Search';
+
+	/// ja: 'Calls'
+	String get callTab => 'Calls';
+
+	/// ja: 'Wallet'
+	String get walletTab => 'Wallet';
+
+	/// ja: 'Delete'
+	String get deleteButton => 'Delete';
 
 	/// ja: 'Delete this message?'
 	String get confirmDelete => 'Delete this message?';
@@ -163,17 +184,143 @@ class TranslationsCommonJa {
 	/// ja: '{count} members'
 	String get members => '{count} members';
 
-	/// ja: 'Online'
-	String get online => 'Online';
-
-	/// ja: 'Type a message'
-	String get typeMessage => 'Type a message';
-
 	/// ja: 'New Group'
 	String get newGroup => 'New Group';
 
 	/// ja: 'New Chat'
 	String get newChat => 'New Chat';
+
+	/// ja: '私のプロフィール'
+	String get myProfile => '私のプロフィール';
+
+	/// ja: 'よろしくお願いします'
+	String get statusMessage => 'よろしくお願いします';
+
+	/// ja: 'サービス'
+	String get services => 'サービス';
+
+	/// ja: 'ペイ'
+	String get payService => 'ペイ';
+
+	/// ja: 'ショップ'
+	String get shopService => 'ショップ';
+
+	/// ja: 'クーポン'
+	String get couponService => 'クーポン';
+
+	/// ja: 'ゲーム'
+	String get gamesService => 'ゲーム';
+
+	/// ja: 'テレビ'
+	String get tvService => 'テレビ';
+
+	/// ja: 'ミュージック'
+	String get musicService => 'ミュージック';
+
+	/// ja: 'ニュース'
+	String get newsService => 'ニュース';
+
+	/// ja: 'その他'
+	String get moreService => 'その他';
+
+	/// ja: '田中 さくら'
+	String get timelineName1 => '田中 さくら';
+
+	/// ja: '鈴木 ひろし'
+	String get timelineName2 => '鈴木 ひろし';
+
+	/// ja: '山田 あおい'
+	String get timelineName3 => '山田 あおい';
+
+	/// ja: '今日のランチ最高だった！また来よう🍜'
+	String get timelinePost1 => '今日のランチ最高だった！また来よう🍜';
+
+	/// ja: '週末の花見、一緒に行きませんか？🌸'
+	String get timelinePost2 => '週末の花見、一緒に行きませんか？🌸';
+
+	/// ja: '新しいカフェ発見。コーヒーが絶品☕'
+	String get timelinePost3 => '新しいカフェ発見。コーヒーが絶品☕';
+
+	/// ja: '1時間前'
+	String get timelineTime1 => '1時間前';
+
+	/// ja: '3時間前'
+	String get timelineTime2 => '3時間前';
+
+	/// ja: '5時間前'
+	String get timelineTime3 => '5時間前';
+
+	/// ja: '12'
+	String get timelineLikes1 => '12';
+
+	/// ja: '8'
+	String get timelineLikes2 => '8';
+
+	/// ja: '24'
+	String get timelineLikes3 => '24';
+
+	/// ja: 'いいね'
+	String get likeButton => 'いいね';
+
+	/// ja: 'コメント'
+	String get commentButton => 'コメント';
+
+	/// ja: 'シェア'
+	String get shareButton => 'シェア';
+
+	/// ja: 'おすすめ'
+	String get forYouTab => 'おすすめ';
+
+	/// ja: 'フォロー中'
+	String get followTab => 'フォロー中';
+
+	/// ja: '人気アプリの新機能が登場、利便性が大幅向上'
+	String get newsHeadline1 => '人気アプリの新機能が登場、利便性が大幅向上';
+
+	/// ja: '研究チーム、新たな発見を発表'
+	String get newsHeadline2 => '研究チーム、新たな発見を発表';
+
+	/// ja: '今週末のおすすめおでかけスポット'
+	String get newsHeadline3 => '今週末のおすすめおでかけスポット';
+
+	/// ja: 'テクノロジー企業、次世代製品を発表'
+	String get newsHeadline4 => 'テクノロジー企業、次世代製品を発表';
+
+	/// ja: 'デイリーニュース'
+	String get newsSource1 => 'デイリーニュース';
+
+	/// ja: 'サイエンスタイム'
+	String get newsSource2 => 'サイエンスタイム';
+
+	/// ja: 'シティライフ'
+	String get newsSource3 => 'シティライフ';
+
+	/// ja: 'テック レビュー'
+	String get newsSource4 => 'テック レビュー';
+
+	/// ja: 'テクノロジー'
+	String get newsTag1 => 'テクノロジー';
+
+	/// ja: 'サイエンス'
+	String get newsTag2 => 'サイエンス';
+
+	/// ja: 'ライフスタイル'
+	String get newsTag3 => 'ライフスタイル';
+
+	/// ja: 'ビジネス'
+	String get newsTag4 => 'ビジネス';
+
+	/// ja: '1時間前'
+	String get newsTime1 => '1時間前';
+
+	/// ja: '2時間前'
+	String get newsTime2 => '2時間前';
+
+	/// ja: '4時間前'
+	String get newsTime3 => '4時間前';
+
+	/// ja: '6時間前'
+	String get newsTime4 => '6時間前';
 }
 
 // Path: contacts
@@ -208,11 +355,29 @@ class TranslationsQuiz1InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ文字が読めなくても操作できた？'
-	String get title => 'なぜ文字が読めなくても操作できた？';
+	/// ja: 'なぜタブを切り替えてスタンプが送れた？'
+	String get title => 'なぜタブを切り替えてスタンプが送れた？';
 
-	/// ja: 'チャットUIの普遍的なパターンが操作を導く'
-	String get subtitle => 'チャットUIの普遍的なパターンが操作を導く';
+	/// ja: 'バッジとアイコンが操作を誘導する'
+	String get subtitle => 'バッジとアイコンが操作を誘導する';
+
+	/// ja: 'バッジ＝新着あり'
+	String get badgeTitle => 'バッジ＝新着あり';
+
+	/// ja: '赤い数字バッジは「未読メッセージがある」を意味する。SNS・メール・メッセージアプリすべてで共通する国際的な記号で、ユーザーを自然に誘導する。'
+	String get badgeDesc => '赤い数字バッジは「未読メッセージがある」を意味する。SNS・メール・メッセージアプリすべてで共通する国際的な記号で、ユーザーを自然に誘導する。';
+
+	/// ja: '顔文字＝スタンプへの入口'
+	String get stampTitle => '顔文字＝スタンプへの入口';
+
+	/// ja: '😊アイコンは「絵文字・スタンプパネルを開く」を意味する世界共通のUI。言語が読めなくても、このアイコンの意味はグローバルに理解される。'
+	String get stampDesc => '😊アイコンは「絵文字・スタンプパネルを開く」を意味する世界共通のUI。言語が読めなくても、このアイコンの意味はグローバルに理解される。';
+
+	/// ja: 'タブ切り替えは「別の機能へ」のサイン'
+	String get tabTitle => 'タブ切り替えは「別の機能へ」のサイン';
+
+	/// ja: 'ボトムナビゲーションのタブは「このアプリで何ができるか」を一覧する場所。アイコン＋数字バッジで目的地に自然と誘導される。'
+	String get tabDesc => 'ボトムナビゲーションのタブは「このアプリで何ができるか」を一覧する場所。アイコン＋数字バッジで目的地に自然と誘導される。';
 
 	/// ja: '入力欄は世界共通のUI'
 	String get inputTitle => '入力欄は世界共通のUI';
@@ -241,23 +406,35 @@ class TranslationsQuiz2InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜスタンプボタンがわかった？'
-	String get title => 'なぜスタンプボタンがわかった？';
+	/// ja: 'なぜリアクションボタンが見つかった？'
+	String get title => 'なぜリアクションボタンが見つかった？';
 
-	/// ja: '絵文字とスタンプは感情の「共通言語」'
-	String get subtitle => '絵文字とスタンプは感情の「共通言語」';
+	/// ja: '吹き出し横の小さなアイコンが操作を教える'
+	String get subtitle => '吹き出し横の小さなアイコンが操作を教える';
+
+	/// ja: 'リアクションは感情の「ショートカット」'
+	String get reactionTitle => 'リアクションは感情の「ショートカット」';
+
+	/// ja: '❤️・👍などのリアクション絵文字は、返信なしに感情を伝える手段として世界中のSNS・チャットアプリに定着している。'
+	String get reactionDesc => '❤️・👍などのリアクション絵文字は、返信なしに感情を伝える手段として世界中のSNS・チャットアプリに定着している。';
+
+	/// ja: '吹き出し横の顔文字アイコン'
+	String get iconTitle => '吹き出し横の顔文字アイコン';
+
+	/// ja: '受け取ったメッセージの横に表示される顔文字アイコンは「このメッセージにリアクションできる」を示す。小さくても、その位置と形状が意味を持つ。'
+	String get iconDesc => '受け取ったメッセージの横に表示される顔文字アイコンは「このメッセージにリアクションできる」を示す。小さくても、その位置と形状が意味を持つ。';
+
+	/// ja: '❤️は「いいね」の世界共通語'
+	String get heartTitle => '❤️は「いいね」の世界共通語';
+
+	/// ja: 'Instagram・Twitter・LINE・Slackなど、プラットフォームを問わずハートは「ポジティブな反応」を意味する最も普及した絵文字記号だ。'
+	String get heartDesc => 'Instagram・Twitter・LINE・Slackなど、プラットフォームを問わずハートは「ポジティブな反応」を意味する最も普及した絵文字記号だ。';
 
 	/// ja: '絵文字は言語を超えた感情表現'
 	String get emojiTitle => '絵文字は言語を超えた感情表現';
 
 	/// ja: '😊や👍などの絵文字は、言語に依存せず感情をダイレクトに伝える記号だ。1999年に日本で生まれたこの文化は、現在は全世界の標準となっている。'
 	String get emojiDesc => '😊や👍などの絵文字は、言語に依存せず感情をダイレクトに伝える記号だ。1999年に日本で生まれたこの文化は、現在は全世界の標準となっている。';
-
-	/// ja: 'スタンプボタンのアイコンが意味を伝える'
-	String get iconTitle => 'スタンプボタンのアイコンが意味を伝える';
-
-	/// ja: 'スマイルマーク（😊）や絵文字パレットのアイコンは、「ここを押すとスタンプが出る」ことを直感的に示す。UIアイコンは文字を読まずとも意味を伝える視覚的なコードだ。'
-	String get iconDesc => 'スマイルマーク（😊）や絵文字パレットのアイコンは、「ここを押すとスタンプが出る」ことを直感的に示す。UIアイコンは文字を読まずとも意味を伝える視覚的なコードだ。';
 
 	/// ja: 'グリーンテーマが「チャット」を想起させる'
 	String get colorTitle => 'グリーンテーマが「チャット」を想起させる';
@@ -274,11 +451,29 @@ class TranslationsQuiz3InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ長押しで削除できるとわかった？'
-	String get title => 'なぜ長押しで削除できるとわかった？';
+	/// ja: 'なぜ+ボタンで画像が送れるとわかった？'
+	String get title => 'なぜ+ボタンで画像が送れるとわかった？';
 
-	/// ja: 'コンテキストメニューは「隠れた機能」への扉'
-	String get subtitle => 'コンテキストメニューは「隠れた機能」への扉';
+	/// ja: 'メディア送信は「追加」アイコンが担う'
+	String get subtitle => 'メディア送信は「追加」アイコンが担う';
+
+	/// ja: '＋は「追加できる」のサイン'
+	String get plusTitle => '＋は「追加できる」のサイン';
+
+	/// ja: '入力欄左の＋アイコンは「テキスト以外も送れる」を示す。カメラ・ファイル・位置情報など、様々なメディアへの入口が隠れているのは世界共通のUIパターンだ。'
+	String get plusDesc => '入力欄左の＋アイコンは「テキスト以外も送れる」を示す。カメラ・ファイル・位置情報など、様々なメディアへの入口が隠れているのは世界共通のUIパターンだ。';
+
+	/// ja: '📷はカメラ・画像の世界共通アイコン'
+	String get photoTitle => '📷はカメラ・画像の世界共通アイコン';
+
+	/// ja: 'カメラアイコンは言語に依存しない。どの文化圏でも「写真・画像」を意味する記号として定着しており、タップすれば画像選択画面が出ることを予測できる。'
+	String get photoDesc => 'カメラアイコンは言語に依存しない。どの文化圏でも「写真・画像」を意味する記号として定着しており、タップすれば画像選択画面が出ることを予測できる。';
+
+	/// ja: 'ボトムシートが選択肢を見せる'
+	String get galleryTitle => 'ボトムシートが選択肢を見せる';
+
+	/// ja: '下から出てくるボトムシートは「このアクションで選択できる候補」を表示するUI。画像グリッドが並ぶと、選んで送るという操作が直感的にわかる。'
+	String get galleryDesc => '下から出てくるボトムシートは「このアクションで選択できる候補」を表示するUI。画像グリッドが並ぶと、選んで送るという操作が直感的にわかる。';
 
 	/// ja: '長押しは「もっとできること」のサイン'
 	String get longPressTitle => '長押しは「もっとできること」のサイン';
@@ -307,11 +502,29 @@ class TranslationsQuiz4InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜグループ作成の手順がわかった？'
-	String get title => 'なぜグループ作成の手順がわかった？';
+	/// ja: 'なぜ長押しで取り消せるとわかった？'
+	String get title => 'なぜ長押しで取り消せるとわかった？';
 
-	/// ja: 'ウィザード形式のUIが手順を自然に導く'
-	String get subtitle => 'ウィザード形式のUIが手順を自然に導く';
+	/// ja: '複数のUIリテラシーが合わさって解決できる'
+	String get subtitle => '複数のUIリテラシーが合わさって解決できる';
+
+	/// ja: 'リストは新着順に並ぶ'
+	String get listTitle => 'リストは新着順に並ぶ';
+
+	/// ja: 'チャットの一覧は「最後にやり取りした順」で並ぶ。一番上が直近のトークルームという法則は、LINE・WhatsApp・iMessageなど全メッセージアプリに共通する。'
+	String get listDesc => 'チャットの一覧は「最後にやり取りした順」で並ぶ。一番上が直近のトークルームという法則は、LINE・WhatsApp・iMessageなど全メッセージアプリに共通する。';
+
+	/// ja: '長押しが「隠れた機能」を呼び出す'
+	String get longPressTitle => '長押しが「隠れた機能」を呼び出す';
+
+	/// ja: 'タップで反応しないUIは長押しで追加メニューが出ることが多い。iOS・Androidの標準インタラクションとして定着しており、ユーザーは無意識に試すようになっている。'
+	String get longPressDesc => 'タップで反応しないUIは長押しで追加メニューが出ることが多い。iOS・Androidの標準インタラクションとして定着しており、ユーザーは無意識に試すようになっている。';
+
+	/// ja: '赤文字＝「危険な操作」の警告'
+	String get redTitle => '赤文字＝「危険な操作」の警告';
+
+	/// ja: '取り消し・削除など元に戻せない操作は赤色で表示するUIデザインの慣習がある。赤＝危険は信号機から刷り込まれた文化的記号で、言語を読まずとも意味が伝わる。'
+	String get redDesc => '取り消し・削除など元に戻せない操作は赤色で表示するUIデザインの慣習がある。赤＝危険は信号機から刷り込まれた文化的記号で、言語を読まずとも意味が伝わる。';
 
 	/// ja: '＋ボタンは「新しく作る」の記号'
 	String get plusTitle => '＋ボタンは「新しく作る」の記号';
@@ -340,36 +553,58 @@ class TranslationsQuiz4InsightJa {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'メッセージを送ってください',
-			'quiz1.insight.title' => 'なぜ文字が読めなくても操作できた？',
-			'quiz1.insight.subtitle' => 'チャットUIの普遍的なパターンが操作を導く',
+			'quiz1.missionText' => 'スタンプを1つ返信してください',
+			'quiz1.insight.title' => 'なぜタブを切り替えてスタンプが送れた？',
+			'quiz1.insight.subtitle' => 'バッジとアイコンが操作を誘導する',
+			'quiz1.insight.badgeTitle' => 'バッジ＝新着あり',
+			'quiz1.insight.badgeDesc' => '赤い数字バッジは「未読メッセージがある」を意味する。SNS・メール・メッセージアプリすべてで共通する国際的な記号で、ユーザーを自然に誘導する。',
+			'quiz1.insight.stampTitle' => '顔文字＝スタンプへの入口',
+			'quiz1.insight.stampDesc' => '😊アイコンは「絵文字・スタンプパネルを開く」を意味する世界共通のUI。言語が読めなくても、このアイコンの意味はグローバルに理解される。',
+			'quiz1.insight.tabTitle' => 'タブ切り替えは「別の機能へ」のサイン',
+			'quiz1.insight.tabDesc' => 'ボトムナビゲーションのタブは「このアプリで何ができるか」を一覧する場所。アイコン＋数字バッジで目的地に自然と誘導される。',
 			'quiz1.insight.inputTitle' => '入力欄は世界共通のUI',
 			'quiz1.insight.inputDesc' => 'テキスト入力ボックス＋送信ボタンという組み合わせは、WhatsApp・LINE・Slack など世界中のチャットアプリで採用されている。このパターンを一度体験すると、言語に関係なく直感的に操作できるようになる。',
 			'quiz1.insight.sendTitle' => '→ ボタンは「送信」の記号',
 			'quiz1.insight.sendDesc' => '右向きの矢印（→）や紙飛行機アイコンは、「送る」「進む」を意味する記号として文化を超えて定着している。アイコンそのものが言語の役割を果たしている。',
 			'quiz1.insight.bubbleTitle' => '吹き出しが会話を可視化する',
 			'quiz1.insight.bubbleDesc' => '右側＝自分、左側＝相手という吹き出しレイアウトは、チャットUIのデファクトスタンダード。誰が何を言ったかを色と位置だけで瞬時に判断できる。',
-			'quiz2.missionText' => 'スタンプを送ってください',
-			'quiz2.insight.title' => 'なぜスタンプボタンがわかった？',
-			'quiz2.insight.subtitle' => '絵文字とスタンプは感情の「共通言語」',
+			'quiz2.missionText' => '相手のメッセージに❤️リアクションをしてください',
+			'quiz2.insight.title' => 'なぜリアクションボタンが見つかった？',
+			'quiz2.insight.subtitle' => '吹き出し横の小さなアイコンが操作を教える',
+			'quiz2.insight.reactionTitle' => 'リアクションは感情の「ショートカット」',
+			'quiz2.insight.reactionDesc' => '❤️・👍などのリアクション絵文字は、返信なしに感情を伝える手段として世界中のSNS・チャットアプリに定着している。',
+			'quiz2.insight.iconTitle' => '吹き出し横の顔文字アイコン',
+			'quiz2.insight.iconDesc' => '受け取ったメッセージの横に表示される顔文字アイコンは「このメッセージにリアクションできる」を示す。小さくても、その位置と形状が意味を持つ。',
+			'quiz2.insight.heartTitle' => '❤️は「いいね」の世界共通語',
+			'quiz2.insight.heartDesc' => 'Instagram・Twitter・LINE・Slackなど、プラットフォームを問わずハートは「ポジティブな反応」を意味する最も普及した絵文字記号だ。',
 			'quiz2.insight.emojiTitle' => '絵文字は言語を超えた感情表現',
 			'quiz2.insight.emojiDesc' => '😊や👍などの絵文字は、言語に依存せず感情をダイレクトに伝える記号だ。1999年に日本で生まれたこの文化は、現在は全世界の標準となっている。',
-			'quiz2.insight.iconTitle' => 'スタンプボタンのアイコンが意味を伝える',
-			'quiz2.insight.iconDesc' => 'スマイルマーク（😊）や絵文字パレットのアイコンは、「ここを押すとスタンプが出る」ことを直感的に示す。UIアイコンは文字を読まずとも意味を伝える視覚的なコードだ。',
 			'quiz2.insight.colorTitle' => 'グリーンテーマが「チャット」を想起させる',
 			'quiz2.insight.colorDesc' => 'LINEの緑色は「メッセージアプリ」の記号として日本人に深く刷り込まれている。色だけで「これはチャットアプリだ」と認識できるのは、反復されたUIパターンが色に意味を与えた結果だ。',
-			'quiz3.missionText' => 'メッセージを長押しして削除してください',
-			'quiz3.insight.title' => 'なぜ長押しで削除できるとわかった？',
-			'quiz3.insight.subtitle' => 'コンテキストメニューは「隠れた機能」への扉',
+			'quiz3.missionText' => '写真を1枚送信してください',
+			'quiz3.insight.title' => 'なぜ+ボタンで画像が送れるとわかった？',
+			'quiz3.insight.subtitle' => 'メディア送信は「追加」アイコンが担う',
+			'quiz3.insight.plusTitle' => '＋は「追加できる」のサイン',
+			'quiz3.insight.plusDesc' => '入力欄左の＋アイコンは「テキスト以外も送れる」を示す。カメラ・ファイル・位置情報など、様々なメディアへの入口が隠れているのは世界共通のUIパターンだ。',
+			'quiz3.insight.photoTitle' => '📷はカメラ・画像の世界共通アイコン',
+			'quiz3.insight.photoDesc' => 'カメラアイコンは言語に依存しない。どの文化圏でも「写真・画像」を意味する記号として定着しており、タップすれば画像選択画面が出ることを予測できる。',
+			'quiz3.insight.galleryTitle' => 'ボトムシートが選択肢を見せる',
+			'quiz3.insight.galleryDesc' => '下から出てくるボトムシートは「このアクションで選択できる候補」を表示するUI。画像グリッドが並ぶと、選んで送るという操作が直感的にわかる。',
 			'quiz3.insight.longPressTitle' => '長押しは「もっとできること」のサイン',
 			'quiz3.insight.longPressDesc' => 'タップして反応しないUIは、長押しで追加メニューが出ることが多い。iOS・Androidの標準的なインタラクションパターンとして定着しており、ユーザーは無意識に試してみるようになっている。',
 			'quiz3.insight.contextMenuTitle' => 'コンテキストメニューが操作を提示する',
 			'quiz3.insight.contextMenuDesc' => '長押しで出現するメニューは「このアイテムに対して今できること」をリスト化したもの。削除・コピー・返信などの選択肢が並ぶパターンは、メッセージアプリの標準仕様だ。',
 			'quiz3.insight.destructiveTitle' => '赤色が「危険な操作」を警告する',
 			'quiz3.insight.destructiveDesc' => '削除ボタンが赤い理由は、「取り消せない操作」を色で警告するためだ。赤＝危険・警告は信号機から染み込んだ文化的な記号であり、UIデザインに意図的に取り込まれている。',
-			'quiz4.missionText' => 'グループチャットを作成してください',
-			'quiz4.insight.title' => 'なぜグループ作成の手順がわかった？',
-			'quiz4.insight.subtitle' => 'ウィザード形式のUIが手順を自然に導く',
+			'quiz4.missionText' => '自分の最後のメッセージを取り消してください',
+			'quiz4.insight.title' => 'なぜ長押しで取り消せるとわかった？',
+			'quiz4.insight.subtitle' => '複数のUIリテラシーが合わさって解決できる',
+			'quiz4.insight.listTitle' => 'リストは新着順に並ぶ',
+			'quiz4.insight.listDesc' => 'チャットの一覧は「最後にやり取りした順」で並ぶ。一番上が直近のトークルームという法則は、LINE・WhatsApp・iMessageなど全メッセージアプリに共通する。',
+			'quiz4.insight.longPressTitle' => '長押しが「隠れた機能」を呼び出す',
+			'quiz4.insight.longPressDesc' => 'タップで反応しないUIは長押しで追加メニューが出ることが多い。iOS・Androidの標準インタラクションとして定着しており、ユーザーは無意識に試すようになっている。',
+			'quiz4.insight.redTitle' => '赤文字＝「危険な操作」の警告',
+			'quiz4.insight.redDesc' => '取り消し・削除など元に戻せない操作は赤色で表示するUIデザインの慣習がある。赤＝危険は信号機から刷り込まれた文化的記号で、言語を読まずとも意味が伝わる。',
 			'quiz4.insight.plusTitle' => '＋ボタンは「新しく作る」の記号',
 			'quiz4.insight.plusDesc' => '＋（プラス）アイコンは「追加」「作成」を意味する世界共通の記号だ。FAB（フローティングアクションボタン）として画面右下に配置されるのもマテリアルデザインの標準パターンで、言語を問わず「ここで何かが作れる」と直感させる。',
 			'quiz4.insight.wizardTitle' => 'ステップ形式が複雑な操作を分解する',
@@ -377,15 +612,22 @@ extension on Translations {
 			'quiz4.insight.checkboxTitle' => 'チェックボックスが「選択済み」を視覚化する',
 			'quiz4.insight.checkboxDesc' => '✓マークのチェックボックスは選択状態を直感的に示す。複数選択UIとしてフォーム・メンバー選択・フィルターで世界中で使われており、その意味は言語を超えて理解されている。',
 			'common.appTitle' => 'Talks',
+			'common.homeTab' => 'Home',
 			'common.talkTab' => 'Talks',
-			'common.searchTab' => 'Search',
-			'common.callTab' => 'Calls',
-			'common.walletTab' => 'Wallet',
 			'common.newsTab' => 'News',
 			'common.sendButton' => 'Send',
 			'common.stampButton' => 'Stamp',
-			'common.deleteButton' => 'Delete',
+			'common.unsendMessage' => 'Unsend',
+			'common.copyMessage' => 'Copy',
+			'common.replyMessage' => 'Reply',
 			'common.cancelButton' => 'Cancel',
+			'common.typeMessage' => 'Type a message',
+			'common.photoButton' => 'Photo',
+			'common.online' => 'Online',
+			'common.searchTab' => 'Search',
+			'common.callTab' => 'Calls',
+			'common.walletTab' => 'Wallet',
+			'common.deleteButton' => 'Delete',
 			'common.confirmDelete' => 'Delete this message?',
 			'common.createGroup' => 'Create Group',
 			'common.groupName' => 'Group Name',
@@ -393,10 +635,52 @@ extension on Translations {
 			'common.createButton' => 'Create',
 			'common.backButton' => 'Back',
 			'common.members' => '{count} members',
-			'common.online' => 'Online',
-			'common.typeMessage' => 'Type a message',
 			'common.newGroup' => 'New Group',
 			'common.newChat' => 'New Chat',
+			'common.myProfile' => '私のプロフィール',
+			'common.statusMessage' => 'よろしくお願いします',
+			'common.services' => 'サービス',
+			'common.payService' => 'ペイ',
+			'common.shopService' => 'ショップ',
+			'common.couponService' => 'クーポン',
+			'common.gamesService' => 'ゲーム',
+			'common.tvService' => 'テレビ',
+			'common.musicService' => 'ミュージック',
+			'common.newsService' => 'ニュース',
+			'common.moreService' => 'その他',
+			'common.timelineName1' => '田中 さくら',
+			'common.timelineName2' => '鈴木 ひろし',
+			'common.timelineName3' => '山田 あおい',
+			'common.timelinePost1' => '今日のランチ最高だった！また来よう🍜',
+			'common.timelinePost2' => '週末の花見、一緒に行きませんか？🌸',
+			'common.timelinePost3' => '新しいカフェ発見。コーヒーが絶品☕',
+			'common.timelineTime1' => '1時間前',
+			'common.timelineTime2' => '3時間前',
+			'common.timelineTime3' => '5時間前',
+			'common.timelineLikes1' => '12',
+			'common.timelineLikes2' => '8',
+			'common.timelineLikes3' => '24',
+			'common.likeButton' => 'いいね',
+			'common.commentButton' => 'コメント',
+			'common.shareButton' => 'シェア',
+			'common.forYouTab' => 'おすすめ',
+			'common.followTab' => 'フォロー中',
+			'common.newsHeadline1' => '人気アプリの新機能が登場、利便性が大幅向上',
+			'common.newsHeadline2' => '研究チーム、新たな発見を発表',
+			'common.newsHeadline3' => '今週末のおすすめおでかけスポット',
+			'common.newsHeadline4' => 'テクノロジー企業、次世代製品を発表',
+			'common.newsSource1' => 'デイリーニュース',
+			'common.newsSource2' => 'サイエンスタイム',
+			'common.newsSource3' => 'シティライフ',
+			'common.newsSource4' => 'テック レビュー',
+			'common.newsTag1' => 'テクノロジー',
+			'common.newsTag2' => 'サイエンス',
+			'common.newsTag3' => 'ライフスタイル',
+			'common.newsTag4' => 'ビジネス',
+			'common.newsTime1' => '1時間前',
+			'common.newsTime2' => '2時間前',
+			'common.newsTime3' => '4時間前',
+			'common.newsTime4' => '6時間前',
 			'contacts.alice' => 'Alice',
 			'contacts.bob' => 'Bob',
 			'contacts.carol' => 'Carol',

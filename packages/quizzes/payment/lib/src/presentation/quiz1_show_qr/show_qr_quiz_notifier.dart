@@ -14,7 +14,7 @@ final showQrQuizProvider =
   ShowQrQuizNotifier.new,
 );
 
-/// Quiz 1「QRコードを表示する」のNotifier
+/// Quiz 1「支払いボタンをタップしてバーコードを表示する」のNotifier
 class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
   static const _quizId = 'payment_quiz1';
   static const _timeLimitSeconds = 30;
@@ -40,13 +40,13 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
     _startTimer();
   }
 
-  /// QRコードボタンをタップ
-  Future<void> tapQr() async {
+  /// ボトムナビ中央の支払いボタンをタップ
+  Future<void> tapPayment() async {
     if (state.status != QuizStatus.playing) return;
 
-    state = state.copyWith(qrShown: true);
+    state = state.copyWith(paymentShown: true);
 
-    final isClear = _useCase.isClear(qrShown: true);
+    final isClear = _useCase.isClear(paymentShown: true);
     if (isClear) {
       _timer?.cancel();
       final elapsed = _elapsed;
@@ -61,9 +61,9 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
     }
   }
 
-  /// QR画面を閉じる（ホームに戻る）
-  void closeQr() {
-    state = state.copyWith(qrShown: false);
+  /// 支払い画面を閉じる（ホームに戻る）
+  void closePaymentScreen() {
+    state = state.copyWith(paymentShown: false);
   }
 
   /// 諦めてクイズを終了する

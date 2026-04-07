@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
+import '../../domain/payment_method.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'send_money_quiz_notifier.dart';
 import 'send_money_quiz_state.dart';
 
-/// Quiz 3「誰かに送金してください」
+/// Quiz 3「友達に5,000円を送金してください」
 class SendMoneyQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const SendMoneyQuizScreen({super.key, this.onCompleted});
@@ -61,13 +62,14 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
 
     return PaymentHomeScreen(
       balance: PaymentCatalog.initialBalance,
-      balanceRevealed: true,
+      balanceHidden: false,
+      currentPaymentMethod: PaymentMethod.balance,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightSendButton: state.status == QuizStatus.playing,
+      highlightSendTile: state.status == QuizStatus.playing,
       onSendTap: notifier.tapSend,
       overlays: [
         if (_showCutIn)

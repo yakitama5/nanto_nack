@@ -14,11 +14,11 @@ final revealBalanceQuizProvider = AutoDisposeNotifierProvider<
   RevealBalanceQuizNotifier.new,
 );
 
-/// Quiz 2「残高を確認する」のNotifier
+/// Quiz 2「残高を隠す」のNotifier
 class RevealBalanceQuizNotifier
     extends AutoDisposeNotifier<RevealBalanceQuizState> {
   static const _quizId = 'payment_quiz2';
-  static const _timeLimitSeconds = 30;
+  static const _timeLimitSeconds = 45;
 
   final _useCase = const QuizRevealBalanceUseCase();
   Timer? _timer;
@@ -42,13 +42,14 @@ class RevealBalanceQuizNotifier
     _startTimer();
   }
 
-  /// 残高エリアをタップ
-  Future<void> tapBalance() async {
+  /// 目アイコンをタップ（残高の表示/非表示を切り替え）
+  Future<void> tapEyeIcon() async {
     if (state.status != QuizStatus.playing) return;
 
-    state = state.copyWith(balanceRevealed: true);
+    // 残高を隠す（balanceHidden: true = クリア状態）
+    state = state.copyWith(balanceHidden: true);
 
-    final isClear = _useCase.isClear(balanceRevealed: true);
+    final isClear = _useCase.isClear(balanceHidden: true);
     if (isClear) {
       _timer?.cancel();
       final elapsed = _elapsed;

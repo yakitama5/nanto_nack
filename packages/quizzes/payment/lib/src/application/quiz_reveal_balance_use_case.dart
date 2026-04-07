@@ -1,8 +1,8 @@
-/// Quiz 2「残高を確認する」のユースケース
+/// Quiz 2「残高を隠す」のユースケース
 class QuizRevealBalanceUseCase {
   /// コンストラクタ
   const QuizRevealBalanceUseCase();
 
-  /// クリア条件: 残高ブラーが解除されたか
-  bool isClear({required bool balanceRevealed}) => balanceRevealed;
+  /// クリア条件: 残高が非表示になったか
+  bool isClear({required bool balanceHidden}) => balanceHidden;
 }

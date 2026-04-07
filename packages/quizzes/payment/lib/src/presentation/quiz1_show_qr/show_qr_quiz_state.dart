@@ -8,7 +8,7 @@ class ShowQrQuizState extends QuizStateBase {
     required super.failureCount,
     required super.elapsedMs,
     required super.startedAt,
-    required this.qrShown,
+    required this.paymentShown,
     required this.remainingSeconds,
   });
 
@@ -19,12 +19,12 @@ class ShowQrQuizState extends QuizStateBase {
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
-        qrShown: false,
+        paymentShown: false,
         remainingSeconds: timeLimitSeconds,
       );
 
   /// QRコードが表示されたか
-  final bool qrShown;
+  final bool paymentShown;
 
   /// 残り時間（秒）
   final int remainingSeconds;
@@ -35,7 +35,7 @@ class ShowQrQuizState extends QuizStateBase {
     int? failureCount,
     int? elapsedMs,
     DateTime? startedAt,
-    bool? qrShown,
+    bool? paymentShown,
     int? remainingSeconds,
   }) {
     return ShowQrQuizState(
@@ -43,7 +43,7 @@ class ShowQrQuizState extends QuizStateBase {
       failureCount: failureCount ?? this.failureCount,
       elapsedMs: elapsedMs ?? this.elapsedMs,
       startedAt: startedAt ?? this.startedAt,
-      qrShown: qrShown ?? this.qrShown,
+      paymentShown: paymentShown ?? this.paymentShown,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
     );
   }

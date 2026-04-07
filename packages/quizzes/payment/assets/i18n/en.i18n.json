@@ -1,35 +1,35 @@
 {
   "quiz1": {
-    "missionText": "Show the QR code",
-    "failureReason": "Tap the 'QR Code' button",
+    "missionText": "You're at the register. Please show your barcode",
+    "failureReason": "Tap the large button at the bottom of the screen",
     "insight": {
-      "title": "How did you find the QR button?",
-      "subtitle": "QR code = entry to scan-and-pay",
-      "qrTitle": "QR code icon means 'payment'",
-      "qrDesc": "The mosaic-patterned QR code icon is used as the entry point for QR payments in cashless apps worldwide.",
-      "cameraTitle": "Camera icon means 'scan'",
-      "cameraDesc": "The camera/scan icon is for reading someone else's QR code — opposite of showing your own for payment.",
-      "colorTitle": "Highlighted color = main action",
-      "colorDesc": "Buttons emphasized in the app's primary color indicate the most-used action — usually QR payment in payment apps."
+      "title": "How did you find the payment button?",
+      "subtitle": "The biggest button = the app's main purpose",
+      "qrTitle": "The center large button is the 'main action'",
+      "qrDesc": "A protruding button in the center of the bottom navigation indicates the most-used action in that app. In payment apps, that's 'Pay'.",
+      "cameraTitle": "The app's theme color shows 'importance'",
+      "cameraDesc": "Buttons highlighted in the app's main color (red, blue, etc.) are used as a sign of the most important action.",
+      "colorTitle": "Protruding design = 'please press me' signal",
+      "colorDesc": "A design that is larger than other buttons and pops upward has a strong affordance saying 'use this button'."
     }
   },
   "quiz2": {
-    "missionText": "Check your balance",
-    "failureReason": "Tap the blurred balance area to reveal it",
+    "missionText": "Someone might see your screen! Hide your balance",
+    "failureReason": "Tap the 'eye icon' next to your balance",
     "insight": {
-      "title": "How did you reveal the balance?",
-      "subtitle": "Blur = hidden info waiting to be shown",
-      "blurTitle": "Blur indicates hidden information",
-      "blurDesc": "Balance amounts are intentionally blurred for privacy. The blur itself signals 'tap to reveal' — a tappable UI element.",
+      "title": "How did you hide your balance?",
+      "subtitle": "👁️ icon = show/hide toggle",
       "eyeTitle": "Eye icon means show/hide",
-      "eyeDesc": "A closed eye means info is hidden; an open eye means visible. Widely used for passwords and balance displays.",
-      "privacyTitle": "Revealed info = correct action",
-      "privacyDesc": "When information is shown correctly, it confirms you performed the right action. UI feedback guides correct usage."
+      "eyeDesc": "An open eye icon means 'information is visible' and tapping it switches to hidden. A widely used UI pattern for password fields and balance displays.",
+      "maskTitle": "'***' is a sign that info is hidden",
+      "maskDesc": "Displaying sensitive information like amounts with asterisks (***) is a UI pattern indicating 'the information exists but is hidden'.",
+      "privacyTitle": "Privacy protection is conveyed visually",
+      "privacyDesc": "When information is hidden, you know you performed the correct action. UI feedback immediately tells you whether the operation succeeded."
     }
   },
   "quiz3": {
-    "missionText": "Send money to someone",
-    "failureReason": "Select a recipient, enter amount, and tap Send",
+    "missionText": "Send 5,000 yen to a friend",
+    "failureReason": "Tap the 'Send' icon, enter 5000, and press the send button",
     "insight": {
       "title": "How did you figure out how to send?",
       "subtitle": "3 steps is the standard send flow",
@@ -42,17 +42,17 @@
     }
   },
   "quiz4": {
-    "missionText": "Check your transaction history",
-    "failureReason": "Tap the 'History' tab or statement button",
+    "missionText": "Not enough balance! Change payment method to 'Credit Card' and show the barcode",
+    "failureReason": "Select credit card first, then open the payment screen",
     "insight": {
-      "title": "How did you find transaction history?",
-      "subtitle": "Clock + list = history UI symbols",
-      "historyTitle": "Clock icon = history",
-      "historyDesc": "Clock and list-style icons represent past records in banking and payment apps worldwide.",
-      "listTitle": "List layout = information overview",
-      "listDesc": "Vertical lists are the simplest and most intuitive UI for showing multiple items like transactions or messages.",
-      "tabTitle": "Tabs = category switching",
-      "tabDesc": "Tabs at the top or bottom of the screen switch between content categories — Home, Send, History, etc."
+      "title": "How did you change the payment method?",
+      "subtitle": "Two routes to change payment source",
+      "routeATitle": "Change from payment screen (Route A)",
+      "routeADesc": "Open the payment screen and tap the 'payment source button' below the barcode to open a bottom sheet and select a payment method. The mental model: 'current setting = tap to change'.",
+      "routeBTitle": "Swipe on home screen to change (Route B)",
+      "routeBDesc": "Swipe left or right on the 'payment source card' on the home screen to switch payment methods. Understanding modern gesture UI: 'card UI = swipe to switch'.",
+      "dropdownTitle": "A place showing a setting value can be tapped to change it",
+      "dropdownDesc": "Buttons or labels showing the current setting open a dropdown or selection screen when tapped. Widely used in banking and shopping apps."
     }
   },
   "common": {
@@ -71,6 +71,14 @@
     "cancel": "Cancel",
     "tapToReveal": "Tap to reveal",
     "yen": "¥",
+    "payment": "Pay",
+    "creditCard": "Credit Card",
+    "paymentSource": "Payment Source",
+    "balancePayment": "Balance",
+    "scan": "Scan",
+    "more": "More",
+    "home": "Home",
+    "account": "Account",
     "contact1": "Taro Tanaka",
     "contact2": "Hanako Yamada",
     "contact3": "Jiro Suzuki",
@@ -89,6 +97,40 @@
     "txDate2": "Yesterday",
     "txDate3": "Yesterday",
     "txDate4": "3 days ago",
-    "txDate5": "4 days ago"
+    "txDate5": "4 days ago",
+    "txFilterAll": "All",
+    "txFilterOut": "Pay",
+    "txFilterIn": "Receive",
+    "txMonthLabel": "This Month",
+    "txMonthTotal": "Monthly Total",
+    "pointBalance": "Point Balance",
+    "pointExpiry": "Expires",
+    "expiryDate": "Until Dec 31, 2026",
+    "earnPoints": "Earn Points",
+    "shopService": "Shopping",
+    "missionService": "Mission",
+    "campaignService": "Campaign",
+    "pointHistory": "Point History",
+    "pointItem1": "Shopping",
+    "pointItem2": "Daily Bonus",
+    "pointItem3": "Friend Invite",
+    "pointGained1": "+50",
+    "pointGained2": "+10",
+    "pointGained3": "+200",
+    "pointDate1": "Today",
+    "pointDate2": "Yesterday",
+    "pointDate3": "3 days ago",
+    "myAccount": "My Account",
+    "userId": "User ID",
+    "userIdValue": "user_12345",
+    "paymentMethods": "Payment Methods",
+    "addedCard": "Credit Card Added",
+    "bankAccount": "Bank Account",
+    "securitySettings": "Security Settings",
+    "notificationSettings": "Notifications",
+    "appSettings": "App Settings",
+    "helpCenter": "Help Center",
+    "logOut": "Log Out",
+    "pointUnit": "P"
   }
 }
