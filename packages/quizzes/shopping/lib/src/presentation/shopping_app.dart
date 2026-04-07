@@ -200,6 +200,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
             )
           : _AccountMenuView(
               recentOrder: widget.recentOrder,
+              hintUsed: widget.hintUsed,
               onOrderHistoryTap: () =>
                   setState(() => _showOrderHistory = true),
             );
@@ -1195,11 +1196,13 @@ class _ShoppingNavItem extends StatelessWidget {
 class _AccountMenuView extends StatelessWidget {
   const _AccountMenuView({
     required this.recentOrder,
+    required this.hintUsed,
     required this.onOrderHistoryTap,
   });
 
   /// null のとき注文履歴メニューは非活性
   final ShoppingRecentOrder? recentOrder;
+  final bool hintUsed;
   final VoidCallback onOrderHistoryTap;
 
   @override
@@ -1258,13 +1261,13 @@ class _AccountMenuView extends StatelessWidget {
                 label: context.sq.reorder.orderHistoryTitle,
                 showDivider: true,
               ),
-              // 注文履歴: recentOrder がある場合のみ活性化
+              // 注文履歴: recentOrder がある場合のみ活性化、ヒント使用時にハイライト
               _AccountMenuTile(
                 icon: Icons.receipt_long_outlined,
                 label: context.sq.reorder.appTitle,
                 onTap: hasOrder ? onOrderHistoryTap : null,
                 showDivider: true,
-                highlighted: hasOrder,
+                highlighted: hasOrder && hintUsed,
               ),
               _AccountMenuTile(
                 icon: Icons.favorite_border,
@@ -1300,7 +1303,7 @@ class _AccountMenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final tile = Column(
       children: [
         InkWell(
           onTap: onTap ?? () {},
@@ -1345,6 +1348,11 @@ class _AccountMenuTile extends StatelessWidget {
         if (showDivider)
           const Divider(height: 1, indent: 56),
       ],
+    );
+
+    return _Blinker(
+      blinking: highlighted,
+      child: tile,
     );
   }
 }
