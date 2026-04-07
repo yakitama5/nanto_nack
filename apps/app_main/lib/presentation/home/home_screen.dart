@@ -51,11 +51,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
 
     final targets = [
-      // Step 1: ウェルカム（笑顔）
+      // Step 1: ウェルカム（笑顔）- フォーカスなし
       TargetFocus(
         identify: 'home_welcome',
         targetPosition: centerPos,
-        enableOverlayTab: false,
+        enableOverlayTab: true,
+        paddingFocus: 0,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
@@ -66,11 +67,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      // Step 2: アプリ紹介（通常）
+      // Step 2: アプリ紹介（通常）- フォーカスなし
       TargetFocus(
         identify: 'home_app_intro',
         targetPosition: centerPos,
-        enableOverlayTab: false,
+        enableOverlayTab: true,
+        paddingFocus: 0,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
@@ -81,14 +83,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      // Step 3: プレイボタン（笑顔）- プレイする以外タップ不可
+      // Step 3: プレイボタン（笑顔）- ここで初めてフォーカス表示
       TargetFocus(
         identify: 'home_play_button',
         keyTarget: _playButtonKey,
         shape: ShapeLightFocus.RRect,
         radius: 18,
         paddingFocus: 8,
-        enableOverlayTab: false,
+        enableOverlayTab: true,
         contents: [
           TargetContent(
             align: ContentAlign.top,
@@ -100,6 +102,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
     ];
+
+    void navigateToPlay() {
+      ref.read(analyticsServiceProvider).logPlayButtonTapped();
+      ref
+          .read(tutorialNotifierProvider.notifier)
+          .advanceTo(TutorialScreen.categoryList);
+      context.push('/play');
+    }
 
     TutorialCoachMark(
       targets: targets,
@@ -123,13 +133,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       ),
       onClickTarget: (target) {
-        // プレイボタンをクリックしたときに CategoryListScreen へ遷移
         if (target.identify == 'home_play_button') {
-          ref.read(analyticsServiceProvider).logPlayButtonTapped();
-          ref
-              .read(tutorialNotifierProvider.notifier)
-              .advanceTo(TutorialScreen.categoryList);
-          context.push('/play');
+          navigateToPlay();
+        }
+      },
+      onClickOverlay: (target) {
+        if (target.identify == 'home_play_button') {
+          navigateToPlay();
         }
       },
       onFinish: () {

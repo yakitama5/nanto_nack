@@ -33,7 +33,11 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
     if (!mounted) return;
     if (!tutState.isCompleted &&
         tutState.screen == TutorialScreen.categoryList) {
-      _showTutorial();
+      // プロバイダーロード完了後、ウィジェットが再ビルドされるまで待つ
+      // （_shoppingCardKey がウィジェットに設定されてから表示する）
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _showTutorial();
+      });
     }
   }
 
@@ -46,7 +50,7 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         shape: ShapeLightFocus.RRect,
         radius: 20,
         paddingFocus: 8,
-        enableOverlayTab: false,
+        enableOverlayTab: true,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
@@ -58,6 +62,13 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         ],
       ),
     ];
+
+    void navigateToWaterQuiz() {
+      ref
+          .read(tutorialNotifierProvider.notifier)
+          .advanceTo(TutorialScreen.waterQuiz);
+      context.push('/shopping/water', extra: true);
+    }
 
     TutorialCoachMark(
       targets: targets,
@@ -81,12 +92,13 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         ),
       ),
       onClickTarget: (target) {
-        // Shopping タイルのクリックで直接 WaterQuiz に遷移（クイズ選択をスキップ）
         if (target.identify == 'category_shopping') {
-          ref
-              .read(tutorialNotifierProvider.notifier)
-              .advanceTo(TutorialScreen.waterQuiz);
-          context.push('/shopping/water', extra: true);
+          navigateToWaterQuiz();
+        }
+      },
+      onClickOverlay: (target) {
+        if (target.identify == 'category_shopping') {
+          navigateToWaterQuiz();
         }
       },
       onFinish: () {
