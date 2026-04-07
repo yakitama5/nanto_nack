@@ -16,6 +16,11 @@ void main() {
     goldenTest(
       '商品タイルのゴールデンテスト',
       fileName: 'shopping_item_tile',
+      // highlighted シナリオのブリンクアニメーション（repeat）が pumpAndSettle を
+      // タイムアウトさせるため、300ms ポンプして value=1.0 の状態を確定的に再現する
+      pumpBeforeTest: (tester) async {
+        await tester.pump(const Duration(milliseconds: 300));
+      },
       builder: () => GoldenTestGroup(
         children: [
           GoldenTestScenario(

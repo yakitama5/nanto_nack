@@ -68,9 +68,11 @@ void main() {
 
     test('tapDownload toggles isDownloaded', () async {
       container.read(offlineSaveQuizProvider.notifier).startQuiz();
-      
+      // 高画質を選択してからダウンロード（低画質では不正解になるため）
+      await container.read(offlineSaveQuizProvider.notifier).selectQuality('1080p');
+
       await container.read(offlineSaveQuizProvider.notifier).tapDownload();
-      
+
       final state = container.read(offlineSaveQuizProvider);
       expect(state.video.isDownloaded, isTrue);
     });
