@@ -146,8 +146,8 @@ class _TodayHeroCard extends ConsumerWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.black.withValues(alpha: 0.15),
-                      Colors.black.withValues(alpha: 0.45),
+                      Colors.black.withValues(alpha: 0.30),
+                      Colors.black.withValues(alpha: 0.60),
                     ],
                   ),
                 ),
@@ -172,8 +172,8 @@ class _TodayHeroCard extends ConsumerWidget {
                                   .textTheme
                                   .labelLarge
                                   ?.copyWith(
-                                    color: sceneTheme.onSceneColor
-                                        .withValues(alpha: 0.7),
+                                    color: Colors.white
+                                        .withValues(alpha: 0.75),
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
@@ -184,7 +184,7 @@ class _TodayHeroCard extends ConsumerWidget {
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(
-                                    color: sceneTheme.onSceneColor,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -197,7 +197,7 @@ class _TodayHeroCard extends ConsumerWidget {
                         children: [
                           _HeaderIconButton(
                             icon: Icons.workspace_premium_rounded,
-                            color: sceneTheme.onSceneColor,
+                            color: Colors.white,
                             onPressed: () {
                               ref
                                   .read(analyticsServiceProvider)
@@ -208,7 +208,7 @@ class _TodayHeroCard extends ConsumerWidget {
                           const SizedBox(width: 4),
                           _HeaderIconButton(
                             icon: Icons.settings_rounded,
-                            color: sceneTheme.onSceneColor,
+                            color: Colors.white,
                             onPressed: () => context.push('/settings'),
                           ),
                         ],
@@ -223,21 +223,12 @@ class _TodayHeroCard extends ConsumerWidget {
                         .displaySmall
                         ?.copyWith(
                           fontWeight: FontWeight.w900,
-                          color: sceneTheme.onSceneColor,
+                          color: Colors.white,
                           letterSpacing: -1,
                         ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    t.home.subtitle,
-                    style:
-                        Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: sceneTheme.onSceneColor
-                                  .withValues(alpha: 0.65),
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.5,
-                            ),
-                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
