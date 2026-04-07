@@ -17,8 +17,11 @@ analyzer:
     - "**/*.gen.dart"
     - "**/*.freezed.dart"
     - "**/*.gform.dart"
-    - "**/firebase_options*.dart"
-    - "build/**"
+    - "**/firebase_options.dart"
+    - "**/generated/**"
+    - "**/build/**"
+    - "**/.dart_tool/**"
+    - "**/vendor/**"
   errors:
     invalid_annotation_target: ignore
     todo: ignore
