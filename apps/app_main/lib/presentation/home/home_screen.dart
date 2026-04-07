@@ -39,7 +39,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final tutState = await ref.read(tutorialNotifierProvider.future);
     if (!mounted) return;
     if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
-      _showTutorial();
+      // dashboardProvider が解決されると _playButtonKey が設定されたウィジェットが
+      // ビルドされるため、その後のフレームでコーチマークを表示する
+      await ref.read(dashboardProvider.future);
+      if (!mounted) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _showTutorial();
+      });
     }
   }
 
