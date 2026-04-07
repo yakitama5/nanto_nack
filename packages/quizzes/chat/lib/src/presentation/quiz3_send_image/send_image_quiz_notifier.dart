@@ -62,7 +62,7 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   /// コンタクトをタップしてチャットルームへ
   void openChatRoom() {
     if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(isInChatRoom: true);
+    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: true);
   }
 
   /// 画像ピッカーの開閉切り替え
@@ -72,10 +72,16 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   }
 
   /// 画像を送信（isImage=true のメッセージを追加）
+  /// 間違ったルームで送信した場合は不正解になる
   Future<void> sendImage(String? imagePath) async {
     // 画像が実際に選択されていない場合は処理しない
     if (imagePath == null) return;
     if (state.status != QuizStatus.playing) return;
+    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
+    if (!state.isCorrectChatRoom) {
+      await _markIncorrect();
+      return;
+    }
     _timer?.cancel();
 
     final newMessage = ChatMessage(
@@ -110,14 +116,24 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   /// チャットルームからチャットリストへ戻る
   /// バックボタン・バックアローを押したときに呼び出される
   void closeChatRoom() {
-    state = state.copyWith(isInChatRoom: false, isImagePickerOpen: false);
+    state = state.copyWith(
+      isInChatRoom: false,
+      isImagePickerOpen: false,
+      isCorrectChatRoom: true,
+    );
   }
 
   /// テキストメッセージを送信（画像クイズのクリア判定には影響しない）
   /// UI の一貫性のためにメッセージリストへ追加する
-  void sendTextMessage(String text) {
+  /// 間違ったルームで送信した場合は不正解になる
+  Future<void> sendTextMessage(String text) async {
     if (state.status != QuizStatus.playing) return;
     if (text.trim().isEmpty) return;
+    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
+    if (!state.isCorrectChatRoom) {
+      await _markIncorrect();
+      return;
+    }
     final newMessage = ChatMessage(
       id: 'text_${clock.now().millisecondsSinceEpoch}',
       text: text,
@@ -128,8 +144,14 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   }
 
   /// スタンプメッセージを送信（クイズ判定に影響しない、UIの一貫性のため）
-  void sendStampAsMessage(String stampId) {
+  /// 間違ったルームで送信した場合は不正解になる
+  Future<void> sendStampAsMessage(String stampId) async {
     if (state.status != QuizStatus.playing) return;
+    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
+    if (!state.isCorrectChatRoom) {
+      await _markIncorrect();
+      return;
+    }
     final newMessage = ChatMessage(
       id: 'stamp_${clock.now().millisecondsSinceEpoch}',
       text: stampId,
@@ -141,23 +163,11 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     state = state.copyWith(messages: [...state.messages, newMessage]);
   }
 
-  /// 間違ったコンタクトをタップしたときにチャットルームへ遷移して不正解にする
-  /// 正解コンタクト(Carol)以外を選んだ場合の即時判定に使用する
-  Future<void> openWrongChatRoom() async {
+  /// 間違ったコンタクトをタップしてチャットルームへ遷移する（不正解判定なし）
+  /// アクションを実行したタイミングで不正解になる
+  void openWrongChatRoom() {
     if (state.status != QuizStatus.playing) return;
-    _timer?.cancel();
-    final elapsed = state.startedAt != null
-        ? clock.now().difference(state.startedAt!).inMilliseconds
-        : 0;
-    state = state.copyWith(
-      isInChatRoom: true,
-      status: QuizStatus.incorrect,
-      failureCount: state.failureCount + 1,
-      elapsedMs: elapsed,
-    );
-    try {
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: false);
   }
 
   Future<void> giveUp() async {
@@ -211,6 +221,23 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     state = state.copyWith(
       status: QuizStatus.timeUp,
       remainingSeconds: 0,
+      elapsedMs: elapsed,
+    );
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {}
+  }
+
+  /// 間違ったルームでアクションを実行したときの不正解処理
+  /// タイマーを止め、不正解状態にしてリザルトを保存する
+  Future<void> _markIncorrect() async {
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      status: QuizStatus.incorrect,
+      failureCount: state.failureCount + 1,
       elapsedMs: elapsed,
     );
     try {

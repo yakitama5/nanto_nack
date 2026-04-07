@@ -13,6 +13,7 @@ class SendImageQuizState extends QuizStateBase {
     required this.messages,
     required this.remainingSeconds,
     this.isImagePickerOpen = false,
+    this.isCorrectChatRoom = true,
   });
 
   final ChatTab currentTab;
@@ -22,6 +23,10 @@ class SendImageQuizState extends QuizStateBase {
 
   /// 画像ピッカーが開いているかどうか
   final bool isImagePickerOpen;
+
+  /// 現在開いているチャットルームが正解のコンタクトかどうか
+  /// false の場合、アクションを実行したタイミングで不正解になる
+  final bool isCorrectChatRoom;
 
   SendImageQuizState copyWith({
     QuizStatus? status,
@@ -33,6 +38,7 @@ class SendImageQuizState extends QuizStateBase {
     List<ChatMessage>? messages,
     int? remainingSeconds,
     bool? isImagePickerOpen,
+    bool? isCorrectChatRoom,
   }) {
     return SendImageQuizState(
       status: status ?? this.status,
@@ -44,6 +50,7 @@ class SendImageQuizState extends QuizStateBase {
       messages: messages ?? this.messages,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       isImagePickerOpen: isImagePickerOpen ?? this.isImagePickerOpen,
+      isCorrectChatRoom: isCorrectChatRoom ?? this.isCorrectChatRoom,
     );
   }
 
@@ -60,5 +67,6 @@ class SendImageQuizState extends QuizStateBase {
         isInChatRoom: false,
         messages: initialMessages,
         remainingSeconds: timeLimitSeconds,
+        isCorrectChatRoom: true,
       );
 }

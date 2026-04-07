@@ -13,6 +13,7 @@ class SendStampQuizState extends QuizStateBase {
     required this.messages,
     required this.remainingSeconds,
     this.isStampPanelOpen = false,
+    this.isCorrectChatRoom = true,
   });
 
   final ChatTab currentTab;
@@ -20,6 +21,10 @@ class SendStampQuizState extends QuizStateBase {
   final List<ChatMessage> messages;
   final int remainingSeconds;
   final bool isStampPanelOpen;
+
+  /// 現在開いているチャットルームが正解のコンタクトかどうか
+  /// false の場合、アクションを実行したタイミングで不正解になる
+  final bool isCorrectChatRoom;
 
   SendStampQuizState copyWith({
     QuizStatus? status,
@@ -31,6 +36,7 @@ class SendStampQuizState extends QuizStateBase {
     List<ChatMessage>? messages,
     int? remainingSeconds,
     bool? isStampPanelOpen,
+    bool? isCorrectChatRoom,
   }) {
     return SendStampQuizState(
       status: status ?? this.status,
@@ -42,6 +48,7 @@ class SendStampQuizState extends QuizStateBase {
       messages: messages ?? this.messages,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       isStampPanelOpen: isStampPanelOpen ?? this.isStampPanelOpen,
+      isCorrectChatRoom: isCorrectChatRoom ?? this.isCorrectChatRoom,
     );
   }
 
@@ -58,5 +65,6 @@ class SendStampQuizState extends QuizStateBase {
         isInChatRoom: false,
         messages: initialMessages,
         remainingSeconds: timeLimitSeconds,
+        isCorrectChatRoom: true,
       );
 }

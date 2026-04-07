@@ -56,20 +56,30 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
   /// コンタクトをタップしてチャットルームへ
   void openChatRoom() {
     if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(isInChatRoom: true);
+    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: true);
   }
 
   /// チャットルームからチャットリストへ戻る
   /// ユーザーがバックボタンやバックアローを押した際に呼び出される
   void closeChatRoom() {
-    state = state.copyWith(isInChatRoom: false, isStampPanelOpen: false);
+    state = state.copyWith(
+      isInChatRoom: false,
+      isStampPanelOpen: false,
+      isCorrectChatRoom: true,
+    );
   }
 
   /// テキストメッセージを送信（スタンプクイズのクリア判定には影響しない）
   /// UI の一貫性のためにメッセージリストへ追加する
-  void sendTextMessage(String text) {
+  /// 間違ったルームで送信した場合は不正解になる
+  Future<void> sendTextMessage(String text) async {
     if (state.status != QuizStatus.playing) return;
     if (text.trim().isEmpty) return;
+    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
+    if (!state.isCorrectChatRoom) {
+      await _markIncorrect();
+      return;
+    }
     final newMessage = ChatMessage(
       id: 'text_${clock.now().millisecondsSinceEpoch}',
       text: text,
@@ -80,9 +90,15 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
   }
 
   /// 画像メッセージを送信（クイズ判定に影響しない、UIの一貫性のため）
-  void sendImageAsMessage(String? imagePath) {
+  /// 間違ったルームで送信した場合は不正解になる
+  Future<void> sendImageAsMessage(String? imagePath) async {
     if (state.status != QuizStatus.playing) return;
     if (imagePath == null) return;
+    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
+    if (!state.isCorrectChatRoom) {
+      await _markIncorrect();
+      return;
+    }
     final newMessage = ChatMessage(
       id: 'image_${clock.now().millisecondsSinceEpoch}',
       text: '',
@@ -94,23 +110,11 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
     state = state.copyWith(messages: [...state.messages, newMessage]);
   }
 
-  /// 間違ったコンタクトをタップしたときにチャットルームへ遷移して不正解にする
-  /// 正解コンタクト(Alice)以外を選んだ場合の即時判定に使用する
-  Future<void> openWrongChatRoom() async {
+  /// 間違ったコンタクトをタップしてチャットルームへ遷移する（不正解判定なし）
+  /// アクションを実行したタイミングで不正解になる
+  void openWrongChatRoom() {
     if (state.status != QuizStatus.playing) return;
-    _timer?.cancel();
-    final elapsed = state.startedAt != null
-        ? clock.now().difference(state.startedAt!).inMilliseconds
-        : 0;
-    state = state.copyWith(
-      isInChatRoom: true,
-      status: QuizStatus.incorrect,
-      failureCount: state.failureCount + 1,
-      elapsedMs: elapsed,
-    );
-    try {
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: false);
   }
 
   /// スタンプパネルの開閉切り替え
@@ -120,8 +124,14 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
   }
 
   /// スタンプ送信
+  /// 間違ったルームで送信した場合は不正解になる
   Future<void> sendStamp(String stampId) async {
     if (state.status != QuizStatus.playing) return;
+    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
+    if (!state.isCorrectChatRoom) {
+      await _markIncorrect();
+      return;
+    }
     _timer?.cancel();
 
     final newMessage = ChatMessage(
@@ -205,6 +215,23 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
     state = state.copyWith(
       status: QuizStatus.timeUp,
       remainingSeconds: 0,
+      elapsedMs: elapsed,
+    );
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {}
+  }
+
+  /// 間違ったルームでアクションを実行したときの不正解処理
+  /// タイマーを止め、不正解状態にしてリザルトを保存する
+  Future<void> _markIncorrect() async {
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      status: QuizStatus.incorrect,
+      failureCount: state.failureCount + 1,
       elapsedMs: elapsed,
     );
     try {

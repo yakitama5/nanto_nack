@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:chat/src/presentation/chat_app_shell.dart';
@@ -24,6 +25,8 @@ class _CancelMessageQuizScreenState
     extends ConsumerState<CancelMessageQuizScreen> {
   static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
+  // 間違ったコンタクトのルームに入ったときに保持するコンタクト情報
+  ChatContact? _openedContact;
 
   @override
   void initState() {
@@ -42,15 +45,23 @@ class _CancelMessageQuizScreenState
     final overlays = _buildOverlays(state, missionText, notifier);
 
     if (state.isInChatRoom) {
+      final isCorrect = state.isCorrectChatRoom;
+      // 間違ったルームの場合はタップしたコンタクトと空メッセージを表示する
+      final contact = isCorrect
+          ? ChatCatalog.quiz4Contacts(clock.now())[0] // Alice（最上位）
+          : _openedContact!;
+      final messages = isCorrect ? state.messages : <ChatMessage>[];
       return ChatRoomScreen(
-        contact: ChatCatalog.quiz4Contacts(clock.now())[0], // Alice（最上位）
-        messages: state.messages,
+        contact: contact,
+        messages: messages,
         inputText: '',
         onInputChanged: (_) {},
         onSendMessage: () {},
         onStampTap: () {},
-        onMessageLongPress: (message) =>
-            _showCancelMenu(context, message, notifier),
+        // 間違ったルームでは長押しメニューを表示しない（アクション実行で不正解になるため）
+        onMessageLongPress: isCorrect
+            ? (message) => _showCancelMenu(context, message, notifier)
+            : (_) {},
         isStampPanelOpen: false,
         onStampSelected: (_) {},
         showTextInput: false,
@@ -62,6 +73,8 @@ class _CancelMessageQuizScreenState
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         overlays: overlays,
+        // 間違ったルームではバックアローで戻れるようにする
+        onBackToChatList: isCorrect ? null : notifier.closeChatRoom,
       );
     }
 
@@ -72,9 +85,14 @@ class _CancelMessageQuizScreenState
       currentTab: state.currentTab,
       onTabChanged: notifier.switchTab,
       contacts: contacts,
+      // 一番上のコンタクト（Alice）なら正解ルームへ、それ以外は間違ったルームへ遷移する
       onContactTap: (contact) {
-        // 一番上のコンタクト（Alice）をタップでチャットルームへ
-        if (contact.id == contacts.first.id) notifier.openChatRoom();
+        if (contact.id == contacts.first.id) {
+          notifier.openChatRoom();
+        } else {
+          setState(() => _openedContact = contact);
+          notifier.openWrongChatRoom();
+        }
       },
       quizStatus: state.status,
       talkTabBadgeCount: 0,

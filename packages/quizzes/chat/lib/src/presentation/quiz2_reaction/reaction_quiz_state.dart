@@ -13,6 +13,7 @@ class ReactionQuizState extends QuizStateBase {
     required this.messages,
     required this.remainingSeconds,
     this.reactionPickerMessageId,
+    this.isCorrectChatRoom = true,
   });
 
   final ChatTab currentTab;
@@ -22,6 +23,10 @@ class ReactionQuizState extends QuizStateBase {
 
   /// リアクションピッカーを表示するメッセージID（null = 非表示）
   final String? reactionPickerMessageId;
+
+  /// 現在開いているチャットルームが正解のコンタクトかどうか
+  /// false の場合、アクションを実行したタイミングで不正解になる
+  final bool isCorrectChatRoom;
 
   ReactionQuizState copyWith({
     QuizStatus? status,
@@ -34,6 +39,7 @@ class ReactionQuizState extends QuizStateBase {
     int? remainingSeconds,
     // null クリアを可能にするための sentinel パターン
     Object? reactionPickerMessageId = _absent,
+    bool? isCorrectChatRoom,
   }) {
     return ReactionQuizState(
       status: status ?? this.status,
@@ -47,6 +53,7 @@ class ReactionQuizState extends QuizStateBase {
       reactionPickerMessageId: identical(reactionPickerMessageId, _absent)
           ? this.reactionPickerMessageId
           : reactionPickerMessageId as String?,
+      isCorrectChatRoom: isCorrectChatRoom ?? this.isCorrectChatRoom,
     );
   }
 
@@ -63,6 +70,7 @@ class ReactionQuizState extends QuizStateBase {
         isInChatRoom: false,
         messages: initialMessages,
         remainingSeconds: timeLimitSeconds,
+        isCorrectChatRoom: true,
       );
 }
 

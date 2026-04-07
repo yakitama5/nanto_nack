@@ -56,12 +56,30 @@ class CancelMessageQuizNotifier
   /// コンタクトをタップしてチャットルームへ
   void openChatRoom() {
     if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(isInChatRoom: true);
+    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: true);
+  }
+
+  /// 間違ったコンタクトをタップしてチャットルームへ遷移する（不正解判定なし）
+  /// アクションを実行したタイミングで不正解になる
+  void openWrongChatRoom() {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: false);
+  }
+
+  /// チャットルームからチャットリストへ戻る
+  void closeChatRoom() {
+    state = state.copyWith(isInChatRoom: false, isCorrectChatRoom: true);
   }
 
   /// メッセージを取り消す（isDeleted=true にする）
+  /// 間違ったルームで実行した場合は不正解になる
   Future<void> cancelMessage(String messageId) async {
     if (state.status != QuizStatus.playing) return;
+    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
+    if (!state.isCorrectChatRoom) {
+      await _markIncorrect();
+      return;
+    }
     _timer?.cancel();
 
     final newMessages = state.messages
@@ -139,6 +157,23 @@ class CancelMessageQuizNotifier
     state = state.copyWith(
       status: QuizStatus.timeUp,
       remainingSeconds: 0,
+      elapsedMs: elapsed,
+    );
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {}
+  }
+
+  /// 間違ったルームでアクションを実行したときの不正解処理
+  /// タイマーを止め、不正解状態にしてリザルトを保存する
+  Future<void> _markIncorrect() async {
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      status: QuizStatus.incorrect,
+      failureCount: state.failureCount + 1,
       elapsedMs: elapsed,
     );
     try {

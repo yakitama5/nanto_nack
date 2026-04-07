@@ -1,4 +1,6 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/entities/chat_contact.dart';
+import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:chat/src/presentation/chat_app_shell.dart';
 import 'package:chat/src/presentation/chat_room_screen.dart';
@@ -26,6 +28,8 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
   String _inputText = '';
   // 画像ピッカーパネルの開閉状態
   bool _isImagePickerOpen = false;
+  // 間違ったコンタクトのルームに入ったときに保持するコンタクト情報
+  ChatContact? _openedContact;
 
   @override
   void initState() {
@@ -44,9 +48,15 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
     final overlays = _buildOverlays(state, missionText, notifier);
 
     if (state.isInChatRoom) {
+      // 間違ったルームの場合はタップしたコンタクトと空メッセージを表示する
+      final contact = state.isCorrectChatRoom
+          ? ChatCatalog.quiz1Contacts(clock.now())[0] // Alice
+          : _openedContact!;
+      final messages =
+          state.isCorrectChatRoom ? state.messages : <ChatMessage>[];
       return ChatRoomScreen(
-        contact: ChatCatalog.quiz1Contacts(clock.now())[0], // Alice
-        messages: state.messages,
+        contact: contact,
+        messages: messages,
         inputText: _inputText,
         onInputChanged: (text) => setState(() => _inputText = text),
         onSendMessage: () {
@@ -87,11 +97,12 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
         notifier.switchTab(tab);
       },
       contacts: ChatCatalog.quiz1Contacts(clock.now()),
-      // Alice なら正解チャットルームへ、それ以外は即時不正解にする
+      // Alice なら正解チャットルームへ、それ以外は間違ったルームへ遷移する
       onContactTap: (contact) {
         if (contact.id == 'alice') {
           notifier.openChatRoom();
         } else {
+          setState(() => _openedContact = contact);
           notifier.openWrongChatRoom();
         }
       },

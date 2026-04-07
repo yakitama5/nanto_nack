@@ -13,6 +13,7 @@ class CancelMessageQuizState extends QuizStateBase {
     required this.messages,
     required this.remainingSeconds,
     required this.messageCancelled,
+    this.isCorrectChatRoom = true,
   });
 
   final ChatTab currentTab;
@@ -22,6 +23,10 @@ class CancelMessageQuizState extends QuizStateBase {
 
   /// メッセージが取り消し済みかどうか
   final bool messageCancelled;
+
+  /// 現在開いているチャットルームが正解のコンタクトかどうか
+  /// false の場合、アクションを実行したタイミングで不正解になる
+  final bool isCorrectChatRoom;
 
   CancelMessageQuizState copyWith({
     QuizStatus? status,
@@ -33,6 +38,7 @@ class CancelMessageQuizState extends QuizStateBase {
     List<ChatMessage>? messages,
     int? remainingSeconds,
     bool? messageCancelled,
+    bool? isCorrectChatRoom,
   }) {
     return CancelMessageQuizState(
       status: status ?? this.status,
@@ -44,6 +50,7 @@ class CancelMessageQuizState extends QuizStateBase {
       messages: messages ?? this.messages,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       messageCancelled: messageCancelled ?? this.messageCancelled,
+      isCorrectChatRoom: isCorrectChatRoom ?? this.isCorrectChatRoom,
     );
   }
 
@@ -61,5 +68,6 @@ class CancelMessageQuizState extends QuizStateBase {
         messages: initialMessages,
         remainingSeconds: timeLimitSeconds,
         messageCancelled: false,
+        isCorrectChatRoom: true,
       );
 }
