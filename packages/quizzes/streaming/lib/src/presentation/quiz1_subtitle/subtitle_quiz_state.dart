@@ -9,10 +9,12 @@ class SubtitleQuizState extends QuizStateBase {
     required super.startedAt,
     required this.video,
     required this.remainingSeconds,
+    required this.isSettingsOpen,
   });
 
   final StreamingVideo video;
   final int remainingSeconds;
+  final bool isSettingsOpen;
 
   SubtitleQuizState copyWith({
     QuizStatus? status,
@@ -21,6 +23,7 @@ class SubtitleQuizState extends QuizStateBase {
     DateTime? startedAt,
     StreamingVideo? video,
     int? remainingSeconds,
+    bool? isSettingsOpen,
   }) {
     return SubtitleQuizState(
       status: status ?? this.status,
@@ -29,6 +32,7 @@ class SubtitleQuizState extends QuizStateBase {
       startedAt: startedAt ?? this.startedAt,
       video: video ?? this.video,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      isSettingsOpen: isSettingsOpen ?? this.isSettingsOpen,
     );
   }
 
@@ -43,5 +47,6 @@ class SubtitleQuizState extends QuizStateBase {
         startedAt: null,
         video: video,
         remainingSeconds: timeLimitSeconds,
+        isSettingsOpen: false,
       );
 }

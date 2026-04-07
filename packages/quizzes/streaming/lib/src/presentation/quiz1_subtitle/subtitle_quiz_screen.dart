@@ -42,10 +42,19 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
       onGiveUp: () => ref.read(subtitleQuizProvider.notifier).giveUp(),
       onSubtitleToggle: () =>
           ref.read(subtitleQuizProvider.notifier).tapCC(),
-      showShareButton: false,
-      showSaveButton: false,
-      showDownloadButton: false,
-      showMoreButton: false,
+      onLikeTap: () => ref.read(subtitleQuizProvider.notifier).tapLike(),
+      onDislikeTap: () =>
+          ref.read(subtitleQuizProvider.notifier).tapDislike(),
+      onShareTap: () => ref.read(subtitleQuizProvider.notifier).tapShare(),
+      onSaveTap: () => ref.read(subtitleQuizProvider.notifier).tapSave(),
+      onDownloadTap: () =>
+          ref.read(subtitleQuizProvider.notifier).tapDownload(),
+      onMoreTap: () =>
+          ref.read(subtitleQuizProvider.notifier).tapSettings(),
+      showShareButton: true,
+      showSaveButton: true,
+      showDownloadButton: true,
+      showMoreButton: true,
       highlightCC: state.status == QuizStatus.playing && !state.video.subtitlesEnabled,
       overlays: [
         if (_showCutIn)
@@ -53,6 +62,22 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
             missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
+          ),
+        if (state.isSettingsOpen)
+          _OverlayMenu(
+            onDismiss: () =>
+                ref.read(subtitleQuizProvider.notifier).dismissSettings(),
+            child: StreamingMoreMenu(
+              video: state.video,
+              onSubtitleTap: () {
+                ref.read(subtitleQuizProvider.notifier).dismissSettings();
+                ref.read(subtitleQuizProvider.notifier).tapCC();
+              },
+              onQualityTap: () {},
+              onSpeedTap: () {},
+              onDismiss: () =>
+                  ref.read(subtitleQuizProvider.notifier).dismissSettings(),
+            ),
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||
@@ -163,6 +188,34 @@ class _InsightItem extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+// ─── オーバーレイメニュー ─────────────────────────────────────────────────────
+
+class _OverlayMenu extends StatelessWidget {
+  const _OverlayMenu({required this.onDismiss, required this.child});
+
+  final VoidCallback onDismiss;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: GestureDetector(
+        onTap: onDismiss,
+        child: ColoredBox(
+          color: Colors.black45,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: GestureDetector(
+              onTap: () {}, // メニュー内タップで閉じないように
+              child: child,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

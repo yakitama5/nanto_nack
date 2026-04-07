@@ -43,7 +43,13 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
       missionText: missionText,
       onGiveUp: () => ref.read(offlineSaveQuizProvider.notifier).giveUp(),
       onMoreTap: () => ref.read(offlineSaveQuizProvider.notifier).tapSettings(),
-      onDownloadTap: () => ref.read(offlineSaveQuizProvider.notifier).tapDownload(),
+      onDownloadTap: () =>
+          ref.read(offlineSaveQuizProvider.notifier).tapDownload(),
+      onLikeTap: () => ref.read(offlineSaveQuizProvider.notifier).tapLike(),
+      onDislikeTap: () =>
+          ref.read(offlineSaveQuizProvider.notifier).tapDislike(),
+      onShareTap: () => ref.read(offlineSaveQuizProvider.notifier).tapShare(),
+      onSaveTap: () => ref.read(offlineSaveQuizProvider.notifier).tapSave(),
       showShareButton: true,
       showSaveButton: true,
       showDownloadButton: true,

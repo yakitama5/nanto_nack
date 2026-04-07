@@ -42,10 +42,19 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
       onGiveUp: () => ref.read(skipSeekQuizProvider.notifier).giveUp(),
       onNextTap: () => ref.read(skipSeekQuizProvider.notifier).tapNext(),
       onSeek: (val) => ref.read(skipSeekQuizProvider.notifier).onSeek(val),
-      showShareButton: false,
-      showSaveButton: false,
-      showDownloadButton: false,
-      showMoreButton: false,
+      onLikeTap: () => ref.read(skipSeekQuizProvider.notifier).tapLike(),
+      onDislikeTap: () =>
+          ref.read(skipSeekQuizProvider.notifier).tapDislike(),
+      onShareTap: () => ref.read(skipSeekQuizProvider.notifier).tapShare(),
+      onSaveTap: () => ref.read(skipSeekQuizProvider.notifier).tapSave(),
+      onDownloadTap: () =>
+          ref.read(skipSeekQuizProvider.notifier).tapDownload(),
+      onMoreTap: () =>
+          ref.read(skipSeekQuizProvider.notifier).tapSettings(),
+      showShareButton: true,
+      showSaveButton: true,
+      showDownloadButton: true,
+      showMoreButton: true,
       highlightNext: state.status == QuizStatus.playing && !state.isSkipped,
       highlightSeek: state.status == QuizStatus.playing && state.isSkipped,
       overlays: [
@@ -54,6 +63,19 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
             missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
+          ),
+        if (state.isSettingsOpen)
+          _OverlayMenu(
+            onDismiss: () =>
+                ref.read(skipSeekQuizProvider.notifier).dismissSettings(),
+            child: StreamingMoreMenu(
+              video: state.video,
+              onSubtitleTap: () {},
+              onQualityTap: () {},
+              onSpeedTap: () {},
+              onDismiss: () =>
+                  ref.read(skipSeekQuizProvider.notifier).dismissSettings(),
+            ),
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||
@@ -164,6 +186,34 @@ class _InsightItem extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+// ─── オーバーレイメニュー ─────────────────────────────────────────────────────
+
+class _OverlayMenu extends StatelessWidget {
+  const _OverlayMenu({required this.onDismiss, required this.child});
+
+  final VoidCallback onDismiss;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: GestureDetector(
+        onTap: onDismiss,
+        child: ColoredBox(
+          color: Colors.black45,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: GestureDetector(
+              onTap: () {}, // メニュー内タップで閉じないように
+              child: child,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

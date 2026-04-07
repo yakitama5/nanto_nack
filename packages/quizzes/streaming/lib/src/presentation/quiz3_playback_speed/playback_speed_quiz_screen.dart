@@ -43,9 +43,16 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
       onMoreTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapSettings(),
       onLongPressStart: () => ref.read(playbackSpeedQuizProvider.notifier).longPressStart(),
       onLongPressEnd: () => ref.read(playbackSpeedQuizProvider.notifier).longPressEnd(),
-      showShareButton: false,
-      showSaveButton: false,
-      showDownloadButton: false,
+      onLikeTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapLike(),
+      onDislikeTap: () =>
+          ref.read(playbackSpeedQuizProvider.notifier).tapDislike(),
+      onShareTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapShare(),
+      onSaveTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapSave(),
+      onDownloadTap: () =>
+          ref.read(playbackSpeedQuizProvider.notifier).tapDownload(),
+      showShareButton: true,
+      showSaveButton: true,
+      showDownloadButton: true,
       showMoreButton: true,
       highlightMore: state.status == QuizStatus.playing && !state.isSettingsOpen,
       overlays: [

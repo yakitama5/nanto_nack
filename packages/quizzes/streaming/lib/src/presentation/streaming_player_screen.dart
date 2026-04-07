@@ -23,6 +23,8 @@ class StreamingPlayerScreen extends StatelessWidget {
     this.onSeek,
     this.onLongPressStart,
     this.onLongPressEnd,
+    this.onLikeTap,
+    this.onDislikeTap,
     this.onShareTap,
     this.onSaveTap,
     this.onDownloadTap,
@@ -60,6 +62,8 @@ class StreamingPlayerScreen extends StatelessWidget {
   final ValueChanged<double>? onSeek;
   final VoidCallback? onLongPressStart;
   final VoidCallback? onLongPressEnd;
+  final VoidCallback? onLikeTap;
+  final VoidCallback? onDislikeTap;
   final VoidCallback? onShareTap;
   final VoidCallback? onSaveTap;
   final VoidCallback? onDownloadTap;
@@ -144,6 +148,8 @@ class StreamingPlayerScreen extends StatelessWidget {
                   color: Colors.white,
                   child: _VideoInfoSection(
                     video: video,
+                    onLikeTap: onLikeTap,
+                    onDislikeTap: onDislikeTap,
                     onShareTap: onShareTap,
                     onSaveTap: onSaveTap,
                     onDownloadTap: onDownloadTap,
@@ -250,6 +256,47 @@ class _VideoPlayer extends StatefulWidget {
 class _VideoPlayerState extends State<_VideoPlayer> {
   bool _showControls = true;
   Timer? _hideTimer;
+  late int _localProgress;
+  Timer? _progressTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _localProgress = widget.progressSeconds;
+    if (widget.isPlaying) {
+      _startProgressTimer();
+    }
+  }
+
+  @override
+  void didUpdateWidget(_VideoPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 再生状態が変わったとき
+    if (widget.isPlaying != oldWidget.isPlaying) {
+      if (widget.isPlaying) {
+        _startProgressTimer();
+      } else {
+        _progressTimer?.cancel();
+      }
+    }
+    // 外部からの進行秒数更新（シークや動画切り替え）を同期する
+    if (widget.progressSeconds != oldWidget.progressSeconds) {
+      setState(() => _localProgress = widget.progressSeconds);
+    }
+  }
+
+  void _startProgressTimer() {
+    _progressTimer?.cancel();
+    _progressTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) {
+        setState(() {
+          if (_localProgress < widget.video.durationSeconds) {
+            _localProgress++;
+          }
+        });
+      }
+    });
+  }
 
   void _startHideTimer() {
     _hideTimer?.cancel();
@@ -272,6 +319,7 @@ class _VideoPlayerState extends State<_VideoPlayer> {
   @override
   void dispose() {
     _hideTimer?.cancel();
+    _progressTimer?.cancel();
     super.dispose();
   }
 
@@ -282,7 +330,7 @@ class _VideoPlayerState extends State<_VideoPlayer> {
     final thumbnailIcon =
         StreamingCatalog.thumbnailIcons[widget.video.colorSeed % StreamingCatalog.thumbnailIcons.length];
     final progress = widget.video.durationSeconds > 0
-        ? (widget.progressSeconds / widget.video.durationSeconds).clamp(0.0, 1.0)
+        ? (_localProgress / widget.video.durationSeconds).clamp(0.0, 1.0)
         : 0.0;
 
     return AspectRatio(
@@ -421,7 +469,7 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                       child: Row(
                         children: [
                           Text(
-                            _formatDuration(widget.progressSeconds),
+                            _formatDuration(_localProgress),
                             style: const TextStyle(color: Colors.white, fontSize: 11),
                           ),
                           const Text(' / ', style: TextStyle(color: Colors.white54, fontSize: 11)),
@@ -447,6 +495,10 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                     child: Slider(
                       value: progress,
                       onChanged: (val) {
+                        setState(
+                          () => _localProgress =
+                              (widget.video.durationSeconds * val).round(),
+                        );
                         widget.onSeek?.call(val);
                         _startHideTimer();
                       },
@@ -473,6 +525,8 @@ class _VideoPlayerState extends State<_VideoPlayer> {
 class _VideoInfoSection extends StatelessWidget {
   const _VideoInfoSection({
     required this.video,
+    this.onLikeTap,
+    this.onDislikeTap,
     this.onShareTap,
     this.onSaveTap,
     this.onDownloadTap,
@@ -490,6 +544,8 @@ class _VideoInfoSection extends StatelessWidget {
   });
 
   final StreamingVideo video;
+  final VoidCallback? onLikeTap;
+  final VoidCallback? onDislikeTap;
   final VoidCallback? onShareTap;
   final VoidCallback? onSaveTap;
   final VoidCallback? onDownloadTap;
@@ -552,6 +608,8 @@ class _VideoInfoSection extends StatelessWidget {
           // アクションボタン行
           _ActionButtonRow(
             video: video,
+            onLikeTap: onLikeTap,
+            onDislikeTap: onDislikeTap,
             onShareTap: onShareTap,
             onSaveTap: onSaveTap,
             onDownloadTap: onDownloadTap,
@@ -595,6 +653,8 @@ class _VideoInfoSection extends StatelessWidget {
 class _ActionButtonRow extends StatelessWidget {
   const _ActionButtonRow({
     required this.video,
+    this.onLikeTap,
+    this.onDislikeTap,
     this.onShareTap,
     this.onSaveTap,
     this.onDownloadTap,
@@ -610,6 +670,8 @@ class _ActionButtonRow extends StatelessWidget {
   });
 
   final StreamingVideo video;
+  final VoidCallback? onLikeTap;
+  final VoidCallback? onDislikeTap;
   final VoidCallback? onShareTap;
   final VoidCallback? onSaveTap;
   final VoidCallback? onDownloadTap;
@@ -632,16 +694,18 @@ class _ActionButtonRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       child: Row(
         children: [
-          // いいね
-          _ActionButton(
-            icon: video.isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
-            label: sq.common.likeButton,
+          // いいね（アニメーション付き）
+          _AnimatedLikeButton(
+            isLiked: video.isLiked,
             count: _formatCount(video.likeCount),
+            label: sq.common.likeButton,
+            onTap: onLikeTap,
           ),
           // 低評価
           _ActionButton(
             icon: Icons.thumb_down_outlined,
             label: sq.common.dislikeButton,
+            onTap: onDislikeTap,
           ),
           // シェア
           if (showShareButton)
@@ -694,7 +758,6 @@ class _ActionButton extends StatelessWidget {
   const _ActionButton({
     required this.icon,
     required this.label,
-    this.count,
     this.onTap,
     this.isHighlighted = false,
     this.isActive = false,
@@ -702,7 +765,6 @@ class _ActionButton extends StatelessWidget {
 
   final IconData icon;
   final String label;
-  final String? count;
   final VoidCallback? onTap;
   final bool isHighlighted;
   final bool isActive;
@@ -728,7 +790,7 @@ class _ActionButton extends StatelessWidget {
             Icon(icon, size: 22, color: color),
             const SizedBox(height: 2),
             UnreadableText(
-              count != null ? '$label $count' : label,
+              label,
               style: TextStyle(fontSize: 10, color: color),
             ),
           ],
@@ -987,6 +1049,90 @@ class StreamingSelectionList extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─── いいねボタン（スケールアニメーション付き） ──────────────────────────────────
+
+class _AnimatedLikeButton extends StatefulWidget {
+  const _AnimatedLikeButton({
+    required this.isLiked,
+    required this.count,
+    required this.label,
+    this.onTap,
+  });
+
+  final bool isLiked;
+  final String count;
+  final String label;
+  final VoidCallback? onTap;
+
+  @override
+  State<_AnimatedLikeButton> createState() => _AnimatedLikeButtonState();
+}
+
+class _AnimatedLikeButtonState extends State<_AnimatedLikeButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _scale = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 1.4),
+        weight: 50,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: 1.4, end: 1.0),
+        weight: 50,
+      ),
+    ]).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _handleTap() {
+    _controller.forward(from: 0);
+    widget.onTap?.call();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = widget.isLiked ? Colors.blue : Colors.black87;
+    return GestureDetector(
+      onTap: _handleTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ScaleTransition(
+              scale: _scale,
+              child: Icon(
+                widget.isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
+                size: 22,
+                color: color,
+              ),
+            ),
+            const SizedBox(height: 2),
+            UnreadableText(
+              '${widget.label} ${widget.count}',
+              style: TextStyle(fontSize: 10, color: color),
+            ),
           ],
         ),
       ),
