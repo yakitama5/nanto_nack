@@ -76,8 +76,33 @@ class MapAppScreen extends StatelessWidget {
     final ext = theme.extension<NantoNackThemeExtension>()!;
     final mapGreen = ext.mapCategoryColor;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFE8F0E9),
+    return PopScope(
+      canPop: quizStatus != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('ゲームを中断しますか？'),
+            content: const Text('プレイ中のゲームを終了します。'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('続ける'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('終了する'),
+              ),
+            ],
+          ),
+        );
+        if (confirmed == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFE8F0E9),
       body: Stack(
         children: [
           // 地図エリア（疑似マップ）
@@ -168,6 +193,7 @@ class MapAppScreen extends StatelessWidget {
           ...overlays,
         ],
       ),
+    ),
     );
   }
 }

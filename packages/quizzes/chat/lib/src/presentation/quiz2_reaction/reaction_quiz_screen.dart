@@ -71,6 +71,7 @@ class _ReactionQuizScreenState extends ConsumerState<ReactionQuizScreen> {
       onContactTap: (contact) {
         if (contact.id == 'bob') notifier.openChatRoom();
       },
+      quizStatus: state.status,
       talkTabBadgeCount: 1,
       overlays: [
         if (state.status == QuizStatus.playing)

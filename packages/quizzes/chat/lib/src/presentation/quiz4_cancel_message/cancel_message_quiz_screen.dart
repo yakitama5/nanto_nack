@@ -76,6 +76,7 @@ class _CancelMessageQuizScreenState
         // 一番上のコンタクト（Alice）をタップでチャットルームへ
         if (contact.id == contacts.first.id) notifier.openChatRoom();
       },
+      quizStatus: state.status,
       talkTabBadgeCount: 0,
       overlays: [
         if (state.status == QuizStatus.playing)

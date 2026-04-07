@@ -16,6 +16,7 @@ class ChatAppShell extends StatelessWidget {
     required this.onTabChanged,
     required this.contacts,
     required this.onContactTap,
+    required this.quizStatus,
     required this.overlays,
     this.talkTabBadgeCount = 0,
   });
@@ -25,6 +26,7 @@ class ChatAppShell extends StatelessWidget {
   final List<ChatContact> contacts;
   final void Function(ChatContact contact) onContactTap;
   final List<Widget> overlays;
+  final QuizStatus quizStatus;
 
   /// トークタブに表示する未読バッジ数
   final int talkTabBadgeCount;
@@ -94,15 +96,41 @@ class ChatAppShell extends StatelessWidget {
       ),
     );
 
-    if (overlays.isEmpty) return scaffold;
+    final body = overlays.isEmpty
+        ? scaffold
+        : Stack(
+            children: [
+              scaffold,
+              ...overlays,
+            ],
+          );
 
-    // オーバーレイ（MissionCutIn, QuizResultOverlay など）を Scaffold 全体の上に重ねる
-    // bottomNavigationBar も含めた画面全体を覆うため、Scaffold の外側で Stack を使う
-    return Stack(
-      children: [
-        scaffold,
-        ...overlays,
-      ],
+    return PopScope(
+      canPop: quizStatus != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('ゲームを中断しますか？'),
+            content: const Text('プレイ中のゲームを終了します。'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('続ける'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('終了する'),
+              ),
+            ],
+          ),
+        );
+        if (confirmed == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: body,
     );
   }
 }

@@ -127,6 +127,26 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     super.dispose();
   }
 
+  Future<bool?> _showExitConfirmDialog() {
+    return showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('ゲームを中断しますか？'),
+        content: const Text('プレイ中のゲームを終了します。'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('続ける'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('終了する'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
@@ -136,7 +156,16 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     final showImagePicker = widget.isImagePickerOpen && !widget.isStampPanelOpen;
     final showStampPanel = widget.isStampPanelOpen && !widget.isImagePickerOpen;
 
-    return Scaffold(
+    return PopScope(
+      canPop: widget.quizStatus != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await _showExitConfirmDialog();
+        if (confirmed == true && mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
       backgroundColor: const Color(0xFFB2DFDB),
       body: Stack(
         children: [
@@ -220,6 +249,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           ...widget.overlays,
         ],
       ),
+    ),
     );
   }
 }

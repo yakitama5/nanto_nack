@@ -73,6 +73,7 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
       onContactTap: (contact) {
         if (contact.id == 'carol') notifier.openChatRoom();
       },
+      quizStatus: state.status,
       talkTabBadgeCount: 1,
       overlays: [
         if (state.status == QuizStatus.playing)

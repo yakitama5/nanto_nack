@@ -47,11 +47,36 @@ class AlarmListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final sq = context.sq;
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: UnreadableText(
-          sq.common.alarmsTab,
+    return PopScope(
+      canPop: quizStatus != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('ゲームを中断しますか？'),
+            content: const Text('プレイ中のゲームを終了します。'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('続ける'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('終了する'),
+              ),
+            ],
+          ),
+        );
+        if (confirmed == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          title: UnreadableText(
+            sq.common.alarmsTab,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -118,6 +143,7 @@ class AlarmListScreen extends StatelessWidget {
           ...overlays,
         ],
       ),
+    ),
     );
   }
 }
@@ -295,10 +321,35 @@ class AlarmEditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final sq = context.sq;
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: UnreadableText(sq.common.editAlarm),
+    return PopScope(
+      canPop: quizStatus != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('ゲームを中断しますか？'),
+            content: const Text('プレイ中のゲームを終了します。'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('続ける'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('終了する'),
+              ),
+            ],
+          ),
+        );
+        if (confirmed == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          title: UnreadableText(sq.common.editAlarm),
         leading: TextButton(
           onPressed: onCancel,
           child: UnreadableText(
@@ -388,6 +439,7 @@ class AlarmEditScreen extends StatelessWidget {
           ...overlays,
         ],
       ),
+    ),
     );
   }
 }

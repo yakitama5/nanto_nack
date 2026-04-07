@@ -69,6 +69,7 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
       },
       contacts: ChatCatalog.quiz1Contacts(clock.now()),
       onContactTap: (_) => notifier.openChatRoom(),
+      quizStatus: state.status,
       talkTabBadgeCount: 1,
       overlays: [
         // チャットルーム外でもミッションバブルを表示
