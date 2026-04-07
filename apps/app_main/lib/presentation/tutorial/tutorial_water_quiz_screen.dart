@@ -79,7 +79,7 @@ class _TutorialWaterQuizScreenState
         unFocusAnimationDuration: Duration.zero,
         contents: [
           TargetContent(
-            align: ContentAlign.bottom,
+            align: ContentAlign.top,
             builder: (ctx, ctl) => const NantomSpeechBubble(
               expression: NantomExpression.surprised,
               text: 'うわー！文字が読めなくなっちゃってる',
@@ -99,7 +99,7 @@ class _TutorialWaterQuizScreenState
         focusAnimationDuration: Duration.zero,
         contents: [
           TargetContent(
-            align: ContentAlign.bottom,
+            align: ContentAlign.top,
             builder: (ctx, ctl) => const NantomSpeechBubble(
               expression: NantomExpression.sad,
               text: 'ボクのノロいが伝染ったのかも',
