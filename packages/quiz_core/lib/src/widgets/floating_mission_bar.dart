@@ -169,11 +169,14 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble>
                 });
               },
               onTap: _toggleMission,
-              child: _BubbleRing(
-                size: _bubbleSize,
-                progress: _progress,
-                timerColor: _timerColor,
-                timerLabel: _timerLabel,
+              child: Opacity(
+                opacity: 0.6,
+                child: _BubbleRing(
+                  size: _bubbleSize,
+                  progress: _progress,
+                  timerColor: _timerColor,
+                  timerLabel: _timerLabel,
+                ),
               ),
             ),
             // お題ポップアップ（バブル右上コーナーからスケール展開）

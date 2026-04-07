@@ -62,7 +62,7 @@ class _ShoppingItemTileState extends State<ShoppingItemTile> {
                         : Colors.grey[50],
                     border: widget.highlighted
                         ? Border.all(
-                            color: const Color(0xFFFF9900),
+                            color: Colors.yellow,
                             width: 2,
                           )
                         : null,

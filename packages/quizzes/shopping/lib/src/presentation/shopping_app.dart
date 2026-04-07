@@ -121,33 +121,64 @@ class _ShoppingAppState extends State<ShoppingApp> {
       return true;
     }).toList();
 
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: const Color(0xFFF3F3F3),
-          appBar: _ShoppingAppBar(
-            cartCount: widget.cart.totalCount,
-            onCartTap: () => _showCart(context),
+    return PopScope(
+      canPop: widget.quizStatus != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await _showExitConfirmDialog();
+        if (confirmed == true && mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: const Color(0xFFF3F3F3),
+            appBar: _ShoppingAppBar(
+              cartCount: widget.cart.totalCount,
+              onCartTap: () => _showCart(context),
+            ),
+            body: _buildBody(filteredCatalog),
+            bottomNavigationBar: _ShoppingBottomNav(
+              selectedIndex: _selectedNavIndex,
+              onTap: _onNavTap,
+              hintUsed: widget.hintUsed,
+            ),
           ),
-          body: _buildBody(filteredCatalog),
-          bottomNavigationBar: _ShoppingBottomNav(
-            selectedIndex: _selectedNavIndex,
-            onTap: _onNavTap,
+          // フローティングミッションバブル（ドラッグ可能な円形タイマー、プレイ中のみ表示）
+          if (widget.quizStatus == QuizStatus.playing)
+            FloatingMissionBubble(
+              remainingSeconds: widget.remainingSeconds,
+              missionText: widget.missionText,
+              hintUsed: widget.hintUsed,
+              timeLimitSeconds: widget.timeLimitSeconds,
+              onHintTap: widget.onHintTap,
+              onGiveUp: widget.onGiveUp,
+            ),
+          // クイズ固有のオーバーレイ（カットイン・リザルト等）
+          ...widget.overlays,
+        ],
+      ),
+    );
+  }
+
+  Future<bool?> _showExitConfirmDialog() {
+    return showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('ゲームを中断しますか？'),
+        content: const Text('プレイ中のゲームを終了します。'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('続ける'),
           ),
-        ),
-        // フローティングミッションバブル（ドラッグ可能な円形タイマー、プレイ中のみ表示）
-        if (widget.quizStatus == QuizStatus.playing)
-          FloatingMissionBubble(
-            remainingSeconds: widget.remainingSeconds,
-            missionText: widget.missionText,
-            hintUsed: widget.hintUsed,
-            timeLimitSeconds: widget.timeLimitSeconds,
-            onHintTap: widget.onHintTap,
-            onGiveUp: widget.onGiveUp,
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('終了する'),
           ),
-        // クイズ固有のオーバーレイ（カットイン・リザルト等）
-        ...widget.overlays,
-      ],
+        ],
+      ),
     );
   }
 
@@ -346,6 +377,7 @@ class _ShoppingSearchBar extends StatelessWidget {
                 controller: controller,
                 focusNode: focusNode,
                 onChanged: onChanged,
+                onTapOutside: (_) => focusNode?.unfocus(),
                 style: const TextStyle(fontSize: 14),
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -360,8 +392,9 @@ class _ShoppingSearchBar extends StatelessWidget {
               ),
             ),
             if (searchQuery.isNotEmpty)
-              GestureDetector(
+              InkWell(
                 onTap: onClear,
+                borderRadius: BorderRadius.circular(12),
                 child: const Icon(Icons.clear, color: Colors.grey, size: 20),
               )
             else
@@ -411,32 +444,39 @@ class _ShoppingCategoryBar extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = categoryItems[index];
           final isSelected = selectedCategory == item.value;
-          return GestureDetector(
-            onTap: () => onCategorySelected(item.value),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 150),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? const Color(0xFFFF9900)
-                    : Colors.transparent,
-                border: Border.all(
+          return Material(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(2),
+            child: InkWell(
+              onTap: () => onCategorySelected(item.value),
+              borderRadius: BorderRadius.circular(2),
+              splashColor: Colors.white24,
+              highlightColor: Colors.white10,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                decoration: BoxDecoration(
                   color: isSelected
                       ? const Color(0xFFFF9900)
-                      : Colors.white30,
+                      : Colors.transparent,
+                  border: Border.all(
+                    color: isSelected
+                        ? const Color(0xFFFF9900)
+                        : Colors.white30,
+                  ),
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: UnreadableText(
-                item.label,
-                isObfuscated: true,
-                animateOnObfuscate: false,
-                style: TextStyle(
-                  color: isSelected ? Colors.black87 : Colors.white,
-                  fontSize: 12,
-                  fontWeight:
-                      isSelected ? FontWeight.bold : FontWeight.normal,
+                child: UnreadableText(
+                  item.label,
+                  isObfuscated: true,
+                  animateOnObfuscate: false,
+                  style: TextStyle(
+                    color: isSelected ? Colors.black87 : Colors.white,
+                    fontSize: 12,
+                    fontWeight:
+                        isSelected ? FontWeight.bold : FontWeight.normal,
+                  ),
                 ),
               ),
             ),
@@ -596,11 +636,12 @@ class _HomeTabViewState extends State<_HomeTabView> {
                     itemBuilder: (context, index) {
                       final cat = categoryItems[index];
                       final isSelected = _selectedCategory == cat.value;
-                      return GestureDetector(
+                      return InkWell(
                         onTap: () => setState(() {
                           _selectedCategory =
                               _selectedCategory == cat.value ? null : cat.value;
                         }),
+                        borderRadius: BorderRadius.circular(8),
                         child: SizedBox(
                           width: 60,
                           child: Column(
@@ -913,26 +954,29 @@ class _MenuSectionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              Icon(icon, size: 22, color: iconColor),
-              const SizedBox(width: 16),
-              Expanded(
-                child: UnreadableText(
-                  label,
-                  isObfuscated: true,
-                  animateOnObfuscate: false,
-                  style: const TextStyle(fontSize: 14, color: Colors.black87),
+        InkWell(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
+              children: [
+                Icon(icon, size: 22, color: iconColor),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: UnreadableText(
+                    label,
+                    isObfuscated: true,
+                    animateOnObfuscate: false,
+                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                  ),
                 ),
-              ),
-              Icon(
-                Icons.chevron_right,
-                size: 20,
-                color: Colors.grey.shade400,
-              ),
-            ],
+                Icon(
+                  Icons.chevron_right,
+                  size: 20,
+                  color: Colors.grey.shade400,
+                ),
+              ],
+            ),
           ),
         ),
         if (showDivider) const Divider(height: 1, indent: 54),
@@ -972,10 +1016,12 @@ class _ShoppingBottomNav extends StatelessWidget {
   const _ShoppingBottomNav({
     required this.selectedIndex,
     required this.onTap,
+    this.hintUsed = false,
   });
 
   final int selectedIndex;
   final ValueChanged<int> onTap;
+  final bool hintUsed;
 
   @override
   Widget build(BuildContext context) {
@@ -987,26 +1033,32 @@ class _ShoppingBottomNav extends StatelessWidget {
       (icon: Icons.menu, label: nav.menu),
     ];
 
-    return Container(
-      decoration: const BoxDecoration(
-        color: kShoppingNavyColor,
-        border: Border(top: BorderSide(color: Color(0xFF3A4553))),
-      ),
-      padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: navItems.asMap().entries.map((entry) {
-          final i = entry.key;
-          final item = entry.value;
-          return GestureDetector(
-            onTap: () => onTap(i),
-            child: _ShoppingNavItem(
-              icon: item.icon,
-              label: item.label,
-              isSelected: selectedIndex == i,
-            ),
-          );
-        }).toList(),
+    return Material(
+      color: kShoppingNavyColor,
+      child: Container(
+        decoration: const BoxDecoration(
+          border: Border(top: BorderSide(color: Color(0xFF3A4553))),
+        ),
+        padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: navItems.asMap().entries.map((entry) {
+            final i = entry.key;
+            final item = entry.value;
+            return InkWell(
+              onTap: () => onTap(i),
+              splashColor: Colors.white24,
+              highlightColor: Colors.white10,
+              borderRadius: BorderRadius.circular(8),
+              child: _ShoppingNavItem(
+                icon: item.icon,
+                label: item.label,
+                isSelected: selectedIndex == i,
+                showHintBorder: hintUsed && i == 0,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
@@ -1017,37 +1069,50 @@ class _ShoppingNavItem extends StatelessWidget {
     required this.icon,
     required this.label,
     this.isSelected = false,
+    this.showHintBorder = false,
   });
 
   final IconData icon;
   final String label;
   final bool isSelected;
+  final bool showHintBorder;
 
   @override
   Widget build(BuildContext context) {
+    final content = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          icon,
+          color: isSelected ? const Color(0xFFFF9900) : Colors.white,
+          size: 22,
+        ),
+        const SizedBox(height: 2),
+        UnreadableText(
+          label,
+          isObfuscated: true,
+          animateOnObfuscate: false,
+          style: TextStyle(
+            color: isSelected ? const Color(0xFFFF9900) : Colors.white,
+            fontSize: 10,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ],
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? const Color(0xFFFF9900) : Colors.white,
-            size: 22,
-          ),
-          const SizedBox(height: 2),
-          UnreadableText(
-            label,
-            isObfuscated: true,
-            animateOnObfuscate: false,
-            style: TextStyle(
-              color: isSelected ? const Color(0xFFFF9900) : Colors.white,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-        ],
-      ),
+      child: showHintBorder
+          ? Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.yellow, width: 2),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: content,
+            )
+          : content,
     );
   }
 }
@@ -1160,7 +1225,7 @@ class _AccountMenuTile extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: onTap,
+          onTap: onTap ?? () {},
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
