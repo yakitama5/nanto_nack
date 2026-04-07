@@ -101,7 +101,10 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
               score: state.score,
               elapsedMs: state.elapsedMs,
               onRetry: () {
-                setState(() => _showCutIn = true);
+                setState(() {
+                  _showCutIn = true;
+                  _hintUsed = false;
+                });
                 ref.read(playbackSpeedQuizProvider.notifier).retry();
               },
               onNext: state.status == QuizStatus.correct
