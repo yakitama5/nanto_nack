@@ -22,6 +22,10 @@ class SendStampQuizScreen extends ConsumerStatefulWidget {
 class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
   static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
+  // テキスト入力の現在値（チャットルーム画面でのみ使用）
+  String _inputText = '';
+  // 画像ピッカーパネルの開閉状態
+  bool _isImagePickerOpen = false;
 
   @override
   void initState() {
@@ -43,15 +47,20 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
       return ChatRoomScreen(
         contact: ChatCatalog.quiz1Contacts(clock.now())[0], // Alice
         messages: state.messages,
-        inputText: '',
-        onInputChanged: (_) {},
-        onSendMessage: () {},
+        inputText: _inputText,
+        onInputChanged: (text) => setState(() => _inputText = text),
+        onSendMessage: () {
+          notifier.sendTextMessage(_inputText);
+          setState(() => _inputText = '');
+        },
         onStampTap: notifier.toggleStampPanel,
         onMessageLongPress: (_) {},
         isStampPanelOpen: state.isStampPanelOpen,
         onStampSelected: notifier.sendStamp,
-        showTextInput: false,
+        // テキスト入力・画像送信を有効化してUIを一貫させる
+        showTextInput: true,
         showStampButton: true,
+        showImageButton: true,
         stamps: ChatCatalog.stamps,
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
@@ -59,6 +68,16 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         overlays: overlays,
+        isImagePickerOpen: _isImagePickerOpen,
+        onImageButtonTap: () => setState(() {
+          _isImagePickerOpen = !_isImagePickerOpen;
+        }),
+        onImageSelected: (path) {
+          notifier.sendImageAsMessage(path);
+          setState(() => _isImagePickerOpen = false);
+        },
+        // バックアローでチャットリストへ戻れるようにする
+        onBackToChatList: notifier.closeChatRoom,
       );
     }
 
@@ -68,7 +87,14 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
         notifier.switchTab(tab);
       },
       contacts: ChatCatalog.quiz1Contacts(clock.now()),
-      onContactTap: (_) => notifier.openChatRoom(),
+      // Alice なら正解チャットルームへ、それ以外は即時不正解にする
+      onContactTap: (contact) {
+        if (contact.id == 'alice') {
+          notifier.openChatRoom();
+        } else {
+          notifier.openWrongChatRoom();
+        }
+      },
       quizStatus: state.status,
       talkTabBadgeCount: 1,
       overlays: [

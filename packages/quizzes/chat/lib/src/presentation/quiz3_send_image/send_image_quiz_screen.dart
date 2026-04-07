@@ -22,6 +22,10 @@ class SendImageQuizScreen extends ConsumerStatefulWidget {
 class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
   static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
+  // テキスト入力の現在値
+  String _inputText = '';
+  // スタンプパネルの開閉状態（Quiz3 では画像ピッカーと排他だが画像ピッカーは Notifier 管理）
+  bool _isStampPanelOpen = false;
 
   @override
   void initState() {
@@ -43,26 +47,43 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
       return ChatRoomScreen(
         contact: ChatCatalog.quiz3Contacts(clock.now())[2], // Carol
         messages: state.messages,
-        inputText: '',
-        onInputChanged: (_) {},
-        onSendMessage: () {},
-        onStampTap: () {},
+        inputText: _inputText,
+        onInputChanged: (text) => setState(() => _inputText = text),
+        onSendMessage: () {
+          notifier.sendTextMessage(_inputText);
+          setState(() => _inputText = '');
+        },
+        onStampTap: () => setState(() {
+          // スタンプパネルを開くときは画像ピッカーを閉じる（排他制御）
+          _isStampPanelOpen = !_isStampPanelOpen;
+          // Notifier 側の isImagePickerOpen も閉じる
+          if (_isStampPanelOpen && state.isImagePickerOpen) {
+            notifier.toggleImagePicker();
+          }
+        }),
         onMessageLongPress: (_) {},
-        isStampPanelOpen: false,
-        onStampSelected: (_) {},
-        showTextInput: false,
-        showStampButton: false,
-        stamps: const [],
+        isStampPanelOpen: _isStampPanelOpen,
+        onStampSelected: notifier.sendStampAsMessage,
+        // テキスト入力・スタンプ・画像送信を有効化してUIを一貫させる
+        showTextInput: true,
+        showStampButton: true,
+        showImageButton: true,
+        stamps: ChatCatalog.stamps,
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
         timeLimitSeconds: _timeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         overlays: overlays,
-        showImageButton: true,
         isImagePickerOpen: state.isImagePickerOpen,
-        onImageButtonTap: notifier.toggleImagePicker,
+        onImageButtonTap: () {
+          // 画像ピッカーを開くときはスタンプパネルを閉じる（排他制御）
+          notifier.toggleImagePicker();
+          setState(() => _isStampPanelOpen = false);
+        },
         onImageSelected: notifier.sendImage,
+        // バックアローでチャットリストへ戻れるようにする
+        onBackToChatList: notifier.closeChatRoom,
       );
     }
 
@@ -70,8 +91,13 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
       currentTab: state.currentTab,
       onTabChanged: notifier.switchTab,
       contacts: ChatCatalog.quiz3Contacts(clock.now()),
+      // Carol なら正解チャットルームへ、それ以外は即時不正解にする
       onContactTap: (contact) {
-        if (contact.id == 'carol') notifier.openChatRoom();
+        if (contact.id == 'carol') {
+          notifier.openChatRoom();
+        } else {
+          notifier.openWrongChatRoom();
+        }
       },
       quizStatus: state.status,
       talkTabBadgeCount: 1,

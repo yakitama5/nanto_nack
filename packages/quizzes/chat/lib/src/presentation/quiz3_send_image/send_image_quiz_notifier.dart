@@ -73,6 +73,8 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
 
   /// 画像を送信（isImage=true のメッセージを追加）
   Future<void> sendImage(String? imagePath) async {
+    // 画像が実際に選択されていない場合は処理しない
+    if (imagePath == null) return;
     if (state.status != QuizStatus.playing) return;
     _timer?.cancel();
 
@@ -103,6 +105,59 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     } else {
       _startTimer();
     }
+  }
+
+  /// チャットルームからチャットリストへ戻る
+  /// バックボタン・バックアローを押したときに呼び出される
+  void closeChatRoom() {
+    state = state.copyWith(isInChatRoom: false, isImagePickerOpen: false);
+  }
+
+  /// テキストメッセージを送信（画像クイズのクリア判定には影響しない）
+  /// UI の一貫性のためにメッセージリストへ追加する
+  void sendTextMessage(String text) {
+    if (state.status != QuizStatus.playing) return;
+    if (text.trim().isEmpty) return;
+    final newMessage = ChatMessage(
+      id: 'text_${clock.now().millisecondsSinceEpoch}',
+      text: text,
+      isMine: true,
+      sentAt: clock.now(),
+    );
+    state = state.copyWith(messages: [...state.messages, newMessage]);
+  }
+
+  /// スタンプメッセージを送信（クイズ判定に影響しない、UIの一貫性のため）
+  void sendStampAsMessage(String stampId) {
+    if (state.status != QuizStatus.playing) return;
+    final newMessage = ChatMessage(
+      id: 'stamp_${clock.now().millisecondsSinceEpoch}',
+      text: stampId,
+      isMine: true,
+      sentAt: clock.now(),
+      isStamp: true,
+      stampId: stampId,
+    );
+    state = state.copyWith(messages: [...state.messages, newMessage]);
+  }
+
+  /// 間違ったコンタクトをタップしたときにチャットルームへ遷移して不正解にする
+  /// 正解コンタクト(Carol)以外を選んだ場合の即時判定に使用する
+  Future<void> openWrongChatRoom() async {
+    if (state.status != QuizStatus.playing) return;
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      isInChatRoom: true,
+      status: QuizStatus.incorrect,
+      failureCount: state.failureCount + 1,
+      elapsedMs: elapsed,
+    );
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {}
   }
 
   Future<void> giveUp() async {

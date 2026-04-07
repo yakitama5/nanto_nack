@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:chat/src/application/quiz_send_reaction_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
 import 'package:chat/src/domain/chat_tab.dart';
+import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/infrastructure/chat_quiz_repository_provider.dart';
 import 'package:chat/src/presentation/quiz2_reaction/reaction_quiz_state.dart';
 import 'package:clock/clock.dart';
@@ -54,6 +55,74 @@ class ReactionQuizNotifier extends AutoDisposeNotifier<ReactionQuizState> {
   void openChatRoom() {
     if (state.status != QuizStatus.playing) return;
     state = state.copyWith(isInChatRoom: true);
+  }
+
+  /// チャットルームからチャットリストへ戻る
+  /// バックボタン・バックアローを押したときに呼び出される
+  void closeChatRoom() {
+    state = state.copyWith(isInChatRoom: false, reactionPickerMessageId: null);
+  }
+
+  /// テキストメッセージを送信（リアクションクイズのクリア判定には影響しない）
+  /// UI の一貫性のためにメッセージリストへ追加する
+  void sendTextMessage(String text) {
+    if (state.status != QuizStatus.playing) return;
+    if (text.trim().isEmpty) return;
+    final newMessage = ChatMessage(
+      id: 'text_${clock.now().millisecondsSinceEpoch}',
+      text: text,
+      isMine: true,
+      sentAt: clock.now(),
+    );
+    state = state.copyWith(messages: [...state.messages, newMessage]);
+  }
+
+  /// スタンプメッセージを送信（クイズ判定に影響しない、UIの一貫性のため）
+  void sendStampAsMessage(String stampId) {
+    if (state.status != QuizStatus.playing) return;
+    final newMessage = ChatMessage(
+      id: 'stamp_${clock.now().millisecondsSinceEpoch}',
+      text: stampId,
+      isMine: true,
+      sentAt: clock.now(),
+      isStamp: true,
+      stampId: stampId,
+    );
+    state = state.copyWith(messages: [...state.messages, newMessage]);
+  }
+
+  /// 画像メッセージを送信（クイズ判定に影響しない）
+  void sendImageAsMessage(String? imagePath) {
+    if (state.status != QuizStatus.playing) return;
+    if (imagePath == null) return;
+    final newMessage = ChatMessage(
+      id: 'image_${clock.now().millisecondsSinceEpoch}',
+      text: '',
+      isMine: true,
+      sentAt: clock.now(),
+      isImage: true,
+      imagePath: imagePath,
+    );
+    state = state.copyWith(messages: [...state.messages, newMessage]);
+  }
+
+  /// 間違ったコンタクトをタップしたときにチャットルームへ遷移して不正解にする
+  /// 正解コンタクト(Bob)以外を選んだ場合の即時判定に使用する
+  Future<void> openWrongChatRoom() async {
+    if (state.status != QuizStatus.playing) return;
+    _timer?.cancel();
+    final elapsed = state.startedAt != null
+        ? clock.now().difference(state.startedAt!).inMilliseconds
+        : 0;
+    state = state.copyWith(
+      isInChatRoom: true,
+      status: QuizStatus.incorrect,
+      failureCount: state.failureCount + 1,
+      elapsedMs: elapsed,
+    );
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {}
   }
 
   void openReactionPicker(String messageId) {

@@ -39,6 +39,8 @@ class ChatRoomScreen extends StatefulWidget {
     this.isImagePickerOpen = false,
     this.onImageButtonTap,
     this.onImageSelected,
+    // チャットリストへ戻るコールバック（全クイズ共通）
+    this.onBackToChatList,
   });
 
   final ChatContact contact;
@@ -59,6 +61,10 @@ class ChatRoomScreen extends StatefulWidget {
   final String missionText;
   final VoidCallback onGiveUp;
   final List<Widget> overlays;
+
+  /// チャットリストへ戻るコールバック（Notifier の closeChatRoom を想定）
+  /// プレイ中にバックジェスチャーが発生した際の遷移先として使用する
+  final VoidCallback? onBackToChatList;
 
   /// 自分のメッセージをハイライト表示（Quiz1 のヒント）
   final bool highlightMyMessages;
@@ -127,26 +133,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     super.dispose();
   }
 
-  Future<bool?> _showExitConfirmDialog() {
-    return showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('ゲームを中断しますか？'),
-        content: const Text('プレイ中のゲームを終了します。'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('続ける'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('終了する'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
@@ -158,12 +144,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
     return PopScope(
       canPop: widget.quizStatus != QuizStatus.playing,
-      onPopInvokedWithResult: (didPop, _) async {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) return;
-        final confirmed = await _showExitConfirmDialog();
-        if (confirmed == true && mounted) {
-          Navigator.of(context).pop();
-        }
+        // プレイ中にシステムバック（スワイプ等）が押されたらチャットリストへ戻る
+        // チャットリスト→チャットルームへの遷移はアプリ内画面切り替えなので
+        // 確認ダイアログは不要（ユーザーは簡単に戻れることを期待している）
+        widget.onBackToChatList?.call();
       },
       child: Scaffold(
       backgroundColor: const Color(0xFFB2DFDB),
@@ -179,6 +165,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 timeLimitSeconds: widget.timeLimitSeconds,
                 missionText: widget.missionText,
                 onGiveUp: widget.onGiveUp,
+                // チャットリストへ戻るコールバックをAppBarに渡す
+                onBack: widget.onBackToChatList,
               ),
               // メッセージリスト
               Expanded(
@@ -264,6 +252,7 @@ class _ChatAppBar extends StatelessWidget {
     required this.timeLimitSeconds,
     required this.missionText,
     required this.onGiveUp,
+    this.onBack,
   });
 
   final ChatContact contact;
@@ -272,6 +261,9 @@ class _ChatAppBar extends StatelessWidget {
   final int timeLimitSeconds;
   final String missionText;
   final VoidCallback onGiveUp;
+
+  /// バックアロータップ時のコールバック（チャットリストへ戻る）
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -286,7 +278,15 @@ class _ChatAppBar extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(width: 8),
-              const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+              // バックアローをタップ可能にしてチャットリストへ戻る
+              GestureDetector(
+                onTap: onBack,
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
               const SizedBox(width: 8),
               // アバター
               CircleAvatar(
@@ -425,8 +425,14 @@ class _MessageBubbleState extends State<_MessageBubble>
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.grey.shade300),
                     ),
+                    // アイコンをアウトライン形式のグレーアイコンに変更
+                    // テキスト絵文字よりも UI に馴染みやすく、タップ対象として認識しやすいため
                     child: const Center(
-                      child: Text('😊', style: TextStyle(fontSize: 12)),
+                      child: Icon(
+                        Icons.add_reaction_outlined,
+                        size: 14,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 ),
