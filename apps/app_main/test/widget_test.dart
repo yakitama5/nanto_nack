@@ -45,15 +45,19 @@ void main() {
             // チュートリアルを完了済みにしてオーバーレイを抑制する
             tutorialNotifierProvider
                 .overrideWith(() => MockTutorialNotifier()),
+            // 音声ロードをスキップしてCI環境での audioplayers 依存を排除する
+            clearSoundProvider.overrideWith((ref) async => ''),
           ],
           child: const NantoNackApp(),
         ),
       ),
     );
     // GoRouter の初期ナビゲーション処理を完了させる。
-    // GoRouter は非同期でルートを解決するため、
+    // CI/ローカル環境問わず安定して動作させるため複数フレームを進める。
     // 1フレーム目: setNewRoutePath の非同期処理完了 + notifyListeners
     // 2フレーム目: RouterDelegate.build() でホーム画面がレンダリング
+    // 3フレーム目: post-frame callback など遅延処理の完了
+    await tester.pump();
     await tester.pump();
     await tester.pump();
 
