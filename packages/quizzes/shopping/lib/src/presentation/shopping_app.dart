@@ -67,6 +67,10 @@ class ShoppingApp extends StatefulWidget {
     this.overlays = const [],
     // ── 注文履歴データ（null = 注文なし）────────────────────
     this.recentOrder,
+    // ── チュートリアル用：タイマーバブルの GlobalKey ─────────
+    this.timerBubbleKey,
+    // ── チュートリアル用：水アイテムの GlobalKey ─────────────
+    this.waterItemKey,
   });
 
   final ShoppingCart cart;
@@ -86,6 +90,14 @@ class ShoppingApp extends StatefulWidget {
   final WidgetBuilder cartBottomSheetBuilder;
   final List<Widget> overlays;
   final ShoppingRecentOrder? recentOrder;
+
+  /// チュートリアル用のタイマーバブル GlobalKey。
+  /// 非 null の場合、FloatingMissionBubble にこのキーが設定される。
+  final GlobalKey? timerBubbleKey;
+
+  /// チュートリアル用の水アイテム GlobalKey。
+  /// 非 null の場合、water_pura_aqua アイテムのタイルにこのキーが設定される。
+  final GlobalKey? waterItemKey;
 
   @override
   State<ShoppingApp> createState() => _ShoppingAppState();
@@ -151,6 +163,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
           // フローティングミッションバブル（ドラッグ可能な円形タイマー、プレイ中のみ表示）
           if (widget.quizStatus == QuizStatus.playing)
             FloatingMissionBubble(
+              key: widget.timerBubbleKey,
               remainingSeconds: widget.remainingSeconds,
               missionText: widget.missionText,
               hintUsed: widget.hintUsed,
@@ -219,6 +232,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
         highlightedItemId: widget.highlightedItemId,
         onAddToCart: widget.onAddToCart,
         onUpdateQuantity: widget.onUpdateQuantity,
+        waterItemKey: widget.waterItemKey,
       );
     }
 
@@ -501,6 +515,7 @@ class _HomeTabView extends StatefulWidget {
     required this.highlightedItemId,
     required this.onAddToCart,
     required this.onUpdateQuantity,
+    this.waterItemKey,
   });
 
   final ShoppingCart cart;
@@ -508,6 +523,7 @@ class _HomeTabView extends StatefulWidget {
   final String? highlightedItemId;
   final void Function(CartItem) onAddToCart;
   final void Function(String id, int qty) onUpdateQuantity;
+  final GlobalKey? waterItemKey;
 
   @override
   State<_HomeTabView> createState() => _HomeTabViewState();
@@ -744,6 +760,10 @@ class _HomeTabViewState extends State<_HomeTabView> {
                               ?.quantity ??
                           0;
                       return ShoppingItemTile(
+                        key: (widget.waterItemKey != null &&
+                                item.id == 'water_pura_aqua')
+                            ? widget.waterItemKey
+                            : null,
                         item: item,
                         highlighted: isHighlighted,
                         quantity: quantity,

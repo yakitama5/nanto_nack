@@ -51,6 +51,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsPlayJa play = TranslationsPlayJa.internal(_root);
 	late final TranslationsSceneJa scene = TranslationsSceneJa.internal(_root);
 	late final TranslationsTipJa tip = TranslationsTipJa.internal(_root);
+	late final TranslationsTutorialJa tutorial = TranslationsTutorialJa.internal(_root);
 	late final TranslationsSettingsJa settings = TranslationsSettingsJa.internal(_root);
 }
 
@@ -336,6 +337,39 @@ class TranslationsTipJa {
 
 	/// ja: 'クイズを解いてUI/UXの感覚を磨きましょう！'
 	String get defaultContent => 'クイズを解いてUI/UXの感覚を磨きましょう！';
+}
+
+// Path: tutorial
+class TranslationsTutorialJa {
+	TranslationsTutorialJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'スキップ'
+	String get skip => 'スキップ';
+
+	/// ja: 'ようこそ！ボクはナントム！'
+	String get step1 => 'ようこそ！ボクはナントム！';
+
+	/// ja: 'ここではボクが作ったアプリをならべてるよ'
+	String get step2 => 'ここではボクが作ったアプリをならべてるよ';
+
+	/// ja: '一生懸命作ったからさっそく使ってみて！'
+	String get step3 => '一生懸命作ったからさっそく使ってみて！';
+
+	/// ja: 'まずはショッピングアプリを体験してみよう。いくよ！'
+	String get step4 => 'まずはショッピングアプリを体験してみよう。いくよ！';
+
+	/// ja: 'うわー！文字が読めなくなっちゃってる'
+	String get step5 => 'うわー！文字が読めなくなっちゃってる';
+
+	/// ja: 'ボクのノロいが伝染ったのかも'
+	String get step6 => 'ボクのノロいが伝染ったのかも';
+
+	/// ja: 'でも大丈夫！文字が読めなくても、アイコンや色を見れば「なんとなく」わかるはず。さあ、やってみて！'
+	String get step7 => 'でも大丈夫！文字が読めなくても、アイコンや色を見れば「なんとなく」わかるはず。さあ、やってみて！';
 }
 
 // Path: settings
@@ -863,6 +897,14 @@ extension on Translations {
 			'scene.greeting.nightSky' => 'お疲れ様でした',
 			'tip.defaultTitle' => 'UI/UXを学ぼう',
 			'tip.defaultContent' => 'クイズを解いてUI/UXの感覚を磨きましょう！',
+			'tutorial.skip' => 'スキップ',
+			'tutorial.step1' => 'ようこそ！ボクはナントム！',
+			'tutorial.step2' => 'ここではボクが作ったアプリをならべてるよ',
+			'tutorial.step3' => '一生懸命作ったからさっそく使ってみて！',
+			'tutorial.step4' => 'まずはショッピングアプリを体験してみよう。いくよ！',
+			'tutorial.step5' => 'うわー！文字が読めなくなっちゃってる',
+			'tutorial.step6' => 'ボクのノロいが伝染ったのかも',
+			'tutorial.step7' => 'でも大丈夫！文字が読めなくても、アイコンや色を見れば「なんとなく」わかるはず。さあ、やってみて！',
 			'settings.title' => '設定',
 			'settings.appearance.title' => 'アピアランス',
 			'settings.appearance.theme' => 'テーマ',

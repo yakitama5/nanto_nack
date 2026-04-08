@@ -4,12 +4,121 @@ import 'package:go_router/go_router.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:system/system.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+import '../../application/tutorial/tutorial_notifier.dart';
 import '../../domain/category.dart';
 import '../../domain/stage.dart';
+import '../tutorial/nantom_speech_bubble.dart';
 
-class CategoryListScreen extends StatelessWidget {
+class CategoryListScreen extends ConsumerStatefulWidget {
   const CategoryListScreen({super.key});
+
+  @override
+  ConsumerState<CategoryListScreen> createState() =>
+      _CategoryListScreenState();
+}
+
+class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
+  final _shoppingCardKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTutorial());
+  }
+
+  Future<void> _maybeShowTutorial() async {
+    final tutState = await ref.read(tutorialNotifierProvider.future);
+    if (!mounted) return;
+    if (!tutState.isCompleted &&
+        tutState.screen == TutorialScreen.categoryList) {
+      // プロバイダーロード完了後、ウィジェットが再ビルドされるまで待つ
+      // （_shoppingCardKey がウィジェットに設定されてから表示する）
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _showTutorial();
+      });
+    }
+  }
+
+  void _showTutorial() {
+    // 画面が最前面にあること・ターゲットキーが設定されていることを確認
+    if (ModalRoute.of(context)?.isCurrent != true) return;
+    if (_shoppingCardKey.currentContext == null) return;
+
+    final t = Translations.of(context);
+
+    final targets = [
+      // Step 4: Shopping カテゴリタイル（笑顔）
+      TargetFocus(
+        identify: 'category_shopping',
+        keyTarget: _shoppingCardKey,
+        shape: ShapeLightFocus.RRect,
+        radius: 20,
+        paddingFocus: 8,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (ctx, ctl) => NantomSpeechBubble(
+              expression: NantomExpression.smile,
+              text: t.tutorial.step4,
+            ),
+          ),
+        ],
+      ),
+    ];
+
+    void navigateToWaterQuiz() {
+      ref
+          .read(tutorialNotifierProvider.notifier)
+          .advanceTo(TutorialScreen.waterQuiz);
+      context.push('/shopping/water', extra: true);
+    }
+
+    TutorialCoachMark(
+      targets: targets,
+      colorShadow: Colors.black,
+      opacityShadow: 0.85,
+      textSkip: t.tutorial.skip,
+      skipWidget: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+        ),
+        child: Text(
+          t.tutorial.skip,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      onClickTarget: (target) {
+        if (target.identify == 'category_shopping') {
+          navigateToWaterQuiz();
+        }
+      },
+      onClickOverlay: (target) {
+        if (target.identify == 'category_shopping') {
+          navigateToWaterQuiz();
+        }
+      },
+      onFinish: () {
+        // コーチマーク自体の完了（ターゲットクリック後に呼ばれる）
+      },
+      onSkip: () {
+        // ウィジェットツリーのビルド中に provider を更新するとエラーになるため遅延させる
+        Future.microtask(
+          () => ref.read(tutorialNotifierProvider.notifier).complete(),
+        );
+        return true;
+      },
+    ).show(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +167,12 @@ class CategoryListScreen extends StatelessWidget {
                   final stageCount = kAllStages
                       .where((s) => s.category == category.id)
                       .length;
+                  // Shopping カードは常にキーを設定（チュートリアルのタイミング問題を避けるため）
+                  final cardKey =
+                      category.id == 'shopping' ? _shoppingCardKey : null;
                   return Consumer(
                     builder: (context, ref, _) => _CategoryCard(
+                      key: cardKey,
                       category: category,
                       stageCount: stageCount,
                       onTap: () {
@@ -84,6 +197,7 @@ class CategoryListScreen extends StatelessWidget {
 
 class _CategoryCard extends StatelessWidget {
   const _CategoryCard({
+    super.key,
     required this.category,
     required this.stageCount,
     required this.onTap,
