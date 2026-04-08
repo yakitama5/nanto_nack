@@ -13,6 +13,7 @@ import 'presentation/play/category_list_screen.dart';
 import 'presentation/play/stage_list_screen.dart';
 import 'presentation/settings/settings_screen.dart';
 import 'presentation/splash/splash_screen.dart';
+import 'presentation/tutorial/tutorial_water_quiz_screen.dart';
 
 List<NavigatorObserver> _buildRouterObservers() {
   try {
@@ -48,9 +49,16 @@ final appRouter = GoRouter(
     // ショッピングカテゴリー
     GoRoute(
       path: '/shopping/water',
-      builder: (context, state) => WaterQuizScreen(
-        onCompleted: () => context.pop(),
-      ),
+      builder: (context, state) {
+        // extra == true の場合はチュートリアルモード（クイズ選択を経由せず直接遷移）
+        final isTutorial = state.extra == true;
+        if (isTutorial) {
+          return const TutorialWaterQuizScreen();
+        }
+        return WaterQuizScreen(
+          onCompleted: () => context.pop(),
+        );
+      },
     ),
     GoRoute(
       path: '/shopping/cart',

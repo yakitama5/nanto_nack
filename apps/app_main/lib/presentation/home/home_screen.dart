@@ -5,9 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:system/system.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../application/dashboard_provider.dart';
 import '../../application/stage_list_provider.dart';
+import '../../application/tutorial/tutorial_notifier.dart';
 import '../../application/weather_provider.dart';
 import '../../domain/category.dart';
 import '../../domain/daily_scene.dart';
@@ -15,12 +17,147 @@ import '../../domain/dashboard/dashboard_state.dart';
 import '../../domain/dashboard/user_activity.dart';
 import '../../domain/weather/time_of_day_period.dart';
 import '../../domain/weather/weather_scene_key.dart';
+import '../tutorial/nantom_speech_bubble.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final _playButtonKey = GlobalKey();
+  OverlayEntry? _tutorialOverlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTutorial());
+  }
+
+  @override
+  void dispose() {
+    _tutorialOverlayEntry?.remove();
+    _tutorialOverlayEntry = null;
+    super.dispose();
+  }
+
+  Future<void> _maybeShowTutorial() async {
+    try {
+      final tutState = await ref.read(tutorialNotifierProvider.future);
+      if (!mounted) return;
+      if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
+        // Step 1-2 は即座にオーバーレイ表示。Step 3 のコーチマーク表示前に
+        // _playButtonKey が設定されているかを確認してから表示する。
+        _showTutorial();
+      }
+    } catch (_) {
+      // チュートリアル状態の取得失敗時は通常表示を継続
+    }
+  }
+
+  void _showTutorial() {
+    // Step 1-2: フォーカスなし全画面暗転オーバーレイ
+    _tutorialOverlayEntry = OverlayEntry(
+      builder: (_) => _HomeTutorialOverlay(
+        onComplete: () {
+          _tutorialOverlayEntry?.remove();
+          _tutorialOverlayEntry = null;
+          // Step 3: プレイボタンにフォーカスするコーチマークへ移行
+          if (!mounted) return;
+          _showPlayButtonCoachMarkWhenReady();
+        },
+        onSkip: () {
+          _tutorialOverlayEntry?.remove();
+          _tutorialOverlayEntry = null;
+          Future.microtask(
+            () => ref.read(tutorialNotifierProvider.notifier).complete(),
+          );
+        },
+      ),
+    );
+    Overlay.of(context).insert(_tutorialOverlayEntry!);
+  }
+
+  // Step 3: _playButtonKey が使用可能になるまで最大 retries 回フレームをまたいで待つ
+  void _showPlayButtonCoachMarkWhenReady([int retries = 10]) {
+    if (!mounted || ModalRoute.of(context)?.isCurrent != true) return;
+    if (_playButtonKey.currentContext != null) {
+      _showPlayButtonCoachMark();
+      return;
+    }
+    if (retries <= 0) return;
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _showPlayButtonCoachMarkWhenReady(retries - 1),
+    );
+  }
+
+  // Step 3: プレイボタンへのフォーカスコーチマーク
+  void _showPlayButtonCoachMark() {
+    final t = Translations.of(context);
+
+    void navigateToPlay() {
+      ref.read(analyticsServiceProvider).logPlayButtonTapped();
+      ref
+          .read(tutorialNotifierProvider.notifier)
+          .advanceTo(TutorialScreen.categoryList);
+      context.push('/play');
+    }
+
+    TutorialCoachMark(
+      targets: [
+        TargetFocus(
+          identify: 'home_play_button',
+          keyTarget: _playButtonKey,
+          shape: ShapeLightFocus.RRect,
+          radius: 18,
+          paddingFocus: 8,
+          enableOverlayTab: true,
+          contents: [
+            TargetContent(
+              align: ContentAlign.top,
+              builder: (ctx, ctl) => NantomSpeechBubble(
+                expression: NantomExpression.smile,
+                text: t.tutorial.step3,
+              ),
+            ),
+          ],
+        ),
+      ],
+      colorShadow: Colors.black,
+      opacityShadow: 0.85,
+      textSkip: t.tutorial.skip,
+      skipWidget: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+        ),
+        child: Text(
+          t.tutorial.skip,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      onClickTarget: (_) => navigateToPlay(),
+      onClickOverlay: (_) => navigateToPlay(),
+      onFinish: () {},
+      onSkip: () {
+        Future.microtask(
+          () => ref.read(tutorialNotifierProvider.notifier).complete(),
+        );
+        return true;
+      },
+    ).show(context: context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final dashboardAsync = ref.watch(dashboardProvider);
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -47,6 +184,7 @@ class HomeScreen extends ConsumerWidget {
                     error: (_, __) => const SizedBox.shrink(),
                     data: (dashboard) => _DashboardContent(
                       dashboard: dashboard,
+                      playButtonKey: _playButtonKey,
                     ),
                   ),
                   // ===== ボトムパディング（SafeArea + 余白）=====
@@ -297,9 +435,13 @@ class _HeaderIconButton extends StatelessWidget {
 // ─────────────────────────────────────────
 
 class _DashboardContent extends StatelessWidget {
-  const _DashboardContent({required this.dashboard});
+  const _DashboardContent({
+    required this.dashboard,
+    this.playButtonKey,
+  });
 
   final DashboardState dashboard;
+  final Key? playButtonKey;
 
   @override
   Widget build(BuildContext context) {
@@ -324,6 +466,7 @@ class _DashboardContent extends StatelessWidget {
           // プレイヒーローカード（残りプレイ数 + プレイボタン）
           _PlayHeroCard(
             remainingPlayCount: dashboard.remainingPlayCount,
+            playButtonKey: playButtonKey,
           ),
           const SizedBox(height: 16),
           // 連続プレイ + 60日ヒートマップ統合カード
@@ -417,9 +560,13 @@ class _TipCard extends StatelessWidget {
 
 /// 残りプレイ数の円形インジケーターと「プレイする」ボタンを持つカード。
 class _PlayHeroCard extends ConsumerWidget {
-  const _PlayHeroCard({required this.remainingPlayCount});
+  const _PlayHeroCard({
+    required this.remainingPlayCount,
+    this.playButtonKey,
+  });
 
   final int? remainingPlayCount; // null = 無制限（プレミアム）
+  final Key? playButtonKey;
 
   static const _maxPlays = 5;
 
@@ -502,6 +649,7 @@ class _PlayHeroCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               FilledButton.icon(
+                key: playButtonKey,
                 onPressed: () {
                   ref.read(analyticsServiceProvider).logPlayButtonTapped();
                   context.push('/play');
@@ -882,6 +1030,111 @@ class _LabelPill extends StatelessWidget {
                 ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────
+// ホーム画面チュートリアルオーバーレイ（Step 1〜2）
+// ─────────────────────────────────────────
+
+/// フォーカスなし・全画面暗転でナントムを中央表示するオーバーレイ（Step 1〜2）。
+///
+/// タップで次ステップへ進み、Step 2 完了後に [onComplete] を呼び出す。
+/// スキップボタンは右下に配置。
+class _HomeTutorialOverlay extends StatefulWidget {
+  const _HomeTutorialOverlay({
+    required this.onComplete,
+    required this.onSkip,
+  });
+
+  final VoidCallback onComplete;
+  final VoidCallback onSkip;
+
+  @override
+  State<_HomeTutorialOverlay> createState() => _HomeTutorialOverlayState();
+}
+
+class _HomeTutorialOverlayState extends State<_HomeTutorialOverlay> {
+  int _step = 0;
+
+  void _onTap() {
+    final steps = _buildSteps(Translations.of(context));
+    if (_step < steps.length - 1) {
+      setState(() => _step++);
+    } else {
+      widget.onComplete();
+    }
+  }
+
+  List<({NantomExpression expression, String text})> _buildSteps(
+    Translations t,
+  ) => [
+    (expression: NantomExpression.smile, text: t.tutorial.step1),
+    (expression: NantomExpression.normal, text: t.tutorial.step2),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
+    final steps = _buildSteps(t);
+    final currentStep = steps[_step];
+
+    return Material(
+      color: Colors.transparent,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: _onTap,
+        child: Stack(
+          children: [
+            // ── 全画面暗転（フォーカス穴なし）
+            const ColoredBox(
+              color: Color(0xB3000000), // 70% black
+              child: SizedBox.expand(),
+            ),
+            // ── ナントム（画面中央）
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: NantomSpeechBubble(
+                  expression: currentStep.expression,
+                  text: currentStep.text,
+                ),
+              ),
+            ),
+            // ── スキップボタン（右下）
+            Positioned(
+              bottom: bottomPadding + 24,
+              right: 20,
+              child: GestureDetector(
+                onTap: widget.onSkip,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  child: Text(
+                    t.tutorial.skip,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

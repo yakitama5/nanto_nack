@@ -176,6 +176,16 @@
     "defaultTitle": "Learn UI/UX",
     "defaultContent": "Sharpen your UI/UX intuition by solving quizzes!"
   },
+  "tutorial": {
+    "skip": "Skip",
+    "step1": "Welcome! I'm Nantom!",
+    "step2": "These are apps I've made!",
+    "step3": "I worked hard on them, so give them a try!",
+    "step4": "Let's start with the shopping app. Here we go!",
+    "step5": "Whoa! The text has become unreadable!",
+    "step6": "Maybe my curse spread to it...",
+    "step7": "But don't worry! Even without reading the text, icons and colors should give you a \"feeling\". Give it a try!"
+  },
   "settings": {
     "title": "Settings",
     "appearance": {

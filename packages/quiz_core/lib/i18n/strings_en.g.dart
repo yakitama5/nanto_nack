@@ -50,6 +50,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsPlayEn play = _TranslationsPlayEn._(_root);
 	@override late final _TranslationsSceneEn scene = _TranslationsSceneEn._(_root);
 	@override late final _TranslationsTipEn tip = _TranslationsTipEn._(_root);
+	@override late final _TranslationsTutorialEn tutorial = _TranslationsTutorialEn._(_root);
 	@override late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(_root);
 }
 
@@ -215,6 +216,23 @@ class _TranslationsTipEn extends TranslationsTipJa {
 	// Translations
 	@override String get defaultTitle => 'Learn UI/UX';
 	@override String get defaultContent => 'Sharpen your UI/UX intuition by solving quizzes!';
+}
+
+// Path: tutorial
+class _TranslationsTutorialEn extends TranslationsTutorialJa {
+	_TranslationsTutorialEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get skip => 'Skip';
+	@override String get step1 => 'Welcome! I\'m Nantom!';
+	@override String get step2 => 'These are apps I\'ve made!';
+	@override String get step3 => 'I worked hard on them, so give them a try!';
+	@override String get step4 => 'Let\'s start with the shopping app. Here we go!';
+	@override String get step5 => 'Whoa! The text has become unreadable!';
+	@override String get step6 => 'Maybe my curse spread to it...';
+	@override String get step7 => 'But don\'t worry! Even without reading the text, icons and colors should give you a "feeling". Give it a try!';
 }
 
 // Path: settings
@@ -547,6 +565,14 @@ extension on TranslationsEn {
 			'scene.greeting.nightSky' => 'Good work today',
 			'tip.defaultTitle' => 'Learn UI/UX',
 			'tip.defaultContent' => 'Sharpen your UI/UX intuition by solving quizzes!',
+			'tutorial.skip' => 'Skip',
+			'tutorial.step1' => 'Welcome! I\'m Nantom!',
+			'tutorial.step2' => 'These are apps I\'ve made!',
+			'tutorial.step3' => 'I worked hard on them, so give them a try!',
+			'tutorial.step4' => 'Let\'s start with the shopping app. Here we go!',
+			'tutorial.step5' => 'Whoa! The text has become unreadable!',
+			'tutorial.step6' => 'Maybe my curse spread to it...',
+			'tutorial.step7' => 'But don\'t worry! Even without reading the text, icons and colors should give you a "feeling". Give it a try!',
 			'settings.title' => 'Settings',
 			'settings.appearance.title' => 'Appearance',
 			'settings.appearance.theme' => 'Theme',

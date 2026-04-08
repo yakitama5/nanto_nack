@@ -47,20 +47,45 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
     final quizState = ref.watch(cartQuizProvider);
     final missionText = context.s.cart.missionText;
 
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: const Color(0xFFF3F3F3),
-          appBar: AppBar(
-            backgroundColor: _kNavyColor,
-            title: UnreadableText(
-              context.sq.cart.appTitle,
-              isObfuscated: true,
-              animateOnObfuscate: false,
-              style: const TextStyle(color: Colors.white),
-            ),
-            iconTheme: const IconThemeData(color: Colors.white),
-            ),
+    return PopScope(
+      canPop: quizState.status != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('ゲームを中断しますか？'),
+            content: const Text('プレイ中のゲームを終了します。'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('続ける'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('終了する'),
+              ),
+            ],
+          ),
+        );
+        if (confirmed == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: const Color(0xFFF3F3F3),
+            appBar: AppBar(
+              backgroundColor: _kNavyColor,
+              title: UnreadableText(
+                context.sq.cart.appTitle,
+                isObfuscated: true,
+                animateOnObfuscate: false,
+                style: const TextStyle(color: Colors.white),
+              ),
+              iconTheme: const IconThemeData(color: Colors.white),
+              ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -124,6 +149,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             ),
           ),
       ],
+      ),
     );
   }
 }
