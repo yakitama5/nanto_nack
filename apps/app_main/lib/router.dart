@@ -12,6 +12,7 @@ import 'presentation/home/home_screen.dart';
 import 'presentation/play/category_list_screen.dart';
 import 'presentation/play/stage_list_screen.dart';
 import 'presentation/settings/settings_screen.dart';
+import 'presentation/splash/splash_screen.dart';
 
 List<NavigatorObserver> _buildRouterObservers() {
   try {
@@ -23,9 +24,13 @@ List<NavigatorObserver> _buildRouterObservers() {
 }
 
 final appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/splash',
   observers: _buildRouterObservers(),
   routes: [
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
     GoRoute(
       path: '/',
       builder: (context, state) => const HomeScreen(),
