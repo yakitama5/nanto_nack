@@ -52,12 +52,12 @@ void main() {
         ),
       ),
     );
-    // GoRouter の初期ナビゲーション処理を完了させる。
-    // CI/ローカル環境問わず安定して動作させるため複数フレームを進める。
-    // 1フレーム目: setNewRoutePath の非同期処理完了 + notifyListeners
-    // 2フレーム目: RouterDelegate.build() でホーム画面がレンダリング
-    // 3フレーム目: post-frame callback など遅延処理の完了
-    await tester.pump();
+    // アプリは /splash から起動するため、スプラッシュのフォールバックタイムアウト
+    // （5秒）を経過させてホーム画面（/）への遷移を完了させる。
+    // テスト環境では Lottie アニメーションが完了するかタイムアウトするかに関わらず
+    // 仮想クロックを6秒進めることでホーム画面への遷移を保証する。
+    await tester.pump(const Duration(seconds: 6));
+    // GoRouter のナビゲーション処理を完了させる
     await tester.pump();
     await tester.pump();
 
