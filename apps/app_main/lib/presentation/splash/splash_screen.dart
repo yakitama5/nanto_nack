@@ -15,6 +15,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
+  /// アニメーションの再生速度倍率（1.5 = 1.5倍速）。
+  static const double _playbackSpeed = 1.5;
+
   late final AnimationController _controller;
 
   @override
@@ -31,7 +34,10 @@ class _SplashScreenState extends State<SplashScreen>
 
   void _onAnimationLoaded(LottieComposition composition) {
     _controller
-      ..duration = composition.duration
+      ..duration = Duration(
+        milliseconds: (composition.duration.inMilliseconds / _playbackSpeed)
+            .round(),
+      )
       ..forward().whenComplete(_navigateToHome);
   }
 
