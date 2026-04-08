@@ -1,4 +1,5 @@
 import 'package:app_main/app.dart';
+import 'package:app_main/application/tutorial/tutorial_notifier.dart';
 import 'package:app_main/application/weather_provider.dart';
 import 'package:app_main/domain/weather/weather_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,23 @@ class MockWeatherNotifier extends AsyncNotifier<WeatherInfo?>
   Future<void> refresh() async {}
 }
 
+/// チュートリアルを完了済み状態で返すモック。
+/// テスト中にチュートリアルオーバーレイが表示されるのを防ぐ。
+class MockTutorialNotifier extends AsyncNotifier<TutorialState>
+    implements TutorialNotifier {
+  @override
+  Future<TutorialState> build() async => const TutorialState(
+        screen: TutorialScreen.done,
+        isCompleted: true,
+      );
+
+  @override
+  void advanceTo(TutorialScreen screen) {}
+
+  @override
+  Future<void> complete() async {}
+}
+
 void main() {
   testWidgets('NantoNack app smoke test', (WidgetTester tester) async {
     // main.dart と同様に TranslationProvider でラップする。
@@ -24,6 +42,9 @@ void main() {
         child: ProviderScope(
           overrides: [
             weatherProvider.overrideWith(() => MockWeatherNotifier()),
+            // チュートリアルを完了済みにしてオーバーレイを抑制する
+            tutorialNotifierProvider
+                .overrideWith(() => MockTutorialNotifier()),
           ],
           child: const NantoNackApp(),
         ),
