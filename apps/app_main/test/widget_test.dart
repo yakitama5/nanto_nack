@@ -29,7 +29,11 @@ void main() {
         ),
       ),
     );
-    // GoRouter の初期ナビゲーション処理を進める
+    // GoRouter の初期ナビゲーション処理を完了させる。
+    // GoRouter は非同期でルートを解決するため、
+    // 1フレーム目: setNewRoutePath の非同期処理完了 + notifyListeners
+    // 2フレーム目: RouterDelegate.build() でホーム画面がレンダリング
+    await tester.pump();
     await tester.pump();
 
     expect(find.text('NantoNack'), findsWidgets);
