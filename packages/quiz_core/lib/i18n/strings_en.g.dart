@@ -322,7 +322,7 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get alarm_quiz3 => 'Turn Off Snooze';
 	@override String get alarm_quiz4 => 'Delete an Alarm';
 	@override String get payment_quiz1 => 'Show QR Code';
-	@override String get payment_quiz2 => 'Check Balance';
+	@override String get payment_quiz2 => 'Hide Your Balance';
 	@override String get payment_quiz3 => 'Send Money';
 	@override String get payment_quiz4 => 'Check Transaction History';
 }
@@ -355,7 +355,7 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get alarm_quiz3 => 'Turn off the snooze feature and save';
 	@override String get alarm_quiz4 => 'Delete the top alarm from the alarm list';
 	@override String get payment_quiz1 => 'Show the QR code in the payment app';
-	@override String get payment_quiz2 => 'Remove the blur and check the balance in the payment app';
+	@override String get payment_quiz2 => 'Tap the eye icon to hide your balance in the payment app';
 	@override String get payment_quiz3 => 'Send money to someone in the payment app';
 	@override String get payment_quiz4 => 'Check the transaction history in the payment app';
 }
@@ -530,7 +530,7 @@ extension on TranslationsEn {
 			'play.stageTitle.alarm_quiz3' => 'Turn Off Snooze',
 			'play.stageTitle.alarm_quiz4' => 'Delete an Alarm',
 			'play.stageTitle.payment_quiz1' => 'Show QR Code',
-			'play.stageTitle.payment_quiz2' => 'Check Balance',
+			'play.stageTitle.payment_quiz2' => 'Hide Your Balance',
 			'play.stageTitle.payment_quiz3' => 'Send Money',
 			'play.stageTitle.payment_quiz4' => 'Check Transaction History',
 			'play.stageDescription.shopping_water' => 'Add 2 waters to the cart and purchase on the e-commerce site',
@@ -554,7 +554,7 @@ extension on TranslationsEn {
 			'play.stageDescription.alarm_quiz3' => 'Turn off the snooze feature and save',
 			'play.stageDescription.alarm_quiz4' => 'Delete the top alarm from the alarm list',
 			'play.stageDescription.payment_quiz1' => 'Show the QR code in the payment app',
-			'play.stageDescription.payment_quiz2' => 'Remove the blur and check the balance in the payment app',
+			'play.stageDescription.payment_quiz2' => 'Tap the eye icon to hide your balance in the payment app',
 			'play.stageDescription.payment_quiz3' => 'Send money to someone in the payment app',
 			'play.stageDescription.payment_quiz4' => 'Check the transaction history in the payment app',
 			'scene.greeting.sunriseMorning' => 'Good morning',

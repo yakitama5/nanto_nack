@@ -543,8 +543,8 @@ class TranslationsPlayStageTitleJa {
 	/// ja: 'QRコードを表示しよう'
 	String get payment_quiz1 => 'QRコードを表示しよう';
 
-	/// ja: '残高を確認しよう'
-	String get payment_quiz2 => '残高を確認しよう';
+	/// ja: '残高を隠そう'
+	String get payment_quiz2 => '残高を隠そう';
 
 	/// ja: '送金しよう'
 	String get payment_quiz3 => '送金しよう';
@@ -624,8 +624,8 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: '決済アプリでQRコードを表示してください'
 	String get payment_quiz1 => '決済アプリでQRコードを表示してください';
 
-	/// ja: '決済アプリで残高のブラーを解除して確認してください'
-	String get payment_quiz2 => '決済アプリで残高のブラーを解除して確認してください';
+	/// ja: '決済アプリで目のアイコンをタップして残高を隠してください'
+	String get payment_quiz2 => '決済アプリで目のアイコンをタップして残高を隠してください';
 
 	/// ja: '決済アプリで誰かに送金してください'
 	String get payment_quiz3 => '決済アプリで誰かに送金してください';
@@ -862,7 +862,7 @@ extension on Translations {
 			'play.stageTitle.alarm_quiz3' => 'スヌーズをオフにしよう',
 			'play.stageTitle.alarm_quiz4' => 'アラームを削除しよう',
 			'play.stageTitle.payment_quiz1' => 'QRコードを表示しよう',
-			'play.stageTitle.payment_quiz2' => '残高を確認しよう',
+			'play.stageTitle.payment_quiz2' => '残高を隠そう',
 			'play.stageTitle.payment_quiz3' => '送金しよう',
 			'play.stageTitle.payment_quiz4' => '取引履歴を確認しよう',
 			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
@@ -886,7 +886,7 @@ extension on Translations {
 			'play.stageDescription.alarm_quiz3' => 'アラームのスヌーズ機能をオフにして保存してください',
 			'play.stageDescription.alarm_quiz4' => 'アラーム一覧から一番上のアラームを削除してください',
 			'play.stageDescription.payment_quiz1' => '決済アプリでQRコードを表示してください',
-			'play.stageDescription.payment_quiz2' => '決済アプリで残高のブラーを解除して確認してください',
+			'play.stageDescription.payment_quiz2' => '決済アプリで目のアイコンをタップして残高を隠してください',
 			'play.stageDescription.payment_quiz3' => '決済アプリで誰かに送金してください',
 			'play.stageDescription.payment_quiz4' => '決済アプリで取引履歴を確認してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
