@@ -11,6 +11,7 @@ resolution: workspace
 dependencies:
   clock: ^1.1.2
   cupertino_icons: ^1.0.8
+  lottie: ^3.3.1
   envied: ^1.3.3
   flutter:
     sdk: flutter
@@ -60,3 +61,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/weather/
+    - assets/lottie/
