@@ -44,12 +44,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _maybeShowTutorial() async {
-    final tutState = await ref.read(tutorialNotifierProvider.future);
-    if (!mounted) return;
-    if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
-      // Step 1-2 は即座にオーバーレイ表示。Step 3 のコーチマーク表示前に
-      // _playButtonKey が設定されているかを確認してから表示する。
-      _showTutorial();
+    try {
+      final tutState = await ref.read(tutorialNotifierProvider.future);
+      if (!mounted) return;
+      if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
+        // Step 1-2 は即座にオーバーレイ表示。Step 3 のコーチマーク表示前に
+        // _playButtonKey が設定されているかを確認してから表示する。
+        _showTutorial();
+      }
+    } catch (_) {
+      // チュートリアル状態の取得失敗時は通常表示を継続
     }
   }
 
@@ -61,19 +65,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           _tutorialOverlayEntry?.remove();
           _tutorialOverlayEntry = null;
           // Step 3: プレイボタンにフォーカスするコーチマークへ移行
-          // _playButtonKey が設定されていること・画面が最前面にあることを確認してから表示
           if (!mounted) return;
-          if (ModalRoute.of(context)?.isCurrent != true) return;
-          if (_playButtonKey.currentContext == null) {
-            // dashboardProvider の読み込み完了後にキーが設定されるため、次フレームで再確認
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (mounted && ModalRoute.of(context)?.isCurrent == true) {
-                _showPlayButtonCoachMark();
-              }
-            });
-          } else {
-            _showPlayButtonCoachMark();
-          }
+          _showPlayButtonCoachMarkWhenReady();
         },
         onSkip: () {
           _tutorialOverlayEntry?.remove();
@@ -85,6 +78,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
     Overlay.of(context).insert(_tutorialOverlayEntry!);
+  }
+
+  // Step 3: _playButtonKey が使用可能になるまで最大 retries 回フレームをまたいで待つ
+  void _showPlayButtonCoachMarkWhenReady([int retries = 10]) {
+    if (!mounted || ModalRoute.of(context)?.isCurrent != true) return;
+    if (_playButtonKey.currentContext != null) {
+      _showPlayButtonCoachMark();
+      return;
+    }
+    if (retries <= 0) return;
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _showPlayButtonCoachMarkWhenReady(retries - 1),
+    );
   }
 
   // Step 3: プレイボタンへのフォーカスコーチマーク
