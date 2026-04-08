@@ -549,8 +549,8 @@ class TranslationsPlayStageTitleJa {
 	/// ja: '送金しよう'
 	String get payment_quiz3 => '送金しよう';
 
-	/// ja: '取引履歴を確認しよう'
-	String get payment_quiz4 => '取引履歴を確認しよう';
+	/// ja: '支払い方法を変更しよう'
+	String get payment_quiz4 => '支払い方法を変更しよう';
 }
 
 // Path: play.stageDescription
@@ -630,8 +630,8 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: '決済アプリで誰かに送金してください'
 	String get payment_quiz3 => '決済アプリで誰かに送金してください';
 
-	/// ja: '決済アプリで取引履歴を確認してください'
-	String get payment_quiz4 => '決済アプリで取引履歴を確認してください';
+	/// ja: '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください'
+	String get payment_quiz4 => '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください';
 }
 
 // Path: scene.greeting
@@ -864,7 +864,7 @@ extension on Translations {
 			'play.stageTitle.payment_quiz1' => 'QRコードを表示しよう',
 			'play.stageTitle.payment_quiz2' => '残高を隠そう',
 			'play.stageTitle.payment_quiz3' => '送金しよう',
-			'play.stageTitle.payment_quiz4' => '取引履歴を確認しよう',
+			'play.stageTitle.payment_quiz4' => '支払い方法を変更しよう',
 			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -888,7 +888,7 @@ extension on Translations {
 			'play.stageDescription.payment_quiz1' => '決済アプリでQRコードを表示してください',
 			'play.stageDescription.payment_quiz2' => '決済アプリで目のアイコンをタップして残高を隠してください',
 			'play.stageDescription.payment_quiz3' => '決済アプリで誰かに送金してください',
-			'play.stageDescription.payment_quiz4' => '決済アプリで取引履歴を確認してください',
+			'play.stageDescription.payment_quiz4' => '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',
