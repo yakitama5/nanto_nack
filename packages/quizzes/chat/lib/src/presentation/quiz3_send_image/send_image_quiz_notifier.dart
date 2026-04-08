@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:chat/src/application/quiz_send_image_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
 import 'package:chat/src/domain/chat_tab.dart';
+import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/infrastructure/chat_quiz_repository_provider.dart';
 import 'package:chat/src/presentation/quiz3_send_image/send_image_quiz_state.dart';
@@ -41,6 +42,7 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
       messages: ChatCatalog.quiz3InitialMessages(clock.now()),
       remainingSeconds: _timeLimitSeconds,
       isImagePickerOpen: false,
+      openedContact: () => null,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     // タイマーは MissionCutIn 終了後に startTimer() を呼んで開始する
@@ -60,9 +62,12 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   }
 
   /// コンタクトをタップしてチャットルームへ
-  void openChatRoom() {
+  void openChatRoom(ChatContact contact) {
     if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: true);
+    state = state.copyWith(
+      isInChatRoom: true,
+      openedContact: () => contact,
+    );
   }
 
   /// 画像ピッカーの開閉切り替え
@@ -72,16 +77,11 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   }
 
   /// 画像を送信（isImage=true のメッセージを追加）
-  /// 間違ったルームで送信した場合は不正解になる
   Future<void> sendImage(String? imagePath) async {
     // 画像が実際に選択されていない場合は処理しない
     if (imagePath == null) return;
     if (state.status != QuizStatus.playing) return;
-    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
-    if (!state.isCorrectChatRoom) {
-      await _markIncorrect();
-      return;
-    }
+
     _timer?.cancel();
 
     final newMessage = ChatMessage(
@@ -119,21 +119,16 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     state = state.copyWith(
       isInChatRoom: false,
       isImagePickerOpen: false,
-      isCorrectChatRoom: true,
+      openedContact: () => null,
     );
   }
 
   /// テキストメッセージを送信（画像クイズのクリア判定には影響しない）
   /// UI の一貫性のためにメッセージリストへ追加する
-  /// 間違ったルームで送信した場合は不正解になる
   Future<void> sendTextMessage(String text) async {
     if (state.status != QuizStatus.playing) return;
     if (text.trim().isEmpty) return;
-    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
-    if (!state.isCorrectChatRoom) {
-      await _markIncorrect();
-      return;
-    }
+
     final newMessage = ChatMessage(
       id: 'text_${clock.now().millisecondsSinceEpoch}',
       text: text,
@@ -144,14 +139,9 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   }
 
   /// スタンプメッセージを送信（クイズ判定に影響しない、UIの一貫性のため）
-  /// 間違ったルームで送信した場合は不正解になる
   Future<void> sendStampAsMessage(String stampId) async {
     if (state.status != QuizStatus.playing) return;
-    // 間違ったコンタクトのルームでアクションを実行した場合は不正解
-    if (!state.isCorrectChatRoom) {
-      await _markIncorrect();
-      return;
-    }
+
     final newMessage = ChatMessage(
       id: 'stamp_${clock.now().millisecondsSinceEpoch}',
       text: stampId,
@@ -161,13 +151,6 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
       stampId: stampId,
     );
     state = state.copyWith(messages: [...state.messages, newMessage]);
-  }
-
-  /// 間違ったコンタクトをタップしてチャットルームへ遷移する（不正解判定なし）
-  /// アクションを実行したタイミングで不正解になる
-  void openWrongChatRoom() {
-    if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(isInChatRoom: true, isCorrectChatRoom: false);
   }
 
   Future<void> giveUp() async {
@@ -221,23 +204,6 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     state = state.copyWith(
       status: QuizStatus.timeUp,
       remainingSeconds: 0,
-      elapsedMs: elapsed,
-    );
-    try {
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
-  }
-
-  /// 間違ったルームでアクションを実行したときの不正解処理
-  /// タイマーを止め、不正解状態にしてリザルトを保存する
-  Future<void> _markIncorrect() async {
-    _timer?.cancel();
-    final elapsed = state.startedAt != null
-        ? clock.now().difference(state.startedAt!).inMilliseconds
-        : 0;
-    state = state.copyWith(
-      status: QuizStatus.incorrect,
-      failureCount: state.failureCount + 1,
       elapsedMs: elapsed,
     );
     try {

@@ -1,6 +1,4 @@
 import 'package:chat/src/domain/chat_catalog.dart';
-import 'package:chat/src/domain/entities/chat_contact.dart';
-import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:chat/src/presentation/chat_app_shell.dart';
 import 'package:chat/src/presentation/chat_room_screen.dart';
@@ -28,8 +26,6 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
   String _inputText = '';
   // スタンプパネルの開閉状態（Quiz3 では画像ピッカーと排他だが画像ピッカーは Notifier 管理）
   bool _isStampPanelOpen = false;
-  // 間違ったコンタクトのルームに入ったときに保持するコンタクト情報
-  ChatContact? _openedContact;
 
   @override
   void initState() {
@@ -48,12 +44,8 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
     final overlays = _buildOverlays(state, missionText, notifier);
 
     if (state.isInChatRoom) {
-      // 間違ったルームの場合はタップしたコンタクトと空メッセージを表示する
-      final contact = state.isCorrectChatRoom
-          ? ChatCatalog.quiz3Contacts(clock.now())[2] // Carol
-          : _openedContact!;
-      final messages =
-          state.isCorrectChatRoom ? state.messages : <ChatMessage>[];
+      final contact = state.openedContact!;
+      final messages = state.messages;
       return ChatRoomScreen(
         contact: contact,
         messages: messages,
@@ -101,15 +93,7 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
       currentTab: state.currentTab,
       onTabChanged: notifier.switchTab,
       contacts: ChatCatalog.quiz3Contacts(clock.now()),
-      // Carol なら正解チャットルームへ、それ以外は間違ったルームへ遷移する
-      onContactTap: (contact) {
-        if (contact.id == 'carol') {
-          notifier.openChatRoom();
-        } else {
-          setState(() => _openedContact = contact);
-          notifier.openWrongChatRoom();
-        }
-      },
+      onContactTap: notifier.openChatRoom,
       quizStatus: state.status,
       talkTabBadgeCount: 1,
       overlays: [
