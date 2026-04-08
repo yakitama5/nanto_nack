@@ -28,6 +28,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _playButtonKey = GlobalKey();
+  OverlayEntry? _tutorialOverlayEntry;
 
   @override
   void initState() {
@@ -35,44 +36,61 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTutorial());
   }
 
+  @override
+  void dispose() {
+    _tutorialOverlayEntry?.remove();
+    _tutorialOverlayEntry = null;
+    super.dispose();
+  }
+
   Future<void> _maybeShowTutorial() async {
     final tutState = await ref.read(tutorialNotifierProvider.future);
     if (!mounted) return;
     if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
-      // dashboardProvider が解決されると _playButtonKey が設定されたウィジェットが
-      // ビルドされるため、その後のフレームでコーチマークを表示する
-      await ref.read(dashboardProvider.future);
-      if (!mounted) return;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _showTutorial();
-      });
+      // Step 1-2 は即座にオーバーレイ表示。Step 3 のコーチマーク表示前に
+      // _playButtonKey が設定されているかを確認してから表示する。
+      _showTutorial();
     }
   }
 
   void _showTutorial() {
-    late OverlayEntry entry;
-
     // Step 1-2: フォーカスなし全画面暗転オーバーレイ
-    entry = OverlayEntry(
+    _tutorialOverlayEntry = OverlayEntry(
       builder: (_) => _HomeTutorialOverlay(
         onComplete: () {
-          entry.remove();
+          _tutorialOverlayEntry?.remove();
+          _tutorialOverlayEntry = null;
           // Step 3: プレイボタンにフォーカスするコーチマークへ移行
-          _showPlayButtonCoachMark();
+          // _playButtonKey が設定されていること・画面が最前面にあることを確認してから表示
+          if (!mounted) return;
+          if (ModalRoute.of(context)?.isCurrent != true) return;
+          if (_playButtonKey.currentContext == null) {
+            // dashboardProvider の読み込み完了後にキーが設定されるため、次フレームで再確認
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted && ModalRoute.of(context)?.isCurrent == true) {
+                _showPlayButtonCoachMark();
+              }
+            });
+          } else {
+            _showPlayButtonCoachMark();
+          }
         },
         onSkip: () {
-          entry.remove();
+          _tutorialOverlayEntry?.remove();
+          _tutorialOverlayEntry = null;
           Future.microtask(
             () => ref.read(tutorialNotifierProvider.notifier).complete(),
           );
         },
       ),
     );
-    Overlay.of(context).insert(entry);
+    Overlay.of(context).insert(_tutorialOverlayEntry!);
   }
 
   // Step 3: プレイボタンへのフォーカスコーチマーク
   void _showPlayButtonCoachMark() {
+    final t = Translations.of(context);
+
     void navigateToPlay() {
       ref.read(analyticsServiceProvider).logPlayButtonTapped();
       ref
@@ -93,9 +111,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           contents: [
             TargetContent(
               align: ContentAlign.top,
-              builder: (ctx, ctl) => const NantomSpeechBubble(
+              builder: (ctx, ctl) => NantomSpeechBubble(
                 expression: NantomExpression.smile,
-                text: '一生懸命作ったからさっそく使ってみて！',
+                text: t.tutorial.step3,
               ),
             ),
           ],
@@ -103,7 +121,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ],
       colorShadow: Colors.black,
       opacityShadow: 0.85,
-      textSkip: 'スキップ',
+      textSkip: t.tutorial.skip,
       skipWidget: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
@@ -111,9 +129,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
         ),
-        child: const Text(
-          'スキップ',
-          style: TextStyle(
+        child: Text(
+          t.tutorial.skip,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 13,
             fontWeight: FontWeight.w600,
@@ -1035,23 +1053,28 @@ class _HomeTutorialOverlay extends StatefulWidget {
 class _HomeTutorialOverlayState extends State<_HomeTutorialOverlay> {
   int _step = 0;
 
-  static const List<({NantomExpression expression, String text})> _steps = [
-    (expression: NantomExpression.smile, text: 'ようこそ！ボクはナントム！'),
-    (expression: NantomExpression.normal, text: 'ここではボクが作ったアプリをならべてるよ'),
-  ];
-
   void _onTap() {
-    if (_step < _steps.length - 1) {
+    final steps = _buildSteps(Translations.of(context));
+    if (_step < steps.length - 1) {
       setState(() => _step++);
     } else {
       widget.onComplete();
     }
   }
 
+  List<({NantomExpression expression, String text})> _buildSteps(
+    Translations t,
+  ) => [
+    (expression: NantomExpression.smile, text: t.tutorial.step1),
+    (expression: NantomExpression.normal, text: t.tutorial.step2),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final bottomPadding = MediaQuery.paddingOf(context).bottom;
-    final currentStep = _steps[_step];
+    final steps = _buildSteps(t);
+    final currentStep = steps[_step];
 
     return Material(
       color: Colors.transparent,
@@ -1093,9 +1116,9 @@ class _HomeTutorialOverlayState extends State<_HomeTutorialOverlay> {
                       color: Colors.white.withValues(alpha: 0.5),
                     ),
                   ),
-                  child: const Text(
-                    'スキップ',
-                    style: TextStyle(
+                  child: Text(
+                    t.tutorial.skip,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
