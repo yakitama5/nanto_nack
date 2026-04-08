@@ -18,12 +18,22 @@ class _SplashScreenState extends State<SplashScreen>
   /// アニメーションの再生速度倍率（1.5 = 1.5倍速）。
   static const double _playbackSpeed = 1.5;
 
+  /// アセット読み込み失敗・アニメーション未完了時のフォールバックタイムアウト。
+  static const Duration _timeout = Duration(seconds: 5);
+
   late final AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    // アセット読み込み失敗やアニメーション未完了に備えたタイムアウト。
+    // 一定時間内に完了しなかった場合はホーム画面へ強制遷移する。
+    Future.delayed(_timeout, () {
+      if (mounted && !_controller.isCompleted) {
+        _navigateToHome();
+      }
+    });
   }
 
   @override
@@ -58,6 +68,13 @@ class _SplashScreenState extends State<SplashScreen>
           'assets/lottie/loading.json',
           controller: _controller,
           onLoaded: _onAnimationLoaded,
+          errorBuilder: (context, error, stackTrace) {
+            // アセット読み込み失敗時はすぐにホーム画面へ遷移する。
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _navigateToHome();
+            });
+            return const SizedBox.shrink();
+          },
           width: 240,
           height: 240,
           fit: BoxFit.contain,
