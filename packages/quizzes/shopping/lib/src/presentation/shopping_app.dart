@@ -136,9 +136,14 @@ class _ShoppingAppState extends State<ShoppingApp> {
     }).toList();
 
     return PopScope(
-      canPop: widget.quizStatus != QuizStatus.playing,
+      canPop: widget.quizStatus != QuizStatus.playing && !_showOrderHistory,
       onPopInvokedWithResult: (didPop, _) async {
         if (didPop) return;
+        // 注文履歴サブビュー表示中はアカウントメニューに戻る（確認ダイアログ不要）
+        if (_showOrderHistory) {
+          setState(() => _showOrderHistory = false);
+          return;
+        }
         final confirmed = await _showExitConfirmDialog();
         if (confirmed == true && mounted) {
           Navigator.of(context).pop();
