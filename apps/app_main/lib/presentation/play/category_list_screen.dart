@@ -42,6 +42,12 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
   }
 
   void _showTutorial() {
+    // 画面が最前面にあること・ターゲットキーが設定されていることを確認
+    if (ModalRoute.of(context)?.isCurrent != true) return;
+    if (_shoppingCardKey.currentContext == null) return;
+
+    final t = Translations.of(context);
+
     final targets = [
       // Step 4: Shopping カテゴリタイル（笑顔）
       TargetFocus(
@@ -54,9 +60,9 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
-            builder: (ctx, ctl) => const NantomSpeechBubble(
+            builder: (ctx, ctl) => NantomSpeechBubble(
               expression: NantomExpression.smile,
-              text: 'まずはショッピングアプリを体験してみよう。いくよ！',
+              text: t.tutorial.step4,
             ),
           ),
         ],
@@ -74,7 +80,7 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
       targets: targets,
       colorShadow: Colors.black,
       opacityShadow: 0.85,
-      textSkip: 'スキップ',
+      textSkip: t.tutorial.skip,
       skipWidget: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
@@ -82,9 +88,9 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
         ),
-        child: const Text(
-          'スキップ',
-          style: TextStyle(
+        child: Text(
+          t.tutorial.skip,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 13,
             fontWeight: FontWeight.w600,
