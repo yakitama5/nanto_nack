@@ -133,7 +133,7 @@
       "payment_quiz1": "Show QR Code",
       "payment_quiz2": "Hide Your Balance",
       "payment_quiz3": "Send Money",
-      "payment_quiz4": "Check Transaction History"
+      "payment_quiz4": "Change Payment Method"
     },
     "stageDescription": {
       "shopping_water": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -159,7 +159,7 @@
       "payment_quiz1": "Show the QR code in the payment app",
       "payment_quiz2": "Tap the eye icon to hide your balance in the payment app",
       "payment_quiz3": "Send money to someone in the payment app",
-      "payment_quiz4": "Check the transaction history in the payment app"
+      "payment_quiz4": "Change the payment method to credit card and show the QR code in the payment app"
     }
   },
   "scene": {
