@@ -16,6 +16,7 @@ import '../../domain/daily_scene.dart';
 import '../../domain/dashboard/dashboard_state.dart';
 import '../../domain/dashboard/user_activity.dart';
 import '../../domain/weather/time_of_day_period.dart';
+import '../../domain/weather/weather_condition.dart';
 import '../../domain/weather/weather_scene_key.dart';
 import '../tutorial/nantom_speech_bubble.dart';
 
@@ -207,7 +208,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 ///
 /// OpenWeather API から取得した天気と端末の時間帯に応じて
 /// [WeatherSceneKey] を解決し、対応するアセット画像を表示する。
-/// 取得失敗時は [DailySceneTheme] のグラデーションにフォールバックする。
+/// 取得失敗時や読み込み中は「晴れ」を表示する。
+/// 画像ファイル自体が存在しない場合は [DailySceneTheme] のグラデーションを表示する。
 class _TodayHeroCard extends ConsumerWidget {
   const _TodayHeroCard();
 
@@ -235,14 +237,13 @@ class _TodayHeroCard extends ConsumerWidget {
         .replaceAll('{day}', now.day.toString())
         .replaceAll('{weekday}', weekdayStr);
 
-    // 天気×時間帯のシーンキーを解決（取得失敗時は null）
-    final weatherCondition = weatherAsync.valueOrNull?.condition;
-    final sceneKey = weatherCondition != null
-        ? WeatherSceneKey(
-            condition: weatherCondition,
-            period: TimeOfDayPeriod.fromNow(),
-          )
-        : null;
+    // 天気×時間帯のシーンキーを解決（取得失敗・読み込み中は「晴れ」として扱う）
+    final weatherCondition =
+        weatherAsync.valueOrNull?.condition ?? WeatherCondition.sunny;
+    final sceneKey = WeatherSceneKey(
+      condition: weatherCondition,
+      period: TimeOfDayPeriod.fromNow(),
+    );
 
     return ClipRRect(
       borderRadius: const BorderRadius.only(
@@ -265,17 +266,16 @@ class _TodayHeroCard extends ConsumerWidget {
                 ),
               ),
             ),
-            // ── 天気×時間帯の画像（取得できた場合のみ） ──
-            if (sceneKey != null)
-              Positioned.fill(
-                child: Image.asset(
-                  sceneKey.assetPath,
-                  fit: BoxFit.cover,
-                  // 画像が存在しない場合（プレースホルダー中）はグラデーションを表示
-                  errorBuilder: (context, error, stackTrace) =>
-                      const SizedBox.shrink(),
-                ),
+            // ── 天気×時間帯の画像 ──
+            Positioned.fill(
+              child: Image.asset(
+                sceneKey.assetPath,
+                fit: BoxFit.cover,
+                // 画像が存在しない場合（プレースホルダー中）はグラデーションを表示
+                errorBuilder: (context, error, stackTrace) =>
+                    const SizedBox.shrink(),
               ),
+            ),
             // ── 読みやすさのための暗めのグラデーションオーバーレイ ──
             Positioned.fill(
               child: DecoratedBox(
