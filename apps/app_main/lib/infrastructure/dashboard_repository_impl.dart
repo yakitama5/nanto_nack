@@ -7,19 +7,35 @@ import 'dashboard_repository.dart';
 /// [DashboardRepository] の具体実装
 ///
 /// Remote Config（Tips）と Drift（プレイ履歴）を橋渡しする。
-/// Remote Config は現フェーズではハードコードで代替する。
 class DashboardRepositoryImpl implements DashboardRepository {
   const DashboardRepositoryImpl({
     required AppDatabase db,
     required UserStatusRepository userStatusRepository,
+    required RemoteConfigService remoteConfigService,
   })  : _db = db,
-        _userStatusRepository = userStatusRepository;
+        _userStatusRepository = userStatusRepository,
+        _remoteConfigService = remoteConfigService;
 
   final AppDatabase _db;
   final UserStatusRepository _userStatusRepository;
+  final RemoteConfigService _remoteConfigService;
 
   @override
-  List<DailyTip> fetchRawTips() => _kTips;
+  List<DailyTip> fetchRawTips() => _remoteConfigService.dailyTips
+      .map(
+        (e) => DailyTip(
+          id: e.id.toString(),
+          title: e.title,
+          content: e.content,
+        ),
+      )
+      .toList();
+
+  @override
+  int getDailyPlayLimit() => _remoteConfigService.dailyPlayLimit;
+
+  @override
+  bool isPlayLimitEnabled() => _remoteConfigService.isPlayLimitEnabled;
 
   @override
   Future<List<QuizResult>> getQuizHistorySince(DateTime since) =>
@@ -45,43 +61,3 @@ class DashboardRepositoryImpl implements DashboardRepository {
     return status.isPremium;
   }
 }
-
-// ─── ハードコードされた UI/UX Tips マスターデータ ──────────────────────────
-// 将来的には Firebase Remote Config の JSON から取得する
-const _kTips = [
-  DailyTip(
-    id: 'tip_001',
-    title: 'UIの第一印象',
-    content: 'ユーザーはUIを見た瞬間、わずか0.05秒以内に印象を決定します。\n第一印象を大切にデザインしましょう。',
-  ),
-  DailyTip(
-    id: 'tip_002',
-    title: 'フィッツの法則',
-    content: 'ターゲットが大きく・近いほど操作が速くなります。\n重要なボタンは大きく・手の届く場所に配置しましょう。',
-  ),
-  DailyTip(
-    id: 'tip_003',
-    title: '認知負荷を減らす',
-    content: 'ユーザーが一度に覚えなければならない情報の量を最小限に。\nシンプルなUIが最強のUIです。',
-  ),
-  DailyTip(
-    id: 'tip_004',
-    title: 'ヒックの法則',
-    content: '選択肢が多いほど決断に時間がかかります。\n選択肢は必要最小限に絞りましょう。',
-  ),
-  DailyTip(
-    id: 'tip_005',
-    title: 'アフォーダンス',
-    content: 'ボタンはボタンらしく見えるようにデザインしましょう。\n操作方法を視覚的に伝えることが重要です。',
-  ),
-  DailyTip(
-    id: 'tip_006',
-    title: '即時フィードバック',
-    content: 'ユーザーの操作に対して即座にフィードバックを。\n反応がないとユーザーは不安になります。',
-  ),
-  DailyTip(
-    id: 'tip_007',
-    title: 'コントラスト比',
-    content: 'テキストと背景のコントラスト比はWCAGガイドラインの\n4.5:1以上を確保しましょう。',
-  ),
-];
