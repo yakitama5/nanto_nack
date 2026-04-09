@@ -86,10 +86,9 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
     if (state.status != QuizStatus.playing) return;
     if (state.selectedContactId == null || state.amount <= 0) return;
 
-    state = state.copyWith(moneySent: true);
-
-    final isClear = _useCase.isClear(moneySent: true);
+    final isClear = _useCase.isClear(moneySent: true, amount: state.amount);
     if (isClear) {
+      state = state.copyWith(moneySent: true);
       _timer?.cancel();
       final elapsed = _elapsed;
       state = state.copyWith(
@@ -100,6 +99,13 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
       try {
         await _saveResult(isCleared: true, elapsedMs: elapsed);
       } on Exception catch (_) {}
+    } else {
+      // 金額が不正解のため送金画面を閉じて再挑戦させる
+      state = state.copyWith(
+        showSendScreen: false,
+        clearSelectedContact: true,
+        amount: 0,
+      );
     }
   }
 
