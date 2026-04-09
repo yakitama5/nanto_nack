@@ -441,7 +441,7 @@ class _BalanceDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!balanceHidden) {
-      return Text(
+      return UnreadableText(
         '${sq.common.yen}$balance',
         style: const TextStyle(
           color: Colors.white,
@@ -450,7 +450,7 @@ class _BalanceDisplay extends StatelessWidget {
         ),
       );
     }
-    return Text(
+    return UnreadableText(
       '*** ${sq.common.yen}',
       style: const TextStyle(
         color: Colors.white70,
@@ -930,7 +930,7 @@ class _TransactionItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
+              UnreadableText(
                 tx.isIncome
                     ? '+${sq.common.yen}${tx.amount}'
                     : '-${sq.common.yen}${tx.amount.abs()}',
@@ -2037,7 +2037,7 @@ class SendMoneyScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
+                        UnreadableText(
                           sq.common.yen,
                           style: const TextStyle(
                             fontSize: 24,
@@ -2045,7 +2045,7 @@ class SendMoneyScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 4),
-                        Text(
+                        UnreadableText(
                           amount.toString(),
                           style: const TextStyle(
                             fontSize: 48,
