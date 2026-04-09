@@ -197,22 +197,13 @@ class _AlarmListItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  if (alarm.activeDays.isNotEmpty)
-                    UnreadableText(
-                      sq.common.weekdays,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                    )
-                  else
-                    UnreadableText(
-                      sq.common.tomorrow,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                  UnreadableText(
+                    _buildRepeatLabel(alarm.activeDays, sq),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
+                  ),
                 ],
               ),
             ),
@@ -257,6 +248,38 @@ class _AlarmListItem extends StatelessWidget {
       ),
       child: content,
     );
+  }
+
+  /// activeDays から表示用の繰り返し文言を構築する
+  ///
+  /// - 空 → Tomorrow
+  /// - 全曜日（7日） → Every Day
+  /// - 平日のみ（月〜金） → Weekdays
+  /// - その他 → 選択された曜日の略称を結合
+  String _buildRepeatLabel(Set<int> activeDays, $alarm.Translations sq) {
+    if (activeDays.isEmpty) {
+      return sq.common.tomorrow;
+    }
+    if (activeDays.length == 7) {
+      return sq.common.everyday;
+    }
+    // 平日のみ（0=月〜4=金）
+    const weekdays = {0, 1, 2, 3, 4};
+    if (activeDays.length == 5 && activeDays.containsAll(weekdays)) {
+      return sq.common.weekdays;
+    }
+    // カスタム曜日：選択された曜日の略称を結合
+    final dayLabels = [
+      sq.common.mon,
+      sq.common.tue,
+      sq.common.wed,
+      sq.common.thu,
+      sq.common.fri,
+      sq.common.sat,
+      sq.common.sun,
+    ];
+    final sorted = activeDays.toList()..sort();
+    return sorted.map((i) => dayLabels[i]).join(' ');
   }
 }
 
