@@ -178,6 +178,7 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get helpCenter => 'Help Center';
 	@override String get logOut => 'Log Out';
 	@override String get pointUnit => 'P';
+	@override String get mockPointsBalance => '1,250';
 }
 
 // Path: quiz1.insight
@@ -373,6 +374,7 @@ extension on TranslationsEn {
 			'common.helpCenter' => 'Help Center',
 			'common.logOut' => 'Log Out',
 			'common.pointUnit' => 'P',
+			'common.mockPointsBalance' => '1,250',
 			_ => null,
 		};
 	}

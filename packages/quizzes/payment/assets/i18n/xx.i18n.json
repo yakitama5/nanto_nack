@@ -132,6 +132,7 @@
     "appSettings": "App Settings",
     "helpCenter": "Help Center",
     "logOut": "Log Out",
-    "pointUnit": "P"
+    "pointUnit": "P",
+    "mockPointsBalance": "1,250"
   }
 }

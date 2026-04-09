@@ -353,6 +353,9 @@ class TranslationsCommonJa {
 
 	/// ja: 'P'
 	String get pointUnit => 'P';
+
+	/// ja: '1,250'
+	String get mockPointsBalance => '1,250';
 }
 
 // Path: quiz1.insight
@@ -612,6 +615,7 @@ extension on Translations {
 			'common.helpCenter' => 'ヘルプセンター',
 			'common.logOut' => 'ログアウト',
 			'common.pointUnit' => 'P',
+			'common.mockPointsBalance' => '1,250',
 			_ => null,
 		};
 	}

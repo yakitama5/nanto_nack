@@ -7,9 +7,6 @@ import '../domain/payment_method.dart';
 import '../i18n/payment_translations_extension.dart';
 import '../../i18n/strings.g.dart' as $payment;
 
-/// クイズシナリオ用のモックポイント残高（固定値）
-const _mockPointsBalance = '1,250';
-
 /// 決済アプリ風ホーム画面（PayPay風ボトムナビ付き）
 class PaymentHomeScreen extends StatefulWidget {
   /// コンストラクタ
@@ -1077,9 +1074,9 @@ class _PointTabContent extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const UnreadableText(
-                        _mockPointsBalance,
-                        style: TextStyle(
+                      UnreadableText(
+                        sq.common.mockPointsBalance,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
