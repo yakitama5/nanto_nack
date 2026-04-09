@@ -122,6 +122,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get sun => 'S';
 	@override String get tomorrow => 'Tomorrow';
 	@override String get weekdays => 'Weekdays';
+	@override String get everyday => 'Every Day';
 	@override String get editAlarm => 'Edit Alarm';
 }
 
@@ -262,6 +263,7 @@ extension on TranslationsXx {
 			'common.sun' => 'S',
 			'common.tomorrow' => 'Tomorrow',
 			'common.weekdays' => 'Weekdays',
+			'common.everyday' => 'Every Day',
 			'common.editAlarm' => 'Edit Alarm',
 			_ => null,
 		};

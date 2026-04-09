@@ -72,8 +72,8 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: '真ん中のアラームを平日だけなるように設定しよう'
-	String get missionText => '真ん中のアラームを平日だけなるように設定しよう';
+	/// ja: '真ん中のアラームを平日だけ鳴るように設定しよう'
+	String get missionText => '真ん中のアラームを平日だけ鳴るように設定しよう';
 
 	/// ja: '月〜金の5つの曜日ボタンを選択してください'
 	String get failureReason => '月〜金の5つの曜日ボタンを選択してください';
@@ -185,6 +185,9 @@ class TranslationsCommonJa {
 
 	/// ja: 'Weekdays'
 	String get weekdays => 'Weekdays';
+
+	/// ja: 'Every Day'
+	String get everyday => 'Every Day';
 
 	/// ja: 'Edit Alarm'
 	String get editAlarm => 'Edit Alarm';
@@ -340,7 +343,7 @@ extension on Translations {
 			'quiz1.insight.pickerDesc' => '上下にスクロールするドラムロール型ピッカーは、時計アプリや予約アプリで時間・日付入力に広く使われているUI。',
 			'quiz1.insight.saveTitle' => '「保存」は右上に配置される',
 			'quiz1.insight.saveDesc' => 'iOS/Android共通のパターンとして、編集画面での「保存・完了」アクションは右上に配置されることが多い。',
-			'quiz2.missionText' => '真ん中のアラームを平日だけなるように設定しよう',
+			'quiz2.missionText' => '真ん中のアラームを平日だけ鳴るように設定しよう',
 			'quiz2.failureReason' => '月〜金の5つの曜日ボタンを選択してください',
 			'quiz2.insight.title' => 'なぜ曜日設定がわかった？',
 			'quiz2.insight.subtitle' => '7つの丸＝1週間のメンタルモデル',
@@ -391,6 +394,7 @@ extension on Translations {
 			'common.sun' => 'S',
 			'common.tomorrow' => 'Tomorrow',
 			'common.weekdays' => 'Weekdays',
+			'common.everyday' => 'Every Day',
 			'common.editAlarm' => 'Edit Alarm',
 			_ => null,
 		};
