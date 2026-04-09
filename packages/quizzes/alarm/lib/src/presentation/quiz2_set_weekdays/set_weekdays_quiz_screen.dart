@@ -7,9 +7,9 @@ import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'set_weekdays_quiz_notifier.dart';
 
-/// Quiz 2「一番上のアラームを平日だけに設定する」
+/// Quiz 2「真ん中のアラーム（alarm_2）を平日だけに設定する」
 ///
-/// 最初にアラーム一覧を表示し、ユーザーが一番上のアラームをタップすると
+/// 最初にアラーム一覧を表示し、ユーザーが2番目のアラームをタップすると
 /// 編集フォームに遷移する。編集フォームで平日（月〜金）を選択して保存すると正解。
 class SetWeekdaysQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
