@@ -52,15 +52,16 @@ class AlarmListScreen extends StatelessWidget {
         final confirmed = await showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('クイズを中断しますか？'),
+            title: const Text('ゲームを中断しますか？'),
+            content: const Text('プレイ中のゲームを終了します。'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('いいえ'),
+                child: const Text('続ける'),
               ),
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('中断する'),
+                child: const Text('終了する'),
               ),
             ],
           ),
