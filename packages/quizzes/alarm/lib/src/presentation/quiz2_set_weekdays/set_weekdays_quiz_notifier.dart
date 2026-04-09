@@ -97,13 +97,20 @@ class SetWeekdaysQuizNotifier
       state = state.copyWith(status: QuizStatus.correct, elapsedMs: elapsed);
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
-    } else {
-      // 不正解：対象アラーム以外を変更、または曜日選択が間違っている
+    } else if (!isTargetAlarm) {
+      // 不正解（終了）：対象外アラームを変更した
+      _timer?.cancel();
+      final elapsed = _elapsed;
       state = state.copyWith(
+        status: QuizStatus.incorrect,
+        elapsedMs: elapsed,
         failureCount: state.failureCount + 1,
-        showEditForm: false,
-        draftAlarm: AlarmCatalog.initialAlarms[1],
       );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } else {
+      // 不正解（継続）：対象アラームだが曜日選択が間違っている
+      state = state.copyWith(failureCount: state.failureCount + 1);
     }
   }
 
@@ -137,12 +144,14 @@ class SetWeekdaysQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
+    final prevFailureCount = state.failureCount;
     state = SetWeekdaysQuizState.initial(
       draft: AlarmCatalog.initialAlarms[1],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: prevFailureCount,
     );
     _startTimer();
   }

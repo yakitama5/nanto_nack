@@ -76,8 +76,16 @@ class DeleteAlarmQuizNotifier
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
     } else if (alarmId != _targetAlarmId) {
-      // 不正解：間違ったアラームを削除した
-      state = state.copyWith(failureCount: state.failureCount + 1);
+      // 不正解（終了）：間違ったアラームを削除した
+      _timer?.cancel();
+      final elapsed = _elapsed;
+      state = state.copyWith(
+        status: QuizStatus.incorrect,
+        elapsedMs: elapsed,
+        failureCount: state.failureCount + 1,
+      );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
     }
   }
 
@@ -103,12 +111,14 @@ class DeleteAlarmQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
+    final prevFailureCount = state.failureCount;
     state = DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: prevFailureCount,
     );
     _startTimer();
   }

@@ -104,12 +104,22 @@ class DisableSnoozeQuizNotifier
       );
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
-    } else {
-      // 不正解：対象アラーム以外を変更、またはスヌーズがまだオン
+    } else if (!isTargetAlarm) {
+      // 不正解（終了）：対象外アラームを変更した
+      _timer?.cancel();
+      final elapsed = _elapsed;
       state = state.copyWith(
+        status: QuizStatus.incorrect,
+        elapsedMs: elapsed,
         failureCount: state.failureCount + 1,
-        showEditForm: false,
-        draftAlarm: AlarmCatalog.initialAlarms[0],
+      );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } else {
+      // 不正解（継続）：対象アラームだがスヌーズがまだオン
+      state = state.copyWith(
+        saved: true,
+        failureCount: state.failureCount + 1,
       );
     }
   }
@@ -136,12 +146,14 @@ class DisableSnoozeQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
+    final prevFailureCount = state.failureCount;
     state = DisableSnoozeQuizState.initial(
       alarm: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: prevFailureCount,
     );
     _startTimer();
   }

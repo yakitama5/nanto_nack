@@ -85,6 +85,7 @@ class _DisableSnoozeQuizScreenState
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||
+            state.status == QuizStatus.incorrect ||
             state.status == QuizStatus.timeUp ||
             state.status == QuizStatus.giveUp)
           Positioned.fill(
