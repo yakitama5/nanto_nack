@@ -7,6 +7,9 @@ import '../domain/payment_method.dart';
 import '../i18n/payment_translations_extension.dart';
 import '../../i18n/strings.g.dart' as $payment;
 
+/// クイズシナリオ用のモックポイント残高（固定値）
+const _mockPointsBalance = '1,250';
+
 /// 決済アプリ風ホーム画面（PayPay風ボトムナビ付き）
 class PaymentHomeScreen extends StatefulWidget {
   /// コンストラクタ
@@ -1073,7 +1076,7 @@ class _PointTabContent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       const UnreadableText(
-                        '1,250',
+                        _mockPointsBalance,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 36,
@@ -2167,6 +2170,7 @@ void _showSendConfirmSheet(
 
 /// 送金画面のコンタクト名を返す
 String _sendMoneyContactName($payment.Translations sq, int index) {
+  if (index < 0) return sq.common.contact1;
   switch (index) {
     case 0:
       return sq.common.contact1;
