@@ -9,5 +9,6 @@ final dashboardRepositoryProvider = Provider<DashboardRepository>((ref) {
   return DashboardRepositoryImpl(
     db: ref.watch(appDatabaseProvider),
     userStatusRepository: ref.watch(userStatusRepositoryProvider),
+    remoteConfigService: ref.watch(remoteConfigServiceProvider),
   );
 });
