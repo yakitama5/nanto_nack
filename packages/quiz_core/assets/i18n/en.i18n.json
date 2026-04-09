@@ -51,7 +51,11 @@
     "score": "Score: {score}pts",
     "@score": { "param": "score" },
     "elapsedTime": "Time: {time}s",
-    "@elapsedTime": { "param": "time" }
+    "@elapsedTime": { "param": "time" },
+    "exitDialogTitle": "Quit the game?",
+    "exitDialogContent": "Your current progress will be lost.",
+    "exitDialogContinue": "Continue",
+    "exitDialogExit": "Quit"
   },
   "mission": {
     "title": "MISSION",

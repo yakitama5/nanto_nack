@@ -119,6 +119,10 @@ class _TranslationsQuizEn extends TranslationsQuizJa {
 	@override String get back => 'Back';
 	@override String get score => 'Score: {score}pts';
 	@override String get elapsedTime => 'Time: {time}s';
+	@override String get exitDialogTitle => 'Quit the game?';
+	@override String get exitDialogContent => 'Your current progress will be lost.';
+	@override String get exitDialogContinue => 'Continue';
+	@override String get exitDialogExit => 'Quit';
 }
 
 // Path: mission
@@ -470,6 +474,10 @@ extension on TranslationsEn {
 			'quiz.back' => 'Back',
 			'quiz.score' => 'Score: {score}pts',
 			'quiz.elapsedTime' => 'Time: {time}s',
+			'quiz.exitDialogTitle' => 'Quit the game?',
+			'quiz.exitDialogContent' => 'Your current progress will be lost.',
+			'quiz.exitDialogContinue' => 'Continue',
+			'quiz.exitDialogExit' => 'Quit',
 			'mission.title' => 'MISSION',
 			'mission.topic' => 'Mission',
 			'mission.useHint' => 'Use Hint',

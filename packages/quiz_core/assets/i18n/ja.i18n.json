@@ -51,7 +51,11 @@
     "score": "スコア: {score}点",
     "@score": { "param": "score" },
     "elapsedTime": "タイム: {time}秒",
-    "@elapsedTime": { "param": "time" }
+    "@elapsedTime": { "param": "time" },
+    "exitDialogTitle": "ゲームを中断しますか？",
+    "exitDialogContent": "プレイ中のゲームを終了します。",
+    "exitDialogContinue": "続ける",
+    "exitDialogExit": "終了する"
   },
   "mission": {
     "title": "MISSION",

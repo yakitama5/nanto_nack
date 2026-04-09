@@ -181,6 +181,18 @@ class TranslationsQuizJa {
 
 	/// ja: 'タイム: {time}秒'
 	String get elapsedTime => 'タイム: {time}秒';
+
+	/// ja: 'ゲームを中断しますか？'
+	String get exitDialogTitle => 'ゲームを中断しますか？';
+
+	/// ja: 'プレイ中のゲームを終了します。'
+	String get exitDialogContent => 'プレイ中のゲームを終了します。';
+
+	/// ja: '続ける'
+	String get exitDialogContinue => '続ける';
+
+	/// ja: '終了する'
+	String get exitDialogExit => '終了する';
 }
 
 // Path: mission
@@ -802,6 +814,10 @@ extension on Translations {
 			'quiz.back' => '戻る',
 			'quiz.score' => 'スコア: {score}点',
 			'quiz.elapsedTime' => 'タイム: {time}秒',
+			'quiz.exitDialogTitle' => 'ゲームを中断しますか？',
+			'quiz.exitDialogContent' => 'プレイ中のゲームを終了します。',
+			'quiz.exitDialogContinue' => '続ける',
+			'quiz.exitDialogExit' => '終了する',
 			'mission.title' => 'MISSION',
 			'mission.topic' => 'お題',
 			'mission.useHint' => 'ヒントを使う',
