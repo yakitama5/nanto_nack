@@ -20,6 +20,8 @@ class DisableSnoozeQuizNotifier
     extends AutoDisposeNotifier<DisableSnoozeQuizState> {
   static const _quizId = 'alarm_quiz3';
   static const _timeLimitSeconds = 60;
+  // Quiz3の対象アラーム：一番上（1番目）のアラーム
+  static const _targetAlarmId = 'alarm_1';
 
   final _useCase = const QuizDisableSnoozeUseCase();
   Timer? _timer;
@@ -47,15 +49,22 @@ class DisableSnoozeQuizNotifier
     _startTimer();
   }
 
-  /// アラームをタップ → 編集フォームを表示
+  /// アラームをタップ → 編集フォームを表示（タップしたアラームをドラフトとして設定）
   void tapAlarm(String alarmId) {
     if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(showEditForm: true);
+    final alarm = AlarmCatalog.initialAlarms.firstWhere(
+      (a) => a.id == alarmId,
+      orElse: () => AlarmCatalog.initialAlarms[0],
+    );
+    state = state.copyWith(draftAlarm: alarm, showEditForm: true);
   }
 
-  /// キャンセルボタン → 一覧へ戻る
+  /// キャンセルボタン → 一覧へ戻る（ドラフトを対象アラームにリセット）
   void tapCancel() {
-    state = state.copyWith(showEditForm: false);
+    state = state.copyWith(
+      showEditForm: false,
+      draftAlarm: AlarmCatalog.initialAlarms[0],
+    );
   }
 
   /// スヌーズトグルを操作
@@ -78,12 +87,14 @@ class DisableSnoozeQuizNotifier
   Future<void> tapSave() async {
     if (state.status != QuizStatus.playing) return;
 
+    final isTargetAlarm = state.draftAlarm.id == _targetAlarmId;
     final isClear = _useCase.isClear(
       snoozeEnabled: state.draftAlarm.snoozeEnabled,
       saved: true,
     );
 
-    if (isClear) {
+    if (isTargetAlarm && isClear) {
+      // 正解：対象アラームのスヌーズがオフになっている
       _timer?.cancel();
       final elapsed = _elapsed;
       state = state.copyWith(
@@ -94,9 +105,11 @@ class DisableSnoozeQuizNotifier
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
     } else {
+      // 不正解：対象アラーム以外を変更、またはスヌーズがまだオン
       state = state.copyWith(
-        saved: true,
         failureCount: state.failureCount + 1,
+        showEditForm: false,
+        draftAlarm: AlarmCatalog.initialAlarms[0],
       );
     }
   }
