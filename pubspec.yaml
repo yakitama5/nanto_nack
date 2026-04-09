@@ -23,8 +23,12 @@ dev_dependencies:
 melos:
   scripts:
     generate:
-      run: melos exec --depends-on="build_runner" -- dart run build_runner build --delete-conflicting-outputs
-      description: "コード生成 (drift_dev, slang, envied)"
+      run: melos exec --depends-on="build_runner" --diff="main" -- flutter pub run build_runner build --delete-conflicting-outputs
+      description: "変更されたパッケージのコード生成 (main ブランチとの差分、高速です)"
+
+    generate:all:
+      run: melos exec --depends-on="build_runner" -- flutter pub run build_runner build --delete-conflicting-outputs
+      description: "全パッケージのコード生成"
 
     lint:
       run: flutter analyze .
