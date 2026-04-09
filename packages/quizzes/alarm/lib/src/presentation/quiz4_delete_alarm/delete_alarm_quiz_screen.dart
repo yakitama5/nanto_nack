@@ -38,17 +38,19 @@ class _DeleteAlarmQuizScreenState
     final missionText = context.s.quiz4.missionText;
     final notifier = ref.read(deleteAlarmQuizProvider.notifier);
 
-    return AlarmListScreen(
-      alarms: state.alarms,
-      quizStatus: state.status,
-      remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
-      missionText: missionText,
-      onGiveUp: notifier.giveUp,
-      swipedAlarmId: state.swipedAlarmId,
-      onAlarmSwipedLeft: notifier.swipeAlarm,
-      onAlarmSwipeDeleteConfirm: notifier.confirmDelete,
-      overlays: [
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        AlarmListScreen(
+          alarms: state.alarms,
+          quizStatus: state.status,
+          remainingSeconds: state.remainingSeconds,
+          timeLimitSeconds: _timeLimitSeconds,
+          missionText: missionText,
+          onGiveUp: notifier.giveUp,
+          onAlarmSwipeDeleteConfirm: notifier.confirmDelete,
+          overlays: const [],
+        ),
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
@@ -56,6 +58,7 @@ class _DeleteAlarmQuizScreenState
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||
+            state.status == QuizStatus.incorrect ||
             state.status == QuizStatus.timeUp ||
             state.status == QuizStatus.giveUp)
           Positioned.fill(

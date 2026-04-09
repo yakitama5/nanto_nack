@@ -12,6 +12,7 @@ class SetWeekdaysQuizState extends QuizStateBase {
     required super.startedAt,
     required this.draftAlarm,
     required this.remainingSeconds,
+    required this.showEditForm,
   });
 
   /// 初期状態を生成する
@@ -26,6 +27,7 @@ class SetWeekdaysQuizState extends QuizStateBase {
         startedAt: null,
         draftAlarm: draft,
         remainingSeconds: timeLimitSeconds,
+        showEditForm: false,
       );
 
   /// 編集中のアラーム
@@ -33,6 +35,9 @@ class SetWeekdaysQuizState extends QuizStateBase {
 
   /// 残り時間（秒）
   final int remainingSeconds;
+
+  /// 編集フォームを表示するかどうか（true: 編集画面, false: 一覧画面）
+  final bool showEditForm;
 
   /// 指定フィールドを差し替えた新インスタンスを返す
   SetWeekdaysQuizState copyWith({
@@ -42,6 +47,7 @@ class SetWeekdaysQuizState extends QuizStateBase {
     DateTime? startedAt,
     AlarmItem? draftAlarm,
     int? remainingSeconds,
+    bool? showEditForm,
   }) {
     return SetWeekdaysQuizState(
       status: status ?? this.status,
@@ -50,6 +56,7 @@ class SetWeekdaysQuizState extends QuizStateBase {
       startedAt: startedAt ?? this.startedAt,
       draftAlarm: draftAlarm ?? this.draftAlarm,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      showEditForm: showEditForm ?? this.showEditForm,
     );
   }
 }
