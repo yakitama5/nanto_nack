@@ -1072,7 +1072,7 @@ class _PointTabContent extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Text(
+                      const UnreadableText(
                         '1,250',
                         style: TextStyle(
                           color: Colors.white,
