@@ -62,7 +62,7 @@ jobs:
         run: dart pub global run melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: dart pub global run melos run generate
+        run: dart pub global run melos run generate:all
 
       - name: 静的解析 (flutter analyze)
         run: dart pub global run melos run lint
@@ -120,7 +120,7 @@ jobs:
         run: dart pub global run melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: dart pub global run melos run generate
+        run: dart pub global run melos run generate:all
 
       - name: テスト実行 (flutter test)
         run: dart pub global run melos run test:all
