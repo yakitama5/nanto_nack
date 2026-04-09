@@ -14,7 +14,7 @@
     }
   },
   "quiz2": {
-    "missionText": "真ん中のアラームを平日だけなるように設定しよう",
+    "missionText": "真ん中のアラームを平日だけ鳴るように設定しよう",
     "failureReason": "月〜金の5つの曜日ボタンを選択してください",
     "insight": {
       "title": "なぜ曜日設定がわかった？",
@@ -77,6 +77,7 @@
     "sun": "S",
     "tomorrow": "Tomorrow",
     "weekdays": "Weekdays",
+    "everyday": "Every Day",
     "editAlarm": "Edit Alarm"
   }
 }
