@@ -1559,7 +1559,13 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final sq = context.sq;
 
-    return Scaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        onBack?.call();
+      },
+      child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -1628,6 +1634,7 @@ class PaymentScreen extends StatelessWidget {
           ),
           ...overlays,
         ],
+      ),
       ),
     );
   }
@@ -1962,7 +1969,13 @@ class SendMoneyScreen extends StatelessWidget {
     final selected =
         contacts.where((c) => c.id == selectedContactId).firstOrNull;
 
-    return Scaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        onBack?.call();
+      },
+      child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -2095,7 +2108,9 @@ class SendMoneyScreen extends StatelessWidget {
                 child: _NumPad(onKey: onAmountKey),
               ),
               // 送金ボタン
-              Padding(
+              SafeArea(
+                top: false,
+                child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
                 child: FilledButton(
                   onPressed: selected != null && amount > 0 && onSend != null
@@ -2125,6 +2140,7 @@ class SendMoneyScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              ),
             ],
           ),
           FloatingMissionBubble(
@@ -2137,6 +2153,7 @@ class SendMoneyScreen extends StatelessWidget {
           ),
           ...overlays,
         ],
+      ),
       ),
     );
   }
