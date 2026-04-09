@@ -27,8 +27,8 @@ melos:
       description: "コード生成 (drift_dev, slang, envied)"
 
     lint:
-      run: melos exec --flutter -- flutter analyze .
-      description: "静的解析"
+      run: flutter analyze .
+      description: "静的解析 (ワークスペース全体を一括解析するため高速です)"
 
     test:unit:
       run: melos exec --flutter -- flutter test test/
