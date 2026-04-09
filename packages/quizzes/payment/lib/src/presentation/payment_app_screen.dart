@@ -126,7 +126,6 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
   }
 
   Future<bool?> _showExitConfirmDialog() {
-    final t = context.t;
     return showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
