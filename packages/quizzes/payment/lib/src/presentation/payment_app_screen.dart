@@ -2091,7 +2091,16 @@ class SendMoneyScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
                 child: FilledButton(
-                  onPressed: selected != null && amount > 0 ? onSend : null,
+                  onPressed: selected != null && amount > 0
+                      ? () => _showSendConfirmSheet(
+                            context,
+                            sq,
+                            selected,
+                            contacts,
+                            amount,
+                            onSend,
+                          )
+                      : null,
                   style: FilledButton.styleFrom(
                     minimumSize: const Size(double.infinity, 52),
                     backgroundColor: const Color(0xFFFF3B3B),
@@ -2133,6 +2142,184 @@ class SendMoneyScreen extends StatelessWidget {
       default:
         return sq.common.contact4;
     }
+  }
+}
+
+/// 送金確認ボトムシートを表示する
+void _showSendConfirmSheet(
+  BuildContext context,
+  $payment.Translations sq,
+  PaymentContact? contact,
+  List<PaymentContact> contacts,
+  int amount,
+  VoidCallback? onConfirm,
+) {
+  if (contact == null) return;
+  final contactIndex = contacts.indexWhere((c) => c.id == contact.id);
+  final contactName = _sendMoneyContactName(sq, contactIndex);
+
+  showModalBottomSheet<void>(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (ctx) => _SendConfirmSheet(
+      sq: sq,
+      contact: contact,
+      contactName: contactName,
+      amount: amount,
+      onConfirm: () {
+        Navigator.of(ctx).pop();
+        onConfirm?.call();
+      },
+      onCancel: () => Navigator.of(ctx).pop(),
+    ),
+  );
+}
+
+/// 送金画面のコンタクト名を返す
+String _sendMoneyContactName($payment.Translations sq, int index) {
+  switch (index) {
+    case 0:
+      return sq.common.contact1;
+    case 1:
+      return sq.common.contact2;
+    case 2:
+      return sq.common.contact3;
+    default:
+      return sq.common.contact4;
+  }
+}
+
+/// 送金確認ボトムシート
+class _SendConfirmSheet extends StatelessWidget {
+  const _SendConfirmSheet({
+    required this.sq,
+    required this.contact,
+    required this.contactName,
+    required this.amount,
+    required this.onConfirm,
+    required this.onCancel,
+  });
+
+  final $payment.Translations sq;
+  final PaymentContact contact;
+  final String contactName;
+  final int amount;
+  final VoidCallback onConfirm;
+  final VoidCallback onCancel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        24,
+        16,
+        24,
+        24 + MediaQuery.viewInsetsOf(context).bottom,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // ドラッグハンドル
+          Container(
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(height: 20),
+          // タイトル
+          UnreadableText(
+            sq.common.confirm,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 24),
+          // 送金先
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              UnreadableText(
+                sq.common.sendTo,
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+              ),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 16,
+                    backgroundColor: const Color(0xFFF0F0F0),
+                    child: Text(
+                      contact.initial,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  UnreadableText(
+                    contactName,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // 金額
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              UnreadableText(
+                sq.common.amount,
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+              ),
+              UnreadableText(
+                '${sq.common.yen}$amount',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const Divider(height: 32),
+          // 送金するボタン
+          FilledButton(
+            onPressed: onConfirm,
+            style: FilledButton.styleFrom(
+              minimumSize: const Size(double.infinity, 52),
+              backgroundColor: const Color(0xFFFF3B3B),
+            ),
+            child: UnreadableText(
+              sq.common.sendMoney,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          // キャンセル
+          TextButton(
+            onPressed: onCancel,
+            child: UnreadableText(
+              sq.common.cancel,
+              style: TextStyle(fontSize: 15, color: Colors.grey.shade700),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
