@@ -1,11 +1,13 @@
-# slang_build_runner は i18n JSONファイルのみをスキャン対象とする
+# flutter_gen_runner はアセットディレクトリを、slang_build_runner は i18n JSONを対象とする
 # lib/src 以下のクイズ実装ファイルは対象外とすることで生成を高速化
 targets:
   $default:
     sources:
       include:
-        - assets/i18n/**
+        - pubspec.yaml
+        - assets/**
         - lib/gen/**
+        - lib/$lib$
         - $package$
       exclude:
         - lib/gen/**/*.g.dart
