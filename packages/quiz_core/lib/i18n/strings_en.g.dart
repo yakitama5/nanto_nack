@@ -361,7 +361,7 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get payment_quiz1 => 'Show the QR code in the payment app';
 	@override String get payment_quiz2 => 'Tap the eye icon to hide your balance in the payment app';
 	@override String get payment_quiz3 => 'Send money to someone in the payment app';
-	@override String get payment_quiz4 => 'Change the payment method to credit card and show the QR code in the payment app';
+	@override String get payment_quiz4 => 'Change the payment method to a credit card and show the QR code in the payment app';
 }
 
 // Path: scene.greeting
@@ -564,7 +564,7 @@ extension on TranslationsEn {
 			'play.stageDescription.payment_quiz1' => 'Show the QR code in the payment app',
 			'play.stageDescription.payment_quiz2' => 'Tap the eye icon to hide your balance in the payment app',
 			'play.stageDescription.payment_quiz3' => 'Send money to someone in the payment app',
-			'play.stageDescription.payment_quiz4' => 'Change the payment method to credit card and show the QR code in the payment app',
+			'play.stageDescription.payment_quiz4' => 'Change the payment method to a credit card and show the QR code in the payment app',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

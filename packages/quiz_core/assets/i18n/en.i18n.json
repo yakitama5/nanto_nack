@@ -163,7 +163,7 @@
       "payment_quiz1": "Show the QR code in the payment app",
       "payment_quiz2": "Tap the eye icon to hide your balance in the payment app",
       "payment_quiz3": "Send money to someone in the payment app",
-      "payment_quiz4": "Change the payment method to credit card and show the QR code in the payment app"
+      "payment_quiz4": "Change the payment method to a credit card and show the QR code in the payment app"
     }
   },
   "scene": {
