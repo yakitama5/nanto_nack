@@ -309,25 +309,29 @@ class _NavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = selected ? const Color(0xFFFF3B3B) : Colors.grey.shade500;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: 60,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: color, size: 22),
-            const SizedBox(height: 2),
-            UnreadableText(
-              label,
-              style: TextStyle(
-                fontSize: 10,
-                color: color,
-                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: SizedBox(
+          width: 60,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color, size: 22),
+              const SizedBox(height: 2),
+              UnreadableText(
+                label,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: color,
+                  fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -747,48 +751,54 @@ class _ActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: highlighted
-            ? BoxDecoration(
-                color: const Color(0xFFFFE5E5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFFFF3B3B), width: 1.5),
-              )
-            : null,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                color: highlighted
-                    ? const Color(0xFFFF3B3B)
-                    : const Color(0xFFF5F5F5),
-                shape: BoxShape.circle,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: highlighted
+              ? BoxDecoration(
+                  color: const Color(0xFFFFE5E5),
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(color: const Color(0xFFFF3B3B), width: 1.5),
+                )
+              : null,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: highlighted
+                      ? const Color(0xFFFF3B3B)
+                      : const Color(0xFFF5F5F5),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  icon,
+                  color: highlighted ? Colors.white : Colors.grey.shade600,
+                  size: 24,
+                ),
               ),
-              child: Icon(
-                icon,
-                color: highlighted ? Colors.white : Colors.grey.shade600,
-                size: 24,
+              const SizedBox(height: 6),
+              UnreadableText(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: highlighted
+                      ? const Color(0xFFFF3B3B)
+                      : Colors.grey.shade700,
+                  fontWeight:
+                      highlighted ? FontWeight.bold : FontWeight.normal,
+                ),
               ),
-            ),
-            const SizedBox(height: 6),
-            UnreadableText(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                color: highlighted
-                    ? const Color(0xFFFF3B3B)
-                    : Colors.grey.shade700,
-                fontWeight: highlighted ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -1621,48 +1631,57 @@ class _PaymentMethodButton extends StatelessWidget {
     final label = isBalance ? sq.common.balancePayment : sq.common.creditCard;
 
     final isDisabled = onChangePaymentMethod == null;
-    return GestureDetector(
-      onTap: isDisabled ? null : () => _showPaymentMethodSheet(context),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        decoration: BoxDecoration(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: isDisabled ? null : () => _showPaymentMethodSheet(context),
           borderRadius: BorderRadius.circular(24),
-          color: isDisabled
-              ? const Color(0xFFEEEEEE)
-              : highlighted
-                  ? const Color(0xFFFFE5E5)
-                  : const Color(0xFFF5F5F5),
-          border: isDisabled
-              ? Border.all(color: Colors.grey.shade300)
-              : highlighted
-                  ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
-                  : Border.all(color: Colors.grey.shade300),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 20,
-              color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: isDisabled
+                  ? const Color(0xFFEEEEEE)
+                  : highlighted
+                      ? const Color(0xFFFFE5E5)
+                      : const Color(0xFFF5F5F5),
+              border: isDisabled
+                  ? Border.all(color: Colors.grey.shade300)
+                  : highlighted
+                      ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
+                      : Border.all(color: Colors.grey.shade300),
             ),
-            const SizedBox(width: 8),
-            UnreadableText(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: isDisabled ? Colors.grey : Colors.black87,
-              ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon,
+                  size: 20,
+                  color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
+                ),
+                const SizedBox(width: 8),
+                UnreadableText(
+                  label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: isDisabled ? Colors.grey : Colors.black87,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Icon(
+                  Icons.expand_more,
+                  size: 18,
+                  color: isDisabled
+                      ? Colors.grey.shade400
+                      : Colors.grey.shade500,
+                ),
+              ],
             ),
-            const SizedBox(width: 6),
-            Icon(
-              Icons.expand_more,
-              size: 18,
-              color: isDisabled ? Colors.grey.shade400 : Colors.grey.shade500,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -1943,51 +1962,55 @@ class SendMoneyScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final contact = contacts[index];
                     final isSelected = contact.id == selectedContactId;
-                    return GestureDetector(
-                      onTap: () => onContactSelect?.call(contact.id),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 150),
-                            width: 56,
-                            height: 56,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: isSelected
-                                  ? const Color(0xFFFF3B3B)
-                                  : const Color(0xFFF0F0F0),
-                              border: isSelected
-                                  ? Border.all(
-                                      color: const Color(0xFFFF3B3B),
-                                      width: 3,
-                                    )
-                                  : null,
-                            ),
-                            child: Center(
-                              child: Text(
-                                contact.initial,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: isSelected
-                                      ? Colors.white
-                                      : Colors.grey.shade600,
+                    return Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () => onContactSelect?.call(contact.id),
+                        borderRadius: BorderRadius.circular(8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 150),
+                              width: 56,
+                              height: 56,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: isSelected
+                                    ? const Color(0xFFFF3B3B)
+                                    : const Color(0xFFF0F0F0),
+                                border: isSelected
+                                    ? Border.all(
+                                        color: const Color(0xFFFF3B3B),
+                                        width: 3,
+                                      )
+                                    : null,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  contact.initial,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.grey.shade600,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          UnreadableText(
-                            _contactName(sq, index),
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: isSelected
-                                  ? const Color(0xFFFF3B3B)
-                                  : Colors.grey.shade600,
+                            const SizedBox(height: 4),
+                            UnreadableText(
+                              _contactName(sq, index),
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: isSelected
+                                    ? const Color(0xFFFF3B3B)
+                                    : Colors.grey.shade600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -2117,20 +2140,21 @@ class _NumKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: label.isEmpty ? Colors.transparent : const Color(0xFFF5F5F5),
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: Material(
+        color: label.isEmpty ? Colors.transparent : const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w500,
+          child: Center(
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),
