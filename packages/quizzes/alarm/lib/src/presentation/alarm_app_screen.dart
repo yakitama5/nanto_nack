@@ -44,72 +44,98 @@ class AlarmListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final sq = context.sq;
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: UnreadableText(
-          sq.common.alarmsTab,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+    return PopScope(
+      canPop: quizStatus != QuizStatus.playing,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        // プレイ中に戻るジェスチャー → 確認ダイアログ
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('クイズを中断しますか？'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('いいえ'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: const Text('中断する'),
+              ),
+            ],
+          ),
+        );
+        if (confirmed == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          title: UnreadableText(
+            sq.common.alarmsTab,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: false,
+        ),
+        // FABを右下に配置してアラーム追加ボタンとして使用
+        floatingActionButton: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: highlightAddButton
+              ? BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 3,
+                  ),
+                )
+              : null,
+          child: FloatingActionButton(
+            onPressed: onAddTap,
+            backgroundColor: highlightAddButton
+                ? Theme.of(context).colorScheme.primaryContainer
+                : null,
+            foregroundColor: highlightAddButton
+                ? Theme.of(context).colorScheme.primary
+                : null,
+            tooltip: sq.common.add,
+            child: const Icon(Icons.add),
           ),
         ),
-        centerTitle: false,
-      ),
-      // FABを右下に配置してアラーム追加ボタンとして使用
-      floatingActionButton: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: highlightAddButton
-            ? BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 3,
-                ),
-              )
-            : null,
-        child: FloatingActionButton(
-          onPressed: onAddTap,
-          backgroundColor: highlightAddButton
-              ? Theme.of(context).colorScheme.primaryContainer
-              : null,
-          foregroundColor: highlightAddButton
-              ? Theme.of(context).colorScheme.primary
-              : null,
-          tooltip: sq.common.add,
-          child: const Icon(Icons.add),
+        body: Stack(
+          children: [
+            ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              itemCount: alarms.length,
+              separatorBuilder: (_, __) => const Divider(height: 1),
+              itemBuilder: (context, index) {
+                final alarm = alarms[index];
+                return _AlarmListItem(
+                  alarm: alarm,
+                  sq: sq,
+                  onDeleteConfirm: onAlarmSwipeDeleteConfirm != null
+                      ? (id) => onAlarmSwipeDeleteConfirm!(id)
+                      : null,
+                  onToggle: (enabled) =>
+                      onAlarmToggle?.call(alarm.id, enabled),
+                  onTap: () => onAlarmTap?.call(alarm.id),
+                );
+              },
+            ),
+            // ミッションバブル
+            FloatingMissionBubble(
+              remainingSeconds: remainingSeconds,
+              missionText: missionText,
+              hintUsed: false,
+              timeLimitSeconds: timeLimitSeconds,
+              onGiveUp: onGiveUp,
+            ),
+            ...overlays,
+          ],
         ),
-      ),
-      body: Stack(
-        children: [
-          ListView.separated(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: alarms.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
-            itemBuilder: (context, index) {
-              final alarm = alarms[index];
-              return _AlarmListItem(
-                alarm: alarm,
-                sq: sq,
-                onDeleteConfirm: onAlarmSwipeDeleteConfirm != null
-                    ? (id) => onAlarmSwipeDeleteConfirm!(id)
-                    : null,
-                onToggle: (enabled) =>
-                    onAlarmToggle?.call(alarm.id, enabled),
-                onTap: () => onAlarmTap?.call(alarm.id),
-              );
-            },
-          ),
-          // ミッションバブル
-          FloatingMissionBubble(
-            remainingSeconds: remainingSeconds,
-            missionText: missionText,
-            hintUsed: false,
-            timeLimitSeconds: timeLimitSeconds,
-            onGiveUp: onGiveUp,
-          ),
-          ...overlays,
-        ],
       ),
     );
   }
@@ -133,69 +159,73 @@ class _AlarmListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
-        ),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    // 時刻をUnreadableTextで表示（アルファベット・数字がエンコードされる）
-                    UnreadableText(
-                      alarm.timeLabel,
-                      style: const TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.w300,
+    // トグル以外の全領域をタップ可能にするため、左エリアと右のトグルを分離
+    final content = Row(
+      children: [
+        // 左エリア（時刻・曜日）- タップで詳細遷移
+        Expanded(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 16,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      // 時刻をUnreadableTextで表示（アルファベット・数字がエンコードされる）
+                      UnreadableText(
+                        alarm.timeLabel,
+                        style: const TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 4),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6),
-                      child: UnreadableText(
-                        alarm.isAm
-                            ? sq.common.am
-                            : sq.common.pm,
-                        style: const TextStyle(fontSize: 14),
+                      const SizedBox(width: 4),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: UnreadableText(
+                          alarm.isAm ? sq.common.am : sq.common.pm,
+                          style: const TextStyle(fontSize: 14),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                if (alarm.activeDays.isNotEmpty)
-                  UnreadableText(
-                    sq.common.weekdays,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color:
-                          Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  )
-                else
-                  UnreadableText(
-                    sq.common.tomorrow,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color:
-                          Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                    ],
                   ),
-              ],
+                  if (alarm.activeDays.isNotEmpty)
+                    UnreadableText(
+                      sq.common.weekdays,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    )
+                  else
+                    UnreadableText(
+                      sq.common.tomorrow,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                ],
+              ),
             ),
-            const Spacer(),
-            Switch(
-              value: alarm.isEnabled,
-              onChanged: onToggle,
-            ),
-          ],
+          ),
         ),
-      ),
+        // 右エリア（トグルのみ）- タップは遷移しない
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Switch(
+            value: alarm.isEnabled,
+            onChanged: onToggle,
+          ),
+        ),
+      ],
     );
 
     // onDeleteConfirm が null でない場合は Slidable でスワイプ削除を有効化
