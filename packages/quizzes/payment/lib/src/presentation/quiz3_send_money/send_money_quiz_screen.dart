@@ -88,6 +88,7 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
     SendMoneyQuizNotifier notifier,
   ) {
     if (state.status == QuizStatus.correct ||
+        state.status == QuizStatus.incorrect ||
         state.status == QuizStatus.timeUp ||
         state.status == QuizStatus.giveUp) {
       return [
