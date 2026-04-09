@@ -65,7 +65,7 @@ class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Set weekdays only';
+	@override String get missionText => 'Set the middle alarm to weekdays only';
 	@override String get failureReason => 'Select 5 weekday buttons';
 	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
@@ -77,7 +77,7 @@ class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Turn off snooze';
+	@override String get missionText => 'Turn off snooze on the top alarm';
 	@override String get failureReason => 'Toggle snooze off and save';
 	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
@@ -211,7 +211,7 @@ extension on TranslationsXx {
 			'quiz1.insight.pickerDesc' => 'Scroll picker is standard for time entry.',
 			'quiz1.insight.saveTitle' => 'Save in top right',
 			'quiz1.insight.saveDesc' => 'Save action is top right corner.',
-			'quiz2.missionText' => 'Set weekdays only',
+			'quiz2.missionText' => 'Set the middle alarm to weekdays only',
 			'quiz2.failureReason' => 'Select 5 weekday buttons',
 			'quiz2.insight.title' => 'How did you find day settings?',
 			'quiz2.insight.subtitle' => '7 circles equals one week',
@@ -221,7 +221,7 @@ extension on TranslationsXx {
 			'quiz2.insight.weekdayDesc' => 'Selecting 5 consecutive days means weekdays only.',
 			'quiz2.insight.highlightTitle' => 'Color shows selection',
 			'quiz2.insight.highlightDesc' => 'Highlighted buttons are the selected days.',
-			'quiz3.missionText' => 'Turn off snooze',
+			'quiz3.missionText' => 'Turn off snooze on the top alarm',
 			'quiz3.failureReason' => 'Toggle snooze off and save',
 			'quiz3.insight.title' => 'How did you turn off snooze?',
 			'quiz3.insight.subtitle' => 'Toggle switch means on or off',
