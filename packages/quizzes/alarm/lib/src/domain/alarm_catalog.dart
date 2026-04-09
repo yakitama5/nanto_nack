@@ -6,8 +6,8 @@ class AlarmCatalog {
 
   /// 全クイズ共通の初期アラームリスト
   ///
-  /// - alarm_1: 全曜日設定（Quiz2で平日のみへ変更、Quiz3でスヌーズOFF、Quiz4で削除対象）
-  /// - alarm_2: 全曜日設定
+  /// - alarm_1: 全曜日設定（Quiz3でスヌーズOFF、Quiz4で削除対象）
+  /// - alarm_2: 全曜日設定（Quiz2で平日のみへ変更）
   /// - alarm_3: 無効・スヌーズなし・曜日なし
   static const List<AlarmItem> initialAlarms = [
     AlarmItem(
