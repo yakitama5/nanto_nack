@@ -18,6 +18,7 @@ final sendMoneyQuizProvider = AutoDisposeNotifierProvider<
 class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
   static const _quizId = 'payment_quiz3';
   static const _timeLimitSeconds = 60;
+  static const _hintPenaltyFailureCount = 2;
 
   final _useCase = const QuizSendMoneyUseCase();
   Timer? _timer;
@@ -111,6 +112,15 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
         await _saveResult(isCleared: false, elapsedMs: elapsed);
       } on Exception catch (_) {}
     }
+  }
+
+  /// ヒントを使用する（スコア減点）
+  void useHint() {
+    if (state.status != QuizStatus.playing || state.hintUsed) return;
+    state = state.copyWith(
+      hintUsed: true,
+      failureCount: state.failureCount + _hintPenaltyFailureCount,
+    );
   }
 
   /// 諦めてクイズを終了する

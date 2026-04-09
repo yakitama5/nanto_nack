@@ -56,6 +56,8 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
         onAmountKey: notifier.onAmountKey,
         onSend: notifier.tapSendMoney,
         onBack: notifier.closeSendScreen,
+        hintUsed: state.hintUsed,
+        onHintTap: notifier.useHint,
         overlays: resultOverlays,
       );
     }
@@ -69,7 +71,9 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightSendTile: state.status == QuizStatus.playing,
+      highlightSendTile: state.hintUsed,
+      hintUsed: state.hintUsed,
+      onHintTap: notifier.useHint,
       onSendTap: notifier.tapSend,
       overlays: [
         if (_showCutIn)

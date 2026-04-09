@@ -29,6 +29,8 @@ class PaymentHomeScreen extends StatefulWidget {
     this.highlightEyeIcon = false,
     this.highlightSendTile = false,
     this.highlightPaymentCarousel = false,
+    this.hintUsed = false,
+    this.onHintTap,
   });
 
   /// 残高
@@ -81,6 +83,12 @@ class PaymentHomeScreen extends StatefulWidget {
 
   /// 支払い元カルーセルをハイライト
   final bool highlightPaymentCarousel;
+
+  /// ヒントを使用済みか
+  final bool hintUsed;
+
+  /// ヒントボタンタップコールバック
+  final VoidCallback? onHintTap;
 
   @override
   State<PaymentHomeScreen> createState() => _PaymentHomeScreenState();
@@ -240,8 +248,9 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
           FloatingMissionBubble(
             remainingSeconds: widget.remainingSeconds,
             missionText: widget.missionText,
-            hintUsed: false,
+            hintUsed: widget.hintUsed,
             timeLimitSeconds: widget.timeLimitSeconds,
+            onHintTap: widget.onHintTap,
             onGiveUp: widget.onGiveUp,
           ),
           ...widget.overlays,
@@ -1501,6 +1510,8 @@ class PaymentScreen extends StatelessWidget {
     this.onBack,
     this.onChangePaymentMethod,
     this.highlightPaymentMethodButton = false,
+    this.hintUsed = false,
+    this.onHintTap,
   });
 
   /// クイズステータス
@@ -1532,6 +1543,12 @@ class PaymentScreen extends StatelessWidget {
 
   /// 支払い元ボタンをハイライト
   final bool highlightPaymentMethodButton;
+
+  /// ヒントを使用済みか
+  final bool hintUsed;
+
+  /// ヒントボタンタップコールバック
+  final VoidCallback? onHintTap;
 
   @override
   Widget build(BuildContext context) {
@@ -1599,8 +1616,9 @@ class PaymentScreen extends StatelessWidget {
           FloatingMissionBubble(
             remainingSeconds: remainingSeconds,
             missionText: missionText,
-            hintUsed: false,
+            hintUsed: hintUsed,
             timeLimitSeconds: timeLimitSeconds,
+            onHintTap: onHintTap,
             onGiveUp: onGiveUp,
           ),
           ...overlays,
@@ -1906,6 +1924,8 @@ class SendMoneyScreen extends StatelessWidget {
     this.onAmountKey,
     this.onSend,
     this.onBack,
+    this.hintUsed = false,
+    this.onHintTap,
   });
 
   final List<PaymentContact> contacts;
@@ -1922,6 +1942,12 @@ class SendMoneyScreen extends StatelessWidget {
   final void Function(String key)? onAmountKey;
   final VoidCallback? onSend;
   final VoidCallback? onBack;
+
+  /// ヒントを使用済みか
+  final bool hintUsed;
+
+  /// ヒントボタンタップコールバック
+  final VoidCallback? onHintTap;
 
   @override
   Widget build(BuildContext context) {
@@ -2085,8 +2111,9 @@ class SendMoneyScreen extends StatelessWidget {
           FloatingMissionBubble(
             remainingSeconds: remainingSeconds,
             missionText: missionText,
-            hintUsed: false,
+            hintUsed: hintUsed,
             timeLimitSeconds: timeLimitSeconds,
+            onHintTap: onHintTap,
             onGiveUp: onGiveUp,
           ),
           ...overlays,

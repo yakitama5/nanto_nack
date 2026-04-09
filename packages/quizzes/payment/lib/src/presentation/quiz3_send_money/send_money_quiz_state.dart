@@ -13,6 +13,7 @@ class SendMoneyQuizState extends QuizStateBase {
     required this.amount,
     required this.moneySent,
     required this.remainingSeconds,
+    this.hintUsed = false,
   });
 
   /// 初期状態を生成する
@@ -27,6 +28,7 @@ class SendMoneyQuizState extends QuizStateBase {
         amount: 0,
         moneySent: false,
         remainingSeconds: timeLimitSeconds,
+        hintUsed: false,
       );
 
   /// 送金画面が表示されているか
@@ -44,6 +46,9 @@ class SendMoneyQuizState extends QuizStateBase {
   /// 残り時間（秒）
   final int remainingSeconds;
 
+  /// ヒントを使用済みかどうか
+  final bool hintUsed;
+
   /// 指定フィールドを差し替えた新インスタンスを返す
   SendMoneyQuizState copyWith({
     QuizStatus? status,
@@ -56,6 +61,7 @@ class SendMoneyQuizState extends QuizStateBase {
     int? amount,
     bool? moneySent,
     int? remainingSeconds,
+    bool? hintUsed,
   }) {
     return SendMoneyQuizState(
       status: status ?? this.status,
@@ -69,6 +75,7 @@ class SendMoneyQuizState extends QuizStateBase {
       amount: amount ?? this.amount,
       moneySent: moneySent ?? this.moneySent,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      hintUsed: hintUsed ?? this.hintUsed,
     );
   }
 }
