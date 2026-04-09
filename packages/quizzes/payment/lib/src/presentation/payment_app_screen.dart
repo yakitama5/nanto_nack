@@ -768,9 +768,7 @@ class _ActionTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(8),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Ink(
           decoration: highlighted
               ? BoxDecoration(
                   color: const Color(0xFFFFE5E5),
@@ -778,38 +776,42 @@ class _ActionTile extends StatelessWidget {
                   border:
                       Border.all(color: const Color(0xFFFF3B3B), width: 1.5),
                 )
-              : null,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: highlighted
-                      ? const Color(0xFFFF3B3B)
-                      : const Color(0xFFF5F5F5),
-                  shape: BoxShape.circle,
+              : const BoxDecoration(),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: highlighted
+                        ? const Color(0xFFFF3B3B)
+                        : const Color(0xFFF5F5F5),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    icon,
+                    color: highlighted ? Colors.white : Colors.grey.shade600,
+                    size: 24,
+                  ),
                 ),
-                child: Icon(
-                  icon,
-                  color: highlighted ? Colors.white : Colors.grey.shade600,
-                  size: 24,
+                const SizedBox(height: 6),
+                UnreadableText(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: highlighted
+                        ? const Color(0xFFFF3B3B)
+                        : Colors.grey.shade700,
+                    fontWeight:
+                        highlighted ? FontWeight.bold : FontWeight.normal,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 6),
-              UnreadableText(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: highlighted
-                      ? const Color(0xFFFF3B3B)
-                      : Colors.grey.shade700,
-                  fontWeight:
-                      highlighted ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -1659,9 +1661,7 @@ class _PaymentMethodButton extends StatelessWidget {
         child: InkWell(
           onTap: isDisabled ? null : () => _showPaymentMethodSheet(context),
           borderRadius: BorderRadius.circular(24),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          child: Ink(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: isDisabled
@@ -1675,32 +1675,36 @@ class _PaymentMethodButton extends StatelessWidget {
                       ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
                       : Border.all(color: Colors.grey.shade300),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  icon,
-                  size: 20,
-                  color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
-                ),
-                const SizedBox(width: 8),
-                UnreadableText(
-                  label,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: isDisabled ? Colors.grey : Colors.black87,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    icon,
+                    size: 20,
+                    color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
                   ),
-                ),
-                const SizedBox(width: 6),
-                Icon(
-                  Icons.expand_more,
-                  size: 18,
-                  color: isDisabled
-                      ? Colors.grey.shade400
-                      : Colors.grey.shade500,
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  UnreadableText(
+                    label,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: isDisabled ? Colors.grey : Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Icon(
+                    Icons.expand_more,
+                    size: 18,
+                    color: isDisabled
+                        ? Colors.grey.shade400
+                        : Colors.grey.shade500,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -2094,7 +2098,7 @@ class SendMoneyScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
                 child: FilledButton(
-                  onPressed: selected != null && amount > 0
+                  onPressed: selected != null && amount > 0 && onSend != null
                       ? () => _showSendConfirmSheet(
                             context,
                             sq,
@@ -2108,12 +2112,15 @@ class SendMoneyScreen extends StatelessWidget {
                     minimumSize: const Size(double.infinity, 52),
                     backgroundColor: const Color(0xFFFF3B3B),
                   ),
-                  child: UnreadableText(
-                    sq.common.sendMoney,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  child: Semantics(
+                    label: sq.common.sendMoney,
+                    child: UnreadableText(
+                      sq.common.sendMoney,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -2203,113 +2210,122 @@ class _SendConfirmSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(
-        24,
-        16,
-        24,
-        24 + MediaQuery.viewInsetsOf(context).bottom,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // ドラッグハンドル
-          Container(
-            width: 40,
-            height: 4,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          const SizedBox(height: 20),
-          // タイトル
-          UnreadableText(
-            sq.common.confirm,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 24),
-          // 送金先
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              UnreadableText(
-                sq.common.sendTo,
-                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          24,
+          16,
+          24,
+          24 + MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // ドラッグハンドル
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(2),
               ),
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 16,
-                    backgroundColor: const Color(0xFFF0F0F0),
-                    child: Text(
-                      contact.initial,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 20),
+            // タイトル
+            UnreadableText(
+              sq.common.confirm,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 24),
+            // 送金先
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                UnreadableText(
+                  sq.common.sendTo,
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 16,
+                      backgroundColor: const Color(0xFFF0F0F0),
+                      child: Text(
+                        contact.initial,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  UnreadableText(
-                    contactName,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
+                    const SizedBox(width: 8),
+                    UnreadableText(
+                      contactName,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // 金額
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                UnreadableText(
+                  sq.common.amount,
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                ),
+                UnreadableText(
+                  '${sq.common.yen}$amount',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
+              ],
+            ),
+            const Divider(height: 32),
+            // 送金するボタン
+            FilledButton(
+              onPressed: onConfirm,
+              style: FilledButton.styleFrom(
+                minimumSize: const Size(double.infinity, 52),
+                backgroundColor: const Color(0xFFFF3B3B),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          // 金額
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              UnreadableText(
-                sq.common.amount,
-                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-              ),
-              UnreadableText(
-                '${sq.common.yen}$amount',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              child: Semantics(
+                label: sq.common.sendMoney,
+                child: UnreadableText(
+                  sq.common.sendMoney,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ],
-          ),
-          const Divider(height: 32),
-          // 送金するボタン
-          FilledButton(
-            onPressed: onConfirm,
-            style: FilledButton.styleFrom(
-              minimumSize: const Size(double.infinity, 52),
-              backgroundColor: const Color(0xFFFF3B3B),
             ),
-            child: UnreadableText(
-              sq.common.sendMoney,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            const SizedBox(height: 12),
+            // キャンセル
+            TextButton(
+              onPressed: onCancel,
+              child: Semantics(
+                label: sq.common.cancel,
+                child: UnreadableText(
+                  sq.common.cancel,
+                  style: TextStyle(fontSize: 15, color: Colors.grey.shade700),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 12),
-          // キャンセル
-          TextButton(
-            onPressed: onCancel,
-            child: UnreadableText(
-              sq.common.cancel,
-              style: TextStyle(fontSize: 15, color: Colors.grey.shade700),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
