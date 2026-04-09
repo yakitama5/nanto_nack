@@ -2149,7 +2149,7 @@ class _NumKey extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(8),
           child: Center(
-            child: Text(
+            child: UnreadableText(
               label,
               style: const TextStyle(
                 fontSize: 22,
