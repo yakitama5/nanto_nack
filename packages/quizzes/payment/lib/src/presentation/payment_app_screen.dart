@@ -126,19 +126,20 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
   }
 
   Future<bool?> _showExitConfirmDialog() {
+    final t = context.t;
     return showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('ゲームを中断しますか？'),
-        content: const Text('プレイ中のゲームを終了します。'),
+        title: Text(t.quiz.exitDialogTitle),
+        content: Text(t.quiz.exitDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('続ける'),
+            child: Text(t.quiz.exitDialogContinue),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('終了する'),
+            child: Text(t.quiz.exitDialogExit),
           ),
         ],
       ),
@@ -2027,7 +2028,7 @@ class SendMoneyScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             UnreadableText(
-                              _contactName(sq, index),
+                              _sendMoneyContactName(sq, index),
                               style: TextStyle(
                                 fontSize: 11,
                                 color: isSelected
@@ -2131,18 +2132,6 @@ class SendMoneyScreen extends StatelessWidget {
     );
   }
 
-  static String _contactName($payment.Translations sq, int index) {
-    switch (index) {
-      case 0:
-        return sq.common.contact1;
-      case 1:
-        return sq.common.contact2;
-      case 2:
-        return sq.common.contact3;
-      default:
-        return sq.common.contact4;
-    }
-  }
 }
 
 /// 送金確認ボトムシートを表示する
