@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/alarm_catalog.dart';
 import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'set_weekdays_quiz_notifier.dart';
 
-/// Quiz 2「平日（月〜金）だけ鳴るように設定してください」
+/// Quiz 2「一番上のアラームを平日だけに設定する」
+///
+/// 最初にアラーム一覧を表示し、ユーザーが一番上のアラームをタップすると
+/// 編集フォームに遷移する。編集フォームで平日（月〜金）を選択して保存すると正解。
 class SetWeekdaysQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const SetWeekdaysQuizScreen({super.key, this.onCompleted});
@@ -38,19 +42,44 @@ class _SetWeekdaysQuizScreenState
     final missionText = context.s.quiz2.missionText;
     final notifier = ref.read(setWeekdaysQuizProvider.notifier);
 
-    return AlarmEditScreen(
-      alarm: state.draftAlarm,
-      quizStatus: state.status,
-      remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
-      missionText: missionText,
-      onGiveUp: notifier.giveUp,
-      highlightDayButtons: state.status == QuizStatus.playing,
-      highlightSaveButton: false,
-      onDayToggle: notifier.toggleDay,
-      onSave: () {},
-      onCancel: () {},
-      overlays: [
+    final mainScreen = state.showEditForm
+        ? AlarmEditScreen(
+            alarm: state.draftAlarm,
+            quizStatus: state.status,
+            remainingSeconds: state.remainingSeconds,
+            timeLimitSeconds: _timeLimitSeconds,
+            missionText: missionText,
+            onGiveUp: notifier.giveUp,
+            highlightDayButtons: state.status == QuizStatus.playing,
+            // 平日が1つ以上選択されているときに保存ボタンをハイライト
+            highlightSaveButton: state.status == QuizStatus.playing &&
+                state.draftAlarm.activeDays.isNotEmpty,
+            onDayToggle: notifier.toggleDay,
+            onSave: notifier.tapSave,
+            onCancel: notifier.tapCancel,
+            onHourChanged: (h) =>
+                notifier.changeTime(h, state.draftAlarm.minute),
+            onMinuteChanged: (m) =>
+                notifier.changeTime(state.draftAlarm.hour, m),
+            overlays: const [],
+          )
+        : AlarmListScreen(
+            alarms: AlarmCatalog.initialAlarms,
+            quizStatus: state.status,
+            remainingSeconds: state.remainingSeconds,
+            timeLimitSeconds: _timeLimitSeconds,
+            missionText: missionText,
+            onGiveUp: notifier.giveUp,
+            // Quiz2では + ボタンを使わないのでハイライトしない
+            highlightAddButton: false,
+            onAlarmTap: notifier.tapAlarm,
+            overlays: const [],
+          );
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        mainScreen,
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,

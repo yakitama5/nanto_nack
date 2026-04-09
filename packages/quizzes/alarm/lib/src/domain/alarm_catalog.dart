@@ -4,7 +4,11 @@ import 'entities/alarm_item.dart';
 class AlarmCatalog {
   AlarmCatalog._();
 
-  /// 初期アラームリスト（Quiz4 のスワイプ削除対象を先頭に配置）
+  /// 全クイズ共通の初期アラームリスト
+  ///
+  /// - alarm_1: 全曜日設定（Quiz2で平日のみへ変更、Quiz3でスヌーズOFF、Quiz4で削除対象）
+  /// - alarm_2: 全曜日設定
+  /// - alarm_3: 無効・スヌーズなし・曜日なし
   static const List<AlarmItem> initialAlarms = [
     AlarmItem(
       id: 'alarm_1',
@@ -12,7 +16,7 @@ class AlarmCatalog {
       minute: 30,
       isEnabled: true,
       snoozeEnabled: true,
-      activeDays: {0, 1, 2, 3, 4},
+      activeDays: {0, 1, 2, 3, 4, 5, 6},
     ),
     AlarmItem(
       id: 'alarm_2',
@@ -31,16 +35,6 @@ class AlarmCatalog {
       activeDays: {},
     ),
   ];
-
-  /// Quiz3用の編集対象アラーム（スヌーズ付き）
-  static const AlarmItem snoozeAlarm = AlarmItem(
-    id: 'edit_alarm',
-    hour: 7,
-    minute: 0,
-    isEnabled: true,
-    snoozeEnabled: true,
-    activeDays: {0, 1, 2, 3, 4},
-  );
 
   /// 新規アラームの初期値（Quiz1用）
   static const AlarmItem newAlarmDefault = AlarmItem(

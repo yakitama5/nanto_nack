@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/alarm_catalog.dart';
 import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'disable_snooze_quiz_notifier.dart';
 
-/// Quiz 3「スヌーズ機能をオフにして保存してください」
+/// Quiz 3「一番上のアラームのスヌーズをオフにして保存してください」
+///
+/// 最初にアラーム一覧を表示し、ユーザーが一番上のアラームをタップすると
+/// 編集フォームに遷移する。スヌーズをオフにして保存すると正解。
 class DisableSnoozeQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const DisableSnoozeQuizScreen({super.key, this.onCompleted});
@@ -38,21 +42,42 @@ class _DisableSnoozeQuizScreenState
     final missionText = context.s.quiz3.missionText;
     final notifier = ref.read(disableSnoozeQuizProvider.notifier);
 
-    return AlarmEditScreen(
-      alarm: state.draftAlarm,
-      quizStatus: state.status,
-      remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
-      missionText: missionText,
-      onGiveUp: notifier.giveUp,
-      highlightSnoozeToggle: state.status == QuizStatus.playing,
-      highlightSaveButton:
-          state.status == QuizStatus.playing &&
-          !state.draftAlarm.snoozeEnabled,
-      onSnoozeToggle: notifier.toggleSnooze,
-      onSave: notifier.tapSave,
-      onCancel: () {},
-      overlays: [
+    final mainScreen = state.showEditForm
+        ? AlarmEditScreen(
+            alarm: state.draftAlarm,
+            quizStatus: state.status,
+            remainingSeconds: state.remainingSeconds,
+            timeLimitSeconds: _timeLimitSeconds,
+            missionText: missionText,
+            onGiveUp: notifier.giveUp,
+            highlightSnoozeToggle: state.status == QuizStatus.playing,
+            // スヌーズがオフになったら保存ボタンをハイライト
+            highlightSaveButton: state.status == QuizStatus.playing &&
+                !state.draftAlarm.snoozeEnabled,
+            onSnoozeToggle: notifier.toggleSnooze,
+            onSave: notifier.tapSave,
+            onCancel: notifier.tapCancel,
+            onHourChanged: (h) =>
+                notifier.changeTime(h, state.draftAlarm.minute),
+            onMinuteChanged: (m) =>
+                notifier.changeTime(state.draftAlarm.hour, m),
+            overlays: const [],
+          )
+        : AlarmListScreen(
+            alarms: AlarmCatalog.initialAlarms,
+            quizStatus: state.status,
+            remainingSeconds: state.remainingSeconds,
+            timeLimitSeconds: _timeLimitSeconds,
+            missionText: missionText,
+            onGiveUp: notifier.giveUp,
+            onAlarmTap: notifier.tapAlarm,
+            overlays: const [],
+          );
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        mainScreen,
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,

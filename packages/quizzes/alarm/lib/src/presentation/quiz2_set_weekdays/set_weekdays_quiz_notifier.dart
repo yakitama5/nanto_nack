@@ -27,8 +27,9 @@ class SetWeekdaysQuizNotifier
   @override
   SetWeekdaysQuizState build() {
     ref.onDispose(() => _timer?.cancel());
+    // Quiz2では最初にアラーム一覧を表示し、alarm_1（曜日未設定）をタップさせる
     return SetWeekdaysQuizState.initial(
-      draft: AlarmCatalog.newAlarmDefault,
+      draft: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     );
   }
@@ -37,7 +38,7 @@ class SetWeekdaysQuizNotifier
   void startQuiz() {
     _timer?.cancel();
     state = SetWeekdaysQuizState.initial(
-      draft: AlarmCatalog.newAlarmDefault,
+      draft: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
@@ -47,8 +48,19 @@ class SetWeekdaysQuizNotifier
     _startTimer();
   }
 
-  /// 曜日ボタンをタップ
-  Future<void> toggleDay(int dayIndex) async {
+  /// アラームをタップ → 編集フォームを表示
+  void tapAlarm(String alarmId) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(showEditForm: true);
+  }
+
+  /// キャンセルボタン → 一覧へ戻る
+  void tapCancel() {
+    state = state.copyWith(showEditForm: false);
+  }
+
+  /// 曜日ボタンをタップ（選択状態をトグル、正誤判定は保存時に行う）
+  void toggleDay(int dayIndex) {
     if (state.status != QuizStatus.playing) return;
 
     final current = Set<int>.from(state.draftAlarm.activeDays);
@@ -59,18 +71,32 @@ class SetWeekdaysQuizNotifier
     }
     final updated = state.draftAlarm.copyWith(activeDays: current);
     state = state.copyWith(draftAlarm: updated);
+  }
 
-    final isClear = _useCase.isClear(activeDays: current);
+  /// 保存ボタンをタップ → 正誤判定
+  Future<void> tapSave() async {
+    if (state.status != QuizStatus.playing) return;
+
+    final isClear = _useCase.isClear(activeDays: state.draftAlarm.activeDays);
     if (isClear) {
+      // 正解：平日（月〜金）のみが選択されている
       _timer?.cancel();
       final elapsed = _elapsed;
-      state = state.copyWith(
-        status: QuizStatus.correct,
-        elapsedMs: elapsed,
-      );
+      state = state.copyWith(status: QuizStatus.correct, elapsedMs: elapsed);
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
+    } else {
+      // 不正解：曜日選択が間違っている
+      state = state.copyWith(failureCount: state.failureCount + 1);
     }
+  }
+
+  /// 時刻変更コールバック
+  void changeTime(int hour, int minute) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      draftAlarm: state.draftAlarm.copyWith(hour: hour, minute: minute),
+    );
   }
 
   /// 諦めてクイズを終了する
@@ -96,7 +122,7 @@ class SetWeekdaysQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SetWeekdaysQuizState.initial(
-      draft: AlarmCatalog.newAlarmDefault,
+      draft: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,

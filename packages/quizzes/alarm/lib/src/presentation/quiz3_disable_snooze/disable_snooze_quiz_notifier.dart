@@ -28,7 +28,7 @@ class DisableSnoozeQuizNotifier
   DisableSnoozeQuizState build() {
     ref.onDispose(() => _timer?.cancel());
     return DisableSnoozeQuizState.initial(
-      alarm: AlarmCatalog.snoozeAlarm,
+      alarm: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     );
   }
@@ -37,7 +37,7 @@ class DisableSnoozeQuizNotifier
   void startQuiz() {
     _timer?.cancel();
     state = DisableSnoozeQuizState.initial(
-      alarm: AlarmCatalog.snoozeAlarm,
+      alarm: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
@@ -47,11 +47,30 @@ class DisableSnoozeQuizNotifier
     _startTimer();
   }
 
+  /// アラームをタップ → 編集フォームを表示
+  void tapAlarm(String alarmId) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(showEditForm: true);
+  }
+
+  /// キャンセルボタン → 一覧へ戻る
+  void tapCancel() {
+    state = state.copyWith(showEditForm: false);
+  }
+
   /// スヌーズトグルを操作
   void toggleSnooze(bool enabled) {
     if (state.status != QuizStatus.playing) return;
     state = state.copyWith(
       draftAlarm: state.draftAlarm.copyWith(snoozeEnabled: enabled),
+    );
+  }
+
+  /// 時刻変更コールバック
+  void changeTime(int hour, int minute) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      draftAlarm: state.draftAlarm.copyWith(hour: hour, minute: minute),
     );
   }
 
@@ -105,7 +124,7 @@ class DisableSnoozeQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = DisableSnoozeQuizState.initial(
-      alarm: AlarmCatalog.snoozeAlarm,
+      alarm: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
