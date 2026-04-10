@@ -1135,20 +1135,23 @@ class _ShoppingBottomNav extends StatelessWidget {
         ),
         padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: navItems.asMap().entries.map((entry) {
             final i = entry.key;
             final item = entry.value;
-            return InkWell(
-              onTap: () => onTap(i),
-              splashColor: Colors.white24,
-              highlightColor: Colors.white10,
-              borderRadius: BorderRadius.circular(8),
-              child: _ShoppingNavItem(
-                icon: item.icon,
-                label: item.label,
-                isSelected: selectedIndex == i,
-                showHintBorder: hintUsed && i == hintNavIndex,
+            return Expanded(
+              child: InkWell(
+                onTap: () => onTap(i),
+                splashColor: Colors.white24,
+                highlightColor: Colors.white10,
+                child: SizedBox(
+                  height: 56,
+                  child: _ShoppingNavItem(
+                    icon: item.icon,
+                    label: item.label,
+                    isSelected: selectedIndex == i,
+                    showHintBorder: hintUsed && i == hintNavIndex,
+                  ),
+                ),
               ),
             );
           }).toList(),
