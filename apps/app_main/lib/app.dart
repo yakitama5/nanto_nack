@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,19 +16,39 @@ class NantoNackApp extends ConsumerStatefulWidget {
   ConsumerState<NantoNackApp> createState() => _NantoNackAppState();
 }
 
-class _NantoNackAppState extends ConsumerState<NantoNackApp> {
+class _NantoNackAppState extends ConsumerState<NantoNackApp>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     // 音声データをバックグラウンドで事前ロード（完了を待たない）。
     // クイズ正解時に再生する際、ロード済みであれば即座に再生される。
     ref.read(clearSoundProvider.future).ignore();
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  /// フォアグラウンド復帰時に Remote Config を再取得する。
+  ///
+  /// 取得後に値が更新されると、Remote Config の onConfigUpdated ストリーム経由で
+  /// [systemConfigProvider] が自動更新され、GoRouter の redirect が再評価される。
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      FirebaseRemoteConfig.instance.fetchAndActivate().ignore();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final locale = TranslationProvider.of(context).flutterLocale;
     final settings = ref.watch(settingsProvider);
+    final router = ref.watch(routerProvider);
 
     // AppThemeMode → Flutter の ThemeMode に変換
     final themeMode = switch (settings.themeMode) {
@@ -51,7 +72,7 @@ class _NantoNackAppState extends ConsumerState<NantoNackApp> {
       locale: locale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      routerConfig: appRouter,
+      routerConfig: router,
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: ClampingScrollWrapper.builder(context, child!),
         breakpoints: const [

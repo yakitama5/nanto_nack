@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:system/system.dart';
+
+import '../update/update_dialog.dart';
 
 /// アプリ起動時に表示するスプラッシュスクリーン。
 ///
 /// Lottie アニメーション（splash.lottie）を1回再生しながら、
 /// バックグラウンドで [AppInitializer.initialize] を実行する。
 /// ① アニメーション1周完了 AND ② 初期化完了、の両条件が揃った時点で
-/// ホーム画面（`/`）へ遷移する。
-class SplashScreen extends StatefulWidget {
+/// システム状態（メンテナンス・アップデート）を確認し、適切な画面へ遷移する。
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   /// アニメーションの再生速度倍率（1.5 = 1.5倍速）。
   static const double _playbackSpeed = 1.5;
@@ -59,14 +62,43 @@ class _SplashScreenState extends State<SplashScreen>
       ..forward().whenComplete(_onAnimationCompleted);
   }
 
-  /// アニメーション完了後、初期化の完了も待ってからホームへ遷移する。
+  /// アニメーション完了後、初期化完了とシステム状態確認を経てから遷移する。
   Future<void> _onAnimationCompleted() async {
     try {
       await _initFuture;
+      if (!mounted) return;
+
+      // Firebase 初期化完了後にシステム状態を取得する
+      final systemState = await ref.read(systemConfigProvider.future);
+      if (!mounted) return;
+
+      await _handleSystemState(systemState);
     } catch (_) {
-      // 初期化失敗時もタイムアウト到達前にホーム画面へ遷移する。
+      // 初期化・状態取得失敗時もホーム画面へ遷移する
+      _navigateToHome();
     }
-    _navigateToHome();
+  }
+
+  /// システム状態に応じた画面遷移を行う。
+  Future<void> _handleSystemState(SystemAppState state) async {
+    if (!mounted) return;
+
+    switch (state) {
+      case SystemMaintenance():
+        // GoRouter の redirect がメンテナンス画面へリダイレクトする
+        context.go('/');
+      case SystemForceUpdate():
+        // 強制アップデート: 閉じることができないダイアログを表示
+        await showUpdateDialog(context, isForced: true);
+      case SystemOptionalUpdate():
+        // 任意アップデート: ホーム遷移後にダイアログを表示
+        _navigateToHome();
+        if (mounted) {
+          await showUpdateDialog(context, isForced: false);
+        }
+      case SystemNormal():
+        _navigateToHome();
+    }
   }
 
   void _navigateToHome() {
