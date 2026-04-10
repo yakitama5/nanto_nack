@@ -27,6 +27,7 @@ dependencies:
   http: ^1.2.2
   package_info_plus: ^8.3.0
   shared_preferences: ^2.5.3
+  store_redirect: ^2.0.2
   url_launcher: ^6.3.1
   quiz_core:
     path: ../../packages/quiz_core
