@@ -55,7 +55,12 @@ class UpdateDialog extends StatelessWidget {
               child: Text(t.update.laterButton),
             ),
           FilledButton(
-            onPressed: () => _openStore(),
+            onPressed: () async {
+              if (!isForced) {
+                Navigator.of(context).pop();
+              }
+              await _openStore();
+            },
             child: Text(t.update.updateButton),
           ),
         ],
@@ -66,7 +71,7 @@ class UpdateDialog extends StatelessWidget {
   Future<void> _openStore() async {
     await StoreRedirect.redirect(
       androidAppId: AppEnvironment.androidPackageName,
-      iOSAppId: AppEnvironment.iosAppStoreId,
+      iOSAppId: AppEnvironment.hasIosAppStoreId ? AppEnvironment.iosAppStoreId : null,
     );
   }
 }

@@ -20,6 +20,9 @@ abstract final class AppEnvironment {
     defaultValue: '',
   );
 
+  /// iOS App Store ID が設定されているかどうか。
+  static bool get hasIosAppStoreId => iosAppStoreId.isNotEmpty;
+
   static Flavor get flavor => Flavor.values.byName(_flavorName);
 
   static bool get isDev => flavor == Flavor.dev;
