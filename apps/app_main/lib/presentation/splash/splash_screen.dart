@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,10 +10,13 @@ import '../update/update_dialog.dart';
 
 /// アプリ起動時に表示するスプラッシュスクリーン。
 ///
-/// Lottie アニメーション（splash.lottie）を1回再生しながら、
-/// バックグラウンドで [AppInitializer.initialize] を実行する。
-/// ① アニメーション1周完了 AND ② 初期化完了、の両条件が揃った時点で
-/// システム状態（メンテナンス・アップデート）を確認し、適切な画面へ遷移する。
+/// Lottie アニメーションを1回再生し、完了後にシステム状態を確認して遷移する。
+/// Firebase 初期化は main() で完了済み。
+///
+/// 遷移ルール:
+/// - Normal / Maintenance: ホーム画面へ遷移（Maintenance は GoRouter redirect が処理）
+/// - ForceUpdate: ダイアログを表示（閉じ不可）
+/// - OptionalUpdate: ダイアログを表示し、閉じたらホーム画面へ遷移
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
@@ -24,27 +29,27 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   /// アニメーションの再生速度倍率（1.5 = 1.5倍速）。
   static const double _playbackSpeed = 1.5;
 
-  /// アセット読み込み失敗・アニメーション未完了時のフォールバックタイムアウト。
+  /// Lottie 読み込み失敗時のフォールバックタイムアウト。
+  /// アニメーション完了時にキャンセルされるため、ダイアログ表示中には発火しない。
   static const Duration _timeout = Duration(seconds: 5);
 
   late final AnimationController _controller;
+  Timer? _timeoutTimer;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    // Firebase 初期化は main() で完了済み。
-    // アセット読み込み失敗やアニメーション未完了に備えたタイムアウト。
-    // 一定時間内に完了しなかった場合はホーム画面へ強制遷移する。
-    Future.delayed(_timeout, () {
-      if (mounted) {
-        _navigateToHome();
-      }
+    // Lottie 読み込み失敗やアニメーション未完了に備えたフォールバック。
+    // アニメーションが正常に完了した場合は _onAnimationCompleted でキャンセルされる。
+    _timeoutTimer = Timer(_timeout, () {
+      if (mounted) _navigateToHome();
     });
   }
 
   @override
   void dispose() {
+    _timeoutTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -59,17 +64,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   }
 
   /// アニメーション完了後、システム状態確認を経てから遷移する。
-  ///
-  /// Firebase 初期化は main() で完了済みのため、
-  /// systemConfigProvider はすぐに解決できる。
   Future<void> _onAnimationCompleted() async {
+    // タイムアウトをキャンセル。ダイアログ表示中にホームへ遷移してしまうのを防ぐ。
+    _timeoutTimer?.cancel();
     if (!mounted) return;
     try {
       final systemState = await ref.read(systemConfigProvider.future);
       if (!mounted) return;
       await _handleSystemState(systemState);
     } catch (_) {
-      // 状態取得失敗時もホーム画面へ遷移する
       _navigateToHome();
     }
   }
@@ -83,14 +86,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         // GoRouter の redirect がメンテナンス画面へリダイレクトする
         context.go('/');
       case SystemForceUpdate():
-        // 強制アップデート: 閉じることができないダイアログを表示
+        // 強制アップデート: スプラッシュ上でダイアログを表示（閉じ不可）
         await showUpdateDialog(context, isForced: true);
       case SystemOptionalUpdate():
-        // 任意アップデート: ホーム遷移後にダイアログを表示
+        // 任意アップデート: ダイアログを閉じた後にホームへ遷移
+        await showUpdateDialog(context, isForced: false);
         _navigateToHome();
-        if (mounted) {
-          await showUpdateDialog(context, isForced: false);
-        }
       case SystemNormal():
         _navigateToHome();
     }
