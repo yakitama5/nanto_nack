@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:system/system.dart';
 
 /// アプリ起動時に表示するスプラッシュスクリーン。
 ///
-/// Lottie アニメーション（loading.json）を1回再生し、
-/// 完了後にホーム画面（`/`）へ遷移する。
+/// Lottie アニメーション（splash.lottie）を1回再生しながら、
+/// バックグラウンドで [AppInitializer.initialize] を実行する。
+/// ① アニメーション1周完了 AND ② 初期化完了、の両条件が揃った時点で
+/// ホーム画面（`/`）へ遷移する。
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -23,14 +26,19 @@ class _SplashScreenState extends State<SplashScreen>
 
   late final AnimationController _controller;
 
+  /// バックグラウンドで実行するアプリ初期化 Future。
+  late final Future<void> _initFuture;
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    // アニメーションと並行してアプリ初期化を開始する。
+    _initFuture = AppInitializer.initialize();
     // アセット読み込み失敗やアニメーション未完了に備えたタイムアウト。
     // 一定時間内に完了しなかった場合はホーム画面へ強制遷移する。
     Future.delayed(_timeout, () {
-      if (mounted && !_controller.isCompleted) {
+      if (mounted) {
         _navigateToHome();
       }
     });
@@ -48,7 +56,17 @@ class _SplashScreenState extends State<SplashScreen>
         milliseconds: (composition.duration.inMilliseconds / _playbackSpeed)
             .round(),
       )
-      ..forward().whenComplete(_navigateToHome);
+      ..forward().whenComplete(_onAnimationCompleted);
+  }
+
+  /// アニメーション完了後、初期化の完了も待ってからホームへ遷移する。
+  Future<void> _onAnimationCompleted() async {
+    try {
+      await _initFuture;
+    } catch (_) {
+      // 初期化失敗時もタイムアウト到達前にホーム画面へ遷移する。
+    }
+    _navigateToHome();
   }
 
   void _navigateToHome() {
@@ -65,12 +83,17 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: colorScheme.surface,
       body: Center(
         child: Lottie.asset(
-          'assets/lottie/loading.json',
+          'assets/lottie/splash.json',
           controller: _controller,
           onLoaded: _onAnimationLoaded,
           errorBuilder: (context, error, stackTrace) {
-            // アセット読み込み失敗時はすぐにホーム画面へ遷移する。
-            WidgetsBinding.instance.addPostFrameCallback((_) {
+            // アセット読み込み失敗時は初期化完了後にホーム画面へ遷移する。
+            WidgetsBinding.instance.addPostFrameCallback((_) async {
+              try {
+                await _initFuture;
+              } catch (_) {
+                // 初期化失敗時もタイムアウト到達前にホーム画面へ遷移する。
+              }
               _navigateToHome();
             });
             return const SizedBox.shrink();
