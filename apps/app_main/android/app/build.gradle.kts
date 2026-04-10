@@ -76,20 +76,33 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String?
-            keyPassword = keystoreProperties["keyPassword"] as String?
-            storeFile = (keystoreProperties["storeFile"] as String?)?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as String?
+            if (keystorePropertiesFile.exists()) {
+                val requiredKeys = listOf("keyAlias", "keyPassword", "storeFile", "storePassword")
+                val missingKeys = requiredKeys.filter { keystoreProperties[it] == null || keystoreProperties[it].toString().isBlank() }
+                if (missingKeys.isNotEmpty()) {
+                    throw IllegalStateException(
+                        "key.properties が存在しますが、必須キーが不足しています: $missingKeys\n" +
+                        "key.properties に keyAlias, keyPassword, storeFile, storePassword をすべて設定してください。"
+                    )
+                }
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
         }
     }
 
     buildTypes {
         release {
-            signingConfig = if (keystorePropertiesFile.exists()) {
-                signingConfigs.getByName("release")
-            } else {
-                signingConfigs.getByName("debug")
+            if (!keystorePropertiesFile.exists()) {
+                throw GradleException(
+                    "リリースビルドに必要な key.properties が見つかりません。\n" +
+                    "期待されるパス: ${keystorePropertiesFile.absolutePath}\n" +
+                    "リリース署名の設定を含む key.properties を配置してください。"
+                )
             }
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
