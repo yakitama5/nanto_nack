@@ -49,13 +49,27 @@ Remote Config の値を監視し、現在のアプリ状態を判定する `Stre
 
 ```dart
 final currentVersion = Version.parse(packageInfo.version);
-final forceVersion = Version.parse(remoteConfig.getString('force_update_version'));
-final latestVersion = Version.parse(remoteConfig.getString('latest_update_version'));
 
-if (currentVersion < forceVersion) {
-  // 強制アップデート表示（閉じる不可）
-} else if (currentVersion < latestVersion) {
-  // 任意アップデート表示（閉じる可）
+try {
+  final forceVersionStr = remoteConfig.getString('force_update_version');
+  if (forceVersionStr.isNotEmpty) {
+    final forceVersion = Version.parse(forceVersionStr);
+    if (currentVersion < forceVersion) {
+      // 強制アップデート表示（閉じる不可）
+      return;
+    }
+  }
+
+  final latestVersionStr = remoteConfig.getString('latest_update_version');
+  if (latestVersionStr.isNotEmpty) {
+    final latestVersion = Version.parse(latestVersionStr);
+    if (currentVersion < latestVersion) {
+      // 任意アップデート表示（閉じる可）
+      return;
+    }
+  }
+} on Exception {
+  // バージョン文字列のパース失敗時は通常状態として扱う
 }
 ```
 
@@ -74,7 +88,7 @@ if (currentVersion < forceVersion) {
 前項の `SplashScreen` での初期化フローに、このシステムチェックを組み込む。
 
 1. `AppInitializer.initialize()` 内で Remote Config の初期フェッチを完了させる。
-2. `Future.wait` の完了後、まず最初にメンテナンス・強制アップデートの有無を確認。
+2. `Future.wait` の完了後、まずメンテナンス・強制アップデートの有無を確認。
 3. 問題がなければ、通常のチュートリアル判定 or ホーム遷移へ進む。
 
 ## 💡 運用上の注意
