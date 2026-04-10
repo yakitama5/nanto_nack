@@ -152,11 +152,6 @@ class _DataCard extends ConsumerWidget {
       icon: Icons.storage_outlined,
       iconColor: const Color(0xFFE65100),
       children: [
-        // TODO(yakitama5): IAP実装後に有効化する
-        _ActionItem(
-          label: t.settings.data.restorePurchase,
-          icon: Icons.restore_rounded,
-        ),
         _ActionItem(
           label: t.settings.data.resetData,
           icon: Icons.delete_outline_rounded,
@@ -258,7 +253,7 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
           label: t.settings.about.privacyPolicy,
           icon: Icons.open_in_new_rounded,
           onTap: () => _launchExternalUrl(
-            'https://yakitama5.github.io/nanto_nack/privacy',
+            'https://yakuran.notion.site/33ba0498b5cb80ccb945ffa8fe5409d5',
             linkName: 'privacy_policy',
           ),
         ),
