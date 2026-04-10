@@ -28,17 +28,17 @@
     }
   },
   "quiz3": {
-    "missionText": "Start navigation",
-    "failureReason": "Start route navigation",
+    "missionText": "Navigate to park by train",
+    "failureReason": "Select park and train for navigation",
     "insight": {
-      "title": "How did you find navigation?",
-      "subtitle": "Arrow represents navigate",
-      "routeTitle": "Arrow means navigation",
-      "routeDesc": "Upper-right arrow is standard navigation button.",
-      "transportTitle": "Transport options",
-      "transportDesc": "Car, train, walk icons in a row.",
-      "stepTitle": "Turn-by-turn is intuitive",
-      "stepDesc": "Large turn instructions continue from car navigation era."
+      "title": "How did you navigate?",
+      "subtitle": "3 steps to navigate",
+      "destinationTitle": "Tap pin for destination",
+      "destinationDesc": "Tap map icon to see place details.",
+      "transportTitle": "Transport icons are universal",
+      "transportDesc": "Car, walk, train, bike icons standard.",
+      "startTitle": "Tap Start to begin",
+      "startDesc": "Select destination and transport, then start."
     }
   },
   "quiz4": {

@@ -7,7 +7,7 @@ import '../../i18n/map_translations_extension.dart';
 import '../map_app_screen.dart';
 import 'start_navigation_quiz_notifier.dart';
 
-/// Quiz 3「ルート案内を開始してください」
+/// Quiz 3「公園まで電車でルートを案内しよう」
 class StartNavigationQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const StartNavigationQuizScreen({super.key, this.onCompleted});
@@ -44,17 +44,17 @@ class _StartNavigationQuizScreenState
       selectedPlace: state.selectedPlace,
       locationShown: false,
       showSearchBar: false,
-      showDirectionsButton: true,
+      showDirectionsButton: false,
       showFavoriteButton: false,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightDirectionsButton:
-          state.status == QuizStatus.playing && !state.showDirections,
       isNavigating: state.showDirections,
-      onDirectionsTap: notifier.tapDirections,
+      onPlaceSelect: notifier.selectPlace,
+      onTransportSelect: notifier.selectTransport,
+      selectedTransportIndex: state.selectedTransportIndex,
       onNavigationStart: notifier.tapStartNavigation,
       overlays: [
         if (_showCutIn)
@@ -64,6 +64,7 @@ class _StartNavigationQuizScreenState
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||
+            state.status == QuizStatus.incorrect ||
             state.status == QuizStatus.timeUp ||
             state.status == QuizStatus.giveUp)
           Positioned.fill(
@@ -97,21 +98,21 @@ class _StartNavigationInsight extends StatelessWidget {
         _InsightHeader(title: insight.title, subtitle: insight.subtitle),
         const SizedBox(height: 12),
         _InsightItem(
-          emoji: '↗',
-          title: insight.routeTitle,
-          desc: insight.routeDesc,
+          emoji: '📍',
+          title: insight.destinationTitle,
+          desc: insight.destinationDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '🚗',
+          emoji: '🚆',
           title: insight.transportTitle,
           desc: insight.transportDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '↩',
-          title: insight.stepTitle,
-          desc: insight.stepDesc,
+          emoji: '▶',
+          title: insight.startTitle,
+          desc: insight.startDesc,
         ),
       ],
     );

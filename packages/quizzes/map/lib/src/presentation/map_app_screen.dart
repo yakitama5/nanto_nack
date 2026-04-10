@@ -30,6 +30,7 @@ class MapAppScreen extends StatelessWidget {
     this.onDirectionsTap,
     this.onNavigationStart,
     this.onFavoriteTap,
+    this.onTransportSelect,
     this.highlightLocationButton = false,
     this.highlightSearchBar = false,
     this.highlightDirectionsButton = false,
@@ -38,6 +39,7 @@ class MapAppScreen extends StatelessWidget {
     this.navigationStep = 0,
     this.searchQuery = '',
     this.isFavorite = false,
+    this.selectedTransportIndex,
   });
 
   final List<MapPlace> places;
@@ -60,6 +62,9 @@ class MapAppScreen extends StatelessWidget {
   final VoidCallback? onNavigationStart;
   final VoidCallback? onFavoriteTap;
 
+  /// 交通手段選択コールバック（インデックスを引数に取る）
+  final void Function(int transportIndex)? onTransportSelect;
+
   final bool highlightLocationButton;
   final bool highlightSearchBar;
   final bool highlightDirectionsButton;
@@ -68,6 +73,9 @@ class MapAppScreen extends StatelessWidget {
   final int navigationStep;
   final String searchQuery;
   final bool isFavorite;
+
+  /// 現在選択されている交通手段インデックス
+  final int? selectedTransportIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +187,8 @@ class MapAppScreen extends StatelessWidget {
               child: _NavigationPanel(
                 sq: sq,
                 step: navigationStep,
+                selectedTransportIndex: selectedTransportIndex,
+                onTransportSelect: onTransportSelect,
                 onNavigationStart: onNavigationStart,
               ),
             ),
@@ -712,11 +722,15 @@ class _NavigationPanel extends StatelessWidget {
   const _NavigationPanel({
     required this.sq,
     required this.step,
+    this.selectedTransportIndex,
+    this.onTransportSelect,
     this.onNavigationStart,
   });
 
   final $map.Translations sq;
   final int step;
+  final int? selectedTransportIndex;
+  final void Function(int)? onTransportSelect;
   final VoidCallback? onNavigationStart;
 
   static const _transportIcons = [
@@ -744,14 +758,17 @@ class _NavigationPanel extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // 交通手段選択
+          // 交通手段選択（タップ可能）
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               for (int i = 0; i < _transportIcons.length; i++)
                 _TransportOption(
                   icon: _transportIcons[i],
-                  isSelected: i == 0,
+                  isSelected: i == selectedTransportIndex,
+                  onTap: onTransportSelect != null
+                      ? () => onTransportSelect!(i)
+                      : null,
                 ),
             ],
           ),
@@ -778,11 +795,11 @@ class _NavigationPanel extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          // 開始ボタン
+          // 開始ボタン（交通手段選択後のみ有効）
           SizedBox(
             width: double.infinity,
             child: FilledButton.icon(
-              onPressed: onNavigationStart,
+              onPressed: selectedTransportIndex != null ? onNavigationStart : null,
               icon: const Icon(Icons.navigation, size: 18),
               label: Text(
                 CustomLanguageEncoder.encode(sq.common.startNavigation),
@@ -805,32 +822,38 @@ class _TransportOption extends StatelessWidget {
   const _TransportOption({
     required this.icon,
     required this.isSelected,
+    this.onTap,
   });
 
   final IconData icon;
   final bool isSelected;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: isSelected
-            ? Theme.of(context).colorScheme.primaryContainer
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-        border: isSelected
-            ? Border.all(
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
-              )
-            : null,
-      ),
-      child: Icon(
-        icon,
-        color: isSelected
-            ? Theme.of(context).colorScheme.primary
-            : Colors.grey,
-        size: 24,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          border: isSelected
+              ? Border.all(
+                  color:
+                      Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+                )
+              : null,
+        ),
+        child: Icon(
+          icon,
+          color: isSelected
+              ? Theme.of(context).colorScheme.primary
+              : Colors.grey,
+          size: 24,
+        ),
       ),
     );
   }

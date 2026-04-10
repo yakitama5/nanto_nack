@@ -6,7 +6,7 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
 import '../../application/quiz_start_navigation_use_case.dart';
-import '../../domain/map_catalog.dart';
+import '../../domain/entities/map_place.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'start_navigation_quiz_state.dart';
 
@@ -15,7 +15,7 @@ final startNavigationQuizProvider = AutoDisposeNotifierProvider<
   StartNavigationQuizNotifier.new,
 );
 
-/// Quiz 3「ルート案内を開始する」のNotifier
+/// Quiz 3「目的地と交通手段を選んでルートを案内する」のNotifier
 class StartNavigationQuizNotifier
     extends AutoDisposeNotifier<StartNavigationQuizState> {
   static const _quizId = 'map_quiz3';
@@ -27,17 +27,13 @@ class StartNavigationQuizNotifier
   @override
   StartNavigationQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return StartNavigationQuizState.initial(
-      destination: MapCatalog.destination,
-      timeLimitSeconds: _timeLimitSeconds,
-    );
+    return StartNavigationQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
     state = StartNavigationQuizState.initial(
-      destination: MapCatalog.destination,
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
@@ -47,28 +43,68 @@ class StartNavigationQuizNotifier
     _startTimer();
   }
 
-  /// 「ルート案内」ボタンをタップ → ルートパネルを表示
-  void tapDirections() {
-    if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(showDirections: true);
-  }
-
-  /// 「開始」ボタンをタップ → クリア
-  Future<void> tapStartNavigation() async {
+  /// 目的地のピンをタップした
+  Future<void> selectPlace(MapPlace place) async {
     if (state.status != QuizStatus.playing) return;
 
-    final isClear = _useCase.isClear(navigationStarted: true);
-    if (isClear) {
+    if (_useCase.isCorrectDestination(place.id)) {
+      // 正解の目的地: ルートパネルを表示
+      state = state.copyWith(
+        selectedPlace: place,
+        showDirections: true,
+      );
+    } else {
+      // 不正解の目的地: 即時不正解
       _timer?.cancel();
       final elapsed = _elapsed;
       state = state.copyWith(
-        navigationStarted: true,
-        status: QuizStatus.correct,
+        selectedPlace: place,
+        status: QuizStatus.incorrect,
+        failureCount: state.failureCount + 1,
         elapsedMs: elapsed,
       );
-      await hapticFeedback.playSuccessFeedback();
-      await _saveResult(isCleared: true, elapsedMs: elapsed);
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
     }
+  }
+
+  /// 交通手段を選択した
+  Future<void> selectTransport(int transportIndex) async {
+    if (state.status != QuizStatus.playing) return;
+    if (!state.showDirections) return;
+
+    if (_useCase.isCorrectTransport(transportIndex)) {
+      // 正解の交通手段: 選択状態を更新
+      state = state.copyWith(selectedTransportIndex: transportIndex);
+    } else {
+      // 不正解の交通手段: 即時不正解
+      _timer?.cancel();
+      final elapsed = _elapsed;
+      state = state.copyWith(
+        selectedTransportIndex: transportIndex,
+        status: QuizStatus.incorrect,
+        failureCount: state.failureCount + 1,
+        elapsedMs: elapsed,
+      );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    }
+  }
+
+  /// 「案内を開始」ボタンをタップ → クリア（交通手段が正解の場合のみ到達）
+  Future<void> tapStartNavigation() async {
+    if (state.status != QuizStatus.playing) return;
+    if (state.selectedTransportIndex == null) return;
+
+    _timer?.cancel();
+    final elapsed = _elapsed;
+    state = state.copyWith(
+      navigationStarted: true,
+      status: QuizStatus.correct,
+      elapsedMs: elapsed,
+    );
+    await hapticFeedback.playSuccessFeedback();
+    await _saveResult(isCleared: true, elapsedMs: elapsed);
   }
 
   /// 諦めてクイズを終了する
@@ -94,7 +130,6 @@ class StartNavigationQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = StartNavigationQuizState.initial(
-      destination: MapCatalog.destination,
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
