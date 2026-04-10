@@ -166,6 +166,35 @@ void main() {
           expect(result.remainingPlayCount, isNull);
         });
       });
+
+      test('未課金・上限10・3回プレイ済みなら残り7回・上限10', () async {
+        await withClock(Clock.fixed(_fixedNow), () async {
+          final useCase = GetDashboardDataUseCase(
+            FakeDashboardRepository(
+              todayPlayCount: 3,
+              premiumFlag: false,
+              dailyLimit: 10,
+            ),
+          );
+
+          final result = await useCase.execute();
+
+          expect(result.remainingPlayCount, 7);
+          expect(result.dailyPlayLimit, 10);
+        });
+      });
+
+      test('課金済みなら dailyPlayLimit は null（無制限）', () async {
+        await withClock(Clock.fixed(_fixedNow), () async {
+          final useCase = GetDashboardDataUseCase(
+            FakeDashboardRepository(todayPlayCount: 3, premiumFlag: true),
+          );
+
+          final result = await useCase.execute();
+
+          expect(result.dailyPlayLimit, isNull);
+        });
+      });
     });
 
     group('連続プレイ日数（ストリーク）計算', () {
