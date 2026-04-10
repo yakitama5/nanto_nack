@@ -1,19 +1,20 @@
 import '../../i18n/strings.g.dart';
 
-/// 「目的地を検索する」クイズのクリア判定ユースケース
-class QuizSearchPlaceUseCase {
+/// 「学校の情報を表示する」クイズのクリア判定ユースケース
+class QuizShowSchoolInfoUseCase {
   /// コンストラクタ
-  const QuizSearchPlaceUseCase();
+  const QuizShowSchoolInfoUseCase();
 
-  /// クリア条件を満たしているか
-  bool isClear({required bool placeSelected}) => placeSelected;
+  /// 正解の場所ID（学校）
+  static const correctPlaceId = 'p5';
+
+  /// クリア条件：学校の場所が選択されているか
+  bool isClear({required String selectedPlaceId}) =>
+      selectedPlaceId == correctPlaceId;
 
   /// 失敗した理由を返す
-  String? failureReason({required bool placeSelected}) {
-    if (isClear(placeSelected: placeSelected)) {
-      return null;
-    }
-    // UIへのメッセージとして直接用いるため
+  String? failureReason({required String selectedPlaceId}) {
+    if (isClear(selectedPlaceId: selectedPlaceId)) return null;
     return t.quiz2.failureReason;
   }
 }

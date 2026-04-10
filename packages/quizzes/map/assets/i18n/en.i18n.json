@@ -14,17 +14,17 @@
     }
   },
   "quiz2": {
-    "missionText": "Please search for a destination",
-    "failureReason": "Please search for a destination in the search bar",
+    "missionText": "Please show the information of a registered school",
+    "failureReason": "Please tap the place with the school icon",
     "insight": {
-      "title": "How did you find the search bar?",
-      "subtitle": "Magnifying glass is the universal symbol for search",
-      "searchTitle": "Magnifying glass icon means search",
-      "searchDesc": "The magnifying glass is unified as a search icon from Google to SNS across all apps.",
-      "suggestTitle": "Search suggestions aid navigation",
-      "suggestDesc": "Suggestion lists appearing while typing is a standard operation pattern in map apps.",
-      "pinTitle": "Result selection places a pin on the map",
-      "pinDesc": "Tapping a search result shows a pin on the map. A visual feedback pattern for destinations."
+      "title": "How did you recognize the school icon?",
+      "subtitle": "Icons communicate the type of place",
+      "iconTitle": "Icons indicate the type of facility",
+      "iconDesc": "In map apps, icons for schools, hospitals, and stations let you identify facility types at a glance — even without reading the language.",
+      "tapTitle": "Tap to show detailed information",
+      "tapDesc": "Tapping a pin or icon displays the place details (name, address) in a bottom panel. The fundamental operation pattern of map apps.",
+      "infoTitle": "Saved information accessible instantly",
+      "infoDesc": "Saved places are always shown as icons on the map and tapping them instantly reveals details. Intuitive UI for bookmarked locations."
     }
   },
   "quiz3": {

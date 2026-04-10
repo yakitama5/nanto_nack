@@ -14,17 +14,17 @@
     }
   },
   "quiz2": {
-    "missionText": "Search for a destination",
-    "failureReason": "Search for a destination in the search bar",
+    "missionText": "Show school info",
+    "failureReason": "Tap the school icon",
     "insight": {
-      "title": "How did you find the search bar?",
-      "subtitle": "Magnifying glass means search",
-      "searchTitle": "Magnifying glass icon means search",
-      "searchDesc": "Unified search icon across all apps.",
-      "suggestTitle": "Suggestions aid navigation",
-      "suggestDesc": "Suggestion lists standard in map apps.",
-      "pinTitle": "Pin placed on map",
-      "pinDesc": "Tapping result shows pin on map."
+      "title": "How did you find the school?",
+      "subtitle": "Icons show place types",
+      "iconTitle": "Icons identify facility types",
+      "iconDesc": "Icons distinguish place types without language.",
+      "tapTitle": "Tap for details",
+      "tapDesc": "Tapping shows place info in bottom panel.",
+      "infoTitle": "Saved places always accessible",
+      "infoDesc": "Tap saved places to view details instantly."
     }
   },
   "quiz3": {

@@ -112,6 +112,7 @@ class MapAppScreen extends StatelessWidget {
               selectedPlace: selectedPlace,
               locationShown: locationShown,
               mapColor: mapGreen,
+              onPlaceSelect: onPlaceSelect,
             ),
           ),
           // 検索バー
@@ -205,12 +206,14 @@ class _MapCanvas extends StatelessWidget {
     required this.selectedPlace,
     required this.locationShown,
     required this.mapColor,
+    this.onPlaceSelect,
   });
 
   final List<MapPlace> places;
   final MapPlace? selectedPlace;
   final bool locationShown;
   final Color mapColor;
+  final void Function(MapPlace)? onPlaceSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -227,6 +230,7 @@ class _MapCanvas extends StatelessWidget {
               place: place,
               isSelected: selectedPlace?.id == place.id,
               color: pinColors[place.colorSeed % pinColors.length],
+              onTap: onPlaceSelect != null ? () => onPlaceSelect!(place) : null,
             ),
           // 現在地インジケータ
           if (locationShown)
@@ -332,11 +336,13 @@ class _PlacePin extends StatelessWidget {
     required this.place,
     required this.isSelected,
     required this.color,
+    this.onTap,
   });
 
   final MapPlace place;
   final bool isSelected;
   final Color color;
+  final VoidCallback? onTap;
 
   static const _positions = <String, Offset>{
     'p1': Offset(0.25, 0.25),
@@ -352,7 +358,9 @@ class _PlacePin extends StatelessWidget {
     return Positioned(
       left: MediaQuery.widthOf(context) * pos.dx - 18,
       top: MediaQuery.heightOf(context) * pos.dy - 36,
-      child: Column(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
@@ -379,6 +387,7 @@ class _PlacePin extends StatelessWidget {
             painter: _PinTailPainter(color: color),
           ),
         ],
+        ),
       ),
     );
   }
