@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_tab.dart';
+import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:quiz_core/quiz_core.dart';
 
@@ -13,7 +14,7 @@ class SendImageQuizState extends QuizStateBase {
     required this.messages,
     required this.remainingSeconds,
     this.isImagePickerOpen = false,
-    this.isCorrectChatRoom = true,
+    this.openedContact,
   });
 
   final ChatTab currentTab;
@@ -24,9 +25,8 @@ class SendImageQuizState extends QuizStateBase {
   /// 画像ピッカーが開いているかどうか
   final bool isImagePickerOpen;
 
-  /// 現在開いているチャットルームが正解のコンタクトかどうか
-  /// false の場合、アクションを実行したタイミングで不正解になる
-  final bool isCorrectChatRoom;
+  /// 現在開いているチャットルームのコンタクト
+  final ChatContact? openedContact;
 
   SendImageQuizState copyWith({
     QuizStatus? status,
@@ -38,7 +38,7 @@ class SendImageQuizState extends QuizStateBase {
     List<ChatMessage>? messages,
     int? remainingSeconds,
     bool? isImagePickerOpen,
-    bool? isCorrectChatRoom,
+    ChatContact? Function()? openedContact,
   }) {
     return SendImageQuizState(
       status: status ?? this.status,
@@ -50,7 +50,8 @@ class SendImageQuizState extends QuizStateBase {
       messages: messages ?? this.messages,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       isImagePickerOpen: isImagePickerOpen ?? this.isImagePickerOpen,
-      isCorrectChatRoom: isCorrectChatRoom ?? this.isCorrectChatRoom,
+      openedContact:
+          openedContact != null ? openedContact() : this.openedContact,
     );
   }
 
@@ -67,6 +68,5 @@ class SendImageQuizState extends QuizStateBase {
         isInChatRoom: false,
         messages: initialMessages,
         remainingSeconds: timeLimitSeconds,
-        isCorrectChatRoom: true,
       );
 }

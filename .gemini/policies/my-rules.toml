@@ -1,0 +1,57 @@
+# ==========================================
+# 1. ファイル操作の許可
+# プロジェクト内のファイル読み書きと削除を許可します。
+# ==========================================
+[[rule]]
+toolName = ["read_file", "write_file", "delete_file"]
+decision = "allow"
+priority = 100
+
+# ==========================================
+# 2. ローカルブランチ操作 ＆ 安全な参照系コマンドの許可
+# コマンドの先頭が以下に一致する場合は自動実行を許可します。
+# ==========================================
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = [
+    "git status", "git branch", "git checkout",
+    "git log", "git diff", "git add", "git commit",
+    "git pull", "git fetch",
+    "gh pr view", "gh pr list",
+    "ls", "cat", "npm test", "npm run", "yarn test", "yarn run"
+]
+decision = "allow"
+priority = 100
+
+# ==========================================
+# 3. リモート環境への破壊的変更の禁止（ブラックリスト）
+# プッシュやリモートリポジトリの変更はブロックします。
+# priority を高く(200)設定し、確実にブロックさせます。
+# ==========================================
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["git push", "git remote"]
+decision = "deny"
+priority = 200
+denyMessage = "リモートブランチへのPushや設定変更は安全のためブロックされています。"
+
+# ==========================================
+# 4. 外部への通信・アップロードの禁止（ブラックリスト）
+# 意図しない外部サーバーへの送信を防ぎます。
+# ==========================================
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["curl", "wget", "scp", "sftp", "ftp"]
+decision = "deny"
+priority = 200
+denyMessage = "外部ネットワークへのリクエストやファイル転送はブロックされています。"
+
+# ==========================================
+# 5. プロジェクト外への移動制限 (念のため)
+# ==========================================
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["cd ..", "cd /", "cd C:"]
+decision = "deny"
+priority = 200
+denyMessage = "プロジェクト外のディレクトリへの移動はブロックされています。"

@@ -95,14 +95,23 @@ android {
 
     buildTypes {
         release {
-            if (!keystorePropertiesFile.exists()) {
+            // リリースビルドタスクが指定されている場合のみ key.properties を必須とする
+            // (assembleDebug 等では key.properties がなくてもビルドできるようにする)
+            val isReleaseBuild = gradle.startParameter.taskNames.any {
+                it.contains("Release", ignoreCase = true) || it.contains("Bundle", ignoreCase = true)
+            }
+            if (isReleaseBuild && !keystorePropertiesFile.exists()) {
                 throw GradleException(
                     "リリースビルドに必要な key.properties が見つかりません。\n" +
                     "期待されるパス: ${keystorePropertiesFile.absolutePath}\n" +
                     "リリース署名の設定を含む key.properties を配置してください。"
                 )
             }
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (keystorePropertiesFile.exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }

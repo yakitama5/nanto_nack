@@ -8,5 +8,9 @@
       "command": "dart",
       "args": ["mcp-server"]
     }
+  },
+  "filesystem": {
+    "ignore_git_ignored": true,
+    "restrict_to_workspace": true
   }
 }

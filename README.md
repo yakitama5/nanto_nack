@@ -1,17 +1,55 @@
-# nanto_nack
+# NantoNack
 
-A new Flutter project.
+UI/UX直感クイズアプリ「NantoNack」の公式リポジトリです。
 
-## Getting Started
+## 概要
 
-This project is a starting point for a Flutter application.
+NantoNackは、ユーザーが楽しく直感的にUXの概念やクイズを学べるアプリケーションです。
+FlutterとDartを用いたモノレポ構成を採用しており、高い保守性と拡張性を維持しています。
 
-A few resources to get you started if this is your first Flutter project:
+## 技術スタック
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- **Flutter**: v3.41.5 (fvm管理)
+- **状態管理**: Riverpod (`flutter_riverpod`)
+- **ルーティング**: Go Router (`go_router`)
+- **データベース**: Drift (SQLite)
+- **バックエンド**: Firebase
+- **多言語化**: Slang
+- **テスト**: Alchemist (Golden Test), Mocktail
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## アーキテクチャ
+
+本プロジェクトは、4層レイヤードアーキテクチャを採用しています。
+
+- **Presentation**: UIコンポーネントおよび画面レイアウト。
+- **Application**: アプリケーションロジック、状態管理。
+- **Domain**: ドメイン知識、エンティティ定義。
+- **Infrastructure**: Firebase、DB、API通信等の外部サービスとのインターフェース。
+
+## 開発セットアップ
+
+### 前提条件
+
+- [fvm](https://fvm.app/) がインストールされていること。
+
+### 手順
+
+1. プロジェクトをクローンし、ディレクトリに移動します。
+2. 依存関係のインストール（Melosを利用）:
+   ```bash
+   fvm flutter pub get
+   melos bootstrap
+   ```
+
+## 主要コマンド (Melos)
+
+プロジェクトの管理には `melos` を使用します。
+
+- **依存関係の同期**: `melos bootstrap`
+- **コード生成 (build_runner)**: `melos run generate`
+- **静的解析**: `melos run lint`
+- **テスト全実行**: `melos run test:all`
+
+## ライセンス
+
+[LICENSE](LICENSE) ファイルを参照してください。
