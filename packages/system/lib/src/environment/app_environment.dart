@@ -15,6 +15,10 @@ abstract final class AppEnvironment {
     'iosBundleId',
     defaultValue: 'com.yakuran.nantoNack.dev',
   );
+  static const iosAppStoreId = String.fromEnvironment(
+    'iosAppStoreId',
+    defaultValue: '',
+  );
 
   static Flavor get flavor => Flavor.values.byName(_flavorName);
 
