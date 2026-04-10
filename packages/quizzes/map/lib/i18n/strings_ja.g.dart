@@ -90,11 +90,11 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: 'ルート案内を開始してください'
-	String get missionText => 'ルート案内を開始してください';
+	/// ja: '公園まで電車でルートを案内してください'
+	String get missionText => '公園まで電車でルートを案内してください';
 
-	/// ja: 'ルート案内を開始してください'
-	String get failureReason => 'ルート案内を開始してください';
+	/// ja: '公園を選んで電車でルートを案内してください'
+	String get failureReason => '公園を選んで電車でルートを案内してください';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -286,29 +286,29 @@ class TranslationsQuiz3InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜルート案内ボタンを見つけられた？'
-	String get title => 'なぜルート案内ボタンを見つけられた？';
+	/// ja: 'なぜ目的地と交通手段を選べた？'
+	String get title => 'なぜ目的地と交通手段を選べた？';
 
-	/// ja: '↗ 矢印は「案内する」を表す記号'
-	String get subtitle => '↗ 矢印は「案内する」を表す記号';
+	/// ja: '🗺️ 地図アプリのルート検索3ステップ'
+	String get subtitle => '🗺️ 地図アプリのルート検索3ステップ';
 
-	/// ja: '矢印アイコンがナビゲーションを表す'
-	String get routeTitle => '矢印アイコンがナビゲーションを表す';
+	/// ja: 'ピンをタップして目的地を選ぶ'
+	String get destinationTitle => 'ピンをタップして目的地を選ぶ';
 
-	/// ja: '右上を向く矢印アイコンは、Google マップ・Apple マップ共通のナビゲーション開始ボタンとして定着している。'
-	String get routeDesc => '右上を向く矢印アイコンは、Google マップ・Apple マップ共通のナビゲーション開始ボタンとして定着している。';
+	/// ja: '地図上のアイコンをタップすると場所の詳細が表示され、そのままルート検索に進める。地図アプリの基本的な操作フロー。'
+	String get destinationDesc => '地図上のアイコンをタップすると場所の詳細が表示され、そのままルート検索に進める。地図アプリの基本的な操作フロー。';
 
-	/// ja: '交通手段の選択が並ぶ'
-	String get transportTitle => '交通手段の選択が並ぶ';
+	/// ja: '交通手段アイコンの並びは世界共通'
+	String get transportTitle => '交通手段アイコンの並びは世界共通';
 
-	/// ja: '車・電車・徒歩・自転車のアイコンが横並びになるパターンは、主要地図アプリで共通のUI。'
-	String get transportDesc => '車・電車・徒歩・自転車のアイコンが横並びになるパターンは、主要地図アプリで共通のUI。';
+	/// ja: '車・徒歩・電車・自転車の順で並ぶアイコンは、主要地図アプリで定着した標準的なUI。'
+	String get transportDesc => '車・徒歩・電車・自転車の順で並ぶアイコンは、主要地図アプリで定着した標準的なUI。';
 
-	/// ja: 'ターンバイターン案内が直感的'
-	String get stepTitle => 'ターンバイターン案内が直感的';
+	/// ja: '「開始」で案内スタート'
+	String get startTitle => '「開始」で案内スタート';
 
-	/// ja: '次の交差点での左右の指示が大きく表示されるターンバイターン案内は、カーナビ時代から続く直感的なUI。'
-	String get stepDesc => '次の交差点での左右の指示が大きく表示されるターンバイターン案内は、カーナビ時代から続く直感的なUI。';
+	/// ja: '目的地と交通手段を選んで開始ボタンを押すだけ。シンプルな3ステップで案内を開始できる。'
+	String get startDesc => '目的地と交通手段を選んで開始ボタンを押すだけ。シンプルな3ステップで案内を開始できる。';
 }
 
 // Path: quiz4.insight
@@ -372,16 +372,16 @@ extension on Translations {
 			'quiz2.insight.tapDesc' => 'ピンやアイコンをタップすると、その場所の詳細情報（名前・住所等）が下部パネルに表示される。地図アプリの基本的な操作パターン。',
 			'quiz2.insight.infoTitle' => '登録済み情報がすぐ確認できる',
 			'quiz2.insight.infoDesc' => '保存した場所はマップ上で常にアイコン表示され、タップするだけで詳細を確認できる。ブックマーク機能の直感的なUI。',
-			'quiz3.missionText' => 'ルート案内を開始してください',
-			'quiz3.failureReason' => 'ルート案内を開始してください',
-			'quiz3.insight.title' => 'なぜルート案内ボタンを見つけられた？',
-			'quiz3.insight.subtitle' => '↗ 矢印は「案内する」を表す記号',
-			'quiz3.insight.routeTitle' => '矢印アイコンがナビゲーションを表す',
-			'quiz3.insight.routeDesc' => '右上を向く矢印アイコンは、Google マップ・Apple マップ共通のナビゲーション開始ボタンとして定着している。',
-			'quiz3.insight.transportTitle' => '交通手段の選択が並ぶ',
-			'quiz3.insight.transportDesc' => '車・電車・徒歩・自転車のアイコンが横並びになるパターンは、主要地図アプリで共通のUI。',
-			'quiz3.insight.stepTitle' => 'ターンバイターン案内が直感的',
-			'quiz3.insight.stepDesc' => '次の交差点での左右の指示が大きく表示されるターンバイターン案内は、カーナビ時代から続く直感的なUI。',
+			'quiz3.missionText' => '公園まで電車でルートを案内してください',
+			'quiz3.failureReason' => '公園を選んで電車でルートを案内してください',
+			'quiz3.insight.title' => 'なぜ目的地と交通手段を選べた？',
+			'quiz3.insight.subtitle' => '🗺️ 地図アプリのルート検索3ステップ',
+			'quiz3.insight.destinationTitle' => 'ピンをタップして目的地を選ぶ',
+			'quiz3.insight.destinationDesc' => '地図上のアイコンをタップすると場所の詳細が表示され、そのままルート検索に進める。地図アプリの基本的な操作フロー。',
+			'quiz3.insight.transportTitle' => '交通手段アイコンの並びは世界共通',
+			'quiz3.insight.transportDesc' => '車・徒歩・電車・自転車の順で並ぶアイコンは、主要地図アプリで定着した標準的なUI。',
+			'quiz3.insight.startTitle' => '「開始」で案内スタート',
+			'quiz3.insight.startDesc' => '目的地と交通手段を選んで開始ボタンを押すだけ。シンプルな3ステップで案内を開始できる。',
 			'quiz4.missionText' => 'この場所をお気に入りに追加してください',
 			'quiz4.failureReason' => '場所をお気に入りに追加してください',
 			'quiz4.insight.title' => 'なぜお気に入りボタンを見つけられた？',

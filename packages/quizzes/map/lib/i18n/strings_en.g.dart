@@ -78,8 +78,8 @@ class _TranslationsQuiz3En extends TranslationsQuiz3Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please start route navigation';
-	@override String get failureReason => 'Please start route navigation';
+	@override String get missionText => 'Navigate to the park by train';
+	@override String get failureReason => 'Select the park and choose train for directions';
 	@override late final _TranslationsQuiz3InsightEn insight = _TranslationsQuiz3InsightEn._(_root);
 }
 
@@ -180,14 +180,14 @@ class _TranslationsQuiz3InsightEn extends TranslationsQuiz3InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the navigation button?';
-	@override String get subtitle => 'Arrow represents \'navigate\'';
-	@override String get routeTitle => 'Arrow icon represents navigation';
-	@override String get routeDesc => 'The upper-right arrow has become the standard navigation start button common to Google Maps and Apple Maps.';
-	@override String get transportTitle => 'Transport options lined up';
-	@override String get transportDesc => 'Car, train, walk, bike icons in a row is a UI common across major map apps.';
-	@override String get stepTitle => 'Turn-by-turn navigation is intuitive';
-	@override String get stepDesc => 'Large turn-left/right instructions at the next intersection — turn-by-turn navigation continues from the car navigation era.';
+	@override String get title => 'How did you select the destination and transport?';
+	@override String get subtitle => '3 steps to navigate in a map app';
+	@override String get destinationTitle => 'Tap a pin to select a destination';
+	@override String get destinationDesc => 'Tapping an icon on the map shows place details and lets you start route search — the basic operation flow of map apps.';
+	@override String get transportTitle => 'Transport icons are universal';
+	@override String get transportDesc => 'Car, walk, train, bike icons in a row is a standard UI common across major map apps.';
+	@override String get startTitle => 'Tap Start to begin navigation';
+	@override String get startDesc => 'Just select a destination and transport mode, then tap Start. A simple 3-step process to begin navigation.';
 }
 
 // Path: quiz4.insight
@@ -235,16 +235,16 @@ extension on TranslationsEn {
 			'quiz2.insight.tapDesc' => 'Tapping a pin or icon displays the place details (name, address) in a bottom panel. The fundamental operation pattern of map apps.',
 			'quiz2.insight.infoTitle' => 'Saved information accessible instantly',
 			'quiz2.insight.infoDesc' => 'Saved places are always shown as icons on the map and tapping them instantly reveals details. Intuitive UI for bookmarked locations.',
-			'quiz3.missionText' => 'Please start route navigation',
-			'quiz3.failureReason' => 'Please start route navigation',
-			'quiz3.insight.title' => 'How did you find the navigation button?',
-			'quiz3.insight.subtitle' => 'Arrow represents \'navigate\'',
-			'quiz3.insight.routeTitle' => 'Arrow icon represents navigation',
-			'quiz3.insight.routeDesc' => 'The upper-right arrow has become the standard navigation start button common to Google Maps and Apple Maps.',
-			'quiz3.insight.transportTitle' => 'Transport options lined up',
-			'quiz3.insight.transportDesc' => 'Car, train, walk, bike icons in a row is a UI common across major map apps.',
-			'quiz3.insight.stepTitle' => 'Turn-by-turn navigation is intuitive',
-			'quiz3.insight.stepDesc' => 'Large turn-left/right instructions at the next intersection — turn-by-turn navigation continues from the car navigation era.',
+			'quiz3.missionText' => 'Navigate to the park by train',
+			'quiz3.failureReason' => 'Select the park and choose train for directions',
+			'quiz3.insight.title' => 'How did you select the destination and transport?',
+			'quiz3.insight.subtitle' => '3 steps to navigate in a map app',
+			'quiz3.insight.destinationTitle' => 'Tap a pin to select a destination',
+			'quiz3.insight.destinationDesc' => 'Tapping an icon on the map shows place details and lets you start route search — the basic operation flow of map apps.',
+			'quiz3.insight.transportTitle' => 'Transport icons are universal',
+			'quiz3.insight.transportDesc' => 'Car, walk, train, bike icons in a row is a standard UI common across major map apps.',
+			'quiz3.insight.startTitle' => 'Tap Start to begin navigation',
+			'quiz3.insight.startDesc' => 'Just select a destination and transport mode, then tap Start. A simple 3-step process to begin navigation.',
 			'quiz4.missionText' => 'Please add this place to favorites',
 			'quiz4.failureReason' => 'Please add the place to favorites',
 			'quiz4.insight.title' => 'How did you find the favorites button?',

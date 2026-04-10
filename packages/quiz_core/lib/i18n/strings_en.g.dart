@@ -319,7 +319,7 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get streaming_quiz4 => 'Download a Video';
 	@override String get map_quiz1 => 'Show Current Location';
 	@override String get map_quiz2 => 'Show School Information';
-	@override String get map_quiz3 => 'Start Navigation';
+	@override String get map_quiz3 => 'Navigate to Park by Train';
 	@override String get map_quiz4 => 'Add to Favorites';
 	@override String get alarm_quiz1 => 'Add an Alarm';
 	@override String get alarm_quiz2 => 'Set Weekday Only';
@@ -352,7 +352,7 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get streaming_quiz4 => 'Change to highest quality and download the video';
 	@override String get map_quiz1 => 'Show your current location in the map app';
 	@override String get map_quiz2 => 'Tap the school icon on the map to show its information';
-	@override String get map_quiz3 => 'Start route navigation in the map app';
+	@override String get map_quiz3 => 'Select the park and choose train to navigate in the map app';
 	@override String get map_quiz4 => 'Save a location to favorites in the map app';
 	@override String get alarm_quiz1 => 'Add a new alarm in the clock app';
 	@override String get alarm_quiz2 => 'Set an alarm to repeat only Monday through Friday';
@@ -531,7 +531,7 @@ extension on TranslationsEn {
 			'play.stageTitle.streaming_quiz4' => 'Download a Video',
 			'play.stageTitle.map_quiz1' => 'Show Current Location',
 			'play.stageTitle.map_quiz2' => 'Show School Information',
-			'play.stageTitle.map_quiz3' => 'Start Navigation',
+			'play.stageTitle.map_quiz3' => 'Navigate to Park by Train',
 			'play.stageTitle.map_quiz4' => 'Add to Favorites',
 			'play.stageTitle.alarm_quiz1' => 'Add an Alarm',
 			'play.stageTitle.alarm_quiz2' => 'Set Weekday Only',
@@ -555,7 +555,7 @@ extension on TranslationsEn {
 			'play.stageDescription.streaming_quiz4' => 'Change to highest quality and download the video',
 			'play.stageDescription.map_quiz1' => 'Show your current location in the map app',
 			'play.stageDescription.map_quiz2' => 'Tap the school icon on the map to show its information',
-			'play.stageDescription.map_quiz3' => 'Start route navigation in the map app',
+			'play.stageDescription.map_quiz3' => 'Select the park and choose train to navigate in the map app',
 			'play.stageDescription.map_quiz4' => 'Save a location to favorites in the map app',
 			'play.stageDescription.alarm_quiz1' => 'Add a new alarm in the clock app',
 			'play.stageDescription.alarm_quiz2' => 'Set an alarm to repeat only Monday through Friday',

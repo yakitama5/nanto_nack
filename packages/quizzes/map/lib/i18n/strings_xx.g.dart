@@ -78,8 +78,8 @@ class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Start navigation';
-	@override String get failureReason => 'Start route navigation';
+	@override String get missionText => 'Navigate to park by train';
+	@override String get failureReason => 'Select park and train for navigation';
 	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
 
@@ -180,14 +180,14 @@ class _TranslationsQuiz3InsightXx extends TranslationsQuiz3InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find navigation?';
-	@override String get subtitle => 'Arrow represents navigate';
-	@override String get routeTitle => 'Arrow means navigation';
-	@override String get routeDesc => 'Upper-right arrow is standard navigation button.';
-	@override String get transportTitle => 'Transport options';
-	@override String get transportDesc => 'Car, train, walk icons in a row.';
-	@override String get stepTitle => 'Turn-by-turn is intuitive';
-	@override String get stepDesc => 'Large turn instructions continue from car navigation era.';
+	@override String get title => 'How did you navigate?';
+	@override String get subtitle => '3 steps to navigate';
+	@override String get destinationTitle => 'Tap pin for destination';
+	@override String get destinationDesc => 'Tap map icon to see place details.';
+	@override String get transportTitle => 'Transport icons are universal';
+	@override String get transportDesc => 'Car, walk, train, bike icons standard.';
+	@override String get startTitle => 'Tap Start to begin';
+	@override String get startDesc => 'Select destination and transport, then start.';
 }
 
 // Path: quiz4.insight
@@ -235,16 +235,16 @@ extension on TranslationsXx {
 			'quiz2.insight.tapDesc' => 'Tapping shows place info in bottom panel.',
 			'quiz2.insight.infoTitle' => 'Saved places always accessible',
 			'quiz2.insight.infoDesc' => 'Tap saved places to view details instantly.',
-			'quiz3.missionText' => 'Start navigation',
-			'quiz3.failureReason' => 'Start route navigation',
-			'quiz3.insight.title' => 'How did you find navigation?',
-			'quiz3.insight.subtitle' => 'Arrow represents navigate',
-			'quiz3.insight.routeTitle' => 'Arrow means navigation',
-			'quiz3.insight.routeDesc' => 'Upper-right arrow is standard navigation button.',
-			'quiz3.insight.transportTitle' => 'Transport options',
-			'quiz3.insight.transportDesc' => 'Car, train, walk icons in a row.',
-			'quiz3.insight.stepTitle' => 'Turn-by-turn is intuitive',
-			'quiz3.insight.stepDesc' => 'Large turn instructions continue from car navigation era.',
+			'quiz3.missionText' => 'Navigate to park by train',
+			'quiz3.failureReason' => 'Select park and train for navigation',
+			'quiz3.insight.title' => 'How did you navigate?',
+			'quiz3.insight.subtitle' => '3 steps to navigate',
+			'quiz3.insight.destinationTitle' => 'Tap pin for destination',
+			'quiz3.insight.destinationDesc' => 'Tap map icon to see place details.',
+			'quiz3.insight.transportTitle' => 'Transport icons are universal',
+			'quiz3.insight.transportDesc' => 'Car, walk, train, bike icons standard.',
+			'quiz3.insight.startTitle' => 'Tap Start to begin',
+			'quiz3.insight.startDesc' => 'Select destination and transport, then start.',
 			'quiz4.missionText' => 'Add to favorites',
 			'quiz4.failureReason' => 'Add the place to favorites',
 			'quiz4.insight.title' => 'How did you find favorites?',
