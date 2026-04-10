@@ -1,3 +1,4 @@
+export 'src/logger/app_logger.dart';
 export 'src/maintenance/system_app_state.dart';
 export 'src/maintenance/system_config_provider.dart';
 export 'src/database/app_database.dart';

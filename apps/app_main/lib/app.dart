@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:system/system.dart';
 
 import 'application/settings/settings_notifier.dart';
 import 'domain/settings/settings_state.dart';
@@ -39,7 +40,9 @@ class _NantoNackAppState extends ConsumerState<NantoNackApp>
   /// [systemConfigProvider] が自動更新され、GoRouter の redirect が再評価される。
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    appLogger.d('[App] didChangeAppLifecycleState: $state');
     if (state == AppLifecycleState.resumed) {
+      appLogger.d('[App] foregrounded → calling fetchAndActivate');
       FirebaseRemoteConfig.instance.fetchAndActivate().ignore();
     }
   }
