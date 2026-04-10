@@ -50,7 +50,7 @@ class _ShowLocationQuizScreenState
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: () => ref.read(showLocationQuizProvider.notifier).giveUp(),
-      highlightLocationButton: state.status == QuizStatus.playing,
+      highlightLocationButton: false,
       onLocationTap: () =>
           ref.read(showLocationQuizProvider.notifier).tapLocation(),
       overlays: [
