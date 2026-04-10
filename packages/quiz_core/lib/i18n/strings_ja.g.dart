@@ -756,8 +756,8 @@ class TranslationsSettingsAboutJa {
 	/// ja: '開発者X（Twitter）'
 	String get developerX => '開発者X（Twitter）';
 
-	/// ja: '利用規約'
-	String get terms => '利用規約';
+	/// ja: 'プライバシーポリシー'
+	String get privacyPolicy => 'プライバシーポリシー';
 
 	/// ja: 'お問い合わせ'
 	String get contact => 'お問い合わせ';
@@ -941,7 +941,7 @@ extension on Translations {
 			'settings.data.resetDataSuccess' => 'データを初期化しました',
 			'settings.about.title' => 'アプリについて',
 			'settings.about.developerX' => '開発者X（Twitter）',
-			'settings.about.terms' => '利用規約',
+			'settings.about.privacyPolicy' => 'プライバシーポリシー',
 			'settings.about.contact' => 'お問い合わせ',
 			'settings.about.licenses' => 'ライセンス',
 			'settings.about.version' => 'バージョン {version}',

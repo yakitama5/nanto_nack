@@ -98,12 +98,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void _showPlayButtonCoachMark() {
     final t = Translations.of(context);
 
-    void navigateToPlay() {
+    Future<void> navigateToPlay() async {
       ref.read(analyticsServiceProvider).logPlayButtonTapped();
       ref
           .read(tutorialNotifierProvider.notifier)
           .advanceTo(TutorialScreen.categoryList);
-      context.push('/play');
+      await context.push('/play');
+      ref.read(dashboardProvider.notifier).refresh();
     }
 
     TutorialCoachMark(
@@ -330,26 +331,10 @@ class _TodayHeroCard extends ConsumerWidget {
                         ),
                       ),
                       // ── 右上アイコンボタン群 ──
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _HeaderIconButton(
-                            icon: Icons.workspace_premium_rounded,
-                            color: Colors.white,
-                            onPressed: () {
-                              ref
-                                  .read(analyticsServiceProvider)
-                                  .logPremiumButtonTapped();
-                              // TODO: プレミアムプラン案内モーダルを表示
-                            },
-                          ),
-                          const SizedBox(width: 4),
-                          _HeaderIconButton(
-                            icon: Icons.settings_rounded,
-                            color: Colors.white,
-                            onPressed: () => context.push('/settings'),
-                          ),
-                        ],
+                      _HeaderIconButton(
+                        icon: Icons.settings_rounded,
+                        color: Colors.white,
+                        onPressed: () => context.push('/settings'),
                       ),
                     ],
                   ),
@@ -466,6 +451,7 @@ class _DashboardContent extends StatelessWidget {
           // プレイヒーローカード（残りプレイ数 + プレイボタン）
           _PlayHeroCard(
             remainingPlayCount: dashboard.remainingPlayCount,
+            dailyPlayLimit: dashboard.dailyPlayLimit,
             playButtonKey: playButtonKey,
           ),
           const SizedBox(height: 16),
@@ -562,13 +548,13 @@ class _TipCard extends StatelessWidget {
 class _PlayHeroCard extends ConsumerWidget {
   const _PlayHeroCard({
     required this.remainingPlayCount,
+    required this.dailyPlayLimit,
     this.playButtonKey,
   });
 
   final int? remainingPlayCount; // null = 無制限（プレミアム）
+  final int? dailyPlayLimit; // null = 無制限（プレミアム）
   final Key? playButtonKey;
-
-  static const _maxPlays = 5;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -576,7 +562,8 @@ class _PlayHeroCard extends ConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final isUnlimited = remainingPlayCount == null;
-    final remaining = remainingPlayCount ?? _maxPlays;
+    final remaining = remainingPlayCount ?? 0;
+    final limit = dailyPlayLimit ?? 0;
 
     return Container(
       width: double.infinity,
@@ -612,7 +599,7 @@ class _PlayHeroCard extends ConsumerWidget {
                   alignment: Alignment.center,
                   children: [
                     CircularProgressIndicator(
-                      value: isUnlimited ? 1.0 : remaining / _maxPlays,
+                      value: isUnlimited ? 1.0 : (limit > 0 ? remaining / limit : 0.0),
                       strokeWidth: 5,
                       backgroundColor: Colors.white.withValues(alpha: 0.25),
                       color: Colors.white,
@@ -629,7 +616,7 @@ class _PlayHeroCard extends ConsumerWidget {
               Text(
                 isUnlimited
                     ? '∞ / ∞'
-                    : '$remaining / $_maxPlays',
+                    : '$remaining / $limit',
                 style: textTheme.titleMedium?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -650,9 +637,10 @@ class _PlayHeroCard extends ConsumerWidget {
             children: [
               FilledButton.icon(
                 key: playButtonKey,
-                onPressed: () {
+                onPressed: () async {
                   ref.read(analyticsServiceProvider).logPlayButtonTapped();
-                  context.push('/play');
+                  await context.push('/play');
+                  ref.read(dashboardProvider.notifier).refresh();
                 },
                 style: FilledButton.styleFrom(
                   backgroundColor: Colors.white,

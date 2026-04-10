@@ -24,10 +24,12 @@ class GetDashboardDataUseCase {
     final dailyLimit = _repository.getDailyPlayLimit();
     final todayPlayCount = await _repository.getTodayPlayCount();
 
-    // プレミアム会員、または制限が無効な場合は残りプレイ回数は無制限
-    final remainingPlayCount = (isPremium || !isLimitEnabled)
+    // プレミアム会員、または制限が無効な場合は残りプレイ回数・上限は無制限
+    final isUnlimited = isPremium || !isLimitEnabled;
+    final remainingPlayCount = isUnlimited
         ? null
         : (dailyLimit - todayPlayCount).clamp(0, dailyLimit);
+    final dailyPlayLimit = isUnlimited ? null : dailyLimit;
 
     final since = clock.now().subtract(const Duration(days: 60));
     final history = await _repository.getQuizHistorySince(since);
@@ -37,6 +39,7 @@ class GetDashboardDataUseCase {
 
     return DashboardState(
       remainingPlayCount: remainingPlayCount,
+      dailyPlayLimit: dailyPlayLimit,
       dailyTip: dailyTip,
       activityHistory: activityHistory,
       currentStreak: currentStreak,

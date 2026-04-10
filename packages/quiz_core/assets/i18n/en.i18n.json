@@ -216,7 +216,7 @@
     "about": {
       "title": "About",
       "developerX": "Developer X (Twitter)",
-      "terms": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
       "contact": "Contact",
       "licenses": "Licenses",
       "version": "Version {version}",

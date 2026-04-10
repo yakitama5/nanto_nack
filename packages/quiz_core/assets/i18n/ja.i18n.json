@@ -216,7 +216,7 @@
     "about": {
       "title": "アプリについて",
       "developerX": "開発者X（Twitter）",
-      "terms": "利用規約",
+      "privacyPolicy": "プライバシーポリシー",
       "contact": "お問い合わせ",
       "licenses": "ライセンス",
       "version": "バージョン {version}",

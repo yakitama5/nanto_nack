@@ -64,3 +64,4 @@ flutter:
   assets:
     - assets/images/weather/
     - assets/lottie/
+    - assets/launcher_icon/
