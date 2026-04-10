@@ -36,22 +36,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late final AnimationController _controller;
   Timer? _timeoutTimer;
 
+  /// スプラッシュ遷移が一度だけ実行されることを保証するガード。
+  bool _splashResolved = false;
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
     // Lottie 読み込み失敗やアニメーション未完了に備えたフォールバック。
     // アニメーションが正常に完了した場合は _onAnimationCompleted でキャンセルされる。
-    _timeoutTimer = Timer(_timeout, () async {
-      if (!mounted) return;
-      try {
-        final systemState = await ref.read(systemConfigProvider.future);
-        if (!mounted) return;
-        await _handleSystemState(systemState);
-      } catch (_) {
-        _navigateToHome();
-      }
-    });
+    _timeoutTimer = Timer(_timeout, _resolveSplashOnce);
   }
 
   @override
@@ -70,9 +64,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       ..forward().whenComplete(_onAnimationCompleted);
   }
 
-  /// アニメーション完了後、システム状態確認を経てから遷移する。
-  Future<void> _onAnimationCompleted() async {
-    // タイムアウトをキャンセル。ダイアログ表示中にホームへ遷移してしまうのを防ぐ。
+  /// スプラッシュ遷移をちょうど1回だけ実行するガード付きヘルパー。
+  ///
+  /// タイムアウト・アニメーション完了・エラーフォールバックのどの経路からも
+  /// このメソッドを呼び出すことで、重複した遷移やダイアログ表示を防ぐ。
+  Future<void> _resolveSplashOnce() async {
+    if (_splashResolved) return;
+    _splashResolved = true;
     _timeoutTimer?.cancel();
     if (!mounted) return;
     try {
@@ -82,6 +80,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     } catch (_) {
       _navigateToHome();
     }
+  }
+
+  /// アニメーション完了後、システム状態確認を経てから遷移する。
+  Future<void> _onAnimationCompleted() async {
+    await _resolveSplashOnce();
   }
 
   /// システム状態に応じた画面遷移を行う。
@@ -123,17 +126,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           onLoaded: _onAnimationLoaded,
           errorBuilder: (context, error, stackTrace) {
             // アセット読み込み失敗時はシステム状態確認を経て遷移する。
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              if (!mounted) return;
-              try {
-                final systemState =
-                    await ref.read(systemConfigProvider.future);
-                if (!mounted) return;
-                await _handleSystemState(systemState);
-              } catch (_) {
-                _navigateToHome();
-              }
-            });
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => _resolveSplashOnce(),
+            );
             return const SizedBox.shrink();
           },
           width: 240,
