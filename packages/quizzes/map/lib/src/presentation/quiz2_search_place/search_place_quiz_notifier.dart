@@ -48,9 +48,9 @@ class ShowSchoolInfoQuizNotifier
     if (state.status != QuizStatus.playing) return;
 
     final isClear = _useCase.isClear(selectedPlaceId: place.id);
+    _timer?.cancel();
+    final elapsed = _elapsed;
     if (isClear) {
-      _timer?.cancel();
-      final elapsed = _elapsed;
       state = state.copyWith(
         selectedPlace: place,
         status: QuizStatus.correct,
@@ -59,8 +59,14 @@ class ShowSchoolInfoQuizNotifier
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
     } else {
-      // 間違い：失敗カウントのみ増やす
-      state = state.copyWith(failureCount: state.failureCount + 1);
+      state = state.copyWith(
+        selectedPlace: place,
+        status: QuizStatus.incorrect,
+        failureCount: state.failureCount + 1,
+        elapsedMs: elapsed,
+      );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
     }
   }
 
