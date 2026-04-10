@@ -42,8 +42,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     _controller = AnimationController(vsync: this);
     // Lottie 読み込み失敗やアニメーション未完了に備えたフォールバック。
     // アニメーションが正常に完了した場合は _onAnimationCompleted でキャンセルされる。
-    _timeoutTimer = Timer(_timeout, () {
-      if (mounted) _navigateToHome();
+    _timeoutTimer = Timer(_timeout, () async {
+      if (!mounted) return;
+      try {
+        final systemState = await ref.read(systemConfigProvider.future);
+        if (!mounted) return;
+        await _handleSystemState(systemState);
+      } catch (_) {
+        _navigateToHome();
+      }
     });
   }
 
@@ -115,9 +122,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           controller: _controller,
           onLoaded: _onAnimationLoaded,
           errorBuilder: (context, error, stackTrace) {
-            // アセット読み込み失敗時はホーム画面へ遷移する。
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              _navigateToHome();
+            // アセット読み込み失敗時はシステム状態確認を経て遷移する。
+            WidgetsBinding.instance.addPostFrameCallback((_) async {
+              if (!mounted) return;
+              try {
+                final systemState =
+                    await ref.read(systemConfigProvider.future);
+                if (!mounted) return;
+                await _handleSystemState(systemState);
+              } catch (_) {
+                _navigateToHome();
+              }
             });
             return const SizedBox.shrink();
           },

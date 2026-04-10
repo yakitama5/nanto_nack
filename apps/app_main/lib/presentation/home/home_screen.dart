@@ -121,6 +121,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           .read(tutorialNotifierProvider.notifier)
           .advanceTo(TutorialScreen.categoryList);
       await context.push('/play');
+      if (!mounted) return;
       ref.read(dashboardProvider.notifier).refresh();
     }
 
