@@ -19,7 +19,7 @@ final showSchoolInfoQuizProvider = AutoDisposeNotifierProvider<
 class ShowSchoolInfoQuizNotifier
     extends AutoDisposeNotifier<ShowSchoolInfoQuizState> {
   static const _quizId = 'map_quiz2';
-  static const _timeLimitSeconds = 60;
+  static const _timeLimitSeconds = 45;
 
   final _useCase = const QuizShowSchoolInfoUseCase();
   Timer? _timer;

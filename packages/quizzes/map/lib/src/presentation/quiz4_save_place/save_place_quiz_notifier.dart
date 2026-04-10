@@ -18,7 +18,7 @@ final savePlaceQuizProvider =
 /// Quiz 4「指定した場所をお気に入りに追加する」のNotifier
 class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   static const _quizId = 'map_quiz4';
-  static const _timeLimitSeconds = 60;
+  static const _timeLimitSeconds = 90;
 
   final _useCase = const QuizSavePlaceUseCase();
   Timer? _timer;
