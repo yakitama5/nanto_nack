@@ -51,7 +51,11 @@
     "score": "スコア: {score}点",
     "@score": { "param": "score" },
     "elapsedTime": "タイム: {time}秒",
-    "@elapsedTime": { "param": "time" }
+    "@elapsedTime": { "param": "time" },
+    "exitDialogTitle": "ゲームを中断しますか？",
+    "exitDialogContent": "プレイ中のゲームを終了します。",
+    "exitDialogContinue": "続ける",
+    "exitDialogExit": "終了する"
   },
   "mission": {
     "title": "MISSION",
@@ -131,9 +135,9 @@
       "alarm_quiz3": "スヌーズをオフにしよう",
       "alarm_quiz4": "アラームを削除しよう",
       "payment_quiz1": "QRコードを表示しよう",
-      "payment_quiz2": "残高を確認しよう",
+      "payment_quiz2": "残高を隠そう",
       "payment_quiz3": "送金しよう",
-      "payment_quiz4": "取引履歴を確認しよう"
+      "payment_quiz4": "支払い方法を変更しよう"
     },
     "stageDescription": {
       "shopping_water": "ECサイトで水を2つカートに入れて購入してください",
@@ -157,9 +161,9 @@
       "alarm_quiz3": "アラームのスヌーズ機能をオフにして保存してください",
       "alarm_quiz4": "アラーム一覧から一番上のアラームを削除してください",
       "payment_quiz1": "決済アプリでQRコードを表示してください",
-      "payment_quiz2": "決済アプリで残高のブラーを解除して確認してください",
+      "payment_quiz2": "決済アプリで目のアイコンをタップして残高を隠してください",
       "payment_quiz3": "決済アプリで誰かに送金してください",
-      "payment_quiz4": "決済アプリで取引履歴を確認してください"
+      "payment_quiz4": "決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください"
     }
   },
   "scene": {

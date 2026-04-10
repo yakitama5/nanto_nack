@@ -10,6 +10,7 @@ class RevealBalanceQuizState extends QuizStateBase {
     required super.startedAt,
     required this.balanceHidden,
     required this.remainingSeconds,
+    this.hintUsed = false,
   });
 
   /// 初期状態を生成する
@@ -22,6 +23,7 @@ class RevealBalanceQuizState extends QuizStateBase {
         // 初期状態: 残高は見えている（非表示フラグ = false）
         balanceHidden: false,
         remainingSeconds: timeLimitSeconds,
+        hintUsed: false,
       );
 
   /// 残高が隠れているか（true = 隠れている = クリア状態）
@@ -29,6 +31,9 @@ class RevealBalanceQuizState extends QuizStateBase {
 
   /// 残り時間（秒）
   final int remainingSeconds;
+
+  /// ヒントを使用済みかどうか
+  final bool hintUsed;
 
   /// 指定フィールドを差し替えた新インスタンスを返す
   RevealBalanceQuizState copyWith({
@@ -38,6 +43,7 @@ class RevealBalanceQuizState extends QuizStateBase {
     DateTime? startedAt,
     bool? balanceHidden,
     int? remainingSeconds,
+    bool? hintUsed,
   }) {
     return RevealBalanceQuizState(
       status: status ?? this.status,
@@ -46,6 +52,7 @@ class RevealBalanceQuizState extends QuizStateBase {
       startedAt: startedAt ?? this.startedAt,
       balanceHidden: balanceHidden ?? this.balanceHidden,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      hintUsed: hintUsed ?? this.hintUsed,
     );
   }
 }

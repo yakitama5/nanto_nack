@@ -11,7 +11,6 @@ class DeleteAlarmQuizState extends QuizStateBase {
     required super.elapsedMs,
     required super.startedAt,
     required this.alarms,
-    required this.swipedAlarmId,
     required this.deletedAlarmIds,
     required this.remainingSeconds,
   });
@@ -27,16 +26,12 @@ class DeleteAlarmQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         alarms: alarms,
-        swipedAlarmId: null,
         deletedAlarmIds: const {},
         remainingSeconds: timeLimitSeconds,
       );
 
   /// 表示中のアラームリスト
   final List<AlarmItem> alarms;
-
-  /// 現在スワイプ中のアラームID
-  final String? swipedAlarmId;
 
   /// 削除済みのアラームID集合
   final Set<String> deletedAlarmIds;
@@ -51,8 +46,6 @@ class DeleteAlarmQuizState extends QuizStateBase {
     int? elapsedMs,
     DateTime? startedAt,
     List<AlarmItem>? alarms,
-    String? swipedAlarmId,
-    bool clearSwipedAlarmId = false,
     Set<String>? deletedAlarmIds,
     int? remainingSeconds,
   }) {
@@ -62,8 +55,6 @@ class DeleteAlarmQuizState extends QuizStateBase {
       elapsedMs: elapsedMs ?? this.elapsedMs,
       startedAt: startedAt ?? this.startedAt,
       alarms: alarms ?? this.alarms,
-      swipedAlarmId:
-          clearSwipedAlarmId ? null : (swipedAlarmId ?? this.swipedAlarmId),
       deletedAlarmIds: deletedAlarmIds ?? this.deletedAlarmIds,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
     );

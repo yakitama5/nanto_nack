@@ -112,6 +112,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get topUp => 'Top Up';
 	@override String get amount => 'Amount';
 	@override String get confirm => 'Confirm';
+	@override String get sendTo => 'Send To';
 	@override String get sendMoney => 'Send Money';
 	@override String get cancel => 'Cancel';
 	@override String get tapToReveal => 'Tap to reveal';
@@ -177,6 +178,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get helpCenter => 'Help Center';
 	@override String get logOut => 'Log Out';
 	@override String get pointUnit => 'P';
+	@override String get mockPointsBalance => '1,250';
 }
 
 // Path: quiz1.insight
@@ -306,6 +308,7 @@ extension on TranslationsXx {
 			'common.topUp' => 'Top Up',
 			'common.amount' => 'Amount',
 			'common.confirm' => 'Confirm',
+			'common.sendTo' => 'Send To',
 			'common.sendMoney' => 'Send Money',
 			'common.cancel' => 'Cancel',
 			'common.tapToReveal' => 'Tap to reveal',
@@ -371,6 +374,7 @@ extension on TranslationsXx {
 			'common.helpCenter' => 'Help Center',
 			'common.logOut' => 'Log Out',
 			'common.pointUnit' => 'P',
+			'common.mockPointsBalance' => '1,250',
 			_ => null,
 		};
 	}

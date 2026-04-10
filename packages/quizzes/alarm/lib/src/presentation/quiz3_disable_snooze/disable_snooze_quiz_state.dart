@@ -13,6 +13,7 @@ class DisableSnoozeQuizState extends QuizStateBase {
     required this.draftAlarm,
     required this.saved,
     required this.remainingSeconds,
+    required this.showEditForm,
   });
 
   /// 初期状態を生成する
@@ -28,6 +29,7 @@ class DisableSnoozeQuizState extends QuizStateBase {
         draftAlarm: alarm,
         saved: false,
         remainingSeconds: timeLimitSeconds,
+        showEditForm: false,
       );
 
   /// 編集中のアラーム
@@ -39,6 +41,9 @@ class DisableSnoozeQuizState extends QuizStateBase {
   /// 残り時間（秒）
   final int remainingSeconds;
 
+  /// 編集フォームを表示するかどうか（true: 編集画面, false: 一覧画面）
+  final bool showEditForm;
+
   /// 指定フィールドを差し替えた新インスタンスを返す
   DisableSnoozeQuizState copyWith({
     QuizStatus? status,
@@ -48,6 +53,7 @@ class DisableSnoozeQuizState extends QuizStateBase {
     AlarmItem? draftAlarm,
     bool? saved,
     int? remainingSeconds,
+    bool? showEditForm,
   }) {
     return DisableSnoozeQuizState(
       status: status ?? this.status,
@@ -57,6 +63,7 @@ class DisableSnoozeQuizState extends QuizStateBase {
       draftAlarm: draftAlarm ?? this.draftAlarm,
       saved: saved ?? this.saved,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      showEditForm: showEditForm ?? this.showEditForm,
     );
   }
 }

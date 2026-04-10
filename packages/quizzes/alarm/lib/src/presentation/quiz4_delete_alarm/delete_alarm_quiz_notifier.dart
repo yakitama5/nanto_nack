@@ -48,18 +48,7 @@ class DeleteAlarmQuizNotifier
     _startTimer();
   }
 
-  /// アラームを左スワイプ
-  void swipeAlarm(String alarmId) {
-    if (state.status != QuizStatus.playing) return;
-    if (state.swipedAlarmId == alarmId) {
-      // 同じアイテムを再スワイプで閉じる
-      state = state.copyWith(clearSwipedAlarmId: true);
-    } else {
-      state = state.copyWith(swipedAlarmId: alarmId);
-    }
-  }
-
-  /// 削除ボタンをタップして確定
+  /// スワイプ削除を確定（flutter_slidable が状態管理するため notifier では削除のみ行う）
   Future<void> confirmDelete(String alarmId) async {
     if (state.status != QuizStatus.playing) return;
 
@@ -70,7 +59,6 @@ class DeleteAlarmQuizNotifier
     state = state.copyWith(
       alarms: updatedAlarms,
       deletedAlarmIds: updatedDeleted,
-      clearSwipedAlarmId: true,
     );
 
     final isClear = _useCase.isClear(
@@ -78,6 +66,7 @@ class DeleteAlarmQuizNotifier
     );
 
     if (isClear) {
+      // 正解：対象アラーム（alarm_1）が削除された
       _timer?.cancel();
       final elapsed = _elapsed;
       state = state.copyWith(
@@ -86,6 +75,17 @@ class DeleteAlarmQuizNotifier
       );
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
+    } else if (alarmId != _targetAlarmId) {
+      // 不正解（終了）：間違ったアラームを削除した
+      _timer?.cancel();
+      final elapsed = _elapsed;
+      state = state.copyWith(
+        status: QuizStatus.incorrect,
+        elapsedMs: elapsed,
+        failureCount: state.failureCount + 1,
+      );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
     }
   }
 
@@ -111,12 +111,14 @@ class DeleteAlarmQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
+    final prevFailureCount = state.failureCount;
     state = DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: prevFailureCount,
     );
     _startTimer();
   }

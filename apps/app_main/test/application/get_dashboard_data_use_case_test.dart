@@ -14,15 +14,25 @@ class FakeDashboardRepository implements DashboardRepository {
     this.history = const [],
     this.todayPlayCount = 0,
     this.premiumFlag = false,
+    this.dailyLimit = 5,
+    this.limitEnabled = true,
   });
 
   final List<DailyTip> tips;
   final List<QuizResult> history;
   final int todayPlayCount;
   final bool premiumFlag;
+  final int dailyLimit;
+  final bool limitEnabled;
 
   @override
   List<DailyTip> fetchRawTips() => tips;
+
+  @override
+  int getDailyPlayLimit() => dailyLimit;
+
+  @override
+  bool isPlayLimitEnabled() => limitEnabled;
 
   @override
   Future<List<QuizResult>> getQuizHistorySince(DateTime since) async =>
@@ -133,6 +143,22 @@ void main() {
         await withClock(Clock.fixed(_fixedNow), () async {
           final useCase = GetDashboardDataUseCase(
             FakeDashboardRepository(todayPlayCount: 3, premiumFlag: true),
+          );
+
+          final result = await useCase.execute();
+
+          expect(result.remainingPlayCount, isNull);
+        });
+      });
+
+      test('プレイ制限が無効なら残りプレイ数は null（無制限）', () async {
+        await withClock(Clock.fixed(_fixedNow), () async {
+          final useCase = GetDashboardDataUseCase(
+            FakeDashboardRepository(
+              todayPlayCount: 3,
+              premiumFlag: false,
+              limitEnabled: false,
+            ),
           );
 
           final result = await useCase.execute();

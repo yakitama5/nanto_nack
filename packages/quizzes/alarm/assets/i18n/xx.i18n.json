@@ -14,7 +14,7 @@
     }
   },
   "quiz2": {
-    "missionText": "Set weekdays only",
+    "missionText": "Set the middle alarm to weekdays only",
     "failureReason": "Select 5 weekday buttons",
     "insight": {
       "title": "How did you find day settings?",
@@ -28,7 +28,7 @@
     }
   },
   "quiz3": {
-    "missionText": "Turn off snooze",
+    "missionText": "Turn off snooze on the top alarm",
     "failureReason": "Toggle snooze off and save",
     "insight": {
       "title": "How did you turn off snooze?",
@@ -77,6 +77,7 @@
     "sun": "S",
     "tomorrow": "Tomorrow",
     "weekdays": "Weekdays",
+    "everyday": "Every Day",
     "editAlarm": "Edit Alarm"
   }
 }

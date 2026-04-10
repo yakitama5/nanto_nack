@@ -72,8 +72,8 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: '平日（月〜金）だけ鳴るように設定してください'
-	String get missionText => '平日（月〜金）だけ鳴るように設定してください';
+	/// ja: '真ん中のアラームを平日だけ鳴るように設定しよう'
+	String get missionText => '真ん中のアラームを平日だけ鳴るように設定しよう';
 
 	/// ja: '月〜金の5つの曜日ボタンを選択してください'
 	String get failureReason => '月〜金の5つの曜日ボタンを選択してください';
@@ -89,8 +89,8 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: '「スヌーズ」機能をオフにして保存してください'
-	String get missionText => '「スヌーズ」機能をオフにして保存してください';
+	/// ja: '一番上のアラームをスヌーズオフにしよう'
+	String get missionText => '一番上のアラームをスヌーズオフにしよう';
 
 	/// ja: 'スヌーズのトグルをオフにして保存してください'
 	String get failureReason => 'スヌーズのトグルをオフにして保存してください';
@@ -185,6 +185,9 @@ class TranslationsCommonJa {
 
 	/// ja: 'Weekdays'
 	String get weekdays => 'Weekdays';
+
+	/// ja: 'Every Day'
+	String get everyday => 'Every Day';
 
 	/// ja: 'Edit Alarm'
 	String get editAlarm => 'Edit Alarm';
@@ -340,7 +343,7 @@ extension on Translations {
 			'quiz1.insight.pickerDesc' => '上下にスクロールするドラムロール型ピッカーは、時計アプリや予約アプリで時間・日付入力に広く使われているUI。',
 			'quiz1.insight.saveTitle' => '「保存」は右上に配置される',
 			'quiz1.insight.saveDesc' => 'iOS/Android共通のパターンとして、編集画面での「保存・完了」アクションは右上に配置されることが多い。',
-			'quiz2.missionText' => '平日（月〜金）だけ鳴るように設定してください',
+			'quiz2.missionText' => '真ん中のアラームを平日だけ鳴るように設定しよう',
 			'quiz2.failureReason' => '月〜金の5つの曜日ボタンを選択してください',
 			'quiz2.insight.title' => 'なぜ曜日設定がわかった？',
 			'quiz2.insight.subtitle' => '7つの丸＝1週間のメンタルモデル',
@@ -350,7 +353,7 @@ extension on Translations {
 			'quiz2.insight.weekdayDesc' => '月曜から金曜の5日間を選ぶことで「平日のみ」という設定になる。ハイライト状態の変化が選択完了を視覚的に伝える。',
 			'quiz2.insight.highlightTitle' => '色変化が選択状態を表す',
 			'quiz2.insight.highlightDesc' => '選択されたボタンがハイライト（色付き）になることで、どの曜日が有効かが一目でわかるUIパターン。',
-			'quiz3.missionText' => '「スヌーズ」機能をオフにして保存してください',
+			'quiz3.missionText' => '一番上のアラームをスヌーズオフにしよう',
 			'quiz3.failureReason' => 'スヌーズのトグルをオフにして保存してください',
 			'quiz3.insight.title' => 'なぜスヌーズをオフにできた？',
 			'quiz3.insight.subtitle' => 'トグルスイッチ＝オンオフ切り替えの記号',
@@ -391,6 +394,7 @@ extension on Translations {
 			'common.sun' => 'S',
 			'common.tomorrow' => 'Tomorrow',
 			'common.weekdays' => 'Weekdays',
+			'common.everyday' => 'Every Day',
 			'common.editAlarm' => 'Edit Alarm',
 			_ => null,
 		};

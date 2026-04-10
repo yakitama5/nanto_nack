@@ -2,14 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../domain/weather/weather_info.dart';
-import '../infrastructure/open_weather_repository.dart';
 import '../infrastructure/weather_repository_provider.dart';
 
 /// 現在の天気情報を管理するProvider。
 ///
 /// 位置情報の取得を試みた上で OpenWeather API をリクエストする。
-/// 位置情報が拒否された場合やAPI取得に失敗した場合は null を返し、
-/// 呼び出し元が DailyScene フォールバック（時間帯ベースのグラデーション）を使う。
+/// 位置情報の取得に失敗した場合やAPI取得に失敗した場合は null を返し、
+/// 呼び出し元は「晴れ」を表示するか DailyScene フォールバック（時間帯ベースのグラデーション）を使う。
 class WeatherNotifier extends AsyncNotifier<WeatherInfo?> {
   @override
   Future<WeatherInfo?> build() => _fetch();
@@ -23,10 +22,11 @@ class WeatherNotifier extends AsyncNotifier<WeatherInfo?> {
     final repository = ref.read(weatherRepositoryProvider);
     try {
       final position = await _resolvePosition();
+      if (position == null) return null;
+
       return await repository.getCurrentWeather(
-        latitude: position?.latitude ?? OpenWeatherRepository.fallbackLatitude,
-        longitude:
-            position?.longitude ?? OpenWeatherRepository.fallbackLongitude,
+        latitude: position.latitude,
+        longitude: position.longitude,
       );
     } catch (_) {
       // API取得失敗時は null を返してフォールバック表示

@@ -14,7 +14,7 @@
     }
   },
   "quiz2": {
-    "missionText": "平日（月〜金）だけ鳴るように設定してください",
+    "missionText": "真ん中のアラームを平日だけ鳴るように設定しよう",
     "failureReason": "月〜金の5つの曜日ボタンを選択してください",
     "insight": {
       "title": "なぜ曜日設定がわかった？",
@@ -28,7 +28,7 @@
     }
   },
   "quiz3": {
-    "missionText": "「スヌーズ」機能をオフにして保存してください",
+    "missionText": "一番上のアラームをスヌーズオフにしよう",
     "failureReason": "スヌーズのトグルをオフにして保存してください",
     "insight": {
       "title": "なぜスヌーズをオフにできた？",
@@ -77,6 +77,7 @@
     "sun": "S",
     "tomorrow": "Tomorrow",
     "weekdays": "Weekdays",
+    "everyday": "Every Day",
     "editAlarm": "Edit Alarm"
   }
 }

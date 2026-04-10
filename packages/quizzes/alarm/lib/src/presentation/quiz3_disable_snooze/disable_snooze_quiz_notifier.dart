@@ -20,6 +20,8 @@ class DisableSnoozeQuizNotifier
     extends AutoDisposeNotifier<DisableSnoozeQuizState> {
   static const _quizId = 'alarm_quiz3';
   static const _timeLimitSeconds = 60;
+  // Quiz3の対象アラーム：一番上（1番目）のアラーム
+  static const _targetAlarmId = 'alarm_1';
 
   final _useCase = const QuizDisableSnoozeUseCase();
   Timer? _timer;
@@ -28,7 +30,7 @@ class DisableSnoozeQuizNotifier
   DisableSnoozeQuizState build() {
     ref.onDispose(() => _timer?.cancel());
     return DisableSnoozeQuizState.initial(
-      alarm: AlarmCatalog.snoozeAlarm,
+      alarm: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     );
   }
@@ -37,7 +39,7 @@ class DisableSnoozeQuizNotifier
   void startQuiz() {
     _timer?.cancel();
     state = DisableSnoozeQuizState.initial(
-      alarm: AlarmCatalog.snoozeAlarm,
+      alarm: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
@@ -45,6 +47,24 @@ class DisableSnoozeQuizNotifier
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
+  }
+
+  /// アラームをタップ → 編集フォームを表示（タップしたアラームをドラフトとして設定）
+  void tapAlarm(String alarmId) {
+    if (state.status != QuizStatus.playing) return;
+    final alarm = AlarmCatalog.initialAlarms.firstWhere(
+      (a) => a.id == alarmId,
+      orElse: () => AlarmCatalog.initialAlarms[0],
+    );
+    state = state.copyWith(draftAlarm: alarm, showEditForm: true);
+  }
+
+  /// キャンセルボタン → 一覧へ戻る（ドラフトを対象アラームにリセット）
+  void tapCancel() {
+    state = state.copyWith(
+      showEditForm: false,
+      draftAlarm: AlarmCatalog.initialAlarms[0],
+    );
   }
 
   /// スヌーズトグルを操作
@@ -55,16 +75,26 @@ class DisableSnoozeQuizNotifier
     );
   }
 
+  /// 時刻変更コールバック
+  void changeTime(int hour, int minute) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(
+      draftAlarm: state.draftAlarm.copyWith(hour: hour, minute: minute),
+    );
+  }
+
   /// 保存ボタンをタップ
   Future<void> tapSave() async {
     if (state.status != QuizStatus.playing) return;
 
+    final isTargetAlarm = state.draftAlarm.id == _targetAlarmId;
     final isClear = _useCase.isClear(
       snoozeEnabled: state.draftAlarm.snoozeEnabled,
       saved: true,
     );
 
-    if (isClear) {
+    if (isTargetAlarm && isClear) {
+      // 正解：対象アラームのスヌーズがオフになっている
       _timer?.cancel();
       final elapsed = _elapsed;
       state = state.copyWith(
@@ -74,7 +104,19 @@ class DisableSnoozeQuizNotifier
       );
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
+    } else if (!isTargetAlarm) {
+      // 不正解（終了）：対象外アラームを変更した
+      _timer?.cancel();
+      final elapsed = _elapsed;
+      state = state.copyWith(
+        status: QuizStatus.incorrect,
+        elapsedMs: elapsed,
+        failureCount: state.failureCount + 1,
+      );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
     } else {
+      // 不正解（継続）：対象アラームだがスヌーズがまだオン
       state = state.copyWith(
         saved: true,
         failureCount: state.failureCount + 1,
@@ -104,12 +146,14 @@ class DisableSnoozeQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
+    final prevFailureCount = state.failureCount;
     state = DisableSnoozeQuizState.initial(
-      alarm: AlarmCatalog.snoozeAlarm,
+      alarm: AlarmCatalog.initialAlarms[0],
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: prevFailureCount,
     );
     _startTimer();
   }

@@ -18,6 +18,7 @@ final sendMoneyQuizProvider = AutoDisposeNotifierProvider<
 class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
   static const _quizId = 'payment_quiz3';
   static const _timeLimitSeconds = 60;
+  static const _hintPenaltyFailureCount = 2;
 
   final _useCase = const QuizSendMoneyUseCase();
   Timer? _timer;
@@ -86,12 +87,12 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
     if (state.status != QuizStatus.playing) return;
     if (state.selectedContactId == null || state.amount <= 0) return;
 
-    state = state.copyWith(moneySent: true);
+    _timer?.cancel();
+    final elapsed = _elapsed;
+    final isClear = _useCase.isClear(moneySent: true, amount: state.amount);
 
-    final isClear = _useCase.isClear(moneySent: true);
     if (isClear) {
-      _timer?.cancel();
-      final elapsed = _elapsed;
+      state = state.copyWith(moneySent: true);
       state = state.copyWith(
         status: QuizStatus.correct,
         elapsedMs: elapsed,
@@ -100,7 +101,26 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
       try {
         await _saveResult(isCleared: true, elapsedMs: elapsed);
       } on Exception catch (_) {}
+    } else {
+      await hapticFeedback.playErrorFeedback();
+      state = state.copyWith(
+        status: QuizStatus.incorrect,
+        elapsedMs: elapsed,
+        failureCount: state.failureCount + 1,
+      );
+      try {
+        await _saveResult(isCleared: false, elapsedMs: elapsed);
+      } on Exception catch (_) {}
     }
+  }
+
+  /// ヒントを使用する（スコア減点）
+  void useHint() {
+    if (state.status != QuizStatus.playing || state.hintUsed) return;
+    state = state.copyWith(
+      hintUsed: true,
+      failureCount: state.failureCount + _hintPenaltyFailureCount,
+    );
   }
 
   /// 諦めてクイズを終了する
@@ -129,6 +149,7 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
         .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: state.failureCount,
     );
     _startTimer();
   }

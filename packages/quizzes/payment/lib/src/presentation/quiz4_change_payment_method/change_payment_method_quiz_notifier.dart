@@ -20,6 +20,7 @@ class ChangePaymentMethodQuizNotifier
     extends AutoDisposeNotifier<ChangePaymentMethodQuizState> {
   static const _quizId = 'payment_quiz4';
   static const _timeLimitSeconds = 60;
+  static const _hintPenaltyFailureCount = 2;
 
   final _useCase = const QuizChangePaymentMethodUseCase();
   Timer? _timer;
@@ -64,6 +65,15 @@ class ChangePaymentMethodQuizNotifier
     await _checkAndComplete();
   }
 
+  /// ヒントを使用する（スコア減点）
+  void useHint() {
+    if (state.status != QuizStatus.playing || state.hintUsed) return;
+    state = state.copyWith(
+      hintUsed: true,
+      failureCount: state.failureCount + _hintPenaltyFailureCount,
+    );
+  }
+
   /// 諦めてクイズを終了する
   Future<void> giveUp() async {
     if (state.status != QuizStatus.playing) return;
@@ -91,6 +101,7 @@ class ChangePaymentMethodQuizNotifier
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: state.failureCount,
     );
     _startTimer();
   }

@@ -119,6 +119,10 @@ class _TranslationsQuizEn extends TranslationsQuizJa {
 	@override String get back => 'Back';
 	@override String get score => 'Score: {score}pts';
 	@override String get elapsedTime => 'Time: {time}s';
+	@override String get exitDialogTitle => 'Quit the game?';
+	@override String get exitDialogContent => 'Your current progress will be lost.';
+	@override String get exitDialogContinue => 'Continue';
+	@override String get exitDialogExit => 'Quit';
 }
 
 // Path: mission
@@ -322,9 +326,9 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get alarm_quiz3 => 'Turn Off Snooze';
 	@override String get alarm_quiz4 => 'Delete an Alarm';
 	@override String get payment_quiz1 => 'Show QR Code';
-	@override String get payment_quiz2 => 'Check Balance';
+	@override String get payment_quiz2 => 'Hide Your Balance';
 	@override String get payment_quiz3 => 'Send Money';
-	@override String get payment_quiz4 => 'Check Transaction History';
+	@override String get payment_quiz4 => 'Change Payment Method';
 }
 
 // Path: play.stageDescription
@@ -355,9 +359,9 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get alarm_quiz3 => 'Turn off the snooze feature and save';
 	@override String get alarm_quiz4 => 'Delete the top alarm from the alarm list';
 	@override String get payment_quiz1 => 'Show the QR code in the payment app';
-	@override String get payment_quiz2 => 'Remove the blur and check the balance in the payment app';
+	@override String get payment_quiz2 => 'Tap the eye icon to hide your balance in the payment app';
 	@override String get payment_quiz3 => 'Send money to someone in the payment app';
-	@override String get payment_quiz4 => 'Check the transaction history in the payment app';
+	@override String get payment_quiz4 => 'Change the payment method to a credit card and show the QR code in the payment app';
 }
 
 // Path: scene.greeting
@@ -470,6 +474,10 @@ extension on TranslationsEn {
 			'quiz.back' => 'Back',
 			'quiz.score' => 'Score: {score}pts',
 			'quiz.elapsedTime' => 'Time: {time}s',
+			'quiz.exitDialogTitle' => 'Quit the game?',
+			'quiz.exitDialogContent' => 'Your current progress will be lost.',
+			'quiz.exitDialogContinue' => 'Continue',
+			'quiz.exitDialogExit' => 'Quit',
 			'mission.title' => 'MISSION',
 			'mission.topic' => 'Mission',
 			'mission.useHint' => 'Use Hint',
@@ -530,9 +538,9 @@ extension on TranslationsEn {
 			'play.stageTitle.alarm_quiz3' => 'Turn Off Snooze',
 			'play.stageTitle.alarm_quiz4' => 'Delete an Alarm',
 			'play.stageTitle.payment_quiz1' => 'Show QR Code',
-			'play.stageTitle.payment_quiz2' => 'Check Balance',
+			'play.stageTitle.payment_quiz2' => 'Hide Your Balance',
 			'play.stageTitle.payment_quiz3' => 'Send Money',
-			'play.stageTitle.payment_quiz4' => 'Check Transaction History',
+			'play.stageTitle.payment_quiz4' => 'Change Payment Method',
 			'play.stageDescription.shopping_water' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_checkout' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_reorder' => 'Reorder the most recently purchased item from order history',
@@ -554,9 +562,9 @@ extension on TranslationsEn {
 			'play.stageDescription.alarm_quiz3' => 'Turn off the snooze feature and save',
 			'play.stageDescription.alarm_quiz4' => 'Delete the top alarm from the alarm list',
 			'play.stageDescription.payment_quiz1' => 'Show the QR code in the payment app',
-			'play.stageDescription.payment_quiz2' => 'Remove the blur and check the balance in the payment app',
+			'play.stageDescription.payment_quiz2' => 'Tap the eye icon to hide your balance in the payment app',
 			'play.stageDescription.payment_quiz3' => 'Send money to someone in the payment app',
-			'play.stageDescription.payment_quiz4' => 'Check the transaction history in the payment app',
+			'play.stageDescription.payment_quiz4' => 'Change the payment method to a credit card and show the QR code in the payment app',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.6.1
+  flutter_slidable: ^3.1.1
   quiz_core:
     path: ../../quiz_core
   slang: ^4.3.1

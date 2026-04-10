@@ -13,6 +13,7 @@ class ChangePaymentMethodQuizState extends QuizStateBase {
     required this.currentPaymentMethod,
     required this.paymentScreenShown,
     required this.remainingSeconds,
+    this.hintUsed = false,
   });
 
   /// 初期状態を生成する
@@ -25,6 +26,7 @@ class ChangePaymentMethodQuizState extends QuizStateBase {
         currentPaymentMethod: PaymentMethod.balance,
         paymentScreenShown: false,
         remainingSeconds: timeLimitSeconds,
+        hintUsed: false,
       );
 
   /// 現在の支払い元
@@ -36,6 +38,9 @@ class ChangePaymentMethodQuizState extends QuizStateBase {
   /// 残り時間（秒）
   final int remainingSeconds;
 
+  /// ヒントを使用済みかどうか
+  final bool hintUsed;
+
   /// 指定フィールドを差し替えた新インスタンスを返す
   ChangePaymentMethodQuizState copyWith({
     QuizStatus? status,
@@ -45,6 +50,7 @@ class ChangePaymentMethodQuizState extends QuizStateBase {
     PaymentMethod? currentPaymentMethod,
     bool? paymentScreenShown,
     int? remainingSeconds,
+    bool? hintUsed,
   }) {
     return ChangePaymentMethodQuizState(
       status: status ?? this.status,
@@ -54,6 +60,7 @@ class ChangePaymentMethodQuizState extends QuizStateBase {
       currentPaymentMethod: currentPaymentMethod ?? this.currentPaymentMethod,
       paymentScreenShown: paymentScreenShown ?? this.paymentScreenShown,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      hintUsed: hintUsed ?? this.hintUsed,
     );
   }
 }

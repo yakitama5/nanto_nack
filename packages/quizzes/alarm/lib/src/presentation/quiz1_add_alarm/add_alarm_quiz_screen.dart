@@ -6,7 +6,6 @@ import '../../domain/alarm_catalog.dart';
 import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'add_alarm_quiz_notifier.dart';
-import 'add_alarm_quiz_state.dart';
 
 /// Quiz 1「新しくアラームを追加してください」
 class AddAlarmQuizScreen extends ConsumerStatefulWidget {
@@ -37,71 +36,62 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
     final state = ref.watch(addAlarmQuizProvider);
     final missionText = context.s.quiz1.missionText;
     final notifier = ref.read(addAlarmQuizProvider.notifier);
-    final resultOverlays = _buildResultOverlays(state, missionText, notifier);
 
-    if (state.showEditForm) {
-      return AlarmEditScreen(
-        alarm: state.draftAlarm,
-        quizStatus: state.status,
-        remainingSeconds: state.remainingSeconds,
-        timeLimitSeconds: _timeLimitSeconds,
-        missionText: missionText,
-        onGiveUp: notifier.giveUp,
-        highlightSaveButton: true,
-        onSave: notifier.tapSave,
-        onCancel: notifier.tapCancel,
-        overlays: resultOverlays,
-      );
-    }
+    final mainScreen = state.showEditForm
+        ? AlarmEditScreen(
+            alarm: state.draftAlarm,
+            quizStatus: state.status,
+            remainingSeconds: state.remainingSeconds,
+            timeLimitSeconds: _timeLimitSeconds,
+            missionText: missionText,
+            onGiveUp: notifier.giveUp,
+            highlightSaveButton: true,
+            onSave: notifier.tapSave,
+            onCancel: notifier.tapCancel,
+            overlays: const [],
+          )
+        : AlarmListScreen(
+            alarms: AlarmCatalog.initialAlarms,
+            quizStatus: state.status,
+            remainingSeconds: state.remainingSeconds,
+            timeLimitSeconds: _timeLimitSeconds,
+            missionText: missionText,
+            onGiveUp: notifier.giveUp,
+            highlightAddButton: state.status == QuizStatus.playing,
+            onAddTap: notifier.tapAdd,
+            overlays: const [],
+          );
 
-    return AlarmListScreen(
-      alarms: AlarmCatalog.initialAlarms,
-      quizStatus: state.status,
-      remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
-      missionText: missionText,
-      onGiveUp: notifier.giveUp,
-      highlightAddButton: state.status == QuizStatus.playing,
-      onAddTap: notifier.tapAdd,
-      overlays: [
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        mainScreen,
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: _timeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
-        ...resultOverlays,
+        if (state.status == QuizStatus.correct ||
+            state.status == QuizStatus.timeUp ||
+            state.status == QuizStatus.giveUp)
+          Positioned.fill(
+            child: QuizResultOverlay(
+              status: state.status,
+              score: state.score,
+              elapsedMs: state.elapsedMs,
+              onRetry: () {
+                setState(() => _showCutIn = true);
+                notifier.retry();
+              },
+              onNext:
+                  state.status == QuizStatus.correct ? widget.onCompleted : null,
+              onBack: () => Navigator.of(context).pop(),
+              insight: _AddAlarmInsight(),
+            ),
+          ),
       ],
     );
-  }
-
-  List<Widget> _buildResultOverlays(
-    AddAlarmQuizState state,
-    String missionText,
-    AddAlarmQuizNotifier notifier,
-  ) {
-    if (state.status == QuizStatus.correct ||
-        state.status == QuizStatus.timeUp ||
-        state.status == QuizStatus.giveUp) {
-      return [
-        Positioned.fill(
-          child: QuizResultOverlay(
-            status: state.status,
-            score: state.score,
-            elapsedMs: state.elapsedMs,
-            onRetry: () {
-              setState(() => _showCutIn = true);
-              notifier.retry();
-            },
-            onNext:
-                state.status == QuizStatus.correct ? widget.onCompleted : null,
-            onBack: () => Navigator.of(context).pop(),
-            insight: _AddAlarmInsight(),
-          ),
-        ),
-      ];
-    }
-    return [];
   }
 }
 

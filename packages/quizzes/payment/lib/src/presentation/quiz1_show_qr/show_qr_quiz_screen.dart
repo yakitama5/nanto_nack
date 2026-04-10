@@ -63,7 +63,9 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
       missionText: missionText,
       onGiveUp: notifier.giveUp,
       currentPaymentMethod: PaymentMethod.balance,
-      highlightPaymentButton: state.status == QuizStatus.playing,
+      highlightPaymentButton: state.hintUsed,
+      hintUsed: state.hintUsed,
+      onHintTap: notifier.useHint,
       onPaymentTap: notifier.tapPayment,
       overlays: [
         if (_showCutIn)

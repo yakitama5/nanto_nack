@@ -7,6 +7,12 @@ abstract class DashboardRepository {
   /// TipsリストをRemote Config相当から取得
   List<DailyTip> fetchRawTips();
 
+  /// 1日のプレイ回数制限をRemote Config相当から取得
+  int getDailyPlayLimit();
+
+  /// 1日のプレイ回数制限が有効かどうかをRemote Config相当から取得
+  bool isPlayLimitEnabled();
+
   /// 指定日時以降にクリアされたクイズ履歴を取得
   Future<List<QuizResult>> getQuizHistorySince(DateTime since);
 
