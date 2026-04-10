@@ -3,6 +3,10 @@ class QuizSendMoneyUseCase {
   /// コンストラクタ
   const QuizSendMoneyUseCase();
 
-  /// クリア条件: 送金が完了したか
-  bool isClear({required bool moneySent}) => moneySent;
+  /// クリアに必要な送金金額
+  static const int targetAmount = 5000;
+
+  /// クリア条件: 正しい金額（5,000円）で送金が完了したか
+  bool isClear({required bool moneySent, required int amount}) =>
+      moneySent && amount == targetAmount;
 }

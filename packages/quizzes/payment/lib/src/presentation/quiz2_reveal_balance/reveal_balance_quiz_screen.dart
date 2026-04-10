@@ -49,9 +49,10 @@ class _RevealBalanceQuizScreenState
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      // 残高が見えている（未クリア）状態のときに目アイコンをハイライト
-      highlightEyeIcon:
-          state.status == QuizStatus.playing && !state.balanceHidden,
+      // ヒント使用後に目アイコンをハイライト
+      highlightEyeIcon: state.hintUsed,
+      hintUsed: state.hintUsed,
+      onHintTap: notifier.useHint,
       onBalanceVisibilityTap: notifier.tapEyeIcon,
       overlays: [
         if (_showCutIn)

@@ -57,9 +57,11 @@ class _ChangePaymentMethodQuizScreenState
         overlays: resultOverlays,
         currentPaymentMethod: state.currentPaymentMethod,
         onChangePaymentMethod: notifier.changePaymentMethod,
-        // 残高が選択されている間は支払い元ボタンをハイライト（変更を促す）
-        highlightPaymentMethodButton: state.status == QuizStatus.playing &&
+        // ヒント使用済みかつ残高が選択されている間は支払い元ボタンをハイライト（変更を促す）
+        highlightPaymentMethodButton: state.hintUsed &&
             state.currentPaymentMethod == PaymentMethod.balance,
+        hintUsed: state.hintUsed,
+        onHintTap: notifier.useHint,
       );
     }
 
@@ -72,12 +74,14 @@ class _ChangePaymentMethodQuizScreenState
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      // 残高選択中はカルーセルをハイライト（スワイプで変更できることを示す）
-      highlightPaymentCarousel: state.status == QuizStatus.playing &&
+      // ヒント使用済みかつ残高選択中はカルーセルをハイライト（スワイプで変更できることを示す）
+      highlightPaymentCarousel: state.hintUsed &&
           state.currentPaymentMethod == PaymentMethod.balance,
-      // クレカ選択済みなら支払いボタンをハイライト（支払い画面を開くよう促す）
-      highlightPaymentButton: state.status == QuizStatus.playing &&
+      // ヒント使用済みかつクレカ選択済みなら支払いボタンをハイライト（支払い画面を開くよう促す）
+      highlightPaymentButton: state.hintUsed &&
           state.currentPaymentMethod == PaymentMethod.creditCard,
+      hintUsed: state.hintUsed,
+      onHintTap: notifier.useHint,
       onPaymentTap: notifier.tapPayment,
       onPaymentMethodChanged: notifier.changePaymentMethod,
       overlays: [

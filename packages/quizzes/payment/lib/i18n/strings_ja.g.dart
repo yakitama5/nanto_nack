@@ -156,6 +156,9 @@ class TranslationsCommonJa {
 	/// ja: '確認'
 	String get confirm => '確認';
 
+	/// ja: '送金先'
+	String get sendTo => '送金先';
+
 	/// ja: '送金する'
 	String get sendMoney => '送金する';
 
@@ -350,6 +353,9 @@ class TranslationsCommonJa {
 
 	/// ja: 'P'
 	String get pointUnit => 'P';
+
+	/// ja: '1,250'
+	String get mockPointsBalance => '1,250';
 }
 
 // Path: quiz1.insight
@@ -543,6 +549,7 @@ extension on Translations {
 			'common.topUp' => 'チャージ',
 			'common.amount' => '金額',
 			'common.confirm' => '確認',
+			'common.sendTo' => '送金先',
 			'common.sendMoney' => '送金する',
 			'common.cancel' => 'キャンセル',
 			'common.tapToReveal' => 'タップして確認',
@@ -608,6 +615,7 @@ extension on Translations {
 			'common.helpCenter' => 'ヘルプセンター',
 			'common.logOut' => 'ログアウト',
 			'common.pointUnit' => 'P',
+			'common.mockPointsBalance' => '1,250',
 			_ => null,
 		};
 	}

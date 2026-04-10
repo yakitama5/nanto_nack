@@ -181,6 +181,18 @@ class TranslationsQuizJa {
 
 	/// ja: 'タイム: {time}秒'
 	String get elapsedTime => 'タイム: {time}秒';
+
+	/// ja: 'ゲームを中断しますか？'
+	String get exitDialogTitle => 'ゲームを中断しますか？';
+
+	/// ja: 'プレイ中のゲームを終了します。'
+	String get exitDialogContent => 'プレイ中のゲームを終了します。';
+
+	/// ja: '続ける'
+	String get exitDialogContinue => '続ける';
+
+	/// ja: '終了する'
+	String get exitDialogExit => '終了する';
 }
 
 // Path: mission
@@ -543,14 +555,14 @@ class TranslationsPlayStageTitleJa {
 	/// ja: 'QRコードを表示しよう'
 	String get payment_quiz1 => 'QRコードを表示しよう';
 
-	/// ja: '残高を確認しよう'
-	String get payment_quiz2 => '残高を確認しよう';
+	/// ja: '残高を隠そう'
+	String get payment_quiz2 => '残高を隠そう';
 
 	/// ja: '送金しよう'
 	String get payment_quiz3 => '送金しよう';
 
-	/// ja: '取引履歴を確認しよう'
-	String get payment_quiz4 => '取引履歴を確認しよう';
+	/// ja: '支払い方法を変更しよう'
+	String get payment_quiz4 => '支払い方法を変更しよう';
 }
 
 // Path: play.stageDescription
@@ -624,14 +636,14 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: '決済アプリでQRコードを表示してください'
 	String get payment_quiz1 => '決済アプリでQRコードを表示してください';
 
-	/// ja: '決済アプリで残高のブラーを解除して確認してください'
-	String get payment_quiz2 => '決済アプリで残高のブラーを解除して確認してください';
+	/// ja: '決済アプリで目のアイコンをタップして残高を隠してください'
+	String get payment_quiz2 => '決済アプリで目のアイコンをタップして残高を隠してください';
 
 	/// ja: '決済アプリで誰かに送金してください'
 	String get payment_quiz3 => '決済アプリで誰かに送金してください';
 
-	/// ja: '決済アプリで取引履歴を確認してください'
-	String get payment_quiz4 => '決済アプリで取引履歴を確認してください';
+	/// ja: '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください'
+	String get payment_quiz4 => '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください';
 }
 
 // Path: scene.greeting
@@ -802,6 +814,10 @@ extension on Translations {
 			'quiz.back' => '戻る',
 			'quiz.score' => 'スコア: {score}点',
 			'quiz.elapsedTime' => 'タイム: {time}秒',
+			'quiz.exitDialogTitle' => 'ゲームを中断しますか？',
+			'quiz.exitDialogContent' => 'プレイ中のゲームを終了します。',
+			'quiz.exitDialogContinue' => '続ける',
+			'quiz.exitDialogExit' => '終了する',
 			'mission.title' => 'MISSION',
 			'mission.topic' => 'お題',
 			'mission.useHint' => 'ヒントを使う',
@@ -862,9 +878,9 @@ extension on Translations {
 			'play.stageTitle.alarm_quiz3' => 'スヌーズをオフにしよう',
 			'play.stageTitle.alarm_quiz4' => 'アラームを削除しよう',
 			'play.stageTitle.payment_quiz1' => 'QRコードを表示しよう',
-			'play.stageTitle.payment_quiz2' => '残高を確認しよう',
+			'play.stageTitle.payment_quiz2' => '残高を隠そう',
 			'play.stageTitle.payment_quiz3' => '送金しよう',
-			'play.stageTitle.payment_quiz4' => '取引履歴を確認しよう',
+			'play.stageTitle.payment_quiz4' => '支払い方法を変更しよう',
 			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -886,9 +902,9 @@ extension on Translations {
 			'play.stageDescription.alarm_quiz3' => 'アラームのスヌーズ機能をオフにして保存してください',
 			'play.stageDescription.alarm_quiz4' => 'アラーム一覧から一番上のアラームを削除してください',
 			'play.stageDescription.payment_quiz1' => '決済アプリでQRコードを表示してください',
-			'play.stageDescription.payment_quiz2' => '決済アプリで残高のブラーを解除して確認してください',
+			'play.stageDescription.payment_quiz2' => '決済アプリで目のアイコンをタップして残高を隠してください',
 			'play.stageDescription.payment_quiz3' => '決済アプリで誰かに送金してください',
-			'play.stageDescription.payment_quiz4' => '決済アプリで取引履歴を確認してください',
+			'play.stageDescription.payment_quiz4' => '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

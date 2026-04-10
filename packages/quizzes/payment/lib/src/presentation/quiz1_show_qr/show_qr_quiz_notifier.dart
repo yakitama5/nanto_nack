@@ -18,6 +18,7 @@ final showQrQuizProvider =
 class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
   static const _quizId = 'payment_quiz1';
   static const _timeLimitSeconds = 30;
+  static const _hintPenaltyFailureCount = 2;
 
   final _useCase = const QuizShowQrUseCase();
   Timer? _timer;
@@ -66,6 +67,15 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
     state = state.copyWith(paymentShown: false);
   }
 
+  /// ヒントを使用する（スコア減点）
+  void useHint() {
+    if (state.status != QuizStatus.playing || state.hintUsed) return;
+    state = state.copyWith(
+      hintUsed: true,
+      failureCount: state.failureCount + _hintPenaltyFailureCount,
+    );
+  }
+
   /// 諦めてクイズを終了する
   Future<void> giveUp() async {
     if (state.status != QuizStatus.playing) return;
@@ -92,6 +102,7 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
         .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: state.failureCount,
     );
     _startTimer();
   }

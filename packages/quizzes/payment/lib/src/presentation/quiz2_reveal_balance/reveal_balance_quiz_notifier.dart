@@ -19,6 +19,7 @@ class RevealBalanceQuizNotifier
     extends AutoDisposeNotifier<RevealBalanceQuizState> {
   static const _quizId = 'payment_quiz2';
   static const _timeLimitSeconds = 45;
+  static const _hintPenaltyFailureCount = 2;
 
   final _useCase = const QuizRevealBalanceUseCase();
   Timer? _timer;
@@ -64,6 +65,15 @@ class RevealBalanceQuizNotifier
     }
   }
 
+  /// ヒントを使用する（スコア減点）
+  void useHint() {
+    if (state.status != QuizStatus.playing || state.hintUsed) return;
+    state = state.copyWith(
+      hintUsed: true,
+      failureCount: state.failureCount + _hintPenaltyFailureCount,
+    );
+  }
+
   /// 諦めてクイズを終了する
   Future<void> giveUp() async {
     if (state.status != QuizStatus.playing) return;
@@ -91,6 +101,7 @@ class RevealBalanceQuizNotifier
             .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      failureCount: state.failureCount,
     );
     _startTimer();
   }

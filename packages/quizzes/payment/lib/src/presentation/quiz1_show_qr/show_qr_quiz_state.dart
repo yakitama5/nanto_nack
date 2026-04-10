@@ -10,6 +10,7 @@ class ShowQrQuizState extends QuizStateBase {
     required super.startedAt,
     required this.paymentShown,
     required this.remainingSeconds,
+    this.hintUsed = false,
   });
 
   /// 初期状態を生成する
@@ -21,6 +22,7 @@ class ShowQrQuizState extends QuizStateBase {
         startedAt: null,
         paymentShown: false,
         remainingSeconds: timeLimitSeconds,
+        hintUsed: false,
       );
 
   /// QRコードが表示されたか
@@ -28,6 +30,9 @@ class ShowQrQuizState extends QuizStateBase {
 
   /// 残り時間（秒）
   final int remainingSeconds;
+
+  /// ヒントを使用済みかどうか
+  final bool hintUsed;
 
   /// 指定フィールドを差し替えた新インスタンスを返す
   ShowQrQuizState copyWith({
@@ -37,6 +42,7 @@ class ShowQrQuizState extends QuizStateBase {
     DateTime? startedAt,
     bool? paymentShown,
     int? remainingSeconds,
+    bool? hintUsed,
   }) {
     return ShowQrQuizState(
       status: status ?? this.status,
@@ -45,6 +51,7 @@ class ShowQrQuizState extends QuizStateBase {
       startedAt: startedAt ?? this.startedAt,
       paymentShown: paymentShown ?? this.paymentShown,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      hintUsed: hintUsed ?? this.hintUsed,
     );
   }
 }

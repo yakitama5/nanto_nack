@@ -29,6 +29,8 @@ class PaymentHomeScreen extends StatefulWidget {
     this.highlightEyeIcon = false,
     this.highlightSendTile = false,
     this.highlightPaymentCarousel = false,
+    this.hintUsed = false,
+    this.onHintTap,
   });
 
   /// 残高
@@ -82,6 +84,12 @@ class PaymentHomeScreen extends StatefulWidget {
   /// 支払い元カルーセルをハイライト
   final bool highlightPaymentCarousel;
 
+  /// ヒントを使用済みか
+  final bool hintUsed;
+
+  /// ヒントボタンタップコールバック
+  final VoidCallback? onHintTap;
+
   @override
   State<PaymentHomeScreen> createState() => _PaymentHomeScreenState();
 }
@@ -121,16 +129,16 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
     return showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('ゲームを中断しますか？'),
-        content: const Text('プレイ中のゲームを終了します。'),
+        title: Text(t.quiz.exitDialogTitle),
+        content: Text(t.quiz.exitDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('続ける'),
+            child: Text(t.quiz.exitDialogContinue),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('終了する'),
+            child: Text(t.quiz.exitDialogExit),
           ),
         ],
       ),
@@ -240,8 +248,9 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
           FloatingMissionBubble(
             remainingSeconds: widget.remainingSeconds,
             missionText: widget.missionText,
-            hintUsed: false,
+            hintUsed: widget.hintUsed,
             timeLimitSeconds: widget.timeLimitSeconds,
+            onHintTap: widget.onHintTap,
             onGiveUp: widget.onGiveUp,
           ),
           ...widget.overlays,
@@ -309,25 +318,29 @@ class _NavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = selected ? const Color(0xFFFF3B3B) : Colors.grey.shade500;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: 60,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: color, size: 22),
-            const SizedBox(height: 2),
-            UnreadableText(
-              label,
-              style: TextStyle(
-                fontSize: 10,
-                color: color,
-                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: SizedBox(
+          width: 60,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color, size: 22),
+              const SizedBox(height: 2),
+              UnreadableText(
+                label,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: color,
+                  fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -437,7 +450,7 @@ class _BalanceDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!balanceHidden) {
-      return Text(
+      return UnreadableText(
         '${sq.common.yen}$balance',
         style: const TextStyle(
           color: Colors.white,
@@ -446,7 +459,7 @@ class _BalanceDisplay extends StatelessWidget {
         ),
       );
     }
-    return Text(
+    return UnreadableText(
       '*** ${sq.common.yen}',
       style: const TextStyle(
         color: Colors.white70,
@@ -747,48 +760,56 @@ class _ActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: highlighted
-            ? BoxDecoration(
-                color: const Color(0xFFFFE5E5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFFFF3B3B), width: 1.5),
-              )
-            : null,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                color: highlighted
-                    ? const Color(0xFFFF3B3B)
-                    : const Color(0xFFF5F5F5),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                color: highlighted ? Colors.white : Colors.grey.shade600,
-                size: 24,
-              ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Ink(
+          decoration: highlighted
+              ? BoxDecoration(
+                  color: const Color(0xFFFFE5E5),
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(color: const Color(0xFFFF3B3B), width: 1.5),
+                )
+              : const BoxDecoration(),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: highlighted
+                        ? const Color(0xFFFF3B3B)
+                        : const Color(0xFFF5F5F5),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    icon,
+                    color: highlighted ? Colors.white : Colors.grey.shade600,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                UnreadableText(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: highlighted
+                        ? const Color(0xFFFF3B3B)
+                        : Colors.grey.shade700,
+                    fontWeight:
+                        highlighted ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 6),
-            UnreadableText(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                color: highlighted
-                    ? const Color(0xFFFF3B3B)
-                    : Colors.grey.shade700,
-                fontWeight: highlighted ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -920,7 +941,7 @@ class _TransactionItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
+              UnreadableText(
                 tx.isIncome
                     ? '+${sq.common.yen}${tx.amount}'
                     : '-${sq.common.yen}${tx.amount.abs()}',
@@ -1053,9 +1074,9 @@ class _PointTabContent extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Text(
-                        '1,250',
-                        style: TextStyle(
+                      UnreadableText(
+                        sq.common.mockPointsBalance,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -1491,6 +1512,8 @@ class PaymentScreen extends StatelessWidget {
     this.onBack,
     this.onChangePaymentMethod,
     this.highlightPaymentMethodButton = false,
+    this.hintUsed = false,
+    this.onHintTap,
   });
 
   /// クイズステータス
@@ -1523,11 +1546,23 @@ class PaymentScreen extends StatelessWidget {
   /// 支払い元ボタンをハイライト
   final bool highlightPaymentMethodButton;
 
+  /// ヒントを使用済みか
+  final bool hintUsed;
+
+  /// ヒントボタンタップコールバック
+  final VoidCallback? onHintTap;
+
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
 
-    return Scaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        onBack?.call();
+      },
+      child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -1589,12 +1624,14 @@ class PaymentScreen extends StatelessWidget {
           FloatingMissionBubble(
             remainingSeconds: remainingSeconds,
             missionText: missionText,
-            hintUsed: false,
+            hintUsed: hintUsed,
             timeLimitSeconds: timeLimitSeconds,
+            onHintTap: onHintTap,
             onGiveUp: onGiveUp,
           ),
           ...overlays,
         ],
+      ),
       ),
     );
   }
@@ -1621,48 +1658,59 @@ class _PaymentMethodButton extends StatelessWidget {
     final label = isBalance ? sq.common.balancePayment : sq.common.creditCard;
 
     final isDisabled = onChangePaymentMethod == null;
-    return GestureDetector(
-      onTap: isDisabled ? null : () => _showPaymentMethodSheet(context),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        decoration: BoxDecoration(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: isDisabled ? null : () => _showPaymentMethodSheet(context),
           borderRadius: BorderRadius.circular(24),
-          color: isDisabled
-              ? const Color(0xFFEEEEEE)
-              : highlighted
-                  ? const Color(0xFFFFE5E5)
-                  : const Color(0xFFF5F5F5),
-          border: isDisabled
-              ? Border.all(color: Colors.grey.shade300)
-              : highlighted
-                  ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
-                  : Border.all(color: Colors.grey.shade300),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 20,
-              color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: isDisabled
+                  ? const Color(0xFFEEEEEE)
+                  : highlighted
+                      ? const Color(0xFFFFE5E5)
+                      : const Color(0xFFF5F5F5),
+              border: isDisabled
+                  ? Border.all(color: Colors.grey.shade300)
+                  : highlighted
+                      ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
+                      : Border.all(color: Colors.grey.shade300),
             ),
-            const SizedBox(width: 8),
-            UnreadableText(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: isDisabled ? Colors.grey : Colors.black87,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    icon,
+                    size: 20,
+                    color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
+                  ),
+                  const SizedBox(width: 8),
+                  UnreadableText(
+                    label,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: isDisabled ? Colors.grey : Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Icon(
+                    Icons.expand_more,
+                    size: 18,
+                    color: isDisabled
+                        ? Colors.grey.shade400
+                        : Colors.grey.shade500,
+                  ),
+                ],
               ),
             ),
-            const SizedBox(width: 6),
-            Icon(
-              Icons.expand_more,
-              size: 18,
-              color: isDisabled ? Colors.grey.shade400 : Colors.grey.shade500,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -1887,6 +1935,8 @@ class SendMoneyScreen extends StatelessWidget {
     this.onAmountKey,
     this.onSend,
     this.onBack,
+    this.hintUsed = false,
+    this.onHintTap,
   });
 
   final List<PaymentContact> contacts;
@@ -1904,13 +1954,25 @@ class SendMoneyScreen extends StatelessWidget {
   final VoidCallback? onSend;
   final VoidCallback? onBack;
 
+  /// ヒントを使用済みか
+  final bool hintUsed;
+
+  /// ヒントボタンタップコールバック
+  final VoidCallback? onHintTap;
+
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
     final selected =
         contacts.where((c) => c.id == selectedContactId).firstOrNull;
 
-    return Scaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        onBack?.call();
+      },
+      child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -1943,51 +2005,55 @@ class SendMoneyScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final contact = contacts[index];
                     final isSelected = contact.id == selectedContactId;
-                    return GestureDetector(
-                      onTap: () => onContactSelect?.call(contact.id),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 150),
-                            width: 56,
-                            height: 56,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: isSelected
-                                  ? const Color(0xFFFF3B3B)
-                                  : const Color(0xFFF0F0F0),
-                              border: isSelected
-                                  ? Border.all(
-                                      color: const Color(0xFFFF3B3B),
-                                      width: 3,
-                                    )
-                                  : null,
-                            ),
-                            child: Center(
-                              child: Text(
-                                contact.initial,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: isSelected
-                                      ? Colors.white
-                                      : Colors.grey.shade600,
+                    return Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () => onContactSelect?.call(contact.id),
+                        borderRadius: BorderRadius.circular(8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 150),
+                              width: 56,
+                              height: 56,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: isSelected
+                                    ? const Color(0xFFFF3B3B)
+                                    : const Color(0xFFF0F0F0),
+                                border: isSelected
+                                    ? Border.all(
+                                        color: const Color(0xFFFF3B3B),
+                                        width: 3,
+                                      )
+                                    : null,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  contact.initial,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.grey.shade600,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          UnreadableText(
-                            _contactName(sq, index),
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: isSelected
-                                  ? const Color(0xFFFF3B3B)
-                                  : Colors.grey.shade600,
+                            const SizedBox(height: 4),
+                            UnreadableText(
+                              _sendMoneyContactName(sq, index),
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: isSelected
+                                    ? const Color(0xFFFF3B3B)
+                                    : Colors.grey.shade600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -2014,7 +2080,7 @@ class SendMoneyScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
+                        UnreadableText(
                           sq.common.yen,
                           style: const TextStyle(
                             fontSize: 24,
@@ -2022,7 +2088,7 @@ class SendMoneyScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 4),
-                        Text(
+                        UnreadableText(
                           amount.toString(),
                           style: const TextStyle(
                             fontSize: 48,
@@ -2039,50 +2105,243 @@ class SendMoneyScreen extends StatelessWidget {
                 child: _NumPad(onKey: onAmountKey),
               ),
               // 送金ボタン
-              Padding(
+              SafeArea(
+                top: false,
+                child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
                 child: FilledButton(
-                  onPressed: selected != null && amount > 0 ? onSend : null,
+                  onPressed: selected != null && amount > 0 && onSend != null
+                      ? () => _showSendConfirmSheet(
+                            context,
+                            sq,
+                            selected,
+                            contacts,
+                            amount,
+                            onSend,
+                          )
+                      : null,
                   style: FilledButton.styleFrom(
                     minimumSize: const Size(double.infinity, 52),
                     backgroundColor: const Color(0xFFFF3B3B),
                   ),
-                  child: UnreadableText(
-                    sq.common.sendMoney,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  child: Semantics(
+                    label: sq.common.sendMoney,
+                    child: UnreadableText(
+                      sq.common.sendMoney,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
+              ),
               ),
             ],
           ),
           FloatingMissionBubble(
             remainingSeconds: remainingSeconds,
             missionText: missionText,
-            hintUsed: false,
+            hintUsed: hintUsed,
             timeLimitSeconds: timeLimitSeconds,
+            onHintTap: onHintTap,
             onGiveUp: onGiveUp,
           ),
           ...overlays,
         ],
       ),
+      ),
     );
   }
 
-  static String _contactName($payment.Translations sq, int index) {
-    switch (index) {
-      case 0:
-        return sq.common.contact1;
-      case 1:
-        return sq.common.contact2;
-      case 2:
-        return sq.common.contact3;
-      default:
-        return sq.common.contact4;
-    }
+}
+
+/// 送金確認ボトムシートを表示する
+void _showSendConfirmSheet(
+  BuildContext context,
+  $payment.Translations sq,
+  PaymentContact? contact,
+  List<PaymentContact> contacts,
+  int amount,
+  VoidCallback? onConfirm,
+) {
+  if (contact == null) return;
+  final contactIndex = contacts.indexWhere((c) => c.id == contact.id);
+  final contactName = _sendMoneyContactName(sq, contactIndex);
+
+  showModalBottomSheet<void>(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (ctx) => _SendConfirmSheet(
+      sq: sq,
+      contact: contact,
+      contactName: contactName,
+      amount: amount,
+      onConfirm: () {
+        Navigator.of(ctx).pop();
+        onConfirm?.call();
+      },
+      onCancel: () => Navigator.of(ctx).pop(),
+    ),
+  );
+}
+
+/// 送金画面のコンタクト名を返す
+String _sendMoneyContactName($payment.Translations sq, int index) {
+  if (index < 0) return sq.common.contact1;
+  switch (index) {
+    case 0:
+      return sq.common.contact1;
+    case 1:
+      return sq.common.contact2;
+    case 2:
+      return sq.common.contact3;
+    default:
+      return sq.common.contact4;
+  }
+}
+
+/// 送金確認ボトムシート
+class _SendConfirmSheet extends StatelessWidget {
+  const _SendConfirmSheet({
+    required this.sq,
+    required this.contact,
+    required this.contactName,
+    required this.amount,
+    required this.onConfirm,
+    required this.onCancel,
+  });
+
+  final $payment.Translations sq;
+  final PaymentContact contact;
+  final String contactName;
+  final int amount;
+  final VoidCallback onConfirm;
+  final VoidCallback onCancel;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          24,
+          16,
+          24,
+          24 + MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // ドラッグハンドル
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // タイトル
+            UnreadableText(
+              sq.common.confirm,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 24),
+            // 送金先
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                UnreadableText(
+                  sq.common.sendTo,
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 16,
+                      backgroundColor: const Color(0xFFF0F0F0),
+                      child: Text(
+                        contact.initial,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    UnreadableText(
+                      contactName,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // 金額
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                UnreadableText(
+                  sq.common.amount,
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                ),
+                UnreadableText(
+                  '${sq.common.yen}$amount',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(height: 32),
+            // 送金するボタン
+            FilledButton(
+              onPressed: onConfirm,
+              style: FilledButton.styleFrom(
+                minimumSize: const Size(double.infinity, 52),
+                backgroundColor: const Color(0xFFFF3B3B),
+              ),
+              child: Semantics(
+                label: sq.common.sendMoney,
+                child: UnreadableText(
+                  sq.common.sendMoney,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            // キャンセル
+            TextButton(
+              onPressed: onCancel,
+              child: Semantics(
+                label: sq.common.cancel,
+                child: UnreadableText(
+                  sq.common.cancel,
+                  style: TextStyle(fontSize: 15, color: Colors.grey.shade700),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -2117,20 +2376,21 @@ class _NumKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: label.isEmpty ? Colors.transparent : const Color(0xFFF5F5F5),
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: Material(
+        color: label.isEmpty ? Colors.transparent : const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w500,
+          child: Center(
+            child: UnreadableText(
+              label,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),
