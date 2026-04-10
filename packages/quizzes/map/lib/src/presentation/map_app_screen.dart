@@ -113,7 +113,7 @@ class MapAppScreen extends StatelessWidget {
         backgroundColor: const Color(0xFFE8F0E9),
       body: Stack(
         children: [
-          // 地図エリア（疑似マップ）
+          // 地図エリア（疑似マップ・スクロール可能）
           Positioned.fill(
             child: _MapCanvas(
               places: places,
@@ -209,8 +209,8 @@ class MapAppScreen extends StatelessWidget {
   }
 }
 
-/// 疑似マップキャンバス
-class _MapCanvas extends StatelessWidget {
+/// 疑似マップキャンバス（パン操作でスクロール可能）
+class _MapCanvas extends StatefulWidget {
   const _MapCanvas({
     required this.places,
     required this.selectedPlace,
@@ -226,50 +226,131 @@ class _MapCanvas extends StatelessWidget {
   final void Function(MapPlace)? onPlaceSelect;
 
   @override
+  State<_MapCanvas> createState() => _MapCanvasState();
+}
+
+class _MapCanvasState extends State<_MapCanvas> {
+  /// スクリーンに対するキャンバスの拡大倍率
+  static const double _mapScale = 2.5;
+
+  Offset _mapOffset = Offset.zero;
+  bool _offsetInitialized = false;
+
+  void _applyDelta(Offset delta, double maxDx, double maxDy) {
+    setState(() {
+      _mapOffset = Offset(
+        (_mapOffset.dx + delta.dx).clamp(-maxDx, 0),
+        (_mapOffset.dy + delta.dy).clamp(-maxDy, 0),
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
     final pinColors = ext.mapPinColors;
 
-    return CustomPaint(
-      painter: _MapPainter(mapColor: mapColor),
-      child: Stack(
-        children: [
-          // 場所のピン
-          for (final place in places)
-            _PlacePin(
-              place: place,
-              isSelected: selectedPlace?.id == place.id,
-              color: pinColors[place.colorSeed % pinColors.length],
-              onTap: onPlaceSelect != null ? () => onPlaceSelect!(place) : null,
-            ),
-          // 現在地インジケータ
-          if (locationShown)
-            Center(
-              child: Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    width: 3,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: 0.4),
-                      blurRadius: 12,
-                      spreadRadius: 4,
+    // LayoutBuilder で実際の制約幅を取得する。
+    // MediaQuery.sizeOf はデスクトップWeb で ResponsiveFramework の
+    // 制約を反映しないことがあるため LayoutBuilder を使用する。
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final sw = constraints.maxWidth;
+        final sh = constraints.maxHeight;
+        final maxDx = sw * (_mapScale - 1);
+        final maxDy = sh * (_mapScale - 1);
+        final canvasWidth = sw * _mapScale;
+        final canvasHeight = sh * _mapScale;
+
+        // 初回 build 時のみ: キャンバス中央が画面中央に来るよう設定。
+        // setState は呼ばず直接代入（同 build 内で読むため問題なし）。
+        // Web ブラウザでは初回フレームで maxHeight が 0 を返す場合があるため、
+        // sw > 0 && sh > 0 が確定してから初期化する。
+        if (!_offsetInitialized && sw > 0 && sh > 0) {
+          _offsetInitialized = true;
+          _mapOffset = Offset(
+            -sw * (_mapScale - 1) / 2,
+            -sh * (_mapScale - 1) / 2,
+          );
+        }
+
+        // サイズが未確定の場合は空ウィジェットを返す（次フレームで再ビルドされる）。
+        if (!_offsetInitialized) return const SizedBox.expand();
+
+        // GestureDetector の onPanUpdate はデスクトップWeb（Chrome）でマウス
+        // ドラッグを拾えないため、ジェスチャーアリーナを介さない Listener を使用。
+        // event.buttons != 0 でボタン押下中（タッチ含む）の移動のみ反応させる。
+        return Listener(
+          behavior: HitTestBehavior.opaque,
+          onPointerMove: (event) {
+            if (event.buttons != 0) _applyDelta(event.delta, maxDx, maxDy);
+          },
+          child: ClipRect(
+            // Positioned.fill が渡す tight constraints により SizedBox が
+            // sw × sh に制限されるのを防ぐため、OverflowBox で制約を解除する。
+            // OverflowBox 自身は sw × sh を保持し ClipRect の基準となる。
+            child: OverflowBox(
+              alignment: Alignment.topLeft,
+              maxWidth: double.infinity,
+              maxHeight: double.infinity,
+              child: Transform.translate(
+                offset: _mapOffset,
+                child: SizedBox(
+                  width: canvasWidth,
+                  height: canvasHeight,
+                  child: CustomPaint(
+                    painter: _MapPainter(mapColor: widget.mapColor),
+                    child: Stack(
+                      children: [
+                        // 場所のピン
+                        for (final place in widget.places)
+                          _PlacePin(
+                            place: place,
+                            isSelected: widget.selectedPlace?.id == place.id,
+                            color: pinColors[place.colorSeed % pinColors.length],
+                            canvasWidth: canvasWidth,
+                            canvasHeight: canvasHeight,
+                            onTap: widget.onPlaceSelect != null
+                                ? () => widget.onPlaceSelect!(place)
+                                : null,
+                          ),
+                        // 現在地インジケータ（キャンバス中央 = 画面初期中央）
+                        if (widget.locationShown)
+                          Positioned(
+                            left: canvasWidth / 2 - 10,
+                            top: canvasHeight / 2 - 10,
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  width: 3,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withValues(alpha: 0.4),
+                                    blurRadius: 12,
+                                    spreadRadius: 4,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -283,62 +364,126 @@ class _MapPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final road = Paint()
       ..color = Colors.white
-      ..strokeWidth = 6
-      ..style = PaintingStyle.stroke;
+      ..strokeWidth = 7
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.square;
     final roadMinor = Paint()
       ..color = Colors.white70
       ..strokeWidth = 3
-      ..style = PaintingStyle.stroke;
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.square;
 
-    // 横道
-    canvas.drawLine(
-      Offset(0, size.height * 0.3),
-      Offset(size.width, size.height * 0.3),
-      road,
-    );
-    canvas.drawLine(
-      Offset(0, size.height * 0.6),
-      Offset(size.width, size.height * 0.6),
-      road,
-    );
-    // 縦道
-    canvas.drawLine(
-      Offset(size.width * 0.3, 0),
-      Offset(size.width * 0.3, size.height),
-      road,
-    );
-    canvas.drawLine(
-      Offset(size.width * 0.7, 0),
-      Offset(size.width * 0.7, size.height),
-      road,
-    );
-    // 斜め道路
-    canvas.drawLine(
-      Offset(0, size.height * 0.1),
-      Offset(size.width * 0.4, size.height * 0.5),
-      roadMinor,
-    );
-    canvas.drawLine(
-      Offset(size.width * 0.6, size.height * 0.5),
-      Offset(size.width, size.height * 0.9),
-      roadMinor,
-    );
+    // キャンバス全体を 10% ピッチで均等にグリッド道路を描画する。
+    // 10% canvas = 画面幅の 25% 間隔 → 端付近の空白を抑える。
+    // 偶数インデックス（0.2, 0.4, ...）は主要道路、奇数は細道。
+    for (var i = 1; i <= 9; i++) {
+      final frac = i / 10.0;
+      final paint = i % 2 == 0 ? road : roadMinor;
+      // 横道
+      canvas.drawLine(
+        Offset(0, size.height * frac),
+        Offset(size.width, size.height * frac),
+        paint,
+      );
+      // 縦道
+      canvas.drawLine(
+        Offset(size.width * frac, 0),
+        Offset(size.width * frac, size.height),
+        paint,
+      );
+    }
+    // 端付近（5% / 95%）の補助道路: スクロール端でも道がある印象を与える
+    for (final frac in [0.05, 0.95]) {
+      canvas.drawLine(
+        Offset(0, size.height * frac),
+        Offset(size.width, size.height * frac),
+        roadMinor,
+      );
+      canvas.drawLine(
+        Offset(size.width * frac, 0),
+        Offset(size.width * frac, size.height),
+        roadMinor,
+      );
+    }
 
-    // 公園エリア
-    final park = Paint()..color = const Color(0xFFB7DFB5);
+    final parkPaint = Paint()..color = const Color(0xFFB7DFB5);
+
+    // 公園1: 中央（初期表示で見える位置 = キャンバス中央付近）
     canvas.drawRect(
       Rect.fromLTWH(
-        size.width * 0.32,
-        size.height * 0.32,
-        size.width * 0.36,
-        size.height * 0.26,
+        size.width * 0.42,
+        size.height * 0.41,
+        size.width * 0.16,
+        size.height * 0.18,
       ),
-      park,
+      parkPaint,
+    );
+    // 公園2: 左上（スクロール先）
+    canvas.drawRect(
+      Rect.fromLTWH(
+        size.width * 0.08,
+        size.height * 0.08,
+        size.width * 0.12,
+        size.height * 0.12,
+      ),
+      parkPaint,
+    );
+    // 公園3: 右下（スクロール先）
+    canvas.drawRect(
+      Rect.fromLTWH(
+        size.width * 0.72,
+        size.height * 0.72,
+        size.width * 0.16,
+        size.height * 0.16,
+      ),
+      parkPaint,
+    );
+    // 公園4: 左下
+    canvas.drawRect(
+      Rect.fromLTWH(
+        size.width * 0.06,
+        size.height * 0.74,
+        size.width * 0.12,
+        size.height * 0.09,
+      ),
+      parkPaint,
+    );
+    // 公園5: 右上
+    canvas.drawRect(
+      Rect.fromLTWH(
+        size.width * 0.80,
+        size.height * 0.07,
+        size.width * 0.12,
+        size.height * 0.09,
+      ),
+      parkPaint,
+    );
+
+    // 水域（池）: 2 か所
+    final waterPaint = Paint()
+      ..color = const Color(0xFF90CAF9)
+      ..style = PaintingStyle.fill;
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(size.width * 0.72, size.height * 0.24),
+        width: size.width * 0.08,
+        height: size.height * 0.05,
+      ),
+      waterPaint,
+    );
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(size.width * 0.22, size.height * 0.75),
+        width: size.width * 0.07,
+        height: size.height * 0.04,
+      ),
+      waterPaint,
     );
   }
 
   @override
-  bool shouldRepaint(_MapPainter oldDelegate) => false;
+  bool shouldRepaint(_MapPainter oldDelegate) =>
+      oldDelegate.mapColor != mapColor;
 }
 
 class _PlacePin extends StatelessWidget {
@@ -346,28 +491,36 @@ class _PlacePin extends StatelessWidget {
     required this.place,
     required this.isSelected,
     required this.color,
+    required this.canvasWidth,
+    required this.canvasHeight,
     this.onTap,
   });
 
   final MapPlace place;
   final bool isSelected;
   final Color color;
+  final double canvasWidth;
+  final double canvasHeight;
   final VoidCallback? onTap;
 
+  /// キャンバス座標系でのピン位置
+  ///
+  /// スクリーン座標系の位置 (dx, dy) を、キャンバスが 2.5 倍・中央起点で
+  /// 表示される場合のキャンバス座標 ((dx + 0.75) / 2.5, (dy + 0.75) / 2.5) に変換した値。
   static const _positions = <String, Offset>{
-    'p1': Offset(0.25, 0.25),
-    'p2': Offset(0.5, 0.48),
-    'p3': Offset(0.72, 0.28),
-    'p4': Offset(0.75, 0.65),
-    'p5': Offset(0.28, 0.7),
+    'p1': Offset(0.40, 0.40),
+    'p2': Offset(0.50, 0.492),
+    'p3': Offset(0.588, 0.412),
+    'p4': Offset(0.60, 0.56),
+    'p5': Offset(0.412, 0.58),
   };
 
   @override
   Widget build(BuildContext context) {
     final pos = _positions[place.id] ?? const Offset(0.5, 0.5);
     return Positioned(
-      left: MediaQuery.widthOf(context) * pos.dx - 18,
-      top: MediaQuery.heightOf(context) * pos.dy - 36,
+      left: canvasWidth * pos.dx - 18,
+      top: canvasHeight * pos.dy - 36,
       child: GestureDetector(
         onTap: onTap,
         child: Column(
@@ -420,7 +573,8 @@ class _PinTailPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_PinTailPainter oldDelegate) => false;
+  bool shouldRepaint(_PinTailPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 /// 検索バー
