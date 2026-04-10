@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:system/src/environment/app_environment.dart';
 import 'package:system/src/firebase/tip.dart';
 
 /// RemoteConfig で管理するキー定数
@@ -51,7 +52,11 @@ class RemoteConfigService {
     await remoteConfig.setConfigSettings(
       RemoteConfigSettings(
         fetchTimeout: const Duration(minutes: 1),
-        minimumFetchInterval: const Duration(hours: 1),
+        // dev では毎回最新値を取得する（キャッシュを無効化）。
+        // prod では過剰なフェッチを避けるため 1 時間のキャッシュを使用する。
+        minimumFetchInterval: AppEnvironment.isDev
+            ? Duration.zero
+            : const Duration(hours: 1),
       ),
     );
     await remoteConfig.setDefaults({
