@@ -20,6 +20,7 @@ import '../../domain/weather/weather_condition.dart';
 import '../../domain/weather/weather_scene_key.dart';
 import '../tutorial/nantom_speech_bubble.dart';
 
+
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -30,10 +31,12 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _playButtonKey = GlobalKey();
   OverlayEntry? _tutorialOverlayEntry;
+  TutorialCoachMark? _tutorialCoachMark;
 
   @override
   void initState() {
     super.initState();
+    appLogger.d('[HomeScreen] initState (hashCode=${hashCode})');
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTutorial());
   }
 
@@ -41,13 +44,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void dispose() {
     _tutorialOverlayEntry?.remove();
     _tutorialOverlayEntry = null;
+    _tutorialCoachMark?.finish();
+    _tutorialCoachMark = null;
     super.dispose();
   }
 
   Future<void> _maybeShowTutorial() async {
+    appLogger.d('[HomeScreen] _maybeShowTutorial called');
     try {
       final tutState = await ref.read(tutorialNotifierProvider.future);
       if (!mounted) return;
+      appLogger.d('[HomeScreen] tutState: screen=${tutState.screen} '
+          'isCompleted=${tutState.isCompleted}');
       if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
         // Step 1-2 は即座にオーバーレイ表示。Step 3 のコーチマーク表示前に
         // _playButtonKey が設定されているかを確認してから表示する。
@@ -66,8 +74,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           _tutorialOverlayEntry?.remove();
           _tutorialOverlayEntry = null;
           // Step 3: プレイボタンにフォーカスするコーチマークへ移行
-          if (!mounted) return;
-          _showPlayButtonCoachMarkWhenReady();
+          // 描画サイクルが完全に終わってから次ステップへ移行する
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!mounted) return;
+            _showPlayButtonCoachMarkWhenReady();
+          });
         },
         onSkip: () {
           _tutorialOverlayEntry?.remove();
@@ -83,7 +94,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   // Step 3: _playButtonKey が使用可能になるまで最大 retries 回フレームをまたいで待つ
   void _showPlayButtonCoachMarkWhenReady([int retries = 10]) {
-    if (!mounted || ModalRoute.of(context)?.isCurrent != true) return;
+    final isCurrent = ModalRoute.of(context)?.isCurrent;
+    appLogger.d('[HomeScreen] _showPlayButtonCoachMarkWhenReady: retries=$retries '
+        'mounted=$mounted isCurrent=$isCurrent '
+        'hasKey=${_playButtonKey.currentContext != null}');
+    if (!mounted || isCurrent != true) return;
     if (_playButtonKey.currentContext != null) {
       _showPlayButtonCoachMark();
       return;
@@ -99,15 +114,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final t = Translations.of(context);
 
     Future<void> navigateToPlay() async {
+      _tutorialCoachMark?.finish();
+      _tutorialCoachMark = null;
       ref.read(analyticsServiceProvider).logPlayButtonTapped();
       ref
           .read(tutorialNotifierProvider.notifier)
           .advanceTo(TutorialScreen.categoryList);
       await context.push('/play');
+      if (!mounted) return;
       ref.read(dashboardProvider.notifier).refresh();
     }
 
-    TutorialCoachMark(
+    _tutorialCoachMark = TutorialCoachMark(
       targets: [
         TargetFocus(
           identify: 'home_play_button',
@@ -148,14 +166,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       onClickTarget: (_) => navigateToPlay(),
       onClickOverlay: (_) => navigateToPlay(),
-      onFinish: () {},
+      onFinish: () {
+        _tutorialCoachMark = null;
+      },
       onSkip: () {
+        _tutorialCoachMark = null;
         Future.microtask(
           () => ref.read(tutorialNotifierProvider.notifier).complete(),
         );
         return true;
       },
-    ).show(context: context);
+    )..show(context: context);
   }
 
   @override

@@ -52,6 +52,8 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsTipEn tip = _TranslationsTipEn._(_root);
 	@override late final _TranslationsTutorialEn tutorial = _TranslationsTutorialEn._(_root);
 	@override late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(_root);
+	@override late final _TranslationsMaintenanceEn maintenance = _TranslationsMaintenanceEn._(_root);
+	@override late final _TranslationsUpdateEn update = _TranslationsUpdateEn._(_root);
 }
 
 // Path: app
@@ -250,6 +252,31 @@ class _TranslationsSettingsEn extends TranslationsSettingsJa {
 	@override late final _TranslationsSettingsAppearanceEn appearance = _TranslationsSettingsAppearanceEn._(_root);
 	@override late final _TranslationsSettingsDataEn data = _TranslationsSettingsDataEn._(_root);
 	@override late final _TranslationsSettingsAboutEn about = _TranslationsSettingsAboutEn._(_root);
+}
+
+// Path: maintenance
+class _TranslationsMaintenanceEn extends TranslationsMaintenanceJa {
+	_TranslationsMaintenanceEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Under Maintenance';
+	@override String get defaultMessage => 'We are currently under maintenance.\nPlease try again later.';
+}
+
+// Path: update
+class _TranslationsUpdateEn extends TranslationsUpdateJa {
+	_TranslationsUpdateEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Update Available';
+	@override String get forceMessage => 'Please update the app to continue using it.';
+	@override String get optionalMessage => 'A new version is available. We recommend updating.';
+	@override String get updateButton => 'Update';
+	@override String get laterButton => 'Later';
 }
 
 // Path: home.weekday
@@ -605,6 +632,13 @@ extension on TranslationsEn {
 			'settings.about.contact' => 'Contact',
 			'settings.about.licenses' => 'Licenses',
 			'settings.about.version' => 'Version {version}',
+			'maintenance.title' => 'Under Maintenance',
+			'maintenance.defaultMessage' => 'We are currently under maintenance.\nPlease try again later.',
+			'update.title' => 'Update Available',
+			'update.forceMessage' => 'Please update the app to continue using it.',
+			'update.optionalMessage' => 'A new version is available. We recommend updating.',
+			'update.updateButton' => 'Update',
+			'update.laterButton' => 'Later',
 			_ => null,
 		};
 	}

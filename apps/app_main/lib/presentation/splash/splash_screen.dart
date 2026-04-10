@@ -1,51 +1,56 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:system/system.dart';
 
+import '../update/update_dialog.dart';
+
 /// アプリ起動時に表示するスプラッシュスクリーン。
 ///
-/// Lottie アニメーション（splash.lottie）を1回再生しながら、
-/// バックグラウンドで [AppInitializer.initialize] を実行する。
-/// ① アニメーション1周完了 AND ② 初期化完了、の両条件が揃った時点で
-/// ホーム画面（`/`）へ遷移する。
-class SplashScreen extends StatefulWidget {
+/// Lottie アニメーションを1回再生し、完了後にシステム状態を確認して遷移する。
+/// Firebase 初期化は main() で完了済み。
+///
+/// 遷移ルール:
+/// - Normal / Maintenance: ホーム画面へ遷移（Maintenance は GoRouter redirect が処理）
+/// - ForceUpdate: ダイアログを表示（閉じ不可）
+/// - OptionalUpdate: ダイアログを表示し、閉じたらホーム画面へ遷移
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   /// アニメーションの再生速度倍率（1.5 = 1.5倍速）。
   static const double _playbackSpeed = 1.5;
 
-  /// アセット読み込み失敗・アニメーション未完了時のフォールバックタイムアウト。
+  /// Lottie 読み込み失敗時のフォールバックタイムアウト。
+  /// アニメーション完了時にキャンセルされるため、ダイアログ表示中には発火しない。
   static const Duration _timeout = Duration(seconds: 5);
 
   late final AnimationController _controller;
+  Timer? _timeoutTimer;
 
-  /// バックグラウンドで実行するアプリ初期化 Future。
-  late final Future<void> _initFuture;
+  /// スプラッシュ遷移が一度だけ実行されることを保証するガード。
+  bool _splashResolved = false;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    // アニメーションと並行してアプリ初期化を開始する。
-    _initFuture = AppInitializer.initialize();
-    // アセット読み込み失敗やアニメーション未完了に備えたタイムアウト。
-    // 一定時間内に完了しなかった場合はホーム画面へ強制遷移する。
-    Future.delayed(_timeout, () {
-      if (mounted) {
-        _navigateToHome();
-      }
-    });
+    // Lottie 読み込み失敗やアニメーション未完了に備えたフォールバック。
+    // アニメーションが正常に完了した場合は _onAnimationCompleted でキャンセルされる。
+    _timeoutTimer = Timer(_timeout, _resolveSplashOnce);
   }
 
   @override
   void dispose() {
+    _timeoutTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -59,14 +64,47 @@ class _SplashScreenState extends State<SplashScreen>
       ..forward().whenComplete(_onAnimationCompleted);
   }
 
-  /// アニメーション完了後、初期化の完了も待ってからホームへ遷移する。
-  Future<void> _onAnimationCompleted() async {
+  /// スプラッシュ遷移をちょうど1回だけ実行するガード付きヘルパー。
+  ///
+  /// タイムアウト・アニメーション完了・エラーフォールバックのどの経路からも
+  /// このメソッドを呼び出すことで、重複した遷移やダイアログ表示を防ぐ。
+  Future<void> _resolveSplashOnce() async {
+    if (_splashResolved) return;
+    _splashResolved = true;
+    _timeoutTimer?.cancel();
+    if (!mounted) return;
     try {
-      await _initFuture;
+      final systemState = await ref.read(systemConfigProvider.future);
+      if (!mounted) return;
+      await _handleSystemState(systemState);
     } catch (_) {
-      // 初期化失敗時もタイムアウト到達前にホーム画面へ遷移する。
+      _navigateToHome();
     }
-    _navigateToHome();
+  }
+
+  /// アニメーション完了後、システム状態確認を経てから遷移する。
+  Future<void> _onAnimationCompleted() async {
+    await _resolveSplashOnce();
+  }
+
+  /// システム状態に応じた画面遷移を行う。
+  Future<void> _handleSystemState(SystemAppState state) async {
+    if (!mounted) return;
+
+    switch (state) {
+      case SystemMaintenance():
+        // GoRouter の redirect がメンテナンス画面へリダイレクトする
+        context.go('/');
+      case SystemForceUpdate():
+        // 強制アップデート: スプラッシュ上でダイアログを表示（閉じ不可）
+        await showUpdateDialog(context, isForced: true);
+      case SystemOptionalUpdate():
+        // 任意アップデート: ダイアログを閉じた後にホームへ遷移
+        await showUpdateDialog(context, isForced: false);
+        _navigateToHome();
+      case SystemNormal():
+        _navigateToHome();
+    }
   }
 
   void _navigateToHome() {
@@ -87,15 +125,10 @@ class _SplashScreenState extends State<SplashScreen>
           controller: _controller,
           onLoaded: _onAnimationLoaded,
           errorBuilder: (context, error, stackTrace) {
-            // アセット読み込み失敗時は初期化完了後にホーム画面へ遷移する。
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              try {
-                await _initFuture;
-              } catch (_) {
-                // 初期化失敗時もタイムアウト到達前にホーム画面へ遷移する。
-              }
-              _navigateToHome();
-            });
+            // アセット読み込み失敗時はシステム状態確認を経て遷移する。
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => _resolveSplashOnce(),
+            );
             return const SizedBox.shrink();
           },
           width: 240,
