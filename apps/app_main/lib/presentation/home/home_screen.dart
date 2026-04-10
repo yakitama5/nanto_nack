@@ -98,12 +98,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void _showPlayButtonCoachMark() {
     final t = Translations.of(context);
 
-    void navigateToPlay() {
+    Future<void> navigateToPlay() async {
       ref.read(analyticsServiceProvider).logPlayButtonTapped();
       ref
           .read(tutorialNotifierProvider.notifier)
           .advanceTo(TutorialScreen.categoryList);
-      context.push('/play');
+      await context.push('/play');
+      ref.read(dashboardProvider.notifier).refresh();
     }
 
     TutorialCoachMark(
@@ -636,9 +637,10 @@ class _PlayHeroCard extends ConsumerWidget {
             children: [
               FilledButton.icon(
                 key: playButtonKey,
-                onPressed: () {
+                onPressed: () async {
                   ref.read(analyticsServiceProvider).logPlayButtonTapped();
-                  context.push('/play');
+                  await context.push('/play');
+                  ref.read(dashboardProvider.notifier).refresh();
                 },
                 style: FilledButton.styleFrom(
                   backgroundColor: Colors.white,
