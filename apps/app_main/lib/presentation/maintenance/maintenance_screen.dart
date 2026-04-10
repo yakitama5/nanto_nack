@@ -16,13 +16,13 @@ class MaintenanceScreen extends ConsumerWidget {
     final t = Translations.of(context);
     final systemState = ref.watch(systemConfigProvider);
 
-    final message = systemState.whenData((state) {
-      if (state is SystemMaintenance && state.message.isNotEmpty) {
-        return state.message;
-      }
-      return t.maintenance.defaultMessage;
-    }).value ??
-        t.maintenance.defaultMessage;
+    final message = systemState.maybeWhen(
+      data: (state) => switch (state) {
+        SystemMaintenance(:final message) when message.isNotEmpty => message,
+        _ => t.maintenance.defaultMessage,
+      },
+      orElse: () => t.maintenance.defaultMessage,
+    );
 
     return PopScope(
       // 戻るボタンを完全に無効化し、メンテナンス画面から離れられないようにする
