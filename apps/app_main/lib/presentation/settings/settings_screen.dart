@@ -5,6 +5,7 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../application/dashboard_provider.dart';
 import '../../application/settings/settings_notifier.dart';
 import '../../domain/settings/settings_state.dart';
 
@@ -193,6 +194,7 @@ class _DataCard extends ConsumerWidget {
     await ref.read(analyticsServiceProvider).logDataReset();
     final repository = ref.read(quizResultRepositoryProvider);
     await repository.deleteAllPlayData();
+    await ref.read(dashboardProvider.notifier).refresh();
 
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
