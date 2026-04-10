@@ -29,15 +29,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   late final AnimationController _controller;
 
-  /// バックグラウンドで実行するアプリ初期化 Future。
-  late final Future<void> _initFuture;
-
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    // アニメーションと並行してアプリ初期化を開始する。
-    _initFuture = AppInitializer.initialize();
+    // Firebase 初期化は main() で完了済み。
     // アセット読み込み失敗やアニメーション未完了に備えたタイムアウト。
     // 一定時間内に完了しなかった場合はホーム画面へ強制遷移する。
     Future.delayed(_timeout, () {
@@ -62,19 +58,18 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       ..forward().whenComplete(_onAnimationCompleted);
   }
 
-  /// アニメーション完了後、初期化完了とシステム状態確認を経てから遷移する。
+  /// アニメーション完了後、システム状態確認を経てから遷移する。
+  ///
+  /// Firebase 初期化は main() で完了済みのため、
+  /// systemConfigProvider はすぐに解決できる。
   Future<void> _onAnimationCompleted() async {
+    if (!mounted) return;
     try {
-      await _initFuture;
-      if (!mounted) return;
-
-      // Firebase 初期化完了後にシステム状態を取得する
       final systemState = await ref.read(systemConfigProvider.future);
       if (!mounted) return;
-
       await _handleSystemState(systemState);
     } catch (_) {
-      // 初期化・状態取得失敗時もホーム画面へ遷移する
+      // 状態取得失敗時もホーム画面へ遷移する
       _navigateToHome();
     }
   }
@@ -119,13 +114,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           controller: _controller,
           onLoaded: _onAnimationLoaded,
           errorBuilder: (context, error, stackTrace) {
-            // アセット読み込み失敗時は初期化完了後にホーム画面へ遷移する。
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              try {
-                await _initFuture;
-              } catch (_) {
-                // 初期化失敗時もタイムアウト到達前にホーム画面へ遷移する。
-              }
+            // アセット読み込み失敗時はホーム画面へ遷移する。
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               _navigateToHome();
             });
             return const SizedBox.shrink();
