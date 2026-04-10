@@ -12,6 +12,7 @@ const _absent = Object();
 class DashboardState {
   DashboardState({
     required this.remainingPlayCount,
+    required this.dailyPlayLimit,
     required this.dailyTip,
     required List<UserActivity> activityHistory,
     required this.currentStreak,
@@ -19,6 +20,9 @@ class DashboardState {
 
   /// 本日の残りプレイ可能数（null = 無制限/課金済み）
   final int? remainingPlayCount;
+
+  /// 1日のプレイ上限回数（null = 無制限/課金済み）
+  final int? dailyPlayLimit;
 
   /// 今日表示する Tips
   final DailyTip dailyTip;
@@ -37,6 +41,7 @@ class DashboardState {
   /// nullable フィールドには [Object?] + sentinel で判定している。
   DashboardState copyWith({
     Object? remainingPlayCount = _absent,
+    Object? dailyPlayLimit = _absent,
     DailyTip? dailyTip,
     List<UserActivity>? activityHistory,
     int? currentStreak,
@@ -45,6 +50,9 @@ class DashboardState {
       remainingPlayCount: remainingPlayCount == _absent
           ? this.remainingPlayCount
           : remainingPlayCount as int?,
+      dailyPlayLimit: dailyPlayLimit == _absent
+          ? this.dailyPlayLimit
+          : dailyPlayLimit as int?,
       dailyTip: dailyTip ?? this.dailyTip,
       activityHistory: activityHistory ?? this.activityHistory,
       currentStreak: currentStreak ?? this.currentStreak,

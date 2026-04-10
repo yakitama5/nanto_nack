@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:logger/logger.dart';
 
-final _logger = Logger();
+import '../logger/app_logger.dart';
 
 /// アプリ内課金サービス
 /// Web環境では動作しません
@@ -10,7 +9,7 @@ class PurchaseService {
 
   static Future<void> initialize() async {
     if (kIsWeb) {
-      _logger.i('IAP: Web環境では非対応');
+      appLogger.i('IAP: Web環境では非対応');
       return;
     }
     // TODO: in_app_purchase の初期化

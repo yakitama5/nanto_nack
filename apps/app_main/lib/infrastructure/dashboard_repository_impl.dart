@@ -43,16 +43,9 @@ class DashboardRepositoryImpl implements DashboardRepository {
 
   @override
   Future<int> getTodayPlayCount() async {
-    final status = await _userStatusRepository.get();
     final today = clock.now();
-    final lastReset = status.lastResetDate;
-
-    final isToday = lastReset != null &&
-        lastReset.year == today.year &&
-        lastReset.month == today.month &&
-        lastReset.day == today.day;
-
-    return isToday ? status.dailyPlayCount : 0;
+    final startOfDay = DateTime(today.year, today.month, today.day);
+    return _db.countPlayLogsSince(startOfDay);
   }
 
   @override

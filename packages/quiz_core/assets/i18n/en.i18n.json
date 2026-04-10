@@ -216,11 +216,22 @@
     "about": {
       "title": "About",
       "developerX": "Developer X (Twitter)",
-      "terms": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
       "contact": "Contact",
       "licenses": "Licenses",
       "version": "Version {version}",
       "@version": { "param": "version" }
     }
+  },
+  "maintenance": {
+    "title": "Under Maintenance",
+    "defaultMessage": "We are currently under maintenance.\nPlease try again later."
+  },
+  "update": {
+    "title": "Update Available",
+    "forceMessage": "Please update the app to continue using it.",
+    "optionalMessage": "A new version is available. We recommend updating.",
+    "updateButton": "Update",
+    "laterButton": "Later"
   }
 }

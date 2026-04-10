@@ -5,6 +5,7 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../application/dashboard_provider.dart';
 import '../../application/settings/settings_notifier.dart';
 import '../../domain/settings/settings_state.dart';
 
@@ -152,11 +153,6 @@ class _DataCard extends ConsumerWidget {
       icon: Icons.storage_outlined,
       iconColor: const Color(0xFFE65100),
       children: [
-        // TODO(yakitama5): IAP実装後に有効化する
-        _ActionItem(
-          label: t.settings.data.restorePurchase,
-          icon: Icons.restore_rounded,
-        ),
         _ActionItem(
           label: t.settings.data.resetData,
           icon: Icons.delete_outline_rounded,
@@ -198,6 +194,7 @@ class _DataCard extends ConsumerWidget {
     await ref.read(analyticsServiceProvider).logDataReset();
     final repository = ref.read(quizResultRepositoryProvider);
     await repository.deleteAllPlayData();
+    await ref.read(dashboardProvider.notifier).refresh();
 
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -255,11 +252,11 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
           ),
         ),
         _ActionItem(
-          label: t.settings.about.terms,
+          label: t.settings.about.privacyPolicy,
           icon: Icons.open_in_new_rounded,
           onTap: () => _launchExternalUrl(
-            'https://yakitama5.github.io/nanto_nack/terms',
-            linkName: 'terms',
+            'https://yakuran.notion.site/33ba0498b5cb80ccb945ffa8fe5409d5',
+            linkName: 'privacy_policy',
           ),
         ),
         _ActionItem(
@@ -273,13 +270,21 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
         _ActionItem(
           label: t.settings.about.licenses,
           icon: Icons.chevron_right_rounded,
-          onTap: () => showLicensePage(
-            context: context,
-            applicationName: 'NantoNack',
-            applicationVersion: _version.isNotEmpty
-                ? t.settings.about.version.replaceAll('{version}', _version)
-                : null,
-          ),
+          onTap: () {
+            const flavor =
+                String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+            final iconPath = flavor == 'prod'
+                ? 'assets/launcher_icon/icon_prod.png'
+                : 'assets/launcher_icon/icon_dev.png';
+            showLicensePage(
+              context: context,
+              applicationName: 'NantoNack',
+              applicationIcon: Image.asset(iconPath, width: 64, height: 64),
+              applicationVersion: _version.isNotEmpty
+                  ? t.settings.about.version.replaceAll('{version}', _version)
+                  : null,
+            );
+          },
         ),
         if (_version.isNotEmpty)
           Padding(

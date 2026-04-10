@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:system/src/environment/app_environment.dart';
 import 'package:system/src/firebase/tip.dart';
 
 /// RemoteConfig で管理するキー定数
@@ -14,6 +15,18 @@ abstract final class RemoteConfigKeys {
 
   /// 毎日表示する Tips（JSON 配列形式）
   static const dailyTips = 'daily_tips';
+
+  /// メンテナンスモード（true の場合、メンテナンス画面へ強制遷移）
+  static const maintenanceMode = 'maintenance_mode';
+
+  /// メンテナンス画面に表示する説明文（未設定時はデフォルト文を表示）
+  static const maintenanceMessage = 'maintenance_message';
+
+  /// この数値未満のバージョンは、ストアへ強制誘導（例: "1.2.0"）
+  static const forceUpdateVersion = 'force_update_version';
+
+  /// この数値未満のバージョンは、任意アップデートの案内を表示
+  static const latestUpdateVersion = 'latest_update_version';
 }
 
 /// [RemoteConfigKeys.dailyTips] のデフォルト値
@@ -39,13 +52,21 @@ class RemoteConfigService {
     await remoteConfig.setConfigSettings(
       RemoteConfigSettings(
         fetchTimeout: const Duration(minutes: 1),
-        minimumFetchInterval: const Duration(hours: 1),
+        // dev では毎回最新値を取得する（キャッシュを無効化）。
+        // prod では過剰なフェッチを避けるため 1 時間のキャッシュを使用する。
+        minimumFetchInterval: AppEnvironment.isDev
+            ? Duration.zero
+            : const Duration(hours: 1),
       ),
     );
     await remoteConfig.setDefaults({
       RemoteConfigKeys.dailyPlayLimit: 5,
       RemoteConfigKeys.isPlayLimitEnabled: true,
       RemoteConfigKeys.dailyTips: _defaultDailyTips,
+      RemoteConfigKeys.maintenanceMode: false,
+      RemoteConfigKeys.maintenanceMessage: '',
+      RemoteConfigKeys.forceUpdateVersion: '',
+      RemoteConfigKeys.latestUpdateVersion: '',
     });
     await remoteConfig.fetchAndActivate();
   }
@@ -57,6 +78,22 @@ class RemoteConfigService {
   /// 1日のプレイ回数制限が有効かどうかを返す
   bool get isPlayLimitEnabled =>
       FirebaseRemoteConfig.instance.getBool(RemoteConfigKeys.isPlayLimitEnabled);
+
+  /// メンテナンスモードかどうかを返す
+  bool get maintenanceMode =>
+      FirebaseRemoteConfig.instance.getBool(RemoteConfigKeys.maintenanceMode);
+
+  /// メンテナンス画面に表示するメッセージを返す
+  String get maintenanceMessage =>
+      FirebaseRemoteConfig.instance.getString(RemoteConfigKeys.maintenanceMessage);
+
+  /// 強制アップデートが必要な最低バージョン文字列を返す（未設定時は空文字）
+  String get forceUpdateVersion =>
+      FirebaseRemoteConfig.instance.getString(RemoteConfigKeys.forceUpdateVersion);
+
+  /// 任意アップデートを促す最低バージョン文字列を返す（未設定時は空文字）
+  String get latestUpdateVersion =>
+      FirebaseRemoteConfig.instance.getString(RemoteConfigKeys.latestUpdateVersion);
 
   /// 毎日表示する Tips の一覧を返す
   ///
