@@ -47,25 +47,12 @@ class StartNavigationQuizNotifier
   Future<void> selectPlace(MapPlace place) async {
     if (state.status != QuizStatus.playing) return;
 
-    if (_useCase.isCorrectDestination(place.id)) {
-      // 正解の目的地: ルートパネルを表示
-      state = state.copyWith(
-        selectedPlace: place,
-        showDirections: true,
-      );
-    } else {
-      // 不正解の目的地: 即時不正解
-      _timer?.cancel();
-      final elapsed = _elapsed;
-      state = state.copyWith(
-        selectedPlace: place,
-        status: QuizStatus.incorrect,
-        failureCount: state.failureCount + 1,
-        elapsedMs: elapsed,
-      );
-      await hapticFeedback.playErrorFeedback();
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
-    }
+    // 正誤に関わらず選択状態を更新してルートパネルを表示する。
+    // 正誤判定は「案内を開始」ボタンタップ時にまとめて行う。
+    state = state.copyWith(
+      selectedPlace: place,
+      showDirections: true,
+    );
   }
 
   /// 交通手段を選択した
@@ -73,15 +60,35 @@ class StartNavigationQuizNotifier
     if (state.status != QuizStatus.playing) return;
     if (!state.showDirections) return;
 
-    if (_useCase.isCorrectTransport(transportIndex)) {
-      // 正解の交通手段: 選択状態を更新
-      state = state.copyWith(selectedTransportIndex: transportIndex);
-    } else {
-      // 不正解の交通手段: 即時不正解
-      _timer?.cancel();
-      final elapsed = _elapsed;
+    // 正誤に関わらず選択状態を更新する。
+    // 正誤判定は「案内を開始」ボタンタップ時にまとめて行う。
+    state = state.copyWith(selectedTransportIndex: transportIndex);
+  }
+
+  /// 「案内を開始」ボタンをタップ → 目的地と交通手段の両方を検証して判定
+  Future<void> tapStartNavigation() async {
+    if (state.status != QuizStatus.playing) return;
+    if (state.selectedTransportIndex == null) return;
+    if (state.selectedPlace == null) return;
+
+    _timer?.cancel();
+    final elapsed = _elapsed;
+
+    final isCorrectDestination =
+        _useCase.isCorrectDestination(state.selectedPlace!.id);
+    final isCorrectTransport =
+        _useCase.isCorrectTransport(state.selectedTransportIndex!);
+
+    if (isCorrectDestination && isCorrectTransport) {
       state = state.copyWith(
-        selectedTransportIndex: transportIndex,
+        navigationStarted: true,
+        status: QuizStatus.correct,
+        elapsedMs: elapsed,
+      );
+      await hapticFeedback.playSuccessFeedback();
+      await _saveResult(isCleared: true, elapsedMs: elapsed);
+    } else {
+      state = state.copyWith(
         status: QuizStatus.incorrect,
         failureCount: state.failureCount + 1,
         elapsedMs: elapsed,
@@ -89,22 +96,6 @@ class StartNavigationQuizNotifier
       await hapticFeedback.playErrorFeedback();
       await _saveResult(isCleared: false, elapsedMs: elapsed);
     }
-  }
-
-  /// 「案内を開始」ボタンをタップ → クリア（交通手段が正解の場合のみ到達）
-  Future<void> tapStartNavigation() async {
-    if (state.status != QuizStatus.playing) return;
-    if (state.selectedTransportIndex == null) return;
-
-    _timer?.cancel();
-    final elapsed = _elapsed;
-    state = state.copyWith(
-      navigationStarted: true,
-      status: QuizStatus.correct,
-      elapsedMs: elapsed,
-    );
-    await hapticFeedback.playSuccessFeedback();
-    await _saveResult(isCleared: true, elapsedMs: elapsed);
   }
 
   /// 諦めてクイズを終了する
