@@ -20,6 +20,7 @@ import '../../domain/weather/weather_condition.dart';
 import '../../domain/weather/weather_scene_key.dart';
 import '../tutorial/nantom_speech_bubble.dart';
 
+
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -34,6 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    appLogger.d('[HomeScreen] initState (hashCode=${hashCode})');
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTutorial());
   }
 
@@ -45,9 +47,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _maybeShowTutorial() async {
+    appLogger.d('[HomeScreen] _maybeShowTutorial called');
     try {
       final tutState = await ref.read(tutorialNotifierProvider.future);
       if (!mounted) return;
+      appLogger.d('[HomeScreen] tutState: screen=${tutState.screen} '
+          'isCompleted=${tutState.isCompleted}');
       if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
         // Step 1-2 は即座にオーバーレイ表示。Step 3 のコーチマーク表示前に
         // _playButtonKey が設定されているかを確認してから表示する。
@@ -83,7 +88,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   // Step 3: _playButtonKey が使用可能になるまで最大 retries 回フレームをまたいで待つ
   void _showPlayButtonCoachMarkWhenReady([int retries = 10]) {
-    if (!mounted || ModalRoute.of(context)?.isCurrent != true) return;
+    final isCurrent = ModalRoute.of(context)?.isCurrent;
+    appLogger.d('[HomeScreen] _showPlayButtonCoachMarkWhenReady: retries=$retries '
+        'mounted=$mounted isCurrent=$isCurrent '
+        'hasKey=${_playButtonKey.currentContext != null}');
+    if (!mounted || isCurrent != true) return;
     if (_playButtonKey.currentContext != null) {
       _showPlayButtonCoachMark();
       return;

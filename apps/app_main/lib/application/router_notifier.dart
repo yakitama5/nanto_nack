@@ -4,26 +4,33 @@ import 'package:go_router/go_router.dart';
 import 'package:system/system.dart';
 
 /// GoRouter の redirect と Riverpod を橋渡しする [ChangeNotifier]。
-///
-/// [systemConfigProvider] の状態変化を購読し、変化時に [notifyListeners] を呼ぶ。
-/// GoRouter の [refreshListenable] に渡すことで、状態変化時にリダイレクト評価が
-/// 再実行される。
 class RouterNotifier extends ChangeNotifier {
   RouterNotifier(this._ref) {
     _ref.listen<AsyncValue<SystemAppState>>(
       systemConfigProvider,
-      (_, __) => notifyListeners(),
+      (prev, next) {
+        appLogger.d('[RouterNotifier] systemConfigProvider changed: '
+            '${_describeState(prev)} → ${_describeState(next)}');
+        notifyListeners();
+      },
     );
   }
 
   final Ref _ref;
 
-  /// GoRouter の redirect 関数。
-  ///
-  /// - メンテナンスモードの場合: `/maintenance` へリダイレクト
-  /// - メンテナンス解除時: `/maintenance` から `/` へ自動復帰
+  String _describeState(AsyncValue<SystemAppState>? v) {
+    if (v == null) return 'null';
+    return v.when(
+      data: (s) => 'data(${s.runtimeType})',
+      loading: () => 'loading',
+      error: (e, _) => 'error($e)',
+    );
+  }
+
   String? redirect(BuildContext context, GoRouterState state) {
     final systemState = _ref.read(systemConfigProvider);
+    appLogger.d('[RouterNotifier.redirect] location=${state.matchedLocation} '
+        'systemState=${_describeState(systemState)}');
 
     return systemState.when(
       data: (data) {
@@ -31,9 +38,11 @@ class RouterNotifier extends ChangeNotifier {
         final isOnMaintenance = state.matchedLocation == '/maintenance';
 
         if (isMaintenance && !isOnMaintenance) {
+          appLogger.i('[RouterNotifier.redirect] → /maintenance');
           return '/maintenance';
         }
         if (!isMaintenance && isOnMaintenance) {
+          appLogger.i('[RouterNotifier.redirect] → /');
           return '/';
         }
         return null;
