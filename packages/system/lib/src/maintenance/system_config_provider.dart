@@ -26,8 +26,17 @@ class SystemConfigNotifier extends AsyncNotifier<SystemAppState> {
     final subscription =
         FirebaseRemoteConfig.instance.onConfigUpdated.listen((_) async {
       appLogger.d('[SystemConfigProvider] onConfigUpdated fired');
-      await FirebaseRemoteConfig.instance.activate();
-      state = AsyncData(await _determineState());
+      try {
+        await FirebaseRemoteConfig.instance.activate();
+        state = AsyncData(await _determineState());
+      } catch (error, stackTrace) {
+        appLogger.e(
+          '[SystemConfigProvider] onConfigUpdated error',
+          error: error,
+          stackTrace: stackTrace,
+        );
+        state = AsyncError(error, stackTrace);
+      }
     });
     ref.onDispose(subscription.cancel);
 
