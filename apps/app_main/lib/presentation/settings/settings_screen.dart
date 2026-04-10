@@ -255,11 +255,11 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
           ),
         ),
         _ActionItem(
-          label: t.settings.about.terms,
+          label: t.settings.about.privacyPolicy,
           icon: Icons.open_in_new_rounded,
           onTap: () => _launchExternalUrl(
-            'https://yakitama5.github.io/nanto_nack/terms',
-            linkName: 'terms',
+            'https://yakitama5.github.io/nanto_nack/privacy',
+            linkName: 'privacy_policy',
           ),
         ),
         _ActionItem(
@@ -276,6 +276,7 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
           onTap: () => showLicensePage(
             context: context,
             applicationName: 'NantoNack',
+            applicationIcon: const Icon(Icons.quiz_rounded, size: 48),
             applicationVersion: _version.isNotEmpty
                 ? t.settings.about.version.replaceAll('{version}', _version)
                 : null,

@@ -423,7 +423,7 @@ class _TranslationsSettingsAboutEn extends TranslationsSettingsAboutJa {
 	// Translations
 	@override String get title => 'About';
 	@override String get developerX => 'Developer X (Twitter)';
-	@override String get terms => 'Terms of Service';
+	@override String get privacyPolicy => 'Privacy Policy';
 	@override String get contact => 'Contact';
 	@override String get licenses => 'Licenses';
 	@override String get version => 'Version {version}';
@@ -601,7 +601,7 @@ extension on TranslationsEn {
 			'settings.data.resetDataSuccess' => 'Data has been reset',
 			'settings.about.title' => 'About',
 			'settings.about.developerX' => 'Developer X (Twitter)',
-			'settings.about.terms' => 'Terms of Service',
+			'settings.about.privacyPolicy' => 'Privacy Policy',
 			'settings.about.contact' => 'Contact',
 			'settings.about.licenses' => 'Licenses',
 			'settings.about.version' => 'Version {version}',
