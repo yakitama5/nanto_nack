@@ -7,7 +7,7 @@ import '../../i18n/map_translations_extension.dart';
 import '../map_app_screen.dart';
 import 'save_place_quiz_notifier.dart';
 
-/// Quiz 4「この場所をお気に入りに追加してください」
+/// Quiz 4「駅をお気に入りに追加しよう」
 class SavePlaceQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
   const SavePlaceQuizScreen({super.key, this.onCompleted});
@@ -40,7 +40,7 @@ class _SavePlaceQuizScreenState extends ConsumerState<SavePlaceQuizScreen> {
 
     return MapAppScreen(
       places: MapCatalog.places,
-      selectedPlace: state.place,
+      selectedPlace: state.selectedPlace,
       locationShown: false,
       showSearchBar: false,
       showDirectionsButton: false,
@@ -50,8 +50,10 @@ class _SavePlaceQuizScreenState extends ConsumerState<SavePlaceQuizScreen> {
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightFavoriteButton: state.status == QuizStatus.playing,
-      isFavorite: state.place.isFavorite,
+      onPlaceSelect: notifier.selectPlace,
+      highlightFavoriteButton: state.status == QuizStatus.playing &&
+          state.selectedPlace != null,
+      isFavorite: state.selectedPlace?.isFavorite ?? false,
       onFavoriteTap: notifier.tapFavorite,
       overlays: [
         if (_showCutIn)
@@ -61,6 +63,7 @@ class _SavePlaceQuizScreenState extends ConsumerState<SavePlaceQuizScreen> {
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||
+            state.status == QuizStatus.incorrect ||
             state.status == QuizStatus.timeUp ||
             state.status == QuizStatus.giveUp)
           Positioned.fill(
