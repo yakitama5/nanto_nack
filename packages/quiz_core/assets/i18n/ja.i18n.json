@@ -216,11 +216,22 @@
     "about": {
       "title": "アプリについて",
       "developerX": "開発者X（Twitter）",
-      "terms": "利用規約",
+      "privacyPolicy": "プライバシーポリシー",
       "contact": "お問い合わせ",
       "licenses": "ライセンス",
       "version": "バージョン {version}",
       "@version": { "param": "version" }
     }
+  },
+  "maintenance": {
+    "title": "メンテナンス中",
+    "defaultMessage": "ただいまメンテナンス中です。\nしばらくお待ちください。"
+  },
+  "update": {
+    "title": "アップデートのお知らせ",
+    "forceMessage": "引き続きご利用いただくには、アプリのアップデートが必要です。",
+    "optionalMessage": "新しいバージョンが利用可能です。アップデートをお勧めします。",
+    "updateButton": "アップデートする",
+    "laterButton": "あとで"
   }
 }
