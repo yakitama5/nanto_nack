@@ -31,6 +31,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _playButtonKey = GlobalKey();
   OverlayEntry? _tutorialOverlayEntry;
+  TutorialCoachMark? _tutorialCoachMark;
 
   @override
   void initState() {
@@ -43,6 +44,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void dispose() {
     _tutorialOverlayEntry?.remove();
     _tutorialOverlayEntry = null;
+    _tutorialCoachMark?.finish();
+    _tutorialCoachMark = null;
     super.dispose();
   }
 
@@ -71,8 +74,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           _tutorialOverlayEntry?.remove();
           _tutorialOverlayEntry = null;
           // Step 3: プレイボタンにフォーカスするコーチマークへ移行
-          if (!mounted) return;
-          _showPlayButtonCoachMarkWhenReady();
+          // 描画サイクルが完全に終わってから次ステップへ移行する
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!mounted) return;
+            _showPlayButtonCoachMarkWhenReady();
+          });
         },
         onSkip: () {
           _tutorialOverlayEntry?.remove();
@@ -108,6 +114,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final t = Translations.of(context);
 
     Future<void> navigateToPlay() async {
+      _tutorialCoachMark?.finish();
+      _tutorialCoachMark = null;
       ref.read(analyticsServiceProvider).logPlayButtonTapped();
       ref
           .read(tutorialNotifierProvider.notifier)
@@ -116,7 +124,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ref.read(dashboardProvider.notifier).refresh();
     }
 
-    TutorialCoachMark(
+    _tutorialCoachMark = TutorialCoachMark(
       targets: [
         TargetFocus(
           identify: 'home_play_button',
@@ -157,14 +165,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       onClickTarget: (_) => navigateToPlay(),
       onClickOverlay: (_) => navigateToPlay(),
-      onFinish: () {},
+      onFinish: () {
+        _tutorialCoachMark = null;
+      },
       onSkip: () {
+        _tutorialCoachMark = null;
         Future.microtask(
           () => ref.read(tutorialNotifierProvider.notifier).complete(),
         );
         return true;
       },
-    ).show(context: context);
+    )..show(context: context);
   }
 
   @override
