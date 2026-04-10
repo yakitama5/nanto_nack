@@ -73,11 +73,11 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: '目的地を検索してください'
-	String get missionText => '目的地を検索してください';
+	/// ja: '登録した学校の情報を表示してください'
+	String get missionText => '登録した学校の情報を表示してください';
 
-	/// ja: '検索バーで目的地を検索してください'
-	String get failureReason => '検索バーで目的地を検索してください';
+	/// ja: '学校のアイコンがついた場所をタップしてください'
+	String get failureReason => '学校のアイコンがついた場所をタップしてください';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -253,29 +253,29 @@ class TranslationsQuiz2InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ検索バーを見つけられた？'
-	String get title => 'なぜ検索バーを見つけられた？';
+	/// ja: 'なぜ学校アイコンに気づけた？'
+	String get title => 'なぜ学校アイコンに気づけた？';
 
-	/// ja: '🔍 虫眼鏡は「探す」の万国共通語'
-	String get subtitle => '🔍 虫眼鏡は「探す」の万国共通語';
+	/// ja: '🏫 アイコンが場所の「種類」を伝える'
+	String get subtitle => '🏫 アイコンが場所の「種類」を伝える';
 
-	/// ja: '虫眼鏡アイコンは「検索」を意味する'
-	String get searchTitle => '虫眼鏡アイコンは「検索」を意味する';
+	/// ja: 'アイコンが施設の種類を示す'
+	String get iconTitle => 'アイコンが施設の種類を示す';
 
-	/// ja: '虫眼鏡（マグニファイヤー）は、GoogleからSNSまであらゆるアプリで「検索」を意味するアイコンとして統一されている。'
-	String get searchDesc => '虫眼鏡（マグニファイヤー）は、GoogleからSNSまであらゆるアプリで「検索」を意味するアイコンとして統一されている。';
+	/// ja: '地図アプリでは、学校・病院・駅など施設の種類をアイコンで直感的に区別できる。言語がわからなくても識別できるUIデザイン。'
+	String get iconDesc => '地図アプリでは、学校・病院・駅など施設の種類をアイコンで直感的に区別できる。言語がわからなくても識別できるUIデザイン。';
 
-	/// ja: '検索候補が操作を助ける'
-	String get suggestTitle => '検索候補が操作を助ける';
+	/// ja: 'タップで詳細情報を表示'
+	String get tapTitle => 'タップで詳細情報を表示';
 
-	/// ja: '入力中に候補リストが表示されるサジェスト機能は、地図アプリで標準的な操作パターン。'
-	String get suggestDesc => '入力中に候補リストが表示されるサジェスト機能は、地図アプリで標準的な操作パターン。';
+	/// ja: 'ピンやアイコンをタップすると、その場所の詳細情報（名前・住所等）が下部パネルに表示される。地図アプリの基本的な操作パターン。'
+	String get tapDesc => 'ピンやアイコンをタップすると、その場所の詳細情報（名前・住所等）が下部パネルに表示される。地図アプリの基本的な操作パターン。';
 
-	/// ja: '結果選択でマップにピンが立つ'
-	String get pinTitle => '結果選択でマップにピンが立つ';
+	/// ja: '登録済み情報がすぐ確認できる'
+	String get infoTitle => '登録済み情報がすぐ確認できる';
 
-	/// ja: '検索結果をタップするとマップ上にピンが表示される。目的地の視覚的なフィードバックパターン。'
-	String get pinDesc => '検索結果をタップするとマップ上にピンが表示される。目的地の視覚的なフィードバックパターン。';
+	/// ja: '保存した場所はマップ上で常にアイコン表示され、タップするだけで詳細を確認できる。ブックマーク機能の直感的なUI。'
+	String get infoDesc => '保存した場所はマップ上で常にアイコン表示され、タップするだけで詳細を確認できる。ブックマーク機能の直感的なUI。';
 }
 
 // Path: quiz3.insight
@@ -362,16 +362,16 @@ extension on Translations {
 			'quiz1.insight.compassDesc' => '画面端のコンパスアイコンをタップすると北向きに戻る。向きの基準が直感的にわかるUIパターン。',
 			'quiz1.insight.zoomTitle' => '地図の拡大・縮小はピンチで操作',
 			'quiz1.insight.zoomDesc' => '2本指でのピンチイン/アウトは、スマートフォン地図アプリの標準ジェスチャー。言語を超えて世界中で使われている。',
-			'quiz2.missionText' => '目的地を検索してください',
-			'quiz2.failureReason' => '検索バーで目的地を検索してください',
-			'quiz2.insight.title' => 'なぜ検索バーを見つけられた？',
-			'quiz2.insight.subtitle' => '🔍 虫眼鏡は「探す」の万国共通語',
-			'quiz2.insight.searchTitle' => '虫眼鏡アイコンは「検索」を意味する',
-			'quiz2.insight.searchDesc' => '虫眼鏡（マグニファイヤー）は、GoogleからSNSまであらゆるアプリで「検索」を意味するアイコンとして統一されている。',
-			'quiz2.insight.suggestTitle' => '検索候補が操作を助ける',
-			'quiz2.insight.suggestDesc' => '入力中に候補リストが表示されるサジェスト機能は、地図アプリで標準的な操作パターン。',
-			'quiz2.insight.pinTitle' => '結果選択でマップにピンが立つ',
-			'quiz2.insight.pinDesc' => '検索結果をタップするとマップ上にピンが表示される。目的地の視覚的なフィードバックパターン。',
+			'quiz2.missionText' => '登録した学校の情報を表示してください',
+			'quiz2.failureReason' => '学校のアイコンがついた場所をタップしてください',
+			'quiz2.insight.title' => 'なぜ学校アイコンに気づけた？',
+			'quiz2.insight.subtitle' => '🏫 アイコンが場所の「種類」を伝える',
+			'quiz2.insight.iconTitle' => 'アイコンが施設の種類を示す',
+			'quiz2.insight.iconDesc' => '地図アプリでは、学校・病院・駅など施設の種類をアイコンで直感的に区別できる。言語がわからなくても識別できるUIデザイン。',
+			'quiz2.insight.tapTitle' => 'タップで詳細情報を表示',
+			'quiz2.insight.tapDesc' => 'ピンやアイコンをタップすると、その場所の詳細情報（名前・住所等）が下部パネルに表示される。地図アプリの基本的な操作パターン。',
+			'quiz2.insight.infoTitle' => '登録済み情報がすぐ確認できる',
+			'quiz2.insight.infoDesc' => '保存した場所はマップ上で常にアイコン表示され、タップするだけで詳細を確認できる。ブックマーク機能の直感的なUI。',
 			'quiz3.missionText' => 'ルート案内を開始してください',
 			'quiz3.failureReason' => 'ルート案内を開始してください',
 			'quiz3.insight.title' => 'なぜルート案内ボタンを見つけられた？',

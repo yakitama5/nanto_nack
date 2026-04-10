@@ -531,8 +531,8 @@ class TranslationsPlayStageTitleJa {
 	/// ja: '現在地を表示しよう'
 	String get map_quiz1 => '現在地を表示しよう';
 
-	/// ja: '目的地を検索しよう'
-	String get map_quiz2 => '目的地を検索しよう';
+	/// ja: '学校の情報を表示しよう'
+	String get map_quiz2 => '学校の情報を表示しよう';
 
 	/// ja: 'ルートを案内しよう'
 	String get map_quiz3 => 'ルートを案内しよう';
@@ -612,8 +612,8 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: '地図アプリで現在地を表示してください'
 	String get map_quiz1 => '地図アプリで現在地を表示してください';
 
-	/// ja: '地図アプリで目的地を検索してください'
-	String get map_quiz2 => '地図アプリで目的地を検索してください';
+	/// ja: '地図アプリで学校アイコンをタップして情報を表示してください'
+	String get map_quiz2 => '地図アプリで学校アイコンをタップして情報を表示してください';
 
 	/// ja: '地図アプリでルート案内を開始してください'
 	String get map_quiz3 => '地図アプリでルート案内を開始してください';
@@ -870,7 +870,7 @@ extension on Translations {
 			'play.stageTitle.streaming_quiz3' => '2倍速で再生しよう',
 			'play.stageTitle.streaming_quiz4' => '動画をダウンロードしよう',
 			'play.stageTitle.map_quiz1' => '現在地を表示しよう',
-			'play.stageTitle.map_quiz2' => '目的地を検索しよう',
+			'play.stageTitle.map_quiz2' => '学校の情報を表示しよう',
 			'play.stageTitle.map_quiz3' => 'ルートを案内しよう',
 			'play.stageTitle.map_quiz4' => '場所をお気に入りに追加しよう',
 			'play.stageTitle.alarm_quiz1' => 'アラームを追加しよう',
@@ -894,7 +894,7 @@ extension on Translations {
 			'play.stageDescription.streaming_quiz3' => '動画アプリで動画を2倍速で再生してください',
 			'play.stageDescription.streaming_quiz4' => '動画を最高画質に変更して端末にダウンロードしてください',
 			'play.stageDescription.map_quiz1' => '地図アプリで現在地を表示してください',
-			'play.stageDescription.map_quiz2' => '地図アプリで目的地を検索してください',
+			'play.stageDescription.map_quiz2' => '地図アプリで学校アイコンをタップして情報を表示してください',
 			'play.stageDescription.map_quiz3' => '地図アプリでルート案内を開始してください',
 			'play.stageDescription.map_quiz4' => '地図アプリで場所をお気に入りに保存してください',
 			'play.stageDescription.alarm_quiz1' => '時計アプリで新しいアラームを追加してください',

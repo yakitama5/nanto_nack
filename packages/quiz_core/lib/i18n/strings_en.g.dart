@@ -318,7 +318,7 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get streaming_quiz3 => 'Play at 2x Speed';
 	@override String get streaming_quiz4 => 'Download a Video';
 	@override String get map_quiz1 => 'Show Current Location';
-	@override String get map_quiz2 => 'Search for a Destination';
+	@override String get map_quiz2 => 'Show School Information';
 	@override String get map_quiz3 => 'Start Navigation';
 	@override String get map_quiz4 => 'Add to Favorites';
 	@override String get alarm_quiz1 => 'Add an Alarm';
@@ -351,7 +351,7 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get streaming_quiz3 => 'Play a video at 2x speed in the video app';
 	@override String get streaming_quiz4 => 'Change to highest quality and download the video';
 	@override String get map_quiz1 => 'Show your current location in the map app';
-	@override String get map_quiz2 => 'Search for a destination in the map app';
+	@override String get map_quiz2 => 'Tap the school icon on the map to show its information';
 	@override String get map_quiz3 => 'Start route navigation in the map app';
 	@override String get map_quiz4 => 'Save a location to favorites in the map app';
 	@override String get alarm_quiz1 => 'Add a new alarm in the clock app';
@@ -530,7 +530,7 @@ extension on TranslationsEn {
 			'play.stageTitle.streaming_quiz3' => 'Play at 2x Speed',
 			'play.stageTitle.streaming_quiz4' => 'Download a Video',
 			'play.stageTitle.map_quiz1' => 'Show Current Location',
-			'play.stageTitle.map_quiz2' => 'Search for a Destination',
+			'play.stageTitle.map_quiz2' => 'Show School Information',
 			'play.stageTitle.map_quiz3' => 'Start Navigation',
 			'play.stageTitle.map_quiz4' => 'Add to Favorites',
 			'play.stageTitle.alarm_quiz1' => 'Add an Alarm',
@@ -554,7 +554,7 @@ extension on TranslationsEn {
 			'play.stageDescription.streaming_quiz3' => 'Play a video at 2x speed in the video app',
 			'play.stageDescription.streaming_quiz4' => 'Change to highest quality and download the video',
 			'play.stageDescription.map_quiz1' => 'Show your current location in the map app',
-			'play.stageDescription.map_quiz2' => 'Search for a destination in the map app',
+			'play.stageDescription.map_quiz2' => 'Tap the school icon on the map to show its information',
 			'play.stageDescription.map_quiz3' => 'Start route navigation in the map app',
 			'play.stageDescription.map_quiz4' => 'Save a location to favorites in the map app',
 			'play.stageDescription.alarm_quiz1' => 'Add a new alarm in the clock app',

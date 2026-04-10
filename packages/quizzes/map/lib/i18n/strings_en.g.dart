@@ -66,8 +66,8 @@ class _TranslationsQuiz2En extends TranslationsQuiz2Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please search for a destination';
-	@override String get failureReason => 'Please search for a destination in the search bar';
+	@override String get missionText => 'Please show the information of a registered school';
+	@override String get failureReason => 'Please tap the place with the school icon';
 	@override late final _TranslationsQuiz2InsightEn insight = _TranslationsQuiz2InsightEn._(_root);
 }
 
@@ -163,14 +163,14 @@ class _TranslationsQuiz2InsightEn extends TranslationsQuiz2InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the search bar?';
-	@override String get subtitle => 'Magnifying glass is the universal symbol for search';
-	@override String get searchTitle => 'Magnifying glass icon means search';
-	@override String get searchDesc => 'The magnifying glass is unified as a search icon from Google to SNS across all apps.';
-	@override String get suggestTitle => 'Search suggestions aid navigation';
-	@override String get suggestDesc => 'Suggestion lists appearing while typing is a standard operation pattern in map apps.';
-	@override String get pinTitle => 'Result selection places a pin on the map';
-	@override String get pinDesc => 'Tapping a search result shows a pin on the map. A visual feedback pattern for destinations.';
+	@override String get title => 'How did you recognize the school icon?';
+	@override String get subtitle => 'Icons communicate the type of place';
+	@override String get iconTitle => 'Icons indicate the type of facility';
+	@override String get iconDesc => 'In map apps, icons for schools, hospitals, and stations let you identify facility types at a glance — even without reading the language.';
+	@override String get tapTitle => 'Tap to show detailed information';
+	@override String get tapDesc => 'Tapping a pin or icon displays the place details (name, address) in a bottom panel. The fundamental operation pattern of map apps.';
+	@override String get infoTitle => 'Saved information accessible instantly';
+	@override String get infoDesc => 'Saved places are always shown as icons on the map and tapping them instantly reveals details. Intuitive UI for bookmarked locations.';
 }
 
 // Path: quiz3.insight
@@ -225,16 +225,16 @@ extension on TranslationsEn {
 			'quiz1.insight.compassDesc' => 'Tapping the compass icon resets to north-up. A UI pattern that intuitively conveys orientation.',
 			'quiz1.insight.zoomTitle' => 'Pinch to zoom the map',
 			'quiz1.insight.zoomDesc' => 'Two-finger pinch in/out is the standard gesture for smartphone map apps, used worldwide across languages.',
-			'quiz2.missionText' => 'Please search for a destination',
-			'quiz2.failureReason' => 'Please search for a destination in the search bar',
-			'quiz2.insight.title' => 'How did you find the search bar?',
-			'quiz2.insight.subtitle' => 'Magnifying glass is the universal symbol for search',
-			'quiz2.insight.searchTitle' => 'Magnifying glass icon means search',
-			'quiz2.insight.searchDesc' => 'The magnifying glass is unified as a search icon from Google to SNS across all apps.',
-			'quiz2.insight.suggestTitle' => 'Search suggestions aid navigation',
-			'quiz2.insight.suggestDesc' => 'Suggestion lists appearing while typing is a standard operation pattern in map apps.',
-			'quiz2.insight.pinTitle' => 'Result selection places a pin on the map',
-			'quiz2.insight.pinDesc' => 'Tapping a search result shows a pin on the map. A visual feedback pattern for destinations.',
+			'quiz2.missionText' => 'Please show the information of a registered school',
+			'quiz2.failureReason' => 'Please tap the place with the school icon',
+			'quiz2.insight.title' => 'How did you recognize the school icon?',
+			'quiz2.insight.subtitle' => 'Icons communicate the type of place',
+			'quiz2.insight.iconTitle' => 'Icons indicate the type of facility',
+			'quiz2.insight.iconDesc' => 'In map apps, icons for schools, hospitals, and stations let you identify facility types at a glance — even without reading the language.',
+			'quiz2.insight.tapTitle' => 'Tap to show detailed information',
+			'quiz2.insight.tapDesc' => 'Tapping a pin or icon displays the place details (name, address) in a bottom panel. The fundamental operation pattern of map apps.',
+			'quiz2.insight.infoTitle' => 'Saved information accessible instantly',
+			'quiz2.insight.infoDesc' => 'Saved places are always shown as icons on the map and tapping them instantly reveals details. Intuitive UI for bookmarked locations.',
 			'quiz3.missionText' => 'Please start route navigation',
 			'quiz3.failureReason' => 'Please start route navigation',
 			'quiz3.insight.title' => 'How did you find the navigation button?',

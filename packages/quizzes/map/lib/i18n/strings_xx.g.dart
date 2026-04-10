@@ -66,8 +66,8 @@ class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Search for a destination';
-	@override String get failureReason => 'Search for a destination in the search bar';
+	@override String get missionText => 'Show school info';
+	@override String get failureReason => 'Tap the school icon';
 	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
 
@@ -163,14 +163,14 @@ class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the search bar?';
-	@override String get subtitle => 'Magnifying glass means search';
-	@override String get searchTitle => 'Magnifying glass icon means search';
-	@override String get searchDesc => 'Unified search icon across all apps.';
-	@override String get suggestTitle => 'Suggestions aid navigation';
-	@override String get suggestDesc => 'Suggestion lists standard in map apps.';
-	@override String get pinTitle => 'Pin placed on map';
-	@override String get pinDesc => 'Tapping result shows pin on map.';
+	@override String get title => 'How did you find the school?';
+	@override String get subtitle => 'Icons show place types';
+	@override String get iconTitle => 'Icons identify facility types';
+	@override String get iconDesc => 'Icons distinguish place types without language.';
+	@override String get tapTitle => 'Tap for details';
+	@override String get tapDesc => 'Tapping shows place info in bottom panel.';
+	@override String get infoTitle => 'Saved places always accessible';
+	@override String get infoDesc => 'Tap saved places to view details instantly.';
 }
 
 // Path: quiz3.insight
@@ -225,16 +225,16 @@ extension on TranslationsXx {
 			'quiz1.insight.compassDesc' => 'Compass icon resets orientation to north.',
 			'quiz1.insight.zoomTitle' => 'Pinch to zoom',
 			'quiz1.insight.zoomDesc' => 'Two-finger pinch gesture is standard worldwide.',
-			'quiz2.missionText' => 'Search for a destination',
-			'quiz2.failureReason' => 'Search for a destination in the search bar',
-			'quiz2.insight.title' => 'How did you find the search bar?',
-			'quiz2.insight.subtitle' => 'Magnifying glass means search',
-			'quiz2.insight.searchTitle' => 'Magnifying glass icon means search',
-			'quiz2.insight.searchDesc' => 'Unified search icon across all apps.',
-			'quiz2.insight.suggestTitle' => 'Suggestions aid navigation',
-			'quiz2.insight.suggestDesc' => 'Suggestion lists standard in map apps.',
-			'quiz2.insight.pinTitle' => 'Pin placed on map',
-			'quiz2.insight.pinDesc' => 'Tapping result shows pin on map.',
+			'quiz2.missionText' => 'Show school info',
+			'quiz2.failureReason' => 'Tap the school icon',
+			'quiz2.insight.title' => 'How did you find the school?',
+			'quiz2.insight.subtitle' => 'Icons show place types',
+			'quiz2.insight.iconTitle' => 'Icons identify facility types',
+			'quiz2.insight.iconDesc' => 'Icons distinguish place types without language.',
+			'quiz2.insight.tapTitle' => 'Tap for details',
+			'quiz2.insight.tapDesc' => 'Tapping shows place info in bottom panel.',
+			'quiz2.insight.infoTitle' => 'Saved places always accessible',
+			'quiz2.insight.infoDesc' => 'Tap saved places to view details instantly.',
 			'quiz3.missionText' => 'Start navigation',
 			'quiz3.failureReason' => 'Start route navigation',
 			'quiz3.insight.title' => 'How did you find navigation?',
