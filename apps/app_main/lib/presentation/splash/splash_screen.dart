@@ -50,6 +50,25 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
+  /// dotLottie（.lottie）ファイルのデコーダー。
+  ///
+  /// ZIPデコーダーのデフォルト実装は先頭の `.json` ファイルを選択するため、
+  /// `manifest.json` が選ばれてしまい実際のアニメーションが読み込まれない。
+  /// ここでは `manifest.json` を除外し、アニメーション本体を確実に選択する。
+  static Future<LottieComposition?> _decodeDotLottie(List<int> bytes) {
+    return LottieComposition.decodeZip(
+      bytes,
+      filePicker: (files) {
+        for (final f in files) {
+          if (f.name.endsWith('.json') && f.name != 'manifest.json') {
+            return f;
+          }
+        }
+        return null;
+      },
+    );
+  }
+
   void _onAnimationLoaded(LottieComposition composition) {
     _controller
       ..duration = Duration(
@@ -86,6 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
           'assets/lottie/splash.lottie',
           controller: _controller,
           onLoaded: _onAnimationLoaded,
+          decoder: _decodeDotLottie,
           errorBuilder: (context, error, stackTrace) {
             // アセット読み込み失敗時は初期化完了後にホーム画面へ遷移する。
             WidgetsBinding.instance.addPostFrameCallback((_) async {
