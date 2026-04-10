@@ -53,6 +53,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsTipJa tip = TranslationsTipJa.internal(_root);
 	late final TranslationsTutorialJa tutorial = TranslationsTutorialJa.internal(_root);
 	late final TranslationsSettingsJa settings = TranslationsSettingsJa.internal(_root);
+	late final TranslationsMaintenanceJa maintenance = TranslationsMaintenanceJa.internal(_root);
+	late final TranslationsUpdateJa update = TranslationsUpdateJa.internal(_root);
 }
 
 // Path: app
@@ -398,6 +400,45 @@ class TranslationsSettingsJa {
 	late final TranslationsSettingsAppearanceJa appearance = TranslationsSettingsAppearanceJa.internal(_root);
 	late final TranslationsSettingsDataJa data = TranslationsSettingsDataJa.internal(_root);
 	late final TranslationsSettingsAboutJa about = TranslationsSettingsAboutJa.internal(_root);
+}
+
+// Path: maintenance
+class TranslationsMaintenanceJa {
+	TranslationsMaintenanceJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'メンテナンス中'
+	String get title => 'メンテナンス中';
+
+	/// ja: 'ただいまメンテナンス中です。 しばらくお待ちください。'
+	String get defaultMessage => 'ただいまメンテナンス中です。\nしばらくお待ちください。';
+}
+
+// Path: update
+class TranslationsUpdateJa {
+	TranslationsUpdateJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アップデートのお知らせ'
+	String get title => 'アップデートのお知らせ';
+
+	/// ja: '引き続きご利用いただくには、アプリのアップデートが必要です。'
+	String get forceMessage => '引き続きご利用いただくには、アプリのアップデートが必要です。';
+
+	/// ja: '新しいバージョンが利用可能です。アップデートをお勧めします。'
+	String get optionalMessage => '新しいバージョンが利用可能です。アップデートをお勧めします。';
+
+	/// ja: 'アップデートする'
+	String get updateButton => 'アップデートする';
+
+	/// ja: 'あとで'
+	String get laterButton => 'あとで';
 }
 
 // Path: home.weekday
@@ -945,6 +986,13 @@ extension on Translations {
 			'settings.about.contact' => 'お問い合わせ',
 			'settings.about.licenses' => 'ライセンス',
 			'settings.about.version' => 'バージョン {version}',
+			'maintenance.title' => 'メンテナンス中',
+			'maintenance.defaultMessage' => 'ただいまメンテナンス中です。\nしばらくお待ちください。',
+			'update.title' => 'アップデートのお知らせ',
+			'update.forceMessage' => '引き続きご利用いただくには、アプリのアップデートが必要です。',
+			'update.optionalMessage' => '新しいバージョンが利用可能です。アップデートをお勧めします。',
+			'update.updateButton' => 'アップデートする',
+			'update.laterButton' => 'あとで',
 			_ => null,
 		};
 	}
