@@ -90,8 +90,8 @@ class _TranslationsQuiz4En extends TranslationsQuiz4Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please add this place to favorites';
-	@override String get failureReason => 'Please add the place to favorites';
+	@override String get missionText => 'Please add the station to favorites';
+	@override String get failureReason => 'Please tap the station icon and add it to favorites';
 	@override late final _TranslationsQuiz4InsightEn insight = _TranslationsQuiz4InsightEn._(_root);
 }
 
@@ -245,8 +245,8 @@ extension on TranslationsEn {
 			'quiz3.insight.transportDesc' => 'Car, walk, train, bike icons in a row is a standard UI common across major map apps.',
 			'quiz3.insight.startTitle' => 'Tap Start to begin navigation',
 			'quiz3.insight.startDesc' => 'Just select a destination and transport mode, then tap Start. A simple 3-step process to begin navigation.',
-			'quiz4.missionText' => 'Please add this place to favorites',
-			'quiz4.failureReason' => 'Please add the place to favorites',
+			'quiz4.missionText' => 'Please add the station to favorites',
+			'quiz4.failureReason' => 'Please tap the station icon and add it to favorites',
 			'quiz4.insight.title' => 'How did you find the favorites button?',
 			'quiz4.insight.subtitle' => 'Star mark is the universal symbol for favorites',
 			'quiz4.insight.starTitle' => 'Star mark is the international standard for favorites',

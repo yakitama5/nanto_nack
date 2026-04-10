@@ -42,8 +42,8 @@
     }
   },
   "quiz4": {
-    "missionText": "Add to favorites",
-    "failureReason": "Add the place to favorites",
+    "missionText": "Add station to favorites",
+    "failureReason": "Tap station icon and add to favorites",
     "insight": {
       "title": "How did you find favorites?",
       "subtitle": "Star mark means favorites",

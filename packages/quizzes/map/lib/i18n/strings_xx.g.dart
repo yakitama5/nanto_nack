@@ -90,8 +90,8 @@ class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Add to favorites';
-	@override String get failureReason => 'Add the place to favorites';
+	@override String get missionText => 'Add station to favorites';
+	@override String get failureReason => 'Tap station icon and add to favorites';
 	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
 }
 
@@ -245,8 +245,8 @@ extension on TranslationsXx {
 			'quiz3.insight.transportDesc' => 'Car, walk, train, bike icons standard.',
 			'quiz3.insight.startTitle' => 'Tap Start to begin',
 			'quiz3.insight.startDesc' => 'Select destination and transport, then start.',
-			'quiz4.missionText' => 'Add to favorites',
-			'quiz4.failureReason' => 'Add the place to favorites',
+			'quiz4.missionText' => 'Add station to favorites',
+			'quiz4.failureReason' => 'Tap station icon and add to favorites',
 			'quiz4.insight.title' => 'How did you find favorites?',
 			'quiz4.insight.subtitle' => 'Star mark means favorites',
 			'quiz4.insight.starTitle' => 'Star is the international favorites symbol',

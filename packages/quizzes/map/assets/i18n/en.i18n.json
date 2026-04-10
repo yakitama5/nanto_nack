@@ -42,8 +42,8 @@
     }
   },
   "quiz4": {
-    "missionText": "Please add this place to favorites",
-    "failureReason": "Please add the place to favorites",
+    "missionText": "Please add the station to favorites",
+    "failureReason": "Please tap the station icon and add it to favorites",
     "insight": {
       "title": "How did you find the favorites button?",
       "subtitle": "Star mark is the universal symbol for favorites",

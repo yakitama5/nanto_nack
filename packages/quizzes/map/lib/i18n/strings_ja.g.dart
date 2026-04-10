@@ -107,11 +107,11 @@ class TranslationsQuiz4Ja {
 
 	// Translations
 
-	/// ja: 'この場所をお気に入りに追加してください'
-	String get missionText => 'この場所をお気に入りに追加してください';
+	/// ja: '駅をお気に入りに追加してください'
+	String get missionText => '駅をお気に入りに追加してください';
 
-	/// ja: '場所をお気に入りに追加してください'
-	String get failureReason => '場所をお気に入りに追加してください';
+	/// ja: '電車のアイコンの場所をタップしてお気に入りに追加してください'
+	String get failureReason => '電車のアイコンの場所をタップしてお気に入りに追加してください';
 
 	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
 }
@@ -382,8 +382,8 @@ extension on Translations {
 			'quiz3.insight.transportDesc' => '車・徒歩・電車・自転車の順で並ぶアイコンは、主要地図アプリで定着した標準的なUI。',
 			'quiz3.insight.startTitle' => '「開始」で案内スタート',
 			'quiz3.insight.startDesc' => '目的地と交通手段を選んで開始ボタンを押すだけ。シンプルな3ステップで案内を開始できる。',
-			'quiz4.missionText' => 'この場所をお気に入りに追加してください',
-			'quiz4.failureReason' => '場所をお気に入りに追加してください',
+			'quiz4.missionText' => '駅をお気に入りに追加してください',
+			'quiz4.failureReason' => '電車のアイコンの場所をタップしてお気に入りに追加してください',
 			'quiz4.insight.title' => 'なぜお気に入りボタンを見つけられた？',
 			'quiz4.insight.subtitle' => '⭐ 星マークは「お気に入り」の万国共通語',
 			'quiz4.insight.starTitle' => '星マークはお気に入りの国際標準記号',
