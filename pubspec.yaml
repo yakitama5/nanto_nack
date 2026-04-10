@@ -57,12 +57,12 @@ melos:
 
     build:android:prod:
       run: |
-        cd apps/app_main && flutter build appbundle --release --dart-define-from-file=dart_define/prod.json
+        cd apps/app_main && "$MELOS_ROOT_PATH/.fvm/flutter_sdk/bin/flutter" build appbundle --release --dart-define-from-file=dart_define/prod.json
       description: "Androidの本番用AppBundleをビルドします"
 
     build:ios:prod:
       run: |
-        cd apps/app_main && flutter build ipa --release --dart-define-from-file=dart_define/prod.json --export-method app-store
+        cd apps/app_main && "$MELOS_ROOT_PATH/.fvm/flutter_sdk/bin/flutter" build ipa --release --dart-define-from-file=dart_define/prod.json --export-method app-store
       description: "iOSの本番用IPAをビルドします"
 
     icons:dev:
