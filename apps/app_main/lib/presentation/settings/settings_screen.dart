@@ -273,14 +273,21 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
         _ActionItem(
           label: t.settings.about.licenses,
           icon: Icons.chevron_right_rounded,
-          onTap: () => showLicensePage(
-            context: context,
-            applicationName: 'NantoNack',
-            applicationIcon: const Icon(Icons.quiz_rounded, size: 48),
-            applicationVersion: _version.isNotEmpty
-                ? t.settings.about.version.replaceAll('{version}', _version)
-                : null,
-          ),
+          onTap: () {
+            const flavor =
+                String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+            final iconPath = flavor == 'prod'
+                ? 'assets/launcher_icon/icon_prod.png'
+                : 'assets/launcher_icon/icon_dev.png';
+            showLicensePage(
+              context: context,
+              applicationName: 'NantoNack',
+              applicationIcon: Image.asset(iconPath, width: 64, height: 64),
+              applicationVersion: _version.isNotEmpty
+                  ? t.settings.about.version.replaceAll('{version}', _version)
+                  : null,
+            );
+          },
         ),
         if (_version.isNotEmpty)
           Padding(
