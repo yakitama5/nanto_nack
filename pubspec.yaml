@@ -55,6 +55,16 @@ melos:
         cd apps/app_main && flutter build web
       description: "Web ビルド"
 
+    build:android:prod:
+      run: |
+        cd apps/app_main && flutter build appbundle --release --dart-define-from-file=dart_define/prod.json
+      description: "Androidの本番用AppBundleをビルドします"
+
+    build:ios:prod:
+      run: |
+        cd apps/app_main && flutter build ipa --release --dart-define-from-file=dart_define/prod.json --export-method app-store
+      description: "iOSの本番用IPAをビルドします"
+
     icons:dev:
       run: cd apps/app_main && "$MELOS_ROOT_PATH/.fvm/flutter_sdk/bin/flutter" pub run icons_launcher:create --flavor dev
       description: "開発用アプリアイコンを生成します"
