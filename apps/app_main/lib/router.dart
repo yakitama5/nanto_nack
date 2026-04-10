@@ -153,7 +153,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/map/quiz2',
-        builder: (context, state) => SearchPlaceQuizScreen(
+        builder: (context, state) => ShowSchoolInfoQuizScreen(
           onCompleted: () => context.pop(),
         ),
       ),
