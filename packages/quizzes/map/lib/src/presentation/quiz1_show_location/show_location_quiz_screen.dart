@@ -24,6 +24,7 @@ class _ShowLocationQuizScreenState
     extends ConsumerState<ShowLocationQuizScreen> {
   static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
+  int _retryCount = 0;
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _ShowLocationQuizScreenState
     final missionText = context.s.quiz1.missionText;
 
     return MapAppScreen(
+      key: ValueKey(_retryCount),
       places: MapCatalog.places,
       selectedPlace: null,
       locationShown: state.locationShown,
@@ -69,7 +71,10 @@ class _ShowLocationQuizScreenState
               score: state.score,
               elapsedMs: state.elapsedMs,
               onRetry: () {
-                setState(() => _showCutIn = true);
+                setState(() {
+                  _showCutIn = true;
+                  _retryCount++;
+                });
                 ref.read(showLocationQuizProvider.notifier).retry();
               },
               onNext: state.status == QuizStatus.correct

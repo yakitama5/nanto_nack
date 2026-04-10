@@ -24,6 +24,7 @@ class _ShowSchoolInfoQuizScreenState
     extends ConsumerState<ShowSchoolInfoQuizScreen> {
   static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
+  int _retryCount = 0;
 
   @override
   void initState() {
@@ -40,6 +41,7 @@ class _ShowSchoolInfoQuizScreenState
     final notifier = ref.read(showSchoolInfoQuizProvider.notifier);
 
     return MapAppScreen(
+      key: ValueKey(_retryCount),
       places: MapCatalog.places,
       selectedPlace: state.selectedPlace,
       locationShown: false,
@@ -69,7 +71,10 @@ class _ShowSchoolInfoQuizScreenState
               score: state.score,
               elapsedMs: state.elapsedMs,
               onRetry: () {
-                setState(() => _showCutIn = true);
+                setState(() {
+                  _showCutIn = true;
+                  _retryCount++;
+                });
                 notifier.retry();
               },
               onNext: state.status == QuizStatus.correct
