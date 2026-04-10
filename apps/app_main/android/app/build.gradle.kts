@@ -1,5 +1,6 @@
 // Add: `dart-define`でファイルを読み込みのため
 import java.util.Base64
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -42,6 +43,14 @@ tasks.named("preBuild") {
     dependsOn(copySources)
 }
 
+// Add: リリース署名設定のロード
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use { load(it) }
+    }
+}
+
 android {
     namespace = "com.yakuran.nanto_nack"
     compileSdk = flutter.compileSdkVersion
@@ -65,11 +74,22 @@ android {
         resValue("string", "app_name", dartDefines["appName"] ?: "(dev)NantoNack")
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String?
+            keyPassword = keystoreProperties["keyPassword"] as String?
+            storeFile = (keystoreProperties["storeFile"] as String?)?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String?
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (keystorePropertiesFile.exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
