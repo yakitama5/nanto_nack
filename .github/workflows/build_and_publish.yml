@@ -18,6 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
       - name: FVM のインストール
         run: dart pub global activate fvm
 
