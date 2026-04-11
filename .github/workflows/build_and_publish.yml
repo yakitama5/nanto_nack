@@ -72,6 +72,11 @@ jobs:
       - name: コード生成 (build_runner)
         run: melos run generate:all
 
+      - name: 最新の安定版XCodeをセットアップ
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 'latest-stable'
+
       # ────────────────────────────────────────────
       # iOS ビルド＆App Store Connect へ配布
       # ────────────────────────────────────────────
