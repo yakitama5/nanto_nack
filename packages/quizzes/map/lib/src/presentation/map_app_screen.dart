@@ -202,10 +202,11 @@ class MapAppScreen extends StatelessWidget {
                     ? (MapCatalog.placeDistancesKm[selectedPlace!.id] ??
                         MapCatalog.routeDistanceKm)
                     : MapCatalog.routeDistanceKm,
-                routeMinutes: selectedPlace != null
+                routeMinutes: selectedPlace != null &&
+                        selectedTransportIndex != null
                     ? MapCatalog.calcRouteMinutes(
                         selectedPlace!.id,
-                        selectedTransportIndex ?? 0,
+                        selectedTransportIndex!,
                       )
                     : MapCatalog.routeMinutes,
                 selectedTransportIndex: selectedTransportIndex,
@@ -971,6 +972,13 @@ class _NavigationPanel extends StatelessWidget {
     Icons.directions_bike,
   ];
 
+  List<String> _transportLabels(BuildContext context) => [
+        sq.common.drive,
+        sq.common.walk,
+        sq.common.transit,
+        sq.common.bike,
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1001,6 +1009,7 @@ class _NavigationPanel extends StatelessWidget {
                   for (int i = 0; i < _transportIcons.length; i++)
                     _TransportOption(
                       icon: _transportIcons[i],
+                      label: _transportLabels(context)[i],
                       isSelected: i == selectedTransportIndex,
                       onTap: onTransportSelect != null
                           ? () => onTransportSelect!(i)
@@ -1058,11 +1067,15 @@ class _NavigationPanel extends StatelessWidget {
 class _TransportOption extends StatelessWidget {
   const _TransportOption({
     required this.icon,
+    required this.label,
     required this.isSelected,
     this.onTap,
   });
 
   final IconData icon;
+
+  /// スクリーンリーダー向けの音声ラベル（例: 「Drive」「Walk」）
+  final String label;
   final bool isSelected;
   final VoidCallback? onTap;
 
@@ -1071,6 +1084,7 @@ class _TransportOption extends StatelessWidget {
     return Semantics(
       button: true,
       selected: isSelected,
+      label: label,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
