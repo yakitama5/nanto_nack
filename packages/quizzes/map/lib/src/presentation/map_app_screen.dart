@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../domain/entities/map_place.dart';
+import '../domain/map_catalog.dart';
 import '../i18n/map_translations_extension.dart';
 import '../../i18n/strings.g.dart' as $map;
 
@@ -193,6 +194,16 @@ class MapAppScreen extends StatelessWidget {
               child: _NavigationPanel(
                 sq: sq,
                 step: navigationStep,
+                routeDistanceKm: selectedPlace != null
+                    ? (MapCatalog.placeDistancesKm[selectedPlace!.id] ??
+                        MapCatalog.routeDistanceKm)
+                    : MapCatalog.routeDistanceKm,
+                routeMinutes: selectedPlace != null
+                    ? MapCatalog.calcRouteMinutes(
+                        selectedPlace!.id,
+                        selectedTransportIndex ?? 0,
+                      )
+                    : MapCatalog.routeMinutes,
                 selectedTransportIndex: selectedTransportIndex,
                 onTransportSelect: onTransportSelect,
                 onNavigationStart: onNavigationStart,
@@ -882,6 +893,8 @@ class _NavigationPanel extends StatelessWidget {
   const _NavigationPanel({
     required this.sq,
     required this.step,
+    required this.routeDistanceKm,
+    required this.routeMinutes,
     this.selectedTransportIndex,
     this.onTransportSelect,
     this.onNavigationStart,
@@ -889,6 +902,13 @@ class _NavigationPanel extends StatelessWidget {
 
   final $map.Translations sq;
   final int step;
+
+  /// 現在選択中の目的地までの距離（km）
+  final double routeDistanceKm;
+
+  /// 現在選択中の目的地・交通手段での移動時間（分）
+  final int routeMinutes;
+
   final int? selectedTransportIndex;
   final void Function(int)? onTransportSelect;
   final VoidCallback? onNavigationStart;
@@ -944,7 +964,7 @@ class _NavigationPanel extends StatelessWidget {
                   const Icon(Icons.access_time, size: 18, color: Colors.grey),
                   const SizedBox(width: 6),
                   Text(
-                    '${MapCatalogConstants.routeMinutes} ${sq.common.min}',
+                    '$routeMinutes ${sq.common.min}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -954,7 +974,7 @@ class _NavigationPanel extends StatelessWidget {
                   const Icon(Icons.straighten, size: 18, color: Colors.grey),
                   const SizedBox(width: 6),
                   Text(
-                    '${MapCatalogConstants.routeDistanceKm} ${sq.common.km}',
+                    '$routeDistanceKm ${sq.common.km}',
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
@@ -1023,10 +1043,4 @@ class _TransportOption extends StatelessWidget {
       ),
     );
   }
-}
-
-/// [MapCatalog] のルート情報定数をビュー側で参照するためのヘルパー
-abstract class MapCatalogConstants {
-  static const double routeDistanceKm = 2.3;
-  static const int routeMinutes = 8;
 }
