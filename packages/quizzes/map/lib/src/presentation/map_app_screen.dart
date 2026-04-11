@@ -252,6 +252,8 @@ class _MapCanvasState extends State<_MapCanvas> {
 
   Offset _mapOffset = Offset.zero;
   bool _offsetInitialized = false;
+  double _prevSw = 0;
+  double _prevSh = 0;
 
   void _applyDelta(Offset delta, double maxDx, double maxDy) {
     setState(() {
@@ -285,9 +287,18 @@ class _MapCanvasState extends State<_MapCanvas> {
         // sw > 0 && sh > 0 が確定してから初期化する。
         if (!_offsetInitialized && sw > 0 && sh > 0) {
           _offsetInitialized = true;
+          _prevSw = sw;
+          _prevSh = sh;
           _mapOffset = Offset(
             -sw * (_mapScale - 1) / 2,
             -sh * (_mapScale - 1) / 2,
+          );
+        } else if (_offsetInitialized && (sw != _prevSw || sh != _prevSh)) {
+          _prevSw = sw;
+          _prevSh = sh;
+          _mapOffset = Offset(
+            _mapOffset.dx.clamp(-maxDx, 0),
+            _mapOffset.dy.clamp(-maxDy, 0),
           );
         }
 
