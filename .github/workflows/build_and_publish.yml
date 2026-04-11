@@ -18,14 +18,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Flutter バージョンの取得 (.fvmrc)
-        id: fvm
-        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+      # https://github.com/kuhnroyal/flutter-fvm-config-action
+      - name: FVM 設定の取得
+        uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+        id: fvm-config-action
 
-      - uses: subosito/flutter-action@v2
+      # https://github.com/subosito/flutter-action
+      - name: Flutter のセットアップ
+        uses: subosito/flutter-action@1c5eb12d812966ca84680edc38353a0851c8fd56 # v2.14.0
         with:
-          flutter-version: ${{ steps.fvm.outputs.version }}
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
           cache: true
+
+      - name: .fvm/flutter_sdk シンボリックリンクの作成 (melos スクリプト用)
+        run: |
+          mkdir -p .fvm
+          ln -sf "$(dirname $(dirname $(which flutter)))" .fvm/flutter_sdk
 
       - name: Pub キャッシュの復元
         uses: actions/cache@v4
@@ -34,9 +43,11 @@ jobs:
           key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
           restore-keys: pub-${{ runner.os }}-
 
-      - name: Melos & CodeMagic CLI のインストール
+      - name: Melos & FlutterFire & CodeMagic CLI のインストール
         run: |
           dart pub global activate melos
+          dart pub global activate flutterfire_cli
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
           pip install codemagic-cli-tools
 
       - name: Firebase 設定ファイルの復元
@@ -56,10 +67,15 @@ jobs:
           echo "${{ secrets.APP_MAIN_ENV_DEV_BASE64 }}" | base64 -d > apps/app_main/env/.env.dev
 
       - name: 依存関係の解決 (melos bootstrap)
-        run: dart pub global run melos bootstrap
+        run: melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: dart pub global run melos run generate:all
+        run: melos run generate:all
+
+      - name: 最新の安定版XCodeをセットアップ
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 'latest-stable'
 
       # ────────────────────────────────────────────
       # iOS ビルド＆App Store Connect へ配布
@@ -80,7 +96,7 @@ jobs:
           keychain add-certificates
           xcode-project use-profiles
           # 4. Melos経由でビルド
-          dart pub global run melos run build:ios:prod
+          melos run build:ios:prod
           # 5. App Store Connect へアップロード
           app-store-connect publish --path apps/app_main/build/ios/ipa/*.ipa
 
@@ -102,7 +118,7 @@ jobs:
           storeFile=keystore.jks
           EOF
           # 3. Melos経由でビルド
-          dart pub global run melos run build:android:prod
+          melos run build:android:prod
           # 4. Google Play へアップロード（内部テストトラック）
           google-play publish \
             --track internal \
