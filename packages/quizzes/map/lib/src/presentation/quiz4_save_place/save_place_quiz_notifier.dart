@@ -45,7 +45,10 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   /// 場所のピンをタップした（詳細パネルを表示するのみ）
   void selectPlace(MapPlace place) {
     if (state.status != QuizStatus.playing) return;
-    state = state.copyWith(selectedPlace: place);
+    state = state.copyWith(
+      selectedPlace: place,
+      isCorrectPlaceSelected: _useCase.isCorrectPlace(place.id),
+    );
   }
 
   /// 星ボタン（お気に入り）をタップ

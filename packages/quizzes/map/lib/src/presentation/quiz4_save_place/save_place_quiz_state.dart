@@ -12,6 +12,7 @@ class SavePlaceQuizState extends QuizStateBase {
     required super.startedAt,
     required this.selectedPlace,
     required this.remainingSeconds,
+    required this.isCorrectPlaceSelected,
   });
 
   /// 初期状態を生成する（場所は未選択）
@@ -23,6 +24,7 @@ class SavePlaceQuizState extends QuizStateBase {
         startedAt: null,
         selectedPlace: null,
         remainingSeconds: timeLimitSeconds,
+        isCorrectPlaceSelected: false,
       );
 
   /// 選択された場所（未選択の場合は null）
@@ -30,6 +32,9 @@ class SavePlaceQuizState extends QuizStateBase {
 
   /// 残り時間（秒）
   final int remainingSeconds;
+
+  /// 選択中の場所が正解の場所かどうか
+  final bool isCorrectPlaceSelected;
 
   /// 指定フィールドを差し替えた新インスタンスを返す
   SavePlaceQuizState copyWith({
@@ -39,6 +44,7 @@ class SavePlaceQuizState extends QuizStateBase {
     DateTime? startedAt,
     MapPlace? selectedPlace,
     int? remainingSeconds,
+    bool? isCorrectPlaceSelected,
   }) {
     return SavePlaceQuizState(
       status: status ?? this.status,
@@ -47,6 +53,8 @@ class SavePlaceQuizState extends QuizStateBase {
       startedAt: startedAt ?? this.startedAt,
       selectedPlace: selectedPlace ?? this.selectedPlace,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      isCorrectPlaceSelected:
+          isCorrectPlaceSelected ?? this.isCorrectPlaceSelected,
     );
   }
 }

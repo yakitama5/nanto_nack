@@ -54,7 +54,7 @@ class _SavePlaceQuizScreenState extends ConsumerState<SavePlaceQuizScreen> {
       onGiveUp: notifier.giveUp,
       onPlaceSelect: notifier.selectPlace,
       highlightFavoriteButton: state.status == QuizStatus.playing &&
-          state.selectedPlace != null,
+          state.isCorrectPlaceSelected,
       isFavorite: state.selectedPlace?.isFavorite ?? false,
       onFavoriteTap: notifier.tapFavorite,
       overlays: [
