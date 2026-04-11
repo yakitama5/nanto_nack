@@ -293,7 +293,13 @@ class _MapCanvasState extends State<_MapCanvas> {
             -sw * (_mapScale - 1) / 2,
             -sh * (_mapScale - 1) / 2,
           );
-        } else if (_offsetInitialized && (sw != _prevSw || sh != _prevSh)) {
+        } else if (_offsetInitialized &&
+            sw > 0 &&
+            sh > 0 &&
+            (sw != _prevSw || sh != _prevSh)) {
+          // サイズが 0 のフレームは無視する。
+          // sh=0 のまま clamp すると maxDy=0 となり _mapOffset が Offset.zero に
+          // リセットされて地図が左上に固定されてしまうため。
           _prevSw = sw;
           _prevSh = sh;
           _mapOffset = Offset(
