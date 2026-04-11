@@ -7,7 +7,7 @@
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
-      "args": ["--flavor", "dev", "--dart-define-from-file=dart_define/dev.json"]
+      "args": ["--dart-define-from-file=dart_define/dev.json"]
     },
     {
       "name": "dev-profile",
@@ -16,7 +16,6 @@
       "program": "lib/main.dart",
       "type": "dart",
       "args": [
-        "--flavor", "dev",
         "--dart-define-from-file=dart_define/dev.json",
         "--profile"
       ]
@@ -28,7 +27,6 @@
       "program": "lib/main.dart",
       "type": "dart",
       "args": [
-        "--flavor", "dev",
         "--dart-define-from-file=dart_define/dev.json",
         "--release"
       ]
@@ -39,7 +37,7 @@
       "request": "launch",
       "program": "lib/main.dart",
       "type": "dart",
-      "args": ["--flavor", "prod", "--dart-define-from-file=dart_define/prod.json"]
+      "args": ["--dart-define-from-file=dart_define/prod.json"]
     }
   ]
 }
