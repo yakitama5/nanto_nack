@@ -116,13 +116,17 @@ class MapAppScreen extends StatelessWidget {
       body: Stack(
         children: [
           // 地図エリア（疑似マップ・スクロール可能）
+          // RepaintBoundary で囲み、タイマー更新など地図と無関係な rebuild が
+          // GPU 再描画（チラつき）に波及しないよう分離する。
           Positioned.fill(
-            child: _MapCanvas(
-              places: places,
-              selectedPlace: selectedPlace,
-              locationShown: locationShown,
-              mapColor: mapGreen,
-              onPlaceSelect: onPlaceSelect,
+            child: RepaintBoundary(
+              child: _MapCanvas(
+                places: places,
+                selectedPlace: selectedPlace,
+                locationShown: locationShown,
+                mapColor: mapGreen,
+                onPlaceSelect: onPlaceSelect,
+              ),
             ),
           ),
           // 検索バー
@@ -255,6 +259,34 @@ class _MapCanvasState extends State<_MapCanvas> {
   double _prevSw = 0;
   double _prevSh = 0;
 
+  /// 場所ごとのタップコールバックキャッシュ。
+  /// onPlaceSelect が変わった時だけ再生成し、毎フレームのクロージャ生成による
+  /// _PlacePin の不要な更新（チラつき）を防ぐ。
+  Map<String, VoidCallback?> _tapCallbacks = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _rebuildTapCallbacks();
+  }
+
+  @override
+  void didUpdateWidget(_MapCanvas oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.onPlaceSelect != widget.onPlaceSelect) {
+      _rebuildTapCallbacks();
+    }
+  }
+
+  void _rebuildTapCallbacks() {
+    _tapCallbacks = {
+      for (final place in widget.places)
+        place.id: widget.onPlaceSelect != null
+            ? () => widget.onPlaceSelect!(place)
+            : null,
+    };
+  }
+
   void _applyDelta(Offset delta, double maxDx, double maxDy) {
     setState(() {
       _mapOffset = Offset(
@@ -308,8 +340,12 @@ class _MapCanvasState extends State<_MapCanvas> {
           );
         }
 
-        // サイズが未確定の場合は空ウィジェットを返す（次フレームで再ビルドされる）。
-        if (!_offsetInitialized) return const SizedBox.expand();
+        // サイズが未確定または一時的に 0 の場合は空ウィジェットを返す。
+        // sw/sh=0 のままキャンバスを生成すると canvasWidth=0 の SizedBox が
+        // 一瞬描画されてチラつきの原因になるため。
+        if (!_offsetInitialized || sw == 0 || sh == 0) {
+          return const SizedBox.expand();
+        }
 
         // GestureDetector の onPanUpdate はデスクトップWeb（Chrome）でマウス
         // ドラッグを拾えないため、ジェスチャーアリーナを介さない Listener を使用。
@@ -344,9 +380,7 @@ class _MapCanvasState extends State<_MapCanvas> {
                             color: pinColors[place.colorSeed % pinColors.length],
                             canvasWidth: canvasWidth,
                             canvasHeight: canvasHeight,
-                            onTap: widget.onPlaceSelect != null
-                                ? () => widget.onPlaceSelect!(place)
-                                : null,
+                            onTap: _tapCallbacks[place.id],
                           ),
                         // 現在地インジケータ（キャンバス中央 = 画面初期中央）
                         if (widget.locationShown)
