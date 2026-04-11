@@ -83,6 +83,7 @@ class MapAppScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final ext = theme.extension<NantoNackThemeExtension>()!;
     final mapGreen = ext.mapCategoryColor;
+    final bottomInset = MediaQuery.paddingOf(context).bottom;
 
     return PopScope(
       canPop: quizStatus != QuizStatus.playing,
@@ -140,7 +141,7 @@ class MapAppScreen extends StatelessWidget {
             ),
           // 現在地ボタン
           Positioned(
-            bottom: 160,
+            bottom: 160 + bottomInset,
             right: 12,
             child: _MapFab(
               icon: Icons.my_location,
@@ -151,7 +152,7 @@ class MapAppScreen extends StatelessWidget {
           ),
           // コンパスボタン
           Positioned(
-            bottom: 220,
+            bottom: 220 + bottomInset,
             right: 12,
             child: _MapFab(
               icon: Icons.explore,
@@ -166,16 +167,21 @@ class MapAppScreen extends StatelessWidget {
               bottom: 0,
               left: 0,
               right: 0,
-              child: _PlaceDetailPanel(
-                place: selectedPlace!,
-                sq: sq,
-                showDirectionsButton: showDirectionsButton,
-                showFavoriteButton: showFavoriteButton,
-                isFavorite: isFavorite,
-                highlightDirectionsButton: highlightDirectionsButton,
-                highlightFavoriteButton: highlightFavoriteButton,
-                onDirectionsTap: onDirectionsTap,
-                onFavoriteTap: onFavoriteTap,
+              child: SafeArea(
+                top: false,
+                left: false,
+                right: false,
+                child: _PlaceDetailPanel(
+                  place: selectedPlace!,
+                  sq: sq,
+                  showDirectionsButton: showDirectionsButton,
+                  showFavoriteButton: showFavoriteButton,
+                  isFavorite: isFavorite,
+                  highlightDirectionsButton: highlightDirectionsButton,
+                  highlightFavoriteButton: highlightFavoriteButton,
+                  onDirectionsTap: onDirectionsTap,
+                  onFavoriteTap: onFavoriteTap,
+                ),
               ),
             ),
           // ナビゲーション中パネル
@@ -897,7 +903,6 @@ class _NavigationPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -909,64 +914,71 @@ class _NavigationPanel extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // 交通手段選択（タップ可能）
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: SafeArea(
+        top: false,
+        left: false,
+        right: false,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              for (int i = 0; i < _transportIcons.length; i++)
-                _TransportOption(
-                  icon: _transportIcons[i],
-                  isSelected: i == selectedTransportIndex,
-                  onTap: onTransportSelect != null
-                      ? () => onTransportSelect!(i)
-                      : null,
+              // 交通手段選択（タップ可能）
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  for (int i = 0; i < _transportIcons.length; i++)
+                    _TransportOption(
+                      icon: _transportIcons[i],
+                      isSelected: i == selectedTransportIndex,
+                      onTap: onTransportSelect != null
+                          ? () => onTransportSelect!(i)
+                          : null,
+                    ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              // ルート情報
+              Row(
+                children: [
+                  const Icon(Icons.access_time, size: 18, color: Colors.grey),
+                  const SizedBox(width: 6),
+                  Text(
+                    '${MapCatalogConstants.routeMinutes} ${sq.common.min}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  const Icon(Icons.straighten, size: 18, color: Colors.grey),
+                  const SizedBox(width: 6),
+                  Text(
+                    '${MapCatalogConstants.routeDistanceKm} ${sq.common.km}',
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              // 開始ボタン（交通手段選択後のみ有効）
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton.icon(
+                  onPressed: selectedTransportIndex != null ? onNavigationStart : null,
+                  icon: const Icon(Icons.navigation, size: 18),
+                  label: Text(
+                    CustomLanguageEncoder.encode(sq.common.startNavigation),
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
                 ),
+              ),
             ],
           ),
-          const SizedBox(height: 12),
-          // ルート情報
-          Row(
-            children: [
-              const Icon(Icons.access_time, size: 18, color: Colors.grey),
-              const SizedBox(width: 6),
-              Text(
-                '${MapCatalogConstants.routeMinutes} ${sq.common.min}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(width: 16),
-              const Icon(Icons.straighten, size: 18, color: Colors.grey),
-              const SizedBox(width: 6),
-              Text(
-                '${MapCatalogConstants.routeDistanceKm} ${sq.common.km}',
-                style: const TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          // 開始ボタン（交通手段選択後のみ有効）
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: selectedTransportIndex != null ? onNavigationStart : null,
-              icon: const Icon(Icons.navigation, size: 18),
-              label: Text(
-                CustomLanguageEncoder.encode(sq.common.startNavigation),
-                style: const TextStyle(fontSize: 16),
-              ),
-              style: FilledButton.styleFrom(
-                backgroundColor:
-                    Theme.of(context).colorScheme.primary,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
