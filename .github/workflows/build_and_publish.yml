@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: FVM のインストール
-        run: brew install fvm
+        run: dart pub global activate fvm
 
       - name: FVM Flutter バージョンキャッシュの復元
         uses: actions/cache@v4
@@ -29,6 +29,7 @@ jobs:
 
       - name: Flutter のインストール (FVM)
         run: |
+          export PATH="$HOME/.pub-cache/bin:$PATH"
           fvm install
           echo "$GITHUB_WORKSPACE/.fvm/flutter_sdk/bin" >> $GITHUB_PATH
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
