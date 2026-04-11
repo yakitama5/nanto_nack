@@ -18,14 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Flutter バージョンの取得 (.fvmrc)
-        id: fvm
-        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+      - name: FVM のインストール
+        run: brew install fvm
 
-      - uses: subosito/flutter-action@v2
+      - name: FVM Flutter バージョンキャッシュの復元
+        uses: actions/cache@v4
         with:
-          flutter-version: ${{ steps.fvm.outputs.version }}
-          cache: true
+          path: ~/.fvm/versions
+          key: fvm-${{ runner.os }}-${{ hashFiles('.fvmrc') }}
+
+      - name: Flutter のインストール (FVM)
+        run: |
+          fvm install
+          echo "$GITHUB_WORKSPACE/.fvm/flutter_sdk/bin" >> $GITHUB_PATH
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
       - name: Pub キャッシュの復元
         uses: actions/cache@v4
