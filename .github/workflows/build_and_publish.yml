@@ -43,9 +43,10 @@ jobs:
           key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
           restore-keys: pub-${{ runner.os }}-
 
-      - name: Melos & CodeMagic CLI のインストール
+      - name: Melos & FlutterFire & CodeMagic CLI のインストール
         run: |
           dart pub global activate melos
+          dart pub global activate flutterfire_cli
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
           pip install codemagic-cli-tools
 
