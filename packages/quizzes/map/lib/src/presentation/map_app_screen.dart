@@ -208,7 +208,7 @@ class MapAppScreen extends StatelessWidget {
                         selectedPlace!.id,
                         selectedTransportIndex!,
                       )
-                    : MapCatalog.routeMinutes,
+                    : null,
                 selectedTransportIndex: selectedTransportIndex,
                 onTransportSelect: onTransportSelect,
                 onNavigationStart: onNavigationStart,
@@ -946,7 +946,7 @@ class _NavigationPanel extends StatelessWidget {
     required this.sq,
     required this.step,
     required this.routeDistanceKm,
-    required this.routeMinutes,
+    this.routeMinutes,
     this.selectedTransportIndex,
     this.onTransportSelect,
     this.onNavigationStart,
@@ -958,8 +958,8 @@ class _NavigationPanel extends StatelessWidget {
   /// 現在選択中の目的地までの距離（km）
   final double routeDistanceKm;
 
-  /// 現在選択中の目的地・交通手段での移動時間（分）
-  final int routeMinutes;
+  /// 現在選択中の目的地・交通手段での移動時間（分）。交通手段未選択時は null
+  final int? routeMinutes;
 
   final int? selectedTransportIndex;
   final void Function(int)? onTransportSelect;
@@ -1021,16 +1021,18 @@ class _NavigationPanel extends StatelessWidget {
               // ルート情報
               Row(
                 children: [
-                  const Icon(Icons.access_time, size: 18, color: Colors.grey),
-                  const SizedBox(width: 6),
-                  Text(
-                    '$routeMinutes ${sq.common.min}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                  if (routeMinutes != null) ...[
+                    const Icon(Icons.access_time, size: 18, color: Colors.grey),
+                    const SizedBox(width: 6),
+                    Text(
+                      '$routeMinutes ${sq.common.min}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
+                    const SizedBox(width: 16),
+                  ],
                   const Icon(Icons.straighten, size: 18, color: Colors.grey),
                   const SizedBox(width: 6),
                   Text(
