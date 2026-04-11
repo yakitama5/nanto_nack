@@ -62,7 +62,7 @@ melos:
 
     build:ios:prod:
       run: |
-        cd apps/app_main && "$MELOS_ROOT_PATH/.fvm/flutter_sdk/bin/flutter" build ipa --release --dart-define-from-file=dart_define/prod.json --export-method app-store
+        cd apps/app_main && "$MELOS_ROOT_PATH/.fvm/flutter_sdk/bin/flutter" build ipa --release --flavor prod --dart-define-from-file=dart_define/prod.json --export-method app-store
       description: "iOSの本番用IPAをビルドします"
 
     icons:dev:
