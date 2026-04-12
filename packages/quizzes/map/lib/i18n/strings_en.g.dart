@@ -66,8 +66,8 @@ class _TranslationsQuiz2En extends TranslationsQuiz2Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please search for a destination';
-	@override String get failureReason => 'Please search for a destination in the search bar';
+	@override String get missionText => 'Please show the information of a registered school';
+	@override String get failureReason => 'Please tap the place with the school icon';
 	@override late final _TranslationsQuiz2InsightEn insight = _TranslationsQuiz2InsightEn._(_root);
 }
 
@@ -78,8 +78,8 @@ class _TranslationsQuiz3En extends TranslationsQuiz3Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please start route navigation';
-	@override String get failureReason => 'Please start route navigation';
+	@override String get missionText => 'Navigate to the park by train';
+	@override String get failureReason => 'Select the park and choose train for directions';
 	@override late final _TranslationsQuiz3InsightEn insight = _TranslationsQuiz3InsightEn._(_root);
 }
 
@@ -90,8 +90,8 @@ class _TranslationsQuiz4En extends TranslationsQuiz4Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Please add this place to favorites';
-	@override String get failureReason => 'Please add the place to favorites';
+	@override String get missionText => 'Please add the station to favorites';
+	@override String get failureReason => 'Please tap the station icon and add it to favorites';
 	@override late final _TranslationsQuiz4InsightEn insight = _TranslationsQuiz4InsightEn._(_root);
 }
 
@@ -118,6 +118,10 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get go => 'Go';
 	@override String get min => 'min';
 	@override String get km => 'km';
+	@override String get confirmQuitTitle => 'Quit the game?';
+	@override String get confirmQuitMessage => 'The current game will end.';
+	@override String get continueGame => 'Continue';
+	@override String get quitGame => 'Quit';
 }
 
 // Path: places
@@ -163,14 +167,14 @@ class _TranslationsQuiz2InsightEn extends TranslationsQuiz2InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the search bar?';
-	@override String get subtitle => 'Magnifying glass is the universal symbol for search';
-	@override String get searchTitle => 'Magnifying glass icon means search';
-	@override String get searchDesc => 'The magnifying glass is unified as a search icon from Google to SNS across all apps.';
-	@override String get suggestTitle => 'Search suggestions aid navigation';
-	@override String get suggestDesc => 'Suggestion lists appearing while typing is a standard operation pattern in map apps.';
-	@override String get pinTitle => 'Result selection places a pin on the map';
-	@override String get pinDesc => 'Tapping a search result shows a pin on the map. A visual feedback pattern for destinations.';
+	@override String get title => 'How did you recognize the school icon?';
+	@override String get subtitle => 'Icons communicate the type of place';
+	@override String get iconTitle => 'Icons indicate the type of facility';
+	@override String get iconDesc => 'In map apps, icons for schools, hospitals, and stations let you identify facility types at a glance — even without reading the language.';
+	@override String get tapTitle => 'Tap to show detailed information';
+	@override String get tapDesc => 'Tapping a pin or icon displays the place details (name, address) in a bottom panel. The fundamental operation pattern of map apps.';
+	@override String get infoTitle => 'Saved information accessible instantly';
+	@override String get infoDesc => 'Saved places are always shown as icons on the map and tapping them instantly reveals details. Intuitive UI for bookmarked locations.';
 }
 
 // Path: quiz3.insight
@@ -180,14 +184,14 @@ class _TranslationsQuiz3InsightEn extends TranslationsQuiz3InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the navigation button?';
-	@override String get subtitle => 'Arrow represents \'navigate\'';
-	@override String get routeTitle => 'Arrow icon represents navigation';
-	@override String get routeDesc => 'The upper-right arrow has become the standard navigation start button common to Google Maps and Apple Maps.';
-	@override String get transportTitle => 'Transport options lined up';
-	@override String get transportDesc => 'Car, train, walk, bike icons in a row is a UI common across major map apps.';
-	@override String get stepTitle => 'Turn-by-turn navigation is intuitive';
-	@override String get stepDesc => 'Large turn-left/right instructions at the next intersection — turn-by-turn navigation continues from the car navigation era.';
+	@override String get title => 'How did you select the destination and transport?';
+	@override String get subtitle => '3 steps to navigate in a map app';
+	@override String get destinationTitle => 'Tap a pin to select a destination';
+	@override String get destinationDesc => 'Tapping an icon on the map shows place details and lets you start route search — the basic operation flow of map apps.';
+	@override String get transportTitle => 'Transport icons are universal';
+	@override String get transportDesc => 'Car, walk, train, bike icons in a row is a standard UI common across major map apps.';
+	@override String get startTitle => 'Tap Start to begin navigation';
+	@override String get startDesc => 'Just select a destination and transport mode, then tap Start. A simple 3-step process to begin navigation.';
 }
 
 // Path: quiz4.insight
@@ -225,28 +229,28 @@ extension on TranslationsEn {
 			'quiz1.insight.compassDesc' => 'Tapping the compass icon resets to north-up. A UI pattern that intuitively conveys orientation.',
 			'quiz1.insight.zoomTitle' => 'Pinch to zoom the map',
 			'quiz1.insight.zoomDesc' => 'Two-finger pinch in/out is the standard gesture for smartphone map apps, used worldwide across languages.',
-			'quiz2.missionText' => 'Please search for a destination',
-			'quiz2.failureReason' => 'Please search for a destination in the search bar',
-			'quiz2.insight.title' => 'How did you find the search bar?',
-			'quiz2.insight.subtitle' => 'Magnifying glass is the universal symbol for search',
-			'quiz2.insight.searchTitle' => 'Magnifying glass icon means search',
-			'quiz2.insight.searchDesc' => 'The magnifying glass is unified as a search icon from Google to SNS across all apps.',
-			'quiz2.insight.suggestTitle' => 'Search suggestions aid navigation',
-			'quiz2.insight.suggestDesc' => 'Suggestion lists appearing while typing is a standard operation pattern in map apps.',
-			'quiz2.insight.pinTitle' => 'Result selection places a pin on the map',
-			'quiz2.insight.pinDesc' => 'Tapping a search result shows a pin on the map. A visual feedback pattern for destinations.',
-			'quiz3.missionText' => 'Please start route navigation',
-			'quiz3.failureReason' => 'Please start route navigation',
-			'quiz3.insight.title' => 'How did you find the navigation button?',
-			'quiz3.insight.subtitle' => 'Arrow represents \'navigate\'',
-			'quiz3.insight.routeTitle' => 'Arrow icon represents navigation',
-			'quiz3.insight.routeDesc' => 'The upper-right arrow has become the standard navigation start button common to Google Maps and Apple Maps.',
-			'quiz3.insight.transportTitle' => 'Transport options lined up',
-			'quiz3.insight.transportDesc' => 'Car, train, walk, bike icons in a row is a UI common across major map apps.',
-			'quiz3.insight.stepTitle' => 'Turn-by-turn navigation is intuitive',
-			'quiz3.insight.stepDesc' => 'Large turn-left/right instructions at the next intersection — turn-by-turn navigation continues from the car navigation era.',
-			'quiz4.missionText' => 'Please add this place to favorites',
-			'quiz4.failureReason' => 'Please add the place to favorites',
+			'quiz2.missionText' => 'Please show the information of a registered school',
+			'quiz2.failureReason' => 'Please tap the place with the school icon',
+			'quiz2.insight.title' => 'How did you recognize the school icon?',
+			'quiz2.insight.subtitle' => 'Icons communicate the type of place',
+			'quiz2.insight.iconTitle' => 'Icons indicate the type of facility',
+			'quiz2.insight.iconDesc' => 'In map apps, icons for schools, hospitals, and stations let you identify facility types at a glance — even without reading the language.',
+			'quiz2.insight.tapTitle' => 'Tap to show detailed information',
+			'quiz2.insight.tapDesc' => 'Tapping a pin or icon displays the place details (name, address) in a bottom panel. The fundamental operation pattern of map apps.',
+			'quiz2.insight.infoTitle' => 'Saved information accessible instantly',
+			'quiz2.insight.infoDesc' => 'Saved places are always shown as icons on the map and tapping them instantly reveals details. Intuitive UI for bookmarked locations.',
+			'quiz3.missionText' => 'Navigate to the park by train',
+			'quiz3.failureReason' => 'Select the park and choose train for directions',
+			'quiz3.insight.title' => 'How did you select the destination and transport?',
+			'quiz3.insight.subtitle' => '3 steps to navigate in a map app',
+			'quiz3.insight.destinationTitle' => 'Tap a pin to select a destination',
+			'quiz3.insight.destinationDesc' => 'Tapping an icon on the map shows place details and lets you start route search — the basic operation flow of map apps.',
+			'quiz3.insight.transportTitle' => 'Transport icons are universal',
+			'quiz3.insight.transportDesc' => 'Car, walk, train, bike icons in a row is a standard UI common across major map apps.',
+			'quiz3.insight.startTitle' => 'Tap Start to begin navigation',
+			'quiz3.insight.startDesc' => 'Just select a destination and transport mode, then tap Start. A simple 3-step process to begin navigation.',
+			'quiz4.missionText' => 'Please add the station to favorites',
+			'quiz4.failureReason' => 'Please tap the station icon and add it to favorites',
 			'quiz4.insight.title' => 'How did you find the favorites button?',
 			'quiz4.insight.subtitle' => 'Star mark is the universal symbol for favorites',
 			'quiz4.insight.starTitle' => 'Star mark is the international standard for favorites',
@@ -271,6 +275,10 @@ extension on TranslationsEn {
 			'common.go' => 'Go',
 			'common.min' => 'min',
 			'common.km' => 'km',
+			'common.confirmQuitTitle' => 'Quit the game?',
+			'common.confirmQuitMessage' => 'The current game will end.',
+			'common.continueGame' => 'Continue',
+			'common.quitGame' => 'Quit',
 			'places.p1Name' => 'City Hall',
 			'places.p1Address' => '1-1 Central Ave',
 			'places.p2Name' => 'Grand Park',

@@ -6,7 +6,7 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
 import '../../application/quiz_save_place_use_case.dart';
-import '../../domain/map_catalog.dart';
+import '../../domain/entities/map_place.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'save_place_quiz_state.dart';
 
@@ -15,10 +15,10 @@ final savePlaceQuizProvider =
   SavePlaceQuizNotifier.new,
 );
 
-/// Quiz 4「場所をお気に入りに追加する」のNotifier
+/// Quiz 4「指定した場所をお気に入りに追加する」のNotifier
 class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   static const _quizId = 'map_quiz4';
-  static const _timeLimitSeconds = 60;
+  static const _timeLimitSeconds = 90;
 
   final _useCase = const QuizSavePlaceUseCase();
   Timer? _timer;
@@ -26,17 +26,13 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   @override
   SavePlaceQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return SavePlaceQuizState.initial(
-      place: MapCatalog.destination,
-      timeLimitSeconds: _timeLimitSeconds,
-    );
+    return SavePlaceQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
     state = SavePlaceQuizState.initial(
-      place: MapCatalog.destination,
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
@@ -46,26 +42,47 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
     _startTimer();
   }
 
+  /// 場所のピンをタップした（詳細パネルを表示するのみ）
+  void selectPlace(MapPlace place) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(selectedPlace: place);
+  }
+
   /// 星ボタン（お気に入り）をタップ
   Future<void> tapFavorite() async {
     if (state.status != QuizStatus.playing) return;
+    final place = state.selectedPlace;
+    if (place == null) return;
 
-    final newFavorite = !state.place.isFavorite;
-    final isClear = _useCase.isClear(isFavorite: newFavorite);
-    final updatedPlace = state.place.copyWith(isFavorite: newFavorite);
+    final updatedPlace = place.copyWith(isFavorite: !place.isFavorite);
 
-    if (isClear) {
+    if (_useCase.isCorrectPlace(place.id) &&
+        _useCase.isClear(isFavorite: updatedPlace.isFavorite)) {
+      // 正解の場所をお気に入りにした: クリア
       _timer?.cancel();
       final elapsed = _elapsed;
       state = state.copyWith(
-        place: updatedPlace,
+        selectedPlace: updatedPlace,
         status: QuizStatus.correct,
         elapsedMs: elapsed,
       );
       await hapticFeedback.playSuccessFeedback();
       await _saveResult(isCleared: true, elapsedMs: elapsed);
+    } else if (!_useCase.isCorrectPlace(place.id)) {
+      // 不正解の場所をお気に入りにした: 不正解
+      _timer?.cancel();
+      final elapsed = _elapsed;
+      state = state.copyWith(
+        selectedPlace: updatedPlace,
+        status: QuizStatus.incorrect,
+        failureCount: state.failureCount + 1,
+        elapsedMs: elapsed,
+      );
+      await hapticFeedback.playErrorFeedback();
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
     } else {
-      state = state.copyWith(place: updatedPlace);
+      // 正解の場所のお気に入りを解除した: 状態のみ更新
+      state = state.copyWith(selectedPlace: updatedPlace);
     }
   }
 
@@ -92,7 +109,6 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SavePlaceQuizState.initial(
-      place: MapCatalog.destination,
       timeLimitSeconds: _timeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,

@@ -2,7 +2,7 @@ import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/entities/map_place.dart';
 
-/// Quiz 4「場所をお気に入りに追加する」の状態
+/// Quiz 4「指定した場所をお気に入りに追加する」の状態
 class SavePlaceQuizState extends QuizStateBase {
   /// コンストラクタ
   const SavePlaceQuizState({
@@ -10,26 +10,23 @@ class SavePlaceQuizState extends QuizStateBase {
     required super.failureCount,
     required super.elapsedMs,
     required super.startedAt,
-    required this.place,
+    required this.selectedPlace,
     required this.remainingSeconds,
   });
 
-  /// 初期状態を生成する
-  factory SavePlaceQuizState.initial({
-    required MapPlace place,
-    int timeLimitSeconds = 60,
-  }) =>
+  /// 初期状態を生成する（場所は未選択）
+  factory SavePlaceQuizState.initial({int timeLimitSeconds = 60}) =>
       SavePlaceQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
-        place: place,
+        selectedPlace: null,
         remainingSeconds: timeLimitSeconds,
       );
 
-  /// 対象の場所
-  final MapPlace place;
+  /// 選択された場所（未選択の場合は null）
+  final MapPlace? selectedPlace;
 
   /// 残り時間（秒）
   final int remainingSeconds;
@@ -40,7 +37,7 @@ class SavePlaceQuizState extends QuizStateBase {
     int? failureCount,
     int? elapsedMs,
     DateTime? startedAt,
-    MapPlace? place,
+    MapPlace? selectedPlace,
     int? remainingSeconds,
   }) {
     return SavePlaceQuizState(
@@ -48,7 +45,7 @@ class SavePlaceQuizState extends QuizStateBase {
       failureCount: failureCount ?? this.failureCount,
       elapsedMs: elapsedMs ?? this.elapsedMs,
       startedAt: startedAt ?? this.startedAt,
-      place: place ?? this.place,
+      selectedPlace: selectedPlace ?? this.selectedPlace,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
     );
   }

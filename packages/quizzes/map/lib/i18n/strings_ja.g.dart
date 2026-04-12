@@ -73,11 +73,11 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: '目的地を検索してください'
-	String get missionText => '目的地を検索してください';
+	/// ja: '登録した学校の情報を表示してください'
+	String get missionText => '登録した学校の情報を表示してください';
 
-	/// ja: '検索バーで目的地を検索してください'
-	String get failureReason => '検索バーで目的地を検索してください';
+	/// ja: '学校のアイコンがついた場所をタップしてください'
+	String get failureReason => '学校のアイコンがついた場所をタップしてください';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -90,11 +90,11 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: 'ルート案内を開始してください'
-	String get missionText => 'ルート案内を開始してください';
+	/// ja: '公園まで電車でルートを案内してください'
+	String get missionText => '公園まで電車でルートを案内してください';
 
-	/// ja: 'ルート案内を開始してください'
-	String get failureReason => 'ルート案内を開始してください';
+	/// ja: '公園を選んで電車でルートを案内してください'
+	String get failureReason => '公園を選んで電車でルートを案内してください';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -107,11 +107,11 @@ class TranslationsQuiz4Ja {
 
 	// Translations
 
-	/// ja: 'この場所をお気に入りに追加してください'
-	String get missionText => 'この場所をお気に入りに追加してください';
+	/// ja: '駅をお気に入りに追加してください'
+	String get missionText => '駅をお気に入りに追加してください';
 
-	/// ja: '場所をお気に入りに追加してください'
-	String get failureReason => '場所をお気に入りに追加してください';
+	/// ja: '電車のアイコンの場所をタップしてお気に入りに追加してください'
+	String get failureReason => '電車のアイコンの場所をタップしてお気に入りに追加してください';
 
 	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
 }
@@ -171,6 +171,18 @@ class TranslationsCommonJa {
 
 	/// ja: 'km'
 	String get km => 'km';
+
+	/// ja: 'ゲームを中断しますか？'
+	String get confirmQuitTitle => 'ゲームを中断しますか？';
+
+	/// ja: 'プレイ中のゲームを終了します。'
+	String get confirmQuitMessage => 'プレイ中のゲームを終了します。';
+
+	/// ja: '続ける'
+	String get continueGame => '続ける';
+
+	/// ja: '終了する'
+	String get quitGame => '終了する';
 }
 
 // Path: places
@@ -253,29 +265,29 @@ class TranslationsQuiz2InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ検索バーを見つけられた？'
-	String get title => 'なぜ検索バーを見つけられた？';
+	/// ja: 'なぜ学校アイコンに気づけた？'
+	String get title => 'なぜ学校アイコンに気づけた？';
 
-	/// ja: '🔍 虫眼鏡は「探す」の万国共通語'
-	String get subtitle => '🔍 虫眼鏡は「探す」の万国共通語';
+	/// ja: '🏫 アイコンが場所の「種類」を伝える'
+	String get subtitle => '🏫 アイコンが場所の「種類」を伝える';
 
-	/// ja: '虫眼鏡アイコンは「検索」を意味する'
-	String get searchTitle => '虫眼鏡アイコンは「検索」を意味する';
+	/// ja: 'アイコンが施設の種類を示す'
+	String get iconTitle => 'アイコンが施設の種類を示す';
 
-	/// ja: '虫眼鏡（マグニファイヤー）は、GoogleからSNSまであらゆるアプリで「検索」を意味するアイコンとして統一されている。'
-	String get searchDesc => '虫眼鏡（マグニファイヤー）は、GoogleからSNSまであらゆるアプリで「検索」を意味するアイコンとして統一されている。';
+	/// ja: '地図アプリでは、学校・病院・駅など施設の種類をアイコンで直感的に区別できる。言語がわからなくても識別できるUIデザイン。'
+	String get iconDesc => '地図アプリでは、学校・病院・駅など施設の種類をアイコンで直感的に区別できる。言語がわからなくても識別できるUIデザイン。';
 
-	/// ja: '検索候補が操作を助ける'
-	String get suggestTitle => '検索候補が操作を助ける';
+	/// ja: 'タップで詳細情報を表示'
+	String get tapTitle => 'タップで詳細情報を表示';
 
-	/// ja: '入力中に候補リストが表示されるサジェスト機能は、地図アプリで標準的な操作パターン。'
-	String get suggestDesc => '入力中に候補リストが表示されるサジェスト機能は、地図アプリで標準的な操作パターン。';
+	/// ja: 'ピンやアイコンをタップすると、その場所の詳細情報（名前・住所等）が下部パネルに表示される。地図アプリの基本的な操作パターン。'
+	String get tapDesc => 'ピンやアイコンをタップすると、その場所の詳細情報（名前・住所等）が下部パネルに表示される。地図アプリの基本的な操作パターン。';
 
-	/// ja: '結果選択でマップにピンが立つ'
-	String get pinTitle => '結果選択でマップにピンが立つ';
+	/// ja: '登録済み情報がすぐ確認できる'
+	String get infoTitle => '登録済み情報がすぐ確認できる';
 
-	/// ja: '検索結果をタップするとマップ上にピンが表示される。目的地の視覚的なフィードバックパターン。'
-	String get pinDesc => '検索結果をタップするとマップ上にピンが表示される。目的地の視覚的なフィードバックパターン。';
+	/// ja: '保存した場所はマップ上で常にアイコン表示され、タップするだけで詳細を確認できる。ブックマーク機能の直感的なUI。'
+	String get infoDesc => '保存した場所はマップ上で常にアイコン表示され、タップするだけで詳細を確認できる。ブックマーク機能の直感的なUI。';
 }
 
 // Path: quiz3.insight
@@ -286,29 +298,29 @@ class TranslationsQuiz3InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜルート案内ボタンを見つけられた？'
-	String get title => 'なぜルート案内ボタンを見つけられた？';
+	/// ja: 'なぜ目的地と交通手段を選べた？'
+	String get title => 'なぜ目的地と交通手段を選べた？';
 
-	/// ja: '↗ 矢印は「案内する」を表す記号'
-	String get subtitle => '↗ 矢印は「案内する」を表す記号';
+	/// ja: '🗺️ 地図アプリのルート検索3ステップ'
+	String get subtitle => '🗺️ 地図アプリのルート検索3ステップ';
 
-	/// ja: '矢印アイコンがナビゲーションを表す'
-	String get routeTitle => '矢印アイコンがナビゲーションを表す';
+	/// ja: 'ピンをタップして目的地を選ぶ'
+	String get destinationTitle => 'ピンをタップして目的地を選ぶ';
 
-	/// ja: '右上を向く矢印アイコンは、Google マップ・Apple マップ共通のナビゲーション開始ボタンとして定着している。'
-	String get routeDesc => '右上を向く矢印アイコンは、Google マップ・Apple マップ共通のナビゲーション開始ボタンとして定着している。';
+	/// ja: '地図上のアイコンをタップすると場所の詳細が表示され、そのままルート検索に進める。地図アプリの基本的な操作フロー。'
+	String get destinationDesc => '地図上のアイコンをタップすると場所の詳細が表示され、そのままルート検索に進める。地図アプリの基本的な操作フロー。';
 
-	/// ja: '交通手段の選択が並ぶ'
-	String get transportTitle => '交通手段の選択が並ぶ';
+	/// ja: '交通手段アイコンの並びは世界共通'
+	String get transportTitle => '交通手段アイコンの並びは世界共通';
 
-	/// ja: '車・電車・徒歩・自転車のアイコンが横並びになるパターンは、主要地図アプリで共通のUI。'
-	String get transportDesc => '車・電車・徒歩・自転車のアイコンが横並びになるパターンは、主要地図アプリで共通のUI。';
+	/// ja: '車・徒歩・電車・自転車の順で並ぶアイコンは、主要地図アプリで定着した標準的なUI。'
+	String get transportDesc => '車・徒歩・電車・自転車の順で並ぶアイコンは、主要地図アプリで定着した標準的なUI。';
 
-	/// ja: 'ターンバイターン案内が直感的'
-	String get stepTitle => 'ターンバイターン案内が直感的';
+	/// ja: '「開始」で案内スタート'
+	String get startTitle => '「開始」で案内スタート';
 
-	/// ja: '次の交差点での左右の指示が大きく表示されるターンバイターン案内は、カーナビ時代から続く直感的なUI。'
-	String get stepDesc => '次の交差点での左右の指示が大きく表示されるターンバイターン案内は、カーナビ時代から続く直感的なUI。';
+	/// ja: '目的地と交通手段を選んで開始ボタンを押すだけ。シンプルな3ステップで案内を開始できる。'
+	String get startDesc => '目的地と交通手段を選んで開始ボタンを押すだけ。シンプルな3ステップで案内を開始できる。';
 }
 
 // Path: quiz4.insight
@@ -362,28 +374,28 @@ extension on Translations {
 			'quiz1.insight.compassDesc' => '画面端のコンパスアイコンをタップすると北向きに戻る。向きの基準が直感的にわかるUIパターン。',
 			'quiz1.insight.zoomTitle' => '地図の拡大・縮小はピンチで操作',
 			'quiz1.insight.zoomDesc' => '2本指でのピンチイン/アウトは、スマートフォン地図アプリの標準ジェスチャー。言語を超えて世界中で使われている。',
-			'quiz2.missionText' => '目的地を検索してください',
-			'quiz2.failureReason' => '検索バーで目的地を検索してください',
-			'quiz2.insight.title' => 'なぜ検索バーを見つけられた？',
-			'quiz2.insight.subtitle' => '🔍 虫眼鏡は「探す」の万国共通語',
-			'quiz2.insight.searchTitle' => '虫眼鏡アイコンは「検索」を意味する',
-			'quiz2.insight.searchDesc' => '虫眼鏡（マグニファイヤー）は、GoogleからSNSまであらゆるアプリで「検索」を意味するアイコンとして統一されている。',
-			'quiz2.insight.suggestTitle' => '検索候補が操作を助ける',
-			'quiz2.insight.suggestDesc' => '入力中に候補リストが表示されるサジェスト機能は、地図アプリで標準的な操作パターン。',
-			'quiz2.insight.pinTitle' => '結果選択でマップにピンが立つ',
-			'quiz2.insight.pinDesc' => '検索結果をタップするとマップ上にピンが表示される。目的地の視覚的なフィードバックパターン。',
-			'quiz3.missionText' => 'ルート案内を開始してください',
-			'quiz3.failureReason' => 'ルート案内を開始してください',
-			'quiz3.insight.title' => 'なぜルート案内ボタンを見つけられた？',
-			'quiz3.insight.subtitle' => '↗ 矢印は「案内する」を表す記号',
-			'quiz3.insight.routeTitle' => '矢印アイコンがナビゲーションを表す',
-			'quiz3.insight.routeDesc' => '右上を向く矢印アイコンは、Google マップ・Apple マップ共通のナビゲーション開始ボタンとして定着している。',
-			'quiz3.insight.transportTitle' => '交通手段の選択が並ぶ',
-			'quiz3.insight.transportDesc' => '車・電車・徒歩・自転車のアイコンが横並びになるパターンは、主要地図アプリで共通のUI。',
-			'quiz3.insight.stepTitle' => 'ターンバイターン案内が直感的',
-			'quiz3.insight.stepDesc' => '次の交差点での左右の指示が大きく表示されるターンバイターン案内は、カーナビ時代から続く直感的なUI。',
-			'quiz4.missionText' => 'この場所をお気に入りに追加してください',
-			'quiz4.failureReason' => '場所をお気に入りに追加してください',
+			'quiz2.missionText' => '登録した学校の情報を表示してください',
+			'quiz2.failureReason' => '学校のアイコンがついた場所をタップしてください',
+			'quiz2.insight.title' => 'なぜ学校アイコンに気づけた？',
+			'quiz2.insight.subtitle' => '🏫 アイコンが場所の「種類」を伝える',
+			'quiz2.insight.iconTitle' => 'アイコンが施設の種類を示す',
+			'quiz2.insight.iconDesc' => '地図アプリでは、学校・病院・駅など施設の種類をアイコンで直感的に区別できる。言語がわからなくても識別できるUIデザイン。',
+			'quiz2.insight.tapTitle' => 'タップで詳細情報を表示',
+			'quiz2.insight.tapDesc' => 'ピンやアイコンをタップすると、その場所の詳細情報（名前・住所等）が下部パネルに表示される。地図アプリの基本的な操作パターン。',
+			'quiz2.insight.infoTitle' => '登録済み情報がすぐ確認できる',
+			'quiz2.insight.infoDesc' => '保存した場所はマップ上で常にアイコン表示され、タップするだけで詳細を確認できる。ブックマーク機能の直感的なUI。',
+			'quiz3.missionText' => '公園まで電車でルートを案内してください',
+			'quiz3.failureReason' => '公園を選んで電車でルートを案内してください',
+			'quiz3.insight.title' => 'なぜ目的地と交通手段を選べた？',
+			'quiz3.insight.subtitle' => '🗺️ 地図アプリのルート検索3ステップ',
+			'quiz3.insight.destinationTitle' => 'ピンをタップして目的地を選ぶ',
+			'quiz3.insight.destinationDesc' => '地図上のアイコンをタップすると場所の詳細が表示され、そのままルート検索に進める。地図アプリの基本的な操作フロー。',
+			'quiz3.insight.transportTitle' => '交通手段アイコンの並びは世界共通',
+			'quiz3.insight.transportDesc' => '車・徒歩・電車・自転車の順で並ぶアイコンは、主要地図アプリで定着した標準的なUI。',
+			'quiz3.insight.startTitle' => '「開始」で案内スタート',
+			'quiz3.insight.startDesc' => '目的地と交通手段を選んで開始ボタンを押すだけ。シンプルな3ステップで案内を開始できる。',
+			'quiz4.missionText' => '駅をお気に入りに追加してください',
+			'quiz4.failureReason' => '電車のアイコンの場所をタップしてお気に入りに追加してください',
 			'quiz4.insight.title' => 'なぜお気に入りボタンを見つけられた？',
 			'quiz4.insight.subtitle' => '⭐ 星マークは「お気に入り」の万国共通語',
 			'quiz4.insight.starTitle' => '星マークはお気に入りの国際標準記号',
@@ -408,6 +420,10 @@ extension on Translations {
 			'common.go' => 'Go',
 			'common.min' => 'min',
 			'common.km' => 'km',
+			'common.confirmQuitTitle' => 'ゲームを中断しますか？',
+			'common.confirmQuitMessage' => 'プレイ中のゲームを終了します。',
+			'common.continueGame' => '続ける',
+			'common.quitGame' => '終了する',
 			'places.p1Name' => 'City Hall',
 			'places.p1Address' => '1-1 Central Ave',
 			'places.p2Name' => 'Grand Park',
