@@ -171,6 +171,18 @@ class TranslationsCommonJa {
 
 	/// ja: 'km'
 	String get km => 'km';
+
+	/// ja: 'ゲームを中断しますか？'
+	String get confirmQuitTitle => 'ゲームを中断しますか？';
+
+	/// ja: 'プレイ中のゲームを終了します。'
+	String get confirmQuitMessage => 'プレイ中のゲームを終了します。';
+
+	/// ja: '続ける'
+	String get continueGame => '続ける';
+
+	/// ja: '終了する'
+	String get quitGame => '終了する';
 }
 
 // Path: places
@@ -408,6 +420,10 @@ extension on Translations {
 			'common.go' => 'Go',
 			'common.min' => 'min',
 			'common.km' => 'km',
+			'common.confirmQuitTitle' => 'ゲームを中断しますか？',
+			'common.confirmQuitMessage' => 'プレイ中のゲームを終了します。',
+			'common.continueGame' => '続ける',
+			'common.quitGame' => '終了する',
 			'places.p1Name' => 'City Hall',
 			'places.p1Address' => '1-1 Central Ave',
 			'places.p2Name' => 'Grand Park',

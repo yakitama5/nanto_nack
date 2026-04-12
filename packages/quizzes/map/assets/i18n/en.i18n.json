@@ -71,7 +71,11 @@
     "explore": "Explore",
     "go": "Go",
     "min": "min",
-    "km": "km"
+    "km": "km",
+    "confirmQuitTitle": "Quit the game?",
+    "confirmQuitMessage": "The current game will end.",
+    "continueGame": "Continue",
+    "quitGame": "Quit"
   },
   "places": {
     "p1Name": "City Hall",

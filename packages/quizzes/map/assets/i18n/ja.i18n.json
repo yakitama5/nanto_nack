@@ -71,7 +71,11 @@
     "explore": "Explore",
     "go": "Go",
     "min": "min",
-    "km": "km"
+    "km": "km",
+    "confirmQuitTitle": "ゲームを中断しますか？",
+    "confirmQuitMessage": "プレイ中のゲームを終了します。",
+    "continueGame": "続ける",
+    "quitGame": "終了する"
   },
   "places": {
     "p1Name": "City Hall",

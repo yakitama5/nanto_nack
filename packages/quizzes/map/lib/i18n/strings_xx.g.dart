@@ -118,6 +118,10 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get go => 'Go';
 	@override String get min => 'min';
 	@override String get km => 'km';
+	@override String get confirmQuitTitle => 'Quit game?';
+	@override String get confirmQuitMessage => 'The game will end.';
+	@override String get continueGame => 'Continue';
+	@override String get quitGame => 'Quit';
 }
 
 // Path: places
@@ -271,6 +275,10 @@ extension on TranslationsXx {
 			'common.go' => 'Go',
 			'common.min' => 'min',
 			'common.km' => 'km',
+			'common.confirmQuitTitle' => 'Quit game?',
+			'common.confirmQuitMessage' => 'The game will end.',
+			'common.continueGame' => 'Continue',
+			'common.quitGame' => 'Quit',
 			'places.p1Name' => 'City Hall',
 			'places.p1Address' => '1-1 Central Ave',
 			'places.p2Name' => 'Grand Park',

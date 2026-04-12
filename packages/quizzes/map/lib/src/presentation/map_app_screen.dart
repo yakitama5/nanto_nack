@@ -81,6 +81,7 @@ class MapAppScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.s;
     final sq = context.sq;
     final theme = Theme.of(context);
     final ext = theme.extension<NantoNackThemeExtension>()!;
@@ -94,16 +95,16 @@ class MapAppScreen extends StatelessWidget {
         final confirmed = await showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('ゲームを中断しますか？'),
-            content: const Text('プレイ中のゲームを終了します。'),
+            title: Text(s.common.confirmQuitTitle),
+            content: Text(s.common.confirmQuitMessage),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('続ける'),
+                child: Text(s.common.continueGame),
               ),
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('終了する'),
+                child: Text(s.common.quitGame),
               ),
             ],
           ),
