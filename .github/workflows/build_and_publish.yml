@@ -55,7 +55,7 @@ jobs:
           mkdir -p apps/app_main/android/app/src/prod/res
           mkdir -p apps/app_main/ios/prod
           mkdir -p packages/system/lib/src/firebase
-          echo "${{ secrets.GOOGLE_SERVICES_JSON_PROD_BASE64 }}" | base64 -d > apps/app_main/android/app/src/prod/res/google-services.json
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_PROD_BASE64 }}" | base64 -d > apps/app_main/android/app/src/prod/google-services.json
           echo "${{ secrets.GOOGLE_SERVICE_INFO_PLIST_PROD_BASE64 }}" | base64 -d > apps/app_main/ios/prod/GoogleService-Info.plist
           echo "${{ secrets.FIREBASE_OPTIONS_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options.dart
           echo "${{ secrets.FIREBASE_OPTIONS_DEV_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options_dev.dart

@@ -8,7 +8,7 @@ on:
         required: true
         default: 'patch'
         type: choice
-        options: [patch, minor, major]
+        options: [patch, minor, major, build]
 
 jobs:
   version_up:
@@ -36,7 +36,9 @@ jobs:
         id: bump
         run: |
           cd apps/app_main
-          dart pub global run cider bump ${{ github.event.inputs.bump_type }}
+          if [ "${{ github.event.inputs.bump_type }}" != "build" ]; then
+            dart pub global run cider bump ${{ github.event.inputs.bump_type }}
+          fi
           dart pub global run cider bump build
           NEW_VERSION=$(dart pub global run cider version)
           echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT

@@ -1,3 +1,5 @@
+<img width="1280" height="714" alt="feature" src="https://github.com/user-attachments/assets/33c87801-539e-4abf-b934-3c7c4adf8895" />
+
 # NantoNack
 
 UI/UX直感クイズアプリ「NantoNack」の公式リポジトリです。
