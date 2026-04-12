@@ -638,7 +638,9 @@ class _PlacePinState extends State<_PlacePin> {
       child: Semantics(
         label: widget.place.name,
         button: true,
+        enabled: widget.onTap != null,
         child: FocusableActionDetector(
+          enabled: widget.onTap != null,
           onShowFocusHighlight: (isFocused) =>
               setState(() => _isFocused = isFocused),
           actions: {
@@ -854,6 +856,7 @@ class _MapFab extends StatelessWidget {
     return Semantics(
       button: true,
       label: tooltip,
+      enabled: onTap != null,
       child: Material(
         color: Colors.transparent,
         shape: const CircleBorder(),
