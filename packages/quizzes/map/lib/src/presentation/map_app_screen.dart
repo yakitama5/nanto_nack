@@ -83,9 +83,6 @@ class MapAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.s;
     final sq = context.sq;
-    final theme = Theme.of(context);
-    final ext = theme.extension<NantoNackThemeExtension>()!;
-    final mapGreen = ext.mapCategoryColor;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
 
     return PopScope(
@@ -126,7 +123,6 @@ class MapAppScreen extends StatelessWidget {
                 places: places,
                 selectedPlace: selectedPlace,
                 locationShown: locationShown,
-                mapColor: mapGreen,
                 onPlaceSelect: onPlaceSelect,
               ),
             ),
@@ -239,14 +235,12 @@ class _MapCanvas extends StatefulWidget {
     required this.places,
     required this.selectedPlace,
     required this.locationShown,
-    required this.mapColor,
     this.onPlaceSelect,
   });
 
   final List<MapPlace> places;
   final MapPlace? selectedPlace;
   final bool locationShown;
-  final Color mapColor;
   final void Function(MapPlace)? onPlaceSelect;
 
   @override
@@ -407,7 +401,7 @@ class _MapCanvasState extends State<_MapCanvas> {
                   width: canvasWidth,
                   height: canvasHeight,
                   child: CustomPaint(
-                    painter: _MapPainter(mapColor: widget.mapColor),
+                    painter: const _MapPainter(),
                     child: Stack(
                       children: [
                         // 場所のピン
@@ -462,15 +456,10 @@ class _MapCanvasState extends State<_MapCanvas> {
 }
 
 class _MapPainter extends CustomPainter {
-  const _MapPainter({required this.mapColor});
-
-  final Color mapColor;
+  const _MapPainter();
 
   @override
   void paint(Canvas canvas, Size size) {
-    // mapColor でキャンバス背景を塗る。shouldRepaint の比較対象と一致させる。
-    canvas.drawRect(Offset.zero & size, Paint()..color = mapColor);
-
     final road = Paint()
       ..color = Colors.white
       ..strokeWidth = 7
@@ -591,8 +580,7 @@ class _MapPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_MapPainter oldDelegate) =>
-      oldDelegate.mapColor != mapColor;
+  bool shouldRepaint(_MapPainter oldDelegate) => false;
 }
 
 class _PlacePin extends StatefulWidget {
