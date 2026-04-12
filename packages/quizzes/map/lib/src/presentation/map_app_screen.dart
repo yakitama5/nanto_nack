@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart' show kPrecisePointerPanSlop;
 import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 
@@ -260,6 +261,12 @@ class _MapCanvasState extends State<_MapCanvas> {
   double _prevSw = 0;
   double _prevSh = 0;
 
+  /// パン操作の開始位置。スロップ閾値チェックに使用する。
+  Offset? _panStartPosition;
+
+  /// スロップ閾値を超えてパン操作が確定しているか。
+  bool _panActive = false;
+
   /// 場所ごとのタップコールバックキャッシュ。
   /// onPlaceSelect が変わった時だけ再生成し、毎フレームのクロージャ生成による
   /// _PlacePin の不要な更新（チラつき）を防ぐ。
@@ -274,9 +281,18 @@ class _MapCanvasState extends State<_MapCanvas> {
   @override
   void didUpdateWidget(_MapCanvas oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.onPlaceSelect != widget.onPlaceSelect) {
+    if (oldWidget.onPlaceSelect != widget.onPlaceSelect ||
+        !_arePlaceIdsSame(oldWidget.places, widget.places)) {
       _rebuildTapCallbacks();
     }
+  }
+
+  bool _arePlaceIdsSame(List<MapPlace> a, List<MapPlace> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i].id != b[i].id) return false;
+    }
+    return true;
   }
 
   void _rebuildTapCallbacks() {
@@ -351,10 +367,30 @@ class _MapCanvasState extends State<_MapCanvas> {
         // GestureDetector の onPanUpdate はデスクトップWeb（Chrome）でマウス
         // ドラッグを拾えないため、ジェスチャーアリーナを介さない Listener を使用。
         // event.buttons != 0 でボタン押下中（タッチ含む）の移動のみ反応させる。
+        // kPrecisePointerPanSlop を超えるまでパンを開始しないことで、
+        // ピンタップ時の微小な指の動きによる意図しない地図ずれを防ぐ。
         return Listener(
           behavior: HitTestBehavior.opaque,
+          onPointerDown: (event) {
+            _panStartPosition = event.position;
+            _panActive = false;
+          },
           onPointerMove: (event) {
-            if (event.buttons != 0) _applyDelta(event.delta, maxDx, maxDy);
+            if (event.buttons != 0) {
+              if (!_panActive) {
+                final start = _panStartPosition;
+                if (start != null &&
+                    (event.position - start).distance >
+                        kPrecisePointerPanSlop) {
+                  _panActive = true;
+                }
+              }
+              if (_panActive) _applyDelta(event.delta, maxDx, maxDy);
+            }
+          },
+          onPointerUp: (_) {
+            _panStartPosition = null;
+            _panActive = false;
           },
           child: ClipRect(
             // Positioned.fill が渡す tight constraints により SizedBox が
