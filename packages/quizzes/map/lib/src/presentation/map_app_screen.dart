@@ -591,7 +591,7 @@ class _MapPainter extends CustomPainter {
       oldDelegate.mapColor != mapColor;
 }
 
-class _PlacePin extends StatelessWidget {
+class _PlacePin extends StatefulWidget {
   const _PlacePin({
     required this.place,
     required this.isSelected,
@@ -621,40 +621,70 @@ class _PlacePin extends StatelessWidget {
   };
 
   @override
+  State<_PlacePin> createState() => _PlacePinState();
+}
+
+class _PlacePinState extends State<_PlacePin> {
+  bool _isFocused = false;
+
+  @override
   Widget build(BuildContext context) {
-    final pos = _positions[place.id] ?? const Offset(0.5, 0.5);
+    final pos =
+        _PlacePin._positions[widget.place.id] ?? const Offset(0.5, 0.5);
     return Positioned(
-      left: canvasWidth * pos.dx - 18,
-      top: canvasHeight * pos.dy - 36,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? color
-                  : color.withValues(alpha: 0.85),
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: isSelected
-                  ? [
-                      BoxShadow(
-                        color: color.withValues(alpha: 0.5),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                      ),
-                    ]
-                  : null,
+      left: widget.canvasWidth * pos.dx - 18,
+      top: widget.canvasHeight * pos.dy - 36,
+      child: Semantics(
+        label: widget.place.name,
+        button: true,
+        child: FocusableActionDetector(
+          onShowFocusHighlight: (isFocused) =>
+              setState(() => _isFocused = isFocused),
+          actions: {
+            ActivateIntent: CallbackAction<ActivateIntent>(
+              onInvoke: (_) {
+                widget.onTap?.call();
+                return null;
+              },
             ),
-            child: Icon(place.icon, color: Colors.white, size: 18),
+          },
+          child: GestureDetector(
+            onTap: widget.onTap,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: widget.isSelected
+                        ? widget.color
+                        : widget.color.withValues(alpha: 0.85),
+                    borderRadius: BorderRadius.circular(8),
+                    border: _isFocused
+                        ? Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          )
+                        : null,
+                    boxShadow: widget.isSelected
+                        ? [
+                            BoxShadow(
+                              color: widget.color.withValues(alpha: 0.5),
+                              blurRadius: 8,
+                              spreadRadius: 2,
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: Icon(widget.place.icon, color: Colors.white, size: 18),
+                ),
+                CustomPaint(
+                  size: const Size(12, 6),
+                  painter: _PinTailPainter(color: widget.color),
+                ),
+              ],
+            ),
           ),
-          CustomPaint(
-            size: const Size(12, 6),
-            painter: _PinTailPainter(color: color),
-          ),
-        ],
         ),
       ),
     );
