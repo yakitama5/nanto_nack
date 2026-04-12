@@ -468,6 +468,9 @@ class _MapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // mapColor でキャンバス背景を塗る。shouldRepaint の比較対象と一致させる。
+    canvas.drawRect(Offset.zero & size, Paint()..color = mapColor);
+
     final road = Paint()
       ..color = Colors.white
       ..strokeWidth = 7
