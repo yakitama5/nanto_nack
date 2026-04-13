@@ -140,7 +140,7 @@ class _SkipSeekInsight extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+              ?.copyWith(color: Theme.of(context).extension<StreamingAppTheme>()!.subTextColor),
         ),
         const SizedBox(height: 12),
         _InsightItem(emoji: '⏭️', title: insight.skipTitle, desc: insight.skipDesc),
@@ -187,7 +187,7 @@ class _InsightItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: Colors.grey.shade700),
+                    ?.copyWith(color: Theme.of(context).extension<StreamingAppTheme>()!.subTextColor),
               ),
             ],
           ),
