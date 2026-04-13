@@ -273,9 +273,7 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
           label: t.settings.about.licenses,
           icon: Icons.chevron_right_rounded,
           onTap: () {
-            const flavor =
-                String.fromEnvironment('FLAVOR', defaultValue: 'dev');
-            final icon = flavor == 'prod'
+            final icon = AppEnvironment.isProd
                 ? Assets.launcherIcon.iconProd
                 : Assets.launcherIcon.iconDev;
             showLicensePage(
