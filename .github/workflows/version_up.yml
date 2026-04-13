@@ -36,20 +36,11 @@ jobs:
         id: bump
         run: |
           cd apps/app_main
-          # バンプ前のビルド番号を保存（リセットされないよう常にインクリメント）
-          CURRENT_VERSION=$(dart pub global run cider version)
-          CURRENT_BUILD=$(echo "$CURRENT_VERSION" | sed 's/.*+//')
-          # '+' が存在しない場合（ビルド番号なし）は 0 とする
-          if [ "$CURRENT_BUILD" = "$CURRENT_VERSION" ]; then CURRENT_BUILD=0; fi
-
           if [ "${{ github.event.inputs.bump_type }}" != "build" ]; then
-            dart pub global run cider bump ${{ github.event.inputs.bump_type }}
+            dart pub global run cider bump ${{ github.event.inputs.bump_type }} --bump-build
+          else
+            dart pub global run cider bump build
           fi
-
-          # バンプ後のベースバージョンを取得し、ビルド番号を +1 して設定
-          NEW_BUILD=$((CURRENT_BUILD + 1))
-          NEW_BASE=$(dart pub global run cider version | sed 's/+.*//')
-          dart pub global run cider set-version "${NEW_BASE}+${NEW_BUILD}"
           NEW_VERSION=$(dart pub global run cider version)
           echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
 
