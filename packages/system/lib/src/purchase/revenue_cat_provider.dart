@@ -21,9 +21,9 @@ class OfferingsNotifier extends AsyncNotifier<Offering?> {
     try {
       final offerings = await Purchases.getOfferings();
       return offerings.current;
-    } catch (e) {
-      appLogger.w('IAP: オファリング取得失敗: $e');
-      return null;
+    } catch (e, s) {
+      appLogger.w('IAP: オファリング取得失敗: $e', error: e, stackTrace: s);
+      rethrow;
     }
   }
 
@@ -58,9 +58,9 @@ class CustomerInfoNotifier extends AsyncNotifier<CustomerInfo?> {
 
     try {
       return await Purchases.getCustomerInfo();
-    } catch (e) {
-      appLogger.w('IAP: 顧客情報取得失敗: $e');
-      return null;
+    } catch (e, s) {
+      appLogger.w('IAP: 顧客情報取得失敗: $e', error: e, stackTrace: s);
+      rethrow;
     }
   }
 
