@@ -239,7 +239,11 @@
     "@fetchError": { "param": "error" },
     "purchaseError": "購入に失敗しました。もう一度お試しください。",
     "restoreError": "購入の復元に失敗しました。もう一度お試しください。",
-    "noOfferings": "現在利用できるプランがありません。"
+    "noOfferings": "現在利用できるプランがありません。",
+    "packageName": {
+      "coffee100": "コーヒー1杯",
+      "coffee300": "コーヒー3杯"
+    }
   },
   "maintenance": {
     "title": "メンテナンス中",

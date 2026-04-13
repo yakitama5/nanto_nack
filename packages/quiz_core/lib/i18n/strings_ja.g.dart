@@ -452,6 +452,8 @@ class TranslationsSupportJa {
 
 	/// ja: '現在利用できるプランがありません。'
 	String get noOfferings => '現在利用できるプランがありません。';
+
+	late final TranslationsSupportPackageNameJa packageName = TranslationsSupportPackageNameJa.internal(_root);
 }
 
 // Path: maintenance
@@ -862,6 +864,21 @@ class TranslationsSettingsAboutJa {
 	String get version => 'バージョン {version}';
 }
 
+// Path: support.packageName
+class TranslationsSupportPackageNameJa {
+	TranslationsSupportPackageNameJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'コーヒー1杯'
+	String get coffee100 => 'コーヒー1杯';
+
+	/// ja: 'コーヒー3杯'
+	String get coffee300 => 'コーヒー3杯';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1052,6 +1069,8 @@ extension on Translations {
 			'support.purchaseError' => '購入に失敗しました。もう一度お試しください。',
 			'support.restoreError' => '購入の復元に失敗しました。もう一度お試しください。',
 			'support.noOfferings' => '現在利用できるプランがありません。',
+			'support.packageName.coffee100' => 'コーヒー1杯',
+			'support.packageName.coffee300' => 'コーヒー3杯',
 			'maintenance.title' => 'メンテナンス中',
 			'maintenance.defaultMessage' => 'ただいまメンテナンス中です。\nしばらくお待ちください。',
 			'update.title' => 'アップデートのお知らせ',

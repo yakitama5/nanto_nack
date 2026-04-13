@@ -276,6 +276,7 @@ class _TranslationsSupportEn extends TranslationsSupportJa {
 	@override String get purchaseError => 'Purchase failed. Please try again.';
 	@override String get restoreError => 'Failed to restore purchases. Please try again.';
 	@override String get noOfferings => 'No plans available at the moment.';
+	@override late final _TranslationsSupportPackageNameEn packageName = _TranslationsSupportPackageNameEn._(_root);
 }
 
 // Path: maintenance
@@ -480,6 +481,17 @@ class _TranslationsSettingsAboutEn extends TranslationsSettingsAboutJa {
 	@override String get version => 'Version {version}';
 }
 
+// Path: support.packageName
+class _TranslationsSupportPackageNameEn extends TranslationsSupportPackageNameJa {
+	_TranslationsSupportPackageNameEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get coffee100 => '1 Coffee';
+	@override String get coffee300 => '3 Coffees';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -670,6 +682,8 @@ extension on TranslationsEn {
 			'support.purchaseError' => 'Purchase failed. Please try again.',
 			'support.restoreError' => 'Failed to restore purchases. Please try again.',
 			'support.noOfferings' => 'No plans available at the moment.',
+			'support.packageName.coffee100' => '1 Coffee',
+			'support.packageName.coffee300' => '3 Coffees',
 			'maintenance.title' => 'Under Maintenance',
 			'maintenance.defaultMessage' => 'We are currently under maintenance.\nPlease try again later.',
 			'update.title' => 'Update Available',
