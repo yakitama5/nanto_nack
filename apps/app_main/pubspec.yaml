@@ -1,7 +1,7 @@
 name: app_main
 description: "NantoNack メインアプリ"
 publish_to: "none"
-version: 1.0.1+2
+version: 1.0.2+1
 
 environment:
   sdk: ^3.11.3
