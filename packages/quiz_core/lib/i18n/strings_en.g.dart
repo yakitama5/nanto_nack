@@ -52,6 +52,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsTipEn tip = _TranslationsTipEn._(_root);
 	@override late final _TranslationsTutorialEn tutorial = _TranslationsTutorialEn._(_root);
 	@override late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(_root);
+	@override late final _TranslationsSupportEn support = _TranslationsSupportEn._(_root);
 	@override late final _TranslationsMaintenanceEn maintenance = _TranslationsMaintenanceEn._(_root);
 	@override late final _TranslationsUpdateEn update = _TranslationsUpdateEn._(_root);
 }
@@ -252,6 +253,26 @@ class _TranslationsSettingsEn extends TranslationsSettingsJa {
 	@override late final _TranslationsSettingsAppearanceEn appearance = _TranslationsSettingsAppearanceEn._(_root);
 	@override late final _TranslationsSettingsDataEn data = _TranslationsSettingsDataEn._(_root);
 	@override late final _TranslationsSettingsAboutEn about = _TranslationsSettingsAboutEn._(_root);
+}
+
+// Path: support
+class _TranslationsSupportEn extends TranslationsSupportJa {
+	_TranslationsSupportEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Support the Developer';
+	@override String get totalCoffeesLabel => 'Coffees you\'ve sent so far';
+	@override String get totalCoffeesCount => '☕️ x {count}';
+	@override String get description => 'Thank you for supporting NantoNack!\nYour support will be used to improve the app and keep it running.\n※No special features are unlocked by this.';
+	@override String get sendCoffeeButton => 'Send a Coffee';
+	@override String get restoreButton => 'Restore Purchases (Sync count)';
+	@override String get restoreSuccess => 'Support history synced';
+	@override String get thankYouTitle => 'Thank you! ☕️';
+	@override String get thankYouMessage => 'Your coffee will fuel more improvements to the app!';
+	@override String get close => 'Close';
+	@override String get fetchError => 'Error: {error}';
 }
 
 // Path: maintenance
@@ -632,6 +653,17 @@ extension on TranslationsEn {
 			'settings.about.contact' => 'Contact',
 			'settings.about.licenses' => 'Licenses',
 			'settings.about.version' => 'Version {version}',
+			'support.title' => 'Support the Developer',
+			'support.totalCoffeesLabel' => 'Coffees you\'ve sent so far',
+			'support.totalCoffeesCount' => '☕️ x {count}',
+			'support.description' => 'Thank you for supporting NantoNack!\nYour support will be used to improve the app and keep it running.\n※No special features are unlocked by this.',
+			'support.sendCoffeeButton' => 'Send a Coffee',
+			'support.restoreButton' => 'Restore Purchases (Sync count)',
+			'support.restoreSuccess' => 'Support history synced',
+			'support.thankYouTitle' => 'Thank you! ☕️',
+			'support.thankYouMessage' => 'Your coffee will fuel more improvements to the app!',
+			'support.close' => 'Close',
+			'support.fetchError' => 'Error: {error}',
 			'maintenance.title' => 'Under Maintenance',
 			'maintenance.defaultMessage' => 'We are currently under maintenance.\nPlease try again later.',
 			'update.title' => 'Update Available',

@@ -223,6 +223,21 @@
       "@version": { "param": "version" }
     }
   },
+  "support": {
+    "title": "Support the Developer",
+    "totalCoffeesLabel": "Coffees you've sent so far",
+    "totalCoffeesCount": "☕️ x {count}",
+    "@totalCoffeesCount": { "param": "count" },
+    "description": "Thank you for supporting NantoNack!\nYour support will be used to improve the app and keep it running.\n※No special features are unlocked by this.",
+    "sendCoffeeButton": "Send a Coffee",
+    "restoreButton": "Restore Purchases (Sync count)",
+    "restoreSuccess": "Support history synced",
+    "thankYouTitle": "Thank you! ☕️",
+    "thankYouMessage": "Your coffee will fuel more improvements to the app!",
+    "close": "Close",
+    "fetchError": "Error: {error}",
+    "@fetchError": { "param": "error" }
+  },
   "maintenance": {
     "title": "Under Maintenance",
     "defaultMessage": "We are currently under maintenance.\nPlease try again later."
