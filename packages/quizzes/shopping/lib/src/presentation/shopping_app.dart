@@ -152,7 +152,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
       child: Stack(
         children: [
           Scaffold(
-            backgroundColor: const Color(0xFFF3F3F3),
+            backgroundColor: Theme.of(context).extension<ShoppingAppTheme>()!.scaffoldBackground,
             appBar: _ShoppingAppBar(
               cartCount: widget.cart.totalCount,
               onCartTap: () => _showCart(context),
@@ -341,8 +341,9 @@ class _ShoppingAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return AppBar(
-      backgroundColor: kShoppingNavyColor,
+      backgroundColor: ext.navyColor,
       automaticallyImplyLeading: false,
       title: UnreadableText(
         context.sq.water.appTitle,
@@ -382,19 +383,20 @@ class _ShoppingSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Container(
-      color: kShoppingNavyColor,
+      color: ext.navyColor,
       height: kShoppingSearchBarHeight,
       padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: ext.searchBarBackground,
           borderRadius: BorderRadius.circular(4),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Row(
           children: [
-            const Icon(Icons.search, color: Colors.grey, size: 20),
+            Icon(Icons.search, color: ext.searchIconColor, size: 20),
             const SizedBox(width: 8),
             Expanded(
               child: TextField(
@@ -409,7 +411,7 @@ class _ShoppingSearchBar extends StatelessWidget {
                     context.sq.water.searchPlaceholder,
                   ),
                   hintStyle:
-                      TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                      TextStyle(fontSize: 14, color: ext.searchHintColor),
                   isDense: true,
                   contentPadding: EdgeInsets.zero,
                 ),
@@ -419,12 +421,12 @@ class _ShoppingSearchBar extends StatelessWidget {
               InkWell(
                 onTap: onClear,
                 borderRadius: BorderRadius.circular(12),
-                child: const Icon(Icons.clear, color: Colors.grey, size: 20),
+                child: Icon(Icons.clear, color: ext.searchIconColor, size: 20),
               )
             else
-              const Icon(
+              Icon(
                 Icons.camera_alt_outlined,
-                color: Colors.grey,
+                color: ext.searchIconColor,
                 size: 20,
               ),
           ],
@@ -447,6 +449,7 @@ class _ShoppingCategoryBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final cats = context.sq.categories;
     final categoryItems = [
       (label: cats.daily, value: ShoppingCategory.daily),
@@ -459,7 +462,7 @@ class _ShoppingCategoryBar extends StatelessWidget {
 
     return Container(
       height: kShoppingCategoryBarHeight,
-      color: const Color(0xFF232F3E),
+      color: ext.categoryBarBackground,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -482,11 +485,11 @@ class _ShoppingCategoryBar extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? const Color(0xFFFF9900)
+                      ? ext.orangeAccent
                       : Colors.transparent,
                   border: Border.all(
                     color: isSelected
-                        ? const Color(0xFFFF9900)
+                        ? ext.orangeAccent
                         : Colors.white30,
                   ),
                   borderRadius: BorderRadius.circular(2),
@@ -496,7 +499,7 @@ class _ShoppingCategoryBar extends StatelessWidget {
                   isObfuscated: true,
                   animateOnObfuscate: false,
                   style: TextStyle(
-                    color: isSelected ? Colors.black87 : Colors.white,
+                    color: isSelected ? ext.categorySelectedText : ext.categoryUnselectedText,
                     fontSize: 12,
                     fontWeight:
                         isSelected ? FontWeight.bold : FontWeight.normal,
@@ -547,6 +550,7 @@ class _HomeTabViewState extends State<_HomeTabView> {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final home = context.sq.home;
     final cats = context.sq.categories;
 
@@ -635,7 +639,7 @@ class _HomeTabViewState extends State<_HomeTabView> {
           ),
           // ── カテゴリショートカット ──────────────────────────────────────
           Container(
-            color: Colors.white,
+            color: ext.surfaceColor,
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -679,12 +683,12 @@ class _HomeTabViewState extends State<_HomeTabView> {
                                 height: 48,
                                 decoration: BoxDecoration(
                                   color: isSelected
-                                      ? const Color(0xFFFF9900)
-                                      : const Color(0xFFF3F3F3),
+                                      ? ext.orangeAccent
+                                      : ext.scaffoldBackground,
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                     color: isSelected
-                                        ? const Color(0xFFFF9900)
+                                        ? ext.orangeAccent
                                         : Colors.transparent,
                                     width: 2,
                                   ),
@@ -707,8 +711,8 @@ class _HomeTabViewState extends State<_HomeTabView> {
                                 style: TextStyle(
                                   fontSize: 10,
                                   color: isSelected
-                                      ? const Color(0xFFFF9900)
-                                      : Colors.black54,
+                                      ? ext.orangeAccent
+                                      : ext.primaryTextColor.withValues(alpha: 0.6),
                                   fontWeight: isSelected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
@@ -727,7 +731,7 @@ class _HomeTabViewState extends State<_HomeTabView> {
           const SizedBox(height: 8),
           // ── おすすめ商品セクション ─────────────────────────────────────
           Container(
-            color: Colors.white,
+            color: ext.surfaceColor,
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             child: UnreadableText(
               home.recommended,
@@ -740,7 +744,7 @@ class _HomeTabViewState extends State<_HomeTabView> {
             ),
           ),
           Container(
-            color: const Color(0xFFF3F3F3),
+            color: ext.scaffoldBackground,
             child: filteredCatalog.isEmpty
                 ? const _ShoppingEmptyResult()
                 : GridView.builder(
@@ -850,6 +854,7 @@ class _MenuTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final nav = context.sq.navigation;
     final menu = context.sq.menu;
 
@@ -857,7 +862,7 @@ class _MenuTabView extends StatelessWidget {
       children: [
         // ユーザーヘッダー
         Container(
-          color: kShoppingNavyColor,
+          color: ext.navyColor,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
             children: [
@@ -897,7 +902,7 @@ class _MenuTabView extends StatelessWidget {
             _MenuSectionItem(
               icon: Icons.cloud_outlined,
               label: menu.digitalContent,
-              iconColor: const Color(0xFF007185),
+              iconColor: ext.amazonTealColor,
             ),
           ],
         ),
@@ -941,11 +946,12 @@ class _MenuSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          color: const Color(0xFFF3F3F3),
+          color: ext.scaffoldBackground,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: UnreadableText(
             title,
@@ -959,7 +965,7 @@ class _MenuSection extends StatelessWidget {
           ),
         ),
         Material(
-          color: Colors.white,
+          color: ext.surfaceColor,
           child: Column(children: items),
         ),
       ],
@@ -997,13 +1003,13 @@ class _MenuSectionItem extends StatelessWidget {
                     label,
                     isObfuscated: true,
                     animateOnObfuscate: false,
-                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                    style: TextStyle(fontSize: 14, color: Theme.of(context).extension<ShoppingAppTheme>()!.primaryTextColor),
                   ),
                 ),
                 Icon(
                   Icons.chevron_right,
                   size: 20,
-                  color: Colors.grey.shade400,
+                  color: Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor,
                 ),
               ],
             ),
@@ -1022,17 +1028,18 @@ class _ShoppingEmptyResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.search_off, size: 48, color: Colors.grey.shade400),
+          Icon(Icons.search_off, size: 48, color: ext.subTextColor),
           const SizedBox(height: 12),
           UnreadableText(
             context.sq.common.noResults,
             isObfuscated: true,
             animateOnObfuscate: false,
-            style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+            style: TextStyle(color: ext.searchIconColor, fontSize: 14),
           ),
         ],
       ),
@@ -1119,6 +1126,7 @@ class _ShoppingBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final nav = context.sq.navigation;
     final navItems = [
       (icon: Icons.home_outlined, label: nav.home),
@@ -1128,7 +1136,7 @@ class _ShoppingBottomNav extends StatelessWidget {
     ];
 
     return Material(
-      color: kShoppingNavyColor,
+      color: ext.navyColor,
       child: Container(
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: Color(0xFF3A4553))),
@@ -1176,12 +1184,13 @@ class _ShoppingNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           icon,
-          color: isSelected ? const Color(0xFFFF9900) : Colors.white,
+          color: isSelected ? ext.orangeAccent : Colors.white,
           size: 22,
         ),
         const SizedBox(height: 2),
@@ -1190,7 +1199,7 @@ class _ShoppingNavItem extends StatelessWidget {
           isObfuscated: true,
           animateOnObfuscate: false,
           style: TextStyle(
-            color: isSelected ? const Color(0xFFFF9900) : Colors.white,
+            color: isSelected ? ext.orangeAccent : Colors.white,
             fontSize: 10,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
@@ -1235,13 +1244,14 @@ class _AccountMenuView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final hasOrder = recentOrder != null;
 
     return ListView(
       children: [
         // プロフィールヘッダー
         Material(
-          color: Colors.white,
+          color: ext.surfaceColor,
           child: InkWell(
             onTap: () {},
             child: Padding(
@@ -1281,7 +1291,7 @@ class _AccountMenuView extends StatelessWidget {
         const SizedBox(height: 8),
         // メニューリスト
         Material(
-          color: Colors.white,
+          color: ext.surfaceColor,
           child: Column(
             children: [
               _AccountMenuTile(
@@ -1344,7 +1354,7 @@ class _AccountMenuTile extends StatelessWidget {
                   icon,
                   size: 24,
                   color: highlighted
-                      ? const Color(0xFF007185)
+                      ? Theme.of(context).extension<ShoppingAppTheme>()!.amazonTealColor
                       : const Color(0xFF888888),
                 ),
                 const SizedBox(width: 16),
@@ -1357,16 +1367,17 @@ class _AccountMenuTile extends StatelessWidget {
                       fontSize: 14,
                       fontWeight:
                           highlighted ? FontWeight.bold : FontWeight.normal,
-                      color:
-                          highlighted ? const Color(0xFF007185) : Colors.black54,
+                      color: highlighted
+                          ? Theme.of(context).extension<ShoppingAppTheme>()!.amazonTealColor
+                          : Theme.of(context).extension<ShoppingAppTheme>()!.primaryTextColor.withValues(alpha: 0.6),
                     ),
                   ),
                 ),
                 Icon(
                   Icons.chevron_right,
                   color: highlighted
-                      ? Colors.grey.shade500
-                      : Colors.grey.shade300,
+                      ? Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor
+                      : Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor,
                   size: 20,
                 ),
               ],
@@ -1400,6 +1411,7 @@ class _OrderHistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final targetItem =
         kShoppingCatalog.firstWhere((i) => i.id == recentOrder.targetItemId);
     final qt = context.sq.reorder;
@@ -1408,7 +1420,7 @@ class _OrderHistoryView extends StatelessWidget {
       children: [
         // ビュー内ヘッダー（戻るボタン付き）
         Container(
-          color: kShoppingNavyColor,
+          color: ext.navyColor,
           child: Row(
             children: [
               IconButton(
@@ -1440,23 +1452,23 @@ class _OrderHistoryView extends StatelessWidget {
                   horizontal: 16,
                   vertical: 12,
                 ),
-                color: const Color(0xFFF3F3F3),
+                color: ext.scaffoldBackground,
                 child: Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.history,
                       size: 18,
-                      color: Color(0xFF007185),
+                      color: ext.amazonTealColor,
                     ),
                     const SizedBox(width: 8),
                     UnreadableText(
                       qt.orderHistoryTitle,
                       isObfuscated: true,
                       animateOnObfuscate: false,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF007185),
+                        color: ext.amazonTealColor,
                       ),
                     ),
                   ],
@@ -1464,7 +1476,7 @@ class _OrderHistoryView extends StatelessWidget {
               ),
               // 注文カード
               Container(
-                color: Colors.white,
+                color: ext.surfaceColor,
                 child: Column(
                   children: [
                     // カードヘッダー（注文日）
@@ -1473,9 +1485,9 @@ class _OrderHistoryView extends StatelessWidget {
                         horizontal: 16,
                         vertical: 10,
                       ),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF3F3F3),
-                        border: Border(
+                      decoration: BoxDecoration(
+                        color: ext.scaffoldBackground,
+                        border: const Border(
                           bottom: BorderSide(color: Color(0xFFE0E0E0)),
                         ),
                       ),
@@ -1487,7 +1499,7 @@ class _OrderHistoryView extends StatelessWidget {
                           animateOnObfuscate: false,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey.shade600,
+                            color: ext.subTextColor,
                           ),
                         ),
                       ),
@@ -1502,9 +1514,9 @@ class _OrderHistoryView extends StatelessWidget {
                             width: 80,
                             height: 80,
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade200),
+                              border: Border.all(color: ext.subTextColor),
                               borderRadius: BorderRadius.circular(4),
-                              color: Colors.grey.shade50,
+                              color: ext.itemImageBackground,
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(4),
@@ -1555,15 +1567,15 @@ class _OrderHistoryView extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFFFD814),
-                              foregroundColor: Colors.black87,
+                              backgroundColor: ext.addToCartButtonColor,
+                              foregroundColor: ext.cartButtonForeground,
                               elevation: 0,
                               padding:
                                   const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
-                                side: const BorderSide(
-                                  color: Color(0xFFFFA41C),
+                                side: BorderSide(
+                                  color: ext.orangeAccentBorder,
                                 ),
                               ),
                             ),
@@ -1616,6 +1628,7 @@ class AmazonCartSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final qt = context.sq.water; // cart 関連テキストは water/reorder で共通
 
     return SafeArea(
@@ -1625,18 +1638,18 @@ class AmazonCartSheet extends StatelessWidget {
           // ヘッダー
           Container(
             width: double.infinity,
-            color: const Color(0xFFF3F3F3),
+            color: ext.scaffoldBackground,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
-                const Icon(Icons.shopping_cart, color: Color(0xFF007185)),
+                Icon(Icons.shopping_cart, color: ext.amazonTealColor),
                 const SizedBox(width: 8),
                 UnreadableText(
                   qt.cartTitle,
                   isObfuscated: true,
                   animateOnObfuscate: false,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: const Color(0xFF007185),
+                        color: ext.amazonTealColor,
                       ),
                 ),
               ],
@@ -1659,9 +1672,9 @@ class AmazonCartSheet extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = cart.items[index];
                   return ListTile(
-                    leading: const CircleAvatar(
-                      backgroundColor: Color(0xFFF3F3F3),
-                      child: Text('📦', style: TextStyle(fontSize: 20)),
+                    leading: CircleAvatar(
+                      backgroundColor: ext.scaffoldBackground,
+                      child: const Text('📦', style: TextStyle(fontSize: 20)),
                     ),
                     title: UnreadableText(
                       context.sqCatalogItemName(item.id),
@@ -1731,13 +1744,13 @@ class AmazonCartSheet extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFD814),
-                    foregroundColor: Colors.black87,
+                    backgroundColor: ext.addToCartButtonColor,
+                    foregroundColor: ext.cartButtonForeground,
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
-                      side: const BorderSide(color: Color(0xFFFFA41C)),
+                      side: BorderSide(color: ext.orangeAccentBorder),
                     ),
                   ),
                   onPressed: onPurchase,
@@ -1801,7 +1814,7 @@ class ShoppingInsightItem extends StatelessWidget {
                 Text(
                   desc,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey.shade700,
+                        color: Theme.of(context).extension<ShoppingAppTheme>()!.primaryTextColor,
                         height: 1.4,
                       ),
                 ),

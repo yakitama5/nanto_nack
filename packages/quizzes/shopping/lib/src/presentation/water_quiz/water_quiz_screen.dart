@@ -162,7 +162,7 @@ class _WaterUiInsight extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+              ?.copyWith(color: Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor),
         ),
         const SizedBox(height: 12),
         ShoppingInsightItem(

@@ -7,9 +7,6 @@ import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart
 import 'package:shopping/src/presentation/shopping_app.dart'
     show ShoppingInsightItem;
 
-// Amazon風カラー定数
-const _kNavyColor = Color(0xFF131921);
-
 class CheckoutQuizScreen extends ConsumerStatefulWidget {
   const CheckoutQuizScreen({super.key, this.onCompleted});
 
@@ -40,6 +37,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final quizState = ref.watch(checkoutQuizProvider);
     final missionText = context.s.checkout.missionText;
     final qt = context.sq.checkout;
@@ -79,9 +77,9 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
       child: Stack(
         children: [
           Scaffold(
-            backgroundColor: const Color(0xFFF3F3F3),
+            backgroundColor: ext.scaffoldBackground,
             appBar: AppBar(
-              backgroundColor: _kNavyColor,
+              backgroundColor: ext.navyColor,
               title: UnreadableText(
                 qt.appTitle,
                 isObfuscated: true,
@@ -108,13 +106,13 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                           qt.addressPlaceholder,
                         ),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: ext.surfaceColor,
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 10,
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade300),
+                          borderSide: BorderSide(color: ext.subTextColor),
                         ),
                       ),
                       onChanged: (v) => ref
@@ -154,13 +152,13 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFFD814),
-                          foregroundColor: Colors.black87,
+                          backgroundColor: ext.addToCartButtonColor,
+                          foregroundColor: ext.cartButtonForeground,
                           elevation: 0,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: const BorderSide(color: Color(0xFFFFA41C)),
+                            side: BorderSide(color: ext.orangeAccentBorder),
                           ),
                         ),
                         onPressed: quizState.status == QuizStatus.playing
@@ -234,6 +232,7 @@ class _CheckoutUiInsight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final insight = context.s.checkout.insight;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,7 +256,7 @@ class _CheckoutUiInsight extends StatelessWidget {
           insight.subtitle,
           style: Theme.of(
             context,
-          ).textTheme.bodySmall?.copyWith(color: Colors.grey.shade600),
+          ).textTheme.bodySmall?.copyWith(color: ext.subTextColor),
         ),
         const SizedBox(height: 12),
         ShoppingInsightItem(
@@ -291,17 +290,18 @@ class _StepIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final qt = context.sq.checkout;
     final steps = [qt.step1, qt.step2, qt.step3];
 
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       child: Row(
         children: List.generate(steps.length * 2 - 1, (i) {
           if (i.isOdd) {
             return Expanded(
-              child: Container(height: 1, color: Colors.grey.shade300),
+              child: Container(height: 1, color: ext.subTextColor),
             );
           }
           final stepIndex = i ~/ 2 + 1;
@@ -316,8 +316,8 @@ class _StepIndicator extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isDone || isCurrent
-                      ? const Color(0xFF232F3E)
-                      : Colors.grey.shade200,
+                      ? ext.categoryBarBackground
+                      : ext.scaffoldBackground,
                 ),
                 child: Center(
                   child: isDone
@@ -327,7 +327,7 @@ class _StepIndicator extends StatelessWidget {
                           style: TextStyle(
                             color: isCurrent
                                 ? Colors.white
-                                : Colors.grey.shade500,
+                                : ext.subTextColor,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -342,8 +342,8 @@ class _StepIndicator extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 10,
                   color: isCurrent
-                      ? const Color(0xFF232F3E)
-                      : Colors.grey.shade500,
+                      ? ext.primaryTextColor
+                      : ext.subTextColor,
                   fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
@@ -370,8 +370,9 @@ class _SectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -379,7 +380,7 @@ class _SectionCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
             child: Row(
               children: [
-                Icon(icon, size: 20, color: const Color(0xFF007185)),
+                Icon(icon, size: 20, color: ext.amazonTealColor),
                 const SizedBox(width: 8),
                 UnreadableText(
                   title,
@@ -432,7 +433,7 @@ class _PaymentMethodGroup extends StatelessWidget {
               (method) => RadioListTile<String>(
                 title: Row(
                   children: [
-                    Icon(method.icon, size: 18, color: Colors.grey.shade600),
+                    Icon(method.icon, size: 18, color: Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor),
                     const SizedBox(width: 8),
                     UnreadableText(
                       method.value,
@@ -443,7 +444,7 @@ class _PaymentMethodGroup extends StatelessWidget {
                   ],
                 ),
                 value: method.value,
-                activeColor: const Color(0xFF007185),
+                activeColor: Theme.of(context).extension<ShoppingAppTheme>()!.amazonTealColor,
                 contentPadding: EdgeInsets.zero,
                 dense: true,
               ),
@@ -467,9 +468,10 @@ class _OrderSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final qt = context.sq.checkout;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -477,10 +479,10 @@ class _OrderSummaryCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.receipt_long_outlined,
                   size: 20,
-                  color: Color(0xFF007185),
+                  color: ext.amazonTealColor,
                 ),
                 const SizedBox(width: 8),
                 UnreadableText(
@@ -516,9 +518,9 @@ class _OrderSummaryCard extends StatelessWidget {
                     '¥0',
                     isObfuscated: true,
                     animateOnObfuscate: false,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFF007185),
+                      color: ext.amazonTealColor,
                     ),
                   ),
                 ),
@@ -549,7 +551,7 @@ class _OrderSummaryCard extends StatelessWidget {
             ),
             value: isConfirmed,
             onChanged: onConfirmChanged,
-            activeColor: const Color(0xFF007185),
+            activeColor: ext.amazonTealColor,
             controlAffinity: ListTileControlAffinity.leading,
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           ),
@@ -574,7 +576,7 @@ class _SummaryRow extends StatelessWidget {
           label,
           isObfuscated: true,
           animateOnObfuscate: false,
-          style: const TextStyle(fontSize: 14, color: Colors.black87),
+          style: TextStyle(fontSize: 14, color: Theme.of(context).extension<ShoppingAppTheme>()!.primaryTextColor),
         ),
         value,
       ],
