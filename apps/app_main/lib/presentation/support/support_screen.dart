@@ -32,7 +32,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
 
     final int? currentCount = customerInfoAsync.when<int?>(
       data: (info) => calculateTotalCoffees(info),
-      loading: () => 0,
+      loading: () => null,
       error: (_, __) => null,
     );
 
