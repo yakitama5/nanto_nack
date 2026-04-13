@@ -7,43 +7,45 @@ import '../../i18n/map_translations_extension.dart';
 import '../map_app_screen.dart';
 import 'search_place_quiz_notifier.dart';
 
-/// Quiz 2「目的地を検索してください」
-class SearchPlaceQuizScreen extends ConsumerStatefulWidget {
+/// Quiz 2「登録した学校の情報を表示しよう」
+class ShowSchoolInfoQuizScreen extends ConsumerStatefulWidget {
   /// コンストラクタ
-  const SearchPlaceQuizScreen({super.key, this.onCompleted});
+  const ShowSchoolInfoQuizScreen({super.key, this.onCompleted});
 
   /// クイズ完了コールバック
   final VoidCallback? onCompleted;
 
   @override
-  ConsumerState<SearchPlaceQuizScreen> createState() =>
-      _SearchPlaceQuizScreenState();
+  ConsumerState<ShowSchoolInfoQuizScreen> createState() =>
+      _ShowSchoolInfoQuizScreenState();
 }
 
-class _SearchPlaceQuizScreenState
-    extends ConsumerState<SearchPlaceQuizScreen> {
-  static const _timeLimitSeconds = 60;
+class _ShowSchoolInfoQuizScreenState
+    extends ConsumerState<ShowSchoolInfoQuizScreen> {
+  static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
+  int _retryCount = 0;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(searchPlaceQuizProvider.notifier).startQuiz();
+      ref.read(showSchoolInfoQuizProvider.notifier).startQuiz();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(searchPlaceQuizProvider);
+    final state = ref.watch(showSchoolInfoQuizProvider);
     final missionText = context.s.quiz2.missionText;
-    final notifier = ref.read(searchPlaceQuizProvider.notifier);
+    final notifier = ref.read(showSchoolInfoQuizProvider.notifier);
 
     return MapAppScreen(
+      key: ValueKey(_retryCount),
       places: MapCatalog.places,
       selectedPlace: state.selectedPlace,
       locationShown: false,
-      showSearchBar: true,
+      showSearchBar: false,
       showDirectionsButton: false,
       showFavoriteButton: false,
       quizStatus: state.status,
@@ -51,9 +53,6 @@ class _SearchPlaceQuizScreenState
       timeLimitSeconds: _timeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
-      highlightSearchBar: state.status == QuizStatus.playing,
-      searchQuery: state.searchQuery,
-      onSearchTap: notifier.tapSearch,
       onPlaceSelect: notifier.selectPlace,
       overlays: [
         if (_showCutIn)
@@ -63,6 +62,7 @@ class _SearchPlaceQuizScreenState
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||
+            state.status == QuizStatus.incorrect ||
             state.status == QuizStatus.timeUp ||
             state.status == QuizStatus.giveUp)
           Positioned.fill(
@@ -71,14 +71,17 @@ class _SearchPlaceQuizScreenState
               score: state.score,
               elapsedMs: state.elapsedMs,
               onRetry: () {
-                setState(() => _showCutIn = true);
+                setState(() {
+                  _showCutIn = true;
+                  _retryCount++;
+                });
                 notifier.retry();
               },
               onNext: state.status == QuizStatus.correct
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
-              insight: _SearchPlaceInsight(),
+              insight: _ShowSchoolInfoInsight(),
             ),
           ),
       ],
@@ -86,7 +89,7 @@ class _SearchPlaceQuizScreenState
   }
 }
 
-class _SearchPlaceInsight extends StatelessWidget {
+class _ShowSchoolInfoInsight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final insight = context.s.quiz2.insight;
@@ -96,21 +99,21 @@ class _SearchPlaceInsight extends StatelessWidget {
         _InsightHeader(title: insight.title, subtitle: insight.subtitle),
         const SizedBox(height: 12),
         _InsightItem(
-          emoji: '🔍',
-          title: insight.searchTitle,
-          desc: insight.searchDesc,
+          emoji: '🏫',
+          title: insight.iconTitle,
+          desc: insight.iconDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '💡',
-          title: insight.suggestTitle,
-          desc: insight.suggestDesc,
+          emoji: '👆',
+          title: insight.tapTitle,
+          desc: insight.tapDesc,
         ),
         const SizedBox(height: 10),
         _InsightItem(
-          emoji: '📍',
-          title: insight.pinTitle,
-          desc: insight.pinDesc,
+          emoji: '📋',
+          title: insight.infoTitle,
+          desc: insight.infoDesc,
         ),
       ],
     );

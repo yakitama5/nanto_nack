@@ -18,7 +18,7 @@ final showLocationQuizProvider = AutoDisposeNotifierProvider<
 class ShowLocationQuizNotifier
     extends AutoDisposeNotifier<ShowLocationQuizState> {
   static const _quizId = 'map_quiz1';
-  static const _timeLimitSeconds = 60;
+  static const _timeLimitSeconds = 30;
 
   final _useCase = const QuizShowLocationUseCase();
   Timer? _timer;

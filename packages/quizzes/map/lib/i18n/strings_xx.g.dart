@@ -66,8 +66,8 @@ class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Search for a destination';
-	@override String get failureReason => 'Search for a destination in the search bar';
+	@override String get missionText => 'Show school info';
+	@override String get failureReason => 'Tap the school icon';
 	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
 
@@ -78,8 +78,8 @@ class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Start navigation';
-	@override String get failureReason => 'Start route navigation';
+	@override String get missionText => 'Navigate to park by train';
+	@override String get failureReason => 'Select park and train for navigation';
 	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
 
@@ -90,8 +90,8 @@ class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Add to favorites';
-	@override String get failureReason => 'Add the place to favorites';
+	@override String get missionText => 'Add station to favorites';
+	@override String get failureReason => 'Tap station icon and add to favorites';
 	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
 }
 
@@ -118,6 +118,10 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get go => 'Go';
 	@override String get min => 'min';
 	@override String get km => 'km';
+	@override String get confirmQuitTitle => 'Quit game?';
+	@override String get confirmQuitMessage => 'The game will end.';
+	@override String get continueGame => 'Continue';
+	@override String get quitGame => 'Quit';
 }
 
 // Path: places
@@ -163,14 +167,14 @@ class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find the search bar?';
-	@override String get subtitle => 'Magnifying glass means search';
-	@override String get searchTitle => 'Magnifying glass icon means search';
-	@override String get searchDesc => 'Unified search icon across all apps.';
-	@override String get suggestTitle => 'Suggestions aid navigation';
-	@override String get suggestDesc => 'Suggestion lists standard in map apps.';
-	@override String get pinTitle => 'Pin placed on map';
-	@override String get pinDesc => 'Tapping result shows pin on map.';
+	@override String get title => 'How did you find the school?';
+	@override String get subtitle => 'Icons show place types';
+	@override String get iconTitle => 'Icons identify facility types';
+	@override String get iconDesc => 'Icons distinguish place types without language.';
+	@override String get tapTitle => 'Tap for details';
+	@override String get tapDesc => 'Tapping shows place info in bottom panel.';
+	@override String get infoTitle => 'Saved places always accessible';
+	@override String get infoDesc => 'Tap saved places to view details instantly.';
 }
 
 // Path: quiz3.insight
@@ -180,14 +184,14 @@ class _TranslationsQuiz3InsightXx extends TranslationsQuiz3InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you find navigation?';
-	@override String get subtitle => 'Arrow represents navigate';
-	@override String get routeTitle => 'Arrow means navigation';
-	@override String get routeDesc => 'Upper-right arrow is standard navigation button.';
-	@override String get transportTitle => 'Transport options';
-	@override String get transportDesc => 'Car, train, walk icons in a row.';
-	@override String get stepTitle => 'Turn-by-turn is intuitive';
-	@override String get stepDesc => 'Large turn instructions continue from car navigation era.';
+	@override String get title => 'How did you navigate?';
+	@override String get subtitle => '3 steps to navigate';
+	@override String get destinationTitle => 'Tap pin for destination';
+	@override String get destinationDesc => 'Tap map icon to see place details.';
+	@override String get transportTitle => 'Transport icons are universal';
+	@override String get transportDesc => 'Car, walk, train, bike icons standard.';
+	@override String get startTitle => 'Tap Start to begin';
+	@override String get startDesc => 'Select destination and transport, then start.';
 }
 
 // Path: quiz4.insight
@@ -225,28 +229,28 @@ extension on TranslationsXx {
 			'quiz1.insight.compassDesc' => 'Compass icon resets orientation to north.',
 			'quiz1.insight.zoomTitle' => 'Pinch to zoom',
 			'quiz1.insight.zoomDesc' => 'Two-finger pinch gesture is standard worldwide.',
-			'quiz2.missionText' => 'Search for a destination',
-			'quiz2.failureReason' => 'Search for a destination in the search bar',
-			'quiz2.insight.title' => 'How did you find the search bar?',
-			'quiz2.insight.subtitle' => 'Magnifying glass means search',
-			'quiz2.insight.searchTitle' => 'Magnifying glass icon means search',
-			'quiz2.insight.searchDesc' => 'Unified search icon across all apps.',
-			'quiz2.insight.suggestTitle' => 'Suggestions aid navigation',
-			'quiz2.insight.suggestDesc' => 'Suggestion lists standard in map apps.',
-			'quiz2.insight.pinTitle' => 'Pin placed on map',
-			'quiz2.insight.pinDesc' => 'Tapping result shows pin on map.',
-			'quiz3.missionText' => 'Start navigation',
-			'quiz3.failureReason' => 'Start route navigation',
-			'quiz3.insight.title' => 'How did you find navigation?',
-			'quiz3.insight.subtitle' => 'Arrow represents navigate',
-			'quiz3.insight.routeTitle' => 'Arrow means navigation',
-			'quiz3.insight.routeDesc' => 'Upper-right arrow is standard navigation button.',
-			'quiz3.insight.transportTitle' => 'Transport options',
-			'quiz3.insight.transportDesc' => 'Car, train, walk icons in a row.',
-			'quiz3.insight.stepTitle' => 'Turn-by-turn is intuitive',
-			'quiz3.insight.stepDesc' => 'Large turn instructions continue from car navigation era.',
-			'quiz4.missionText' => 'Add to favorites',
-			'quiz4.failureReason' => 'Add the place to favorites',
+			'quiz2.missionText' => 'Show school info',
+			'quiz2.failureReason' => 'Tap the school icon',
+			'quiz2.insight.title' => 'How did you find the school?',
+			'quiz2.insight.subtitle' => 'Icons show place types',
+			'quiz2.insight.iconTitle' => 'Icons identify facility types',
+			'quiz2.insight.iconDesc' => 'Icons distinguish place types without language.',
+			'quiz2.insight.tapTitle' => 'Tap for details',
+			'quiz2.insight.tapDesc' => 'Tapping shows place info in bottom panel.',
+			'quiz2.insight.infoTitle' => 'Saved places always accessible',
+			'quiz2.insight.infoDesc' => 'Tap saved places to view details instantly.',
+			'quiz3.missionText' => 'Navigate to park by train',
+			'quiz3.failureReason' => 'Select park and train for navigation',
+			'quiz3.insight.title' => 'How did you navigate?',
+			'quiz3.insight.subtitle' => '3 steps to navigate',
+			'quiz3.insight.destinationTitle' => 'Tap pin for destination',
+			'quiz3.insight.destinationDesc' => 'Tap map icon to see place details.',
+			'quiz3.insight.transportTitle' => 'Transport icons are universal',
+			'quiz3.insight.transportDesc' => 'Car, walk, train, bike icons standard.',
+			'quiz3.insight.startTitle' => 'Tap Start to begin',
+			'quiz3.insight.startDesc' => 'Select destination and transport, then start.',
+			'quiz4.missionText' => 'Add station to favorites',
+			'quiz4.failureReason' => 'Tap station icon and add to favorites',
 			'quiz4.insight.title' => 'How did you find favorites?',
 			'quiz4.insight.subtitle' => 'Star mark means favorites',
 			'quiz4.insight.starTitle' => 'Star is the international favorites symbol',
@@ -271,6 +275,10 @@ extension on TranslationsXx {
 			'common.go' => 'Go',
 			'common.min' => 'min',
 			'common.km' => 'km',
+			'common.confirmQuitTitle' => 'Quit game?',
+			'common.confirmQuitMessage' => 'The game will end.',
+			'common.continueGame' => 'Continue',
+			'common.quitGame' => 'Quit',
 			'places.p1Name' => 'City Hall',
 			'places.p1Address' => '1-1 Central Ave',
 			'places.p2Name' => 'Grand Park',

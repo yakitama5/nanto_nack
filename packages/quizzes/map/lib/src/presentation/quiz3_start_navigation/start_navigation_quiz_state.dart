@@ -2,7 +2,7 @@ import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/entities/map_place.dart';
 
-/// Quiz 3「ルート案内を開始する」の状態
+/// Quiz 3「目的地と交通手段を選んでルートを案内する」の状態
 class StartNavigationQuizState extends QuizStateBase {
   /// コンストラクタ
   const StartNavigationQuizState({
@@ -12,31 +12,33 @@ class StartNavigationQuizState extends QuizStateBase {
     required super.startedAt,
     required this.selectedPlace,
     required this.showDirections,
+    required this.selectedTransportIndex,
     required this.navigationStarted,
     required this.remainingSeconds,
   });
 
-  /// 初期状態を生成する
-  factory StartNavigationQuizState.initial({
-    required MapPlace destination,
-    int timeLimitSeconds = 60,
-  }) =>
+  /// 初期状態を生成する（目的地・交通手段ともに未選択）
+  factory StartNavigationQuizState.initial({int timeLimitSeconds = 60}) =>
       StartNavigationQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
-        selectedPlace: destination,
+        selectedPlace: null,
         showDirections: false,
+        selectedTransportIndex: null,
         navigationStarted: false,
         remainingSeconds: timeLimitSeconds,
       );
 
-  /// 選択された目的地（ルート表示対象）
+  /// 選択された目的地
   final MapPlace? selectedPlace;
 
-  /// ルート候補パネルを表示中か
+  /// ルート候補パネルを表示中か（正解の目的地を選択後）
   final bool showDirections;
+
+  /// 選択された交通手段インデックス
+  final int? selectedTransportIndex;
 
   /// ナビゲーション開始済みか
   final bool navigationStarted;
@@ -52,6 +54,7 @@ class StartNavigationQuizState extends QuizStateBase {
     DateTime? startedAt,
     MapPlace? selectedPlace,
     bool? showDirections,
+    int? selectedTransportIndex,
     bool? navigationStarted,
     int? remainingSeconds,
   }) {
@@ -62,6 +65,8 @@ class StartNavigationQuizState extends QuizStateBase {
       startedAt: startedAt ?? this.startedAt,
       selectedPlace: selectedPlace ?? this.selectedPlace,
       showDirections: showDirections ?? this.showDirections,
+      selectedTransportIndex:
+          selectedTransportIndex ?? this.selectedTransportIndex,
       navigationStarted: navigationStarted ?? this.navigationStarted,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
     );

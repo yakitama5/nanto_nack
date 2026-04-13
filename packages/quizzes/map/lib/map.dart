@@ -4,7 +4,7 @@ export 'src/domain/map_catalog.dart';
 
 // Application
 export 'src/application/quiz_save_place_use_case.dart';
-export 'src/application/quiz_search_place_use_case.dart';
+export 'src/application/quiz_search_place_use_case.dart'; // QuizShowSchoolInfoUseCase
 export 'src/application/quiz_show_location_use_case.dart';
 export 'src/application/quiz_start_navigation_use_case.dart';
 
