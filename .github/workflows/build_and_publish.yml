@@ -103,10 +103,8 @@ jobs:
       # ────────────────────────────────────────────
       # Android ビルド＆Google Play へ配布
       # ────────────────────────────────────────────
-      - name: Android ビルド＆配布
+      - name: Android ビルド
         if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' }}
-        env:
-          GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GPLAY_SERVICE_ACCOUNT }}
         run: |
           # 1. Base64化されたKeystoreを復元
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > apps/app_main/android/app/keystore.jks
@@ -119,8 +117,21 @@ jobs:
           EOF
           # 3. Melos経由でビルド
           melos run build:android:prod
-          # 4. Google Play へアップロード（内部テストトラック）
-          google-play publish \
+
+      - name: AAB を GitHub Actions にアップロード
+        if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-aab
+          path: apps/app_main/build/app/outputs/bundle/release/app-release.aab
+          retention-days: 7
+
+      - name: Google Play へパブリッシュ（内部テストトラック）
+        if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' }}
+        env:
+          GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GPLAY_SERVICE_ACCOUNT }}
+        run: |
+          google-play bundles publish \
+            --bundle apps/app_main/build/app/outputs/bundle/release/app-release.aab \
             --track internal \
-            --package-name com.yakuran.nanto_nack \
-            --artifact-path apps/app_main/build/app/outputs/bundle/release/app-release.aab
+            --package-name com.yakuran.nanto_nack
