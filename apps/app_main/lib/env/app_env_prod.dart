@@ -8,6 +8,10 @@ abstract final class AppEnvProd {
   @EnviedField(varName: 'OPEN_WEATHER_API_KEY')
   static final String openWeatherApiKey = _AppEnvProd.openWeatherApiKey;
 
-  @EnviedField(varName: 'REVENUE_CAT_API_KEY', defaultValue: '')
-  static final String revenueCatApiKey = _AppEnvProd.revenueCatApiKey;
+  @EnviedField(varName: 'REVENUE_CAT_ANDROID_API_KEY', defaultValue: '')
+  static final String revenueCatAndroidApiKey =
+      _AppEnvProd.revenueCatAndroidApiKey;
+
+  @EnviedField(varName: 'REVENUE_CAT_IOS_API_KEY', defaultValue: '')
+  static final String revenueCatIosApiKey = _AppEnvProd.revenueCatIosApiKey;
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_main/env/app_env_dev.dart';
 import 'package:app_main/env/app_env_prod.dart';
 
@@ -11,6 +13,18 @@ abstract final class AppEnv {
   static String get activeApiKey =>
       _isProd ? AppEnvProd.openWeatherApiKey : AppEnvDev.openWeatherApiKey;
 
-  static String get activeRevenueCatApiKey =>
-      _isProd ? AppEnvProd.revenueCatApiKey : AppEnvDev.revenueCatApiKey;
+  /// RevenueCat の API キー。プラットフォームによって Android / iOS を使い分ける。
+  ///
+  /// RevenueCat は Web 非対応のため、Web では呼ばれないことを前提とする。
+  static String get activeRevenueCatApiKey {
+    if (_isProd) {
+      return Platform.isAndroid
+          ? AppEnvProd.revenueCatAndroidApiKey
+          : AppEnvProd.revenueCatIosApiKey;
+    } else {
+      return Platform.isAndroid
+          ? AppEnvDev.revenueCatAndroidApiKey
+          : AppEnvDev.revenueCatIosApiKey;
+    }
+  }
 }
