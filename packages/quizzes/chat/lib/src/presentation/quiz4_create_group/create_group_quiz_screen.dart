@@ -470,9 +470,9 @@ class _GroupNameInputView extends StatelessWidget {
               style: FilledButton.styleFrom(
                 backgroundColor: ext.brandColor,
               ),
-              child: const Text(
-                'Create',
-                style: TextStyle(
+              child: Text(
+                context.sq.common.createButton,
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'monospace',
