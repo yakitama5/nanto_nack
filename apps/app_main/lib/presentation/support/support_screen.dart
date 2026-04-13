@@ -4,14 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
+
+/// 選択されたパッケージ識別子からコーヒーカップ数を返す。
+///
+/// - `nantonack_coffee_100` → 1杯
+/// - `nantonack_coffee_300` → 3杯
+/// - それ以外               → 1杯（フォールバック）
+int _coffeeCountForPackage(Package? package) {
+  if (package == null) return 0;
+  final id = package.storeProduct.identifier;
+  if (id.contains('300')) return 3;
+  return 1;
+}
 
 /// 応援画面（Buy Me a Coffee）。
 ///
 /// ユーザーが開発者にコーヒーを贈ることができる画面。
 /// RevenueCat のオファリングを表示し、消耗型課金（コーヒー1杯/3杯）を提供する。
+/// 選択した商品に応じたLottieコーヒーアニメーションを横並びで表示する。
 /// 累計贈呈数は背景のコーヒーアイコンで視覚的に表示される。
 class SupportScreen extends ConsumerStatefulWidget {
   const SupportScreen({super.key});
@@ -29,6 +43,19 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
     final t = Translations.of(context);
     final offeringsAsync = ref.watch(offeringsProvider);
     final customerInfoAsync = ref.watch(customerInfoProvider);
+
+    // オファリングが初めて読み込まれたとき、1杯（100）パッケージをデフォルト選択する
+    ref.listen(offeringsProvider, (_, next) {
+      next.whenData((offering) {
+        if (_selectedPackage != null || offering == null) return;
+        final defaultPackage = offering.availablePackages
+            .where((p) => p.storeProduct.identifier.contains('100'))
+            .firstOrNull;
+        if (defaultPackage != null) {
+          setState(() => _selectedPackage = defaultPackage);
+        }
+      });
+    });
 
     final int? currentCount = customerInfoAsync.when<int?>(
       data: (info) => calculateTotalCoffees(info),
@@ -68,8 +95,10 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                       const SizedBox(height: 8),
                       Text(
                         currentCount != null
-                            ? t.support.totalCoffeesCount
-                                .replaceAll('{count}', currentCount.toString())
+                            ? t.support.totalCoffeesCount.replaceAll(
+                                '{count}',
+                                currentCount.toString(),
+                              )
                             : '--',
                         style: const TextStyle(
                           fontSize: 40,
@@ -85,9 +114,9 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                   margin: const EdgeInsets.all(16),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .scaffoldBackgroundColor
-                        .withValues(alpha: 0.85),
+                    color: Theme.of(
+                      context,
+                    ).scaffoldBackgroundColor.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -95,6 +124,11 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                     textAlign: TextAlign.center,
                   ),
                 ),
+                // コーヒーLottieアニメーション（選択中のプランに応じて表示数が変化）
+                _CoffeeLottieRow(
+                  count: _coffeeCountForPackage(_selectedPackage),
+                ),
+                const SizedBox(height: 8),
                 // プラン選択リスト（RevenueCat データを元に表示）
                 offeringsAsync.when(
                   data: (offering) {
@@ -110,9 +144,9 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .scaffoldBackgroundColor
-                              .withValues(alpha: 0.85),
+                          color: Theme.of(
+                            context,
+                          ).scaffoldBackgroundColor.withValues(alpha: 0.85),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: RadioGroup<Package>(
@@ -120,11 +154,17 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                           onChanged: (val) =>
                               setState(() => _selectedPackage = val),
                           child: ListView(
-                            children: offering.availablePackages.map((package) {
+                            children: (offering.availablePackages.toList()
+                                  ..sort(
+                                    (a, b) => a.storeProduct.identifier
+                                        .compareTo(b.storeProduct.identifier),
+                                  ))
+                                .map((package) {
                               return RadioListTile<Package>(
                                 title: Text(package.storeProduct.title),
-                                subtitle:
-                                    Text(package.storeProduct.priceString),
+                                subtitle: Text(
+                                  package.storeProduct.priceString,
+                                ),
                                 value: package,
                               );
                             }).toList(),
@@ -139,8 +179,10 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                   error: (err, _) => Expanded(
                     child: Center(
                       child: Text(
-                        t.support.fetchError
-                            .replaceAll('{error}', err.toString()),
+                        t.support.fetchError.replaceAll(
+                          '{error}',
+                          err.toString(),
+                        ),
                       ),
                     ),
                   ),
@@ -149,12 +191,14 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                 TextButton(
                   onPressed: _isBusy ? null : _handleRestore,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withValues(alpha: 0.8),
+                      color: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor.withValues(alpha: 0.8),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -179,8 +223,9 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
             ),
-            onPressed:
-                (_selectedPackage == null || _isBusy) ? null : _handlePurchase,
+            onPressed: (_selectedPackage == null || _isBusy)
+                ? null
+                : _handlePurchase,
             child: Text(t.support.sendCoffeeButton),
           ),
         ),
@@ -284,6 +329,95 @@ class _CoffeeBackground extends StatelessWidget {
             (_) => const Icon(Icons.local_cafe, size: 48, color: Colors.brown),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────
+// 選択プランのコーヒーLottieアニメーション行
+// ─────────────────────────────────────────
+
+/// 選択された商品に応じたコーヒーアニメーションを横並びで表示するウィジェット。
+///
+/// 単一の [AnimationController] を全カップで共有することで再生位置を同期する。
+/// [count] が 0 の場合はプレースホルダーとして薄いアイコンを表示し、
+/// ユーザーにプランを選ぶよう促す。
+class _CoffeeLottieRow extends StatefulWidget {
+  const _CoffeeLottieRow({required this.count});
+
+  final int count;
+
+  @override
+  State<_CoffeeLottieRow> createState() => _CoffeeLottieRowState();
+}
+
+class _CoffeeLottieRowState extends State<_CoffeeLottieRow>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  static const _lottieSize = 140.0;
+  static const _placeholderSize = 80.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.count == 0) {
+      // 未選択時：薄いプレースホルダー
+      return SizedBox(
+        height: _lottieSize,
+        child: Center(
+          child: Opacity(
+            opacity: 0.25,
+            child: Icon(
+              Icons.local_cafe,
+              size: _placeholderSize,
+              color: Colors.brown,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Expanded で画面幅に収め、カップ間は 8px の gap を入れる
+    final items = <Widget>[];
+    for (var i = 0; i < widget.count; i++) {
+      if (i > 0) items.add(const SizedBox(width: 8));
+      items.add(
+        Expanded(
+          child: Lottie.asset(
+            'assets/lottie/coffee.json',
+            controller: _controller,
+            onLoaded: (composition) {
+              // 最初の1回だけ duration を設定してループ再生を開始する
+              if (_controller.duration == null) {
+                _controller
+                  ..duration = composition.duration
+                  ..repeat();
+              }
+            },
+            fit: BoxFit.contain,
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SizedBox(
+        height: _lottieSize,
+        child: Row(children: items),
       ),
     );
   }
