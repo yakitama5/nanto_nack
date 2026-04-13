@@ -353,6 +353,12 @@ class _TodayHeroCard extends ConsumerWidget {
                       ),
                       // ── 右上アイコンボタン群 ──
                       _HeaderIconButton(
+                        icon: Icons.local_cafe_outlined,
+                        color: Colors.white,
+                        onPressed: () => context.push('/support'),
+                      ),
+                      const SizedBox(width: 8),
+                      _HeaderIconButton(
                         icon: Icons.settings_rounded,
                         color: Colors.white,
                         onPressed: () => context.push('/settings'),

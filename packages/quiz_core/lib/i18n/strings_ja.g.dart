@@ -53,6 +53,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsTipJa tip = TranslationsTipJa.internal(_root);
 	late final TranslationsTutorialJa tutorial = TranslationsTutorialJa.internal(_root);
 	late final TranslationsSettingsJa settings = TranslationsSettingsJa.internal(_root);
+	late final TranslationsSupportJa support = TranslationsSupportJa.internal(_root);
 	late final TranslationsMaintenanceJa maintenance = TranslationsMaintenanceJa.internal(_root);
 	late final TranslationsUpdateJa update = TranslationsUpdateJa.internal(_root);
 }
@@ -400,6 +401,57 @@ class TranslationsSettingsJa {
 	late final TranslationsSettingsAppearanceJa appearance = TranslationsSettingsAppearanceJa.internal(_root);
 	late final TranslationsSettingsDataJa data = TranslationsSettingsDataJa.internal(_root);
 	late final TranslationsSettingsAboutJa about = TranslationsSettingsAboutJa.internal(_root);
+}
+
+// Path: support
+class TranslationsSupportJa {
+	TranslationsSupportJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '開発者を応援'
+	String get title => '開発者を応援';
+
+	/// ja: 'これまでに贈ったコーヒー'
+	String get totalCoffeesLabel => 'これまでに贈ったコーヒー';
+
+	/// ja: '☕️ x {count}'
+	String get totalCoffeesCount => '☕️ x {count}';
+
+	/// ja: 'NantoNackを応援していただきありがとうございます！ いただいた支援は、今後のアプリ改善や運営のために大切に活用させていただきます。 ※本機能による特別な機能解放等はございません。'
+	String get description => 'NantoNackを応援していただきありがとうございます！\nいただいた支援は、今後のアプリ改善や運営のために大切に活用させていただきます。\n※本機能による特別な機能解放等はございません。';
+
+	/// ja: 'コーヒーを送る'
+	String get sendCoffeeButton => 'コーヒーを送る';
+
+	/// ja: '購入内容を復元（カウントを同期）'
+	String get restoreButton => '購入内容を復元（カウントを同期）';
+
+	/// ja: '応援履歴を同期しました'
+	String get restoreSuccess => '応援履歴を同期しました';
+
+	/// ja: 'ありがとうございます！☕️'
+	String get thankYouTitle => 'ありがとうございます！☕️';
+
+	/// ja: 'いただいたコーヒーを糧に、より良いアプリに改善していきます！'
+	String get thankYouMessage => 'いただいたコーヒーを糧に、より良いアプリに改善していきます！';
+
+	/// ja: '閉じる'
+	String get close => '閉じる';
+
+	/// ja: '取得エラー: {error}'
+	String get fetchError => '取得エラー: {error}';
+
+	/// ja: '購入に失敗しました。もう一度お試しください。'
+	String get purchaseError => '購入に失敗しました。もう一度お試しください。';
+
+	/// ja: '購入の復元に失敗しました。もう一度お試しください。'
+	String get restoreError => '購入の復元に失敗しました。もう一度お試しください。';
+
+	/// ja: '現在利用できるプランがありません。'
+	String get noOfferings => '現在利用できるプランがありません。';
 }
 
 // Path: maintenance
@@ -986,6 +1038,20 @@ extension on Translations {
 			'settings.about.contact' => 'お問い合わせ',
 			'settings.about.licenses' => 'ライセンス',
 			'settings.about.version' => 'バージョン {version}',
+			'support.title' => '開発者を応援',
+			'support.totalCoffeesLabel' => 'これまでに贈ったコーヒー',
+			'support.totalCoffeesCount' => '☕️ x {count}',
+			'support.description' => 'NantoNackを応援していただきありがとうございます！\nいただいた支援は、今後のアプリ改善や運営のために大切に活用させていただきます。\n※本機能による特別な機能解放等はございません。',
+			'support.sendCoffeeButton' => 'コーヒーを送る',
+			'support.restoreButton' => '購入内容を復元（カウントを同期）',
+			'support.restoreSuccess' => '応援履歴を同期しました',
+			'support.thankYouTitle' => 'ありがとうございます！☕️',
+			'support.thankYouMessage' => 'いただいたコーヒーを糧に、より良いアプリに改善していきます！',
+			'support.close' => '閉じる',
+			'support.fetchError' => '取得エラー: {error}',
+			'support.purchaseError' => '購入に失敗しました。もう一度お試しください。',
+			'support.restoreError' => '購入の復元に失敗しました。もう一度お試しください。',
+			'support.noOfferings' => '現在利用できるプランがありません。',
 			'maintenance.title' => 'メンテナンス中',
 			'maintenance.defaultMessage' => 'ただいまメンテナンス中です。\nしばらくお待ちください。',
 			'update.title' => 'アップデートのお知らせ',

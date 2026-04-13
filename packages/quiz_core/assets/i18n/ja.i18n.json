@@ -223,6 +223,24 @@
       "@version": { "param": "version" }
     }
   },
+  "support": {
+    "title": "開発者を応援",
+    "totalCoffeesLabel": "これまでに贈ったコーヒー",
+    "totalCoffeesCount": "☕️ x {count}",
+    "@totalCoffeesCount": { "param": "count" },
+    "description": "NantoNackを応援していただきありがとうございます！\nいただいた支援は、今後のアプリ改善や運営のために大切に活用させていただきます。\n※本機能による特別な機能解放等はございません。",
+    "sendCoffeeButton": "コーヒーを送る",
+    "restoreButton": "購入内容を復元（カウントを同期）",
+    "restoreSuccess": "応援履歴を同期しました",
+    "thankYouTitle": "ありがとうございます！☕️",
+    "thankYouMessage": "いただいたコーヒーを糧に、より良いアプリに改善していきます！",
+    "close": "閉じる",
+    "fetchError": "取得エラー: {error}",
+    "@fetchError": { "param": "error" },
+    "purchaseError": "購入に失敗しました。もう一度お試しください。",
+    "restoreError": "購入の復元に失敗しました。もう一度お試しください。",
+    "noOfferings": "現在利用できるプランがありません。"
+  },
   "maintenance": {
     "title": "メンテナンス中",
     "defaultMessage": "ただいまメンテナンス中です。\nしばらくお待ちください。"
