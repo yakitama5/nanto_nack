@@ -22,7 +22,7 @@ class ShowLocationQuizScreen extends ConsumerStatefulWidget {
 
 class _ShowLocationQuizScreenState
     extends ConsumerState<ShowLocationQuizScreen> {
-  static const _timeLimitSeconds = 60;
+  static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
   int _retryCount = 0;
 

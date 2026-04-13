@@ -21,7 +21,7 @@ class SavePlaceQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _SavePlaceQuizScreenState extends ConsumerState<SavePlaceQuizScreen> {
-  static const _timeLimitSeconds = 60;
+  static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
   int _retryCount = 0;
 
