@@ -449,6 +449,9 @@ class TranslationsSupportJa {
 
 	/// ja: '購入の復元に失敗しました。もう一度お試しください。'
 	String get restoreError => '購入の復元に失敗しました。もう一度お試しください。';
+
+	/// ja: '現在利用できるプランがありません。'
+	String get noOfferings => '現在利用できるプランがありません。';
 }
 
 // Path: maintenance
@@ -1048,6 +1051,7 @@ extension on Translations {
 			'support.fetchError' => '取得エラー: {error}',
 			'support.purchaseError' => '購入に失敗しました。もう一度お試しください。',
 			'support.restoreError' => '購入の復元に失敗しました。もう一度お試しください。',
+			'support.noOfferings' => '現在利用できるプランがありません。',
 			'maintenance.title' => 'メンテナンス中',
 			'maintenance.defaultMessage' => 'ただいまメンテナンス中です。\nしばらくお待ちください。',
 			'update.title' => 'アップデートのお知らせ',

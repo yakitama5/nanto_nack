@@ -275,6 +275,7 @@ class _TranslationsSupportEn extends TranslationsSupportJa {
 	@override String get fetchError => 'Error: {error}';
 	@override String get purchaseError => 'Purchase failed. Please try again.';
 	@override String get restoreError => 'Failed to restore purchases. Please try again.';
+	@override String get noOfferings => 'No plans available at the moment.';
 }
 
 // Path: maintenance
@@ -668,6 +669,7 @@ extension on TranslationsEn {
 			'support.fetchError' => 'Error: {error}',
 			'support.purchaseError' => 'Purchase failed. Please try again.',
 			'support.restoreError' => 'Failed to restore purchases. Please try again.',
+			'support.noOfferings' => 'No plans available at the moment.',
 			'maintenance.title' => 'Under Maintenance',
 			'maintenance.defaultMessage' => 'We are currently under maintenance.\nPlease try again later.',
 			'update.title' => 'Update Available',

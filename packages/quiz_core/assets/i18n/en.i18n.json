@@ -238,7 +238,8 @@
     "fetchError": "Error: {error}",
     "@fetchError": { "param": "error" },
     "purchaseError": "Purchase failed. Please try again.",
-    "restoreError": "Failed to restore purchases. Please try again."
+    "restoreError": "Failed to restore purchases. Please try again.",
+    "noOfferings": "No plans available at the moment."
   },
   "maintenance": {
     "title": "Under Maintenance",
