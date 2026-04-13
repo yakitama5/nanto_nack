@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz3_playback_speed/playback_speed_quiz_notifier.dart';
 import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
@@ -16,7 +17,6 @@ class PlaybackSpeedQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
   bool _hintUsed = false;
 
@@ -39,7 +39,7 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
       progressSeconds: 300,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: StreamingQuizConfig.quiz3PlaybackSpeedTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: () => ref.read(playbackSpeedQuizProvider.notifier).giveUp(),
       onMoreTap: () => ref.read(playbackSpeedQuizProvider.notifier).tapSettings(),
@@ -60,7 +60,7 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: StreamingQuizConfig.quiz3PlaybackSpeedTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         // 設定メニュー

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat/src/application/quiz_send_message_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/infrastructure/chat_quiz_repository_provider.dart';
 import 'package:chat/src/presentation/quiz1_send_message/send_message_quiz_state.dart';
@@ -18,7 +19,6 @@ final sendMessageQuizProvider = AutoDisposeNotifierProvider<
 class SendMessageQuizNotifier
     extends AutoDisposeNotifier<SendMessageQuizState> {
   static const _quizId = 'chat_quiz1';
-  static const _timeLimitSeconds = 60;
 
   final _useCase = const QuizSendMessageUseCase();
   Timer? _timer;
@@ -28,7 +28,7 @@ class SendMessageQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return SendMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz1InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz1SendMessageTimeLimitSeconds,
     );
   }
 
@@ -39,7 +39,7 @@ class SendMessageQuizNotifier
       startedAt: clock.now(),
       messages: ChatCatalog.quiz1InitialMessages(clock.now()),
       inputText: '',
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ChatQuizConfig.quiz1SendMessageTimeLimitSeconds,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
@@ -107,7 +107,7 @@ class SendMessageQuizNotifier
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz1InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz1SendMessageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

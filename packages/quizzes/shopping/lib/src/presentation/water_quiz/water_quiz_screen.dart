@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/shopping_app.dart';
 import 'package:shopping/src/presentation/water_quiz/water_quiz_notifier.dart';
@@ -31,8 +32,6 @@ class WaterQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
-  static const _timeLimitSeconds = 60;
-
   bool _showCutIn = true;
 
   // リトライ時に ShoppingApp の内部状態（検索クエリ・ナビ選択等）を
@@ -67,7 +66,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
       remainingSeconds: quizState.remainingSeconds,
       missionText: missionText,
       hintUsed: quizState.hintUsed,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ShoppingQuizConfig.waterTimeLimitSeconds,
       onHintTap: () => ref.read(waterQuizProvider.notifier).useHint(),
       onGiveUp: () => ref.read(waterQuizProvider.notifier).giveUp(),
       cartBottomSheetBuilder: (context) => const _WaterCartSheet(),
@@ -77,7 +76,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ShoppingQuizConfig.waterTimeLimitSeconds,
             onFinished: () {
               setState(() => _showCutIn = false);
               widget.onMissionCutInFinished?.call();

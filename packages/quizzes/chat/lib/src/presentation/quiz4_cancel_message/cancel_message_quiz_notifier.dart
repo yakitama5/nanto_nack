@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat/src/application/quiz_cancel_message_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/chat_tab.dart';
 import 'package:chat/src/infrastructure/chat_quiz_repository_provider.dart';
 import 'package:chat/src/presentation/quiz4_cancel_message/cancel_message_quiz_state.dart';
@@ -18,7 +19,6 @@ final cancelMessageQuizProvider = AutoDisposeNotifierProvider<
 class CancelMessageQuizNotifier
     extends AutoDisposeNotifier<CancelMessageQuizState> {
   static const _quizId = 'chat_quiz4';
-  static const _timeLimitSeconds = 60;
 
   final _useCase = const QuizCancelMessageUseCase();
   Timer? _timer;
@@ -28,7 +28,7 @@ class CancelMessageQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return CancelMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz4InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
     );
   }
 
@@ -40,7 +40,7 @@ class CancelMessageQuizNotifier
       currentTab: ChatTab.home,
       isInChatRoom: false,
       messages: ChatCatalog.quiz4InitialMessages(clock.now()),
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
       messageCancelled: false,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
@@ -129,7 +129,7 @@ class CancelMessageQuizNotifier
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = CancelMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz4InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

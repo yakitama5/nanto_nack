@@ -7,6 +7,7 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_set_weekdays_use_case.dart';
 import '../../domain/alarm_catalog.dart';
+import '../../domain/alarm_quiz_config.dart';
 import '../../infrastructure/alarm_quiz_repository_provider.dart';
 import 'set_weekdays_quiz_state.dart';
 
@@ -19,7 +20,6 @@ final setWeekdaysQuizProvider = AutoDisposeNotifierProvider<
 class SetWeekdaysQuizNotifier
     extends AutoDisposeNotifier<SetWeekdaysQuizState> {
   static const _quizId = 'alarm_quiz2';
-  static const _timeLimitSeconds = 45;
   // Quiz2の対象アラーム：真ん中（2番目）のアラーム
   static const _targetAlarmId = 'alarm_2';
 
@@ -32,7 +32,7 @@ class SetWeekdaysQuizNotifier
     // Quiz2では最初にアラーム一覧を表示し、alarm_2（真ん中）をタップさせる
     return SetWeekdaysQuizState.initial(
       draft: AlarmCatalog.initialAlarms[1],
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
     );
   }
 
@@ -41,7 +41,7 @@ class SetWeekdaysQuizNotifier
     _timer?.cancel();
     state = SetWeekdaysQuizState.initial(
       draft: AlarmCatalog.initialAlarms[1],
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -147,7 +147,7 @@ class SetWeekdaysQuizNotifier
     final prevFailureCount = state.failureCount;
     state = SetWeekdaysQuizState.initial(
       draft: AlarmCatalog.initialAlarms[1],
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

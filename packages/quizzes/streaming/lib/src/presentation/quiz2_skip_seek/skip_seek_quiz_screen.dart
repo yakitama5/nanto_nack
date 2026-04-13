@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz2_skip_seek/skip_seek_quiz_notifier.dart';
 import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
@@ -16,7 +17,6 @@ class SkipSeekQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
-  static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
   bool _hintUsed = false;
 
@@ -39,7 +39,7 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
       progressSeconds: state.progressSeconds,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: StreamingQuizConfig.quiz2SkipSeekTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: () => ref.read(skipSeekQuizProvider.notifier).giveUp(),
       onNextTap: () => ref.read(skipSeekQuizProvider.notifier).tapNext(),
@@ -65,7 +65,7 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: StreamingQuizConfig.quiz2SkipSeekTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.isSettingsOpen)

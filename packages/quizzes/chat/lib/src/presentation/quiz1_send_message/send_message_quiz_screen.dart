@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:chat/src/presentation/chat_room_screen.dart';
 import 'package:chat/src/presentation/quiz1_send_message/send_message_quiz_notifier.dart';
@@ -18,7 +19,6 @@ class SendMessageQuizScreen extends ConsumerStatefulWidget {
 
 class _SendMessageQuizScreenState
     extends ConsumerState<SendMessageQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
 
   @override
@@ -52,7 +52,7 @@ class _SendMessageQuizScreenState
       stamps: const [],
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz1SendMessageTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: () =>
           ref.read(sendMessageQuizProvider.notifier).giveUp(),
@@ -60,7 +60,7 @@ class _SendMessageQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ChatQuizConfig.quiz1SendMessageTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/alarm_catalog.dart';
+import '../../domain/alarm_quiz_config.dart';
 import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'set_weekdays_quiz_notifier.dart';
@@ -25,7 +26,6 @@ class SetWeekdaysQuizScreen extends ConsumerStatefulWidget {
 
 class _SetWeekdaysQuizScreenState
     extends ConsumerState<SetWeekdaysQuizScreen> {
-  static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
 
   @override
@@ -47,7 +47,7 @@ class _SetWeekdaysQuizScreenState
             alarm: state.draftAlarm,
             quizStatus: state.status,
             remainingSeconds: state.remainingSeconds,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
             missionText: missionText,
             onGiveUp: notifier.giveUp,
             highlightDayButtons: state.status == QuizStatus.playing,
@@ -67,7 +67,7 @@ class _SetWeekdaysQuizScreenState
             alarms: AlarmCatalog.initialAlarms,
             quizStatus: state.status,
             remainingSeconds: state.remainingSeconds,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
             missionText: missionText,
             onGiveUp: notifier.giveUp,
             // Quiz2では + ボタンを使わないのでハイライトしない
@@ -83,7 +83,7 @@ class _SetWeekdaysQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

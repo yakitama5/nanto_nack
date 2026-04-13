@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_checkout_use_case.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:system/system.dart';
 import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
@@ -15,7 +16,6 @@ final checkoutQuizProvider =
 
 class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   static const _quizId = 'shopping_checkout';
-  static const _timeLimitSeconds = 90;
 
   final _useCase = const QuizCheckoutUseCase();
   Timer? _timer;
@@ -23,7 +23,7 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   @override
   CheckoutQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return CheckoutQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return CheckoutQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds);
   }
 
   /// クイズを開始する（タイマー始動）
@@ -32,7 +32,7 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
@@ -115,7 +115,7 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = CheckoutQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
+    state = CheckoutQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds)
         .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

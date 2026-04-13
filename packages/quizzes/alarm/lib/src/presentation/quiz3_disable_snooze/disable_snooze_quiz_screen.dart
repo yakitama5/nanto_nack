@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/alarm_catalog.dart';
+import '../../domain/alarm_quiz_config.dart';
 import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'disable_snooze_quiz_notifier.dart';
@@ -25,7 +26,6 @@ class DisableSnoozeQuizScreen extends ConsumerStatefulWidget {
 
 class _DisableSnoozeQuizScreenState
     extends ConsumerState<DisableSnoozeQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
 
   @override
@@ -47,7 +47,7 @@ class _DisableSnoozeQuizScreenState
             alarm: state.draftAlarm,
             quizStatus: state.status,
             remainingSeconds: state.remainingSeconds,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
             missionText: missionText,
             onGiveUp: notifier.giveUp,
             highlightSnoozeToggle: state.status == QuizStatus.playing,
@@ -67,7 +67,7 @@ class _DisableSnoozeQuizScreenState
             alarms: AlarmCatalog.initialAlarms,
             quizStatus: state.status,
             remainingSeconds: state.remainingSeconds,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
             missionText: missionText,
             onGiveUp: notifier.giveUp,
             onAlarmTap: notifier.tapAlarm,
@@ -81,7 +81,7 @@ class _DisableSnoozeQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

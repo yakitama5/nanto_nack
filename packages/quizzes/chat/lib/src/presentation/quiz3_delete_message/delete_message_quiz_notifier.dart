@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat/src/application/quiz_delete_message_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/infrastructure/chat_quiz_repository_provider.dart';
 import 'package:chat/src/presentation/quiz3_delete_message/delete_message_quiz_state.dart';
 import 'package:clock/clock.dart';
@@ -17,7 +18,6 @@ final deleteMessageQuizProvider = AutoDisposeNotifierProvider<
 class DeleteMessageQuizNotifier
     extends AutoDisposeNotifier<DeleteMessageQuizState> {
   static const _quizId = 'chat_quiz3';
-  static const _timeLimitSeconds = 90;
 
   final _useCase = const QuizDeleteMessageUseCase();
   Timer? _timer;
@@ -27,7 +27,7 @@ class DeleteMessageQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return DeleteMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
     );
   }
 
@@ -37,7 +37,7 @@ class DeleteMessageQuizNotifier
       status: QuizStatus.playing,
       startedAt: clock.now(),
       messages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
       messageDeleted: false,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
@@ -95,7 +95,7 @@ class DeleteMessageQuizNotifier
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = DeleteMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

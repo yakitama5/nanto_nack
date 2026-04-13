@@ -4,6 +4,7 @@ import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
 import '../../domain/payment_method.dart';
+import '../../domain/payment_quiz_config.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'show_qr_quiz_notifier.dart';
@@ -21,7 +22,6 @@ class ShowQrQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
-  static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
 
   @override
@@ -45,7 +45,7 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
       return PaymentScreen(
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
-        timeLimitSeconds: _timeLimitSeconds,
+        timeLimitSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         onBack: notifier.closePaymentScreen,
@@ -59,7 +59,7 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
       balanceHidden: false,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
       currentPaymentMethod: PaymentMethod.balance,
@@ -71,7 +71,7 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

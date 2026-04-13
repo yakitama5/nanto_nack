@@ -7,6 +7,7 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_start_navigation_use_case.dart';
 import '../../domain/entities/map_place.dart';
+import '../../domain/map_quiz_config.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'start_navigation_quiz_state.dart';
 
@@ -19,7 +20,6 @@ final startNavigationQuizProvider = AutoDisposeNotifierProvider<
 class StartNavigationQuizNotifier
     extends AutoDisposeNotifier<StartNavigationQuizState> {
   static const _quizId = 'map_quiz3';
-  static const _timeLimitSeconds = 60;
 
   final _useCase = const QuizStartNavigationUseCase();
   Timer? _timer;
@@ -27,14 +27,14 @@ class StartNavigationQuizNotifier
   @override
   StartNavigationQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return StartNavigationQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return StartNavigationQuizState.initial(timeLimitSeconds: MapQuizConfig.quiz3StartNavigationTimeLimitSeconds);
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
     state = StartNavigationQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz3StartNavigationTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -121,7 +121,7 @@ class StartNavigationQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = StartNavigationQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz3StartNavigationTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

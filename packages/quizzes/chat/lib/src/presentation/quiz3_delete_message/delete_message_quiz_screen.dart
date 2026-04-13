@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:chat/src/presentation/chat_room_screen.dart';
@@ -19,7 +20,6 @@ class DeleteMessageQuizScreen extends ConsumerStatefulWidget {
 
 class _DeleteMessageQuizScreenState
     extends ConsumerState<DeleteMessageQuizScreen> {
-  static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
 
   @override
@@ -52,7 +52,7 @@ class _DeleteMessageQuizScreenState
       stamps: const [],
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: () =>
           ref.read(deleteMessageQuizProvider.notifier).giveUp(),
@@ -60,7 +60,7 @@ class _DeleteMessageQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

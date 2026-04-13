@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
@@ -21,7 +22,6 @@ class ReactionQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _ReactionQuizScreenState extends ConsumerState<ReactionQuizScreen> {
-  static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
   // テキスト入力の現在値
   String _inputText = '';
@@ -79,7 +79,7 @@ class _ReactionQuizScreenState extends ConsumerState<ReactionQuizScreen> {
         stamps: ChatCatalog.stamps,
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
-        timeLimitSeconds: _timeLimitSeconds,
+        timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         overlays: overlays,
@@ -122,7 +122,7 @@ class _ReactionQuizScreenState extends ConsumerState<ReactionQuizScreen> {
             remainingSeconds: state.remainingSeconds,
             missionText: missionText,
             hintUsed: false,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
             onGiveUp: notifier.giveUp,
           ),
         ...overlays,
@@ -139,7 +139,7 @@ class _ReactionQuizScreenState extends ConsumerState<ReactionQuizScreen> {
       if (_showCutIn)
         MissionCutIn(
           missionText: missionText,
-          timeLimitSeconds: _timeLimitSeconds,
+          timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
           onFinished: () => setState(() => _showCutIn = false),
         ),
       if (state.status == QuizStatus.correct ||

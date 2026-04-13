@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_reorder_use_case.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:system/system.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
@@ -17,7 +18,6 @@ final reorderQuizProvider =
 
 class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
   static const _quizId = 'shopping_reorder';
-  static const _timeLimitSeconds = 90;
   // ヒント使用時のペナルティ
   static const _hintPenaltyFailureCount = 2;
   // クイズのターゲット商品ID（「直近で注文した商品」）
@@ -30,7 +30,7 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
   @override
   ReorderQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return ReorderQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return ReorderQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds);
   }
 
   void startQuiz() {
@@ -40,7 +40,7 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
       startedAt: clock.now(),
       cart: const ShoppingCart(),
       isPurchased: false,
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
       hintUsed: false,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
@@ -146,7 +146,7 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ReorderQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
       targetItemId: _targetItemId,
     ).copyWith(
       status: QuizStatus.playing,

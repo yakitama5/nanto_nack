@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
@@ -23,7 +24,6 @@ class CancelMessageQuizScreen extends ConsumerStatefulWidget {
 
 class _CancelMessageQuizScreenState
     extends ConsumerState<CancelMessageQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
   // 間違ったコンタクトのルームに入ったときに保持するコンタクト情報
   ChatContact? _openedContact;
@@ -69,7 +69,7 @@ class _CancelMessageQuizScreenState
         stamps: const [],
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
-        timeLimitSeconds: _timeLimitSeconds,
+        timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         overlays: overlays,
@@ -102,7 +102,7 @@ class _CancelMessageQuizScreenState
             remainingSeconds: state.remainingSeconds,
             missionText: missionText,
             hintUsed: false,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
             onGiveUp: notifier.giveUp,
           ),
         ...overlays,
@@ -149,7 +149,7 @@ class _CancelMessageQuizScreenState
       if (_showCutIn)
         MissionCutIn(
           missionText: missionText,
-          timeLimitSeconds: _timeLimitSeconds,
+          timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
           onFinished: () => setState(() => _showCutIn = false),
         ),
       if (state.status == QuizStatus.correct ||

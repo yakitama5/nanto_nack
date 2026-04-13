@@ -6,6 +6,7 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
 import '../../application/quiz_show_qr_use_case.dart';
+import '../../domain/payment_quiz_config.dart';
 import '../../infrastructure/payment_quiz_repository_provider.dart';
 import 'show_qr_quiz_state.dart';
 
@@ -17,7 +18,6 @@ final showQrQuizProvider =
 /// Quiz 1「支払いボタンをタップしてバーコードを表示する」のNotifier
 class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
   static const _quizId = 'payment_quiz1';
-  static const _timeLimitSeconds = 30;
   static const _hintPenaltyFailureCount = 2;
 
   final _useCase = const QuizShowQrUseCase();
@@ -26,13 +26,13 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
   @override
   ShowQrQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return ShowQrQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return ShowQrQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds);
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
-    state = ShowQrQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
+    state = ShowQrQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds)
         .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -98,7 +98,7 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = ShowQrQuizState.initial(timeLimitSeconds: _timeLimitSeconds)
+    state = ShowQrQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds)
         .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

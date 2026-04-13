@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/reorder_quiz/reorder_quiz_notifier.dart';
 import 'package:shopping/src/presentation/shopping_app.dart';
@@ -16,8 +17,6 @@ class ReorderQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
-  static const _timeLimitSeconds = 90;
-
   bool _showCutIn = true;
 
   // リトライ時に ShoppingApp の内部状態をリセットするキー
@@ -51,7 +50,7 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
       remainingSeconds: quizState.remainingSeconds,
       missionText: missionText,
       hintUsed: quizState.hintUsed,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
       hintNavIndex: 2,
       onHintTap: () => ref.read(reorderQuizProvider.notifier).useHint(),
       onGiveUp: () => ref.read(reorderQuizProvider.notifier).giveUp(),
@@ -66,7 +65,7 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (quizState.status == QuizStatus.correct ||

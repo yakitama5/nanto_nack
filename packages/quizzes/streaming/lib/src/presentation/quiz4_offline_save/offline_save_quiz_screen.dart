@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz4_offline_save/offline_save_quiz_notifier.dart';
 import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
@@ -16,7 +17,6 @@ class OfflineSaveQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
-  static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
   bool _hintUsed = false;
 
@@ -42,7 +42,7 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
       progressSeconds: 600,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: StreamingQuizConfig.quiz4OfflineSaveTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: () => ref.read(offlineSaveQuizProvider.notifier).giveUp(),
       onMoreTap: () => ref.read(offlineSaveQuizProvider.notifier).tapSettings(),
@@ -65,7 +65,7 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: StreamingQuizConfig.quiz4OfflineSaveTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         // 設定メニュー

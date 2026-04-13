@@ -7,6 +7,7 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_save_place_use_case.dart';
 import '../../domain/entities/map_place.dart';
+import '../../domain/map_quiz_config.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'save_place_quiz_state.dart';
 
@@ -18,7 +19,6 @@ final savePlaceQuizProvider =
 /// Quiz 4「指定した場所をお気に入りに追加する」のNotifier
 class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   static const _quizId = 'map_quiz4';
-  static const _timeLimitSeconds = 90;
 
   final _useCase = const QuizSavePlaceUseCase();
   Timer? _timer;
@@ -26,14 +26,14 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   @override
   SavePlaceQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return SavePlaceQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return SavePlaceQuizState.initial(timeLimitSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds);
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
     state = SavePlaceQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -109,7 +109,7 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SavePlaceQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
