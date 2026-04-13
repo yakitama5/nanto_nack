@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat/src/application/quiz_create_group_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/infrastructure/chat_quiz_repository_provider.dart';
 import 'package:chat/src/presentation/quiz4_create_group/create_group_quiz_state.dart';
@@ -18,7 +19,6 @@ final createGroupQuizProvider = AutoDisposeNotifierProvider<
 class CreateGroupQuizNotifier
     extends AutoDisposeNotifier<CreateGroupQuizState> {
   static const _quizId = 'chat_quiz4';
-  static const _timeLimitSeconds = 120;
 
   final _useCase = const QuizCreateGroupUseCase();
   Timer? _timer;
@@ -26,7 +26,7 @@ class CreateGroupQuizNotifier
   @override
   CreateGroupQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return CreateGroupQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return CreateGroupQuizState.initial(timeLimitSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds);
   }
 
   void startQuiz() {
@@ -34,7 +34,7 @@ class CreateGroupQuizNotifier
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds,
       step: CreateGroupStep.contactList,
       selectedMembers: const [],
       groupCreated: false,
@@ -123,7 +123,7 @@ class CreateGroupQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = CreateGroupQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

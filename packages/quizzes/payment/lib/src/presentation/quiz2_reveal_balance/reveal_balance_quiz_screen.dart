@@ -4,6 +4,7 @@ import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
 import '../../domain/payment_method.dart';
+import '../../domain/payment_quiz_config.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'reveal_balance_quiz_notifier.dart';
@@ -23,7 +24,6 @@ class RevealBalanceQuizScreen extends ConsumerStatefulWidget {
 
 class _RevealBalanceQuizScreenState
     extends ConsumerState<RevealBalanceQuizScreen> {
-  static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
 
   @override
@@ -46,7 +46,7 @@ class _RevealBalanceQuizScreenState
       currentPaymentMethod: PaymentMethod.balance,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: PaymentQuizConfig.quiz2RevealBalanceTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
       // ヒント使用後に目アイコンをハイライト
@@ -58,7 +58,7 @@ class _RevealBalanceQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: PaymentQuizConfig.quiz2RevealBalanceTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

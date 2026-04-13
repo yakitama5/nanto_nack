@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/map_catalog.dart';
+import '../../domain/map_quiz_config.dart';
 import '../../i18n/map_translations_extension.dart';
 import '../map_app_screen.dart';
 import 'show_location_quiz_notifier.dart';
@@ -22,7 +23,6 @@ class ShowLocationQuizScreen extends ConsumerStatefulWidget {
 
 class _ShowLocationQuizScreenState
     extends ConsumerState<ShowLocationQuizScreen> {
-  static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
   int _retryCount = 0;
 
@@ -49,7 +49,7 @@ class _ShowLocationQuizScreenState
       showFavoriteButton: false,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz1ShowLocationTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: () => ref.read(showLocationQuizProvider.notifier).giveUp(),
       highlightLocationButton: false,
@@ -59,7 +59,7 @@ class _ShowLocationQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: MapQuizConfig.quiz1ShowLocationTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

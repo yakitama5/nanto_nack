@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
 import 'package:shopping/src/presentation/shopping_app.dart' show ShoppingInsightItem;
@@ -28,8 +29,6 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
       CartItem(id: 'coffee_500ml', price: 180, quantity: 1),
     ],
   );
-
-  static const _timeLimitSeconds = 60;
 
   @override
   void initState() {
@@ -114,7 +113,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
             remainingSeconds: quizState.remainingSeconds,
             missionText: missionText,
             hintUsed: quizState.hintUsed,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ShoppingQuizConfig.cartTimeLimitSeconds,
             onHintTap: () => ref.read(cartQuizProvider.notifier).useHint(),
             onGiveUp: () => ref.read(cartQuizProvider.notifier).giveUp(),
           ),
@@ -122,7 +121,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ShoppingQuizConfig.cartTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         // 正誤結果オーバーレイ

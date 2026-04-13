@@ -4,6 +4,7 @@ import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
 import '../../domain/payment_method.dart';
+import '../../domain/payment_quiz_config.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'send_money_quiz_notifier.dart';
@@ -23,7 +24,6 @@ class SendMoneyQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
 
   @override
@@ -49,7 +49,7 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
         amount: state.amount,
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
-        timeLimitSeconds: _timeLimitSeconds,
+        timeLimitSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         onContactSelect: notifier.selectContact,
@@ -68,7 +68,7 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
       currentPaymentMethod: PaymentMethod.balance,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
       highlightSendTile: state.hintUsed,
@@ -79,7 +79,7 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         ...resultOverlays,

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/alarm_catalog.dart';
+import '../../domain/alarm_quiz_config.dart';
 import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'add_alarm_quiz_notifier.dart';
@@ -20,7 +21,6 @@ class AddAlarmQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
-  static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
 
   @override
@@ -42,7 +42,7 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
             alarm: state.draftAlarm,
             quizStatus: state.status,
             remainingSeconds: state.remainingSeconds,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
             missionText: missionText,
             onGiveUp: notifier.giveUp,
             highlightSaveButton: true,
@@ -54,7 +54,7 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
             alarms: AlarmCatalog.initialAlarms,
             quizStatus: state.status,
             remainingSeconds: state.remainingSeconds,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
             missionText: missionText,
             onGiveUp: notifier.giveUp,
             highlightAddButton: state.status == QuizStatus.playing,
@@ -69,7 +69,7 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

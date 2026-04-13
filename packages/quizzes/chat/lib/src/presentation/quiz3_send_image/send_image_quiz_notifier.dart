@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat/src/application/quiz_send_image_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/chat_tab.dart';
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
@@ -19,7 +20,6 @@ final sendImageQuizProvider =
 
 class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
   static const _quizId = 'chat_quiz3';
-  static const _timeLimitSeconds = 60;
 
   final _useCase = const QuizSendImageUseCase();
   Timer? _timer;
@@ -29,7 +29,7 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return SendImageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
     );
   }
 
@@ -40,7 +40,7 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
       currentTab: ChatTab.home,
       isInChatRoom: false,
       messages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
       isImagePickerOpen: false,
       openedContact: () => null,
     );
@@ -177,7 +177,7 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendImageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
     );

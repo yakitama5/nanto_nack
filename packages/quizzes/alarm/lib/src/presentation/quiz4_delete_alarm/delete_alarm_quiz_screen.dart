@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/alarm_quiz_config.dart';
 import '../../i18n/alarm_translations_extension.dart';
 import '../alarm_app_screen.dart';
 import 'delete_alarm_quiz_notifier.dart';
@@ -21,7 +22,6 @@ class DeleteAlarmQuizScreen extends ConsumerStatefulWidget {
 
 class _DeleteAlarmQuizScreenState
     extends ConsumerState<DeleteAlarmQuizScreen> {
-  static const _timeLimitSeconds = 45;
   bool _showCutIn = true;
 
   @override
@@ -45,7 +45,7 @@ class _DeleteAlarmQuizScreenState
           alarms: state.alarms,
           quizStatus: state.status,
           remainingSeconds: state.remainingSeconds,
-          timeLimitSeconds: _timeLimitSeconds,
+          timeLimitSeconds: AlarmQuizConfig.quiz4DeleteAlarmTimeLimitSeconds,
           missionText: missionText,
           onGiveUp: notifier.giveUp,
           onAlarmSwipeDeleteConfirm: notifier.confirmDelete,
@@ -54,7 +54,7 @@ class _DeleteAlarmQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: AlarmQuizConfig.quiz4DeleteAlarmTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/map_catalog.dart';
+import '../../domain/map_quiz_config.dart';
 import '../../i18n/map_translations_extension.dart';
 import '../map_app_screen.dart';
 import 'start_navigation_quiz_notifier.dart';
@@ -22,7 +23,6 @@ class StartNavigationQuizScreen extends ConsumerStatefulWidget {
 
 class _StartNavigationQuizScreenState
     extends ConsumerState<StartNavigationQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
   int _retryCount = 0;
 
@@ -50,7 +50,7 @@ class _StartNavigationQuizScreenState
       showFavoriteButton: false,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz3StartNavigationTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
       isNavigating: state.showDirections,
@@ -62,7 +62,7 @@ class _StartNavigationQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: MapQuizConfig.quiz3StartNavigationTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.status == QuizStatus.correct ||

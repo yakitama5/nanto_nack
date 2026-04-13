@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat/src/application/quiz_send_reaction_use_case.dart';
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/chat_tab.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:chat/src/infrastructure/chat_quiz_repository_provider.dart';
@@ -18,7 +19,6 @@ final reactionQuizProvider =
 
 class ReactionQuizNotifier extends AutoDisposeNotifier<ReactionQuizState> {
   static const _quizId = 'chat_quiz2';
-  static const _timeLimitSeconds = 45;
 
   final _useCase = const QuizSendReactionUseCase();
   Timer? _timer;
@@ -28,7 +28,7 @@ class ReactionQuizNotifier extends AutoDisposeNotifier<ReactionQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return ReactionQuizState.initial(
       initialMessages: ChatCatalog.quiz2InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
     );
   }
 
@@ -40,7 +40,7 @@ class ReactionQuizNotifier extends AutoDisposeNotifier<ReactionQuizState> {
       currentTab: ChatTab.home,
       isInChatRoom: false,
       messages: ChatCatalog.quiz2InitialMessages(clock.now()),
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
       reactionPickerMessageId: null,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
@@ -204,7 +204,7 @@ class ReactionQuizNotifier extends AutoDisposeNotifier<ReactionQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ReactionQuizState.initial(
       initialMessages: ChatCatalog.quiz2InitialMessages(clock.now()),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

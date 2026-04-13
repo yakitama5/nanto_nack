@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
@@ -18,7 +19,6 @@ class CheckoutQuizScreen extends ConsumerStatefulWidget {
 
 class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
   final _addressController = TextEditingController();
-  static const _timeLimitSeconds = 90;
   bool _showCutIn = true;
 
   @override
@@ -188,14 +188,14 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
               remainingSeconds: quizState.remainingSeconds,
               missionText: missionText,
               hintUsed: false,
-              timeLimitSeconds: _timeLimitSeconds,
+              timeLimitSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds,
               onGiveUp: () => ref.read(checkoutQuizProvider.notifier).giveUp(),
             ),
           // カットイン演出
           if (_showCutIn)
             MissionCutIn(
               missionText: missionText,
-              timeLimitSeconds: _timeLimitSeconds,
+              timeLimitSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds,
               onFinished: () => setState(() => _showCutIn = false),
             ),
           // 正誤結果オーバーレイ

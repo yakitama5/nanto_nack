@@ -4,6 +4,7 @@ import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_catalog.dart';
 import '../../domain/payment_method.dart';
+import '../../domain/payment_quiz_config.dart';
 import '../../i18n/payment_translations_extension.dart';
 import '../payment_app_screen.dart';
 import 'change_payment_method_quiz_notifier.dart';
@@ -24,7 +25,6 @@ class ChangePaymentMethodQuizScreen extends ConsumerStatefulWidget {
 
 class _ChangePaymentMethodQuizScreenState
     extends ConsumerState<ChangePaymentMethodQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
 
   @override
@@ -50,7 +50,7 @@ class _ChangePaymentMethodQuizScreenState
       return PaymentScreen(
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
-        timeLimitSeconds: _timeLimitSeconds,
+        timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         onBack: notifier.closePaymentScreen,
@@ -71,7 +71,7 @@ class _ChangePaymentMethodQuizScreenState
       currentPaymentMethod: state.currentPaymentMethod,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: notifier.giveUp,
       // ヒント使用済みかつ残高選択中はカルーセルをハイライト（スワイプで変更できることを示す）
@@ -88,7 +88,7 @@ class _ChangePaymentMethodQuizScreenState
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         ...resultOverlays,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz1_subtitle/subtitle_quiz_notifier.dart';
 import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
@@ -16,7 +17,6 @@ class SubtitleQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
-  static const _timeLimitSeconds = 30;
   bool _showCutIn = true;
   bool _hintUsed = false;
 
@@ -39,7 +39,7 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
       progressSeconds: 120,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: StreamingQuizConfig.quiz1SubtitleTimeLimitSeconds,
       missionText: missionText,
       onGiveUp: () => ref.read(subtitleQuizProvider.notifier).giveUp(),
       onSubtitleToggle: () =>
@@ -64,7 +64,7 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
         if (_showCutIn)
           MissionCutIn(
             missionText: missionText,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: StreamingQuizConfig.quiz1SubtitleTimeLimitSeconds,
             onFinished: () => setState(() => _showCutIn = false),
           ),
         if (state.isSettingsOpen)

@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:chat/src/presentation/chat_app_shell.dart';
 import 'package:chat/src/presentation/chat_room_screen.dart';
@@ -20,7 +21,6 @@ class SendImageQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
-  static const _timeLimitSeconds = 60;
   bool _showCutIn = true;
   // テキスト入力の現在値
   String _inputText = '';
@@ -73,7 +73,7 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
         stamps: ChatCatalog.stamps,
         quizStatus: state.status,
         remainingSeconds: state.remainingSeconds,
-        timeLimitSeconds: _timeLimitSeconds,
+        timeLimitSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
         missionText: missionText,
         onGiveUp: notifier.giveUp,
         overlays: overlays,
@@ -102,7 +102,7 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
             remainingSeconds: state.remainingSeconds,
             missionText: missionText,
             hintUsed: false,
-            timeLimitSeconds: _timeLimitSeconds,
+            timeLimitSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
             onGiveUp: notifier.giveUp,
           ),
         ...overlays,
@@ -119,7 +119,7 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
       if (_showCutIn)
         MissionCutIn(
           missionText: missionText,
-          timeLimitSeconds: _timeLimitSeconds,
+          timeLimitSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
           onFinished: () {
             setState(() => _showCutIn = false);
             notifier.startTimer();

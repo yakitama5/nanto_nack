@@ -1,4 +1,5 @@
 import 'package:chat/src/domain/chat_catalog.dart';
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/i18n/chat_translations_extension.dart';
 import 'package:chat/src/presentation/quiz4_create_group/create_group_quiz_notifier.dart';
@@ -19,7 +20,6 @@ class CreateGroupQuizScreen extends ConsumerStatefulWidget {
 
 class _CreateGroupQuizScreenState
     extends ConsumerState<CreateGroupQuizScreen> {
-  static const _timeLimitSeconds = 120;
   bool _showCutIn = true;
   late final TextEditingController _groupNameController;
 
@@ -55,7 +55,7 @@ class _CreateGroupQuizScreenState
               _ChatListAppBar(
                 quizStatus: state.status,
                 remainingSeconds: state.remainingSeconds,
-                timeLimitSeconds: _timeLimitSeconds,
+                timeLimitSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds,
                 missionText: missionText,
                 onGiveUp: () =>
                     ref.read(createGroupQuizProvider.notifier).giveUp(),
@@ -108,7 +108,7 @@ class _CreateGroupQuizScreenState
               remainingSeconds: state.remainingSeconds,
               missionText: missionText,
               hintUsed: false,
-              timeLimitSeconds: _timeLimitSeconds,
+              timeLimitSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds,
               onGiveUp: () =>
                   ref.read(createGroupQuizProvider.notifier).giveUp(),
             ),
@@ -116,7 +116,7 @@ class _CreateGroupQuizScreenState
           if (_showCutIn)
             MissionCutIn(
               missionText: missionText,
-              timeLimitSeconds: _timeLimitSeconds,
+              timeLimitSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds,
               onFinished: () => setState(() => _showCutIn = false),
             ),
           if (state.status == QuizStatus.correct ||

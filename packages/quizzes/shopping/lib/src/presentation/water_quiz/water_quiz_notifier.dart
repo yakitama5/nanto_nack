@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_water_use_case.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:system/system.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
@@ -17,7 +18,6 @@ final waterQuizProvider =
 
 class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   static const _quizId = 'shopping_water';
-  static const _timeLimitSeconds = 60;
   // ヒント使用時のスコアペナルティ（ヒント使用で failureCount +1 換算）
   static const _hintPenaltyFailureCount = 2;
   // ヒント対象アイテムID（ミッション「水を2つ購入」の対象）
@@ -29,7 +29,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   @override
   WaterQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return WaterQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return WaterQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.waterTimeLimitSeconds);
   }
 
   void startQuiz() {
@@ -39,7 +39,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
       startedAt: clock.now(),
       cart: const ShoppingCart(),
       isPurchased: false,
-      remainingSeconds: _timeLimitSeconds,
+      remainingSeconds: ShoppingQuizConfig.waterTimeLimitSeconds,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
@@ -132,7 +132,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = WaterQuizState.initial(timeLimitSeconds: _timeLimitSeconds).copyWith(
+    state = WaterQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.waterTimeLimitSeconds).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );

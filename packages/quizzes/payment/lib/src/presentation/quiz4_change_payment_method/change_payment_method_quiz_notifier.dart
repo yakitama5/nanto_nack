@@ -7,6 +7,7 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_change_payment_method_use_case.dart';
 import '../../domain/payment_method.dart';
+import '../../domain/payment_quiz_config.dart';
 import '../../infrastructure/payment_quiz_repository_provider.dart';
 import 'change_payment_method_quiz_state.dart';
 
@@ -19,7 +20,6 @@ final changePaymentMethodQuizProvider = AutoDisposeNotifierProvider<
 class ChangePaymentMethodQuizNotifier
     extends AutoDisposeNotifier<ChangePaymentMethodQuizState> {
   static const _quizId = 'payment_quiz4';
-  static const _timeLimitSeconds = 60;
   static const _hintPenaltyFailureCount = 2;
 
   final _useCase = const QuizChangePaymentMethodUseCase();
@@ -29,7 +29,7 @@ class ChangePaymentMethodQuizNotifier
   ChangePaymentMethodQuizState build() {
     ref.onDispose(() => _timer?.cancel());
     return ChangePaymentMethodQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
     );
   }
 
@@ -37,7 +37,7 @@ class ChangePaymentMethodQuizNotifier
   void startQuiz() {
     _timer?.cancel();
     state = ChangePaymentMethodQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -97,7 +97,7 @@ class ChangePaymentMethodQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ChangePaymentMethodQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

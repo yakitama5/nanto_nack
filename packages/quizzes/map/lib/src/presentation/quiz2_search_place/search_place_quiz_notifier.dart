@@ -7,6 +7,7 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_search_place_use_case.dart';
 import '../../domain/entities/map_place.dart';
+import '../../domain/map_quiz_config.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'search_place_quiz_state.dart';
 
@@ -19,7 +20,6 @@ final showSchoolInfoQuizProvider = AutoDisposeNotifierProvider<
 class ShowSchoolInfoQuizNotifier
     extends AutoDisposeNotifier<ShowSchoolInfoQuizState> {
   static const _quizId = 'map_quiz2';
-  static const _timeLimitSeconds = 45;
 
   final _useCase = const QuizShowSchoolInfoUseCase();
   Timer? _timer;
@@ -27,14 +27,14 @@ class ShowSchoolInfoQuizNotifier
   @override
   ShowSchoolInfoQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return ShowSchoolInfoQuizState.initial(timeLimitSeconds: _timeLimitSeconds);
+    return ShowSchoolInfoQuizState.initial(timeLimitSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds);
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
     state = ShowSchoolInfoQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -93,7 +93,7 @@ class ShowSchoolInfoQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ShowSchoolInfoQuizState.initial(
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

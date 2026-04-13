@@ -6,6 +6,7 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/application/quiz_offline_save_use_case.dart';
 import 'package:system/system.dart';
 import 'package:streaming/src/domain/streaming_catalog.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz4_offline_save/offline_save_quiz_state.dart';
 
@@ -16,7 +17,6 @@ final offlineSaveQuizProvider =
 
 class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> {
   static const _quizId = 'streaming_quiz4';
-  static const _timeLimitSeconds = 90;
 
   final _useCase = const QuizOfflineSaveUseCase();
   Timer? _timer;
@@ -26,7 +26,7 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
     ref.onDispose(() => _timer?.cancel());
     return OfflineSaveQuizState.initial(
       video: StreamingCatalog.videos[3].copyWith(quality: '360p'), // 初期画質を低く設定
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: StreamingQuizConfig.quiz4OfflineSaveTimeLimitSeconds,
     );
   }
 
@@ -34,7 +34,7 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
     _timer?.cancel();
     state = OfflineSaveQuizState.initial(
       video: StreamingCatalog.videos[3].copyWith(quality: '360p'),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: StreamingQuizConfig.quiz4OfflineSaveTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -168,7 +168,7 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = OfflineSaveQuizState.initial(
       video: StreamingCatalog.videos[3].copyWith(quality: '360p'),
-      timeLimitSeconds: _timeLimitSeconds,
+      timeLimitSeconds: StreamingQuizConfig.quiz4OfflineSaveTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
