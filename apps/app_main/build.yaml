@@ -1,10 +1,16 @@
 # envied_generator は lib/env 配下の @Envied アノテーション付きファイルのみをスキャン対象とする
+# flutter_gen_runner は pubspec.yaml と assets/** を参照するため include に追加
 # lib/presentation, lib/application 等は対象外とすることで生成を高速化
 targets:
   $default:
     sources:
       include:
+        - pubspec.yaml
+        - assets/**
         - lib/env/**
+        - lib/gen/**
+        - lib/$lib$
         - $package$
       exclude:
         - lib/env/**/*.g.dart
+        - lib/gen/**/*.gen.dart

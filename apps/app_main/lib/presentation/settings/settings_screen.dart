@@ -5,6 +5,8 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../gen/assets.gen.dart';
+
 import '../../application/dashboard_provider.dart';
 import '../../application/settings/settings_notifier.dart';
 import '../../domain/settings/settings_state.dart';
@@ -273,13 +275,13 @@ class _AboutCardState extends ConsumerState<_AboutCard> {
           onTap: () {
             const flavor =
                 String.fromEnvironment('FLAVOR', defaultValue: 'dev');
-            final iconPath = flavor == 'prod'
-                ? 'assets/launcher_icon/icon_prod.png'
-                : 'assets/launcher_icon/icon_dev.png';
+            final icon = flavor == 'prod'
+                ? Assets.launcherIcon.iconProd
+                : Assets.launcherIcon.iconDev;
             showLicensePage(
               context: context,
               applicationName: 'NantoNack',
-              applicationIcon: Image.asset(iconPath, width: 64, height: 64),
+              applicationIcon: icon.image(width: 64, height: 64),
               applicationVersion: _version.isNotEmpty
                   ? t.settings.about.version.replaceAll('{version}', _version)
                   : null,
