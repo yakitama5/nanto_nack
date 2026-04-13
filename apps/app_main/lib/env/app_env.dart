@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:app_main/env/app_env_dev.dart';
 import 'package:app_main/env/app_env_prod.dart';
+import 'package:flutter/foundation.dart';
 
 /// 実行時の FLAVOR に応じて適切なキーを返すユーティリティ。
 ///
@@ -15,14 +14,17 @@ abstract final class AppEnv {
 
   /// RevenueCat の API キー。プラットフォームによって Android / iOS を使い分ける。
   ///
-  /// RevenueCat は Web 非対応のため、Web では呼ばれないことを前提とする。
+  /// Web では RevenueCat 非対応のため空文字を返す。
+  /// PurchaseService.initialize 側でも空文字の場合はスキップされる。
   static String get activeRevenueCatApiKey {
+    if (kIsWeb) return '';
+    final isAndroid = defaultTargetPlatform == TargetPlatform.android;
     if (_isProd) {
-      return Platform.isAndroid
+      return isAndroid
           ? AppEnvProd.revenueCatAndroidApiKey
           : AppEnvProd.revenueCatIosApiKey;
     } else {
-      return Platform.isAndroid
+      return isAndroid
           ? AppEnvDev.revenueCatAndroidApiKey
           : AppEnvDev.revenueCatIosApiKey;
     }
