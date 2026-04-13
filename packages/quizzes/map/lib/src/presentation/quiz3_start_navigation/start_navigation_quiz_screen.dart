@@ -152,10 +152,9 @@ class _InsightHeader extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).extension<MapAppTheme>()!.subTextColor,
+              ),
         ),
       ],
     );
@@ -193,10 +192,11 @@ class _InsightItem extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 desc,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.grey.shade600),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context)
+                          .extension<MapAppTheme>()!
+                          .subTextColor,
+                    ),
               ),
             ],
           ),
