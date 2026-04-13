@@ -10,7 +10,7 @@ import '../logger/app_logger.dart';
 /// RevenueCat の現在のオファリングを取得する Provider。
 ///
 /// [Purchases.getOfferings] を呼び出し、`current` オファリングを返す。
-/// 取得失敗時は null を返す。
+/// 取得失敗時は例外を rethrow するため、呼び出し側は [AsyncError] を処理すること。
 final offeringsProvider = AsyncNotifierProvider<OfferingsNotifier, Offering?>(
   OfferingsNotifier.new,
 );
