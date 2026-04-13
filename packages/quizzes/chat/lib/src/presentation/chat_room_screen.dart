@@ -152,7 +152,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         widget.onBackToChatList?.call();
       },
       child: Scaffold(
-      backgroundColor: const Color(0xFFB2DFDB),
+      backgroundColor: Theme.of(context).extension<ChatAppTheme>()!.scaffoldBackground,
       body: Stack(
         children: [
           Column(
@@ -267,10 +267,10 @@ class _ChatAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const lineGreen = Color(0xFF00B900);
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
 
     return Container(
-      color: lineGreen,
+      color: ext.brandColor,
       child: SafeArea(
         bottom: false,
         child: SizedBox(
@@ -405,7 +405,7 @@ class _MessageBubbleState extends State<_MessageBubble>
               if (!isMine) ...[
                 CircleAvatar(
                   radius: 16,
-                  backgroundColor: Colors.grey.shade400,
+                  backgroundColor: Theme.of(context).extension<ChatAppTheme>()!.avatarBackground,
                   child: const Icon(Icons.person, size: 16, color: Colors.white),
                 ),
                 const SizedBox(width: 8),
@@ -417,23 +417,28 @@ class _MessageBubbleState extends State<_MessageBubble>
                 const SizedBox(width: 4),
                 GestureDetector(
                   onTap: () => widget.onReactionButtonTap!(widget.message),
-                  child: Container(
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    // アイコンをアウトライン形式のグレーアイコンに変更
-                    // テキスト絵文字よりも UI に馴染みやすく、タップ対象として認識しやすいため
-                    child: const Center(
-                      child: Icon(
-                        Icons.add_reaction_outlined,
-                        size: 14,
-                        color: Colors.grey,
-                      ),
-                    ),
+                  child: Builder(
+                    builder: (context) {
+                      final ext = Theme.of(context).extension<ChatAppTheme>()!;
+                      return Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: ext.surfaceColor,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: ext.borderColor),
+                        ),
+                        // アイコンをアウトライン形式のグレーアイコンに変更
+                        // テキスト絵文字よりも UI に馴染みやすく、タップ対象として認識しやすいため
+                        child: Center(
+                          child: Icon(
+                            Icons.add_reaction_outlined,
+                            size: 14,
+                            color: ext.navInactiveColor,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -445,26 +450,31 @@ class _MessageBubbleState extends State<_MessageBubble>
             const SizedBox(height: 2),
             Padding(
               padding: EdgeInsets.only(left: isMine ? 0 : 48),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 2,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade300),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 2,
+              child: Builder(
+                builder: (context) {
+                  final ext = Theme.of(context).extension<ChatAppTheme>()!;
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
                     ),
-                  ],
-                ),
-                child: Text(
-                  widget.message.reaction!,
-                  style: const TextStyle(fontSize: 14),
-                ),
+                    decoration: BoxDecoration(
+                      color: ext.surfaceColor,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: ext.borderColor),
+                      boxShadow: [
+                        BoxShadow(
+                          color: ext.borderColor.withValues(alpha: 0.3),
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      widget.message.reaction!,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -485,6 +495,8 @@ class _MessageBubbleState extends State<_MessageBubble>
   }
 
   Widget _buildMessageContent(BuildContext context, bool isMine) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
+
     if (widget.message.isStamp) {
       // スタンプはポップインアニメーション付きで表示
       return ScaleTransition(
@@ -519,7 +531,7 @@ class _MessageBubbleState extends State<_MessageBubble>
           width: 150,
           height: 110,
           decoration: BoxDecoration(
-            color: Colors.grey.shade400,
+            color: ext.avatarBackground,
             borderRadius: BorderRadius.circular(12),
             border: widget.isHighlighted
                 ? Border.all(color: Colors.yellow, width: 3)
@@ -543,7 +555,7 @@ class _MessageBubbleState extends State<_MessageBubble>
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: isMine ? const Color(0xFFB2FF8C) : Colors.white,
+        color: isMine ? ext.myMessageBackground : ext.otherMessageBackground,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(16),
           topRight: const Radius.circular(16),
@@ -555,7 +567,7 @@ class _MessageBubbleState extends State<_MessageBubble>
             : null,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: ext.borderColor.withValues(alpha: 0.3),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -581,14 +593,15 @@ class _ReactionPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ext.surfaceColor,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
+            color: ext.borderColor.withValues(alpha: 0.5),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -625,14 +638,15 @@ class _StampPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return Container(
       height: 200,
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: Column(
         children: [
           Container(
             height: 40,
-            color: Colors.grey.shade200,
+            color: ext.scaffoldBackground,
             child: const Row(
               children: [
                 SizedBox(width: 16),
@@ -705,14 +719,15 @@ class _ImagePickerPanelState extends State<_ImagePickerPanel> {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return Container(
       height: 180,
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: Column(
         children: [
           Container(
             height: 40,
-            color: Colors.grey.shade200,
+            color: ext.scaffoldBackground,
             child: Row(
               children: [
                 const SizedBox(width: 16),
@@ -736,12 +751,12 @@ class _ImagePickerPanelState extends State<_ImagePickerPanel> {
                           width: 60,
                           height: 60,
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
+                            color: ext.scaffoldBackground,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.camera_alt,
-                            color: Colors.grey.shade600,
+                            color: ext.subTextColor,
                             size: 30,
                           ),
                         ),
@@ -750,7 +765,7 @@ class _ImagePickerPanelState extends State<_ImagePickerPanel> {
                           sq.common.cameraButton,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey.shade700,
+                            color: ext.subTextColor,
                           ),
                         ),
                       ],
@@ -759,7 +774,7 @@ class _ImagePickerPanelState extends State<_ImagePickerPanel> {
                 ),
                 VerticalDivider(
                   width: 1,
-                  color: Colors.grey.shade200,
+                  color: ext.borderColor,
                 ),
                 // ライブラリボタン
                 Expanded(
@@ -772,12 +787,12 @@ class _ImagePickerPanelState extends State<_ImagePickerPanel> {
                           width: 60,
                           height: 60,
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
+                            color: ext.scaffoldBackground,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.photo_library_outlined,
-                            color: Colors.grey.shade600,
+                            color: ext.subTextColor,
                             size: 30,
                           ),
                         ),
@@ -786,7 +801,7 @@ class _ImagePickerPanelState extends State<_ImagePickerPanel> {
                           sq.common.galleryButton,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey.shade700,
+                            color: ext.subTextColor,
                           ),
                         ),
                       ],
@@ -833,8 +848,9 @@ class _InputBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       child: SafeArea(
         top: false,
@@ -855,7 +871,7 @@ class _InputBar extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
+                    color: ext.scaffoldBackground,
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: TextField(
@@ -885,8 +901,8 @@ class _InputBar extends StatelessWidget {
                 child: Container(
                   width: 44,
                   height: 44,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF00B900),
+                  decoration: BoxDecoration(
+                    color: ext.brandColor,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(

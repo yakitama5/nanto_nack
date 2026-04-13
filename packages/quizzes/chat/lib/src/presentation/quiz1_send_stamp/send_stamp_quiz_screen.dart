@@ -188,7 +188,7 @@ class _SendStampInsight extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+              ?.copyWith(color: Theme.of(context).extension<ChatAppTheme>()!.subTextColor),
         ),
         const SizedBox(height: 12),
         _InsightItem(
@@ -247,7 +247,7 @@ class _InsightItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: Colors.grey.shade700),
+                    ?.copyWith(color: Theme.of(context).extension<ChatAppTheme>()!.subTextColor),
               ),
             ],
           ),

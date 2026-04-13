@@ -44,8 +44,9 @@ class _CreateGroupQuizScreenState
     final missionText = context.s.quiz4.missionText;
     final sq = context.sq;
 
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return Scaffold(
-      backgroundColor: const Color(0xFFB2DFDB),
+      backgroundColor: ext.scaffoldBackground,
       body: Stack(
         children: [
           Column(
@@ -171,11 +172,11 @@ class _ChatListAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
-    const lineGreen = Color(0xFF00B900);
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     final showBack = step != CreateGroupStep.contactList;
 
     return Container(
-      color: lineGreen,
+      color: ext.brandColor,
       child: SafeArea(
         bottom: false,
         child: SizedBox(
@@ -228,6 +229,7 @@ class _ContactListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contacts = ChatCatalog.contacts;
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
 
     return Stack(
       children: [
@@ -237,9 +239,9 @@ class _ContactListView extends StatelessWidget {
           itemBuilder: (context, index) {
             final contact = contacts[index];
             return ListTile(
-              tileColor: Colors.white,
+              tileColor: ext.surfaceColor,
               leading: CircleAvatar(
-                backgroundColor: const Color(0xFF00897B),
+                backgroundColor: ext.avatarBackground,
                 child: Text(
                   contact.name[0],
                   style: const TextStyle(color: Colors.white),
@@ -251,12 +253,12 @@ class _ContactListView extends StatelessWidget {
               ),
               subtitle: UnreadableText(
                 contact.lastMessage,
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                style: TextStyle(color: ext.subTextColor, fontSize: 12),
               ),
               trailing: contact.unreadCount > 0
                   ? CircleAvatar(
                       radius: 10,
-                      backgroundColor: const Color(0xFF00B900),
+                      backgroundColor: ext.brandColor,
                       child: Text(
                         '${contact.unreadCount}',
                         style: const TextStyle(
@@ -275,7 +277,7 @@ class _ContactListView extends StatelessWidget {
           bottom: 16,
           child: FloatingActionButton(
             onPressed: onCreateGroupTap,
-            backgroundColor: const Color(0xFF00B900),
+            backgroundColor: ext.brandColor,
             child: const Icon(Icons.group_add, color: Colors.white),
           ),
         ),
@@ -302,6 +304,7 @@ class _SelectMembersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
 
     return Column(
       children: [
@@ -315,9 +318,9 @@ class _SelectMembersView extends StatelessWidget {
               final isSelected =
                   selectedMembers.any((m) => m.id == contact.id);
               return ListTile(
-                tileColor: Colors.white,
+                tileColor: ext.surfaceColor,
                 leading: CircleAvatar(
-                  backgroundColor: const Color(0xFF00897B),
+                  backgroundColor: ext.avatarBackground,
                   child: Text(
                     contact.name[0],
                     style: const TextStyle(color: Colors.white),
@@ -329,7 +332,7 @@ class _SelectMembersView extends StatelessWidget {
                 ),
                 trailing: Checkbox(
                   value: isSelected,
-                  activeColor: const Color(0xFF00B900),
+                  activeColor: ext.brandColor,
                   onChanged: (_) => onToggleMember(contact),
                 ),
                 onTap: () => onToggleMember(contact),
@@ -345,7 +348,7 @@ class _SelectMembersView extends StatelessWidget {
             child: FilledButton(
               onPressed: onNext,
               style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFF00B900),
+                backgroundColor: ext.brandColor,
               ),
               child: UnreadableText(
                 sq.common.createGroup,
@@ -381,10 +384,11 @@ class _GroupNameInputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return Column(
       children: [
         Container(
-          color: Colors.white,
+          color: ext.surfaceColor,
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -395,7 +399,7 @@ class _GroupNameInputView extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 40,
-                      backgroundColor: Colors.grey.shade300,
+                      backgroundColor: ext.borderColor,
                       child: const Icon(Icons.group, size: 40),
                     ),
                     Positioned(
@@ -403,7 +407,7 @@ class _GroupNameInputView extends StatelessWidget {
                       bottom: 0,
                       child: CircleAvatar(
                         radius: 14,
-                        backgroundColor: const Color(0xFF00B900),
+                        backgroundColor: ext.brandColor,
                         child: const Icon(
                           Icons.camera_alt,
                           size: 16,
@@ -425,7 +429,7 @@ class _GroupNameInputView extends StatelessWidget {
                 ),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey.shade100,
+                  fillColor: ext.scaffoldBackground,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
@@ -439,7 +443,7 @@ class _GroupNameInputView extends StatelessWidget {
                 children: selectedMembers.map((m) {
                   return Chip(
                     avatar: CircleAvatar(
-                      backgroundColor: const Color(0xFF00897B),
+                      backgroundColor: ext.avatarBackground,
                       child: Text(
                         m.name[0],
                         style: const TextStyle(
@@ -464,7 +468,7 @@ class _GroupNameInputView extends StatelessWidget {
             child: FilledButton(
               onPressed: onCreate,
               style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFF00B900),
+                backgroundColor: ext.brandColor,
               ),
               child: const Text(
                 'Create',
@@ -513,7 +517,7 @@ class _CreateGroupInsight extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+              ?.copyWith(color: Theme.of(context).extension<ChatAppTheme>()!.subTextColor),
         ),
         const SizedBox(height: 12),
         _InsightItem(emoji: '➕', title: insight.plusTitle, desc: insight.plusDesc),
@@ -560,7 +564,7 @@ class _InsightItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: Colors.grey.shade700),
+                    ?.copyWith(color: Theme.of(context).extension<ChatAppTheme>()!.subTextColor),
               ),
             ],
           ),
