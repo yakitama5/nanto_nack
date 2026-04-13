@@ -16,6 +16,7 @@ import 'presentation/play/category_list_screen.dart';
 import 'presentation/play/stage_list_screen.dart';
 import 'presentation/settings/settings_screen.dart';
 import 'presentation/splash/splash_screen.dart';
+import 'presentation/support/support_screen.dart';
 import 'presentation/tutorial/tutorial_water_quiz_screen.dart';
 
 List<NavigatorObserver> _buildRouterObservers() {
@@ -222,6 +223,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/settings',
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/support',
+        builder: (context, state) => const SupportScreen(),
       ),
     ],
   );
