@@ -16,3 +16,4 @@ export 'src/firebase/remote_config_service.dart';
 export 'src/firebase/tip.dart';
 export 'src/initializer.dart';
 export 'src/purchase/purchase_service.dart';
+export 'src/purchase/revenue_cat_provider.dart';
