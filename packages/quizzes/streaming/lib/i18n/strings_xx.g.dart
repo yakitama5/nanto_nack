@@ -111,6 +111,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get downloadButton => 'Download';
 	@override String get moreButton => 'More';
 	@override String get subscribeButton => 'Subscribe';
+	@override String get subscribers => 'subscribers';
 	@override String get views => 'views';
 	@override String get subtitles => 'Subtitles';
 	@override String get quality => 'Quality';
@@ -271,6 +272,7 @@ extension on TranslationsXx {
 			'common.downloadButton' => 'Download',
 			'common.moreButton' => 'More',
 			'common.subscribeButton' => 'Subscribe',
+			'common.subscribers' => 'subscribers',
 			'common.views' => 'views',
 			'common.subtitles' => 'Subtitles',
 			'common.quality' => 'Quality',

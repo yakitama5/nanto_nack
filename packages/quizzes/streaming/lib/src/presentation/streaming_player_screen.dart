@@ -869,7 +869,7 @@ class _ChannelRow extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 UnreadableText(
-                  '1.2M subscribers',
+                  '1.2M ${sq.common.subscribers}',
                   style: TextStyle(fontSize: 11, color: ext.subTextColor),
                 ),
               ],

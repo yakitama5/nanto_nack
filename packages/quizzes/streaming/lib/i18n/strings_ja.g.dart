@@ -151,6 +151,9 @@ class TranslationsCommonJa {
 	/// ja: 'Subscribe'
 	String get subscribeButton => 'Subscribe';
 
+	/// ja: '人が登録'
+	String get subscribers => '人が登録';
+
 	/// ja: '回再生'
 	String get views => '回再生';
 
@@ -422,6 +425,7 @@ extension on Translations {
 			'common.downloadButton' => 'Download',
 			'common.moreButton' => 'More',
 			'common.subscribeButton' => 'Subscribe',
+			'common.subscribers' => '人が登録',
 			'common.views' => '回再生',
 			'common.subtitles' => 'Subtitles',
 			'common.quality' => 'Quality',
