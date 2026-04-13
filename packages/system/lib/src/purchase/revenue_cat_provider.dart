@@ -92,6 +92,11 @@ int calculateTotalCoffees(CustomerInfo? customerInfo) {
         total += 1;
       case 'nantonack_coffee_300':
         total += 3;
+      default:
+        appLogger.w(
+          'IAP: 未知のプロダクトID: ${transaction.productIdentifier}'
+          ' (transactionId: ${transaction.transactionIdentifier})',
+        );
     }
   }
   return total;
