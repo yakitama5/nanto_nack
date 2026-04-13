@@ -44,18 +44,24 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
     final offeringsAsync = ref.watch(offeringsProvider);
     final customerInfoAsync = ref.watch(customerInfoProvider);
 
-    // オファリングが初めて読み込まれたとき、1杯（100）パッケージをデフォルト選択する
-    ref.listen(offeringsProvider, (_, next) {
-      next.whenData((offering) {
-        if (_selectedPackage != null || offering == null) return;
+    // 未選択かつオファリングが取得済みの場合、1杯（100）パッケージをデフォルト選択する。
+    // ref.listen は状態の「変化」のみ検知するため、キャッシュ済みで既に AsyncData の
+    // ときは発火しない。そのため build 内で毎回チェックし、フレーム後に setState する。
+    if (_selectedPackage == null) {
+      offeringsAsync.whenData((offering) {
+        if (offering == null) return;
         final defaultPackage = offering.availablePackages
             .where((p) => p.storeProduct.identifier.contains('100'))
             .firstOrNull;
         if (defaultPackage != null) {
-          setState(() => _selectedPackage = defaultPackage);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted && _selectedPackage == null) {
+              setState(() => _selectedPackage = defaultPackage);
+            }
+          });
         }
       });
-    });
+    }
 
     final int? currentCount = customerInfoAsync.when<int?>(
       data: (info) => calculateTotalCoffees(info),
@@ -160,8 +166,12 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                                         .compareTo(b.storeProduct.identifier),
                                   ))
                                 .map((package) {
+                              final id = package.storeProduct.identifier;
+                              final name = id.contains('300')
+                                  ? t.support.packageName.coffee300
+                                  : t.support.packageName.coffee100;
                               return RadioListTile<Package>(
-                                title: Text(package.storeProduct.title),
+                                title: Text(name),
                                 subtitle: Text(
                                   package.storeProduct.priceString,
                                 ),
