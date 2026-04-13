@@ -17,7 +17,7 @@ final reorderQuizProvider =
 
 class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
   static const _quizId = 'shopping_reorder';
-  static const _timeLimitSeconds = 90;
+  static const _timeLimitSeconds = 300;
   // ヒント使用時のペナルティ
   static const _hintPenaltyFailureCount = 2;
   // クイズのターゲット商品ID（「直近で注文した商品」）

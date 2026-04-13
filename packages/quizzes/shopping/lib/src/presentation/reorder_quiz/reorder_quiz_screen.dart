@@ -16,7 +16,7 @@ class ReorderQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
-  static const _timeLimitSeconds = 90;
+  static const _timeLimitSeconds = 300;
 
   bool _showCutIn = true;
 
