@@ -268,7 +268,7 @@ class _QuantityController extends StatelessWidget {
             height: 28,
             child: IconButton(
               padding: EdgeInsets.zero,
-              icon: const Icon(Icons.remove, size: 14),
+              icon: Icon(Icons.remove, size: 14, color: ext.cartButtonForeground),
               onPressed: onDecrement,
             ),
           ),
@@ -276,9 +276,10 @@ class _QuantityController extends StatelessWidget {
             '$quantity',
             isObfuscated: true,
             animateOnObfuscate: false,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 12,
+              color: ext.cartButtonForeground,
             ),
           ),
           SizedBox(
@@ -286,7 +287,7 @@ class _QuantityController extends StatelessWidget {
             height: 28,
             child: IconButton(
               padding: EdgeInsets.zero,
-              icon: const Icon(Icons.add, size: 14),
+              icon: Icon(Icons.add, size: 14, color: ext.cartButtonForeground),
               onPressed: onIncrement,
             ),
           ),

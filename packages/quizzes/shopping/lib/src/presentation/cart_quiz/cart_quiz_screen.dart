@@ -658,7 +658,7 @@ class _NumberCipherTable extends StatelessWidget {
                 animateOnObfuscate: false,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF92400E),
+                      color: ext.orangeAccent,
                     ),
               ),
             ],

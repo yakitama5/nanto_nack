@@ -698,7 +698,7 @@ class _HomeTabViewState extends State<_HomeTabView> {
                                   size: 22,
                                   color: isSelected
                                       ? Colors.white
-                                      : const Color(0xFF555555),
+                                      : ext.subTextColor,
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -957,10 +957,10 @@ class _MenuSection extends StatelessWidget {
             title,
             isObfuscated: true,
             animateOnObfuscate: false,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF555555),
+              color: ext.primaryTextColor,
             ),
           ),
         ),
