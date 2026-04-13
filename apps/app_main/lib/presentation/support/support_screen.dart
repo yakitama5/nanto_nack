@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -197,8 +198,18 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
           ],
         ),
       );
-    } catch (e) {
-      appLogger.w('購入失敗: $e');
+    } catch (e, s) {
+      // ユーザーが購入をキャンセルした場合は静かに無視する
+      if (e is PlatformException) {
+        final errorCode = PurchasesErrorHelper.getErrorCode(e);
+        if (errorCode == PurchasesErrorCode.purchaseCancelledError) return;
+      }
+      appLogger.w('購入失敗: $e', error: e, stackTrace: s);
+      if (!mounted) return;
+      final t = Translations.of(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.support.purchaseError)),
+      );
     }
   }
 
@@ -212,8 +223,13 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(t.support.restoreSuccess)),
       );
-    } catch (e) {
-      appLogger.w('復元失敗: $e');
+    } catch (e, s) {
+      appLogger.w('復元失敗: $e', error: e, stackTrace: s);
+      if (!mounted) return;
+      final t = Translations.of(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.support.restoreError)),
+      );
     }
   }
 }

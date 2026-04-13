@@ -236,7 +236,9 @@
     "thankYouMessage": "いただいたコーヒーを糧に、より良いアプリに改善していきます！",
     "close": "閉じる",
     "fetchError": "取得エラー: {error}",
-    "@fetchError": { "param": "error" }
+    "@fetchError": { "param": "error" },
+    "purchaseError": "購入に失敗しました。もう一度お試しください。",
+    "restoreError": "購入の復元に失敗しました。もう一度お試しください。"
   },
   "maintenance": {
     "title": "メンテナンス中",

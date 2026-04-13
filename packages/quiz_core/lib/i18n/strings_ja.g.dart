@@ -443,6 +443,12 @@ class TranslationsSupportJa {
 
 	/// ja: '取得エラー: {error}'
 	String get fetchError => '取得エラー: {error}';
+
+	/// ja: '購入に失敗しました。もう一度お試しください。'
+	String get purchaseError => '購入に失敗しました。もう一度お試しください。';
+
+	/// ja: '購入の復元に失敗しました。もう一度お試しください。'
+	String get restoreError => '購入の復元に失敗しました。もう一度お試しください。';
 }
 
 // Path: maintenance
@@ -1040,6 +1046,8 @@ extension on Translations {
 			'support.thankYouMessage' => 'いただいたコーヒーを糧に、より良いアプリに改善していきます！',
 			'support.close' => '閉じる',
 			'support.fetchError' => '取得エラー: {error}',
+			'support.purchaseError' => '購入に失敗しました。もう一度お試しください。',
+			'support.restoreError' => '購入の復元に失敗しました。もう一度お試しください。',
 			'maintenance.title' => 'メンテナンス中',
 			'maintenance.defaultMessage' => 'ただいまメンテナンス中です。\nしばらくお待ちください。',
 			'update.title' => 'アップデートのお知らせ',

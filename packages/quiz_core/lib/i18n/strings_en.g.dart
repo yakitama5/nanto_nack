@@ -273,6 +273,8 @@ class _TranslationsSupportEn extends TranslationsSupportJa {
 	@override String get thankYouMessage => 'Your coffee will fuel more improvements to the app!';
 	@override String get close => 'Close';
 	@override String get fetchError => 'Error: {error}';
+	@override String get purchaseError => 'Purchase failed. Please try again.';
+	@override String get restoreError => 'Failed to restore purchases. Please try again.';
 }
 
 // Path: maintenance
@@ -664,6 +666,8 @@ extension on TranslationsEn {
 			'support.thankYouMessage' => 'Your coffee will fuel more improvements to the app!',
 			'support.close' => 'Close',
 			'support.fetchError' => 'Error: {error}',
+			'support.purchaseError' => 'Purchase failed. Please try again.',
+			'support.restoreError' => 'Failed to restore purchases. Please try again.',
 			'maintenance.title' => 'Under Maintenance',
 			'maintenance.defaultMessage' => 'We are currently under maintenance.\nPlease try again later.',
 			'update.title' => 'Update Available',
