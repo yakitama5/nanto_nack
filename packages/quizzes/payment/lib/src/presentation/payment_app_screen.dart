@@ -149,6 +149,8 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
   Widget build(BuildContext context) {
     final sq = context.sq;
 
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
+
     return PopScope(
       canPop: widget.quizStatus != QuizStatus.playing,
       onPopInvokedWithResult: (didPop, _) async {
@@ -159,7 +161,7 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
         }
       },
       child: Scaffold(
-      backgroundColor: const Color(0xFFFF3B3B),
+      backgroundColor: ext.brandColor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: _PaymentFAB(
         label: sq.common.payment,
@@ -169,7 +171,7 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8,
-        color: Colors.white,
+        color: ext.surfaceColor,
         elevation: 8,
         child: SizedBox(
           height: 60,
@@ -275,6 +277,7 @@ class _PaymentFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       decoration: highlighted
@@ -282,7 +285,7 @@ class _PaymentFAB extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.red.withValues(alpha: 0.5),
+                  color: ext.brandColor.withValues(alpha: 0.5),
                   blurRadius: 12,
                   spreadRadius: 4,
                 ),
@@ -291,7 +294,7 @@ class _PaymentFAB extends StatelessWidget {
           : null,
       child: FloatingActionButton(
         onPressed: onTap,
-        backgroundColor: highlighted ? const Color(0xFFCC0000) : const Color(0xFFFF3B3B),
+        backgroundColor: highlighted ? ext.brandColorHighlight : ext.brandColor,
         elevation: highlighted ? 12 : 6,
         shape: const CircleBorder(),
         child: const Icon(Icons.credit_card, color: Colors.white, size: 28),
@@ -316,7 +319,8 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? const Color(0xFFFF3B3B) : Colors.grey.shade500;
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
+    final color = selected ? ext.navSelectedColor : ext.navInactiveColor;
 
     return Material(
       color: Colors.transparent,
@@ -365,6 +369,7 @@ class _PaymentHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Container(
       padding: EdgeInsets.only(
         top: MediaQuery.paddingOf(context).top + 16,
@@ -372,7 +377,7 @@ class _PaymentHeader extends StatelessWidget {
         right: 20,
         bottom: 20,
       ),
-      color: const Color(0xFFFF3B3B),
+      color: ext.brandColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -494,8 +499,9 @@ class _HomeTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -543,6 +549,7 @@ class _PaymentMethodCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     final methods = PaymentMethod.values;
 
     return AnimatedContainer(
@@ -551,11 +558,9 @@ class _PaymentMethodCarousel extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: highlighted
-            ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
-            : Border.all(color: Colors.grey.shade200),
-        color: highlighted
-            ? const Color(0xFFFFE5E5)
-            : const Color(0xFFF8F8F8),
+            ? Border.all(color: ext.brandColor, width: 2)
+            : Border.all(color: ext.borderColor),
+        color: highlighted ? ext.carouselHighlightBg : ext.carouselBackground,
       ),
       child: Column(
         children: [
@@ -591,8 +596,8 @@ class _PaymentMethodCarousel extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(3),
                     color: isSelected
-                        ? const Color(0xFFFF3B3B)
-                        : Colors.grey.shade300,
+                        ? ext.brandColor
+                        : ext.dotInactiveColor,
                   ),
                 );
               }).toList(),
@@ -618,6 +623,7 @@ class _PaymentMethodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     final isBalance = method == PaymentMethod.balance;
     final icon = isBalance ? Icons.account_balance_wallet : Icons.credit_card;
     final label = isBalance ? sq.common.balancePayment : sq.common.creditCard;
@@ -626,7 +632,7 @@ class _PaymentMethodCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFFFF3B3B), size: 20),
+          Icon(icon, color: ext.brandColor, size: 20),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -636,22 +642,22 @@ class _PaymentMethodCard extends StatelessWidget {
                 sq.common.paymentSource,
                 style: TextStyle(
                   fontSize: 11,
-                  color: Colors.grey.shade500,
+                  color: ext.subTextColor,
                 ),
               ),
               UnreadableText(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: ext.primaryTextColor,
                 ),
               ),
             ],
           ),
           const Spacer(),
           // ミニバーコード
-          _MiniBarcodeWidget(),
+          _MiniBarcodeWidget(barcodeColor: ext.barcodeColor),
         ],
       ),
     );
@@ -660,23 +666,31 @@ class _PaymentMethodCard extends StatelessWidget {
 
 /// ミニバーコード表示
 class _MiniBarcodeWidget extends StatelessWidget {
+  const _MiniBarcodeWidget({required this.barcodeColor});
+
+  final Color barcodeColor;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 48,
       height: 40,
       child: CustomPaint(
-        painter: _MiniBarcodePainter(),
+        painter: _MiniBarcodePainter(barcodeColor: barcodeColor),
       ),
     );
   }
 }
 
 class _MiniBarcodePainter extends CustomPainter {
+  const _MiniBarcodePainter({required this.barcodeColor});
+
+  final Color barcodeColor;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black87
+      ..color = barcodeColor
       ..style = PaintingStyle.fill;
 
     final widths = [2.0, 1.0, 3.0, 1.0, 2.0, 1.0, 4.0, 1.0, 2.0, 1.0, 3.0, 1.0, 2.0, 1.0, 4.0, 1.0, 2.0, 1.0];
@@ -696,7 +710,8 @@ class _MiniBarcodePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_MiniBarcodePainter oldDelegate) => false;
+  bool shouldRepaint(_MiniBarcodePainter oldDelegate) =>
+      oldDelegate.barcodeColor != barcodeColor;
 }
 
 /// 機能タイル行
@@ -760,6 +775,7 @@ class _ActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -768,10 +784,9 @@ class _ActionTile extends StatelessWidget {
         child: Ink(
           decoration: highlighted
               ? BoxDecoration(
-                  color: const Color(0xFFFFE5E5),
+                  color: ext.actionTileHighlightBg,
                   borderRadius: BorderRadius.circular(8),
-                  border:
-                      Border.all(color: const Color(0xFFFF3B3B), width: 1.5),
+                  border: Border.all(color: ext.brandColor, width: 1.5),
                 )
               : const BoxDecoration(),
           child: AnimatedContainer(
@@ -785,13 +800,13 @@ class _ActionTile extends StatelessWidget {
                   height: 52,
                   decoration: BoxDecoration(
                     color: highlighted
-                        ? const Color(0xFFFF3B3B)
-                        : const Color(0xFFF5F5F5),
+                        ? ext.brandColor
+                        : ext.actionTileBackground,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     icon,
-                    color: highlighted ? Colors.white : Colors.grey.shade600,
+                    color: highlighted ? Colors.white : ext.secondaryTextColor,
                     size: 24,
                   ),
                 ),
@@ -801,8 +816,8 @@ class _ActionTile extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     color: highlighted
-                        ? const Color(0xFFFF3B3B)
-                        : Colors.grey.shade700,
+                        ? ext.brandColor
+                        : ext.secondaryTextColor,
                     fontWeight:
                         highlighted ? FontWeight.bold : FontWeight.normal,
                   ),
@@ -824,6 +839,7 @@ class _DummyTransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -831,14 +847,14 @@ class _DummyTransactionList extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
           child: Row(
             children: [
-              Icon(Icons.history, size: 16, color: Colors.grey.shade500),
+              Icon(Icons.history, size: 16, color: ext.subTextColor),
               const SizedBox(width: 6),
               UnreadableText(
                 sq.common.history,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade700,
+                  color: ext.secondaryTextColor,
                 ),
               ),
             ],
@@ -897,6 +913,7 @@ class _TransactionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Column(
       children: [
         Padding(
@@ -908,14 +925,14 @@ class _TransactionItem extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   color: tx.isIncome
-                      ? const Color(0xFFE8F5E9)
-                      : const Color(0xFFF5F5F5),
+                      ? ext.incomeBackground
+                      : ext.outcomeBackground,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   tx.isIncome ? Icons.arrow_downward : Icons.arrow_upward,
                   size: 18,
-                  color: tx.isIncome ? Colors.green : Colors.grey.shade600,
+                  color: tx.isIncome ? ext.incomeColor : ext.outcomeIconColor,
                 ),
               ),
               const SizedBox(width: 12),
@@ -935,7 +952,7 @@ class _TransactionItem extends StatelessWidget {
                       tx.dateLabel,
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.grey.shade500,
+                        color: ext.subTextColor,
                       ),
                     ),
                   ],
@@ -948,7 +965,7 @@ class _TransactionItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: tx.isIncome ? Colors.green : Colors.black87,
+                  color: tx.isIncome ? ext.incomeColor : ext.outcomeTextColor,
                 ),
               ),
             ],
@@ -968,8 +985,9 @@ class _HistoryTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: Column(
         children: [
           // フィルタータブ
@@ -994,7 +1012,7 @@ class _HistoryTabContent extends StatelessWidget {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.bold,
-                color: Colors.grey.shade700,
+                color: ext.secondaryTextColor,
               ),
             ),
           ),
@@ -1020,10 +1038,11 @@ class _FilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFFFF3B3B) : Colors.grey.shade100,
+        color: isSelected ? ext.brandColor : ext.filterChipInactiveBg,
         borderRadius: BorderRadius.circular(16),
       ),
       child: UnreadableText(
@@ -1031,7 +1050,7 @@ class _FilterChip extends StatelessWidget {
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: isSelected ? Colors.white : Colors.grey.shade600,
+          color: isSelected ? ext.filterChipActiveText : ext.filterChipInactiveText,
         ),
       ),
     );
@@ -1046,18 +1065,19 @@ class _PointTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Container(
-      color: const Color(0xFFF5F5F5),
+      color: ext.scaffoldBackground,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // ポイント残高カード
+            // ポイント残高カード（グラジェントはブランド赤系で固定・白前景はそのまま）
             Container(
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFFF3B3B), Color(0xFFFF6B6B)],
+                gradient: LinearGradient(
+                  colors: [ext.brandColor, const Color(0xFFFF6B6B)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1126,7 +1146,7 @@ class _PointTabContent extends StatelessWidget {
             ),
             // ポイント獲得方法
             Container(
-              color: Colors.white,
+              color: ext.surfaceColor,
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1145,17 +1165,17 @@ class _PointTabContent extends StatelessWidget {
                       _PointEarnItem(
                         icon: Icons.shopping_bag_outlined,
                         label: sq.common.shopService,
-                        color: const Color(0xFFFF3B3B),
+                        color: ext.brandColor,
                       ),
                       _PointEarnItem(
                         icon: Icons.assignment_outlined,
                         label: sq.common.missionService,
-                        color: Colors.orange,
+                        color: ext.serviceIconOrangeColor,
                       ),
                       _PointEarnItem(
                         icon: Icons.campaign_outlined,
                         label: sq.common.campaignService,
-                        color: Colors.purple,
+                        color: ext.serviceIconPurpleColor,
                       ),
                     ],
                   ),
@@ -1165,7 +1185,7 @@ class _PointTabContent extends StatelessWidget {
             const SizedBox(height: 8),
             // ポイント履歴
             Container(
-              color: Colors.white,
+              color: ext.surfaceColor,
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1252,6 +1272,7 @@ class _PointHistoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -1267,17 +1288,17 @@ class _PointHistoryItem extends StatelessWidget {
                 const SizedBox(height: 2),
                 UnreadableText(
                   date,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                  style: TextStyle(fontSize: 12, color: ext.subTextColor),
                 ),
               ],
             ),
           ),
           UnreadableText(
             gained,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFFF3B3B),
+              color: ext.pointHistoryColor,
             ),
           ),
         ],
@@ -1294,21 +1315,22 @@ class _AccountTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Container(
-      color: const Color(0xFFF5F5F5),
+      color: ext.scaffoldBackground,
       child: SingleChildScrollView(
         child: Column(
           children: [
             // プロフィールセクション
             Container(
-              color: Colors.white,
+              color: ext.surfaceColor,
               padding: const EdgeInsets.all(20),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 32,
-                    backgroundColor: Color(0xFFFF3B3B),
-                    child: Icon(Icons.person, size: 36, color: Colors.white),
+                    backgroundColor: ext.brandColor,
+                    child: const Icon(Icons.person, size: 36, color: Colors.white),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -1329,7 +1351,7 @@ class _AccountTabContent extends StatelessWidget {
                               sq.common.userId,
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey.shade500,
+                                color: ext.subTextColor,
                               ),
                             ),
                             const SizedBox(width: 4),
@@ -1337,7 +1359,7 @@ class _AccountTabContent extends StatelessWidget {
                               sq.common.userIdValue,
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey.shade500,
+                                color: ext.subTextColor,
                               ),
                             ),
                           ],
@@ -1345,7 +1367,7 @@ class _AccountTabContent extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(Icons.chevron_right, color: Colors.grey),
+                  Icon(Icons.chevron_right, color: ext.subTextColor),
                 ],
               ),
             ),
@@ -1355,13 +1377,13 @@ class _AccountTabContent extends StatelessWidget {
               items: [
                 _AccountMenuItem(
                   icon: Icons.credit_card,
-                  iconColor: Colors.blue,
+                  iconColor: ext.accountMenuIconBlueColor,
                   label: sq.common.paymentMethods,
                   subtitle: sq.common.addedCard,
                 ),
                 _AccountMenuItem(
                   icon: Icons.account_balance,
-                  iconColor: Colors.teal,
+                  iconColor: ext.accountMenuIconTealColor,
                   label: sq.common.bankAccount,
                 ),
               ],
@@ -1372,17 +1394,17 @@ class _AccountTabContent extends StatelessWidget {
               items: [
                 _AccountMenuItem(
                   icon: Icons.security,
-                  iconColor: const Color(0xFFFF3B3B),
+                  iconColor: ext.accountMenuIconRedColor,
                   label: sq.common.securitySettings,
                 ),
                 _AccountMenuItem(
                   icon: Icons.notifications_outlined,
-                  iconColor: Colors.orange,
+                  iconColor: ext.serviceIconOrangeColor,
                   label: sq.common.notificationSettings,
                 ),
                 _AccountMenuItem(
                   icon: Icons.settings_outlined,
-                  iconColor: Colors.grey,
+                  iconColor: ext.subTextColor,
                   label: sq.common.appSettings,
                 ),
               ],
@@ -1393,12 +1415,12 @@ class _AccountTabContent extends StatelessWidget {
               items: [
                 _AccountMenuItem(
                   icon: Icons.help_outline,
-                  iconColor: Colors.blue,
+                  iconColor: ext.accountMenuIconBlueColor,
                   label: sq.common.helpCenter,
                 ),
                 _AccountMenuItem(
                   icon: Icons.logout,
-                  iconColor: Colors.red,
+                  iconColor: ext.accountMenuIconRedColor,
                   label: sq.common.logOut,
                   isDestructive: true,
                 ),
@@ -1419,8 +1441,9 @@ class _AccountSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: Column(
         children: [
           for (int i = 0; i < items.length; i++) ...[
@@ -1450,6 +1473,7 @@ class _AccountMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
@@ -1473,7 +1497,9 @@ class _AccountMenuItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: isDestructive ? Colors.red : Colors.black87,
+                    color: isDestructive
+                        ? ext.accountMenuIconRedColor
+                        : ext.primaryTextColor,
                   ),
                 ),
                 if (subtitle != null) ...[
@@ -1482,7 +1508,7 @@ class _AccountMenuItem extends StatelessWidget {
                     subtitle!,
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey.shade500,
+                      color: ext.subTextColor,
                     ),
                   ),
                 ],
@@ -1490,7 +1516,7 @@ class _AccountMenuItem extends StatelessWidget {
             ),
           ),
           if (!isDestructive)
-            const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+            Icon(Icons.chevron_right, color: ext.subTextColor, size: 18),
         ],
       ),
     );
@@ -1555,6 +1581,7 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
 
     return PopScope(
       canPop: false,
@@ -1563,9 +1590,9 @@ class PaymentScreen extends StatelessWidget {
         onBack?.call();
       },
       child: Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ext.surfaceColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: ext.surfaceColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.close),
@@ -1591,11 +1618,11 @@ class PaymentScreen extends StatelessWidget {
                       width: 240,
                       height: 72,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
+                        border: Border.all(color: ext.borderColor),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       padding: const EdgeInsets.all(8),
-                      child: const _MockBarcode(),
+                      child: _MockBarcode(barcodeColor: ext.barcodeColor),
                     ),
                     const SizedBox(height: 20),
                     // QRコード
@@ -1603,10 +1630,10 @@ class PaymentScreen extends StatelessWidget {
                       width: 200,
                       height: 200,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 2),
+                        border: Border.all(color: ext.primaryTextColor, width: 2),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const _MockQrCode(),
+                      child: _MockQrCode(barcodeColor: ext.barcodeColor),
                     ),
                     const SizedBox(height: 28),
                     // 支払い元変更ボタン
@@ -1653,6 +1680,7 @@ class _PaymentMethodButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     final isBalance = currentPaymentMethod == PaymentMethod.balance;
     final icon = isBalance ? Icons.account_balance_wallet : Icons.credit_card;
     final label = isBalance ? sq.common.balancePayment : sq.common.creditCard;
@@ -1669,15 +1697,15 @@ class _PaymentMethodButton extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: isDisabled
-                  ? const Color(0xFFEEEEEE)
+                  ? ext.actionTileBackground
                   : highlighted
-                      ? const Color(0xFFFFE5E5)
-                      : const Color(0xFFF5F5F5),
+                      ? ext.actionTileHighlightBg
+                      : ext.actionTileBackground,
               border: isDisabled
-                  ? Border.all(color: Colors.grey.shade300)
+                  ? Border.all(color: ext.borderColor)
                   : highlighted
-                      ? Border.all(color: const Color(0xFFFF3B3B), width: 2)
-                      : Border.all(color: Colors.grey.shade300),
+                      ? Border.all(color: ext.brandColor, width: 2)
+                      : Border.all(color: ext.borderColor),
             ),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
@@ -1688,7 +1716,7 @@ class _PaymentMethodButton extends StatelessWidget {
                   Icon(
                     icon,
                     size: 20,
-                    color: isDisabled ? Colors.grey : const Color(0xFFFF3B3B),
+                    color: isDisabled ? ext.subTextColor : ext.brandColor,
                   ),
                   const SizedBox(width: 8),
                   UnreadableText(
@@ -1696,16 +1724,14 @@ class _PaymentMethodButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: isDisabled ? Colors.grey : Colors.black87,
+                      color: isDisabled ? ext.subTextColor : ext.primaryTextColor,
                     ),
                   ),
                   const SizedBox(width: 6),
                   Icon(
                     Icons.expand_more,
                     size: 18,
-                    color: isDisabled
-                        ? Colors.grey.shade400
-                        : Colors.grey.shade500,
+                    color: isDisabled ? ext.navInactiveColor : ext.subTextColor,
                   ),
                 ],
               ),
@@ -1723,6 +1749,7 @@ class _PaymentMethodButton extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (sheetContext) {
+        final ext = Theme.of(sheetContext).extension<PaymentAppTheme>()!;
         return SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -1732,7 +1759,7 @@ class _PaymentMethodButton extends StatelessWidget {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
+                  color: ext.borderColor,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -1788,19 +1815,18 @@ class _PaymentMethodOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return ListTile(
       leading: Container(
         width: 40,
         height: 40,
         decoration: BoxDecoration(
-          color: selected
-              ? const Color(0xFFFF3B3B)
-              : const Color(0xFFF5F5F5),
+          color: selected ? ext.brandColor : ext.actionTileBackground,
           shape: BoxShape.circle,
         ),
         child: Icon(
           icon,
-          color: selected ? Colors.white : Colors.grey.shade600,
+          color: selected ? Colors.white : ext.secondaryTextColor,
           size: 20,
         ),
       ),
@@ -1808,11 +1834,11 @@ class _PaymentMethodOption extends StatelessWidget {
         label,
         style: TextStyle(
           fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-          color: selected ? const Color(0xFFFF3B3B) : Colors.black87,
+          color: selected ? ext.brandColor : ext.primaryTextColor,
         ),
       ),
       trailing: selected
-          ? const Icon(Icons.check_circle, color: Color(0xFFFF3B3B))
+          ? Icon(Icons.check_circle, color: ext.brandColor)
           : null,
       onTap: onTap,
     );
@@ -1821,21 +1847,27 @@ class _PaymentMethodOption extends StatelessWidget {
 
 /// バーコードのモックウィジェット
 class _MockBarcode extends StatelessWidget {
-  const _MockBarcode();
+  const _MockBarcode({required this.barcodeColor});
+
+  final Color barcodeColor;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _BarcodePainter(),
+      painter: _BarcodePainter(barcodeColor: barcodeColor),
     );
   }
 }
 
 class _BarcodePainter extends CustomPainter {
+  const _BarcodePainter({required this.barcodeColor});
+
+  final Color barcodeColor;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black
+      ..color = barcodeColor
       ..style = PaintingStyle.fill;
 
     final widths = [
@@ -1859,26 +1891,33 @@ class _BarcodePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_BarcodePainter oldDelegate) => false;
+  bool shouldRepaint(_BarcodePainter oldDelegate) =>
+      oldDelegate.barcodeColor != barcodeColor;
 }
 
 /// QRコードのモックウィジェット（格子パターン）
 class _MockQrCode extends StatelessWidget {
-  const _MockQrCode();
+  const _MockQrCode({required this.barcodeColor});
+
+  final Color barcodeColor;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _QrPainter(),
+      painter: _QrPainter(barcodeColor: barcodeColor),
     );
   }
 }
 
 class _QrPainter extends CustomPainter {
+  const _QrPainter({required this.barcodeColor});
+
+  final Color barcodeColor;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black
+      ..color = barcodeColor
       ..style = PaintingStyle.fill;
 
     final cellSize = size.width / 10;
@@ -1914,7 +1953,8 @@ class _QrPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_QrPainter oldDelegate) => false;
+  bool shouldRepaint(_QrPainter oldDelegate) =>
+      oldDelegate.barcodeColor != barcodeColor;
 }
 
 /// 送金画面
@@ -1963,6 +2003,7 @@ class SendMoneyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     final selected =
         contacts.where((c) => c.id == selectedContactId).firstOrNull;
 
@@ -1973,9 +2014,9 @@ class SendMoneyScreen extends StatelessWidget {
         onBack?.call();
       },
       child: Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ext.surfaceColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: ext.surfaceColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -2020,11 +2061,11 @@ class SendMoneyScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: isSelected
-                                    ? const Color(0xFFFF3B3B)
-                                    : const Color(0xFFF0F0F0),
+                                    ? ext.brandColor
+                                    : ext.actionTileBackground,
                                 border: isSelected
                                     ? Border.all(
-                                        color: const Color(0xFFFF3B3B),
+                                        color: ext.brandColor,
                                         width: 3,
                                       )
                                     : null,
@@ -2037,7 +2078,7 @@ class SendMoneyScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: isSelected
                                         ? Colors.white
-                                        : Colors.grey.shade600,
+                                        : ext.secondaryTextColor,
                                   ),
                                 ),
                               ),
@@ -2048,8 +2089,8 @@ class SendMoneyScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 11,
                                 color: isSelected
-                                    ? const Color(0xFFFF3B3B)
-                                    : Colors.grey.shade600,
+                                    ? ext.brandColor
+                                    : ext.secondaryTextColor,
                               ),
                             ),
                           ],
@@ -2072,7 +2113,7 @@ class SendMoneyScreen extends StatelessWidget {
                       sq.common.amount,
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey.shade600,
+                        color: ext.secondaryTextColor,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -2122,7 +2163,7 @@ class SendMoneyScreen extends StatelessWidget {
                       : null,
                   style: FilledButton.styleFrom(
                     minimumSize: const Size(double.infinity, 52),
-                    backgroundColor: const Color(0xFFFF3B3B),
+                    backgroundColor: ext.brandColor,
                   ),
                   child: Semantics(
                     label: sq.common.sendMoney,
@@ -2224,6 +2265,7 @@ class _SendConfirmSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return SafeArea(
       top: false,
       child: Padding(
@@ -2241,7 +2283,7 @@ class _SendConfirmSheet extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: ext.borderColor,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -2261,13 +2303,13 @@ class _SendConfirmSheet extends StatelessWidget {
               children: [
                 UnreadableText(
                   sq.common.sendTo,
-                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                  style: TextStyle(fontSize: 14, color: ext.secondaryTextColor),
                 ),
                 Row(
                   children: [
                     CircleAvatar(
                       radius: 16,
-                      backgroundColor: const Color(0xFFF0F0F0),
+                      backgroundColor: ext.actionTileBackground,
                       child: Text(
                         contact.initial,
                         style: const TextStyle(
@@ -2295,7 +2337,7 @@ class _SendConfirmSheet extends StatelessWidget {
               children: [
                 UnreadableText(
                   sq.common.amount,
-                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                  style: TextStyle(fontSize: 14, color: ext.secondaryTextColor),
                 ),
                 UnreadableText(
                   '${sq.common.yen}$amount',
@@ -2312,7 +2354,7 @@ class _SendConfirmSheet extends StatelessWidget {
               onPressed: onConfirm,
               style: FilledButton.styleFrom(
                 minimumSize: const Size(double.infinity, 52),
-                backgroundColor: const Color(0xFFFF3B3B),
+                backgroundColor: ext.brandColor,
               ),
               child: Semantics(
                 label: sq.common.sendMoney,
@@ -2334,7 +2376,7 @@ class _SendConfirmSheet extends StatelessWidget {
                 label: sq.common.cancel,
                 child: UnreadableText(
                   sq.common.cancel,
-                  style: TextStyle(fontSize: 15, color: Colors.grey.shade700),
+                  style: TextStyle(fontSize: 15, color: ext.secondaryTextColor),
                 ),
               ),
             ),
@@ -2376,10 +2418,11 @@ class _NumKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<PaymentAppTheme>()!;
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Material(
-        color: label.isEmpty ? Colors.transparent : const Color(0xFFF5F5F5),
+        color: label.isEmpty ? Colors.transparent : ext.actionTileBackground,
         borderRadius: BorderRadius.circular(8),
         child: InkWell(
           onTap: onTap,

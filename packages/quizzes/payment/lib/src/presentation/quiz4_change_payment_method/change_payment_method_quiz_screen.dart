@@ -185,10 +185,11 @@ class _InsightHeader extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context)
+                    .extension<PaymentAppTheme>()!
+                    .secondaryTextColor,
+              ),
         ),
       ],
     );
@@ -208,6 +209,8 @@ class _InsightItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final secondaryTextColor =
+        Theme.of(context).extension<PaymentAppTheme>()!.secondaryTextColor;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -229,7 +232,7 @@ class _InsightItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: Colors.grey.shade600),
+                    ?.copyWith(color: secondaryTextColor),
               ),
             ],
           ),

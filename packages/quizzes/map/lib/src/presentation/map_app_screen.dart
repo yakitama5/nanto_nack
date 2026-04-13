@@ -111,7 +111,7 @@ class MapAppScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFE8F0E9),
+        backgroundColor: Theme.of(context).extension<MapAppTheme>()!.mapBackground,
       body: Stack(
         children: [
           // 地図エリア（疑似マップ・スクロール可能）
@@ -310,8 +310,9 @@ class _MapCanvasState extends State<_MapCanvas> {
 
   @override
   Widget build(BuildContext context) {
-    final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
-    final pinColors = ext.mapPinColors;
+    final themeExt = Theme.of(context).extension<NantoNackThemeExtension>()!;
+    final pinColors = themeExt.mapPinColors;
+    final mapExt = Theme.of(context).extension<MapAppTheme>()!;
 
     // LayoutBuilder で実際の制約幅を取得する。
     // MediaQuery.sizeOf はデスクトップWeb で ResponsiveFramework の
@@ -401,7 +402,13 @@ class _MapCanvasState extends State<_MapCanvas> {
                   width: canvasWidth,
                   height: canvasHeight,
                   child: CustomPaint(
-                    painter: const _MapPainter(),
+                    painter: _MapPainter(
+                      roadColor: mapExt.roadColor,
+                      roadMinorColor: mapExt.roadMinorColor,
+                      parkColor: mapExt.parkColor,
+                      waterColor: mapExt.waterColor,
+                      mapBackground: mapExt.mapBackground,
+                    ),
                     child: Stack(
                       children: [
                         // 場所のピン
@@ -456,17 +463,35 @@ class _MapCanvasState extends State<_MapCanvas> {
 }
 
 class _MapPainter extends CustomPainter {
-  const _MapPainter();
+  const _MapPainter({
+    required this.roadColor,
+    required this.roadMinorColor,
+    required this.parkColor,
+    required this.waterColor,
+    required this.mapBackground,
+  });
+
+  final Color roadColor;
+  final Color roadMinorColor;
+  final Color parkColor;
+  final Color waterColor;
+  final Color mapBackground;
 
   @override
   void paint(Canvas canvas, Size size) {
+    // キャンバス全体をマップ背景色で塗りつぶす
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()..color = mapBackground,
+    );
+
     final road = Paint()
-      ..color = Colors.white
+      ..color = roadColor
       ..strokeWidth = 7
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square;
     final roadMinor = Paint()
-      ..color = Colors.white70
+      ..color = roadMinorColor
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square;
@@ -504,7 +529,7 @@ class _MapPainter extends CustomPainter {
       );
     }
 
-    final parkPaint = Paint()..color = const Color(0xFFB7DFB5);
+    final parkPaint = Paint()..color = parkColor;
 
     // 公園1: 中央（初期表示で見える位置 = キャンバス中央付近）
     canvas.drawRect(
@@ -559,7 +584,7 @@ class _MapPainter extends CustomPainter {
 
     // 水域（池）: 2 か所
     final waterPaint = Paint()
-      ..color = const Color(0xFF90CAF9)
+      ..color = waterColor
       ..style = PaintingStyle.fill;
     canvas.drawOval(
       Rect.fromCenter(
@@ -580,7 +605,12 @@ class _MapPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_MapPainter oldDelegate) => false;
+  bool shouldRepaint(_MapPainter oldDelegate) =>
+      oldDelegate.roadColor != roadColor ||
+      oldDelegate.roadMinorColor != roadMinorColor ||
+      oldDelegate.parkColor != parkColor ||
+      oldDelegate.waterColor != waterColor ||
+      oldDelegate.mapBackground != mapBackground;
 }
 
 class _PlacePin extends StatefulWidget {
@@ -726,6 +756,7 @@ class _SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<MapAppTheme>()!;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -738,7 +769,7 @@ class _SearchBar extends StatelessWidget {
               vertical: 12,
             ),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: ext.surfaceColor,
               borderRadius: BorderRadius.circular(28),
               border: highlighted
                   ? Border.all(
@@ -749,7 +780,7 @@ class _SearchBar extends StatelessWidget {
                   : null,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.15),
+                  color: ext.shadowColor,
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -761,7 +792,7 @@ class _SearchBar extends StatelessWidget {
                   Icons.search,
                   color: highlighted
                       ? Theme.of(context).colorScheme.primary
-                      : Colors.grey,
+                      : ext.iconColor,
                   size: 20,
                 ),
                 const SizedBox(width: 12),
@@ -771,8 +802,9 @@ class _SearchBar extends StatelessWidget {
                         ? CustomLanguageEncoder.encode(hint)
                         : CustomLanguageEncoder.encode(query),
                     style: TextStyle(
-                      color:
-                          query.isEmpty ? Colors.grey : Colors.black87,
+                      color: query.isEmpty
+                          ? ext.searchHintColor
+                          : ext.searchQueryTextColor,
                       fontSize: 15,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -787,11 +819,11 @@ class _SearchBar extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: ext.surfaceColor,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
+                  color: ext.shadowColor,
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -804,7 +836,7 @@ class _SearchBar extends StatelessWidget {
                     leading: Icon(
                       place.icon,
                       size: 20,
-                      color: Colors.grey,
+                      color: ext.iconColor,
                     ),
                     title: UnreadableText(
                       place.name,
@@ -812,9 +844,9 @@ class _SearchBar extends StatelessWidget {
                     ),
                     subtitle: UnreadableText(
                       place.address,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: Colors.grey,
+                        color: ext.subTextColor,
                       ),
                     ),
                     dense: true,
@@ -844,6 +876,7 @@ class _MapFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<MapAppTheme>()!;
     return Semantics(
       button: true,
       label: tooltip,
@@ -860,7 +893,7 @@ class _MapFab extends StatelessWidget {
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: ext.surfaceColor,
               shape: BoxShape.circle,
               border: highlighted
                   ? Border.all(
@@ -870,7 +903,7 @@ class _MapFab extends StatelessWidget {
                   : null,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.2),
+                  color: ext.shadowColor,
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -881,7 +914,7 @@ class _MapFab extends StatelessWidget {
               size: 22,
               color: highlighted
                   ? Theme.of(context).colorScheme.primary
-                  : Colors.grey.shade700,
+                  : ext.primaryTextColor,
             ),
           ),
         ),
@@ -916,15 +949,16 @@ class _PlaceDetailPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<MapAppTheme>()!;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ext.surfaceColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
+            color: ext.shadowColor,
             blurRadius: 12,
             offset: const Offset(0, -2),
           ),
@@ -936,7 +970,7 @@ class _PlaceDetailPanel extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(place.icon, size: 24, color: Colors.grey.shade700),
+              Icon(place.icon, size: 24, color: ext.primaryTextColor),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -952,7 +986,7 @@ class _PlaceDetailPanel extends StatelessWidget {
                     UnreadableText(
                       place.address,
                       style: TextStyle(
-                        color: Colors.grey.shade600,
+                        color: ext.subTextColor,
                         fontSize: 13,
                       ),
                     ),
@@ -967,10 +1001,10 @@ class _PlaceDetailPanel extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     decoration: highlightFavoriteButton
                         ? BoxDecoration(
-                            color: Colors.yellow.shade50,
+                            color: ext.favoriteHighlightBg,
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: Colors.yellow.shade600,
+                              color: ext.favoriteHighlightBorder,
                               width: 2,
                             ),
                           )
@@ -978,10 +1012,10 @@ class _PlaceDetailPanel extends StatelessWidget {
                     child: Icon(
                       isFavorite ? Icons.star : Icons.star_border,
                       color: isFavorite
-                          ? Colors.yellow.shade700
+                          ? ext.favoriteActiveColor
                           : highlightFavoriteButton
-                              ? Colors.yellow.shade600
-                              : Colors.grey,
+                              ? ext.favoriteHighlightBorder
+                              : ext.iconColor,
                       size: 28,
                     ),
                   ),
@@ -1052,15 +1086,16 @@ class _NavigationPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<MapAppTheme>()!;
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      decoration: BoxDecoration(
+        color: ext.navigationPanelBackground,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black26,
+            color: ext.shadowColor,
             blurRadius: 12,
-            offset: Offset(0, -2),
+            offset: const Offset(0, -2),
           ),
         ],
       ),
@@ -1093,7 +1128,11 @@ class _NavigationPanel extends StatelessWidget {
               Row(
                 children: [
                   if (routeMinutes != null) ...[
-                    const Icon(Icons.access_time, size: 18, color: Colors.grey),
+                    Icon(
+                      Icons.access_time,
+                      size: 18,
+                      color: ext.iconColor,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       '$routeMinutes ${sq.common.min}',
@@ -1104,11 +1143,11 @@ class _NavigationPanel extends StatelessWidget {
                     ),
                     const SizedBox(width: 16),
                   ],
-                  const Icon(Icons.straighten, size: 18, color: Colors.grey),
+                  Icon(Icons.straighten, size: 18, color: ext.iconColor),
                   const SizedBox(width: 6),
                   Text(
                     '$routeDistanceKm ${sq.common.km}',
-                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    style: TextStyle(fontSize: 14, color: ext.iconColor),
                   ),
                 ],
               ),
@@ -1183,7 +1222,7 @@ class _TransportOption extends StatelessWidget {
               icon,
               color: isSelected
                   ? Theme.of(context).colorScheme.primary
-                  : Colors.grey,
+                  : Theme.of(context).extension<MapAppTheme>()!.iconColor,
               size: 24,
             ),
           ),

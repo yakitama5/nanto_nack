@@ -76,8 +76,9 @@ class _ShoppingItemTileState extends State<ShoppingItemTile>
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Card(
-      color: Colors.white,
+      color: ext.surfaceColor,
       elevation: widget.highlighted ? 3 : 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       clipBehavior: Clip.antiAlias,
@@ -94,11 +95,11 @@ class _ShoppingItemTileState extends State<ShoppingItemTile>
                   builder: (_, child) {
                     final bg = widget.highlighted
                         ? Color.lerp(
-                            Colors.grey[50]!,
-                            const Color(0xFFFFF3CD),
+                            ext.itemImageBackground,
+                            ext.itemHighlightBackground,
                             _blinkController.value,
                           )!
-                        : Colors.grey[50]!;
+                        : ext.itemImageBackground;
                     return Container(
                       decoration: BoxDecoration(color: bg),
                       alignment: Alignment.center,
@@ -180,11 +181,12 @@ class _FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Container(
       width: 32,
       height: 32,
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.85),
+        color: ext.favoriteButtonBackground,
         shape: BoxShape.circle,
       ),
       child: Center(
@@ -197,7 +199,7 @@ class _FavoriteButton extends StatelessWidget {
           },
           likeBuilder: (isLiked) => Icon(
             isLiked ? Icons.favorite : Icons.favorite_border,
-            color: isLiked ? Colors.red : Colors.grey,
+            color: isLiked ? Colors.red : ext.searchIconColor,
             size: 20,
           ),
           circleColor: const CircleColor(
@@ -230,6 +232,7 @@ class _QuantityController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     // 数量が 0 のとき：カートへの追加ボタン
     if (quantity == 0) {
       return SizedBox(
@@ -237,8 +240,8 @@ class _QuantityController extends StatelessWidget {
         height: 32,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFFFD814),
-            foregroundColor: Colors.black87,
+            backgroundColor: ext.addToCartButtonColor,
+            foregroundColor: ext.cartButtonForeground,
             padding: EdgeInsets.zero,
             shape: const CircleBorder(),
             elevation: 0,
@@ -253,9 +256,9 @@ class _QuantityController extends StatelessWidget {
     return Container(
       height: 28,
       decoration: BoxDecoration(
-        color: const Color(0xFFFFD814),
+        color: ext.addToCartButtonColor,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFFFFA41C)),
+        border: Border.all(color: ext.orangeAccentBorder),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -265,7 +268,7 @@ class _QuantityController extends StatelessWidget {
             height: 28,
             child: IconButton(
               padding: EdgeInsets.zero,
-              icon: const Icon(Icons.remove, size: 14),
+              icon: Icon(Icons.remove, size: 14, color: ext.cartButtonForeground),
               onPressed: onDecrement,
             ),
           ),
@@ -273,9 +276,10 @@ class _QuantityController extends StatelessWidget {
             '$quantity',
             isObfuscated: true,
             animateOnObfuscate: false,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 12,
+              color: ext.cartButtonForeground,
             ),
           ),
           SizedBox(
@@ -283,7 +287,7 @@ class _QuantityController extends StatelessWidget {
             height: 28,
             child: IconButton(
               padding: EdgeInsets.zero,
-              icon: const Icon(Icons.add, size: 14),
+              icon: Icon(Icons.add, size: 14, color: ext.cartButtonForeground),
               onPressed: onIncrement,
             ),
           ),

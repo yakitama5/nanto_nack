@@ -7,9 +7,6 @@ import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
 import 'package:shopping/src/presentation/shopping_app.dart' show ShoppingInsightItem;
 
-// Amazon風カラー定数
-const _kNavyColor = Color(0xFF131921);
-
 /// カートの合計金額を当てるクイズ画面（Amazon風カートページ）
 class CartQuizScreen extends ConsumerStatefulWidget {
   const CartQuizScreen({super.key, this.onCompleted});
@@ -44,6 +41,7 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final quizState = ref.watch(cartQuizProvider);
     final missionText = context.s.cart.missionText;
 
@@ -75,9 +73,9 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
       child: Stack(
         children: [
           Scaffold(
-            backgroundColor: const Color(0xFFF3F3F3),
+            backgroundColor: ext.scaffoldBackground,
             appBar: AppBar(
-              backgroundColor: _kNavyColor,
+              backgroundColor: ext.navyColor,
               title: UnreadableText(
                 context.sq.cart.appTitle,
                 isObfuscated: true,
@@ -161,6 +159,7 @@ class _CartUiInsight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final insight = context.s.cart.insight;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +184,7 @@ class _CartUiInsight extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: Colors.grey.shade600),
+              ?.copyWith(color: ext.subTextColor),
         ),
         const SizedBox(height: 12),
         ShoppingInsightItem(
@@ -228,8 +227,9 @@ class _CartItemsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -252,7 +252,7 @@ class _CartItemsSection extends StatelessWidget {
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF007185),
+                    color: ext.amazonTealColor,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: UnreadableText(
@@ -296,8 +296,8 @@ class _CartItemTile extends StatelessWidget {
             width: 72,
             height: 72,
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
-              border: Border.all(color: Colors.grey.shade200),
+              color: Theme.of(context).extension<ShoppingAppTheme>()!.itemImageBackground,
+              border: Border.all(color: Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Center(
@@ -352,9 +352,9 @@ class _CartItemTile extends StatelessWidget {
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
+                        border: Border.all(color: Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor),
                         borderRadius: BorderRadius.circular(4),
-                        color: const Color(0xFFF3F3F3),
+                        color: Theme.of(context).extension<ShoppingAppTheme>()!.scaffoldBackground,
                       ),
                       child: UnreadableText(
                         context.sq.common.quantity.replaceAll('{qty}', item.quantity.toString()),
@@ -407,9 +407,10 @@ class _PriceSummarySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     final qt = context.sq.cart;
     return Container(
-      color: Colors.white,
+      color: ext.surfaceColor,
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -417,7 +418,7 @@ class _PriceSummarySection extends StatelessWidget {
           // 合計金額の問いかけ
           Row(
             children: [
-              const Icon(Icons.calculate_outlined, color: Color(0xFF007185)),
+              Icon(Icons.calculate_outlined, color: ext.amazonTealColor),
               const SizedBox(width: 8),
               UnreadableText(
                 qt.questionTitle,
@@ -437,7 +438,7 @@ class _PriceSummarySection extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodySmall
-                ?.copyWith(color: Colors.grey.shade600),
+                ?.copyWith(color: ext.subTextColor),
           ),
           const SizedBox(height: 20),
           // 暗証番号スタイルの金額入力
@@ -453,13 +454,13 @@ class _PriceSummarySection extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFFD814),
-                foregroundColor: Colors.black87,
+                backgroundColor: ext.addToCartButtonColor,
+                foregroundColor: ext.cartButtonForeground,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
-                  side: const BorderSide(color: Color(0xFFFFA41C)),
+                  side: BorderSide(color: ext.orangeAccentBorder),
                 ),
               ),
               onPressed: isPlaying ? onConfirm : null,
@@ -511,7 +512,7 @@ class _PriceSpinnerInput extends StatelessWidget {
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.black87.withValues(alpha: 0.6),
+              color: Theme.of(context).extension<ShoppingAppTheme>()!.primaryTextColor.withValues(alpha: 0.6),
             ),
           ),
         ),
@@ -562,8 +563,8 @@ class _DigitSpinner extends StatelessWidget {
           width: 52,
           height: 56,
           decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: const Color(0xFF007185), width: 1.5),
+            color: Theme.of(context).extension<ShoppingAppTheme>()!.surfaceColor,
+            border: Border.all(color: Theme.of(context).extension<ShoppingAppTheme>()!.amazonTealColor, width: 1.5),
             borderRadius: BorderRadius.circular(6),
           ),
           child: Center(
@@ -597,22 +598,23 @@ class _SpinnerArrowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enabled = onTap != null;
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: 52,
         height: 36,
         decoration: BoxDecoration(
-          color: enabled ? const Color(0xFFF3F3F3) : Colors.grey.shade50,
+          color: enabled ? ext.scaffoldBackground : ext.itemImageBackground,
           border: Border.all(
-            color: enabled ? Colors.grey.shade400 : Colors.grey.shade200,
+            color: enabled ? ext.subTextColor : ext.subTextColor,
           ),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Icon(
           icon,
           size: 22,
-          color: enabled ? const Color(0xFF007185) : Colors.grey.shade300,
+          color: enabled ? ext.amazonTealColor : ext.subTextColor,
         ),
       ),
     );
@@ -630,12 +632,13 @@ class _NumberCipherTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final entries = CustomLanguageEncoder.digitMap.entries.toList()
       ..sort((a, b) => a.key.compareTo(b.key));
+    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF3CD),
-        border: Border.all(color: const Color(0xFFFF9900)),
+        color: ext.itemHighlightBackground,
+        border: Border.all(color: ext.orangeAccent),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
@@ -643,9 +646,9 @@ class _NumberCipherTable extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.lightbulb_outline,
-                color: Color(0xFFFF9900),
+                color: ext.orangeAccent,
                 size: 16,
               ),
               const SizedBox(width: 6),
@@ -655,7 +658,7 @@ class _NumberCipherTable extends StatelessWidget {
                 animateOnObfuscate: false,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF92400E),
+                      color: ext.orangeAccent,
                     ),
               ),
             ],
@@ -680,7 +683,7 @@ class _NumberCipherTable extends StatelessWidget {
                       Text(
                         e.key,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.grey.shade700,
+                              color: ext.primaryTextColor,
                             ),
                       ),
                     ],

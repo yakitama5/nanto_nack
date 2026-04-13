@@ -124,7 +124,7 @@ class StreamingPlayerScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).extension<StreamingAppTheme>()!.playerBackground,
         body: Stack(
         children: [
           Column(
@@ -155,7 +155,7 @@ class StreamingPlayerScreen extends StatelessWidget {
               // 動画情報・アクションボタン
               Expanded(
                 child: Container(
-                  color: Colors.white,
+                  color: Theme.of(context).extension<StreamingAppTheme>()!.infoSectionBackground,
                   child: _VideoInfoSection(
                     video: video,
                     onLikeTap: onLikeTap,
@@ -207,8 +207,9 @@ class _StreamingAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
     return Container(
-      color: const Color(0xFF212121),
+      color: ext.appBarBackground,
       height: 48,
       child: Row(
         children: [
@@ -340,6 +341,8 @@ class _VideoPlayerState extends State<_VideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    // プレイヤー外（ヒントハイライト・ブランドカラー）はテーマから取得する
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
     final thumbnailColor =
         StreamingCatalog.thumbnailColors[widget.video.colorSeed % StreamingCatalog.thumbnailColors.length];
     final thumbnailIcon =
@@ -406,11 +409,11 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                               height: 64,
                               decoration: BoxDecoration(
                                 color: widget.highlightPlay
-                                    ? Colors.red.withValues(alpha: 0.8)
+                                    ? ext.brandRedColor.withValues(alpha: 0.8)
                                     : Colors.transparent,
                                 shape: BoxShape.circle,
                                 border: widget.highlightPlay
-                                    ? Border.all(color: Colors.yellow, width: 2)
+                                    ? Border.all(color: ext.highlightBorderColor, width: 2)
                                     : null,
                               ),
                               child: Icon(
@@ -424,7 +427,7 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                           IconButton(
                             icon: Icon(
                               Icons.skip_next,
-                              color: widget.highlightNext ? Colors.yellow : Colors.white,
+                              color: widget.highlightNext ? ext.highlightBorderColor : Colors.white,
                               size: 32,
                             ),
                             onPressed: widget.onNextTap,
@@ -450,7 +453,7 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                                   Container(
                                     width: 14,
                                     height: 2,
-                                    color: Colors.red,
+                                    color: ext.brandRedColor,
                                   ),
                               ],
                             ),
@@ -458,7 +461,7 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
                             style: widget.highlightCC
-                                ? IconButton.styleFrom(backgroundColor: Colors.yellow.withValues(alpha: 0.3))
+                                ? IconButton.styleFrom(backgroundColor: ext.highlightBorderColor.withValues(alpha: 0.3))
                                 : null,
                           ),
                           const SizedBox(width: 12),
@@ -468,9 +471,9 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                               padding: const EdgeInsets.all(4),
                               decoration: widget.highlightMore
                                   ? BoxDecoration(
-                                      color: Colors.yellow.withValues(alpha: 0.3),
+                                      color: ext.highlightBorderColor.withValues(alpha: 0.3),
                                       borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(color: Colors.yellow, width: 1.5),
+                                      border: Border.all(color: ext.highlightBorderColor, width: 1.5),
                                     )
                                   : null,
                               child: const Icon(Icons.settings_outlined, color: Colors.white70),
@@ -516,9 +519,9 @@ class _VideoPlayerState extends State<_VideoPlayer> {
                           ? const RoundSliderThumbShape(enabledThumbRadius: 6)
                           : const RoundSliderThumbShape(enabledThumbRadius: 0),
                       overlayShape: const RoundSliderOverlayShape(overlayRadius: 14),
-                      activeTrackColor: Colors.red,
+                      activeTrackColor: ext.brandRedColor,
                       inactiveTrackColor: Colors.white24,
-                      thumbColor: Colors.red,
+                      thumbColor: ext.brandRedColor,
                     ),
                     child: Slider(
                       value: progress,
@@ -592,6 +595,7 @@ class _VideoInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
 
     return SingleChildScrollView(
       child: Column(
@@ -617,15 +621,15 @@ class _VideoInfoSection extends StatelessWidget {
                       '${_formatViewCount(video.viewCount)} ${sq.common.views}',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.grey.shade700,
+                        color: ext.subTextColor,
                       ),
                     ),
-                    const Text(' · ', style: TextStyle(color: Colors.grey)),
+                    Text(' · ', style: TextStyle(color: ext.subTextColor)),
                     UnreadableText(
                       video.uploadedAgo,
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.grey.shade700,
+                        color: ext.subTextColor,
                       ),
                     ),
                   ],
@@ -799,7 +803,8 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isActive ? Colors.blue : Colors.black87;
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
+    final color = isActive ? ext.activeStateColor : ext.actionButtonColor;
 
     return GestureDetector(
       onTap: onTap,
@@ -807,9 +812,9 @@ class _ActionButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: isHighlighted
             ? BoxDecoration(
-                border: Border.all(color: Colors.yellow, width: 2),
+                border: Border.all(color: ext.highlightBorderColor, width: 2),
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.yellow.withValues(alpha: 0.1),
+                color: ext.highlightBorderColor.withValues(alpha: 0.1),
               )
             : null,
         child: Column(
@@ -838,6 +843,7 @@ class _ChannelRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
     final thumbnailColor =
         StreamingCatalog.thumbnailColors[video.colorSeed % StreamingCatalog.thumbnailColors.length];
 
@@ -863,8 +869,8 @@ class _ChannelRow extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 UnreadableText(
-                  '1.2M subscribers',
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                  '1.2M ${sq.common.subscribers}',
+                  style: TextStyle(fontSize: 11, color: ext.subTextColor),
                 ),
               ],
             ),
@@ -874,7 +880,7 @@ class _ChannelRow extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: ext.subscribeButtonBackground,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: UnreadableText(
@@ -907,6 +913,7 @@ class _SubtitleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -926,7 +933,7 @@ class _SubtitleRow extends StatelessWidget {
               width: 48,
               height: 28,
               decoration: BoxDecoration(
-                color: video.subtitlesEnabled ? Colors.blue : Colors.grey.shade300,
+                color: video.subtitlesEnabled ? ext.subtitleToggleActive : ext.subtitleToggleInactive,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: AnimatedAlign(
@@ -951,7 +958,7 @@ class _SubtitleRow extends StatelessWidget {
             video.subtitlesEnabled ? sq.common.subtitlesOn : sq.common.subtitlesOff,
             style: TextStyle(
               fontSize: 12,
-              color: video.subtitlesEnabled ? Colors.blue : Colors.grey,
+              color: video.subtitlesEnabled ? ext.subtitleToggleActive : ext.subTextColor,
             ),
           ),
         ],
@@ -981,11 +988,12 @@ class StreamingMoreMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
 
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      decoration: BoxDecoration(
+        color: ext.infoSectionBackground,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: SafeArea(
         top: false,
@@ -997,7 +1005,7 @@ class StreamingMoreMenu extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: ext.subtitleToggleInactive,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -1050,10 +1058,11 @@ class StreamingSelectionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      decoration: BoxDecoration(
+        color: ext.infoSectionBackground,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: SafeArea(
         top: false,
@@ -1072,7 +1081,7 @@ class StreamingSelectionList extends StatelessWidget {
             ...items.map(
               (item) => ListTile(
                 title: UnreadableText(item),
-                trailing: item == selectedItem ? const Icon(Icons.check, color: Colors.blue) : null,
+                trailing: item == selectedItem ? Icon(Icons.check, color: ext.activeStateColor) : null,
                 onTap: () => onSelected(item),
               ),
             ),
@@ -1140,7 +1149,8 @@ class _AnimatedLikeButtonState extends State<_AnimatedLikeButton>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.isLiked ? Colors.blue : Colors.black87;
+    final ext = Theme.of(context).extension<StreamingAppTheme>()!;
+    final color = widget.isLiked ? ext.activeStateColor : ext.actionButtonColor;
     return GestureDetector(
       onTap: _handleTap,
       child: Container(

@@ -34,15 +34,15 @@ class ChatAppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
-    const lineGreen = Color(0xFF00B900);
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
 
     final scaffold = Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: ext.scaffoldBackground,
       body: Column(
         children: [
           // ヘッダー
           Container(
-            color: lineGreen,
+            color: ext.brandColor,
             child: SafeArea(
               bottom: false,
               child: SizedBox(
@@ -156,14 +156,14 @@ class _ChatNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const lineGreen = Color(0xFF00B900);
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ext.navBarBackground,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: ext.borderColor.withValues(alpha: 0.5),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
@@ -181,7 +181,7 @@ class _ChatNavBar extends StatelessWidget {
                 selectedIcon: Icons.home,
                 label: sq.common.homeTab,
                 selected: currentTab == ChatTab.home,
-                color: lineGreen,
+                color: ext.brandColor,
                 onTap: () => onTabChanged(ChatTab.home),
               ),
               _ChatNavItemWithBadge(
@@ -190,7 +190,7 @@ class _ChatNavBar extends StatelessWidget {
                 label: sq.common.talkTab,
                 selected: currentTab == ChatTab.talk,
                 badgeCount: talkTabBadgeCount,
-                color: lineGreen,
+                color: ext.brandColor,
                 onTap: () => onTabChanged(ChatTab.talk),
               ),
               _ChatNavItem(
@@ -198,7 +198,7 @@ class _ChatNavBar extends StatelessWidget {
                 selectedIcon: Icons.newspaper,
                 label: sq.common.newsTab,
                 selected: currentTab == ChatTab.news,
-                color: lineGreen,
+                color: ext.brandColor,
                 onTap: () => onTabChanged(ChatTab.news),
               ),
             ],
@@ -228,6 +228,7 @@ class _ChatNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
@@ -239,14 +240,14 @@ class _ChatNavItem extends StatelessWidget {
             Icon(
               selected ? selectedIcon : icon,
               size: 24,
-              color: selected ? color : Colors.grey.shade500,
+              color: selected ? color : ext.navInactiveColor,
             ),
             const SizedBox(height: 2),
             UnreadableText(
               label,
               style: TextStyle(
                 fontSize: 10,
-                color: selected ? color : Colors.grey.shade500,
+                color: selected ? color : ext.navInactiveColor,
                 fontWeight: selected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -278,6 +279,7 @@ class _ChatNavItemWithBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
@@ -292,7 +294,7 @@ class _ChatNavItemWithBadge extends StatelessWidget {
                 Icon(
                   selected ? selectedIcon : icon,
                   size: 24,
-                  color: selected ? color : Colors.grey.shade500,
+                  color: selected ? color : ext.navInactiveColor,
                 ),
                 if (badgeCount > 0)
                   Positioned(
@@ -304,7 +306,7 @@ class _ChatNavItemWithBadge extends StatelessWidget {
                         vertical: 1,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: ext.badgeColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -324,7 +326,7 @@ class _ChatNavItemWithBadge extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 10,
-                color: selected ? color : Colors.grey.shade500,
+                color: selected ? color : ext.navInactiveColor,
                 fontWeight: selected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -344,18 +346,19 @@ class _HomeTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return SingleChildScrollView(
       child: Column(
         children: [
           // プロフィールバナー
           Container(
-            color: Colors.white,
+            color: ext.surfaceColor,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(
               children: [
                 CircleAvatar(
                   radius: 32,
-                  backgroundColor: const Color(0xFF00B900),
+                  backgroundColor: ext.brandColor,
                   child: const Icon(Icons.person, size: 36, color: Colors.white),
                 ),
                 const SizedBox(width: 16),
@@ -374,7 +377,7 @@ class _HomeTabContent extends StatelessWidget {
                       UnreadableText(
                         sq.common.statusMessage,
                         style: TextStyle(
-                          color: Colors.grey.shade600,
+                          color: ext.subTextColor,
                           fontSize: 12,
                         ),
                       ),
@@ -387,10 +390,10 @@ class _HomeTabContent extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300),
+                      border: Border.all(color: ext.borderColor),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(Icons.qr_code, size: 20, color: Colors.grey),
+                    child: Icon(Icons.qr_code, size: 20, color: ext.navInactiveColor),
                   ),
                 ),
               ],
@@ -399,7 +402,7 @@ class _HomeTabContent extends StatelessWidget {
           const Divider(height: 1),
           // サービスアイコングリッド
           Container(
-            color: Colors.white,
+            color: ext.surfaceColor,
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -418,21 +421,22 @@ class _HomeTabContent extends StatelessWidget {
                     _ServiceIcon(
                       icon: Icons.payments_outlined,
                       label: sq.common.payService,
-                      color: const Color(0xFF00B900),
+                      color: ext.serviceIconPayColor,
                     ),
                     _ServiceIcon(
                       icon: Icons.store_outlined,
                       label: sq.common.shopService,
+                      color: ext.serviceIconDefaultColor,
                     ),
                     _ServiceIcon(
                       icon: Icons.local_offer_outlined,
                       label: sq.common.couponService,
-                      color: Colors.orange,
+                      color: ext.serviceIconCouponColor,
                     ),
                     _ServiceIcon(
                       icon: Icons.games_outlined,
                       label: sq.common.gamesService,
-                      color: Colors.purple,
+                      color: ext.serviceIconGamesColor,
                     ),
                   ],
                 ),
@@ -443,21 +447,22 @@ class _HomeTabContent extends StatelessWidget {
                     _ServiceIcon(
                       icon: Icons.tv_outlined,
                       label: sq.common.tvService,
-                      color: Colors.red,
+                      color: ext.serviceIconTvColor,
                     ),
                     _ServiceIcon(
                       icon: Icons.music_note_outlined,
                       label: sq.common.musicService,
-                      color: Colors.pink,
+                      color: ext.serviceIconMusicColor,
                     ),
                     _ServiceIcon(
                       icon: Icons.newspaper_outlined,
                       label: sq.common.newsService,
-                      color: Colors.blue,
+                      color: ext.serviceIconNewsColor,
                     ),
                     _ServiceIcon(
                       icon: Icons.more_horiz,
                       label: sq.common.moreService,
+                      color: ext.serviceIconDefaultColor,
                     ),
                   ],
                 ),
@@ -467,7 +472,7 @@ class _HomeTabContent extends StatelessWidget {
           const SizedBox(height: 8),
           // タイムライン
           Container(
-            color: Colors.white,
+            color: ext.surfaceColor,
             child: Column(
               children: [
                 _TimelinePost(
@@ -477,7 +482,7 @@ class _HomeTabContent extends StatelessWidget {
                   likes: sq.common.timelineLikes1,
                   likeLabel: sq.common.likeButton,
                   commentLabel: sq.common.commentButton,
-                  avatarColor: const Color(0xFFE91E63),
+                  avatarColor: ext.timelineAvatar1Color,
                 ),
                 const Divider(height: 1, indent: 16),
                 _TimelinePost(
@@ -487,7 +492,7 @@ class _HomeTabContent extends StatelessWidget {
                   likes: sq.common.timelineLikes2,
                   likeLabel: sq.common.likeButton,
                   commentLabel: sq.common.commentButton,
-                  avatarColor: const Color(0xFF2196F3),
+                  avatarColor: ext.timelineAvatar2Color,
                 ),
                 const Divider(height: 1, indent: 16),
                 _TimelinePost(
@@ -497,7 +502,7 @@ class _HomeTabContent extends StatelessWidget {
                   likes: sq.common.timelineLikes3,
                   likeLabel: sq.common.likeButton,
                   commentLabel: sq.common.commentButton,
-                  avatarColor: const Color(0xFF9C27B0),
+                  avatarColor: ext.timelineAvatar3Color,
                 ),
               ],
             ),
@@ -509,16 +514,16 @@ class _HomeTabContent extends StatelessWidget {
 }
 
 class _ServiceIcon extends StatelessWidget {
-  const _ServiceIcon({required this.icon, required this.label, this.color});
+  const _ServiceIcon({required this.icon, required this.label, required this.color});
 
   final IconData icon;
   final String label;
-  final Color? color;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    final iconColor = color ?? Colors.grey.shade600;
-    final bgColor = (color ?? Colors.grey).withValues(alpha: 0.1);
+    final iconColor = color;
+    final bgColor = color.withValues(alpha: 0.1);
     return InkWell(
       onTap: () {},
       borderRadius: BorderRadius.circular(14),
@@ -568,6 +573,7 @@ class _TimelinePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return InkWell(
       onTap: () {},
       child: Padding(
@@ -602,7 +608,7 @@ class _TimelinePost extends StatelessWidget {
                         time,
                         style: TextStyle(
                           fontSize: 11,
-                          color: Colors.grey.shade500,
+                          color: ext.navInactiveColor,
                         ),
                       ),
                     ],
@@ -615,7 +621,7 @@ class _TimelinePost extends StatelessWidget {
                     padding: const EdgeInsets.all(4),
                     child: Icon(
                       Icons.more_horiz,
-                      color: Colors.grey.shade400,
+                      color: ext.navInactiveColor,
                       size: 20,
                     ),
                   ),
@@ -643,14 +649,14 @@ class _TimelinePost extends StatelessWidget {
                         Icon(
                           Icons.favorite_border,
                           size: 16,
-                          color: Colors.grey.shade500,
+                          color: ext.navInactiveColor,
                         ),
                         const SizedBox(width: 4),
                         UnreadableText(
                           likes,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey.shade600,
+                            color: ext.subTextColor,
                           ),
                         ),
                       ],
@@ -671,14 +677,14 @@ class _TimelinePost extends StatelessWidget {
                         Icon(
                           Icons.thumb_up_outlined,
                           size: 16,
-                          color: Colors.grey.shade500,
+                          color: ext.navInactiveColor,
                         ),
                         const SizedBox(width: 4),
                         UnreadableText(
                           likeLabel,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey.shade600,
+                            color: ext.subTextColor,
                           ),
                         ),
                       ],
@@ -699,14 +705,14 @@ class _TimelinePost extends StatelessWidget {
                         Icon(
                           Icons.chat_bubble_outline,
                           size: 16,
-                          color: Colors.grey.shade500,
+                          color: ext.navInactiveColor,
                         ),
                         const SizedBox(width: 4),
                         UnreadableText(
                           commentLabel,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey.shade600,
+                            color: ext.subTextColor,
                           ),
                         ),
                       ],
@@ -735,15 +741,16 @@ class _TalkTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return ListView.separated(
       itemCount: contacts.length,
       separatorBuilder: (_, __) => const Divider(height: 1, indent: 72),
       itemBuilder: (context, index) {
         final contact = contacts[index];
         return ListTile(
-          tileColor: Colors.white,
+          tileColor: ext.surfaceColor,
           leading: CircleAvatar(
-            backgroundColor: const Color(0xFF00897B),
+            backgroundColor: ext.avatarBackground,
             child: Text(
               contact.name[0],
               style: const TextStyle(color: Colors.white),
@@ -755,12 +762,12 @@ class _TalkTabContent extends StatelessWidget {
           ),
           subtitle: UnreadableText(
             contact.lastMessage,
-            style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+            style: TextStyle(color: ext.subTextColor, fontSize: 12),
           ),
           trailing: contact.unreadCount > 0
               ? CircleAvatar(
                   radius: 10,
-                  backgroundColor: Colors.red,
+                  backgroundColor: ext.badgeColor,
                   child: Text(
                     '${contact.unreadCount}',
                     style: const TextStyle(
@@ -786,11 +793,12 @@ class _NewsTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return Column(
       children: [
         // タブセレクタ
         Container(
-          color: Colors.white,
+          color: ext.surfaceColor,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             children: [
@@ -816,7 +824,7 @@ class _NewsTabContent extends StatelessWidget {
                 source: sq.common.newsSource1,
                 tag: sq.common.newsTag1,
                 time: sq.common.newsTime1,
-                tagColor: Colors.blue,
+                tagColor: ext.newsTagBlue,
               ),
               const Divider(height: 1, indent: 16),
               _NewsItem(
@@ -824,7 +832,7 @@ class _NewsTabContent extends StatelessWidget {
                 source: sq.common.newsSource2,
                 tag: sq.common.newsTag2,
                 time: sq.common.newsTime2,
-                tagColor: Colors.green,
+                tagColor: ext.newsTagGreen,
               ),
               const Divider(height: 1, indent: 16),
               _NewsItem(
@@ -832,7 +840,7 @@ class _NewsTabContent extends StatelessWidget {
                 source: sq.common.newsSource3,
                 tag: sq.common.newsTag3,
                 time: sq.common.newsTime3,
-                tagColor: Colors.orange,
+                tagColor: ext.newsTagOrange,
               ),
               const Divider(height: 1, indent: 16),
               _NewsItem(
@@ -840,7 +848,7 @@ class _NewsTabContent extends StatelessWidget {
                 source: sq.common.newsSource4,
                 tag: sq.common.newsTag4,
                 time: sq.common.newsTime4,
-                tagColor: Colors.purple,
+                tagColor: ext.newsTagPurple,
               ),
             ],
           ),
@@ -858,7 +866,7 @@ class _NewsTabSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const lineGreen = Color(0xFF00B900);
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return InkWell(
       onTap: () {},
       borderRadius: BorderRadius.circular(4),
@@ -872,7 +880,7 @@ class _NewsTabSelector extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? lineGreen : Colors.grey.shade600,
+                color: isSelected ? ext.brandColor : ext.subTextColor,
               ),
             ),
             const SizedBox(height: 4),
@@ -881,7 +889,7 @@ class _NewsTabSelector extends StatelessWidget {
                 height: 2,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: lineGreen,
+                  color: ext.brandColor,
                   borderRadius: BorderRadius.circular(1),
                 ),
               ),
@@ -909,6 +917,7 @@ class _NewsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ext = Theme.of(context).extension<ChatAppTheme>()!;
     return InkWell(
       onTap: () {},
       child: Padding(
@@ -953,13 +962,13 @@ class _NewsItem extends StatelessWidget {
                       source,
                       style: TextStyle(
                         fontSize: 11,
-                        color: Colors.grey.shade500,
+                        color: ext.subTextColor,
                       ),
                     ),
                     Text(
                       ' · ',
                       style: TextStyle(
-                        color: Colors.grey.shade500,
+                        color: ext.subTextColor,
                         fontSize: 11,
                       ),
                     ),
@@ -967,7 +976,7 @@ class _NewsItem extends StatelessWidget {
                       time,
                       style: TextStyle(
                         fontSize: 11,
-                        color: Colors.grey.shade500,
+                        color: ext.subTextColor,
                       ),
                     ),
                   ],
