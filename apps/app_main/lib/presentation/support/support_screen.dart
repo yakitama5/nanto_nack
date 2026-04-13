@@ -22,6 +22,7 @@ class SupportScreen extends ConsumerStatefulWidget {
 
 class _SupportScreenState extends ConsumerState<SupportScreen> {
   Package? _selectedPackage;
+  bool _isBusy = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,10 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
     final offeringsAsync = ref.watch(offeringsProvider);
     final customerInfoAsync = ref.watch(customerInfoProvider);
 
-    final currentCount = customerInfoAsync.when(
+    final int? currentCount = customerInfoAsync.when<int?>(
       data: (info) => calculateTotalCoffees(info),
       loading: () => 0,
-      error: (_, __) => 0,
+      error: (_, __) => null,
     );
 
     return Scaffold(
@@ -46,7 +47,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
         children: [
           // ── 背景：積み重なるコーヒーアイコン ──
           Positioned.fill(
-            child: _CoffeeBackground(count: currentCount),
+            child: _CoffeeBackground(count: currentCount ?? 0),
           ),
           // ── メインコンテンツ ──
           SafeArea(
@@ -66,8 +67,10 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        t.support.totalCoffeesCount
-                            .replaceAll('{count}', currentCount.toString()),
+                        currentCount != null
+                            ? t.support.totalCoffeesCount
+                                .replaceAll('{count}', currentCount.toString())
+                            : '--',
                         style: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
@@ -94,33 +97,42 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                 ),
                 // プラン選択リスト（RevenueCat データを元に表示）
                 offeringsAsync.when(
-                  data: (offering) => Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withValues(alpha: 0.85),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: RadioGroup<Package>(
-                        groupValue: _selectedPackage,
-                        onChanged: (val) =>
-                            setState(() => _selectedPackage = val),
-                        child: ListView(
-                          children: offering?.availablePackages.map((package) {
-                                return RadioListTile<Package>(
-                                  title: Text(package.storeProduct.title),
-                                  subtitle:
-                                      Text(package.storeProduct.priceString),
-                                  value: package,
-                                );
-                              }).toList() ??
-                              [],
+                  data: (offering) {
+                    if (offering == null ||
+                        offering.availablePackages.isEmpty) {
+                      return Expanded(
+                        child: Center(
+                          child: Text(t.support.noOfferings),
+                        ),
+                      );
+                    }
+                    return Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .scaffoldBackgroundColor
+                              .withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: RadioGroup<Package>(
+                          groupValue: _selectedPackage,
+                          onChanged: (val) =>
+                              setState(() => _selectedPackage = val),
+                          child: ListView(
+                            children: offering.availablePackages.map((package) {
+                              return RadioListTile<Package>(
+                                title: Text(package.storeProduct.title),
+                                subtitle:
+                                    Text(package.storeProduct.priceString),
+                                value: package,
+                              );
+                            }).toList(),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                   loading: () => const Expanded(
                     child: Center(child: CircularProgressIndicator()),
                   ),
@@ -135,7 +147,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                 ),
                 // 購入の復元ボタン
                 TextButton(
-                  onPressed: _handleRestore,
+                  onPressed: _isBusy ? null : _handleRestore,
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -167,7 +179,8 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
             ),
-            onPressed: _selectedPackage == null ? null : _handlePurchase,
+            onPressed:
+                (_selectedPackage == null || _isBusy) ? null : _handlePurchase,
             child: Text(t.support.sendCoffeeButton),
           ),
         ),
@@ -177,7 +190,8 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
 
   Future<void> _handlePurchase() async {
     final package = _selectedPackage;
-    if (package == null) return;
+    if (package == null || _isBusy) return;
+    setState(() => _isBusy = true);
 
     try {
       await Purchases.purchase(PurchaseParams.package(package));
@@ -210,10 +224,15 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(t.support.purchaseError)),
       );
+    } finally {
+      if (mounted) setState(() => _isBusy = false);
     }
   }
 
   Future<void> _handleRestore() async {
+    if (_isBusy) return;
+    setState(() => _isBusy = true);
+
     try {
       await Purchases.restorePurchases();
       // 復元成功後に顧客情報を更新
@@ -230,6 +249,8 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(t.support.restoreError)),
       );
+    } finally {
+      if (mounted) setState(() => _isBusy = false);
     }
   }
 }
