@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mail/src/domain/entities/mail_folder.dart';
+import 'package:quiz_core/quiz_core.dart';
 
 /// メールアプリの左ドロワー
 ///
@@ -28,17 +29,18 @@ class MailDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     return Drawer(
       child: Column(
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: Color(0xFF1A73E8)),
+            decoration: BoxDecoration(color: mailTheme.drawerHeaderBackground),
             child: Align(
               alignment: Alignment.bottomLeft,
               child: Text(
                 appTitle,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: mailTheme.onBrandColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -109,24 +111,22 @@ class _DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     return ListTile(
       leading: Icon(
         icon,
-        color:
-            isSelected ? const Color(0xFF1A73E8) : const Color(0xFF5F6368),
+        color: isSelected ? mailTheme.brandBlue : mailTheme.textSecondary,
       ),
       title: Text(
         label,
         style: TextStyle(
-          color: isSelected
-              ? const Color(0xFF1A73E8)
-              : const Color(0xFF202124),
+          color: isSelected ? mailTheme.brandBlue : mailTheme.textPrimary,
           fontWeight:
               isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),
       selected: isSelected,
-      selectedTileColor: const Color(0xFFE8F0FE),
+      selectedTileColor: mailTheme.selectedBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(28),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mail/src/domain/entities/mail.dart';
+import 'package:quiz_core/quiz_core.dart';
 
 /// メール1行分のUI
 ///
@@ -28,6 +29,7 @@ class MailListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     final tile = _MailTile(
       mail: mail,
       isSelected: isSelected,
@@ -45,19 +47,19 @@ class MailListItem extends StatelessWidget {
       background: Container(
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
-        color: const Color(0xFF0D9550),
+        color: mailTheme.archiveSwipeColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               Icons.archive_outlined,
-              color: Colors.white,
+              color: mailTheme.onBrandColor,
               size: 28,
             ),
             const SizedBox(height: 4),
             Text(
               archiveLabel,
-              style: const TextStyle(color: Colors.white, fontSize: 12),
+              style: TextStyle(color: mailTheme.onBrandColor, fontSize: 12),
             ),
           ],
         ),
@@ -85,15 +87,16 @@ class _MailTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     return InkWell(
       onTap: onTap,
       onLongPress: onLongPress,
       child: Container(
         color: isSelected
-            ? const Color(0xFFE8F0FE)
+            ? mailTheme.selectedBackground
             : mail.isRead
-                ? Colors.white
-                : const Color(0xFFF8F9FA),
+                ? mailTheme.scaffoldBackground
+                : mailTheme.unreadBackground,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +121,7 @@ class _MailTile extends StatelessWidget {
                                 ? FontWeight.normal
                                 : FontWeight.bold,
                             fontSize: 14,
-                            color: const Color(0xFF202124),
+                            color: mailTheme.textPrimary,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -129,8 +132,8 @@ class _MailTile extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           color: mail.isRead
-                              ? const Color(0xFF5F6368)
-                              : const Color(0xFF1A73E8),
+                              ? mailTheme.textSecondary
+                              : mailTheme.brandBlue,
                           fontWeight: mail.isRead
                               ? FontWeight.normal
                               : FontWeight.bold,
@@ -145,7 +148,7 @@ class _MailTile extends StatelessWidget {
                       fontWeight:
                           mail.isRead ? FontWeight.normal : FontWeight.bold,
                       fontSize: 13,
-                      color: const Color(0xFF202124),
+                      color: mailTheme.textPrimary,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -153,9 +156,9 @@ class _MailTile extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     mail.bodyPreview,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
-                      color: Color(0xFF5F6368),
+                      color: mailTheme.textSecondary,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -183,19 +186,20 @@ class _Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     if (isSelected) {
-      return const CircleAvatar(
+      return CircleAvatar(
         radius: 20,
-        backgroundColor: Color(0xFF1A73E8),
-        child: Icon(Icons.check, color: Colors.white, size: 20),
+        backgroundColor: mailTheme.brandBlue,
+        child: Icon(Icons.check, color: mailTheme.onBrandColor, size: 20),
       );
     }
 
     if (isSelectionMode) {
-      return const CircleAvatar(
+      return CircleAvatar(
         radius: 20,
-        backgroundColor: Color(0xFFE8EAED),
-        child: Icon(Icons.check, color: Color(0xFFBDC1C6), size: 20),
+        backgroundColor: mailTheme.unselectedAvatarBackground,
+        child: Icon(Icons.check, color: mailTheme.unselectedCheckColor, size: 20),
       );
     }
 

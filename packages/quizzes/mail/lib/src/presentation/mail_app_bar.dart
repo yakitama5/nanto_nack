@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_core/quiz_core.dart';
 
 /// メールアプリのAppBar
 ///
@@ -28,18 +29,19 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     if (_isSelectionMode) {
       return AppBar(
-        backgroundColor: const Color(0xFF1A73E8),
-        foregroundColor: Colors.white,
+        backgroundColor: mailTheme.brandBlue,
+        foregroundColor: mailTheme.onBrandColor,
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: onClearSelection,
         ),
         title: Text(
           selectedCountText,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: mailTheme.onBrandColor,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -54,26 +56,26 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: mailTheme.scaffoldBackground,
       elevation: 1,
-      shadowColor: Colors.grey.withAlpha(76),
+      shadowColor: Theme.of(context).shadowColor.withAlpha(76),
       title: GestureDetector(
         onTap: onSearchTap,
         child: Container(
           height: 42,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            color: const Color(0xFFF1F3F4),
+            color: mailTheme.searchBarBackground,
             borderRadius: BorderRadius.circular(24),
           ),
           child: Row(
             children: [
-              const Icon(Icons.search, color: Color(0xFF5F6368), size: 20),
+              Icon(Icons.search, color: mailTheme.textSecondary, size: 20),
               const SizedBox(width: 8),
               Text(
                 searchHint,
-                style: const TextStyle(
-                  color: Color(0xFF5F6368),
+                style: TextStyle(
+                  color: mailTheme.textSecondary,
                   fontSize: 16,
                 ),
               ),
