@@ -209,8 +209,17 @@ class MailQuizNotifier
       _timer?.cancel();
       // autoDispose により dispose 後に ref.read すると例外になるため、
       // 永続化処理を先に完了させてから haptic を再生する
-      await _saveResult(isCleared: true, elapsedMs: elapsed);
-      await hapticFeedback.playSuccessFeedback();
+      try {
+        await _saveResult(isCleared: true, elapsedMs: elapsed);
+      } catch (error, stackTrace) {
+        appLogger.e(
+          '[MailQuizNotifier] moveToTrash: _saveResult failed',
+          error: error,
+          stackTrace: stackTrace,
+        );
+      } finally {
+        await hapticFeedback.playSuccessFeedback();
+      }
     }
   }
 
@@ -248,8 +257,17 @@ class MailQuizNotifier
       _timer?.cancel();
       // autoDispose により dispose 後に ref.read すると例外になるため、
       // 永続化処理を先に完了させてから haptic を再生する
-      await _saveResult(isCleared: true, elapsedMs: elapsed);
-      await hapticFeedback.playSuccessFeedback();
+      try {
+        await _saveResult(isCleared: true, elapsedMs: elapsed);
+      } catch (error, stackTrace) {
+        appLogger.e(
+          '[MailQuizNotifier] submitSearch: _saveResult failed',
+          error: error,
+          stackTrace: stackTrace,
+        );
+      } finally {
+        await hapticFeedback.playSuccessFeedback();
+      }
     }
   }
 
@@ -319,8 +337,17 @@ class MailQuizNotifier
       _timer?.cancel();
       // autoDispose により dispose 後に ref.read すると例外になるため、
       // 永続化処理を先に完了させてから haptic を再生する
-      await _saveResult(isCleared: true, elapsedMs: elapsed);
-      await hapticFeedback.playSuccessFeedback();
+      try {
+        await _saveResult(isCleared: true, elapsedMs: elapsed);
+      } catch (error, stackTrace) {
+        appLogger.e(
+          '[MailQuizNotifier] _applyResult: _saveResult failed',
+          error: error,
+          stackTrace: stackTrace,
+        );
+      } finally {
+        await hapticFeedback.playSuccessFeedback();
+      }
     }
   }
 
