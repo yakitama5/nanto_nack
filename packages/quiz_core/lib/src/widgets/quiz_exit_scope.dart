@@ -28,7 +28,7 @@ import 'package:quiz_core/src/entities/quiz_state.dart';
 ///   child: child,
 /// )
 /// ```
-class QuizExitScope extends StatelessWidget {
+class QuizExitScope extends StatefulWidget {
   const QuizExitScope({
     super.key,
     required this.quizStatus,
@@ -62,17 +62,32 @@ class QuizExitScope extends StatelessWidget {
   }
 
   @override
+  State<QuizExitScope> createState() => _QuizExitScopeState();
+}
+
+class _QuizExitScopeState extends State<QuizExitScope> {
+  bool _isConfirmDialogOpen = false;
+
+  @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: quizStatus != QuizStatus.playing,
+      canPop: widget.quizStatus != QuizStatus.playing,
       onPopInvokedWithResult: (didPop, _) async {
         if (didPop) return;
-        final confirmed = await showConfirmDialog(context);
-        if (confirmed == true && context.mounted) {
-          Navigator.of(context).pop();
+        if (_isConfirmDialogOpen) return;
+        setState(() => _isConfirmDialogOpen = true);
+        try {
+          final confirmed = await QuizExitScope.showConfirmDialog(context);
+          if (confirmed == true && context.mounted) {
+            Navigator.of(context).pop();
+          }
+        } finally {
+          if (mounted) {
+            setState(() => _isConfirmDialogOpen = false);
+          }
         }
       },
-      child: child,
+      child: widget.child,
     );
   }
 }
