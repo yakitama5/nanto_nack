@@ -17,3 +17,19 @@
 
 - **Slang:** `slang` および `slang_flutter` を使用。
 - **ワークフロー:** JSON/YAMLベースで定義し、コード生成を行う。型安全なアクセスを優先すること。
+- **全テキスト Slang 必須:** `tooltip`・`semanticsLabel` 等の補助テキストも含め、UI に表示されるすべての文字列をハードコードしないこと。
+
+## 🔘 optional callback とウィジェットラッパー
+
+コールバック引数が `null` になり得る場合、そのコールバックを必要とするウィジェットラッパーは
+コールバックが非 null のときのみ適用すること。
+
+```dart
+// ❌ 禁止（onDismissed が null でも Dismissible でラップ）
+if (isSelectionMode) return tile;
+return Dismissible(..., onDismissed: onDismissed);
+
+// ✅ 正しい
+if (isSelectionMode || onDismissed == null) return tile;
+return Dismissible(..., onDismissed: onDismissed!);
+```

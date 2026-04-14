@@ -33,6 +33,36 @@ test('今日だけプレイしていればストリーク 1', () async {
 - `withClock` は非同期コールバックにも対応している（`async` ブロックで使用可）。
 - `clock` パッケージの詳細は `architecture-and-style.md` の「現在日時の取得ルール」を参照すること。
 
+## 📋 テーブル駆動テスト
+
+同じ関数に対して3件以上の異なる入力パターンをテストする場合は、
+Dart レコードリテラルを使ったテーブル駆動スタイルで記述すること。
+
+```dart
+// ❌ 非推奨（繰り返しが多い）
+test('0件はfalse', () => expect(useCase.isClear(count: 0), isFalse));
+test('3件はtrue', () => expect(useCase.isClear(count: 3), isTrue));
+test('4件はfalse', () => expect(useCase.isClear(count: 4), isFalse));
+
+// ✅ 推奨（追加が1行で済む）
+const cases = <(int, bool)>[
+  (0, false), (1, false), (2, false),
+  (3, true),  // 正解
+  (4, false), (5, false),
+];
+for (final (count, expected) in cases) {
+  test('$count件は${expected}を返す', () {
+    expect(useCase.isClear(count: count), expected);
+  });
+}
+```
+
+## 🔧 Golden Test の CI 判定
+
+`flutter_test_config.dart` の CI 判定は `Platform.environment['CI']` の値を
+`toLowerCase().trim()` で正規化し、`"true"` / `"1"` / `"yes"` のいずれかで isCI = true とすること。
+`== 'true'` のみの比較は CI 環境によって動作しない場合がある。
+
 ## 🚀 Execution
 
 - テストの実行は、個別のディレクトリではなく、ルートから `melos run test:all` 等の Melos スクリプトを介して行うことを推奨する。

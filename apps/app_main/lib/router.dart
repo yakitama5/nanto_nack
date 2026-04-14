@@ -3,6 +3,7 @@ import 'package:chat/chat.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mail/mail.dart';
 import 'package:payment/payment.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map/map.dart';
@@ -217,6 +218,35 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/payment/quiz4',
         builder: (context, state) => ChangePaymentMethodQuizScreen(
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      // メールカテゴリー
+      GoRoute(
+        path: '/mail/quiz1',
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.archive,
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      GoRoute(
+        path: '/mail/quiz2',
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.emptyTrash,
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      GoRoute(
+        path: '/mail/quiz3',
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.selectDelete,
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      GoRoute(
+        path: '/mail/quiz4',
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.search,
           onCompleted: () => context.pop(),
         ),
       ),

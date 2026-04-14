@@ -56,3 +56,4 @@ Flutter/Dart開発専門家として、UI/UX直感クイズアプリ「NantoNack
 - データ管理・ゲームロジック: `data-and-logic.md`
 - テスティング: `testing.md`
 - Gitコミットルール: `commit_rule.md`
+- **クイズカテゴリ設計規約: `quiz-category-design.md`**（新カテゴリ作成時は必読）

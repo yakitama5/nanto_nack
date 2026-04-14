@@ -5,6 +5,7 @@ export 'src/theme/app_colors.dart';
 export 'src/theme/app_text_styles.dart';
 export 'src/theme/app_theme.dart';
 export 'src/theme/chat_app_theme.dart';
+export 'src/theme/mail_app_theme.dart';
 export 'src/theme/map_app_theme.dart';
 export 'src/theme/nanto_nack_theme_extension.dart';
 export 'src/theme/payment_app_theme.dart';
