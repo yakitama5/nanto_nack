@@ -6,9 +6,9 @@ class QuizSearchUseCase {
 
   /// 検索クエリが正解と一致するかを判定する
   ///
-  /// 大文字小文字を区別しない比較を行う。
+  /// 前後の空白を除去し、大文字小文字を区別しない比較を行う。
   bool isClear({required String query}) {
-    return query.toLowerCase() ==
+    return query.trim().toLowerCase() ==
         MailQuizConfig.quiz4TargetQuery.toLowerCase();
   }
 }
