@@ -224,25 +224,29 @@ final routerProvider = Provider<GoRouter>((ref) {
       // メールカテゴリー
       GoRoute(
         path: '/mail/quiz1',
-        builder: (context, state) => ArchiveQuizScreen(
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.archive,
           onCompleted: () => context.pop(),
         ),
       ),
       GoRoute(
         path: '/mail/quiz2',
-        builder: (context, state) => EmptyTrashQuizScreen(
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.emptyTrash,
           onCompleted: () => context.pop(),
         ),
       ),
       GoRoute(
         path: '/mail/quiz3',
-        builder: (context, state) => SelectDeleteQuizScreen(
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.selectDelete,
           onCompleted: () => context.pop(),
         ),
       ),
       GoRoute(
         path: '/mail/quiz4',
-        builder: (context, state) => SearchQuizScreen(
+        builder: (context, state) => MailQuizScreen(
+          type: MailQuizType.search,
           onCompleted: () => context.pop(),
         ),
       ),
