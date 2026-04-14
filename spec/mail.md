@@ -12,7 +12,8 @@
 - `subject`: String (件名)
 - `bodyPreview`: String (本文プレビュー)
 - `isRead`: bool (既読フラグ)
-- `folder`: enum MailFolder (inbox, trash, archive)
+- `folder`: enum MailFolder (inbox, sent, trash, archive)
+  - `sent` はドロワーに表示されるが、クイズ対象外のダミーフォルダ
 
 ## 3. 状態管理 (Riverpod)
 メールアプリの共通状態を管理する `MailAppNotifier` を実装する。クイズごとに初期化されるよう `autoDispose` を使用すること。
@@ -65,4 +66,4 @@
 - **お題**: 「5Mバイト以上のメールを検索しよう」
 - **想定操作**: 検索ボックスをタップ -> `larger:5M` と入力して検索実行。
 - **ヒント機能**: お題画面のヒントボタン押下で「Tips: サイズ指定検索は larger:5M のように入力！」と表示する。
-- **クリア条件**: `submitSearch(String query)` が呼ばれた際、`query` が `"larger:5M"` と完全一致（または大文字小文字等を許容する正規表現に一致）した瞬間にクリア。
+- **クリア条件**: `submitSearch()` が呼ばれた際、`state.mailApp.searchQuery.trim().toLowerCase() == "larger:5m"` に一致した瞬間にクリア。大文字小文字を区別しない（`LARGER:5M` や `Larger:5M` も正解）。コロンを含む完全一致のみクリアとし、スペース区切り（`larger 5M`）は不正解。

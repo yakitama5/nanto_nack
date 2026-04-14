@@ -4,15 +4,15 @@ import 'package:mail/src/domain/entities/mail_folder.dart';
 /// メールアプリのマスターデータカタログ
 ///
 /// テキストはすべて英語で定義し、UI表示時にカスタム言語に変換する。
-/// [timeLabel] は clock.now() を受け取り静的に生成することで、
-/// UIウィジェット内での DateTime.now() 呼び出しを不要にしている。
+/// [timeLabel] は相対表記（例: "15m", "1h"）を静的に定義しているため、
+/// 現在時刻のパラメータは不要。
 class MailCatalog {
   MailCatalog._();
 
   /// Quiz1用: 受信トレイのメール（上から3番目がアーカイブ対象）
   ///
   /// `mail_quiz1_target` が3番目に配置されている。
-  static List<Mail> quiz1Mails(DateTime now) => [
+  static List<Mail> quiz1Mails() => [
         Mail(
           id: 'mail_q1_1',
           sender: 'Alice Johnson',
@@ -62,7 +62,7 @@ class MailCatalog {
       ];
 
   /// Quiz2用: ゴミ箱にメールあり
-  static List<Mail> quiz2Mails(DateTime now) => [
+  static List<Mail> quiz2Mails() => [
         // 受信トレイ
         Mail(
           id: 'mail_q2_1',
@@ -113,7 +113,7 @@ class MailCatalog {
       ];
 
   /// Quiz3用: 受信トレイに5件（3件選択して削除）
-  static List<Mail> quiz3Mails(DateTime now) => [
+  static List<Mail> quiz3Mails() => [
         Mail(
           id: 'mail_q3_1',
           sender: 'Alice Johnson',
@@ -164,7 +164,7 @@ class MailCatalog {
       ];
 
   /// Quiz4用: 通常受信トレイ（検索クイズ用）
-  static List<Mail> quiz4Mails(DateTime now) => [
+  static List<Mail> quiz4Mails() => [
         Mail(
           id: 'mail_q4_1',
           sender: 'Alice Johnson',
