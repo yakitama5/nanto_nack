@@ -22,6 +22,14 @@ allowedTools: ["Read", "Glob", "Grep", "WebSearch", "WebFetch"]
    - 各タスクには「目的（Why）」「対象ファイル（Where）」「実装内容（What）」を含める。
    - 既存コードへの影響（破壊的変更、副作用）を評価し、リスクを明記する。
 
+## 📚 参照すべき設計ドキュメント
+
+計画立案前に必ず以下の設計資料を確認し、仕様と整合した計画を策定すること。
+
+- `docs/table-design.md`: DBテーブル定義（カラム名・型・制約をそのまま使用する）
+- `docs/custom-language-design.md`: カスタム言語仕様（変換ロジックを実装する際の仕様源）
+- `docs/quizzes/<category>.md`: クイズ仕様（ミッション・難易度・クリア条件が実装の要件）
+
 ## 📐 設計制約（CRITICAL）
 
 計画は必ず以下の制約に準拠すること。

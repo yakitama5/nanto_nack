@@ -144,7 +144,7 @@ class _ShoppingAppState extends State<ShoppingApp> {
           setState(() => _showOrderHistory = false);
           return;
         }
-        final confirmed = await _showExitConfirmDialog();
+        final confirmed = await QuizExitScope.showConfirmDialog(context);
         if (confirmed == true && mounted) {
           Navigator.of(context).pop();
         }
@@ -178,26 +178,6 @@ class _ShoppingAppState extends State<ShoppingApp> {
             ),
           // クイズ固有のオーバーレイ（カットイン・リザルト等）
           ...widget.overlays,
-        ],
-      ),
-    );
-  }
-
-  Future<bool?> _showExitConfirmDialog() {
-    return showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('ゲームを中断しますか？'),
-        content: const Text('プレイ中のゲームを終了します。'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('続ける'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('終了する'),
-          ),
         ],
       ),
     );

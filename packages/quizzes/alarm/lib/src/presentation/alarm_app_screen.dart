@@ -44,32 +44,8 @@ class AlarmListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final sq = context.sq;
 
-    return PopScope(
-      canPop: quizStatus != QuizStatus.playing,
-      onPopInvokedWithResult: (didPop, _) async {
-        if (didPop) return;
-        // プレイ中に戻るジェスチャー → 確認ダイアログ
-        final confirmed = await showDialog<bool>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text('ゲームを中断しますか？'),
-            content: const Text('プレイ中のゲームを終了します。'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('続ける'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('終了する'),
-              ),
-            ],
-          ),
-        );
-        if (confirmed == true && context.mounted) {
-          Navigator.of(context).pop();
-        }
-      },
+    return QuizExitScope(
+      quizStatus: quizStatus,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(

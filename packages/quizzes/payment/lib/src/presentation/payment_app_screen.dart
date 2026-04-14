@@ -125,41 +125,14 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
     super.dispose();
   }
 
-  Future<bool?> _showExitConfirmDialog() {
-    return showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(t.quiz.exitDialogTitle),
-        content: Text(t.quiz.exitDialogContent),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(t.quiz.exitDialogContinue),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(t.quiz.exitDialogExit),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final sq = context.sq;
 
     final ext = Theme.of(context).extension<PaymentAppTheme>()!;
 
-    return PopScope(
-      canPop: widget.quizStatus != QuizStatus.playing,
-      onPopInvokedWithResult: (didPop, _) async {
-        if (didPop) return;
-        final confirmed = await _showExitConfirmDialog();
-        if (confirmed == true && mounted) {
-          Navigator.of(context).pop();
-        }
-      },
+    return QuizExitScope(
+      quizStatus: widget.quizStatus,
       child: Scaffold(
       backgroundColor: ext.brandColor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

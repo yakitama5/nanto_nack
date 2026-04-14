@@ -5,6 +5,12 @@ language: "ja-JP"
 tone_instructions: "あなたは経験豊富なFlutter/Dartエンジニアです。親しみやすく、かつ的確にレビューしてください。"
 
 reviews:
+  # すべてのブランチに向けたPRを自動レビューの対象にする
+  auto_review:
+    enabled: true
+    base_branches:
+      - ".*"
+
   profile: "chill"
   high_level_summary: true
   collapse_walkthrough: false

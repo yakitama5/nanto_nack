@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../domain/entities/map_place.dart';
-import '../domain/map_catalog.dart';
 import '../i18n/map_translations_extension.dart';
+import '../domain/map_catalog.dart';
 import '../../i18n/strings.g.dart' as $map;
 
 /// Google マップ風の地図UIベーススクリーン
@@ -81,35 +81,11 @@ class MapAppScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final s = context.s;
     final sq = context.sq;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
 
-    return PopScope(
-      canPop: quizStatus != QuizStatus.playing,
-      onPopInvokedWithResult: (didPop, _) async {
-        if (didPop) return;
-        final confirmed = await showDialog<bool>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text(s.common.confirmQuitTitle),
-            content: Text(s.common.confirmQuitMessage),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text(s.common.continueGame),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text(s.common.quitGame),
-              ),
-            ],
-          ),
-        );
-        if (confirmed == true && context.mounted) {
-          Navigator.of(context).pop();
-        }
-      },
+    return QuizExitScope(
+      quizStatus: quizStatus,
       child: Scaffold(
         backgroundColor: Theme.of(context).extension<MapAppTheme>()!.mapBackground,
       body: Stack(
