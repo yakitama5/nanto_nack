@@ -19,7 +19,10 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onClearSelection,
     this.emptyTrashLabel,
     this.onEmptyTrash,
-  });
+  }) : assert(
+          onEmptyTrash == null || emptyTrashLabel != null,
+          'emptyTrashLabel must be provided when onEmptyTrash is set',
+        );
 
   final int selectedCount;
   final String searchHint;
@@ -82,7 +85,7 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         if (onEmptyTrash != null)
           PopupMenuButton<String>(
-            onSelected: (_) => onEmptyTrash?.call(),
+            onSelected: (_) => onEmptyTrash!.call(),
             icon: Icon(Icons.more_vert, color: mailTheme.textSecondary),
             itemBuilder: (context) => [
               PopupMenuItem<String>(
@@ -95,7 +98,7 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      emptyTrashLabel ?? '',
+                      emptyTrashLabel!,
                       style: TextStyle(color: mailTheme.destructive),
                     ),
                   ],
