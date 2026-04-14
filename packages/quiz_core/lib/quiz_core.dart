@@ -28,4 +28,5 @@ export 'src/widgets/quiz_result_overlay.dart';
 export 'src/widgets/skeleton_dashboard.dart';
 export 'src/widgets/stage_card.dart';
 export 'src/widgets/quiz_exit_scope.dart';
+export 'src/widgets/quiz_insight_widgets.dart';
 export 'src/widgets/unreadable_text.dart';
