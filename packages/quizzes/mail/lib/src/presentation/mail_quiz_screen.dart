@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mail/src/domain/mail_quiz_config.dart';
 import 'package:mail/src/i18n/mail_translations_extension.dart';
 import 'package:mail/src/presentation/mail_app_bar.dart';
 import 'package:mail/src/presentation/mail_drawer.dart';
@@ -8,7 +9,6 @@ import 'package:mail/src/presentation/mail_quiz_notifier.dart';
 import 'package:mail/src/presentation/mail_quiz_state.dart';
 import 'package:mail/src/presentation/mail_quiz_type.dart';
 import 'package:quiz_core/quiz_core.dart';
-import '../../i18n/strings.g.dart' as $mail;
 
 /// メールアプリ謎解きの共通画面。
 ///
@@ -54,9 +54,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(mailQuizProvider(_type));
-    final s = context.s;
-    final sq = context.sq;
-    final missionText = _missionText(s);
+    final missionText = _missionText();
 
     final notifier = ref.read(mailQuizProvider(_type).notifier);
     final selectedCount = state.mailApp.selectedMailIds.length;
@@ -67,33 +65,32 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
       child: Scaffold(
         appBar: _buildAppBar(
           state: state,
-          sq: sq,
-          s: s,
           selectedCount: selectedCount,
           notifier: notifier,
         ),
-        drawer: _buildDrawer(sq: sq, state: state, notifier: notifier),
+        drawer: _buildDrawer(state: state, notifier: notifier),
         body: Stack(
           children: [
             _buildBody(
               state: state,
-              sq: sq,
               isSelectionMode: isSelectionMode,
               notifier: notifier,
             ),
             FloatingMissionBubble(
               missionText: missionText,
-              remainingSeconds: 0,
+              remainingSeconds: state.remainingSeconds,
+              timeLimitSeconds: MailQuizConfig.timeLimitSeconds,
               hintUsed: false,
             ),
             if (_showCutIn)
               MissionCutIn(
                 missionText: missionText,
-                timeLimitSeconds: 0,
+                timeLimitSeconds: MailQuizConfig.timeLimitSeconds,
                 onFinished: () => setState(() => _showCutIn = false),
               ),
             if (state.status == QuizStatus.correct ||
-                state.status == QuizStatus.giveUp)
+                state.status == QuizStatus.giveUp ||
+                state.status == QuizStatus.timeUp)
               Positioned.fill(
                 child: QuizResultOverlay(
                   status: state.status,
@@ -123,18 +120,17 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
 
   PreferredSizeWidget _buildAppBar({
     required MailQuizState state,
-    required $mail.Translations sq,
-    required $mail.Translations s,
     required int selectedCount,
     required MailQuizNotifier notifier,
   }) {
-    // Quiz4: 検索AppBar
+    final sq = context.sq;
+
     if (_type == MailQuizType.search) {
       return _SearchAppBar(
         isSearching: state.isSearching,
         searchController: _searchController,
         searchHint: sq.common.searchHint,
-        hint: s.quiz4.hint,
+        hint: context.s.quiz4.hint,
         onOpenSearch: notifier.openSearch,
         onCancelSearch: () {
           _searchController.clear();
@@ -142,12 +138,10 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
         },
         onQueryChanged: notifier.updateQuery,
         onSubmitSearch: notifier.submitSearch,
-        onShowHint: () => _showHintSnackBar(s.quiz4.hint),
+        onShowHint: () => _showHintSnackBar(context.s.quiz4.hint),
       );
     }
 
-    // Quiz3: 選択モード対応AppBar
-    // その他: 通常の検索バー（タップ不可）
     return MailAppBar(
       selectedCount: _type == MailQuizType.selectDelete ? selectedCount : 0,
       searchHint: sq.common.searchHint,
@@ -165,10 +159,10 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
   // ─────────────────────────────────────────────
 
   Widget? _buildDrawer({
-    required $mail.Translations sq,
     required MailQuizState state,
     required MailQuizNotifier notifier,
   }) {
+    final sq = context.sq;
     return MailDrawer(
       currentFolder: state.mailApp.currentFolder,
       inboxLabel: sq.common.inbox,
@@ -189,18 +183,19 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
 
   Widget _buildBody({
     required MailQuizState state,
-    required $mail.Translations sq,
     required bool isSelectionMode,
     required MailQuizNotifier notifier,
   }) {
-    // Quiz4: 検索モード中は入力誘導テキストを表示
+    final sq = context.sq;
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
+
     if (_type == MailQuizType.search && state.isSearching) {
-      return const Center(
+      return Center(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Text(
-            'Enter a search query and press Enter',
-            style: TextStyle(color: Color(0xFF5F6368)),
+            sq.common.searchPrompt,
+            style: TextStyle(color: mailTheme.textSecondary),
             textAlign: TextAlign.center,
           ),
         ),
@@ -213,7 +208,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
       return Center(
         child: Text(
           sq.common.noMails,
-          style: const TextStyle(color: Color(0xFF5F6368)),
+          style: TextStyle(color: mailTheme.textSecondary),
         ),
       );
     }
@@ -267,12 +262,16 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
   // Helpers
   // ─────────────────────────────────────────────
 
-  String _missionText($mail.Translations s) => switch (_type) {
-        MailQuizType.archive => s.quiz1.missionText,
-        MailQuizType.emptyTrash => s.quiz2.missionText,
-        MailQuizType.selectDelete => s.quiz3.missionText,
-        MailQuizType.search => s.quiz4.missionText,
-      };
+  /// ミッションテキストを取得する（ja ロケール固定）
+  String _missionText() {
+    final s = context.s;
+    return switch (_type) {
+      MailQuizType.archive => s.quiz1.missionText,
+      MailQuizType.emptyTrash => s.quiz2.missionText,
+      MailQuizType.selectDelete => s.quiz3.missionText,
+      MailQuizType.search => s.quiz4.missionText,
+    };
+  }
 
   void _showHintSnackBar(String hint) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -317,12 +316,15 @@ class _SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
+    final hintTooltip = context.sq.common.hintTooltip;
+
     if (isSearching) {
       return AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: mailTheme.scaffoldBackground,
         elevation: 1,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF5F6368)),
+          icon: Icon(Icons.arrow_back, color: mailTheme.textSecondary),
           onPressed: onCancelSearch,
         ),
         title: TextField(
@@ -331,14 +333,14 @@ class _SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: InputDecoration(
             hintText: searchHint,
             border: InputBorder.none,
-            hintStyle: const TextStyle(color: Color(0xFF5F6368)),
+            hintStyle: TextStyle(color: mailTheme.textSecondary),
           ),
           onChanged: onQueryChanged,
           onSubmitted: (_) => onSubmitSearch(),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Color(0xFF5F6368)),
+            icon: Icon(Icons.search, color: mailTheme.textSecondary),
             onPressed: onSubmitSearch,
           ),
         ],
@@ -346,25 +348,25 @@ class _SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: mailTheme.scaffoldBackground,
       elevation: 1,
-      shadowColor: Colors.grey.withAlpha(76),
+      shadowColor: Theme.of(context).shadowColor.withAlpha(76),
       title: GestureDetector(
         onTap: onOpenSearch,
         child: Container(
           height: 42,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            color: const Color(0xFFF1F3F4),
+            color: mailTheme.searchBarBackground,
             borderRadius: BorderRadius.circular(24),
           ),
           child: Row(
             children: [
-              const Icon(Icons.search, color: Color(0xFF5F6368), size: 20),
+              Icon(Icons.search, color: mailTheme.textSecondary, size: 20),
               const SizedBox(width: 8),
               Text(
                 searchHint,
-                style: const TextStyle(color: Color(0xFF5F6368), fontSize: 16),
+                style: TextStyle(color: mailTheme.textSecondary, fontSize: 16),
               ),
             ],
           ),
@@ -372,9 +374,9 @@ class _SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.help_outline, color: Color(0xFF5F6368)),
+          icon: Icon(Icons.help_outline, color: mailTheme.textSecondary),
           onPressed: onShowHint,
-          tooltip: 'Hint',
+          tooltip: hintTooltip,
         ),
       ],
     );
@@ -395,9 +397,21 @@ class _ArchiveInsight extends StatelessWidget {
       title: insight.title,
       subtitle: insight.subtitle,
       items: [
-        _InsightEntry(emoji: '👈', title: insight.swipeTitle, desc: insight.swipeDesc),
-        _InsightEntry(emoji: '💚', title: insight.greenTitle, desc: insight.greenDesc),
-        _InsightEntry(emoji: '📦', title: insight.archiveTitle, desc: insight.archiveDesc),
+        _InsightEntry(
+          emoji: '👈',
+          title: insight.swipeTitle,
+          desc: insight.swipeDesc,
+        ),
+        _InsightEntry(
+          emoji: '💚',
+          title: insight.greenTitle,
+          desc: insight.greenDesc,
+        ),
+        _InsightEntry(
+          emoji: '📦',
+          title: insight.archiveTitle,
+          desc: insight.archiveDesc,
+        ),
       ],
     );
   }
@@ -413,9 +427,21 @@ class _EmptyTrashInsight extends StatelessWidget {
       title: insight.title,
       subtitle: insight.subtitle,
       items: [
-        _InsightEntry(emoji: '☰', title: insight.drawerTitle, desc: insight.drawerDesc),
-        _InsightEntry(emoji: '🗑️', title: insight.trashTitle, desc: insight.trashDesc),
-        _InsightEntry(emoji: '✨', title: insight.emptyTitle, desc: insight.emptyDesc),
+        _InsightEntry(
+          emoji: '☰',
+          title: insight.drawerTitle,
+          desc: insight.drawerDesc,
+        ),
+        _InsightEntry(
+          emoji: '🗑️',
+          title: insight.trashTitle,
+          desc: insight.trashDesc,
+        ),
+        _InsightEntry(
+          emoji: '✨',
+          title: insight.emptyTitle,
+          desc: insight.emptyDesc,
+        ),
       ],
     );
   }
@@ -431,9 +457,21 @@ class _SelectDeleteInsight extends StatelessWidget {
       title: insight.title,
       subtitle: insight.subtitle,
       items: [
-        _InsightEntry(emoji: '👆', title: insight.longPressTitle, desc: insight.longPressDesc),
-        _InsightEntry(emoji: '✅', title: insight.checkTitle, desc: insight.checkDesc),
-        _InsightEntry(emoji: '🔵', title: insight.headerTitle, desc: insight.headerDesc),
+        _InsightEntry(
+          emoji: '👆',
+          title: insight.longPressTitle,
+          desc: insight.longPressDesc,
+        ),
+        _InsightEntry(
+          emoji: '✅',
+          title: insight.checkTitle,
+          desc: insight.checkDesc,
+        ),
+        _InsightEntry(
+          emoji: '🔵',
+          title: insight.headerTitle,
+          desc: insight.headerDesc,
+        ),
       ],
     );
   }
@@ -449,9 +487,21 @@ class _SearchInsight extends StatelessWidget {
       title: insight.title,
       subtitle: insight.subtitle,
       items: [
-        _InsightEntry(emoji: '🔍', title: insight.operatorTitle, desc: insight.operatorDesc),
-        _InsightEntry(emoji: '📦', title: insight.sizeTitle, desc: insight.sizeDesc),
-        _InsightEntry(emoji: '💡', title: insight.hintTitle, desc: insight.hintDesc),
+        _InsightEntry(
+          emoji: '🔍',
+          title: insight.operatorTitle,
+          desc: insight.operatorDesc,
+        ),
+        _InsightEntry(
+          emoji: '📦',
+          title: insight.sizeTitle,
+          desc: insight.sizeDesc,
+        ),
+        _InsightEntry(
+          emoji: '💡',
+          title: insight.hintTitle,
+          desc: insight.hintDesc,
+        ),
       ],
     );
   }
@@ -486,12 +536,13 @@ class _InsightContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
+            Icon(Icons.lightbulb, color: mailTheme.insightIconColor, size: 20),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -510,7 +561,7 @@ class _InsightContent extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: const Color(0xFF757575)),
+              ?.copyWith(color: mailTheme.subTextColor),
         ),
         const SizedBox(height: 12),
         ...items.expand(
@@ -537,6 +588,7 @@ class _InsightItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -559,7 +611,7 @@ class _InsightItem extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: const Color(0xFF757575)),
+                    ?.copyWith(color: mailTheme.subTextColor),
               ),
             ],
           ),
