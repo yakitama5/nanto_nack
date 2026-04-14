@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mail/src/i18n/mail_translations_extension.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 /// メールアプリのAppBar
@@ -66,27 +67,121 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
       shadowColor: Theme.of(context).shadowColor.withAlpha(76),
       title: GestureDetector(
         onTap: onSearchTap,
-        child: Container(
-          height: 42,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: mailTheme.searchBarBackground,
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.search, color: mailTheme.textSecondary, size: 20),
-              const SizedBox(width: 8),
-              Text(
-                searchHint,
-                style: TextStyle(
-                  color: mailTheme.textSecondary,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
+        child: _SearchBarContainer(searchHint: searchHint),
+      ),
+    );
+  }
+}
+
+/// Quiz4 専用 SearchAppBar
+///
+/// 検索前は検索バー風コンテナ、検索中はテキストフィールドを表示する。
+class MailSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const MailSearchAppBar({
+    super.key,
+    required this.isSearching,
+    required this.searchController,
+    required this.searchHint,
+    required this.hint,
+    required this.onOpenSearch,
+    required this.onCancelSearch,
+    required this.onQueryChanged,
+    required this.onSubmitSearch,
+    required this.onShowHint,
+  });
+
+  final bool isSearching;
+  final TextEditingController searchController;
+  final String searchHint;
+  final String hint;
+  final VoidCallback onOpenSearch;
+  final VoidCallback onCancelSearch;
+  final ValueChanged<String> onQueryChanged;
+  final VoidCallback onSubmitSearch;
+  final VoidCallback onShowHint;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
+    final hintTooltip = context.sq.common.hintTooltip;
+
+    if (isSearching) {
+      return AppBar(
+        backgroundColor: mailTheme.scaffoldBackground,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: mailTheme.textSecondary),
+          onPressed: onCancelSearch,
         ),
+        title: TextField(
+          controller: searchController,
+          autofocus: true,
+          decoration: InputDecoration(
+            hintText: searchHint,
+            border: InputBorder.none,
+            hintStyle: TextStyle(color: mailTheme.textSecondary),
+          ),
+          onChanged: onQueryChanged,
+          onSubmitted: (_) => onSubmitSearch(),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search, color: mailTheme.textSecondary),
+            onPressed: onSubmitSearch,
+          ),
+        ],
+      );
+    }
+
+    return AppBar(
+      backgroundColor: mailTheme.scaffoldBackground,
+      elevation: 1,
+      shadowColor: Theme.of(context).shadowColor.withAlpha(76),
+      title: GestureDetector(
+        onTap: onOpenSearch,
+        child: _SearchBarContainer(searchHint: searchHint),
+      ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.help_outline, color: mailTheme.textSecondary),
+          onPressed: onShowHint,
+          tooltip: hintTooltip,
+        ),
+      ],
+    );
+  }
+}
+
+/// 検索バー風の丸みを帯びたコンテナ。
+///
+/// [MailAppBar] と [MailSearchAppBar] で共通利用する。
+class _SearchBarContainer extends StatelessWidget {
+  const _SearchBarContainer({required this.searchHint});
+
+  final String searchHint;
+
+  @override
+  Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
+    return Container(
+      height: 42,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: mailTheme.searchBarBackground,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.search, color: mailTheme.textSecondary, size: 20),
+          const SizedBox(width: 8),
+          Text(
+            searchHint,
+            style: TextStyle(color: mailTheme.textSecondary, fontSize: 16),
+          ),
+        ],
       ),
     );
   }

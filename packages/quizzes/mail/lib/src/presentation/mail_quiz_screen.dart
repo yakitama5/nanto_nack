@@ -126,7 +126,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
     final sq = context.sq;
 
     if (_type == MailQuizType.search) {
-      return _SearchAppBar(
+      return MailSearchAppBar(
         isSearching: state.isSearching,
         searchController: _searchController,
         searchHint: sq.common.searchHint,
@@ -281,105 +281,6 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
         duration: const Duration(seconds: 4),
         behavior: SnackBarBehavior.floating,
       ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────
-// Quiz4 専用 SearchAppBar
-// ─────────────────────────────────────────────
-
-class _SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _SearchAppBar({
-    required this.isSearching,
-    required this.searchController,
-    required this.searchHint,
-    required this.hint,
-    required this.onOpenSearch,
-    required this.onCancelSearch,
-    required this.onQueryChanged,
-    required this.onSubmitSearch,
-    required this.onShowHint,
-  });
-
-  final bool isSearching;
-  final TextEditingController searchController;
-  final String searchHint;
-  final String hint;
-  final VoidCallback onOpenSearch;
-  final VoidCallback onCancelSearch;
-  final ValueChanged<String> onQueryChanged;
-  final VoidCallback onSubmitSearch;
-  final VoidCallback onShowHint;
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
-  @override
-  Widget build(BuildContext context) {
-    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
-    final hintTooltip = context.sq.common.hintTooltip;
-
-    if (isSearching) {
-      return AppBar(
-        backgroundColor: mailTheme.scaffoldBackground,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: mailTheme.textSecondary),
-          onPressed: onCancelSearch,
-        ),
-        title: TextField(
-          controller: searchController,
-          autofocus: true,
-          decoration: InputDecoration(
-            hintText: searchHint,
-            border: InputBorder.none,
-            hintStyle: TextStyle(color: mailTheme.textSecondary),
-          ),
-          onChanged: onQueryChanged,
-          onSubmitted: (_) => onSubmitSearch(),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: mailTheme.textSecondary),
-            onPressed: onSubmitSearch,
-          ),
-        ],
-      );
-    }
-
-    return AppBar(
-      backgroundColor: mailTheme.scaffoldBackground,
-      elevation: 1,
-      shadowColor: Theme.of(context).shadowColor.withAlpha(76),
-      title: GestureDetector(
-        onTap: onOpenSearch,
-        child: Container(
-          height: 42,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: mailTheme.searchBarBackground,
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.search, color: mailTheme.textSecondary, size: 20),
-              const SizedBox(width: 8),
-              Text(
-                searchHint,
-                style: TextStyle(color: mailTheme.textSecondary, fontSize: 16),
-              ),
-            ],
-          ),
-        ),
-      ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.help_outline, color: mailTheme.textSecondary),
-          onPressed: onShowHint,
-          tooltip: hintTooltip,
-        ),
-      ],
     );
   }
 }
