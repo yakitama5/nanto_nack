@@ -107,3 +107,34 @@ final UnmodifiableSetView<String> selectedMailIds;
 ## 🧩 関数シグネチャと実装の一致
 
 宣言したパラメータは必ず実装内で使用すること。未使用パラメータは削除する。
+
+## 🔒 null チェック済みコールバックは `!` でアクセスする
+
+`if (callback != null)` などのガードで null でないことが保証されている場合は、
+ブロック内で `?.call()` を使わず `!.call()` でアクセスすること。
+また、複数の関連パラメータに整合性制約がある場合はコンストラクタの `assert` で保証すること。
+
+```dart
+// ❌ 禁止（if ガードで null チェック済みなのに ?. を使っている）
+if (onEmptyTrash != null)
+  PopupMenuButton(
+    onSelected: (_) => onEmptyTrash?.call(),
+    child: Text(emptyTrashLabel ?? ''),
+  )
+
+// ✅ 正しい（! でアクセス、assert で API 整合性を保証）
+const MyWidget({
+  this.onEmptyTrash,
+  this.emptyTrashLabel,
+}) : assert(
+        onEmptyTrash == null || emptyTrashLabel != null,
+        'emptyTrashLabel must be provided when onEmptyTrash is set',
+      );
+
+// build 内
+if (onEmptyTrash != null)
+  PopupMenuButton(
+    onSelected: (_) => onEmptyTrash!.call(),
+    child: Text(emptyTrashLabel!),
+  )
+```

@@ -56,3 +56,26 @@ void clearSelection() {
   state = state.copyWith(...);
 }
 ```
+
+## 🚫 State が変化しない場合は早期 return してリビルドを防ぐ
+
+`copyWith` を呼ぶ前に、**既に目的の状態になっているかどうか**をチェックし、
+変化がなければ早期 return すること。不要な `copyWith` はリビルドを引き起こす。
+
+```dart
+// ❌ 禁止（hintUsed が既に true でも毎回 copyWith が走る）
+void useHint() {
+  if (state.status != QuizStatus.playing) return;
+  state = state.copyWith(hintUsed: true);
+}
+
+// ✅ 正しい（冪等ガードを追加してリビルドを抑制）
+void useHint() {
+  if (state.status != QuizStatus.playing) return;
+  if (state.hintUsed) return;            // ← 既に true なら何もしない
+  state = state.copyWith(hintUsed: true);
+}
+```
+
+- ステータスガード（`QuizStatus.playing` 等）に加えて、**変更対象フィールドの現在値チェック**も行うこと。
+- bool フラグのトグル操作などは特に漏れやすいため注意すること。

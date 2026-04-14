@@ -338,8 +338,17 @@ String _stageTitle(String stageId, Translations t) {
 }
 ```
 
+**必須:** `categoryColor` の switch にも同カテゴリを追加すること。漏れると `colorScheme.primary`（デフォルト）になりカテゴリ固有色が表示されない。
+```dart
+final categoryColor = switch (categoryId) {
+  // ...
+  '<category>' => ext.<category>CategoryColor,  // ← 追加（category_list_screen と同じ色値を使う）
+  _ => colorScheme.primary,
+};
+```
+
 ### category_list_screen.dart の switch 文に追加
-`apps/app_main/lib/presentation/play/category_list_screen.dart` の `_categoryLabel` にも同様に追加。
+`apps/app_main/lib/presentation/play/category_list_screen.dart` の `_categoryLabel` / `_categoryColor` / `_categoryContainerColor` にも同様に追加。
 
 ---
 
