@@ -51,17 +51,17 @@ class MailQuizNotifier
       };
 
   /// クイズ種別に対応する初期メールリスト
-  List<Mail> _initialMails(DateTime now) => switch (arg) {
-        MailQuizType.archive => MailCatalog.quiz1Mails(now),
-        MailQuizType.emptyTrash => MailCatalog.quiz2Mails(now),
-        MailQuizType.selectDelete => MailCatalog.quiz3Mails(now),
-        MailQuizType.search => MailCatalog.quiz4Mails(now),
+  List<Mail> get _initialMails => switch (arg) {
+        MailQuizType.archive => MailCatalog.quiz1Mails(),
+        MailQuizType.emptyTrash => MailCatalog.quiz2Mails(),
+        MailQuizType.selectDelete => MailCatalog.quiz3Mails(),
+        MailQuizType.search => MailCatalog.quiz4Mails(),
       };
 
   @override
   MailQuizState build(MailQuizType arg) {
     ref.onDispose(() => _timer?.cancel());
-    return MailQuizState.initial(initialMails: _initialMails(clock.now()));
+    return MailQuizState.initial(initialMails: _initialMails);
   }
 
   // ─────────────────────────────────────────────
@@ -75,7 +75,7 @@ class MailQuizNotifier
       startedAt: clock.now(),
       remainingSeconds: MailQuizConfig.timeLimitSeconds,
       mailApp: state.mailApp.copyWith(
-        mails: _initialMails(clock.now()),
+        mails: _initialMails,
         selectedMailIds: {},
         searchQuery: '',
       ),
@@ -95,14 +95,20 @@ class MailQuizNotifier
     );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      appLogger.e(
+        '[MailQuizNotifier] giveUp: _saveResult failed',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = MailQuizState.initial(
-      initialMails: _initialMails(clock.now()),
+      initialMails: _initialMails,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -169,6 +175,7 @@ class MailQuizNotifier
 
   /// 選択モードを解除する
   void clearSelection() {
+    if (state.status != QuizStatus.playing) return;
     state = state.copyWith(
       mailApp: state.mailApp.copyWith(selectedMailIds: {}),
     );
@@ -200,8 +207,10 @@ class MailQuizNotifier
 
     if (isClear) {
       _timer?.cancel();
-      await hapticFeedback.playSuccessFeedback();
+      // autoDispose により dispose 後に ref.read すると例外になるため、
+      // 永続化処理を先に完了させてから haptic を再生する
       await _saveResult(isCleared: true, elapsedMs: elapsed);
+      await hapticFeedback.playSuccessFeedback();
     }
   }
 
@@ -237,13 +246,16 @@ class MailQuizNotifier
 
     if (isClear) {
       _timer?.cancel();
-      await hapticFeedback.playSuccessFeedback();
+      // autoDispose により dispose 後に ref.read すると例外になるため、
+      // 永続化処理を先に完了させてから haptic を再生する
       await _saveResult(isCleared: true, elapsedMs: elapsed);
+      await hapticFeedback.playSuccessFeedback();
     }
   }
 
   /// 検索をキャンセルする
   void cancelSearch() {
+    if (state.status != QuizStatus.playing) return;
     state = state.copyWith(
       isSearching: false,
       mailApp: state.mailApp.copyWith(searchQuery: ''),
@@ -282,7 +294,13 @@ class MailQuizNotifier
     );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      appLogger.e(
+        '[MailQuizNotifier] _onTimeUp: _saveResult failed',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   /// メールリスト更新 + クリア判定を一括適用するヘルパー（Quiz1・2共通）
@@ -299,8 +317,10 @@ class MailQuizNotifier
 
     if (isClear) {
       _timer?.cancel();
-      await hapticFeedback.playSuccessFeedback();
+      // autoDispose により dispose 後に ref.read すると例外になるため、
+      // 永続化処理を先に完了させてから haptic を再生する
       await _saveResult(isCleared: true, elapsedMs: elapsed);
+      await hapticFeedback.playSuccessFeedback();
     }
   }
 
