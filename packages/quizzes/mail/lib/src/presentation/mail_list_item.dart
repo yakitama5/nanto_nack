@@ -38,8 +38,8 @@ class MailListItem extends StatelessWidget {
       onLongPress: onLongPress,
     );
 
-    // 選択モード中はスワイプ無効
-    if (isSelectionMode) return tile;
+    // 選択モード中、または onDismissed が未設定の場合はスワイプ無効
+    if (isSelectionMode || onDismissed == null) return tile;
 
     return Dismissible(
       key: ValueKey(mail.id),
