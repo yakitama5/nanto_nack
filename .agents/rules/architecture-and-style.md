@@ -48,3 +48,42 @@ final now = clock.now();
 
 - `clock` パッケージを使用するすべてのパッケージの `pubspec.yaml` に `clock: ^1.1.2` を追加すること。
 - テストでの使い方は `testing.md` を参照すること。
+
+## 🚫 エラーハンドリングルール
+
+- **禁止:** `catch (_) {}` や `catch (e) {}` のような例外を握り潰す空の catch ブロック。
+- **必須:** `catch (error, stackTrace)` で受け取り、`appLogger.e(...)` 等で記録すること。
+
+```dart
+// ❌ 禁止
+try {
+  await _saveResult(...);
+} catch (_) {}
+
+// ✅ 正しい
+try {
+  await _saveResult(...);
+} catch (error, stackTrace) {
+  appLogger.e('Failed to save result', error: error, stackTrace: stackTrace);
+}
+```
+
+## 📦 コレクションのイミュータビリティ
+
+State クラスや Entity クラスで `List`/`Set` フィールドを持つ場合は、外部からの直接変更を防ぐため
+`UnmodifiableListView` / `UnmodifiableSetView` でラップすること。
+
+```dart
+// ❌ 禁止
+final List<Mail> mails;
+final Set<String> selectedMailIds;
+
+// ✅ 正しい
+final UnmodifiableListView<Mail> mails;
+final UnmodifiableSetView<String> selectedMailIds;
+// コンストラクタで変換: mails = UnmodifiableListView(mails)
+```
+
+## 🧩 関数シグネチャと実装の一致
+
+宣言したパラメータは必ず実装内で使用すること。未使用パラメータは削除する。
