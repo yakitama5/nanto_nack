@@ -1,0 +1,69 @@
+{
+  "quiz1": {
+    "missionText": "Archive the 3rd email from the top",
+    "insight": {
+      "title": "How did you know swiping would archive?",
+      "subtitle": "Direction and icons teach the action",
+      "swipeTitle": "Left swipe means organizing",
+      "swipeDesc": "In mail and task apps swiping right to left is a standard UI pattern meaning archive or complete.",
+      "greenTitle": "Green means safe and save",
+      "greenDesc": "While red means delete or danger green is used worldwide to mean save or safe.",
+      "archiveTitle": "Box icon is the universal archive symbol",
+      "archiveDesc": "A box with a downward arrow is the common archive icon across all mail apps."
+    }
+  },
+  "quiz2": {
+    "missionText": "Empty the trash",
+    "insight": {
+      "title": "How did you navigate to trash via the drawer?",
+      "subtitle": "The hamburger menu is the folder gateway",
+      "drawerTitle": "Hamburger means there is more",
+      "drawerDesc": "The three line icon is a universal UI symbol meaning open hidden menu.",
+      "trashTitle": "Trash icon is home for deleted items",
+      "trashDesc": "The trash icon indicates deleted items regardless of operating system.",
+      "emptyTitle": "Empty button permanently deletes",
+      "emptyDesc": "Trash is a temporary storage area. Data remains until you press Empty Trash."
+    }
+  },
+  "quiz3": {
+    "missionText": "Select 3 emails and delete them",
+    "insight": {
+      "title": "How did you know long press enables multi select?",
+      "subtitle": "Long press is the entry to selection mode",
+      "longPressTitle": "Long press switches to selection mode",
+      "longPressDesc": "In mail and file management apps long press is the standard interaction to start multi select mode.",
+      "checkTitle": "Checkmarks show selection state",
+      "checkDesc": "The check mark is a universal symbol for selected.",
+      "headerTitle": "Header changes to guide actions",
+      "headerDesc": "Entering selection mode turns the header blue and shows count and action icons."
+    }
+  },
+  "quiz4": {
+    "missionText": "Search for emails larger than 5 megabytes",
+    "hint": "Tip: Use larger 5M to search by size",
+    "insight": {
+      "title": "How did you think of the larger 5M command?",
+      "subtitle": "Search operators narrow down emails",
+      "operatorTitle": "Search operators specify conditions with commands",
+      "operatorDesc": "Mail apps offer advanced filtering with search operators like larger 5M or from alice.",
+      "sizeTitle": "5M means 5 megabytes",
+      "sizeDesc": "M stands for megabytes. This search condition finds emails with large attachments.",
+      "hintTitle": "Hint feature guides to the answer",
+      "hintDesc": "The hint button acts as a lifeline in many apps guiding you to the answer."
+    }
+  },
+  "common": {
+    "appTitle": "Mail",
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "trash": "Trash",
+    "archive": "Archive",
+    "searchHint": "Search mail",
+    "emptyTrash": "Empty Trash",
+    "selectedCount": "{count} selected",
+    "noMails": "No emails",
+    "unread": "Unread",
+    "archiveAction": "Archive",
+    "deleteAction": "Delete"
+  }
+}

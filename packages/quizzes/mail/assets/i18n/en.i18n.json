@@ -1,0 +1,69 @@
+{
+  "quiz1": {
+    "missionText": "Archive the 3rd email from the top",
+    "insight": {
+      "title": "How did you know swiping would archive?",
+      "subtitle": "Direction and icons teach the action",
+      "swipeTitle": "Left swipe = sign of 'organizing'",
+      "swipeDesc": "In mail and task apps, swiping right-to-left is a standard UI pattern meaning 'archive' or 'complete'. Gmail also uses this pattern.",
+      "greenTitle": "Green = symbol of 'safe/save'",
+      "greenDesc": "While red means 'delete/danger', green is used in UIs worldwide to mean 'save/safe'.",
+      "archiveTitle": "Box icon = universal archive symbol",
+      "archiveDesc": "A box with a downward arrow (📦) is the common archive icon across Gmail and Outlook. Its meaning is understood without reading any language."
+    }
+  },
+  "quiz2": {
+    "missionText": "Empty the trash",
+    "insight": {
+      "title": "How did you navigate to trash via the drawer?",
+      "subtitle": "The hamburger menu is the folder gateway",
+      "drawerTitle": "Hamburger = sign of 'there's more'",
+      "drawerDesc": "The three-line (☰) icon is a universal UI symbol meaning 'open hidden menu'. Gmail and Outlook use the same icon.",
+      "trashTitle": "Trash icon = home for deleted items",
+      "trashDesc": "The 🗑️ icon indicates 'trash/deleted items' regardless of OS. Called Trash in Gmail and 'Deleted' in iOS, but the icon instantly identifies the location.",
+      "emptyTitle": "'Empty' button permanently deletes",
+      "emptyDesc": "Trash is a temporary storage area. The design that data remains until you press Empty Trash is a safety design to prevent accidental deletion."
+    }
+  },
+  "quiz3": {
+    "missionText": "Select 3 emails and delete them",
+    "insight": {
+      "title": "How did you know long press enables multi-select?",
+      "subtitle": "Long press is the entry to selection mode",
+      "longPressTitle": "Long press = switch to selection mode",
+      "longPressDesc": "In mail and file management apps, long press is the standard interaction to start multi-select mode. Gmail and iOS Mail use the same pattern.",
+      "checkTitle": "Checkmarks visualize selection state",
+      "checkDesc": "The ✓ mark is a universal symbol for 'selected'. Combined with checkboxes, you can see how many items are selected at a glance.",
+      "headerTitle": "Header changes to guide actions",
+      "headerDesc": "Entering selection mode turns the header blue and shows count and action icons. This 'context-dependent UI change' is the standard Android Contextual Action Bar pattern."
+    }
+  },
+  "quiz4": {
+    "missionText": "Search for emails larger than 5MB",
+    "hint": "Tip: Use larger:5M to search by size!",
+    "insight": {
+      "title": "How did you think of the 'larger:5M' command?",
+      "subtitle": "Search operators narrow down emails",
+      "operatorTitle": "Search operators = specify conditions with commands",
+      "operatorDesc": "Gmail offers advanced filtering with search operators like 'larger:5M', 'from:alice', 'has:attachment'. This is not just for programmers - it's a feature for all users.",
+      "sizeTitle": "5M = size specification of 5 megabytes",
+      "sizeDesc": "'M' stands for megabytes (MB). This search condition is used to find emails with large attachments - a standard Gmail feature for years.",
+      "hintTitle": "Hint feature guides to the answer",
+      "hintDesc": "The '?' icon or 'Hint' button acts as a lifeline in many apps. Even if you don't know search commands, the hint design guides you to the answer."
+    }
+  },
+  "common": {
+    "appTitle": "Mail",
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "trash": "Trash",
+    "archive": "Archive",
+    "searchHint": "Search mail",
+    "emptyTrash": "Empty Trash",
+    "selectedCount": "{count} selected",
+    "noMails": "No emails",
+    "unread": "Unread",
+    "archiveAction": "Archive",
+    "deleteAction": "Delete"
+  }
+}
