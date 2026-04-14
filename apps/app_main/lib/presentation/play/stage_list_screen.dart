@@ -32,6 +32,7 @@ class StageListScreen extends ConsumerWidget {
       'map' => ext.mapCategoryColor,
       'alarm' => ext.alarmCategoryColor,
       'payment' => ext.paymentCategoryColor,
+      'mail' => ext.shoppingCategoryColor,
       _ => colorScheme.primary,
     };
 
