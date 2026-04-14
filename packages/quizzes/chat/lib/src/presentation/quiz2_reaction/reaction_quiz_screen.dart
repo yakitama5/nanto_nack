@@ -177,24 +177,89 @@ class _ReactionInsight extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        QuizInsightHeader(title: insight.title, subtitle: insight.subtitle),
+        Row(
+          children: [
+            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                insight.title,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          insight.subtitle,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: Theme.of(context).extension<ChatAppTheme>()!.subTextColor),
+        ),
         const SizedBox(height: 12),
-        QuizInsightItem(
+        _InsightItem(
           emoji: '❤️',
           title: insight.reactionTitle,
           desc: insight.reactionDesc,
         ),
         const SizedBox(height: 10),
-        QuizInsightItem(
+        _InsightItem(
           emoji: '😊',
           title: insight.iconTitle,
           desc: insight.iconDesc,
         ),
         const SizedBox(height: 10),
-        QuizInsightItem(
+        _InsightItem(
           emoji: '💟',
           title: insight.heartTitle,
           desc: insight.heartDesc,
+        ),
+      ],
+    );
+  }
+}
+
+class _InsightItem extends StatelessWidget {
+  const _InsightItem({
+    required this.emoji,
+    required this.title,
+    required this.desc,
+  });
+
+  final String emoji;
+  final String title;
+  final String desc;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(emoji, style: const TextStyle(fontSize: 18)),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                desc,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Theme.of(context).extension<ChatAppTheme>()!.subTextColor),
+              ),
+            ],
+          ),
         ),
       ],
     );
