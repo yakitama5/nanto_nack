@@ -41,4 +41,8 @@ const List<Category> kAllCategories = [
     id: 'payment',
     icon: Icons.payment_outlined,
   ),
+  Category(
+    id: 'mail',
+    icon: Icons.mail_outlined,
+  ),
 ];
