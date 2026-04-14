@@ -5,20 +5,20 @@ void main() {
   const useCase = QuizSelectDeleteUseCase();
 
   group('QuizSelectDeleteUseCase', () {
-    test('選択数が3件の場合はtrueを返す', () {
-      expect(useCase.isClear(selectedCount: 3), isTrue);
-    });
+    // table-driven: [selectedCount, expectedResult]
+    const cases = <(int, bool)>[
+      (0, false),
+      (1, false),
+      (2, false),
+      (3, true), // 正解: ちょうど3件
+      (4, false),
+      (5, false),
+    ];
 
-    test('選択数が2件の場合はfalseを返す', () {
-      expect(useCase.isClear(selectedCount: 2), isFalse);
-    });
-
-    test('選択数が4件の場合はfalseを返す', () {
-      expect(useCase.isClear(selectedCount: 4), isFalse);
-    });
-
-    test('選択数が0件の場合はfalseを返す', () {
-      expect(useCase.isClear(selectedCount: 0), isFalse);
-    });
+    for (final (count, expected) in cases) {
+      test('選択数が$count件の場合は${expected ? 'true' : 'false'}を返す', () {
+        expect(useCase.isClear(selectedCount: count), expected);
+      });
+    }
   });
 }
