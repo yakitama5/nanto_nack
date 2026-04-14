@@ -10,6 +10,7 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.selectedCount,
     required this.searchHint,
     required this.selectedCountText,
+    required this.deleteTooltip,
     this.onSearchTap,
     this.onDeleteSelected,
     this.onClearSelection,
@@ -18,6 +19,10 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int selectedCount;
   final String searchHint;
   final String selectedCountText;
+
+  /// 削除ボタンのツールチップ文字列（カスタム言語テキストを渡す）
+  final String deleteTooltip;
+
   final VoidCallback? onSearchTap;
   final VoidCallback? onDeleteSelected;
   final VoidCallback? onClearSelection;
@@ -49,7 +54,7 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
           IconButton(
             icon: const Icon(Icons.delete_outlined),
             onPressed: onDeleteSelected,
-            tooltip: 'Delete',
+            tooltip: deleteTooltip,
           ),
         ],
       );

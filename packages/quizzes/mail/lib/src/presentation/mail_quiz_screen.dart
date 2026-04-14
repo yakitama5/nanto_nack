@@ -147,6 +147,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
       searchHint: sq.common.searchHint,
       selectedCountText:
           sq.common.selectedCount.replaceAll('{count}', '$selectedCount'),
+      deleteTooltip: sq.common.deleteAction,
       onClearSelection:
           _type == MailQuizType.selectDelete ? notifier.clearSelection : null,
       onDeleteSelected:
