@@ -68,6 +68,26 @@ try {
 }
 ```
 
+### 成功フローで副作用が連続する場合は finally を使う
+
+永続化（`_saveResult`）の後に触覚フィードバック等の副作用が続く場合、
+保存が失敗しても後続の副作用（haptic 等）が必ず実行されるよう `finally` を使うこと。
+
+```dart
+// ❌ 禁止（保存失敗時に haptic が再生されない）
+await _saveResult(isCleared: true, elapsedMs: elapsed);
+await hapticFeedback.playSuccessFeedback();
+
+// ✅ 正しい（保存失敗しても haptic は必ず再生される）
+try {
+  await _saveResult(isCleared: true, elapsedMs: elapsed);
+} catch (error, stackTrace) {
+  appLogger.e('_saveResult failed', error: error, stackTrace: stackTrace);
+} finally {
+  await hapticFeedback.playSuccessFeedback();
+}
+```
+
 ## 📦 コレクションのイミュータビリティ
 
 State クラスや Entity クラスで `List`/`Set` フィールドを持つ場合は、外部からの直接変更を防ぐため

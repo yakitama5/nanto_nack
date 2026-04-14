@@ -163,6 +163,49 @@ class <Category>QuizNotifier
 - 画面は `required <Category>QuizType type` パラメータを持つ1つの `ConsumerStatefulWidget` として実装
 - クイズ固有の操作・表示は `switch (_type) { ... }` で分岐
 
+## 🧱 AppBar 内の繰り返しスタイルはウィジェットに抽出する
+
+同一ファイル内で同じ Container/Row スタイルが複数の AppBar で重複する場合は、
+プライベートウィジェット（`_Xxx` クラス）に抽出して共通化すること。
+複数ファイルから参照する場合はパブリッククラスとしてコンポーネントファイルに定義する。
+
+```dart
+// ❌ 禁止（MailAppBar と MailSearchAppBar の両方に同じ Container を書く）
+Container(
+  height: 42,
+  padding: EdgeInsets.symmetric(horizontal: 12),
+  decoration: BoxDecoration(color: ..., borderRadius: BorderRadius.circular(24)),
+  child: Row([Icon(...), SizedBox(...), Text(...)]),
+)
+
+// ✅ 正しい（_SearchBarContainer に抽出して両方から参照する）
+class _SearchBarContainer extends StatelessWidget {
+  const _SearchBarContainer({required this.searchHint});
+  final String searchHint;
+  @override
+  Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
+    return Container(
+      height: 42,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: mailTheme.searchBarBackground,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Row(children: [
+        Icon(Icons.search, color: mailTheme.textSecondary, size: 20),
+        const SizedBox(width: 8),
+        Text(searchHint, style: TextStyle(color: mailTheme.textSecondary, fontSize: 16)),
+      ]),
+    );
+  }
+}
+```
+
+- 同じファイル内でのみ使う場合 → `_` prefix のプライベートウィジェット
+- 複数ファイルから使う場合 → `Mail` prefix 等を付けてコンポーネントファイルに定義し、同じファイルに置く
+  - 例: `_SearchAppBar` を `MailSearchAppBar` に昇格させ `mail_app_bar.dart` に移動
+
 ## 📦 MailAppTheme フィールド一覧（参考）
 
 `MailAppTheme` は Gmail 風 UI 用途で定義済み。同様のシミュレーション UI を作る際はこれを参考にすること:
