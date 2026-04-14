@@ -7,6 +7,7 @@ import 'package:quiz_core/quiz_core.dart';
 ///
 /// Quiz1〜4 すべてで共通して使用する。
 /// [isSearching] は Quiz4 (search) のみで使用し、他クイズでは常に false。
+/// [hintUsed] は Quiz4 (search) のみで使用し、ヒント使用済みかどうかを保持する。
 class MailQuizState extends QuizStateBase {
   const MailQuizState({
     required super.status,
@@ -16,6 +17,7 @@ class MailQuizState extends QuizStateBase {
     required this.mailApp,
     required this.remainingSeconds,
     this.isSearching = false,
+    this.hintUsed = false,
   });
 
   final MailAppState mailApp;
@@ -26,6 +28,9 @@ class MailQuizState extends QuizStateBase {
   /// 検索入力モードかどうか（Quiz4のみ使用）
   final bool isSearching;
 
+  /// ヒントを使用済みかどうか（Quiz4のみ使用）
+  final bool hintUsed;
+
   MailQuizState copyWith({
     QuizStatus? status,
     int? failureCount,
@@ -34,6 +39,7 @@ class MailQuizState extends QuizStateBase {
     MailAppState? mailApp,
     int? remainingSeconds,
     bool? isSearching,
+    bool? hintUsed,
   }) {
     return MailQuizState(
       status: status ?? this.status,
@@ -43,6 +49,7 @@ class MailQuizState extends QuizStateBase {
       mailApp: mailApp ?? this.mailApp,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       isSearching: isSearching ?? this.isSearching,
+      hintUsed: hintUsed ?? this.hintUsed,
     );
   }
 
@@ -54,5 +61,6 @@ class MailQuizState extends QuizStateBase {
         startedAt: null,
         mailApp: MailAppState.initial(initialMails: initialMails),
         remainingSeconds: MailQuizConfig.timeLimitSeconds,
+        hintUsed: false,
       );
 }

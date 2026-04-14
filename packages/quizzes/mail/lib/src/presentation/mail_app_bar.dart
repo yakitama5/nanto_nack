@@ -5,6 +5,8 @@ import 'package:quiz_core/quiz_core.dart';
 /// メールアプリのAppBar
 ///
 /// 通常時は検索バー、選択時は青背景＋件数＋削除アイコンを表示する。
+/// [emptyTrashLabel] と [onEmptyTrash] を渡すとゴミ箱フォルダ表示時に
+/// 右上の overflow メニューから「空にする」操作が可能になる。
 class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MailAppBar({
     super.key,
@@ -15,6 +17,8 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onSearchTap,
     this.onDeleteSelected,
     this.onClearSelection,
+    this.emptyTrashLabel,
+    this.onEmptyTrash,
   });
 
   final int selectedCount;
@@ -27,6 +31,12 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onSearchTap;
   final VoidCallback? onDeleteSelected;
   final VoidCallback? onClearSelection;
+
+  /// ゴミ箱を空にするメニューのラベル（Quiz2 のみ使用）
+  final String? emptyTrashLabel;
+
+  /// ゴミ箱を空にするコールバック（ゴミ箱フォルダ表示中かつ Quiz2 のみ渡す）
+  final VoidCallback? onEmptyTrash;
 
   bool get _isSelectionMode => selectedCount > 0;
 
@@ -69,6 +79,31 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: onSearchTap,
         child: _SearchBarContainer(searchHint: searchHint),
       ),
+      actions: [
+        if (onEmptyTrash != null)
+          PopupMenuButton<String>(
+            onSelected: (_) => onEmptyTrash?.call(),
+            icon: Icon(Icons.more_vert, color: mailTheme.textSecondary),
+            itemBuilder: (context) => [
+              PopupMenuItem<String>(
+                value: 'empty',
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.delete_sweep_outlined,
+                      color: mailTheme.destructive,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      emptyTrashLabel ?? '',
+                      style: TextStyle(color: mailTheme.destructive),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+      ],
     );
   }
 }
@@ -76,6 +111,7 @@ class MailAppBar extends StatelessWidget implements PreferredSizeWidget {
 /// Quiz4 専用 SearchAppBar
 ///
 /// 検索前は検索バー風コンテナ、検索中はテキストフィールドを表示する。
+/// [onShowHint] が非 null のときのみヒントアイコンボタンを表示する。
 class MailSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MailSearchAppBar({
     super.key,
@@ -87,7 +123,7 @@ class MailSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onCancelSearch,
     required this.onQueryChanged,
     required this.onSubmitSearch,
-    required this.onShowHint,
+    this.onShowHint,
   });
 
   final bool isSearching;
@@ -98,7 +134,9 @@ class MailSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onCancelSearch;
   final ValueChanged<String> onQueryChanged;
   final VoidCallback onSubmitSearch;
-  final VoidCallback onShowHint;
+
+  /// ヒントボタンのコールバック（null のときはボタンを非表示）
+  final VoidCallback? onShowHint;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -145,11 +183,12 @@ class MailSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: _SearchBarContainer(searchHint: searchHint),
       ),
       actions: [
-        IconButton(
-          icon: Icon(Icons.help_outline, color: mailTheme.textSecondary),
-          onPressed: onShowHint,
-          tooltip: hintTooltip,
-        ),
+        if (onShowHint != null)
+          IconButton(
+            icon: Icon(Icons.help_outline, color: mailTheme.textSecondary),
+            onPressed: onShowHint,
+            tooltip: hintTooltip,
+          ),
       ],
     );
   }

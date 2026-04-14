@@ -87,7 +87,7 @@ class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
 
 	// Translations
 	@override String get missionText => 'Search for emails larger than 5 megabytes';
-	@override String get hint => 'Tip: Use larger 5M to search by size';
+	@override String get hint => 'Tip: Use larger:5M to search by size';
 	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
 }
 
@@ -172,10 +172,10 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you think of the larger 5M command?';
+	@override String get title => 'How did you think of the larger:5M command?';
 	@override String get subtitle => 'Search operators narrow down emails';
 	@override String get operatorTitle => 'Search operators specify conditions with commands';
-	@override String get operatorDesc => 'Mail apps offer advanced filtering with search operators like larger 5M or from alice.';
+	@override String get operatorDesc => 'Mail apps offer advanced filtering with search operators like larger:5M or from alice.';
 	@override String get sizeTitle => '5M means 5 megabytes';
 	@override String get sizeDesc => 'M stands for megabytes. This search condition finds emails with large attachments.';
 	@override String get hintTitle => 'Hint feature guides to the answer';
@@ -218,11 +218,11 @@ extension on TranslationsXx {
 			'quiz3.insight.headerTitle' => 'Header changes to guide actions',
 			'quiz3.insight.headerDesc' => 'Entering selection mode turns the header blue and shows count and action icons.',
 			'quiz4.missionText' => 'Search for emails larger than 5 megabytes',
-			'quiz4.hint' => 'Tip: Use larger 5M to search by size',
-			'quiz4.insight.title' => 'How did you think of the larger 5M command?',
+			'quiz4.hint' => 'Tip: Use larger:5M to search by size',
+			'quiz4.insight.title' => 'How did you think of the larger:5M command?',
 			'quiz4.insight.subtitle' => 'Search operators narrow down emails',
 			'quiz4.insight.operatorTitle' => 'Search operators specify conditions with commands',
-			'quiz4.insight.operatorDesc' => 'Mail apps offer advanced filtering with search operators like larger 5M or from alice.',
+			'quiz4.insight.operatorDesc' => 'Mail apps offer advanced filtering with search operators like larger:5M or from alice.',
 			'quiz4.insight.sizeTitle' => '5M means 5 megabytes',
 			'quiz4.insight.sizeDesc' => 'M stands for megabytes. This search condition finds emails with large attachments.',
 			'quiz4.insight.hintTitle' => 'Hint feature guides to the answer',

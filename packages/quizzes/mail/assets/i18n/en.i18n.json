@@ -21,8 +21,8 @@
       "drawerDesc": "The three-line (☰) icon is a universal UI symbol meaning 'open hidden menu'. Gmail and Outlook use the same icon.",
       "trashTitle": "Trash icon = home for deleted items",
       "trashDesc": "The 🗑️ icon indicates 'trash/deleted items' regardless of OS. Called Trash in Gmail and 'Deleted' in iOS, but the icon instantly identifies the location.",
-      "emptyTitle": "'Empty' button permanently deletes",
-      "emptyDesc": "Trash is a temporary storage area. The design that data remains until you press Empty Trash is a safety design to prevent accidental deletion."
+      "emptyTitle": "Use the top-right menu to empty",
+      "emptyDesc": "Opening the trash folder reveals an action menu (⋮) in the top right. Selecting 'Empty Trash' permanently deletes all emails. This two-step deletion is a safety design to prevent accidental data loss."
     }
   },
   "quiz3": {

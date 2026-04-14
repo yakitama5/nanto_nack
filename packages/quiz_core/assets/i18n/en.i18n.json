@@ -103,7 +103,8 @@
       "streaming": "Video",
       "map": "Map",
       "alarm": "Alarm",
-      "payment": "Payment"
+      "payment": "Payment",
+      "mail": "Mail App"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -111,7 +112,8 @@
       "streaming": "Experience video app UI/UX",
       "map": "Experience map app UI/UX",
       "alarm": "Experience clock & alarm app UI/UX",
-      "payment": "Experience mobile payment app UI/UX"
+      "payment": "Experience mobile payment app UI/UX",
+      "mail": "Experience email app UI/UX"
     },
     "stageTitle": {
       "shopping_water": "Buy 2 Waters",
@@ -137,7 +139,11 @@
       "payment_quiz1": "Show QR Code",
       "payment_quiz2": "Hide Your Balance",
       "payment_quiz3": "Send Money",
-      "payment_quiz4": "Change Payment Method"
+      "payment_quiz4": "Change Payment Method",
+      "mail_quiz1": "Archive an Email",
+      "mail_quiz2": "Empty the Trash",
+      "mail_quiz3": "Delete 3 Emails",
+      "mail_quiz4": "Search for Large Emails"
     },
     "stageDescription": {
       "shopping_water": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -163,7 +169,11 @@
       "payment_quiz1": "Show the QR code in the payment app",
       "payment_quiz2": "Tap the eye icon to hide your balance in the payment app",
       "payment_quiz3": "Send money to someone in the payment app",
-      "payment_quiz4": "Change the payment method to a credit card and show the QR code in the payment app"
+      "payment_quiz4": "Change the payment method to a credit card and show the QR code in the payment app",
+      "mail_quiz1": "Archive the 3rd email from the top in the mail app",
+      "mail_quiz2": "Empty the trash folder in the mail app",
+      "mail_quiz3": "Select 3 emails and delete them in the mail app",
+      "mail_quiz4": "Search for emails larger than 5 megabytes in the mail app"
     }
   },
   "scene": {
