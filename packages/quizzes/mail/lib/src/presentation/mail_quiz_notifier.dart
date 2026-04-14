@@ -234,6 +234,7 @@ class MailQuizNotifier
   /// BodyのHintCardが表示される。
   void useHint() {
     if (state.status != QuizStatus.playing) return;
+    if (state.hintUsed) return;
     state = state.copyWith(hintUsed: true);
   }
 
