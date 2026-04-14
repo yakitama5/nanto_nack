@@ -16,9 +16,16 @@
     "categoriesLabel": "Categories",
     "categoryLockedLabel": "Unlock after clearing",
     "categoryClearCount": "{cleared}/{total} cleared",
-    "@categoryClearCount": { "param(cleared)": "cleared", "param(total)": "total" },
+    "@categoryClearCount": {
+      "param(cleared)": "cleared",
+      "param(total)": "total"
+    },
     "dateFormat": "{month}/{day} ({weekday})",
-    "@dateFormat": { "param(month)": "month", "param(day)": "day", "param(weekday)": "weekday" },
+    "@dateFormat": {
+      "param(month)": "month",
+      "param(day)": "day",
+      "param(weekday)": "weekday"
+    },
     "weekday": {
       "mon": "Mon",
       "tue": "Tue",
@@ -104,7 +111,7 @@
       "map": "Map",
       "alarm": "Alarm",
       "payment": "Payment",
-      "mail": "Mail App"
+      "mail": "Mail"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
