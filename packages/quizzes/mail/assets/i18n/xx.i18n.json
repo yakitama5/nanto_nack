@@ -40,12 +40,12 @@
   },
   "quiz4": {
     "missionText": "Search for emails larger than 5 megabytes",
-    "hint": "Tip: Use larger 5M to search by size",
+    "hint": "Tip: Use larger:5M to search by size",
     "insight": {
-      "title": "How did you think of the larger 5M command?",
+      "title": "How did you think of the larger:5M command?",
       "subtitle": "Search operators narrow down emails",
       "operatorTitle": "Search operators specify conditions with commands",
-      "operatorDesc": "Mail apps offer advanced filtering with search operators like larger 5M or from alice.",
+      "operatorDesc": "Mail apps offer advanced filtering with search operators like larger:5M or from alice.",
       "sizeTitle": "5M means 5 megabytes",
       "sizeDesc": "M stands for megabytes. This search condition finds emails with large attachments.",
       "hintTitle": "Hint feature guides to the answer",
