@@ -5,16 +5,20 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
-import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
-import 'package:slang/generated.dart';
-import 'strings.g.dart';
+part of 'strings.g.dart';
 
 // Path: <root>
-class TranslationsJa with BaseTranslations<AppLocale, Translations> implements Translations {
+typedef TranslationsJa = Translations; // ignore: unused_element
+class Translations with BaseTranslations<AppLocale, Translations> {
+	/// Returns the current translations of the given [context].
+	///
+	/// Usage:
+	/// final t = Translations.of(context);
+	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
+
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ja,
@@ -29,153 +33,260 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	dynamic operator[](String key) => $meta.getTranslation(key);
 
-	late final TranslationsJa _root = this; // ignore: unused_field
+	late final Translations _root = this; // ignore: unused_field
 
-	@override 
-	TranslationsJa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsJa(meta: meta ?? this.$meta);
+	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsQuiz1Ja quiz1 = _TranslationsQuiz1Ja._(_root);
-	@override late final _TranslationsQuiz2Ja quiz2 = _TranslationsQuiz2Ja._(_root);
-	@override late final _TranslationsQuiz3Ja quiz3 = _TranslationsQuiz3Ja._(_root);
-	@override late final _TranslationsQuiz4Ja quiz4 = _TranslationsQuiz4Ja._(_root);
-	@override late final _TranslationsCommonJa common = _TranslationsCommonJa._(_root);
+	late final TranslationsQuiz1Ja quiz1 = TranslationsQuiz1Ja.internal(_root);
+	late final TranslationsQuiz2Ja quiz2 = TranslationsQuiz2Ja.internal(_root);
+	late final TranslationsQuiz3Ja quiz3 = TranslationsQuiz3Ja.internal(_root);
+	late final TranslationsQuiz4Ja quiz4 = TranslationsQuiz4Ja.internal(_root);
+	late final TranslationsCommonJa common = TranslationsCommonJa.internal(_root);
 }
 
 // Path: quiz1
-class _TranslationsQuiz1Ja implements TranslationsQuiz1En {
-	_TranslationsQuiz1Ja._(this._root);
+class TranslationsQuiz1Ja {
+	TranslationsQuiz1Ja.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => '上から3番目のメールをアーカイブしよう';
-	@override late final _TranslationsQuiz1InsightJa insight = _TranslationsQuiz1InsightJa._(_root);
+
+	/// ja: '上から3番目のメールをアーカイブしよう'
+	String get missionText => '上から3番目のメールをアーカイブしよう';
+
+	late final TranslationsQuiz1InsightJa insight = TranslationsQuiz1InsightJa.internal(_root);
 }
 
 // Path: quiz2
-class _TranslationsQuiz2Ja implements TranslationsQuiz2En {
-	_TranslationsQuiz2Ja._(this._root);
+class TranslationsQuiz2Ja {
+	TranslationsQuiz2Ja.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'ゴミ箱を空にしよう';
-	@override late final _TranslationsQuiz2InsightJa insight = _TranslationsQuiz2InsightJa._(_root);
+
+	/// ja: 'ゴミ箱を空にしよう'
+	String get missionText => 'ゴミ箱を空にしよう';
+
+	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
 
 // Path: quiz3
-class _TranslationsQuiz3Ja implements TranslationsQuiz3En {
-	_TranslationsQuiz3Ja._(this._root);
+class TranslationsQuiz3Ja {
+	TranslationsQuiz3Ja.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => '3件のメールを選択して削除しよう';
-	@override late final _TranslationsQuiz3InsightJa insight = _TranslationsQuiz3InsightJa._(_root);
+
+	/// ja: '3件のメールを選択して削除しよう'
+	String get missionText => '3件のメールを選択して削除しよう';
+
+	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
 
 // Path: quiz4
-class _TranslationsQuiz4Ja implements TranslationsQuiz4En {
-	_TranslationsQuiz4Ja._(this._root);
+class TranslationsQuiz4Ja {
+	TranslationsQuiz4Ja.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => '5Mバイト以上のメールを検索しよう';
-	@override String get hint => 'ヒント: サイズ指定検索は larger:5M のように入力！';
-	@override late final _TranslationsQuiz4InsightJa insight = _TranslationsQuiz4InsightJa._(_root);
+
+	/// ja: '5Mバイト以上のメールを検索しよう'
+	String get missionText => '5Mバイト以上のメールを検索しよう';
+
+	/// ja: 'ヒント: サイズ指定検索は larger:5M のように入力！'
+	String get hint => 'ヒント: サイズ指定検索は larger:5M のように入力！';
+
+	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
 }
 
 // Path: common
-class _TranslationsCommonJa implements TranslationsCommonEn {
-	_TranslationsCommonJa._(this._root);
+class TranslationsCommonJa {
+	TranslationsCommonJa.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'Mail';
-	@override String get inbox => '受信トレイ';
-	@override String get sent => '送信済み';
-	@override String get trash => 'ゴミ箱';
-	@override String get archive => 'アーカイブ';
-	@override String get searchHint => 'メールを検索';
-	@override String get emptyTrash => 'ゴミ箱を空にする';
-	@override String get selectedCount => '{count}件選択中';
-	@override String get noMails => 'メールはありません';
-	@override String get unread => '未読';
-	@override String get archiveAction => 'アーカイブ';
-	@override String get deleteAction => '削除';
+
+	/// ja: 'Mail'
+	String get appTitle => 'Mail';
+
+	/// ja: '受信トレイ'
+	String get inbox => '受信トレイ';
+
+	/// ja: '送信済み'
+	String get sent => '送信済み';
+
+	/// ja: 'ゴミ箱'
+	String get trash => 'ゴミ箱';
+
+	/// ja: 'アーカイブ'
+	String get archive => 'アーカイブ';
+
+	/// ja: 'メールを検索'
+	String get searchHint => 'メールを検索';
+
+	/// ja: 'ゴミ箱を空にする'
+	String get emptyTrash => 'ゴミ箱を空にする';
+
+	/// ja: '{count}件選択中'
+	String get selectedCount => '{count}件選択中';
+
+	/// ja: 'メールはありません'
+	String get noMails => 'メールはありません';
+
+	/// ja: '未読'
+	String get unread => '未読';
+
+	/// ja: 'アーカイブ'
+	String get archiveAction => 'アーカイブ';
+
+	/// ja: '削除'
+	String get deleteAction => '削除';
+
+	/// ja: '検索クエリを入力してEnterを押してください'
+	String get searchPrompt => '検索クエリを入力してEnterを押してください';
+
+	/// ja: 'ヒント'
+	String get hintTooltip => 'ヒント';
 }
 
 // Path: quiz1.insight
-class _TranslationsQuiz1InsightJa implements TranslationsQuiz1InsightEn {
-	_TranslationsQuiz1InsightJa._(this._root);
+class TranslationsQuiz1InsightJa {
+	TranslationsQuiz1InsightJa.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'なぜスワイプでアーカイブできるとわかった？';
-	@override String get subtitle => '方向とアイコンが操作を教えてくれる';
-	@override String get swipeTitle => '左スワイプ＝「整理する」のサイン';
-	@override String get swipeDesc => 'メール・タスクアプリで右から左へのスワイプは「アーカイブ」や「完了」を意味する標準UIパターン。Gmailなどでも採用されている。';
-	@override String get greenTitle => '緑色＝「安全・保存」の記号';
-	@override String get greenDesc => '赤が「削除・危険」なのに対し、緑は「保存・安全」を意味する色として世界中のUIで使われている。';
-	@override String get archiveTitle => '箱アイコン＝アーカイブの世界標準';
-	@override String get archiveDesc => '下向き矢印付きの箱（📦）はGmail・Outlook問わず「アーカイブ」を示す共通アイコン。言語を読まなくても意味が伝わる。';
+
+	/// ja: 'なぜスワイプでアーカイブできるとわかった？'
+	String get title => 'なぜスワイプでアーカイブできるとわかった？';
+
+	/// ja: '方向とアイコンが操作を教えてくれる'
+	String get subtitle => '方向とアイコンが操作を教えてくれる';
+
+	/// ja: '左スワイプ＝「整理する」のサイン'
+	String get swipeTitle => '左スワイプ＝「整理する」のサイン';
+
+	/// ja: 'メール・タスクアプリで右から左へのスワイプは「アーカイブ」や「完了」を意味する標準UIパターン。Gmailなどでも採用されている。'
+	String get swipeDesc => 'メール・タスクアプリで右から左へのスワイプは「アーカイブ」や「完了」を意味する標準UIパターン。Gmailなどでも採用されている。';
+
+	/// ja: '緑色＝「安全・保存」の記号'
+	String get greenTitle => '緑色＝「安全・保存」の記号';
+
+	/// ja: '赤が「削除・危険」なのに対し、緑は「保存・安全」を意味する色として世界中のUIで使われている。'
+	String get greenDesc => '赤が「削除・危険」なのに対し、緑は「保存・安全」を意味する色として世界中のUIで使われている。';
+
+	/// ja: '箱アイコン＝アーカイブの世界標準'
+	String get archiveTitle => '箱アイコン＝アーカイブの世界標準';
+
+	/// ja: '下向き矢印付きの箱（📦）はGmail・Outlook問わず「アーカイブ」を示す共通アイコン。言語を読まなくても意味が伝わる。'
+	String get archiveDesc => '下向き矢印付きの箱（📦）はGmail・Outlook問わず「アーカイブ」を示す共通アイコン。言語を読まなくても意味が伝わる。';
 }
 
 // Path: quiz2.insight
-class _TranslationsQuiz2InsightJa implements TranslationsQuiz2InsightEn {
-	_TranslationsQuiz2InsightJa._(this._root);
+class TranslationsQuiz2InsightJa {
+	TranslationsQuiz2InsightJa.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'なぜドロワーからゴミ箱に移動できた？';
-	@override String get subtitle => 'ハンバーガーメニューはフォルダの入口';
-	@override String get drawerTitle => 'ハンバーガー＝「もっとある」のサイン';
-	@override String get drawerDesc => '三本線（☰）アイコンは「隠れたメニューを開く」を意味する世界共通のUI記号。GmailやOutlookでも同じアイコンが使われている。';
-	@override String get trashTitle => 'ゴミ箱アイコン＝削除済みの置き場';
-	@override String get trashDesc => '🗑️アイコンはOSを問わず「ゴミ箱・削除済みアイテム」を示す。GmailではTrash、iOSでは「削除済み」フォルダと呼ばれるが、アイコンで場所を瞬時に特定できる。';
-	@override String get emptyTitle => '「空にする」ボタンで永久削除';
-	@override String get emptyDesc => 'ゴミ箱は「一時保管場所」。Empty Trash（空にする）ボタンを押すまでデータは残るという設計は、誤削除を防ぐ安全設計だ。';
+
+	/// ja: 'なぜドロワーからゴミ箱に移動できた？'
+	String get title => 'なぜドロワーからゴミ箱に移動できた？';
+
+	/// ja: 'ハンバーガーメニューはフォルダの入口'
+	String get subtitle => 'ハンバーガーメニューはフォルダの入口';
+
+	/// ja: 'ハンバーガー＝「もっとある」のサイン'
+	String get drawerTitle => 'ハンバーガー＝「もっとある」のサイン';
+
+	/// ja: '三本線（☰）アイコンは「隠れたメニューを開く」を意味する世界共通のUI記号。GmailやOutlookでも同じアイコンが使われている。'
+	String get drawerDesc => '三本線（☰）アイコンは「隠れたメニューを開く」を意味する世界共通のUI記号。GmailやOutlookでも同じアイコンが使われている。';
+
+	/// ja: 'ゴミ箱アイコン＝削除済みの置き場'
+	String get trashTitle => 'ゴミ箱アイコン＝削除済みの置き場';
+
+	/// ja: '🗑️アイコンはOSを問わず「ゴミ箱・削除済みアイテム」を示す。GmailではTrash、iOSでは「削除済み」フォルダと呼ばれるが、アイコンで場所を瞬時に特定できる。'
+	String get trashDesc => '🗑️アイコンはOSを問わず「ゴミ箱・削除済みアイテム」を示す。GmailではTrash、iOSでは「削除済み」フォルダと呼ばれるが、アイコンで場所を瞬時に特定できる。';
+
+	/// ja: '「空にする」ボタンで永久削除'
+	String get emptyTitle => '「空にする」ボタンで永久削除';
+
+	/// ja: 'ゴミ箱は「一時保管場所」。Empty Trash（空にする）ボタンを押すまでデータは残るという設計は、誤削除を防ぐ安全設計だ。'
+	String get emptyDesc => 'ゴミ箱は「一時保管場所」。Empty Trash（空にする）ボタンを押すまでデータは残るという設計は、誤削除を防ぐ安全設計だ。';
 }
 
 // Path: quiz3.insight
-class _TranslationsQuiz3InsightJa implements TranslationsQuiz3InsightEn {
-	_TranslationsQuiz3InsightJa._(this._root);
+class TranslationsQuiz3InsightJa {
+	TranslationsQuiz3InsightJa.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'なぜ長押しで複数選択できるとわかった？';
-	@override String get subtitle => '選択モードへの入口は「長押し」';
-	@override String get longPressTitle => '長押し＝「選択モード」への切り替え';
-	@override String get longPressDesc => 'メール・ファイル管理アプリで長押しは「複数選択モードを開始する」標準インタラクション。GmailもiOSメールも同じパターン。';
-	@override String get checkTitle => 'チェックマークが選択状態を可視化する';
-	@override String get checkDesc => '✓マークは「選択済み」を示す世界共通の記号。チェックボックスと組み合わせることで、何件選んだかが一目でわかる。';
-	@override String get headerTitle => 'ヘッダーが変化して操作を案内する';
-	@override String get headerDesc => '選択モードに入るとヘッダーが青くなり件数と操作アイコンが現れる。この「コンテキスト依存UI変化」はAndroid Contextual Action Barの標準パターン。';
+
+	/// ja: 'なぜ長押しで複数選択できるとわかった？'
+	String get title => 'なぜ長押しで複数選択できるとわかった？';
+
+	/// ja: '選択モードへの入口は「長押し」'
+	String get subtitle => '選択モードへの入口は「長押し」';
+
+	/// ja: '長押し＝「選択モード」への切り替え'
+	String get longPressTitle => '長押し＝「選択モード」への切り替え';
+
+	/// ja: 'メール・ファイル管理アプリで長押しは「複数選択モードを開始する」標準インタラクション。GmailもiOSメールも同じパターン。'
+	String get longPressDesc => 'メール・ファイル管理アプリで長押しは「複数選択モードを開始する」標準インタラクション。GmailもiOSメールも同じパターン。';
+
+	/// ja: 'チェックマークが選択状態を可視化する'
+	String get checkTitle => 'チェックマークが選択状態を可視化する';
+
+	/// ja: '✓マークは「選択済み」を示す世界共通の記号。チェックボックスと組み合わせることで、何件選んだかが一目でわかる。'
+	String get checkDesc => '✓マークは「選択済み」を示す世界共通の記号。チェックボックスと組み合わせることで、何件選んだかが一目でわかる。';
+
+	/// ja: 'ヘッダーが変化して操作を案内する'
+	String get headerTitle => 'ヘッダーが変化して操作を案内する';
+
+	/// ja: '選択モードに入るとヘッダーが青くなり件数と操作アイコンが現れる。この「コンテキスト依存UI変化」はAndroid Contextual Action Barの標準パターン。'
+	String get headerDesc => '選択モードに入るとヘッダーが青くなり件数と操作アイコンが現れる。この「コンテキスト依存UI変化」はAndroid Contextual Action Barの標準パターン。';
 }
 
 // Path: quiz4.insight
-class _TranslationsQuiz4InsightJa implements TranslationsQuiz4InsightEn {
-	_TranslationsQuiz4InsightJa._(this._root);
+class TranslationsQuiz4InsightJa {
+	TranslationsQuiz4InsightJa.internal(this._root);
 
-	final TranslationsJa _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'なぜ「larger:5M」というコマンドを思いついた？';
-	@override String get subtitle => '検索演算子がメールを絞り込む';
-	@override String get operatorTitle => '検索演算子＝コマンドで条件を指定';
-	@override String get operatorDesc => 'Gmailでは「larger:5M」「from:alice」「has:attachment」など検索演算子で高度な絞り込みができる。これはプログラマー向けではなく、一般ユーザー向けの機能だ。';
-	@override String get sizeTitle => '5M＝5メガバイトのサイズ指定';
-	@override String get sizeDesc => '「M」はメガバイト（MB）の略。大きな添付ファイルのあるメールを探すときに使う検索条件で、Gmailが長年提供している標準機能。';
-	@override String get hintTitle => 'ヒント機能が正解へ誘導する';
-	@override String get hintDesc => '「？」アイコンや「ヒント」ボタンは「困ったときの助け船」として多くのアプリに用意されている。検索の使い方を知らなくても、ヒントが正解を教えてくれる設計だ。';
+
+	/// ja: 'なぜ「larger:5M」というコマンドを思いついた？'
+	String get title => 'なぜ「larger:5M」というコマンドを思いついた？';
+
+	/// ja: '検索演算子がメールを絞り込む'
+	String get subtitle => '検索演算子がメールを絞り込む';
+
+	/// ja: '検索演算子＝コマンドで条件を指定'
+	String get operatorTitle => '検索演算子＝コマンドで条件を指定';
+
+	/// ja: 'Gmailでは「larger:5M」「from:alice」「has:attachment」など検索演算子で高度な絞り込みができる。これはプログラマー向けではなく、一般ユーザー向けの機能だ。'
+	String get operatorDesc => 'Gmailでは「larger:5M」「from:alice」「has:attachment」など検索演算子で高度な絞り込みができる。これはプログラマー向けではなく、一般ユーザー向けの機能だ。';
+
+	/// ja: '5M＝5メガバイトのサイズ指定'
+	String get sizeTitle => '5M＝5メガバイトのサイズ指定';
+
+	/// ja: '「M」はメガバイト（MB）の略。大きな添付ファイルのあるメールを探すときに使う検索条件で、Gmailが長年提供している標準機能。'
+	String get sizeDesc => '「M」はメガバイト（MB）の略。大きな添付ファイルのあるメールを探すときに使う検索条件で、Gmailが長年提供している標準機能。';
+
+	/// ja: 'ヒント機能が正解へ誘導する'
+	String get hintTitle => 'ヒント機能が正解へ誘導する';
+
+	/// ja: '「？」アイコンや「ヒント」ボタンは「困ったときの助け船」として多くのアプリに用意されている。検索の使い方を知らなくても、ヒントが正解を教えてくれる設計だ。'
+	String get hintDesc => '「？」アイコンや「ヒント」ボタンは「困ったときの助け船」として多くのアプリに用意されている。検索の使い方を知らなくても、ヒントが正解を教えてくれる設計だ。';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -183,7 +294,7 @@ class _TranslationsQuiz4InsightJa implements TranslationsQuiz4InsightEn {
 ///
 /// The Dart AOT compiler has issues with very large switch statements,
 /// so the map is split into smaller functions (512 entries each).
-extension on TranslationsJa {
+extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'quiz1.missionText' => '上から3番目のメールをアーカイブしよう',
@@ -235,6 +346,8 @@ extension on TranslationsJa {
 			'common.unread' => '未読',
 			'common.archiveAction' => 'アーカイブ',
 			'common.deleteAction' => '削除',
+			'common.searchPrompt' => '検索クエリを入力してEnterを押してください',
+			'common.hintTooltip' => 'ヒント',
 			_ => null,
 		};
 	}

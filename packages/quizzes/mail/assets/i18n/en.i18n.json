@@ -64,6 +64,8 @@
     "noMails": "No emails",
     "unread": "Unread",
     "archiveAction": "Archive",
-    "deleteAction": "Delete"
+    "deleteAction": "Delete",
+    "searchPrompt": "Enter a search query and press Enter",
+    "hintTooltip": "Hint"
   }
 }

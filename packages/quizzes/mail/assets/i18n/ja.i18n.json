@@ -64,6 +64,8 @@
     "noMails": "メールはありません",
     "unread": "未読",
     "archiveAction": "アーカイブ",
-    "deleteAction": "削除"
+    "deleteAction": "削除",
+    "searchPrompt": "検索クエリを入力してEnterを押してください",
+    "hintTooltip": "ヒント"
   }
 }

@@ -11,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsXx with BaseTranslations<AppLocale, Translations> implements Translations {
+class TranslationsXx extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsXx({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +21,9 @@ class TranslationsXx with BaseTranslations<AppLocale, Translations> implements T
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +31,7 @@ class TranslationsXx with BaseTranslations<AppLocale, Translations> implements T
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsXx _root = this; // ignore: unused_field
 
@@ -45,8 +47,8 @@ class TranslationsXx with BaseTranslations<AppLocale, Translations> implements T
 }
 
 // Path: quiz1
-class _TranslationsQuiz1Xx implements TranslationsQuiz1En {
-	_TranslationsQuiz1Xx._(this._root);
+class _TranslationsQuiz1Xx extends TranslationsQuiz1Ja {
+	_TranslationsQuiz1Xx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -56,8 +58,8 @@ class _TranslationsQuiz1Xx implements TranslationsQuiz1En {
 }
 
 // Path: quiz2
-class _TranslationsQuiz2Xx implements TranslationsQuiz2En {
-	_TranslationsQuiz2Xx._(this._root);
+class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
+	_TranslationsQuiz2Xx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -67,8 +69,8 @@ class _TranslationsQuiz2Xx implements TranslationsQuiz2En {
 }
 
 // Path: quiz3
-class _TranslationsQuiz3Xx implements TranslationsQuiz3En {
-	_TranslationsQuiz3Xx._(this._root);
+class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
+	_TranslationsQuiz3Xx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -78,8 +80,8 @@ class _TranslationsQuiz3Xx implements TranslationsQuiz3En {
 }
 
 // Path: quiz4
-class _TranslationsQuiz4Xx implements TranslationsQuiz4En {
-	_TranslationsQuiz4Xx._(this._root);
+class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
+	_TranslationsQuiz4Xx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -90,8 +92,8 @@ class _TranslationsQuiz4Xx implements TranslationsQuiz4En {
 }
 
 // Path: common
-class _TranslationsCommonXx implements TranslationsCommonEn {
-	_TranslationsCommonXx._(this._root);
+class _TranslationsCommonXx extends TranslationsCommonJa {
+	_TranslationsCommonXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -108,11 +110,13 @@ class _TranslationsCommonXx implements TranslationsCommonEn {
 	@override String get unread => 'Unread';
 	@override String get archiveAction => 'Archive';
 	@override String get deleteAction => 'Delete';
+	@override String get searchPrompt => 'Enter a search query and press Enter';
+	@override String get hintTooltip => 'Hint';
 }
 
 // Path: quiz1.insight
-class _TranslationsQuiz1InsightXx implements TranslationsQuiz1InsightEn {
-	_TranslationsQuiz1InsightXx._(this._root);
+class _TranslationsQuiz1InsightXx extends TranslationsQuiz1InsightJa {
+	_TranslationsQuiz1InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -128,8 +132,8 @@ class _TranslationsQuiz1InsightXx implements TranslationsQuiz1InsightEn {
 }
 
 // Path: quiz2.insight
-class _TranslationsQuiz2InsightXx implements TranslationsQuiz2InsightEn {
-	_TranslationsQuiz2InsightXx._(this._root);
+class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
+	_TranslationsQuiz2InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -145,8 +149,8 @@ class _TranslationsQuiz2InsightXx implements TranslationsQuiz2InsightEn {
 }
 
 // Path: quiz3.insight
-class _TranslationsQuiz3InsightXx implements TranslationsQuiz3InsightEn {
-	_TranslationsQuiz3InsightXx._(this._root);
+class _TranslationsQuiz3InsightXx extends TranslationsQuiz3InsightJa {
+	_TranslationsQuiz3InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -162,8 +166,8 @@ class _TranslationsQuiz3InsightXx implements TranslationsQuiz3InsightEn {
 }
 
 // Path: quiz4.insight
-class _TranslationsQuiz4InsightXx implements TranslationsQuiz4InsightEn {
-	_TranslationsQuiz4InsightXx._(this._root);
+class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
+	_TranslationsQuiz4InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
 
 	final TranslationsXx _root; // ignore: unused_field
 
@@ -235,6 +239,8 @@ extension on TranslationsXx {
 			'common.unread' => 'Unread',
 			'common.archiveAction' => 'Archive',
 			'common.deleteAction' => 'Delete',
+			'common.searchPrompt' => 'Enter a search query and press Enter',
+			'common.hintTooltip' => 'Hint',
 			_ => null,
 		};
 	}
