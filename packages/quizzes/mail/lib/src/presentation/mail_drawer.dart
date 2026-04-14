@@ -85,8 +85,8 @@ class MailDrawer extends StatelessWidget {
                 icon: const Icon(Icons.delete_sweep_outlined),
                 label: Text(emptyTrashLabel),
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.red,
-                  side: const BorderSide(color: Colors.red),
+                  foregroundColor: mailTheme.destructive,
+                  side: BorderSide(color: mailTheme.destructive),
                 ),
               ),
             ),
