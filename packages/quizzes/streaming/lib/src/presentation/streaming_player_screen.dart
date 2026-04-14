@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/entities/streaming_video.dart';
-import 'package:streaming/src/domain/streaming_catalog.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
+import 'package:streaming/src/domain/streaming_catalog.dart';
 
 /// YouTube 風プレイヤー共通UI
 class StreamingPlayerScreen extends StatelessWidget {
@@ -98,31 +98,8 @@ class StreamingPlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: quizStatus != QuizStatus.playing,
-      onPopInvokedWithResult: (didPop, _) async {
-        if (didPop) return;
-        final confirmed = await showDialog<bool>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text(context.s.common.quitConfirmTitle),
-            content: Text(context.s.common.quitConfirmMessage),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text(context.s.common.continueButton),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text(context.s.common.quitButton),
-              ),
-            ],
-          ),
-        );
-        if (confirmed == true && context.mounted) {
-          Navigator.of(context).pop();
-        }
-      },
+    return QuizExitScope(
+      quizStatus: quizStatus,
       child: Scaffold(
         backgroundColor: Theme.of(context).extension<StreamingAppTheme>()!.playerBackground,
         body: Stack(

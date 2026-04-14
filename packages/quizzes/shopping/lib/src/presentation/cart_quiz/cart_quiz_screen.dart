@@ -44,31 +44,8 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
     final quizState = ref.watch(cartQuizProvider);
     final missionText = context.s.cart.missionText;
 
-    return PopScope(
-      canPop: quizState.status != QuizStatus.playing,
-      onPopInvokedWithResult: (didPop, _) async {
-        if (didPop) return;
-        final confirmed = await showDialog<bool>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text('ゲームを中断しますか？'),
-            content: const Text('プレイ中のゲームを終了します。'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('続ける'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('終了する'),
-              ),
-            ],
-          ),
-        );
-        if (confirmed == true && context.mounted) {
-          Navigator.of(context).pop();
-        }
-      },
+    return QuizExitScope(
+      quizStatus: quizState.status,
       child: Stack(
         children: [
           Scaffold(
