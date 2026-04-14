@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mail/src/domain/entities/mail_folder.dart';
 import 'package:mail/src/domain/mail_quiz_config.dart';
 import 'package:mail/src/i18n/mail_translations_extension.dart';
 import 'package:mail/src/presentation/mail_app_bar.dart';
@@ -62,54 +63,59 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
 
     return QuizExitScope(
       quizStatus: state.status,
-      child: Scaffold(
-        appBar: _buildAppBar(
-          state: state,
-          selectedCount: selectedCount,
-          notifier: notifier,
-        ),
-        drawer: _buildDrawer(state: state, notifier: notifier),
-        body: Stack(
-          children: [
-            _buildBody(
+      child: Stack(
+        children: [
+          Scaffold(
+            appBar: _buildAppBar(
+              state: state,
+              selectedCount: selectedCount,
+              notifier: notifier,
+            ),
+            drawer: _buildDrawer(state: state, notifier: notifier),
+            body: _buildBody(
               state: state,
               isSelectionMode: isSelectionMode,
               notifier: notifier,
             ),
+          ),
+          if (state.status == QuizStatus.playing)
             FloatingMissionBubble(
               missionText: missionText,
               remainingSeconds: state.remainingSeconds,
               timeLimitSeconds: MailQuizConfig.timeLimitSeconds,
-              hintUsed: false,
+              hintUsed: state.hintUsed,
+              onHintTap: _type == MailQuizType.search
+                  ? () => notifier.useHint()
+                  : null,
+              onGiveUp: () => notifier.giveUp(),
             ),
-            if (_showCutIn)
-              MissionCutIn(
-                missionText: missionText,
-                timeLimitSeconds: MailQuizConfig.timeLimitSeconds,
-                onFinished: () => setState(() => _showCutIn = false),
+          if (_showCutIn)
+            MissionCutIn(
+              missionText: missionText,
+              timeLimitSeconds: MailQuizConfig.timeLimitSeconds,
+              onFinished: () => setState(() => _showCutIn = false),
+            ),
+          if (state.status == QuizStatus.correct ||
+              state.status == QuizStatus.giveUp ||
+              state.status == QuizStatus.timeUp)
+            Positioned.fill(
+              child: QuizResultOverlay(
+                status: state.status,
+                score: state.score,
+                elapsedMs: state.elapsedMs,
+                onRetry: () {
+                  setState(() => _showCutIn = true);
+                  _searchController.clear();
+                  notifier.retry();
+                },
+                onNext: state.status == QuizStatus.correct
+                    ? widget.onCompleted
+                    : null,
+                onBack: () => Navigator.of(context).pop(),
+                insight: _buildInsight(),
               ),
-            if (state.status == QuizStatus.correct ||
-                state.status == QuizStatus.giveUp ||
-                state.status == QuizStatus.timeUp)
-              Positioned.fill(
-                child: QuizResultOverlay(
-                  status: state.status,
-                  score: state.score,
-                  elapsedMs: state.elapsedMs,
-                  onRetry: () {
-                    setState(() => _showCutIn = true);
-                    _searchController.clear();
-                    notifier.retry();
-                  },
-                  onNext: state.status == QuizStatus.correct
-                      ? widget.onCompleted
-                      : null,
-                  onBack: () => Navigator.of(context).pop(),
-                  insight: _buildInsight(),
-                ),
-              ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -138,7 +144,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
         },
         onQueryChanged: notifier.updateQuery,
         onSubmitSearch: notifier.submitSearch,
-        onShowHint: () => _showHintSnackBar(context.s.quiz4.hint),
+        // ヒントは FloatingMissionBubble 内から使用するため AppBar には表示しない
       );
     }
 
@@ -152,6 +158,12 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
           _type == MailQuizType.selectDelete ? notifier.clearSelection : null,
       onDeleteSelected:
           _type == MailQuizType.selectDelete ? notifier.moveToTrash : null,
+      emptyTrashLabel:
+          _type == MailQuizType.emptyTrash ? sq.common.emptyTrash : null,
+      onEmptyTrash: (_type == MailQuizType.emptyTrash &&
+              state.mailApp.currentFolder == MailFolder.trash)
+          ? notifier.emptyTrash
+          : null,
     );
   }
 
@@ -169,12 +181,9 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
       inboxLabel: sq.common.inbox,
       sentLabel: sq.common.sent,
       trashLabel: sq.common.trash,
-      emptyTrashLabel: sq.common.emptyTrash,
       appTitle: sq.common.appTitle,
       onFolderChanged:
           _type == MailQuizType.emptyTrash ? notifier.changeFolder : null,
-      onEmptyTrash:
-          _type == MailQuizType.emptyTrash ? notifier.emptyTrash : null,
     );
   }
 
@@ -205,7 +214,26 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
 
     final mails = state.mailApp.currentFolderMails;
 
+    // Quiz4でヒント使用済み かつ 検索中でない場合にヒントカードを上部に表示
+    final showHintCard =
+        _type == MailQuizType.search && state.hintUsed && !state.isSearching;
+
     if (mails.isEmpty) {
+      if (showHintCard) {
+        return Column(
+          children: [
+            _HintCard(hintText: context.s.quiz4.hint),
+            Expanded(
+              child: Center(
+                child: Text(
+                  sq.common.noMails,
+                  style: TextStyle(color: mailTheme.textSecondary),
+                ),
+              ),
+            ),
+          ],
+        );
+      }
       return Center(
         child: Text(
           sq.common.noMails,
@@ -214,7 +242,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
       );
     }
 
-    return ListView.separated(
+    final listView = ListView.separated(
       itemCount: mails.length,
       separatorBuilder: (_, __) => const Divider(height: 1, indent: 72),
       itemBuilder: (context, index) {
@@ -246,6 +274,16 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
         );
       },
     );
+
+    if (showHintCard) {
+      return Column(
+        children: [
+          _HintCard(hintText: context.s.quiz4.hint),
+          Expanded(child: listView),
+        ],
+      );
+    }
+    return listView;
   }
 
   // ─────────────────────────────────────────────
@@ -273,13 +311,40 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
       MailQuizType.search => s.quiz4.missionText,
     };
   }
+}
 
-  void _showHintSnackBar(String hint) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(hint),
-        duration: const Duration(seconds: 4),
-        behavior: SnackBarBehavior.floating,
+// ─────────────────────────────────────────────
+// ヒントカード（Quiz4: ヒント使用時に Body 上部に表示）
+// ─────────────────────────────────────────────
+
+class _HintCard extends StatelessWidget {
+  const _HintCard({required this.hintText});
+
+  final String hintText;
+
+  @override
+  Widget build(BuildContext context) {
+    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      color: mailTheme.insightIconColor.withValues(alpha: 0.12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.lightbulb, color: mailTheme.insightIconColor, size: 18),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              hintText,
+              style: TextStyle(
+                color: mailTheme.textPrimary,
+                fontSize: 13,
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -340,7 +405,7 @@ class _EmptyTrashInsight extends StatelessWidget {
           desc: insight.trashDesc,
         ),
         _InsightEntry(
-          emoji: '✨',
+          emoji: '⋮',
           title: insight.emptyTitle,
           desc: insight.emptyDesc,
         ),

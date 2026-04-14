@@ -333,6 +333,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get map => 'Map';
 	@override String get alarm => 'Alarm';
 	@override String get payment => 'Payment';
+	@override String get mail => 'Mail App';
 }
 
 // Path: play.categoryDescription
@@ -348,6 +349,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get map => 'Experience map app UI/UX';
 	@override String get alarm => 'Experience clock & alarm app UI/UX';
 	@override String get payment => 'Experience mobile payment app UI/UX';
+	@override String get mail => 'Experience email app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -381,6 +383,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get payment_quiz2 => 'Hide Your Balance';
 	@override String get payment_quiz3 => 'Send Money';
 	@override String get payment_quiz4 => 'Change Payment Method';
+	@override String get mail_quiz1 => 'Archive an Email';
+	@override String get mail_quiz2 => 'Empty the Trash';
+	@override String get mail_quiz3 => 'Delete 3 Emails';
+	@override String get mail_quiz4 => 'Search for Large Emails';
 }
 
 // Path: play.stageDescription
@@ -414,6 +420,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get payment_quiz2 => 'Tap the eye icon to hide your balance in the payment app';
 	@override String get payment_quiz3 => 'Send money to someone in the payment app';
 	@override String get payment_quiz4 => 'Change the payment method to a credit card and show the QR code in the payment app';
+	@override String get mail_quiz1 => 'Archive the 3rd email from the top in the mail app';
+	@override String get mail_quiz2 => 'Empty the trash folder in the mail app';
+	@override String get mail_quiz3 => 'Select 3 emails and delete them in the mail app';
+	@override String get mail_quiz4 => 'Search for emails larger than 5 megabytes in the mail app';
 }
 
 // Path: scene.greeting
@@ -574,12 +584,14 @@ extension on TranslationsEn {
 			'play.categoryLabel.map' => 'Map',
 			'play.categoryLabel.alarm' => 'Alarm',
 			'play.categoryLabel.payment' => 'Payment',
+			'play.categoryLabel.mail' => 'Mail App',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
 			'play.categoryDescription.map' => 'Experience map app UI/UX',
 			'play.categoryDescription.alarm' => 'Experience clock & alarm app UI/UX',
 			'play.categoryDescription.payment' => 'Experience mobile payment app UI/UX',
+			'play.categoryDescription.mail' => 'Experience email app UI/UX',
 			'play.stageTitle.shopping_water' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_checkout' => 'Complete Checkout',
 			'play.stageTitle.shopping_reorder' => 'Reorder Recent Purchase',
@@ -604,6 +616,10 @@ extension on TranslationsEn {
 			'play.stageTitle.payment_quiz2' => 'Hide Your Balance',
 			'play.stageTitle.payment_quiz3' => 'Send Money',
 			'play.stageTitle.payment_quiz4' => 'Change Payment Method',
+			'play.stageTitle.mail_quiz1' => 'Archive an Email',
+			'play.stageTitle.mail_quiz2' => 'Empty the Trash',
+			'play.stageTitle.mail_quiz3' => 'Delete 3 Emails',
+			'play.stageTitle.mail_quiz4' => 'Search for Large Emails',
 			'play.stageDescription.shopping_water' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_checkout' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_reorder' => 'Reorder the most recently purchased item from order history',
@@ -628,6 +644,10 @@ extension on TranslationsEn {
 			'play.stageDescription.payment_quiz2' => 'Tap the eye icon to hide your balance in the payment app',
 			'play.stageDescription.payment_quiz3' => 'Send money to someone in the payment app',
 			'play.stageDescription.payment_quiz4' => 'Change the payment method to a credit card and show the QR code in the payment app',
+			'play.stageDescription.mail_quiz1' => 'Archive the 3rd email from the top in the mail app',
+			'play.stageDescription.mail_quiz2' => 'Empty the trash folder in the mail app',
+			'play.stageDescription.mail_quiz3' => 'Select 3 emails and delete them in the mail app',
+			'play.stageDescription.mail_quiz4' => 'Search for emails larger than 5 megabytes in the mail app',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

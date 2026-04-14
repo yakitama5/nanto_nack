@@ -227,6 +227,17 @@ class MailQuizNotifier
   // Quiz4: 検索
   // ─────────────────────────────────────────────
 
+  /// ヒントを使用する（Quiz4のみ）
+  ///
+  /// FloatingMissionBubble 内のヒントボタンから呼ばれる。
+  /// 使用後は [MailQuizState.hintUsed] が true になり、
+  /// BodyのHintCardが表示される。
+  void useHint() {
+    if (state.status != QuizStatus.playing) return;
+    if (state.hintUsed) return;
+    state = state.copyWith(hintUsed: true);
+  }
+
   /// 検索バーをタップして入力モードへ移行する
   void openSearch() {
     if (state.status != QuizStatus.playing) return;

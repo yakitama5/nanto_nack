@@ -144,8 +144,8 @@ class _TranslationsQuiz2InsightEn extends TranslationsQuiz2InsightJa {
 	@override String get drawerDesc => 'The three-line (☰) icon is a universal UI symbol meaning \'open hidden menu\'. Gmail and Outlook use the same icon.';
 	@override String get trashTitle => 'Trash icon = home for deleted items';
 	@override String get trashDesc => 'The 🗑️ icon indicates \'trash/deleted items\' regardless of OS. Called Trash in Gmail and \'Deleted\' in iOS, but the icon instantly identifies the location.';
-	@override String get emptyTitle => '\'Empty\' button permanently deletes';
-	@override String get emptyDesc => 'Trash is a temporary storage area. The design that data remains until you press Empty Trash is a safety design to prevent accidental deletion.';
+	@override String get emptyTitle => 'Use the top-right menu to empty';
+	@override String get emptyDesc => 'Opening the trash folder reveals an action menu (⋮) in the top right. Selecting \'Empty Trash\' permanently deletes all emails. This two-step deletion is a safety design to prevent accidental data loss.';
 }
 
 // Path: quiz3.insight
@@ -206,8 +206,8 @@ extension on TranslationsEn {
 			'quiz2.insight.drawerDesc' => 'The three-line (☰) icon is a universal UI symbol meaning \'open hidden menu\'. Gmail and Outlook use the same icon.',
 			'quiz2.insight.trashTitle' => 'Trash icon = home for deleted items',
 			'quiz2.insight.trashDesc' => 'The 🗑️ icon indicates \'trash/deleted items\' regardless of OS. Called Trash in Gmail and \'Deleted\' in iOS, but the icon instantly identifies the location.',
-			'quiz2.insight.emptyTitle' => '\'Empty\' button permanently deletes',
-			'quiz2.insight.emptyDesc' => 'Trash is a temporary storage area. The design that data remains until you press Empty Trash is a safety design to prevent accidental deletion.',
+			'quiz2.insight.emptyTitle' => 'Use the top-right menu to empty',
+			'quiz2.insight.emptyDesc' => 'Opening the trash folder reveals an action menu (⋮) in the top right. Selecting \'Empty Trash\' permanently deletes all emails. This two-step deletion is a safety design to prevent accidental data loss.',
 			'quiz3.missionText' => 'Select 3 emails and delete them',
 			'quiz3.insight.title' => 'How did you know long press enables multi-select?',
 			'quiz3.insight.subtitle' => 'Long press is the entry to selection mode',

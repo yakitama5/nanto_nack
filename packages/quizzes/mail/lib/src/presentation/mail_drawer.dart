@@ -12,20 +12,16 @@ class MailDrawer extends StatelessWidget {
     required this.inboxLabel,
     required this.sentLabel,
     required this.trashLabel,
-    required this.emptyTrashLabel,
     required this.appTitle,
     this.onFolderChanged,
-    this.onEmptyTrash,
   });
 
   final MailFolder currentFolder;
   final String inboxLabel;
   final String sentLabel;
   final String trashLabel;
-  final String emptyTrashLabel;
   final String appTitle;
   final void Function(MailFolder folder)? onFolderChanged;
-  final VoidCallback? onEmptyTrash;
 
   @override
   Widget build(BuildContext context) {
@@ -74,22 +70,6 @@ class MailDrawer extends StatelessWidget {
               onFolderChanged?.call(MailFolder.trash);
             },
           ),
-          if (currentFolder == MailFolder.trash && onEmptyTrash != null)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: OutlinedButton.icon(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  onEmptyTrash?.call();
-                },
-                icon: const Icon(Icons.delete_sweep_outlined),
-                label: Text(emptyTrashLabel),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: mailTheme.destructive,
-                  side: BorderSide(color: mailTheme.destructive),
-                ),
-              ),
-            ),
         ],
       ),
     );

@@ -16,9 +16,16 @@
     "categoriesLabel": "カテゴリー",
     "categoryLockedLabel": "クリア後に解放",
     "categoryClearCount": "{cleared}/{total} クリア",
-    "@categoryClearCount": { "param(cleared)": "cleared", "param(total)": "total" },
+    "@categoryClearCount": {
+      "param(cleared)": "cleared",
+      "param(total)": "total"
+    },
     "dateFormat": "{month}月{day}日（{weekday}）",
-    "@dateFormat": { "param(month)": "month", "param(day)": "day", "param(weekday)": "weekday" },
+    "@dateFormat": {
+      "param(month)": "month",
+      "param(day)": "day",
+      "param(weekday)": "weekday"
+    },
     "weekday": {
       "mon": "月",
       "tue": "火",
@@ -103,7 +110,8 @@
       "streaming": "動画",
       "map": "マップ",
       "alarm": "アラーム",
-      "payment": "決済"
+      "payment": "決済",
+      "mail": "メール"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -111,7 +119,8 @@
       "streaming": "動画アプリのUI/UXを体験しよう",
       "map": "地図アプリのUI/UXを体験しよう",
       "alarm": "時計・アラームアプリのUI/UXを体験しよう",
-      "payment": "モバイル決済アプリのUI/UXを体験しよう"
+      "payment": "モバイル決済アプリのUI/UXを体験しよう",
+      "mail": "メールアプリのUI/UXを体験しよう"
     },
     "stageTitle": {
       "shopping_water": "水を2つ買おう",
@@ -137,7 +146,11 @@
       "payment_quiz1": "QRコードを表示しよう",
       "payment_quiz2": "残高を隠そう",
       "payment_quiz3": "送金しよう",
-      "payment_quiz4": "支払い方法を変更しよう"
+      "payment_quiz4": "支払い方法を変更しよう",
+      "mail_quiz1": "メールをアーカイブしよう",
+      "mail_quiz2": "ゴミ箱を空にしよう",
+      "mail_quiz3": "3件のメールを削除しよう",
+      "mail_quiz4": "大きなメールを検索しよう"
     },
     "stageDescription": {
       "shopping_water": "ECサイトで水を2つカートに入れて購入してください",
@@ -163,7 +176,11 @@
       "payment_quiz1": "決済アプリでQRコードを表示してください",
       "payment_quiz2": "決済アプリで目のアイコンをタップして残高を隠してください",
       "payment_quiz3": "決済アプリで誰かに送金してください",
-      "payment_quiz4": "決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください"
+      "payment_quiz4": "決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください",
+      "mail_quiz1": "メールアプリで3番目のメールをアーカイブしてください",
+      "mail_quiz2": "メールアプリでゴミ箱を空にしてください",
+      "mail_quiz3": "メールアプリで3件のメールを選択して削除してください",
+      "mail_quiz4": "メールアプリで5Mバイト以上のメールを検索してください"
     }
   },
   "scene": {
