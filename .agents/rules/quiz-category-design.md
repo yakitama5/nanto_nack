@@ -206,6 +206,143 @@ class _SearchBarContainer extends StatelessWidget {
 - 複数ファイルから使う場合 → `Mail` prefix 等を付けてコンポーネントファイルに定義し、同じファイルに置く
   - 例: `_SearchAppBar` を `MailSearchAppBar` に昇格させ `mail_app_bar.dart` に移動
 
+## 🏗️ クイズ画面のレイヤー構造（MissionCutIn / AppBar の z-index）
+
+Scaffold の AppBar は body より上レイヤーに描画される。
+`MissionCutIn`（暗転エフェクト）や `QuizResultOverlay` を AppBar の上に重ねるには、
+**Scaffold 全体を外側の Stack でラップ**し、それらを外側 Stack の子として配置すること。
+
+```dart
+// ❌ 禁止（MissionCutIn が body 内 Stack に入っているため AppBar を覆えない）
+Scaffold(
+  appBar: ...,
+  body: Stack(
+    children: [
+      _buildBody(),
+      FloatingMissionBubble(...),
+      if (_showCutIn) MissionCutIn(...),   // AppBar の下にしか表示されない
+      if (done) QuizResultOverlay(...),
+    ],
+  ),
+)
+
+// ✅ 正しい（shopping の cart_quiz_screen.dart と同じパターン）
+Stack(
+  children: [
+    Scaffold(
+      appBar: ...,
+      body: _buildBody(),
+    ),
+    if (state.status == QuizStatus.playing)
+      FloatingMissionBubble(...),
+    if (_showCutIn) MissionCutIn(...),     // AppBar も含めて全画面を覆う
+    if (done) Positioned.fill(child: QuizResultOverlay(...)),
+  ],
+)
+```
+
+- `FloatingMissionBubble` も外側 Stack に移動する（`Positioned` を使うため Stack 直下が必須）
+- 外側 Stack での `FloatingMissionBubble` の初期位置は `MediaQuery.paddingOf(context).top + kToolbarHeight` で AppBar 下を自動計算する
+
+## 💬 FloatingMissionBubble には必ず onGiveUp と onHintTap を接続する
+
+すべてのクイズ画面で `FloatingMissionBubble` に以下を接続すること:
+
+| パラメータ | 接続内容 | 条件 |
+|-----------|---------|------|
+| `onGiveUp` | `() => notifier.giveUp()` | **必須**（全クイズ） |
+| `onHintTap` | `() => notifier.useHint()` | ヒント機能がある場合のみ |
+| `hintUsed` | `state.hintUsed` | ヒント機能がある場合のみ（`false` のハードコード禁止） |
+
+```dart
+// ❌ 禁止（onGiveUp 未接続、hintUsed ハードコード）
+FloatingMissionBubble(
+  missionText: missionText,
+  remainingSeconds: state.remainingSeconds,
+  timeLimitSeconds: QuizConfig.timeLimitSeconds,
+  hintUsed: false,
+)
+
+// ✅ 正しい
+if (state.status == QuizStatus.playing)
+  FloatingMissionBubble(
+    missionText: missionText,
+    remainingSeconds: state.remainingSeconds,
+    timeLimitSeconds: QuizConfig.timeLimitSeconds,
+    hintUsed: state.hintUsed,            // State から取得
+    onHintTap: hasHint                   // ヒントがある場合のみ接続
+        ? () => notifier.useHint()
+        : null,
+    onGiveUp: () => notifier.giveUp(),   // 必ず接続
+  ),
+```
+
+- `FloatingMissionBubble` は `state.status == QuizStatus.playing` のときのみ表示すること
+
+## 💡 ヒント機能の実装パターン
+
+ヒントを持つクイズでは shopping の cart_quiz_screen.dart を参考に以下のパターンを採用する:
+
+1. **State に `hintUsed` フィールド**を追加（デフォルト `false`）
+2. **Notifier に `useHint()` メソッド**を追加（`hintUsed = true` にセット）
+3. **FloatingMissionBubble の `onHintTap`** で `notifier.useHint()` を呼ぶ
+4. **画面内にインライン表示**（`hintUsed == true` のとき body 上部にヒントカードを表示）
+5. `retry()` 時は `State.initial()` を使って `hintUsed` が `false` にリセットされることを確認
+
+AppBar にヒントボタンを独立して置くのは非推奨。FloatingMissionBubble との二重管理になる。
+
+## 🗂️ 新カテゴリは quiz_core の i18n と stage_list_screen に必ず登録する
+
+新カテゴリを追加した際は以下を**必ずセット**で実施すること。漏れると英語IDがそのまま表示される。
+
+### quiz_core の i18n に追加
+`packages/quiz_core/assets/i18n/ja.i18n.json` と `en.i18n.json` に追記:
+```json
+"play": {
+  "categoryLabel": {
+    "<category>": "<日本語カテゴリ名>"
+  },
+  "stageTitle": {
+    "<category>_quiz1": "<日本語タイトル>",
+    "<category>_quiz2": "...",
+    ...
+  },
+  "stageDescription": {
+    "<category>_quiz1": "<日本語説明>",
+    ...
+  },
+  "categoryDescription": {
+    "<category>": "<日本語説明>"
+  }
+}
+```
+
+### stage_list_screen.dart の switch 文に追加
+`apps/app_main/lib/presentation/play/stage_list_screen.dart`:
+```dart
+String _categoryLabel(String categoryId, Translations t) {
+  return switch (categoryId) {
+    // ...
+    '<category>' => t.play.categoryLabel.<category>,  // ← 追加
+    _ => categoryId,
+  };
+}
+
+String _stageTitle(String stageId, Translations t) {
+  return switch (stageId) {
+    // ...
+    '<category>_quiz1' => t.play.stageTitle.<category>_quiz1,  // ← 追加
+    '<category>_quiz2' => t.play.stageTitle.<category>_quiz2,
+    _ => stageId,
+  };
+}
+```
+
+### category_list_screen.dart の switch 文に追加
+`apps/app_main/lib/presentation/play/category_list_screen.dart` の `_categoryLabel` にも同様に追加。
+
+---
+
 ## 📦 MailAppTheme フィールド一覧（参考）
 
 `MailAppTheme` は Gmail 風 UI 用途で定義済み。同様のシミュレーション UI を作る際はこれを参考にすること:
