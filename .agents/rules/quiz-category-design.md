@@ -4,7 +4,9 @@
 
 ## 🎨 カラー定義：ThemeExtension を必ず使用する
 
-- **禁止:** `Color(0xFF...)` のベタ書き、`Colors.white` / `Colors.grey` 等のMaterialカラー定数のハードコード
+- **禁止（プレゼンテーション層）:** `Color(0xFF...)` のベタ書き、`Colors.white` / `Colors.grey` 等のMaterialカラー定数のハードコード
+  - ウィジェット（`*.dart` in `presentation/`）では直接カラー値を書かないこと
+- **許可（ThemeExtension 定義ファイル）:** `<category>_app_theme.dart` 内の `static const light = ...` / `static const dark = ...` インスタンス定義時には `Color(0xFF...)` や `Colors.white` を直接使用してよい
 - **必須:** ダークモード対応のため、すべての色は `ThemeExtension` で定義・管理する
 
 ### 実装手順

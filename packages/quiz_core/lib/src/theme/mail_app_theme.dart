@@ -19,6 +19,7 @@ class MailAppTheme extends ThemeExtension<MailAppTheme> {
     required this.borderColor,
     required this.drawerHeaderBackground,
     required this.insightIconColor,
+    required this.destructive,
   });
 
   /// Gmail ブランドブルー（選択モードAppBar・選択アバター・未読タイム）
@@ -66,6 +67,9 @@ class MailAppTheme extends ThemeExtension<MailAppTheme> {
   /// Insight 電球アイコン色
   final Color insightIconColor;
 
+  /// 破壊的アクション（削除・空にする等）の色
+  final Color destructive;
+
   /// ライトテーマ用デフォルト値
   static const light = MailAppTheme(
     brandBlue: Color(0xFF1A73E8),
@@ -83,6 +87,7 @@ class MailAppTheme extends ThemeExtension<MailAppTheme> {
     borderColor: Color(0xFFE0E0E0),
     drawerHeaderBackground: Color(0xFF1A73E8),
     insightIconColor: Color(0xFFFFD814),
+    destructive: Color(0xFFB00020),
   );
 
   /// ダークテーマ用デフォルト値
@@ -102,6 +107,7 @@ class MailAppTheme extends ThemeExtension<MailAppTheme> {
     borderColor: Color(0xFF3C4043),
     drawerHeaderBackground: Color(0xFF1C3A6E),
     insightIconColor: Color(0xFFFFD814),
+    destructive: Color(0xFFCF6679),
   );
 
   @override
@@ -121,6 +127,7 @@ class MailAppTheme extends ThemeExtension<MailAppTheme> {
     Color? borderColor,
     Color? drawerHeaderBackground,
     Color? insightIconColor,
+    Color? destructive,
   }) {
     return MailAppTheme(
       brandBlue: brandBlue ?? this.brandBlue,
@@ -140,6 +147,7 @@ class MailAppTheme extends ThemeExtension<MailAppTheme> {
       drawerHeaderBackground:
           drawerHeaderBackground ?? this.drawerHeaderBackground,
       insightIconColor: insightIconColor ?? this.insightIconColor,
+      destructive: destructive ?? this.destructive,
     );
   }
 
@@ -171,6 +179,7 @@ class MailAppTheme extends ThemeExtension<MailAppTheme> {
           Color.lerp(drawerHeaderBackground, other.drawerHeaderBackground, t)!,
       insightIconColor:
           Color.lerp(insightIconColor, other.insightIconColor, t)!,
+      destructive: Color.lerp(destructive, other.destructive, t)!,
     );
   }
 }
