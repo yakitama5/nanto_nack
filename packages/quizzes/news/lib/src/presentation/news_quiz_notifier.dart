@@ -83,6 +83,7 @@ class NewsQuizNotifier
   }
 
   void retry() {
+    if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = NewsQuizState.initial(
@@ -177,6 +178,8 @@ class NewsQuizNotifier
   /// 指定IDの記事を非表示にする
   void hideArticle(String id) {
     if (state.status != QuizStatus.playing) return;
+    final already = state.newsApp.articles.any((a) => a.id == id && a.isHidden);
+    if (already) return;
     final updated = state.newsApp.articles
         .map((a) => a.id == id ? a.copyWith(isHidden: true) : a)
         .toList();
