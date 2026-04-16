@@ -262,30 +262,45 @@ void main() {
       });
     });
 
-    test('small/mediumを選択してもQuizStatus.playingのままであること', () {
-      const nonClearSizes = [ArticleFontSize.small, ArticleFontSize.medium];
+    test('changeFontSize(small)を呼んでもQuizStatus.playingのままであること', () {
+      final container = buildContainer();
+      addTearDown(container.dispose);
 
-      for (final size in nonClearSizes) {
-        final container = buildContainer();
-        addTearDown(container.dispose);
+      container
+          .read(newsQuizProvider(NewsQuizType.fontSize).notifier)
+          .startQuiz();
 
-        container
-            .read(newsQuizProvider(NewsQuizType.fontSize).notifier)
-            .startQuiz();
-        // 初期サイズはmediumなのでsmallへの変更のみ有効
-        if (size == ArticleFontSize.medium) continue;
+      container
+          .read(newsQuizProvider(NewsQuizType.fontSize).notifier)
+          .changeFontSize(ArticleFontSize.small);
 
-        container
-            .read(newsQuizProvider(NewsQuizType.fontSize).notifier)
-            .changeFontSize(size);
+      final state = container.read(newsQuizProvider(NewsQuizType.fontSize));
+      expect(
+        state.status,
+        QuizStatus.playing,
+        reason: 'changeFontSize(small)を呼んでもplayingのまま',
+      );
+    });
 
-        final state = container.read(newsQuizProvider(NewsQuizType.fontSize));
-        expect(
-          state.status,
-          QuizStatus.playing,
-          reason: 'changeFontSize($size)を呼んでもplayingのまま',
-        );
-      }
+    test('changeFontSize(medium)を呼んでも状態変化しないこと（デフォルトサイズの再選択）', () {
+      final container = buildContainer();
+      addTearDown(container.dispose);
+
+      container
+          .read(newsQuizProvider(NewsQuizType.fontSize).notifier)
+          .startQuiz();
+
+      // 初期サイズがmediumのため、mediumを再選択してもガード節で弾かれる
+      container
+          .read(newsQuizProvider(NewsQuizType.fontSize).notifier)
+          .changeFontSize(ArticleFontSize.medium);
+
+      final state = container.read(newsQuizProvider(NewsQuizType.fontSize));
+      expect(
+        state.status,
+        QuizStatus.playing,
+        reason: 'デフォルトサイズ(medium)の再選択でもplayingのまま',
+      );
     });
   });
 
