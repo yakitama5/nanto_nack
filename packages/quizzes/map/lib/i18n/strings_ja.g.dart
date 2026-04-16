@@ -238,8 +238,8 @@ class TranslationsQuiz1InsightJa {
 	/// ja: '位置情報アイコンは世界共通の「現在地」の記号'
 	String get subtitle => '位置情報アイコンは世界共通の「現在地」の記号';
 
-	/// ja: '📍 ピンアイコンは「ここにいる」を表す'
-	String get locationTitle => '📍 ピンアイコンは「ここにいる」を表す';
+	/// ja: 'ピンアイコンは「ここにいる」を表す'
+	String get locationTitle => 'ピンアイコンは「ここにいる」を表す';
 
 	/// ja: '実際の地図ピンを模したアイコンは、デジタル地図で「現在地」を意味する世界標準の記号として定着している。'
 	String get locationDesc => '実際の地図ピンを模したアイコンは、デジタル地図で「現在地」を意味する世界標準の記号として定着している。';
@@ -368,7 +368,7 @@ extension on Translations {
 			'quiz1.failureReason' => '現在地ボタンをタップしてください',
 			'quiz1.insight.title' => 'なぜ現在地ボタンがわかった？',
 			'quiz1.insight.subtitle' => '位置情報アイコンは世界共通の「現在地」の記号',
-			'quiz1.insight.locationTitle' => '📍 ピンアイコンは「ここにいる」を表す',
+			'quiz1.insight.locationTitle' => 'ピンアイコンは「ここにいる」を表す',
 			'quiz1.insight.locationDesc' => '実際の地図ピンを模したアイコンは、デジタル地図で「現在地」を意味する世界標準の記号として定着している。',
 			'quiz1.insight.compassTitle' => 'コンパスが方角を示す',
 			'quiz1.insight.compassDesc' => '画面端のコンパスアイコンをタップすると北向きに戻る。向きの基準が直感的にわかるUIパターン。',

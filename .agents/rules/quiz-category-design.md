@@ -352,6 +352,43 @@ final categoryColor = switch (categoryId) {
 
 ---
 
+## 📋 リザルトInsightには QuizInsightContent を使う
+
+`QuizResultOverlay` の `insight` パラメータには、必ず `quiz_core` の
+`QuizInsightContent` ウィジェットを使用すること。各クイズ画面にプライベートな
+Insightウィジェット（`_*Insight`, `_InsightHeader`, `_InsightItem` 等）を
+独自定義することは禁止する。
+
+```dart
+// ❌ 禁止（プライベートウィジェットを新規定義）
+class _MyQuizInsight extends StatelessWidget { ... }
+
+// ✅ 正しい（QuizInsightContent を使用）
+QuizResultOverlay(
+  ...
+  insight: Builder(
+    builder: (context) {
+      final insight = context.s.quizN.insight;
+      return QuizInsightContent(
+        title: insight.title,
+        subtitle: insight.subtitle,
+        items: [
+          QuizInsightItem(emoji: '📱', title: insight.step1Title, desc: insight.step1Desc),
+          QuizInsightItem(emoji: '👆', title: insight.step2Title, desc: insight.step2Desc),
+          QuizInsightItem(emoji: '✅', title: insight.step3Title, desc: insight.step3Desc),
+        ],
+      );
+    },
+  ),
+),
+```
+
+- `title`, `subtitle`, アイテムのテキストはすべて i18n（Slang）経由で取得すること
+- アイコンには emoji 文字列（`String`）を使用する
+- `Builder` を使うのは `context.s` などの i18n アクセサが `BuildContext` を必要とするため
+
+---
+
 ## 📦 MailAppTheme フィールド一覧（参考）
 
 `MailAppTheme` は Gmail 風 UI 用途で定義済み。同様のシミュレーション UI を作る際はこれを参考にすること:

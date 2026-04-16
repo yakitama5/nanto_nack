@@ -6,7 +6,6 @@ import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
-import 'package:shopping/src/presentation/shopping_app.dart' show ShoppingInsightItem;
 
 /// カートの合計金額を当てるクイズ画面（Amazon風カートページ）
 class CartQuizScreen extends ConsumerStatefulWidget {
@@ -119,68 +118,36 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
-              insight: const _CartUiInsight(),
+              insight: Builder(
+                builder: (context) {
+                  final insight = context.s.cart.insight;
+                  return QuizInsightContent(
+                    title: insight.title,
+                    subtitle: insight.subtitle,
+                    items: [
+                      QuizInsightItem(
+                        emoji: '🔐',
+                        title: insight.cipherTitle,
+                        desc: insight.cipherDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '💴',
+                        title: insight.priceTitle,
+                        desc: insight.priceDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '🧮',
+                        title: insight.layoutTitle,
+                        desc: insight.layoutDesc,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
       ],
       ),
-    );
-  }
-}
-
-// ─── UX 解説 ──────────────────────────────────────────────────────────────
-
-class _CartUiInsight extends StatelessWidget {
-  const _CartUiInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
-    final insight = context.s.cart.insight;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                insight.title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          insight.subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: ext.subTextColor),
-        ),
-        const SizedBox(height: 12),
-        ShoppingInsightItem(
-          emoji: '🔐',
-          title: insight.cipherTitle,
-          desc: insight.cipherDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '💴',
-          title: insight.priceTitle,
-          desc: insight.priceDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '🧮',
-          title: insight.layoutTitle,
-          desc: insight.layoutDesc,
-        ),
-      ],
     );
   }
 }

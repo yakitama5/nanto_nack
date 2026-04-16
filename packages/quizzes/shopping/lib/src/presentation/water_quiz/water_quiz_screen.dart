@@ -102,7 +102,32 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
-              insight: const _WaterUiInsight(),
+              insight: Builder(
+                builder: (context) {
+                  final insight = context.s.water.insight;
+                  return QuizInsightContent(
+                    title: insight.title,
+                    subtitle: insight.subtitle,
+                    items: [
+                      QuizInsightItem(
+                        emoji: '🛒',
+                        title: insight.iconTitle,
+                        desc: insight.iconDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '🎨',
+                        title: insight.colorTitle,
+                        desc: insight.colorDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '📱',
+                        title: insight.patternTitle,
+                        desc: insight.patternDesc,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
       ],
@@ -130,58 +155,3 @@ class _WaterCartSheet extends ConsumerWidget {
   }
 }
 
-// ─── UX 解説 ──────────────────────────────────────────────────────────────
-
-class _WaterUiInsight extends StatelessWidget {
-  const _WaterUiInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.water.insight;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                insight.title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          insight.subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor),
-        ),
-        const SizedBox(height: 12),
-        ShoppingInsightItem(
-          emoji: '🛒',
-          title: insight.iconTitle,
-          desc: insight.iconDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '🎨',
-          title: insight.colorTitle,
-          desc: insight.colorDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '📱',
-          title: insight.patternTitle,
-          desc: insight.patternDesc,
-        ),
-      ],
-    );
-  }
-}
