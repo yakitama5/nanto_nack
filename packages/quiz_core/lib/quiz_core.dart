@@ -19,7 +19,8 @@ export 'src/widgets/mission_cut_in.dart';
 export 'src/widgets/nanto_heatmap.dart';
 export 'src/widgets/play_limit_modal.dart';
 export 'src/providers/sound_providers.dart';
-export 'src/widgets/quiz_insight_content.dart';
+export 'src/widgets/quiz_insight_content.dart'
+    show QuizInsightContent, QuizInsightItem;
 export 'src/widgets/quiz_result_overlay.dart';
 export 'src/widgets/skeleton_dashboard.dart';
 export 'src/widgets/stage_card.dart';

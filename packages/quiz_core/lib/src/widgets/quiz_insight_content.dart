@@ -60,12 +60,10 @@ class QuizInsightContent extends StatelessWidget {
               ?.copyWith(color: secondaryColor),
         ),
         const SizedBox(height: 12),
-        ...items.expand(
-          (item) => [
-            _InsightItemWidget(emoji: item.emoji, title: item.title, desc: item.desc),
-            const SizedBox(height: 10),
-          ],
-        ),
+        for (var i = 0; i < items.length; i++) ...[
+          _InsightItemWidget(emoji: items[i].emoji, title: items[i].title, desc: items[i].desc),
+          if (i != items.length - 1) const SizedBox(height: 10),
+        ],
       ],
     );
   }
@@ -101,7 +99,9 @@ class _InsightItemWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(emoji, style: const TextStyle(fontSize: 18)),
+        ExcludeSemantics(
+          child: Text(emoji, style: const TextStyle(fontSize: 18)),
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
