@@ -6,6 +6,7 @@ class NewsQuizRepository {
 
   final QuizResultRepository _quizResultRepository;
 
+  /// 結果を保存する（プレイログと最高記録を原子的に）
   Future<void> saveResult({
     required String quizId,
     required bool isCleared,
@@ -13,13 +14,7 @@ class NewsQuizRepository {
     int score = 0,
     int failureCount = 0,
   }) async {
-    await _quizResultRepository.logPlay(
-      quizId: quizId,
-      isCleared: isCleared,
-      score: score,
-      failureCount: failureCount,
-    );
-    await _quizResultRepository.saveBestRecord(
+    await _quizResultRepository.recordPlayAndSaveBest(
       quizId: quizId,
       isCleared: isCleared,
       clearTimeMs: clearTimeMs,
