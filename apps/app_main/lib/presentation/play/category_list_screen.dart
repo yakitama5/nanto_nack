@@ -334,6 +334,7 @@ class _CategoryCard extends StatelessWidget {
       'alarm' => t.play.categoryLabel.alarm,
       'payment' => t.play.categoryLabel.payment,
       'mail' => t.play.categoryLabel.mail,
+      'news' => t.play.categoryLabel.news,
       _ => categoryId,
     };
   }
@@ -347,6 +348,7 @@ class _CategoryCard extends StatelessWidget {
       'alarm' => ext.alarmCategoryColor,
       'payment' => ext.paymentCategoryColor,
       'mail' => ext.shoppingCategoryColor,
+      'news' => ext.newsCategoryColor,
       _ => ext.shoppingCategoryColor,
     };
   }
@@ -363,6 +365,7 @@ class _CategoryCard extends StatelessWidget {
       'alarm' => ext.alarmCategoryContainerColor,
       'payment' => ext.paymentCategoryContainerColor,
       'mail' => ext.shoppingCategoryContainerColor,
+      'news' => ext.newsCategoryContainerColor,
       _ => ext.shoppingCategoryContainerColor,
     };
   }

@@ -194,6 +194,31 @@ const List<Stage> kAllStages = [
     routePath: '/mail/quiz4',
     difficulty: 4,
   ),
+  // ニュースカテゴリー
+  Stage(
+    id: 'news_quiz1',
+    category: 'news',
+    routePath: '/news/quiz1',
+    difficulty: 1,
+  ),
+  Stage(
+    id: 'news_quiz2',
+    category: 'news',
+    routePath: '/news/quiz2',
+    difficulty: 2,
+  ),
+  Stage(
+    id: 'news_quiz3',
+    category: 'news',
+    routePath: '/news/quiz3',
+    difficulty: 3,
+  ),
+  Stage(
+    id: 'news_quiz4',
+    category: 'news',
+    routePath: '/news/quiz4',
+    difficulty: 4,
+  ),
 ];
 
 /// ステージにクリア状況を付加したクラス

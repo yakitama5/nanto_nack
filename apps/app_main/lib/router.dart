@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mail/mail.dart';
+import 'package:news/news.dart';
 import 'package:payment/payment.dart';
 import 'package:go_router/go_router.dart';
 import 'package:map/map.dart';
@@ -247,6 +248,35 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/mail/quiz4',
         builder: (context, state) => MailQuizScreen(
           type: MailQuizType.search,
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      // ニュースカテゴリー
+      GoRoute(
+        path: '/news/quiz1',
+        builder: (context, state) => NewsQuizScreen(
+          type: NewsQuizType.refresh,
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      GoRoute(
+        path: '/news/quiz2',
+        builder: (context, state) => NewsQuizScreen(
+          type: NewsQuizType.category,
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      GoRoute(
+        path: '/news/quiz3',
+        builder: (context, state) => NewsQuizScreen(
+          type: NewsQuizType.fontSize,
+          onCompleted: () => context.pop(),
+        ),
+      ),
+      GoRoute(
+        path: '/news/quiz4',
+        builder: (context, state) => NewsQuizScreen(
+          type: NewsQuizType.hideArticle,
           onCompleted: () => context.pop(),
         ),
       ),

@@ -45,4 +45,8 @@ const List<Category> kAllCategories = [
     id: 'mail',
     icon: Icons.mail_outlined,
   ),
+  Category(
+    id: 'news',
+    icon: Icons.newspaper_outlined,
+  ),
 ];
