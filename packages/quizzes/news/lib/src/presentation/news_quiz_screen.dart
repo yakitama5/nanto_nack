@@ -82,9 +82,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     final index = _tabController.index;
     _isPageChanging = true;
     _pageController.jumpToPage(index);
-    ref
-        .read(newsQuizProvider(_type).notifier)
-        .changeCategory(_tabs[index]);
+    ref.read(newsQuizProvider(_type).notifier).changeCategory(_tabs[index]);
     _isPageChanging = false;
   }
 
@@ -107,7 +105,8 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     // rootNavigator 経由でリザルトオーバーレイを最前面に表示する。
     // Navigator.push した詳細ページが開いている場合もオーバーレイが上に被さる。
     ref.listen(newsQuizProvider(_type).select((s) => s.status), (prev, next) {
-      final done = next == QuizStatus.correct ||
+      final done =
+          next == QuizStatus.correct ||
           next == QuizStatus.giveUp ||
           next == QuizStatus.timeUp;
       if (!done || _resultOverlayShown) return;
@@ -123,6 +122,9 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
             elapsedMs: currentState.elapsedMs,
             onRetry: () {
               Navigator.of(context, rootNavigator: true).pop();
+              // UI フラグをリセット
+              _showCutIn = true;
+              _resultOverlayShown = false;
               widget.onRestart?.call();
             },
             onNext: next == QuizStatus.correct
@@ -148,8 +150,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
           Scaffold(
             backgroundColor: newsTheme.scaffoldBackground,
             appBar: PreferredSize(
-              preferredSize:
-                  const Size.fromHeight(kToolbarHeight + 72.0),
+              preferredSize: const Size.fromHeight(kToolbarHeight + 72.0),
               child: _NewsAppBar(
                 type: _type,
                 tabController: _tabController,
@@ -208,7 +209,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
           onRefresh: () => notifier.refreshNews(),
           child: articles.isEmpty
               ? ListView(
-                  // 空のListViewで RefreshIndicator を使えるようにする
+                  physics: const AlwaysScrollableScrollPhysics(),
                   children: [
                     SizedBox(
                       height: MediaQuery.heightOf(context) * 0.6,
@@ -404,8 +405,7 @@ class _NewsAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final TabController tabController;
 
   @override
-  Size get preferredSize =>
-      const Size.fromHeight(kToolbarHeight + 72.0);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 72.0);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -631,8 +631,10 @@ class _ArticleDetailPage extends ConsumerWidget {
             if (article.isSpoiler) ...[
               Container(
                 margin: const EdgeInsets.only(bottom: 12),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: newsTheme.brandRed.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
