@@ -25,10 +25,12 @@ custom_lint.log
 
 # Serena (MCP コーディングアシスタント)
 # memories/ と project.yml はチーム共有するため除外
-.serena/
+# ※ 親ディレクトリを ignore すると子の ! 否定が効かないため .serena/* で中身を対象にする
+.serena/*
 !.serena/memories/
 !.serena/memories/**
 !.serena/project.yml
+.venv/
 
 # Mason
 .mason/
