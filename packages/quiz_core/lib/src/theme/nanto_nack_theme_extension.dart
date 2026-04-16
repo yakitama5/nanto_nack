@@ -23,6 +23,8 @@ class NantoNackThemeExtension
     required this.alarmCategoryContainerColor,
     required this.paymentCategoryColor,
     required this.paymentCategoryContainerColor,
+    required this.mailCategoryColor,
+    required this.mailCategoryContainerColor,
     required this.newsCategoryColor,
     required this.newsCategoryContainerColor,
   });
@@ -75,6 +77,12 @@ class NantoNackThemeExtension
   /// 決済カテゴリーカードの背景コンテナカラー
   final Color paymentCategoryContainerColor;
 
+  /// メールカテゴリーのブランドカラー（Gmail風ローズ）
+  final Color mailCategoryColor;
+
+  /// メールカテゴリーカードの背景コンテナカラー
+  final Color mailCategoryContainerColor;
+
   /// ニュースカテゴリーのブランドカラー（Yahoo!ニュース風レッド）
   final Color newsCategoryColor;
 
@@ -99,6 +107,8 @@ class NantoNackThemeExtension
     alarmCategoryContainerColor: Color(0xFFFFFDE7),
     paymentCategoryColor: Color(0xFF6A1B9A),
     paymentCategoryContainerColor: Color(0xFFF3E5F5),
+    mailCategoryColor: Color(0xFFAD1457),
+    mailCategoryContainerColor: Color(0xFFFCE4EC),
     newsCategoryColor: Color(0xFFBF360C),
     newsCategoryContainerColor: Color(0xFFFBE9E7),
   );
@@ -133,6 +143,8 @@ class NantoNackThemeExtension
     alarmCategoryContainerColor: Color(0xFF3A2E00),
     paymentCategoryColor: Color(0xFFCE93D8),
     paymentCategoryContainerColor: Color(0xFF2D0F3A),
+    mailCategoryColor: Color(0xFFF48FB1),
+    mailCategoryContainerColor: Color(0xFF3D0014),
     newsCategoryColor: Color(0xFFFF8A65),
     newsCategoryContainerColor: Color(0xFF3E1108),
   );
@@ -155,6 +167,8 @@ class NantoNackThemeExtension
     Color? alarmCategoryContainerColor,
     Color? paymentCategoryColor,
     Color? paymentCategoryContainerColor,
+    Color? mailCategoryColor,
+    Color? mailCategoryContainerColor,
     Color? newsCategoryColor,
     Color? newsCategoryContainerColor,
   }) {
@@ -184,6 +198,9 @@ class NantoNackThemeExtension
       paymentCategoryColor: paymentCategoryColor ?? this.paymentCategoryColor,
       paymentCategoryContainerColor:
           paymentCategoryContainerColor ?? this.paymentCategoryContainerColor,
+      mailCategoryColor: mailCategoryColor ?? this.mailCategoryColor,
+      mailCategoryContainerColor:
+          mailCategoryContainerColor ?? this.mailCategoryContainerColor,
       newsCategoryColor: newsCategoryColor ?? this.newsCategoryColor,
       newsCategoryContainerColor:
           newsCategoryContainerColor ?? this.newsCategoryContainerColor,
@@ -252,6 +269,13 @@ class NantoNackThemeExtension
       paymentCategoryContainerColor: Color.lerp(
         paymentCategoryContainerColor,
         other.paymentCategoryContainerColor,
+        t,
+      )!,
+      mailCategoryColor:
+          Color.lerp(mailCategoryColor, other.mailCategoryColor, t)!,
+      mailCategoryContainerColor: Color.lerp(
+        mailCategoryContainerColor,
+        other.mailCategoryContainerColor,
         t,
       )!,
       newsCategoryColor:

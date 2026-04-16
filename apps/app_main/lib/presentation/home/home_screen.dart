@@ -883,6 +883,7 @@ class _CategoryCarousel extends ConsumerWidget {
                   'map' => ext.mapCategoryColor,
                   'alarm' => ext.alarmCategoryColor,
                   'payment' => ext.paymentCategoryColor,
+                  'mail' => ext.mailCategoryColor,
                   'news' => ext.newsCategoryColor,
                   _ => colorScheme.primary,
                 };
