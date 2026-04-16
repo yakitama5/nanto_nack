@@ -290,12 +290,95 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
   // Insight（クリア後の解説）
   // ─────────────────────────────────────────────
 
-  Widget _buildInsight() => switch (_type) {
-        MailQuizType.archive => const _ArchiveInsight(),
-        MailQuizType.emptyTrash => const _EmptyTrashInsight(),
-        MailQuizType.selectDelete => const _SelectDeleteInsight(),
-        MailQuizType.search => const _SearchInsight(),
-      };
+  Widget _buildInsight() {
+    final s = context.s;
+    return switch (_type) {
+      MailQuizType.archive => QuizInsightContent(
+          title: s.quiz1.insight.title,
+          subtitle: s.quiz1.insight.subtitle,
+          items: [
+            QuizInsightItem(
+              emoji: '👈',
+              title: s.quiz1.insight.swipeTitle,
+              desc: s.quiz1.insight.swipeDesc,
+            ),
+            QuizInsightItem(
+              emoji: '💚',
+              title: s.quiz1.insight.greenTitle,
+              desc: s.quiz1.insight.greenDesc,
+            ),
+            QuizInsightItem(
+              emoji: '📦',
+              title: s.quiz1.insight.archiveTitle,
+              desc: s.quiz1.insight.archiveDesc,
+            ),
+          ],
+        ),
+      MailQuizType.emptyTrash => QuizInsightContent(
+          title: s.quiz2.insight.title,
+          subtitle: s.quiz2.insight.subtitle,
+          items: [
+            QuizInsightItem(
+              emoji: '☰',
+              title: s.quiz2.insight.drawerTitle,
+              desc: s.quiz2.insight.drawerDesc,
+            ),
+            QuizInsightItem(
+              emoji: '🗑️',
+              title: s.quiz2.insight.trashTitle,
+              desc: s.quiz2.insight.trashDesc,
+            ),
+            QuizInsightItem(
+              emoji: '⋮',
+              title: s.quiz2.insight.emptyTitle,
+              desc: s.quiz2.insight.emptyDesc,
+            ),
+          ],
+        ),
+      MailQuizType.selectDelete => QuizInsightContent(
+          title: s.quiz3.insight.title,
+          subtitle: s.quiz3.insight.subtitle,
+          items: [
+            QuizInsightItem(
+              emoji: '👆',
+              title: s.quiz3.insight.longPressTitle,
+              desc: s.quiz3.insight.longPressDesc,
+            ),
+            QuizInsightItem(
+              emoji: '✅',
+              title: s.quiz3.insight.checkTitle,
+              desc: s.quiz3.insight.checkDesc,
+            ),
+            QuizInsightItem(
+              emoji: '🔵',
+              title: s.quiz3.insight.headerTitle,
+              desc: s.quiz3.insight.headerDesc,
+            ),
+          ],
+        ),
+      MailQuizType.search => QuizInsightContent(
+          title: s.quiz4.insight.title,
+          subtitle: s.quiz4.insight.subtitle,
+          items: [
+            QuizInsightItem(
+              emoji: '🔍',
+              title: s.quiz4.insight.operatorTitle,
+              desc: s.quiz4.insight.operatorDesc,
+            ),
+            QuizInsightItem(
+              emoji: '📦',
+              title: s.quiz4.insight.sizeTitle,
+              desc: s.quiz4.insight.sizeDesc,
+            ),
+            QuizInsightItem(
+              emoji: '💡',
+              title: s.quiz4.insight.hintTitle,
+              desc: s.quiz4.insight.hintDesc,
+            ),
+          ],
+        ),
+    };
+  }
 
   // ─────────────────────────────────────────────
   // Helpers
@@ -350,240 +433,3 @@ class _HintCard extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
-// Insight ウィジェット（クイズ別）
-// ─────────────────────────────────────────────
-
-class _ArchiveInsight extends StatelessWidget {
-  const _ArchiveInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.quiz1.insight;
-    return _InsightContent(
-      title: insight.title,
-      subtitle: insight.subtitle,
-      items: [
-        _InsightEntry(
-          emoji: '👈',
-          title: insight.swipeTitle,
-          desc: insight.swipeDesc,
-        ),
-        _InsightEntry(
-          emoji: '💚',
-          title: insight.greenTitle,
-          desc: insight.greenDesc,
-        ),
-        _InsightEntry(
-          emoji: '📦',
-          title: insight.archiveTitle,
-          desc: insight.archiveDesc,
-        ),
-      ],
-    );
-  }
-}
-
-class _EmptyTrashInsight extends StatelessWidget {
-  const _EmptyTrashInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.quiz2.insight;
-    return _InsightContent(
-      title: insight.title,
-      subtitle: insight.subtitle,
-      items: [
-        _InsightEntry(
-          emoji: '☰',
-          title: insight.drawerTitle,
-          desc: insight.drawerDesc,
-        ),
-        _InsightEntry(
-          emoji: '🗑️',
-          title: insight.trashTitle,
-          desc: insight.trashDesc,
-        ),
-        _InsightEntry(
-          emoji: '⋮',
-          title: insight.emptyTitle,
-          desc: insight.emptyDesc,
-        ),
-      ],
-    );
-  }
-}
-
-class _SelectDeleteInsight extends StatelessWidget {
-  const _SelectDeleteInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.quiz3.insight;
-    return _InsightContent(
-      title: insight.title,
-      subtitle: insight.subtitle,
-      items: [
-        _InsightEntry(
-          emoji: '👆',
-          title: insight.longPressTitle,
-          desc: insight.longPressDesc,
-        ),
-        _InsightEntry(
-          emoji: '✅',
-          title: insight.checkTitle,
-          desc: insight.checkDesc,
-        ),
-        _InsightEntry(
-          emoji: '🔵',
-          title: insight.headerTitle,
-          desc: insight.headerDesc,
-        ),
-      ],
-    );
-  }
-}
-
-class _SearchInsight extends StatelessWidget {
-  const _SearchInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.quiz4.insight;
-    return _InsightContent(
-      title: insight.title,
-      subtitle: insight.subtitle,
-      items: [
-        _InsightEntry(
-          emoji: '🔍',
-          title: insight.operatorTitle,
-          desc: insight.operatorDesc,
-        ),
-        _InsightEntry(
-          emoji: '📦',
-          title: insight.sizeTitle,
-          desc: insight.sizeDesc,
-        ),
-        _InsightEntry(
-          emoji: '💡',
-          title: insight.hintTitle,
-          desc: insight.hintDesc,
-        ),
-      ],
-    );
-  }
-}
-
-// ─────────────────────────────────────────────
-// 共通 Insight レイアウト
-// ─────────────────────────────────────────────
-
-class _InsightEntry {
-  const _InsightEntry({
-    required this.emoji,
-    required this.title,
-    required this.desc,
-  });
-
-  final String emoji;
-  final String title;
-  final String desc;
-}
-
-class _InsightContent extends StatelessWidget {
-  const _InsightContent({
-    required this.title,
-    required this.subtitle,
-    required this.items,
-  });
-
-  final String title;
-  final String subtitle;
-  final List<_InsightEntry> items;
-
-  @override
-  Widget build(BuildContext context) {
-    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.lightbulb, color: mailTheme.insightIconColor, size: 20),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: mailTheme.subTextColor),
-        ),
-        const SizedBox(height: 12),
-        ...items.expand(
-          (item) => [
-            _InsightItem(emoji: item.emoji, title: item.title, desc: item.desc),
-            const SizedBox(height: 10),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _InsightItem extends StatelessWidget {
-  const _InsightItem({
-    required this.emoji,
-    required this.title,
-    required this.desc,
-  });
-
-  final String emoji;
-  final String title;
-  final String desc;
-
-  @override
-  Widget build(BuildContext context) {
-    final mailTheme = Theme.of(context).extension<MailAppTheme>()!;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(emoji, style: const TextStyle(fontSize: 18)),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                desc,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: mailTheme.subTextColor),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}

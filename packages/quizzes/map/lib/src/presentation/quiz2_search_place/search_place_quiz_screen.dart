@@ -81,7 +81,32 @@ class _ShowSchoolInfoQuizScreenState
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
-              insight: _ShowSchoolInfoInsight(),
+              insight: Builder(
+                builder: (context) {
+                  final insight = context.s.quiz2.insight;
+                  return QuizInsightContent(
+                    title: insight.title,
+                    subtitle: insight.subtitle,
+                    items: [
+                      QuizInsightItem(
+                        emoji: '🏫',
+                        title: insight.iconTitle,
+                        desc: insight.iconDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '👆',
+                        title: insight.tapTitle,
+                        desc: insight.tapDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '📋',
+                        title: insight.infoTitle,
+                        desc: insight.infoDesc,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
       ],
@@ -89,115 +114,3 @@ class _ShowSchoolInfoQuizScreenState
   }
 }
 
-class _ShowSchoolInfoInsight extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.quiz2.insight;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _InsightHeader(title: insight.title, subtitle: insight.subtitle),
-        const SizedBox(height: 12),
-        _InsightItem(
-          emoji: '🏫',
-          title: insight.iconTitle,
-          desc: insight.iconDesc,
-        ),
-        const SizedBox(height: 10),
-        _InsightItem(
-          emoji: '👆',
-          title: insight.tapTitle,
-          desc: insight.tapDesc,
-        ),
-        const SizedBox(height: 10),
-        _InsightItem(
-          emoji: '📋',
-          title: insight.infoTitle,
-          desc: insight.infoDesc,
-        ),
-      ],
-    );
-  }
-}
-
-class _InsightHeader extends StatelessWidget {
-  const _InsightHeader({required this.title, required this.subtitle});
-
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          subtitle,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).extension<MapAppTheme>()!.subTextColor,
-              ),
-        ),
-      ],
-    );
-  }
-}
-
-class _InsightItem extends StatelessWidget {
-  const _InsightItem({
-    required this.emoji,
-    required this.title,
-    required this.desc,
-  });
-
-  final String emoji;
-  final String title;
-  final String desc;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(emoji, style: const TextStyle(fontSize: 18)),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                desc,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context)
-                          .extension<MapAppTheme>()!
-                          .subTextColor,
-                    ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}

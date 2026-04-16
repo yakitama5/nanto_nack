@@ -5,8 +5,6 @@ import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
-import 'package:shopping/src/presentation/shopping_app.dart'
-    show ShoppingInsightItem;
 
 class CheckoutQuizScreen extends ConsumerStatefulWidget {
   const CheckoutQuizScreen({super.key, this.onCompleted});
@@ -193,67 +191,36 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                     ? widget.onCompleted
                     : null,
                 onBack: () => Navigator.of(context).pop(),
-                insight: const _CheckoutUiInsight(),
+                insight: Builder(
+                builder: (context) {
+                  final insight = context.s.checkout.insight;
+                  return QuizInsightContent(
+                    title: insight.title,
+                    subtitle: insight.subtitle,
+                    items: [
+                      QuizInsightItem(
+                        emoji: '📋',
+                        title: insight.stepTitle,
+                        desc: insight.stepDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '💳',
+                        title: insight.iconTitle,
+                        desc: insight.iconDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '✅',
+                        title: insight.confirmTitle,
+                        desc: insight.confirmDesc,
+                      ),
+                    ],
+                  );
+                },
+              ),
               ),
             ),
         ],
       ),
-    );
-  }
-}
-
-// ─── UX 解説 ──────────────────────────────────────────────────────────────
-
-class _CheckoutUiInsight extends StatelessWidget {
-  const _CheckoutUiInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final ext = Theme.of(context).extension<ShoppingAppTheme>()!;
-    final insight = context.s.checkout.insight;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                insight.title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          insight.subtitle,
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: ext.subTextColor),
-        ),
-        const SizedBox(height: 12),
-        ShoppingInsightItem(
-          emoji: '📋',
-          title: insight.stepTitle,
-          desc: insight.stepDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '💳',
-          title: insight.iconTitle,
-          desc: insight.iconDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '✅',
-          title: insight.confirmTitle,
-          desc: insight.confirmDesc,
-        ),
-      ],
     );
   }
 }

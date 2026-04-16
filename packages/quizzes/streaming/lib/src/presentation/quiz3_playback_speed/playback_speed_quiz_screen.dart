@@ -109,7 +109,32 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
-              insight: _PlaybackSpeedInsight(missionText: missionText),
+              insight: Builder(
+                builder: (context) {
+                  final insight = context.s.quiz3.insight;
+                  return QuizInsightContent(
+                    title: insight.title,
+                    subtitle: insight.subtitle,
+                    items: [
+                      QuizInsightItem(
+                        emoji: '👆',
+                        title: insight.gestureTitle,
+                        desc: insight.gestureDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '⚙️',
+                        title: insight.gearTitle,
+                        desc: insight.gearDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '🔢',
+                        title: insight.speedTitle,
+                        desc: insight.speedDesc,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
       ],
@@ -117,90 +142,3 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
   }
 }
 
-class _PlaybackSpeedInsight extends StatelessWidget {
-  const _PlaybackSpeedInsight({required this.missionText});
-
-  final String missionText;
-
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.quiz3.insight;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                insight.title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          insight.subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Theme.of(context).extension<StreamingAppTheme>()!.subTextColor),
-        ),
-        const SizedBox(height: 12),
-        _InsightItem(emoji: '👆', title: insight.gestureTitle, desc: insight.gestureDesc),
-        const SizedBox(height: 10),
-        _InsightItem(emoji: '⚙️', title: insight.gearTitle, desc: insight.gearDesc),
-        const SizedBox(height: 10),
-        _InsightItem(emoji: '🔢', title: insight.speedTitle, desc: insight.speedDesc),
-      ],
-    );
-  }
-}
-
-class _InsightItem extends StatelessWidget {
-  const _InsightItem({
-    required this.emoji,
-    required this.title,
-    required this.desc,
-  });
-
-  final String emoji;
-  final String title;
-  final String desc;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(emoji, style: const TextStyle(fontSize: 18)),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                desc,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Theme.of(context).extension<StreamingAppTheme>()!.subTextColor),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}

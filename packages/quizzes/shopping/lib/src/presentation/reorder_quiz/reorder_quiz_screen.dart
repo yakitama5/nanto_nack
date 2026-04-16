@@ -88,7 +88,32 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
-              insight: const _ReorderUiInsight(),
+              insight: Builder(
+                builder: (context) {
+                  final insight = context.s.reorder.insight;
+                  return QuizInsightContent(
+                    title: insight.title,
+                    subtitle: insight.subtitle,
+                    items: [
+                      QuizInsightItem(
+                        emoji: '🖼️',
+                        title: insight.imageTitle,
+                        desc: insight.imageDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '💰',
+                        title: insight.priceTitle,
+                        desc: insight.priceDesc,
+                      ),
+                      QuizInsightItem(
+                        emoji: '🔄',
+                        title: insight.patternTitle,
+                        desc: insight.patternDesc,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
       ],
@@ -116,58 +141,3 @@ class _ReorderCartSheet extends ConsumerWidget {
   }
 }
 
-// ─── UX 解説 ──────────────────────────────────────────────────────────────
-
-class _ReorderUiInsight extends StatelessWidget {
-  const _ReorderUiInsight();
-
-  @override
-  Widget build(BuildContext context) {
-    final insight = context.s.reorder.insight;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.lightbulb, color: Color(0xFFFFD814), size: 20),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                insight.title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          insight.subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Theme.of(context).extension<ShoppingAppTheme>()!.subTextColor),
-        ),
-        const SizedBox(height: 12),
-        ShoppingInsightItem(
-          emoji: '🖼️',
-          title: insight.imageTitle,
-          desc: insight.imageDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '💰',
-          title: insight.priceTitle,
-          desc: insight.priceDesc,
-        ),
-        const SizedBox(height: 10),
-        ShoppingInsightItem(
-          emoji: '🔄',
-          title: insight.patternTitle,
-          desc: insight.patternDesc,
-        ),
-      ],
-    );
-  }
-}
