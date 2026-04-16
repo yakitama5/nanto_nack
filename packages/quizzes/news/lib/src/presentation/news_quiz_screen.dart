@@ -114,7 +114,12 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
               _pageController.jumpToPage(0);
               notifier.retry();
             },
-            onNext: next == QuizStatus.correct ? widget.onCompleted : null,
+            onNext: next == QuizStatus.correct
+                ? () {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    widget.onCompleted?.call();
+                  }
+                : null,
             onBack: () {
               Navigator.of(context, rootNavigator: true).pop();
               Navigator.of(context).pop();
