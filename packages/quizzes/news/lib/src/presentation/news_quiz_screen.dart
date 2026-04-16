@@ -30,6 +30,7 @@ class NewsQuizScreen extends ConsumerStatefulWidget {
 class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     with TickerProviderStateMixin {
   bool _showCutIn = true;
+  bool _resultOverlayShown = false;
 
   NewsQuizType get _type => widget.type;
 
@@ -88,9 +89,41 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     final notifier = ref.read(newsQuizProvider(_type).notifier);
     final newsTheme = Theme.of(context).extension<NewsAppTheme>()!;
 
-    final done = state.status == QuizStatus.correct ||
-        state.status == QuizStatus.giveUp ||
-        state.status == QuizStatus.timeUp;
+    // rootNavigator 経由でリザルトオーバーレイを最前面に表示する。
+    // Navigator.push した詳細ページが開いている場合もオーバーレイが上に被さる。
+    ref.listen(newsQuizProvider(_type).select((s) => s.status), (prev, next) {
+      final done = next == QuizStatus.correct ||
+          next == QuizStatus.giveUp ||
+          next == QuizStatus.timeUp;
+      if (!done || _resultOverlayShown) return;
+      _resultOverlayShown = true;
+      final currentState = ref.read(newsQuizProvider(_type));
+      Navigator.of(context, rootNavigator: true).push(
+        PageRouteBuilder<void>(
+          opaque: false,
+          barrierColor: Colors.transparent,
+          pageBuilder: (_, __, ___) => QuizResultOverlay(
+            status: next,
+            score: currentState.score,
+            elapsedMs: currentState.elapsedMs,
+            onRetry: () {
+              Navigator.of(context, rootNavigator: true).pop();
+              _resultOverlayShown = false;
+              setState(() => _showCutIn = true);
+              _tabController.animateTo(0);
+              _pageController.jumpToPage(0);
+              notifier.retry();
+            },
+            onNext: next == QuizStatus.correct ? widget.onCompleted : null,
+            onBack: () {
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context).pop();
+            },
+            insight: _buildInsight(),
+          ),
+        ),
+      );
+    });
 
     return QuizExitScope(
       quizStatus: state.status,
@@ -100,7 +133,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
             backgroundColor: newsTheme.scaffoldBackground,
             appBar: PreferredSize(
               preferredSize:
-                  const Size.fromHeight(kToolbarHeight + kTextTabBarHeight),
+                  const Size.fromHeight(kToolbarHeight + 72.0),
               child: _NewsAppBar(
                 type: _type,
                 tabController: _tabController,
@@ -122,26 +155,6 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
               missionText: missionText,
               timeLimitSeconds: NewsQuizConfig.timeLimitSeconds,
               onFinished: () => setState(() => _showCutIn = false),
-            ),
-          if (done)
-            Positioned.fill(
-              child: QuizResultOverlay(
-                status: state.status,
-                score: state.score,
-                elapsedMs: state.elapsedMs,
-                onRetry: () {
-                  setState(() => _showCutIn = true);
-                  // タブとページを先頭に戻す
-                  _tabController.animateTo(0);
-                  _pageController.jumpToPage(0);
-                  notifier.retry();
-                },
-                onNext: state.status == QuizStatus.correct
-                    ? widget.onCompleted
-                    : null,
-                onBack: () => Navigator.of(context).pop(),
-                insight: _buildInsight(),
-              ),
             ),
         ],
       ),
@@ -376,7 +389,7 @@ class _NewsAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(kToolbarHeight + kTextTabBarHeight);
+      const Size.fromHeight(kToolbarHeight + 72.0);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -401,9 +414,12 @@ class _NewsAppBar extends ConsumerWidget implements PreferredSizeWidget {
         labelColor: newsTheme.tabBarIndicatorColor,
         unselectedLabelColor: newsTheme.textSecondary,
         tabs: [
-          Tab(text: sq.common.tabTop),
-          Tab(text: sq.common.tabEntertainment),
-          Tab(text: sq.common.tabSports),
+          Tab(icon: const Icon(Icons.article), text: sq.common.tabTop),
+          Tab(icon: const Icon(Icons.movie), text: sq.common.tabEntertainment),
+          Tab(
+            icon: const Icon(Icons.sports_soccer),
+            text: sq.common.tabSports,
+          ),
         ],
       ),
     );
@@ -454,6 +470,27 @@ class _NewsListItem extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    if (article.isSpoiler) ...[
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.visibility_off,
+                            size: 12,
+                            color: newsTheme.brandRed,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            sq.common.spoilerLabel,
+                            style: TextStyle(
+                              color: newsTheme.brandRed,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                     const SizedBox(height: 4),
                     Text(
                       CustomLanguageEncoder.encode(article.contentPreview),
@@ -575,6 +612,38 @@ class _ArticleDetailPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (article.isSpoiler) ...[
+              Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: newsTheme.brandRed.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: newsTheme.brandRed.withValues(alpha: 0.5),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.visibility_off,
+                      size: 16,
+                      color: newsTheme.brandRed,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      sq.common.spoilerLabel,
+                      style: TextStyle(
+                        color: newsTheme.brandRed,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             Text(
               CustomLanguageEncoder.encode(article.title),
               style: TextStyle(
