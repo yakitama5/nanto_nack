@@ -50,6 +50,7 @@ class NewsCatalog {
               'WARNING: This review contains major spoilers for the highly anticipated final chapter of the trilogy.',
           category: NewsCategory.entertainment,
           imageUrl: '',
+          isSpoiler: true,
         ),
         // スポーツ×3
         const NewsArticle(

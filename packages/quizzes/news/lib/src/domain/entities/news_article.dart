@@ -31,6 +31,7 @@ class NewsArticle {
     required this.category,
     required this.imageUrl,
     this.isHidden = false,
+    this.isSpoiler = false,
   });
 
   final String id;
@@ -50,6 +51,9 @@ class NewsArticle {
   /// 非表示フラグ（Quiz4でユーザーが非表示にした場合 true）
   final bool isHidden;
 
+  /// ネタバレを含むフラグ（true の場合、一覧・詳細画面でネタバレ警告を表示）
+  final bool isSpoiler;
+
   NewsArticle copyWith({
     String? id,
     String? title,
@@ -57,6 +61,7 @@ class NewsArticle {
     NewsCategory? category,
     String? imageUrl,
     bool? isHidden,
+    bool? isSpoiler,
   }) {
     return NewsArticle(
       id: id ?? this.id,
@@ -65,6 +70,7 @@ class NewsArticle {
       category: category ?? this.category,
       imageUrl: imageUrl ?? this.imageUrl,
       isHidden: isHidden ?? this.isHidden,
+      isSpoiler: isSpoiler ?? this.isSpoiler,
     );
   }
 }
