@@ -9,8 +9,7 @@ class QuizResultRepository {
   final AppDatabase _db;
 
   /// 指定クイズの結果を取得
-  Future<QuizResult?> findById(String quizId) =>
-      _db.getQuizResult(quizId);
+  Future<QuizResult?> findById(String quizId) => _db.getQuizResult(quizId);
 
   /// カテゴリのクイズ結果一覧を取得
   Future<List<QuizResult>> findByCategory(String category) =>
@@ -60,7 +59,9 @@ class QuizResultRepository {
           isCleared: Value(existing.isCleared || isCleared),
           clearTimeMs: Value(isCleared ? clearTimeMs : existing.clearTimeMs),
           score: Value(isNewBestScore ? score : existing.score),
-          failureCount: Value(isNewBestScore ? failureCount : existing.failureCount),
+          failureCount: Value(
+            isNewBestScore ? failureCount : existing.failureCount,
+          ),
           lastPlayedAt: Value(now),
         ),
       );
@@ -99,14 +100,41 @@ class QuizResultRepository {
     required bool isCleared,
     int score = 0,
     int failureCount = 0,
-  }) =>
-      _db.insertPlayLog(
-        PlayLogsCompanion(
-          quizId: Value(quizId),
-          isCleared: Value(isCleared),
-          score: Value(score),
-          failureCount: Value(failureCount),
-          playedAt: Value(clock.now()),
-        ),
+  }) => _db.insertPlayLog(
+    PlayLogsCompanion(
+      quizId: Value(quizId),
+      isCleared: Value(isCleared),
+      score: Value(score),
+      failureCount: Value(failureCount),
+      playedAt: Value(clock.now()),
+    ),
+  );
+
+  /// プレイログ記録と最高記録保存を 1 つのトランザクション内で実行する（原子操作）
+  ///
+  /// `logPlay` と `saveBestRecord` を順序保証付きで実行し、
+  /// 片方の失敗があれば両方ロールバックする。
+  Future<void> recordPlayAndSaveBest({
+    required String quizId,
+    required bool isCleared,
+    int? clearTimeMs,
+    int score = 0,
+    int failureCount = 0,
+  }) async {
+    await _db.transaction(() async {
+      await logPlay(
+        quizId: quizId,
+        isCleared: isCleared,
+        score: score,
+        failureCount: failureCount,
       );
+      await saveBestRecord(
+        quizId: quizId,
+        isCleared: isCleared,
+        clearTimeMs: clearTimeMs,
+        score: score,
+        failureCount: failureCount,
+      );
+    });
+  }
 }
