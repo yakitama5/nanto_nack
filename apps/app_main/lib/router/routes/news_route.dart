@@ -1,10 +1,12 @@
+import '../../config/route_path_constants.dart';
+
 /// ニュースカテゴリーのルートパスEnum。
 enum NewsRoute {
-  list('/play/news'),
-  quiz1('/play/news/quiz1'),
-  quiz2('/play/news/quiz2'),
-  quiz3('/play/news/quiz3'),
-  quiz4('/play/news/quiz4');
+  list(kNewsListPath),
+  quiz1(kNewsQuiz1Path),
+  quiz2(kNewsQuiz2Path),
+  quiz3(kNewsQuiz3Path),
+  quiz4(kNewsQuiz4Path);
 
   const NewsRoute(this.path);
   final String path;

@@ -1,10 +1,12 @@
+import '../../config/route_path_constants.dart';
+
 /// ショッピングカテゴリーのルートパスEnum。
 enum ShoppingRoute {
-  list('/play/shopping'),
-  water('/play/shopping/water'),
-  cart('/play/shopping/cart'),
-  checkout('/play/shopping/checkout'),
-  reorder('/play/shopping/reorder');
+  list(kShoppingListPath),
+  water(kShoppingWaterPath),
+  cart(kShoppingCartPath),
+  checkout(kShoppingCheckoutPath),
+  reorder(kShoppingReorderPath);
 
   const ShoppingRoute(this.path);
   final String path;

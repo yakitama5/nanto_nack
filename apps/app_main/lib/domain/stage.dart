@@ -1,13 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 
-import '../router/routes/alarm_route.dart';
-import '../router/routes/chat_route.dart';
-import '../router/routes/mail_route.dart';
-import '../router/routes/map_route.dart';
-import '../router/routes/news_route.dart';
-import '../router/routes/payment_route.dart';
-import '../router/routes/shopping_route.dart';
-import '../router/routes/streaming_route.dart';
+import '../config/route_path_constants.dart';
 
 /// ステージの定義（静的データ）
 class Stage {
@@ -34,200 +27,200 @@ final List<Stage> kAllStages = List.unmodifiable([
   Stage(
     id: 'shopping_water',
     category: 'shopping',
-    routePath: ShoppingRoute.water.path,
+    routePath: kShoppingWaterPath,
     difficulty: 1,
   ),
   Stage(
     id: 'shopping_checkout',
     category: 'shopping',
-    routePath: ShoppingRoute.checkout.path,
+    routePath: kShoppingCheckoutPath,
     difficulty: 2,
   ),
   Stage(
     id: 'shopping_reorder',
     category: 'shopping',
-    routePath: ShoppingRoute.reorder.path,
+    routePath: kShoppingReorderPath,
     difficulty: 3,
   ),
   Stage(
     id: 'shopping_cart',
     category: 'shopping',
-    routePath: ShoppingRoute.cart.path,
+    routePath: kShoppingCartPath,
     difficulty: 5,
   ),
   // チャットカテゴリー
   Stage(
     id: 'chat_quiz1',
     category: 'chat',
-    routePath: ChatRoute.quiz1.path,
+    routePath: kChatQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'chat_quiz2',
     category: 'chat',
-    routePath: ChatRoute.quiz2.path,
+    routePath: kChatQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'chat_quiz3',
     category: 'chat',
-    routePath: ChatRoute.quiz3.path,
+    routePath: kChatQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'chat_quiz4',
     category: 'chat',
-    routePath: ChatRoute.quiz4.path,
+    routePath: kChatQuiz4Path,
     difficulty: 4,
   ),
   // 動画カテゴリー
   Stage(
     id: 'streaming_quiz1',
     category: 'streaming',
-    routePath: StreamingRoute.quiz1.path,
+    routePath: kStreamingQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'streaming_quiz2',
     category: 'streaming',
-    routePath: StreamingRoute.quiz2.path,
+    routePath: kStreamingQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'streaming_quiz3',
     category: 'streaming',
-    routePath: StreamingRoute.quiz3.path,
+    routePath: kStreamingQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'streaming_quiz4',
     category: 'streaming',
-    routePath: StreamingRoute.quiz4.path,
+    routePath: kStreamingQuiz4Path,
     difficulty: 4,
   ),
   // マップカテゴリー
   Stage(
     id: 'map_quiz1',
     category: 'map',
-    routePath: MapRoute.quiz1.path,
+    routePath: kMapQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'map_quiz2',
     category: 'map',
-    routePath: MapRoute.quiz2.path,
+    routePath: kMapQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'map_quiz3',
     category: 'map',
-    routePath: MapRoute.quiz3.path,
+    routePath: kMapQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'map_quiz4',
     category: 'map',
-    routePath: MapRoute.quiz4.path,
+    routePath: kMapQuiz4Path,
     difficulty: 4,
   ),
   // アラームカテゴリー
   Stage(
     id: 'alarm_quiz1',
     category: 'alarm',
-    routePath: AlarmRoute.quiz1.path,
+    routePath: kAlarmQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'alarm_quiz2',
     category: 'alarm',
-    routePath: AlarmRoute.quiz2.path,
+    routePath: kAlarmQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'alarm_quiz3',
     category: 'alarm',
-    routePath: AlarmRoute.quiz3.path,
+    routePath: kAlarmQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'alarm_quiz4',
     category: 'alarm',
-    routePath: AlarmRoute.quiz4.path,
+    routePath: kAlarmQuiz4Path,
     difficulty: 4,
   ),
   // 決済カテゴリー
   Stage(
     id: 'payment_quiz1',
     category: 'payment',
-    routePath: PaymentRoute.quiz1.path,
+    routePath: kPaymentQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'payment_quiz2',
     category: 'payment',
-    routePath: PaymentRoute.quiz2.path,
+    routePath: kPaymentQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'payment_quiz3',
     category: 'payment',
-    routePath: PaymentRoute.quiz3.path,
+    routePath: kPaymentQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'payment_quiz4',
     category: 'payment',
-    routePath: PaymentRoute.quiz4.path,
+    routePath: kPaymentQuiz4Path,
     difficulty: 4,
   ),
   // メールカテゴリー
   Stage(
     id: 'mail_quiz1',
     category: 'mail',
-    routePath: MailRoute.quiz1.path,
+    routePath: kMailQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'mail_quiz2',
     category: 'mail',
-    routePath: MailRoute.quiz2.path,
+    routePath: kMailQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'mail_quiz3',
     category: 'mail',
-    routePath: MailRoute.quiz3.path,
+    routePath: kMailQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'mail_quiz4',
     category: 'mail',
-    routePath: MailRoute.quiz4.path,
+    routePath: kMailQuiz4Path,
     difficulty: 4,
   ),
   // ニュースカテゴリー
   Stage(
     id: 'news_quiz1',
     category: 'news',
-    routePath: NewsRoute.quiz1.path,
+    routePath: kNewsQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'news_quiz2',
     category: 'news',
-    routePath: NewsRoute.quiz2.path,
+    routePath: kNewsQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'news_quiz3',
     category: 'news',
-    routePath: NewsRoute.quiz3.path,
+    routePath: kNewsQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'news_quiz4',
     category: 'news',
-    routePath: NewsRoute.quiz4.path,
+    routePath: kNewsQuiz4Path,
     difficulty: 4,
   ),
 ]);

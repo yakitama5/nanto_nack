@@ -1,10 +1,12 @@
+import '../../config/route_path_constants.dart';
+
 /// 動画カテゴリーのルートパスEnum。
 enum StreamingRoute {
-  list('/play/streaming'),
-  quiz1('/play/streaming/quiz1'),
-  quiz2('/play/streaming/quiz2'),
-  quiz3('/play/streaming/quiz3'),
-  quiz4('/play/streaming/quiz4');
+  list(kStreamingListPath),
+  quiz1(kStreamingQuiz1Path),
+  quiz2(kStreamingQuiz2Path),
+  quiz3(kStreamingQuiz3Path),
+  quiz4(kStreamingQuiz4Path);
 
   const StreamingRoute(this.path);
   final String path;

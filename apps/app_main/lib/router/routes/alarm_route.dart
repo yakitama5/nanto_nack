@@ -1,10 +1,12 @@
+import '../../config/route_path_constants.dart';
+
 /// アラームカテゴリーのルートパスEnum。
 enum AlarmRoute {
-  list('/play/alarm'),
-  quiz1('/play/alarm/quiz1'),
-  quiz2('/play/alarm/quiz2'),
-  quiz3('/play/alarm/quiz3'),
-  quiz4('/play/alarm/quiz4');
+  list(kAlarmListPath),
+  quiz1(kAlarmQuiz1Path),
+  quiz2(kAlarmQuiz2Path),
+  quiz3(kAlarmQuiz3Path),
+  quiz4(kAlarmQuiz4Path);
 
   const AlarmRoute(this.path);
   final String path;

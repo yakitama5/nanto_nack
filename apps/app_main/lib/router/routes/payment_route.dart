@@ -1,10 +1,12 @@
+import '../../config/route_path_constants.dart';
+
 /// 決済カテゴリーのルートパスEnum。
 enum PaymentRoute {
-  list('/play/payment'),
-  quiz1('/play/payment/quiz1'),
-  quiz2('/play/payment/quiz2'),
-  quiz3('/play/payment/quiz3'),
-  quiz4('/play/payment/quiz4');
+  list(kPaymentListPath),
+  quiz1(kPaymentQuiz1Path),
+  quiz2(kPaymentQuiz2Path),
+  quiz3(kPaymentQuiz3Path),
+  quiz4(kPaymentQuiz4Path);
 
   const PaymentRoute(this.path);
   final String path;

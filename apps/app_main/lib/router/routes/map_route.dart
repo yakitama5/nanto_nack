@@ -1,10 +1,12 @@
+import '../../config/route_path_constants.dart';
+
 /// マップカテゴリーのルートパスEnum。
 enum MapRoute {
-  list('/play/map'),
-  quiz1('/play/map/quiz1'),
-  quiz2('/play/map/quiz2'),
-  quiz3('/play/map/quiz3'),
-  quiz4('/play/map/quiz4');
+  list(kMapListPath),
+  quiz1(kMapQuiz1Path),
+  quiz2(kMapQuiz2Path),
+  quiz3(kMapQuiz3Path),
+  quiz4(kMapQuiz4Path);
 
   const MapRoute(this.path);
   final String path;
