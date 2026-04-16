@@ -111,7 +111,8 @@
       "map": "Map",
       "alarm": "Alarm",
       "payment": "Payment",
-      "mail": "Mail"
+      "mail": "Mail",
+      "news": "News"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -120,7 +121,8 @@
       "map": "Experience map app UI/UX",
       "alarm": "Experience clock & alarm app UI/UX",
       "payment": "Experience mobile payment app UI/UX",
-      "mail": "Experience email app UI/UX"
+      "mail": "Experience email app UI/UX",
+      "news": "Experience news app UI/UX"
     },
     "stageTitle": {
       "shopping_water": "Buy 2 Waters",
@@ -150,7 +152,11 @@
       "mail_quiz1": "Archive an Email",
       "mail_quiz2": "Empty the Trash",
       "mail_quiz3": "Delete 3 Emails",
-      "mail_quiz4": "Search for Large Emails"
+      "mail_quiz4": "Search for Large Emails",
+      "news_quiz1": "Refresh the News",
+      "news_quiz2": "Show Sports Category",
+      "news_quiz3": "Change Font Size to Large",
+      "news_quiz4": "Hide an Unwanted Article"
     },
     "stageDescription": {
       "shopping_water": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -180,7 +186,11 @@
       "mail_quiz1": "Archive the 3rd email from the top in the mail app",
       "mail_quiz2": "Empty the trash folder in the mail app",
       "mail_quiz3": "Select 3 emails and delete them in the mail app",
-      "mail_quiz4": "Search for emails larger than 5 megabytes in the mail app"
+      "mail_quiz4": "Search for emails larger than 5 megabytes in the mail app",
+      "news_quiz1": "Pull down to refresh the news feed",
+      "news_quiz2": "Swipe or tap the tab to show Sports",
+      "news_quiz3": "Open an article and change the font size to Large",
+      "news_quiz4": "Hide the movie review article from the menu"
     }
   },
   "scene": {

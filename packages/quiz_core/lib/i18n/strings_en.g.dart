@@ -333,7 +333,8 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get map => 'Map';
 	@override String get alarm => 'Alarm';
 	@override String get payment => 'Payment';
-	@override String get mail => 'Mail App';
+	@override String get mail => 'Mail';
+	@override String get news => 'News';
 }
 
 // Path: play.categoryDescription
@@ -350,6 +351,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get alarm => 'Experience clock & alarm app UI/UX';
 	@override String get payment => 'Experience mobile payment app UI/UX';
 	@override String get mail => 'Experience email app UI/UX';
+	@override String get news => 'Experience news app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -387,6 +389,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get mail_quiz2 => 'Empty the Trash';
 	@override String get mail_quiz3 => 'Delete 3 Emails';
 	@override String get mail_quiz4 => 'Search for Large Emails';
+	@override String get news_quiz1 => 'Refresh the News';
+	@override String get news_quiz2 => 'Show Sports Category';
+	@override String get news_quiz3 => 'Change Font Size to Large';
+	@override String get news_quiz4 => 'Hide an Unwanted Article';
 }
 
 // Path: play.stageDescription
@@ -424,6 +430,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get mail_quiz2 => 'Empty the trash folder in the mail app';
 	@override String get mail_quiz3 => 'Select 3 emails and delete them in the mail app';
 	@override String get mail_quiz4 => 'Search for emails larger than 5 megabytes in the mail app';
+	@override String get news_quiz1 => 'Pull down to refresh the news feed';
+	@override String get news_quiz2 => 'Swipe or tap the tab to show Sports';
+	@override String get news_quiz3 => 'Open an article and change the font size to Large';
+	@override String get news_quiz4 => 'Hide the movie review article from the menu';
 }
 
 // Path: scene.greeting
@@ -584,7 +594,8 @@ extension on TranslationsEn {
 			'play.categoryLabel.map' => 'Map',
 			'play.categoryLabel.alarm' => 'Alarm',
 			'play.categoryLabel.payment' => 'Payment',
-			'play.categoryLabel.mail' => 'Mail App',
+			'play.categoryLabel.mail' => 'Mail',
+			'play.categoryLabel.news' => 'News',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -592,6 +603,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.alarm' => 'Experience clock & alarm app UI/UX',
 			'play.categoryDescription.payment' => 'Experience mobile payment app UI/UX',
 			'play.categoryDescription.mail' => 'Experience email app UI/UX',
+			'play.categoryDescription.news' => 'Experience news app UI/UX',
 			'play.stageTitle.shopping_water' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_checkout' => 'Complete Checkout',
 			'play.stageTitle.shopping_reorder' => 'Reorder Recent Purchase',
@@ -620,6 +632,10 @@ extension on TranslationsEn {
 			'play.stageTitle.mail_quiz2' => 'Empty the Trash',
 			'play.stageTitle.mail_quiz3' => 'Delete 3 Emails',
 			'play.stageTitle.mail_quiz4' => 'Search for Large Emails',
+			'play.stageTitle.news_quiz1' => 'Refresh the News',
+			'play.stageTitle.news_quiz2' => 'Show Sports Category',
+			'play.stageTitle.news_quiz3' => 'Change Font Size to Large',
+			'play.stageTitle.news_quiz4' => 'Hide an Unwanted Article',
 			'play.stageDescription.shopping_water' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_checkout' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_reorder' => 'Reorder the most recently purchased item from order history',
@@ -648,6 +664,10 @@ extension on TranslationsEn {
 			'play.stageDescription.mail_quiz2' => 'Empty the trash folder in the mail app',
 			'play.stageDescription.mail_quiz3' => 'Select 3 emails and delete them in the mail app',
 			'play.stageDescription.mail_quiz4' => 'Search for emails larger than 5 megabytes in the mail app',
+			'play.stageDescription.news_quiz1' => 'Pull down to refresh the news feed',
+			'play.stageDescription.news_quiz2' => 'Swipe or tap the tab to show Sports',
+			'play.stageDescription.news_quiz3' => 'Open an article and change the font size to Large',
+			'play.stageDescription.news_quiz4' => 'Hide the movie review article from the menu',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

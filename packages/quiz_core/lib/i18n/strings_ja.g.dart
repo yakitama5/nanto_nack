@@ -551,8 +551,11 @@ class TranslationsPlayCategoryLabelJa {
 	/// ja: '決済'
 	String get payment => '決済';
 
-	/// ja: 'メールアプリ'
-	String get mail => 'メールアプリ';
+	/// ja: 'メール'
+	String get mail => 'メール';
+
+	/// ja: 'ニュース'
+	String get news => 'ニュース';
 }
 
 // Path: play.categoryDescription
@@ -583,6 +586,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: 'メールアプリのUI/UXを体験しよう'
 	String get mail => 'メールアプリのUI/UXを体験しよう';
+
+	/// ja: 'ニュースアプリのUI/UXを体験しよう'
+	String get news => 'ニュースアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -676,6 +682,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '大きなメールを検索しよう'
 	String get mail_quiz4 => '大きなメールを検索しよう';
+
+	/// ja: 'ニュースを更新しよう'
+	String get news_quiz1 => 'ニュースを更新しよう';
+
+	/// ja: 'スポーツカテゴリを表示しよう'
+	String get news_quiz2 => 'スポーツカテゴリを表示しよう';
+
+	/// ja: '文字サイズを『大』に変えよう'
+	String get news_quiz3 => '文字サイズを『大』に変えよう';
+
+	/// ja: '気になる記事を非表示にしよう'
+	String get news_quiz4 => '気になる記事を非表示にしよう';
 }
 
 // Path: play.stageDescription
@@ -769,6 +787,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: 'メールアプリで5Mバイト以上のメールを検索してください'
 	String get mail_quiz4 => 'メールアプリで5Mバイト以上のメールを検索してください';
+
+	/// ja: 'ニュース一覧を引っ張って更新してください'
+	String get news_quiz1 => 'ニュース一覧を引っ張って更新してください';
+
+	/// ja: 'タブをスワイプまたはタップして『スポーツ』を表示してください'
+	String get news_quiz2 => 'タブをスワイプまたはタップして『スポーツ』を表示してください';
+
+	/// ja: '記事を開き、文字サイズを『大』に変更してください'
+	String get news_quiz3 => '記事を開き、文字サイズを『大』に変更してください';
+
+	/// ja: '映画レビュー記事のメニューから非表示にしてください'
+	String get news_quiz4 => '映画レビュー記事のメニューから非表示にしてください';
 }
 
 // Path: scene.greeting
@@ -991,7 +1021,8 @@ extension on Translations {
 			'play.categoryLabel.map' => 'マップ',
 			'play.categoryLabel.alarm' => 'アラーム',
 			'play.categoryLabel.payment' => '決済',
-			'play.categoryLabel.mail' => 'メールアプリ',
+			'play.categoryLabel.mail' => 'メール',
+			'play.categoryLabel.news' => 'ニュース',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -999,6 +1030,7 @@ extension on Translations {
 			'play.categoryDescription.alarm' => '時計・アラームアプリのUI/UXを体験しよう',
 			'play.categoryDescription.payment' => 'モバイル決済アプリのUI/UXを体験しよう',
 			'play.categoryDescription.mail' => 'メールアプリのUI/UXを体験しよう',
+			'play.categoryDescription.news' => 'ニュースアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_water' => '水を2つ買おう',
 			'play.stageTitle.shopping_checkout' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_reorder' => '直近の注文を再注文しよう',
@@ -1027,6 +1059,10 @@ extension on Translations {
 			'play.stageTitle.mail_quiz2' => 'ゴミ箱を空にしよう',
 			'play.stageTitle.mail_quiz3' => '3件のメールを削除しよう',
 			'play.stageTitle.mail_quiz4' => '大きなメールを検索しよう',
+			'play.stageTitle.news_quiz1' => 'ニュースを更新しよう',
+			'play.stageTitle.news_quiz2' => 'スポーツカテゴリを表示しよう',
+			'play.stageTitle.news_quiz3' => '文字サイズを『大』に変えよう',
+			'play.stageTitle.news_quiz4' => '気になる記事を非表示にしよう',
 			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1055,6 +1091,10 @@ extension on Translations {
 			'play.stageDescription.mail_quiz2' => 'メールアプリでゴミ箱を空にしてください',
 			'play.stageDescription.mail_quiz3' => 'メールアプリで3件のメールを選択して削除してください',
 			'play.stageDescription.mail_quiz4' => 'メールアプリで5Mバイト以上のメールを検索してください',
+			'play.stageDescription.news_quiz1' => 'ニュース一覧を引っ張って更新してください',
+			'play.stageDescription.news_quiz2' => 'タブをスワイプまたはタップして『スポーツ』を表示してください',
+			'play.stageDescription.news_quiz3' => '記事を開き、文字サイズを『大』に変更してください',
+			'play.stageDescription.news_quiz4' => '映画レビュー記事のメニューから非表示にしてください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

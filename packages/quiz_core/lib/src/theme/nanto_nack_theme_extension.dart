@@ -23,6 +23,8 @@ class NantoNackThemeExtension
     required this.alarmCategoryContainerColor,
     required this.paymentCategoryColor,
     required this.paymentCategoryContainerColor,
+    required this.newsCategoryColor,
+    required this.newsCategoryContainerColor,
   });
 
   /// 連続プレイ日数（ストリーク）のアクセントカラー
@@ -73,6 +75,12 @@ class NantoNackThemeExtension
   /// 決済カテゴリーカードの背景コンテナカラー
   final Color paymentCategoryContainerColor;
 
+  /// ニュースカテゴリーのブランドカラー（Yahoo!ニュース風レッド）
+  final Color newsCategoryColor;
+
+  /// ニュースカテゴリーカードの背景コンテナカラー
+  final Color newsCategoryContainerColor;
+
   /// ライトテーマ用デフォルト値
   static const light = NantoNackThemeExtension(
     streakColor: Color(0xFFE65100),
@@ -91,6 +99,8 @@ class NantoNackThemeExtension
     alarmCategoryContainerColor: Color(0xFFFFFDE7),
     paymentCategoryColor: Color(0xFF6A1B9A),
     paymentCategoryContainerColor: Color(0xFFF3E5F5),
+    newsCategoryColor: Color(0xFFBF360C),
+    newsCategoryContainerColor: Color(0xFFFBE9E7),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -123,6 +133,8 @@ class NantoNackThemeExtension
     alarmCategoryContainerColor: Color(0xFF3A2E00),
     paymentCategoryColor: Color(0xFFCE93D8),
     paymentCategoryContainerColor: Color(0xFF2D0F3A),
+    newsCategoryColor: Color(0xFFFF8A65),
+    newsCategoryContainerColor: Color(0xFF3E1108),
   );
 
   @override
@@ -143,6 +155,8 @@ class NantoNackThemeExtension
     Color? alarmCategoryContainerColor,
     Color? paymentCategoryColor,
     Color? paymentCategoryContainerColor,
+    Color? newsCategoryColor,
+    Color? newsCategoryContainerColor,
   }) {
     return NantoNackThemeExtension(
       streakColor: streakColor ?? this.streakColor,
@@ -170,6 +184,9 @@ class NantoNackThemeExtension
       paymentCategoryColor: paymentCategoryColor ?? this.paymentCategoryColor,
       paymentCategoryContainerColor:
           paymentCategoryContainerColor ?? this.paymentCategoryContainerColor,
+      newsCategoryColor: newsCategoryColor ?? this.newsCategoryColor,
+      newsCategoryContainerColor:
+          newsCategoryContainerColor ?? this.newsCategoryContainerColor,
     );
   }
 
@@ -235,6 +252,13 @@ class NantoNackThemeExtension
       paymentCategoryContainerColor: Color.lerp(
         paymentCategoryContainerColor,
         other.paymentCategoryContainerColor,
+        t,
+      )!,
+      newsCategoryColor:
+          Color.lerp(newsCategoryColor, other.newsCategoryColor, t)!,
+      newsCategoryContainerColor: Color.lerp(
+        newsCategoryContainerColor,
+        other.newsCategoryContainerColor,
         t,
       )!,
     );

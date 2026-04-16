@@ -7,6 +7,7 @@ export 'src/theme/app_theme.dart';
 export 'src/theme/chat_app_theme.dart';
 export 'src/theme/mail_app_theme.dart';
 export 'src/theme/map_app_theme.dart';
+export 'src/theme/news_app_theme.dart';
 export 'src/theme/nanto_nack_theme_extension.dart';
 export 'src/theme/payment_app_theme.dart';
 export 'src/theme/shopping_app_theme.dart';
