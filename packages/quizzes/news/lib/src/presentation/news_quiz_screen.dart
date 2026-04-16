@@ -113,7 +113,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
               missionText: missionText,
               remainingSeconds: state.remainingSeconds,
               timeLimitSeconds: NewsQuizConfig.timeLimitSeconds,
-              hintUsed: false,
+              hintUsed: state.hintUsed,
               onHintTap: null,
               onGiveUp: () => notifier.giveUp(),
             ),
@@ -414,7 +414,7 @@ class _NewsAppBar extends ConsumerWidget implements PreferredSizeWidget {
 // 記事一覧アイテム
 // ─────────────────────────────────────────────
 
-class _NewsListItem extends ConsumerWidget {
+class _NewsListItem extends StatelessWidget {
   const _NewsListItem({
     required this.article,
     required this.onTap,
@@ -426,12 +426,12 @@ class _NewsListItem extends ConsumerWidget {
   final VoidCallback onHide;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final newsTheme = Theme.of(context).extension<NewsAppTheme>()!;
     final sq = context.sq;
 
     return GestureDetector(
-      onLongPress: () => _showOptionsBottomSheet(context, sq, newsTheme),
+      onLongPress: () => _showOptionsBottomSheet(context, newsTheme),
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -475,8 +475,7 @@ class _NewsListItem extends ConsumerWidget {
                   size: 20,
                 ),
                 tooltip: sq.common.moreOptions,
-                onPressed: () =>
-                    _showOptionsBottomSheet(context, sq, newsTheme),
+                onPressed: () => _showOptionsBottomSheet(context, newsTheme),
               ),
             ],
           ),
@@ -487,9 +486,9 @@ class _NewsListItem extends ConsumerWidget {
 
   void _showOptionsBottomSheet(
     BuildContext context,
-    dynamic sq,
     NewsAppTheme newsTheme,
   ) {
+    final sq = context.sq;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: newsTheme.bottomSheetBackground,
@@ -504,7 +503,7 @@ class _NewsListItem extends ConsumerWidget {
             ListTile(
               leading: Icon(Icons.visibility_off, color: newsTheme.textPrimary),
               title: Text(
-                sq.common.hideArticle as String,
+                sq.common.hideArticle,
                 style: TextStyle(color: newsTheme.textPrimary),
               ),
               onTap: () {
