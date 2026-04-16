@@ -109,6 +109,7 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get fontSizeLarge => 'Large';
 	@override String get moreOptions => 'More options';
 	@override String get articleDetailTitle => 'Article detail';
+	@override String get spoilerLabel => 'Spoiler';
 }
 
 // Path: quiz1.insight
@@ -235,6 +236,7 @@ extension on TranslationsEn {
 			'common.fontSizeLarge' => 'Large',
 			'common.moreOptions' => 'More options',
 			'common.articleDetailTitle' => 'Article detail',
+			'common.spoilerLabel' => 'Spoiler',
 			_ => null,
 		};
 	}

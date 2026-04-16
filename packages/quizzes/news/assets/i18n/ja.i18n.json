@@ -63,6 +63,7 @@
     "fontSizeMedium": "中",
     "fontSizeLarge": "大",
     "moreOptions": "その他のオプション",
-    "articleDetailTitle": "記事詳細"
+    "articleDetailTitle": "記事詳細",
+    "spoilerLabel": "ネタバレ注意"
   }
 }

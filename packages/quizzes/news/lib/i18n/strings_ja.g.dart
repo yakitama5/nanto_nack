@@ -146,6 +146,9 @@ class TranslationsCommonJa {
 
 	/// ja: '記事詳細'
 	String get articleDetailTitle => '記事詳細';
+
+	/// ja: 'ネタバレ注意'
+	String get spoilerLabel => 'ネタバレ注意';
 }
 
 // Path: quiz1.insight
@@ -336,6 +339,7 @@ extension on Translations {
 			'common.fontSizeLarge' => '大',
 			'common.moreOptions' => 'その他のオプション',
 			'common.articleDetailTitle' => '記事詳細',
+			'common.spoilerLabel' => 'ネタバレ注意',
 			_ => null,
 		};
 	}

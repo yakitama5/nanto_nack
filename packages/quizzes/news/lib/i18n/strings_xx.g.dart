@@ -109,6 +109,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get fontSizeLarge => 'Ckfpx';
 	@override String get moreOptions => 'Esfx sozrsjw';
 	@override String get articleDetailTitle => 'Kfzrucx mxzkrc';
+	@override String get spoilerLabel => 'Wosfcxf';
 }
 
 // Path: quiz1.insight
@@ -235,6 +236,7 @@ extension on TranslationsXx {
 			'common.fontSizeLarge' => 'Ckfpx',
 			'common.moreOptions' => 'Esfx sozrsjw',
 			'common.articleDetailTitle' => 'Kfzrucx mxzkrc',
+			'common.spoilerLabel' => 'Wosfcxf',
 			_ => null,
 		};
 	}

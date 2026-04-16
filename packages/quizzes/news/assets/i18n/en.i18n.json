@@ -63,6 +63,7 @@
     "fontSizeMedium": "Medium",
     "fontSizeLarge": "Large",
     "moreOptions": "More options",
-    "articleDetailTitle": "Article detail"
+    "articleDetailTitle": "Article detail",
+    "spoilerLabel": "Spoiler"
   }
 }
