@@ -550,6 +550,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: '決済'
 	String get payment => '決済';
+
+	/// ja: 'メールアプリ'
+	String get mail => 'メールアプリ';
 }
 
 // Path: play.categoryDescription
@@ -577,6 +580,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: 'モバイル決済アプリのUI/UXを体験しよう'
 	String get payment => 'モバイル決済アプリのUI/UXを体験しよう';
+
+	/// ja: 'メールアプリのUI/UXを体験しよう'
+	String get mail => 'メールアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -658,6 +664,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '支払い方法を変更しよう'
 	String get payment_quiz4 => '支払い方法を変更しよう';
+
+	/// ja: 'メールをアーカイブしよう'
+	String get mail_quiz1 => 'メールをアーカイブしよう';
+
+	/// ja: 'ゴミ箱を空にしよう'
+	String get mail_quiz2 => 'ゴミ箱を空にしよう';
+
+	/// ja: '3件のメールを削除しよう'
+	String get mail_quiz3 => '3件のメールを削除しよう';
+
+	/// ja: '大きなメールを検索しよう'
+	String get mail_quiz4 => '大きなメールを検索しよう';
 }
 
 // Path: play.stageDescription
@@ -739,6 +757,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください'
 	String get payment_quiz4 => '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください';
+
+	/// ja: 'メールアプリで3番目のメールをアーカイブしてください'
+	String get mail_quiz1 => 'メールアプリで3番目のメールをアーカイブしてください';
+
+	/// ja: 'メールアプリでゴミ箱を空にしてください'
+	String get mail_quiz2 => 'メールアプリでゴミ箱を空にしてください';
+
+	/// ja: 'メールアプリで3件のメールを選択して削除してください'
+	String get mail_quiz3 => 'メールアプリで3件のメールを選択して削除してください';
+
+	/// ja: 'メールアプリで5Mバイト以上のメールを検索してください'
+	String get mail_quiz4 => 'メールアプリで5Mバイト以上のメールを検索してください';
 }
 
 // Path: scene.greeting
@@ -961,12 +991,14 @@ extension on Translations {
 			'play.categoryLabel.map' => 'マップ',
 			'play.categoryLabel.alarm' => 'アラーム',
 			'play.categoryLabel.payment' => '決済',
+			'play.categoryLabel.mail' => 'メールアプリ',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
 			'play.categoryDescription.map' => '地図アプリのUI/UXを体験しよう',
 			'play.categoryDescription.alarm' => '時計・アラームアプリのUI/UXを体験しよう',
 			'play.categoryDescription.payment' => 'モバイル決済アプリのUI/UXを体験しよう',
+			'play.categoryDescription.mail' => 'メールアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_water' => '水を2つ買おう',
 			'play.stageTitle.shopping_checkout' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_reorder' => '直近の注文を再注文しよう',
@@ -991,6 +1023,10 @@ extension on Translations {
 			'play.stageTitle.payment_quiz2' => '残高を隠そう',
 			'play.stageTitle.payment_quiz3' => '送金しよう',
 			'play.stageTitle.payment_quiz4' => '支払い方法を変更しよう',
+			'play.stageTitle.mail_quiz1' => 'メールをアーカイブしよう',
+			'play.stageTitle.mail_quiz2' => 'ゴミ箱を空にしよう',
+			'play.stageTitle.mail_quiz3' => '3件のメールを削除しよう',
+			'play.stageTitle.mail_quiz4' => '大きなメールを検索しよう',
 			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1015,6 +1051,10 @@ extension on Translations {
 			'play.stageDescription.payment_quiz2' => '決済アプリで目のアイコンをタップして残高を隠してください',
 			'play.stageDescription.payment_quiz3' => '決済アプリで誰かに送金してください',
 			'play.stageDescription.payment_quiz4' => '決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください',
+			'play.stageDescription.mail_quiz1' => 'メールアプリで3番目のメールをアーカイブしてください',
+			'play.stageDescription.mail_quiz2' => 'メールアプリでゴミ箱を空にしてください',
+			'play.stageDescription.mail_quiz3' => 'メールアプリで3件のメールを選択して削除してください',
+			'play.stageDescription.mail_quiz4' => 'メールアプリで5Mバイト以上のメールを検索してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

@@ -216,11 +216,11 @@ class TranslationsQuiz2InsightEn {
 	/// en: 'The 🗑️ icon indicates 'trash/deleted items' regardless of OS. Called Trash in Gmail and 'Deleted' in iOS, but the icon instantly identifies the location.'
 	String get trashDesc => 'The 🗑️ icon indicates \'trash/deleted items\' regardless of OS. Called Trash in Gmail and \'Deleted\' in iOS, but the icon instantly identifies the location.';
 
-	/// en: ''Empty' button permanently deletes'
-	String get emptyTitle => '\'Empty\' button permanently deletes';
+	/// en: 'Use the top-right menu to empty'
+	String get emptyTitle => 'Use the top-right menu to empty';
 
-	/// en: 'Trash is a temporary storage area. The design that data remains until you press Empty Trash is a safety design to prevent accidental deletion.'
-	String get emptyDesc => 'Trash is a temporary storage area. The design that data remains until you press Empty Trash is a safety design to prevent accidental deletion.';
+	/// en: 'Opening the trash folder reveals an action menu (⋮) in the top right. Selecting 'Empty Trash' permanently deletes all emails. This two-step deletion is a safety design to prevent accidental data loss.'
+	String get emptyDesc => 'Opening the trash folder reveals an action menu (⋮) in the top right. Selecting \'Empty Trash\' permanently deletes all emails. This two-step deletion is a safety design to prevent accidental data loss.';
 }
 
 // Path: quiz3.insight
@@ -313,8 +313,8 @@ extension on Translations {
 			'quiz2.insight.drawerDesc' => 'The three-line (☰) icon is a universal UI symbol meaning \'open hidden menu\'. Gmail and Outlook use the same icon.',
 			'quiz2.insight.trashTitle' => 'Trash icon = home for deleted items',
 			'quiz2.insight.trashDesc' => 'The 🗑️ icon indicates \'trash/deleted items\' regardless of OS. Called Trash in Gmail and \'Deleted\' in iOS, but the icon instantly identifies the location.',
-			'quiz2.insight.emptyTitle' => '\'Empty\' button permanently deletes',
-			'quiz2.insight.emptyDesc' => 'Trash is a temporary storage area. The design that data remains until you press Empty Trash is a safety design to prevent accidental deletion.',
+			'quiz2.insight.emptyTitle' => 'Use the top-right menu to empty',
+			'quiz2.insight.emptyDesc' => 'Opening the trash folder reveals an action menu (⋮) in the top right. Selecting \'Empty Trash\' permanently deletes all emails. This two-step deletion is a safety design to prevent accidental data loss.',
 			'quiz3.missionText' => 'Select 3 emails and delete them',
 			'quiz3.insight.title' => 'How did you know long press enables multi-select?',
 			'quiz3.insight.subtitle' => 'Long press is the entry to selection mode',

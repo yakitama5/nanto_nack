@@ -216,11 +216,11 @@ class TranslationsQuiz2InsightJa {
 	/// ja: '🗑️アイコンはOSを問わず「ゴミ箱・削除済みアイテム」を示す。GmailではTrash、iOSでは「削除済み」フォルダと呼ばれるが、アイコンで場所を瞬時に特定できる。'
 	String get trashDesc => '🗑️アイコンはOSを問わず「ゴミ箱・削除済みアイテム」を示す。GmailではTrash、iOSでは「削除済み」フォルダと呼ばれるが、アイコンで場所を瞬時に特定できる。';
 
-	/// ja: '「空にする」ボタンで永久削除'
-	String get emptyTitle => '「空にする」ボタンで永久削除';
+	/// ja: '右上のメニューから「空にする」'
+	String get emptyTitle => '右上のメニューから「空にする」';
 
-	/// ja: 'ゴミ箱は「一時保管場所」。Empty Trash（空にする）ボタンを押すまでデータは残るという設計は、誤削除を防ぐ安全設計だ。'
-	String get emptyDesc => 'ゴミ箱は「一時保管場所」。Empty Trash（空にする）ボタンを押すまでデータは残るという設計は、誤削除を防ぐ安全設計だ。';
+	/// ja: 'ゴミ箱フォルダを開くと右上に操作メニュー（⋮）が現れる。「空にする」を選ぶとゴミ箱内のメールをまとめて永久削除できる。これは誤削除を防ぐ「二段階削除」の安全設計だ。'
+	String get emptyDesc => 'ゴミ箱フォルダを開くと右上に操作メニュー（⋮）が現れる。「空にする」を選ぶとゴミ箱内のメールをまとめて永久削除できる。これは誤削除を防ぐ「二段階削除」の安全設計だ。';
 }
 
 // Path: quiz3.insight
@@ -313,8 +313,8 @@ extension on Translations {
 			'quiz2.insight.drawerDesc' => '三本線（☰）アイコンは「隠れたメニューを開く」を意味する世界共通のUI記号。GmailやOutlookでも同じアイコンが使われている。',
 			'quiz2.insight.trashTitle' => 'ゴミ箱アイコン＝削除済みの置き場',
 			'quiz2.insight.trashDesc' => '🗑️アイコンはOSを問わず「ゴミ箱・削除済みアイテム」を示す。GmailではTrash、iOSでは「削除済み」フォルダと呼ばれるが、アイコンで場所を瞬時に特定できる。',
-			'quiz2.insight.emptyTitle' => '「空にする」ボタンで永久削除',
-			'quiz2.insight.emptyDesc' => 'ゴミ箱は「一時保管場所」。Empty Trash（空にする）ボタンを押すまでデータは残るという設計は、誤削除を防ぐ安全設計だ。',
+			'quiz2.insight.emptyTitle' => '右上のメニューから「空にする」',
+			'quiz2.insight.emptyDesc' => 'ゴミ箱フォルダを開くと右上に操作メニュー（⋮）が現れる。「空にする」を選ぶとゴミ箱内のメールをまとめて永久削除できる。これは誤削除を防ぐ「二段階削除」の安全設計だ。',
 			'quiz3.missionText' => '3件のメールを選択して削除しよう',
 			'quiz3.insight.title' => 'なぜ長押しで複数選択できるとわかった？',
 			'quiz3.insight.subtitle' => '選択モードへの入口は「長押し」',
