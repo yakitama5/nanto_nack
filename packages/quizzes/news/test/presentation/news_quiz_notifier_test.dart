@@ -47,8 +47,9 @@ void main() {
       ),
     ).thenAnswer((_) async {});
 
-    when(() => mockAnalytics.logQuizStarted(quizId: any(named: 'quizId')))
-        .thenAnswer((_) async {});
+    when(
+      () => mockAnalytics.logQuizStarted(quizId: any(named: 'quizId')),
+    ).thenAnswer((_) async {});
     when(
       () => mockAnalytics.logQuizCompleted(
         quizId: any(named: 'quizId'),
@@ -57,10 +58,12 @@ void main() {
         clearTimeMs: any(named: 'clearTimeMs'),
       ),
     ).thenAnswer((_) async {});
-    when(() => mockAnalytics.logQuizGivenUp(quizId: any(named: 'quizId')))
-        .thenAnswer((_) async {});
-    when(() => mockAnalytics.logQuizRetried(quizId: any(named: 'quizId')))
-        .thenAnswer((_) async {});
+    when(
+      () => mockAnalytics.logQuizGivenUp(quizId: any(named: 'quizId')),
+    ).thenAnswer((_) async {});
+    when(
+      () => mockAnalytics.logQuizRetried(quizId: any(named: 'quizId')),
+    ).thenAnswer((_) async {});
   });
 
   // ─────────────────────────────────────────────
@@ -93,37 +96,40 @@ void main() {
       });
     });
 
-    test('Quiz2〜4のNotifierでrefreshNewsを呼んでもQuizStatus.playingのままであること', () async {
-      final otherTypes = [
-        NewsQuizType.category,
-        NewsQuizType.fontSize,
-        NewsQuizType.hideArticle,
-      ];
+    test(
+      'Quiz2〜4のNotifierでrefreshNewsを呼んでもQuizStatus.playingのままであること',
+      () async {
+        final otherTypes = [
+          NewsQuizType.category,
+          NewsQuizType.fontSize,
+          NewsQuizType.hideArticle,
+        ];
 
-      for (final type in otherTypes) {
-        await withClock(Clock.fixed(_fixedNow), () async {
-          final container = buildContainer();
-          addTearDown(container.dispose);
-          // autoDispose プロバイダーが非同期処理中にdisposeされないようリスナーを保持
-          final sub = container.listen(
-            newsQuizProvider(type),
-            (_, __) {},
-            fireImmediately: true,
-          );
-          addTearDown(sub.close);
+        for (final type in otherTypes) {
+          await withClock(Clock.fixed(_fixedNow), () async {
+            final container = buildContainer();
+            addTearDown(container.dispose);
+            // autoDispose プロバイダーが非同期処理中にdisposeされないようリスナーを保持
+            final sub = container.listen(
+              newsQuizProvider(type),
+              (_, __) {},
+              fireImmediately: true,
+            );
+            addTearDown(sub.close);
 
-          container.read(newsQuizProvider(type).notifier).startQuiz();
-          await container.read(newsQuizProvider(type).notifier).refreshNews();
+            container.read(newsQuizProvider(type).notifier).startQuiz();
+            await container.read(newsQuizProvider(type).notifier).refreshNews();
 
-          final state = container.read(newsQuizProvider(type));
-          expect(
-            state.status,
-            QuizStatus.playing,
-            reason: '$type でrefreshNewsを呼んでもplayingのまま',
-          );
-        });
-      }
-    });
+            final state = container.read(newsQuizProvider(type));
+            expect(
+              state.status,
+              QuizStatus.playing,
+              reason: '$type でrefreshNewsを呼んでもplayingのまま',
+            );
+          });
+        }
+      },
+    );
   });
 
   // ─────────────────────────────────────────────
@@ -155,32 +161,49 @@ void main() {
       });
     });
 
-    test('クリア条件でないカテゴリ(top, entertainment)に変えてもQuizStatus.playingのままであること', () {
-      const nonClearCategories = [NewsCategory.top, NewsCategory.entertainment];
+    test('クリア条件でないカテゴリ(entertainment)に変えてもQuizStatus.playingのままであること', () {
+      final container = buildContainer();
+      addTearDown(container.dispose);
 
-      for (final category in nonClearCategories) {
-        final container = buildContainer();
-        addTearDown(container.dispose);
+      container
+          .read(newsQuizProvider(NewsQuizType.category).notifier)
+          .startQuiz();
 
-        container
-            .read(newsQuizProvider(NewsQuizType.category).notifier)
-            .startQuiz();
-        // 初期カテゴリはtopなので、entertainmentへの変更をテストするため
-        // topの場合は一度sportsに変えてから戻す必要があるが、
-        // sportsに変えると正解になるため、topはスキップしてentertainmentのみをテスト
-        if (category == NewsCategory.top) continue;
+      container
+          .read(newsQuizProvider(NewsQuizType.category).notifier)
+          .changeCategory(NewsCategory.entertainment);
 
-        container
-            .read(newsQuizProvider(NewsQuizType.category).notifier)
-            .changeCategory(category);
+      final state = container.read(newsQuizProvider(NewsQuizType.category));
+      expect(
+        state.status,
+        QuizStatus.playing,
+        reason: 'changeCategory(entertainment)を呼んでもplayingのまま',
+      );
+    });
 
-        final state = container.read(newsQuizProvider(NewsQuizType.category));
-        expect(
-          state.status,
-          QuizStatus.playing,
-          reason: 'changeCategory($category)を呼んでもplayingのまま',
-        );
-      }
+    test('初期カテゴリはchangeCategoryしても何も変更されないこと（no-op ガード）', () {
+      final container = buildContainer();
+      addTearDown(container.dispose);
+
+      container
+          .read(newsQuizProvider(NewsQuizType.category).notifier)
+          .startQuiz();
+      final initialState = container.read(
+        newsQuizProvider(NewsQuizType.category),
+      );
+
+      // 初期カテゴリ（NewsCategory.top）で changeCategory を呼ぶ
+      container
+          .read(newsQuizProvider(NewsQuizType.category).notifier)
+          .changeCategory(NewsCategory.top);
+
+      final state = container.read(newsQuizProvider(NewsQuizType.category));
+      expect(state.status, QuizStatus.playing);
+      expect(
+        state.newsApp.currentCategory,
+        initialState.newsApp.currentCategory,
+        reason: '初期カテゴリへの変更は no-op',
+      );
     });
 
     test('changeCategoryを呼ぶとcurrentCategoryが変更されること（全クイズで動作）', () {
@@ -290,8 +313,9 @@ void main() {
             .read(newsQuizProvider(NewsQuizType.hideArticle).notifier)
             .hideArticle(NewsQuizConfig.quiz4TargetArticleId);
 
-        final state =
-            container.read(newsQuizProvider(NewsQuizType.hideArticle));
+        final state = container.read(
+          newsQuizProvider(NewsQuizType.hideArticle),
+        );
         expect(state.status, QuizStatus.correct);
       });
     });
@@ -348,16 +372,18 @@ void main() {
           .read(newsQuizProvider(NewsQuizType.category).notifier)
           .giveUp();
 
-      final stateBeforeAction =
-          container.read(newsQuizProvider(NewsQuizType.category));
+      final stateBeforeAction = container.read(
+        newsQuizProvider(NewsQuizType.category),
+      );
       expect(stateBeforeAction.status, QuizStatus.giveUp);
 
       container
           .read(newsQuizProvider(NewsQuizType.category).notifier)
           .changeCategory(NewsCategory.sports);
 
-      final stateAfterAction =
-          container.read(newsQuizProvider(NewsQuizType.category));
+      final stateAfterAction = container.read(
+        newsQuizProvider(NewsQuizType.category),
+      );
       expect(stateAfterAction.status, QuizStatus.giveUp);
       expect(
         stateAfterAction.newsApp.currentCategory,
@@ -385,8 +411,9 @@ void main() {
             .read(newsQuizProvider(NewsQuizType.hideArticle).notifier)
             .hideArticle('news_q_sports_1');
 
-        final stateAfterFirst =
-            container.read(newsQuizProvider(NewsQuizType.hideArticle));
+        final stateAfterFirst = container.read(
+          newsQuizProvider(NewsQuizType.hideArticle),
+        );
         expect(stateAfterFirst.status, QuizStatus.playing);
 
         // 2回目: 同じ記事を再度呼ぶ（冪等ガードで変化しないはず）
@@ -394,13 +421,15 @@ void main() {
             .read(newsQuizProvider(NewsQuizType.hideArticle).notifier)
             .hideArticle('news_q_sports_1');
 
-        final stateAfterSecond =
-            container.read(newsQuizProvider(NewsQuizType.hideArticle));
+        final stateAfterSecond = container.read(
+          newsQuizProvider(NewsQuizType.hideArticle),
+        );
         expect(stateAfterSecond.status, QuizStatus.playing);
 
         // 記事が2重に非表示になっていないことを確認（状態は同一）
-        final hiddenCount =
-            stateAfterSecond.newsApp.articles.where((a) => a.isHidden).length;
+        final hiddenCount = stateAfterSecond.newsApp.articles
+            .where((a) => a.isHidden)
+            .length;
         expect(hiddenCount, 1, reason: '同じ記事のhideArticleは1回しか処理されない');
       });
     });
