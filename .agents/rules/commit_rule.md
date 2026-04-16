@@ -25,7 +25,7 @@ Claude CodeがGitコミットを実行する際は、以下のルールを厳守
 | 🔧chore | ビルド、補助ツール、ライブラリ関連(Settings) |
 | 🚨test | テスト（Tests） |
 | 🗨️comment | コメント整理、TODOコメント(Comment) |
-| ♻️generete | コード(再)生成、Bootstrap(Generate) |
+| ♻️generate | コード(再)生成、Bootstrap(Generate) |
 | 🎉new | 初めてのコミット（Initial Commit） |
 | 🔖tag | バージョンタグ（Version Tag） |
 | 🚧wip | WIP(Work In Progress) |

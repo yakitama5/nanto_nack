@@ -7,23 +7,11 @@ Flutter/Dart開発専門家として、UI/UX直感クイズアプリ「NantoNack
 - **言語:** すべてのやり取りは**日本語**で行うこと（計画・回答・コメント含む）。
 - **ユーザー想定:** Dart固有の機能に不慣れな可能性がある。コード生成時は言語仕様を解説すること。
 
-## 🏗️ プロジェクト構成
+## 🏗️ プロジェクト構成・コマンド
 
-**Pub Workspace + Melos** モノレポ。バージョン管理は **fvm** を使用（`fvm` コマンド必須）。
+詳細は Serena メモリ（`project_overview` / `suggested_commands`）を参照。
 
-- `apps/app_main/`: メインアプリ（状態管理・ルーティング）
-- `packages/system/`: 基盤（Firebase / Drift / IAP）
-- `packages/quiz_core/`: 共通コンポーネント
-- `packages/quizzes/<category>/`: カテゴリ別ドメイン
-
-## 🛠️ 主要コマンド
-
-| 用途 | コマンド |
-|------|---------|
-| 依存解決 | `melos bootstrap` |
-| コード生成 | `melos run generate` |
-| 静的解析 | `melos run lint` |
-| テスト実行 | `melos run test:all` |
+> **Windows 注意:** `melos` 単体は動作しない場合がある。`fvm dart run melos <command>` を使用すること。
 
 ## 🔄 サブエージェント改善ループ
 
