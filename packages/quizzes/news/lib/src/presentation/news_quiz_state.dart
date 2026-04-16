@@ -17,6 +17,7 @@ class NewsQuizState extends QuizStateBase {
     required this.newsApp,
     required this.remainingSeconds,
     this.isRefreshing = false,
+    this.hintUsed = false,
   });
 
   final NewsAppState newsApp;
@@ -27,6 +28,9 @@ class NewsQuizState extends QuizStateBase {
   /// Pull to Refresh 中かどうか（演出用フラグ）
   final bool isRefreshing;
 
+  /// ヒントを使用済みかどうか
+  final bool hintUsed;
+
   NewsQuizState copyWith({
     QuizStatus? status,
     int? failureCount,
@@ -35,6 +39,7 @@ class NewsQuizState extends QuizStateBase {
     NewsAppState? newsApp,
     int? remainingSeconds,
     bool? isRefreshing,
+    bool? hintUsed,
   }) {
     return NewsQuizState(
       status: status ?? this.status,
@@ -44,6 +49,7 @@ class NewsQuizState extends QuizStateBase {
       newsApp: newsApp ?? this.newsApp,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       isRefreshing: isRefreshing ?? this.isRefreshing,
+      hintUsed: hintUsed ?? this.hintUsed,
     );
   }
 
@@ -57,5 +63,6 @@ class NewsQuizState extends QuizStateBase {
         startedAt: null,
         newsApp: NewsAppState.initial(initialArticles: initialArticles),
         remainingSeconds: NewsQuizConfig.timeLimitSeconds,
+        hintUsed: false,
       );
 }
