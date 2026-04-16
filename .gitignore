@@ -23,6 +23,13 @@ custom_lint.log
 # FVM (Flutter Version Management)
 .fvm/
 
+# Serena (MCP コーディングアシスタント)
+# memories/ と project.yml はチーム共有するため除外
+.serena/
+!.serena/memories/
+!.serena/memories/**
+!.serena/project.yml
+
 # Mason
 .mason/
 # `mason get` すると内容が絶対パスに書き換わるためバージョン管理しない
