@@ -53,8 +53,13 @@ const String kMailQuiz3Path = '/play/mail/quiz3';
 const String kMailQuiz4Path = '/play/mail/quiz4';
 
 // News
-const String kNewsListPath = '/play/news';
-const String kNewsQuiz1Path = '/play/news/quiz1';
-const String kNewsQuiz2Path = '/play/news/quiz2';
-const String kNewsQuiz3Path = '/play/news/quiz3';
-const String kNewsQuiz4Path = '/play/news/quiz4';
+const String kNewsSegment = 'news';
+const String kNewsQuiz1Segment = 'quiz1';
+const String kNewsQuiz2Segment = 'quiz2';
+const String kNewsQuiz3Segment = 'quiz3';
+const String kNewsQuiz4Segment = 'quiz4';
+const String kNewsListPath = '/play/$kNewsSegment';
+const String kNewsQuiz1Path = '$kNewsListPath/$kNewsQuiz1Segment';
+const String kNewsQuiz2Path = '$kNewsListPath/$kNewsQuiz2Segment';
+const String kNewsQuiz3Path = '$kNewsListPath/$kNewsQuiz3Segment';
+const String kNewsQuiz4Path = '$kNewsListPath/$kNewsQuiz4Segment';
