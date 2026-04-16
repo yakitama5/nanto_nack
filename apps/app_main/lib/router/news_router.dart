@@ -61,8 +61,9 @@ List<GoRoute> _buildNewsQuizRoutes() {
             type: config.type,
             onCompleted: () => context.go(NewsRoute.list.path),
             onBack: () => context.go(NewsRoute.list.path),
-            onRestart: () =>
-                context.go('${NewsRoute.list.path}/${config.restartTarget}'),
+            onRestart: () => context.pushReplacement(
+              '${NewsRoute.list.path}/${config.restartTarget}',
+            ),
           ),
         ),
       )
