@@ -11,7 +11,7 @@ class NewsAppState {
     required List<NewsArticle> articles,
     required this.currentCategory,
     required this.fontSize,
-  }) : articles = UnmodifiableListView(articles);
+  }) : articles = UnmodifiableListView(List.from(articles));
 
   /// 全記事のリスト（読み取り専用）
   final UnmodifiableListView<NewsArticle> articles;
@@ -40,7 +40,7 @@ class NewsAppState {
     ArticleFontSize? fontSize,
   }) {
     return NewsAppState(
-      articles: articles ?? this.articles.toList(),
+      articles: articles != null ? List.from(articles) : this.articles.toList(),
       currentCategory: currentCategory ?? this.currentCategory,
       fontSize: fontSize ?? this.fontSize,
     );
