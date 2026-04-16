@@ -18,10 +18,25 @@ class NewsQuizScreen extends ConsumerStatefulWidget {
     super.key,
     required this.type,
     this.onCompleted,
+    this.onBack,
+    this.onRestart,
   });
 
   final NewsQuizType type;
   final VoidCallback? onCompleted;
+
+  /// リザルトの「戻る」タップ時に呼ばれるコールバック。
+  ///
+  /// GoRouter 経由で遷移している場合は [context.pop] を渡すこと。
+  /// Navigator スタック上に _ArticleDetailPage が積まれていても
+  /// GoRouter レベルで一括クリアできる。
+  final VoidCallback? onBack;
+
+  /// リザルトの「もう一度」タップ時に呼ばれるコールバック。
+  ///
+  /// GoRouter 経由で遷移している場合は [context.pushReplacement] を渡すこと。
+  /// 詳細画面を含む Navigator スタックを丸ごと置き換えて再スタートできる。
+  final VoidCallback? onRestart;
 
   @override
   ConsumerState<NewsQuizScreen> createState() => _NewsQuizScreenState();
@@ -108,11 +123,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
             elapsedMs: currentState.elapsedMs,
             onRetry: () {
               Navigator.of(context, rootNavigator: true).pop();
-              _resultOverlayShown = false;
-              setState(() => _showCutIn = true);
-              _tabController.animateTo(0);
-              _pageController.jumpToPage(0);
-              notifier.retry();
+              widget.onRestart?.call();
             },
             onNext: next == QuizStatus.correct
                 ? () {
@@ -122,7 +133,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
                 : null,
             onBack: () {
               Navigator.of(context, rootNavigator: true).pop();
-              Navigator.of(context).pop();
+              widget.onBack?.call();
             },
             insight: _buildInsight(),
           ),
