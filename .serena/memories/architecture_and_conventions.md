@@ -35,6 +35,20 @@
 - `catch (error, stackTrace)` で受け取り `appLogger.e(...)` でログ記録
 - 副作用が連続する場合は `finally` を使い後続処理を保証
 
+## 関数シグネチャ・null チェック
+
+- 宣言したパラメータは必ず実装内で使用すること。未使用パラメータは削除する。
+- `if (callback != null)` ガードで null が保証されている場合は `!.call()` を使う（`?.call()` 禁止）
+- 複数の関連パラメータに整合性制約がある場合はコンストラクタの `assert` で保証する
+
+```dart
+// ✅ 正しい
+const MyWidget({this.onAction, this.label})
+    : assert(onAction == null || label != null);
+// build 内
+if (onAction != null) TextButton(onPressed: onAction!.call, child: Text(label!))
+```
+
 ## UI・テキスト
 
 - 色は `ThemeExtension` で定義・管理（ウィジェット層でのハードコード禁止）
