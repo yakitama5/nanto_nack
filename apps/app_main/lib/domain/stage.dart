@@ -1,5 +1,14 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../router/routes/alarm_route.dart';
+import '../router/routes/chat_route.dart';
+import '../router/routes/mail_route.dart';
+import '../router/routes/map_route.dart';
+import '../router/routes/news_route.dart';
+import '../router/routes/payment_route.dart';
+import '../router/routes/shopping_route.dart';
+import '../router/routes/streaming_route.dart';
+
 /// ステージの定義（静的データ）
 class Stage {
   const Stage({
@@ -18,205 +27,207 @@ class Stage {
 }
 
 /// アプリで定義するステージ一覧
-const List<Stage> kAllStages = [
+///
+/// EnumのgetterはDartのconst contextで使えないため、finalで定義する。
+final List<Stage> kAllStages = [
   // ショッピングカテゴリー
   Stage(
     id: 'shopping_water',
     category: 'shopping',
-    routePath: '/shopping/water',
+    routePath: ShoppingRoute.water.path,
     difficulty: 1,
   ),
   Stage(
     id: 'shopping_checkout',
     category: 'shopping',
-    routePath: '/shopping/checkout',
+    routePath: ShoppingRoute.checkout.path,
     difficulty: 2,
   ),
   Stage(
     id: 'shopping_reorder',
     category: 'shopping',
-    routePath: '/shopping/reorder',
+    routePath: ShoppingRoute.reorder.path,
     difficulty: 3,
   ),
   Stage(
     id: 'shopping_cart',
     category: 'shopping',
-    routePath: '/shopping/cart',
+    routePath: ShoppingRoute.cart.path,
     difficulty: 5,
   ),
   // チャットカテゴリー
   Stage(
     id: 'chat_quiz1',
     category: 'chat',
-    routePath: '/chat/quiz1',
+    routePath: ChatRoute.quiz1.path,
     difficulty: 1,
   ),
   Stage(
     id: 'chat_quiz2',
     category: 'chat',
-    routePath: '/chat/quiz2',
+    routePath: ChatRoute.quiz2.path,
     difficulty: 2,
   ),
   Stage(
     id: 'chat_quiz3',
     category: 'chat',
-    routePath: '/chat/quiz3',
+    routePath: ChatRoute.quiz3.path,
     difficulty: 3,
   ),
   Stage(
     id: 'chat_quiz4',
     category: 'chat',
-    routePath: '/chat/quiz4',
+    routePath: ChatRoute.quiz4.path,
     difficulty: 4,
   ),
   // 動画カテゴリー
   Stage(
     id: 'streaming_quiz1',
     category: 'streaming',
-    routePath: '/streaming/quiz1',
+    routePath: StreamingRoute.quiz1.path,
     difficulty: 1,
   ),
   Stage(
     id: 'streaming_quiz2',
     category: 'streaming',
-    routePath: '/streaming/quiz2',
+    routePath: StreamingRoute.quiz2.path,
     difficulty: 2,
   ),
   Stage(
     id: 'streaming_quiz3',
     category: 'streaming',
-    routePath: '/streaming/quiz3',
+    routePath: StreamingRoute.quiz3.path,
     difficulty: 3,
   ),
   Stage(
     id: 'streaming_quiz4',
     category: 'streaming',
-    routePath: '/streaming/quiz4',
+    routePath: StreamingRoute.quiz4.path,
     difficulty: 4,
   ),
   // マップカテゴリー
   Stage(
     id: 'map_quiz1',
     category: 'map',
-    routePath: '/map/quiz1',
+    routePath: MapRoute.quiz1.path,
     difficulty: 1,
   ),
   Stage(
     id: 'map_quiz2',
     category: 'map',
-    routePath: '/map/quiz2',
+    routePath: MapRoute.quiz2.path,
     difficulty: 2,
   ),
   Stage(
     id: 'map_quiz3',
     category: 'map',
-    routePath: '/map/quiz3',
+    routePath: MapRoute.quiz3.path,
     difficulty: 3,
   ),
   Stage(
     id: 'map_quiz4',
     category: 'map',
-    routePath: '/map/quiz4',
+    routePath: MapRoute.quiz4.path,
     difficulty: 4,
   ),
   // アラームカテゴリー
   Stage(
     id: 'alarm_quiz1',
     category: 'alarm',
-    routePath: '/alarm/quiz1',
+    routePath: AlarmRoute.quiz1.path,
     difficulty: 1,
   ),
   Stage(
     id: 'alarm_quiz2',
     category: 'alarm',
-    routePath: '/alarm/quiz2',
+    routePath: AlarmRoute.quiz2.path,
     difficulty: 2,
   ),
   Stage(
     id: 'alarm_quiz3',
     category: 'alarm',
-    routePath: '/alarm/quiz3',
+    routePath: AlarmRoute.quiz3.path,
     difficulty: 3,
   ),
   Stage(
     id: 'alarm_quiz4',
     category: 'alarm',
-    routePath: '/alarm/quiz4',
+    routePath: AlarmRoute.quiz4.path,
     difficulty: 4,
   ),
   // 決済カテゴリー
   Stage(
     id: 'payment_quiz1',
     category: 'payment',
-    routePath: '/payment/quiz1',
+    routePath: PaymentRoute.quiz1.path,
     difficulty: 1,
   ),
   Stage(
     id: 'payment_quiz2',
     category: 'payment',
-    routePath: '/payment/quiz2',
+    routePath: PaymentRoute.quiz2.path,
     difficulty: 2,
   ),
   Stage(
     id: 'payment_quiz3',
     category: 'payment',
-    routePath: '/payment/quiz3',
+    routePath: PaymentRoute.quiz3.path,
     difficulty: 3,
   ),
   Stage(
     id: 'payment_quiz4',
     category: 'payment',
-    routePath: '/payment/quiz4',
+    routePath: PaymentRoute.quiz4.path,
     difficulty: 4,
   ),
   // メールカテゴリー
   Stage(
     id: 'mail_quiz1',
     category: 'mail',
-    routePath: '/mail/quiz1',
+    routePath: MailRoute.quiz1.path,
     difficulty: 1,
   ),
   Stage(
     id: 'mail_quiz2',
     category: 'mail',
-    routePath: '/mail/quiz2',
+    routePath: MailRoute.quiz2.path,
     difficulty: 2,
   ),
   Stage(
     id: 'mail_quiz3',
     category: 'mail',
-    routePath: '/mail/quiz3',
+    routePath: MailRoute.quiz3.path,
     difficulty: 3,
   ),
   Stage(
     id: 'mail_quiz4',
     category: 'mail',
-    routePath: '/mail/quiz4',
+    routePath: MailRoute.quiz4.path,
     difficulty: 4,
   ),
   // ニュースカテゴリー
   Stage(
     id: 'news_quiz1',
     category: 'news',
-    routePath: '/news/quiz1',
+    routePath: NewsRoute.quiz1.path,
     difficulty: 1,
   ),
   Stage(
     id: 'news_quiz2',
     category: 'news',
-    routePath: '/news/quiz2',
+    routePath: NewsRoute.quiz2.path,
     difficulty: 2,
   ),
   Stage(
     id: 'news_quiz3',
     category: 'news',
-    routePath: '/news/quiz3',
+    routePath: NewsRoute.quiz3.path,
     difficulty: 3,
   ),
   Stage(
     id: 'news_quiz4',
     category: 'news',
-    routePath: '/news/quiz4',
+    routePath: NewsRoute.quiz4.path,
     difficulty: 4,
   ),
 ];

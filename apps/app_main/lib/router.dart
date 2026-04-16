@@ -1,25 +1,23 @@
-import 'package:alarm/alarm.dart';
-import 'package:chat/chat.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mail/mail.dart';
-import 'package:news/news.dart';
-import 'package:payment/payment.dart';
 import 'package:go_router/go_router.dart';
-import 'package:map/map.dart';
-import 'package:shopping/shopping.dart';
-import 'package:streaming/streaming.dart';
 
 import 'application/router_notifier.dart';
 import 'presentation/home/home_screen.dart';
 import 'presentation/maintenance/maintenance_screen.dart';
 import 'presentation/play/category_list_screen.dart';
-import 'presentation/play/stage_list_screen.dart';
 import 'presentation/settings/settings_screen.dart';
 import 'presentation/splash/splash_screen.dart';
 import 'presentation/support/support_screen.dart';
-import 'presentation/tutorial/tutorial_water_quiz_screen.dart';
+import 'router/alarm_router.dart';
+import 'router/chat_router.dart';
+import 'router/mail_router.dart';
+import 'router/map_router.dart';
+import 'router/news_router.dart';
+import 'router/payment_router.dart';
+import 'router/shopping_router.dart';
+import 'router/streaming_router.dart';
 
 List<NavigatorObserver> _buildRouterObservers() {
   try {
@@ -58,227 +56,16 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/play',
         builder: (context, state) => const CategoryListScreen(),
-      ),
-      GoRoute(
-        path: '/play/:category',
-        builder: (context, state) => StageListScreen(
-          categoryId: state.pathParameters['category']!,
-        ),
-      ),
-      // ショッピングカテゴリー
-      GoRoute(
-        path: '/shopping/water',
-        builder: (context, state) {
-          // extra == true の場合はチュートリアルモード（クイズ選択を経由せず直接遷移）
-          final isTutorial = state.extra == true;
-          if (isTutorial) {
-            return const TutorialWaterQuizScreen();
-          }
-          return WaterQuizScreen(
-            onCompleted: () => context.pop(),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/shopping/cart',
-        builder: (context, state) => CartQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/shopping/checkout',
-        builder: (context, state) => CheckoutQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/shopping/reorder',
-        builder: (context, state) => ReorderQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      // チャットカテゴリー
-      GoRoute(
-        path: '/chat/quiz1',
-        builder: (context, state) => SendStampQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/chat/quiz2',
-        builder: (context, state) => ReactionQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/chat/quiz3',
-        builder: (context, state) => SendImageQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/chat/quiz4',
-        builder: (context, state) => CancelMessageQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      // 動画カテゴリー
-      GoRoute(
-        path: '/streaming/quiz1',
-        builder: (context, state) => SubtitleQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/streaming/quiz2',
-        builder: (context, state) => SkipSeekQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/streaming/quiz3',
-        builder: (context, state) => PlaybackSpeedQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/streaming/quiz4',
-        builder: (context, state) => OfflineSaveQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      // マップカテゴリー
-      GoRoute(
-        path: '/map/quiz1',
-        builder: (context, state) => ShowLocationQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/map/quiz2',
-        builder: (context, state) => ShowSchoolInfoQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/map/quiz3',
-        builder: (context, state) => StartNavigationQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/map/quiz4',
-        builder: (context, state) => SavePlaceQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      // アラームカテゴリー
-      GoRoute(
-        path: '/alarm/quiz1',
-        builder: (context, state) => AddAlarmQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/alarm/quiz2',
-        builder: (context, state) => SetWeekdaysQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/alarm/quiz3',
-        builder: (context, state) => DisableSnoozeQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/alarm/quiz4',
-        builder: (context, state) => DeleteAlarmQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      // 決済カテゴリー
-      GoRoute(
-        path: '/payment/quiz1',
-        builder: (context, state) => ShowQrQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/payment/quiz2',
-        builder: (context, state) => RevealBalanceQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/payment/quiz3',
-        builder: (context, state) => SendMoneyQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/payment/quiz4',
-        builder: (context, state) => ChangePaymentMethodQuizScreen(
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      // メールカテゴリー
-      GoRoute(
-        path: '/mail/quiz1',
-        builder: (context, state) => MailQuizScreen(
-          type: MailQuizType.archive,
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/mail/quiz2',
-        builder: (context, state) => MailQuizScreen(
-          type: MailQuizType.emptyTrash,
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/mail/quiz3',
-        builder: (context, state) => MailQuizScreen(
-          type: MailQuizType.selectDelete,
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/mail/quiz4',
-        builder: (context, state) => MailQuizScreen(
-          type: MailQuizType.search,
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      // ニュースカテゴリー
-      GoRoute(
-        path: '/news/quiz1',
-        builder: (context, state) => NewsQuizScreen(
-          type: NewsQuizType.refresh,
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/news/quiz2',
-        builder: (context, state) => NewsQuizScreen(
-          type: NewsQuizType.category,
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/news/quiz3',
-        builder: (context, state) => NewsQuizScreen(
-          type: NewsQuizType.fontSize,
-          onCompleted: () => context.pop(),
-        ),
-      ),
-      GoRoute(
-        path: '/news/quiz4',
-        builder: (context, state) => NewsQuizScreen(
-          type: NewsQuizType.hideArticle,
-          onCompleted: () => context.pop(),
-        ),
+        routes: [
+          ...shoppingRoutes,
+          ...chatRoutes,
+          ...streamingRoutes,
+          ...mapRoutes,
+          ...alarmRoutes,
+          ...paymentRoutes,
+          ...mailRoutes,
+          ...newsRoutes,
+        ],
       ),
       GoRoute(
         path: '/settings',
