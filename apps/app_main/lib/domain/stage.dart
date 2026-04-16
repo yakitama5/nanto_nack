@@ -28,8 +28,8 @@ class Stage {
 
 /// アプリで定義するステージ一覧
 ///
-/// EnumのgetterはDartのconst contextで使えないため、finalで定義する。
-final List<Stage> kAllStages = [
+/// EnumのゲッターはDartのconst contextで使えないため、finalで定義し、不変コンテナでラップしている。
+final List<Stage> kAllStages = List.unmodifiable([
   // ショッピングカテゴリー
   Stage(
     id: 'shopping_water',
@@ -230,7 +230,7 @@ final List<Stage> kAllStages = [
     routePath: NewsRoute.quiz4.path,
     difficulty: 4,
   ),
-];
+]);
 
 /// ステージにクリア状況を付加したクラス
 class StageWithStatus {
