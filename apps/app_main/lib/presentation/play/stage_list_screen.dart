@@ -196,6 +196,10 @@ class StageListScreen extends ConsumerWidget {
       'news_quiz2' => t.play.stageTitle.news_quiz2,
       'news_quiz3' => t.play.stageTitle.news_quiz3,
       'news_quiz4' => t.play.stageTitle.news_quiz4,
+      'calendar_quiz1' => t.play.stageTitle.calendar_quiz1,
+      'calendar_quiz2' => t.play.stageTitle.calendar_quiz2,
+      'calendar_quiz3' => t.play.stageTitle.calendar_quiz3,
+      'calendar_quiz4' => t.play.stageTitle.calendar_quiz4,
       _ => stageId,
     };
   }
