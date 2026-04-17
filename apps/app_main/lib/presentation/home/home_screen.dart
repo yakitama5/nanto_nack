@@ -403,6 +403,7 @@ String _categoryLabel(String categoryId, Translations t) {
     'payment' => t.play.categoryLabel.payment,
     'mail' => t.play.categoryLabel.mail,
     'news' => t.play.categoryLabel.news,
+    'calendar' => t.play.categoryLabel.calendar,
     _ => categoryId,
   };
 }
@@ -885,6 +886,7 @@ class _CategoryCarousel extends ConsumerWidget {
                   'payment' => ext.paymentCategoryColor,
                   'mail' => ext.mailCategoryColor,
                   'news' => ext.newsCategoryColor,
+                  'calendar' => ext.calendarCategoryColor,
                   _ => colorScheme.primary,
                 };
                 return _CategoryCard(
