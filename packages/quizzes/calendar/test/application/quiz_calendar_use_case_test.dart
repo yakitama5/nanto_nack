@@ -123,39 +123,57 @@ void main() {
   // Quiz3: isClearQuiz3
   // ---------------------------------------------------------------------------
   group('QuizCalendarUseCase.isClearQuiz3', () {
-    const meetingId = 'calendar_meeting';
+    const targetId = 'calendar_quiz3_today';
 
-    CalendarEvent makeMeeting(DateTime begin) => CalendarEvent(
-          id: meetingId,
-          title: '会議',
+    CalendarEvent makeEvent(DateTime begin) => CalendarEvent(
+          id: targetId,
+          title: 'イベント',
           begin: begin,
           end: begin.add(const Duration(hours: 1)),
           color: Colors.red,
         );
 
-    test('会議が翌日に移動されると true を返す', () {
-      final tomorrow = DateTime(now.year, now.month, now.day + 1, 10);
+    test('イベントが2日後に移動されると true を返す', () {
+      final twoDaysLater = DateTime(now.year, now.month, now.day + 2, 10);
       expect(
         useCase.isClearQuiz3(
-          events: [makeMeeting(tomorrow)],
+          events: [makeEvent(twoDaysLater)],
           originalDate: now,
         ),
         isTrue,
       );
     });
 
-    test('会議が今日のままのとき false を返す', () {
+    test('イベントが今日のままのとき false を返す', () {
       final today = DateTime(now.year, now.month, now.day, 10);
       expect(
         useCase.isClearQuiz3(
-          events: [makeMeeting(today)],
+          events: [makeEvent(today)],
           originalDate: now,
         ),
         isFalse,
       );
     });
 
-    test('会議イベントが存在しないとき false を返す', () {
+    test('他のイベントIDのときは false を返す', () {
+      final twoDaysLater = DateTime(now.year, now.month, now.day + 2, 10);
+      final wrongEvent = CalendarEvent(
+        id: 'wrong_id',
+        title: '別のイベント',
+        begin: twoDaysLater,
+        end: twoDaysLater.add(const Duration(hours: 1)),
+        color: Colors.blue,
+      );
+      expect(
+        useCase.isClearQuiz3(
+          events: [wrongEvent],
+          originalDate: now,
+        ),
+        isFalse,
+      );
+    });
+
+    test('イベントが存在しないとき false を返す', () {
       expect(
         useCase.isClearQuiz3(
           events: [],
@@ -165,13 +183,13 @@ void main() {
       );
     });
 
-    test('月末から翌月への移動が正しく判定される', () {
-      // 4月30日から5月1日への移動
+    test('月末から翌月への2日後の移動が正しく判定される', () {
+      // 4月30日から5月2日への移動
       final originalDate = DateTime(2026, 4, 30);
-      final nextDay = DateTime(2026, 5, 1, 10);
+      final twoDaysLater = DateTime(2026, 5, 2, 10);
       expect(
         useCase.isClearQuiz3(
-          events: [makeMeeting(nextDay)],
+          events: [makeEvent(twoDaysLater)],
           originalDate: originalDate,
         ),
         isTrue,

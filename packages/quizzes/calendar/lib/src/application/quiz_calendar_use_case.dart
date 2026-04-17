@@ -31,7 +31,7 @@ class QuizCalendarUseCase {
     );
   }
 
-  /// Quiz3: 開始時刻から2日後の日付にイベントが存在するかチェック
+  /// Quiz3: 特定のイベント（calendar_quiz3_today）が2日後の日付に移動されたかチェック
   bool isClearQuiz3({
     required List<CalendarEvent> events,
     required DateTime originalDate,
@@ -41,8 +41,11 @@ class QuizCalendarUseCase {
       originalDate.month,
       originalDate.day + 2,
     );
+    
+    // イベントID 'calendar_quiz3_today' がターゲットの日付にあるか確認
     return events.any(
       (e) =>
+          e.id == 'calendar_quiz3_today' &&
           e.begin.year == targetDate.year &&
           e.begin.month == targetDate.month &&
           e.begin.day == targetDate.day,
