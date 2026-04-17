@@ -92,7 +92,7 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
     DateTime date,
     List<CalendarEvent> eventsForDay,
   ) async {
-    final t = context.s;
+    final sq = context.sq;
     return showModalBottomSheet<String>(
       context: context,
       isScrollControlled: true,
@@ -102,10 +102,10 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
       builder: (ctx) => _DayBottomSheet(
         date: date,
         events: eventsForDay,
-        addLabel: t.common.add,
-        saveLabel: t.common.save,
-        cancelLabel: t.common.cancel,
-        eventTitleHint: t.common.eventTitle,
+        addLabel: sq.common.add,
+        saveLabel: sq.common.save,
+        cancelLabel: sq.common.cancel,
+        eventTitleHint: sq.common.eventTitle,
       ),
     );
   }
@@ -497,7 +497,7 @@ class _DayItem extends StatelessWidget {
                           )
                         : dayLabel,
                   ),
-                  ..._buildEventChips(dateEvents),
+                  ..._buildEventChips(context, dateEvents),
                 ],
               ),
             ),
@@ -507,9 +507,13 @@ class _DayItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildEventChips(List<CalendarEvent> dateEvents) {
+  List<Widget> _buildEventChips(
+    BuildContext context,
+    List<CalendarEvent> dateEvents,
+  ) {
     if (dateEvents.isEmpty) return [];
     return dateEvents.take(2).map((event) {
+      final title = _resolveEventTitle(context, event);
       return LongPressDraggable<String>(
         data: event.id,
         feedback: Material(
@@ -521,8 +525,9 @@ class _DayItem extends StatelessWidget {
               color: event.color,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(
-              event.title,
+            child: UnreadableText(
+              title,
+              animateOnObfuscate: false,
               style: const TextStyle(fontSize: 10, color: Colors.white),
             ),
           ),
@@ -543,8 +548,9 @@ class _DayItem extends StatelessWidget {
             color: event.color,
             borderRadius: BorderRadius.circular(3),
           ),
-          child: Text(
-            event.title,
+          child: UnreadableText(
+            title,
+            animateOnObfuscate: false,
             style: const TextStyle(
               fontSize: 9,
               color: Colors.white,
@@ -556,6 +562,7 @@ class _DayItem extends StatelessWidget {
       );
     }).toList();
   }
+
 }
 
 // ---------------------------------------------------------------------------
@@ -599,10 +606,10 @@ class _DayBottomSheetState extends State<_DayBottomSheet> {
     final textTheme = Theme.of(context).textTheme;
     final bottomPadding = MediaQuery.viewInsetsOf(context).bottom;
 
-    // context.s は CalendarTranslationsExtension で定義された ja ロケール固定のアクセサ
-    final t = context.s;
-    final weekdayStr = t.common.weekdays[widget.date.weekday - 1];
-    final dateLabel = t.common.dateLabel(
+    // context.sq は CalendarTranslationsExtension で定義された xx ロケール固定のアクセサ
+    final sq = context.sq;
+    final weekdayStr = sq.common.weekdays[widget.date.weekday - 1];
+    final dateLabel = sq.common.dateLabel(
       month: widget.date.month,
       day: widget.date.day,
       weekday: weekdayStr,
@@ -631,8 +638,9 @@ class _DayBottomSheetState extends State<_DayBottomSheet> {
           // 日付ヘッダー
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-            child: Text(
+            child: UnreadableText(
               dateLabel,
+              animateOnObfuscate: false,
               style: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: colorScheme.primary,
@@ -652,7 +660,11 @@ class _DayBottomSheetState extends State<_DayBottomSheet> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                title: Text(e.title, style: textTheme.bodyMedium),
+                title: UnreadableText(
+                  _resolveEventTitle(context, e),
+                  animateOnObfuscate: false,
+                  style: textTheme.bodyMedium,
+                ),
                 dense: true,
               ),
             ),
@@ -696,7 +708,7 @@ class _DayBottomSheetState extends State<_DayBottomSheet> {
                         vertical: 10,
                       ),
                     ),
-                    child: Text(widget.saveLabel),
+                    child: UnreadableText(widget.saveLabel),
                   ),
                 ],
               ),
@@ -704,7 +716,7 @@ class _DayBottomSheetState extends State<_DayBottomSheet> {
           else
             ListTile(
               leading: Icon(Icons.add, color: colorScheme.primary),
-              title: Text(
+              title: UnreadableText(
                 widget.addLabel,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.primary,
@@ -718,4 +730,26 @@ class _DayBottomSheetState extends State<_DayBottomSheet> {
       ),
     );
   }
+}
+
+// ---------------------------------------------------------------------------
+// ヘルパー関数
+// ---------------------------------------------------------------------------
+
+/// イベント ID から xx ロケールの表示タイトルを解決する。
+///
+/// カタログの初期イベントは ID で特定し、カスタム言語の文字列を返す。
+/// ユーザーが追加したイベント（ID が一致しない場合）はそのまま返す。
+String _resolveEventTitle(BuildContext context, CalendarEvent event) {
+  final sq = context.sq;
+  return switch (event.id) {
+    'calendar_quiz1_interview' => sq.common.eventInterview,
+    'calendar_quiz1_party' => sq.common.eventParty,
+    'calendar_quiz2_meeting' => sq.common.eventMeeting,
+    'calendar_quiz2_health' => sq.common.eventHealth,
+    'calendar_quiz3_today' => sq.common.eventDentist,
+    'calendar_quiz3_tomorrow' => sq.common.eventLunch,
+    'calendar_quiz4_important' => sq.common.eventImportant,
+    _ => event.title,
+  };
 }

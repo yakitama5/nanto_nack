@@ -159,6 +159,27 @@ class TranslationsCommonJa {
 
 	/// ja: '$month月$day日（$weekday）'
 	String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）';
+
+	/// ja: '面接'
+	String get eventInterview => '面接';
+
+	/// ja: '飲み会'
+	String get eventParty => '飲み会';
+
+	/// ja: 'ミーティング'
+	String get eventMeeting => 'ミーティング';
+
+	/// ja: '健康診断'
+	String get eventHealth => '健康診断';
+
+	/// ja: '歯医者'
+	String get eventDentist => '歯医者';
+
+	/// ja: 'ランチ'
+	String get eventLunch => 'ランチ';
+
+	/// ja: '大切な予定'
+	String get eventImportant => '大切な予定';
 }
 
 // Path: quiz1.insight
@@ -357,6 +378,13 @@ extension on Translations {
 			'common.weekdays.5' => '土',
 			'common.weekdays.6' => '日',
 			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）',
+			'common.eventInterview' => '面接',
+			'common.eventParty' => '飲み会',
+			'common.eventMeeting' => 'ミーティング',
+			'common.eventHealth' => '健康診断',
+			'common.eventDentist' => '歯医者',
+			'common.eventLunch' => 'ランチ',
+			'common.eventImportant' => '大切な予定',
 			_ => null,
 		};
 	}

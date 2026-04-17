@@ -119,6 +119,13 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 		'Sun',
 	];
 	@override String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})';
+	@override String get eventInterview => 'Interview';
+	@override String get eventParty => 'Party';
+	@override String get eventMeeting => 'Meeting';
+	@override String get eventHealth => 'Health Check';
+	@override String get eventDentist => 'Dentist';
+	@override String get eventLunch => 'Lunch';
+	@override String get eventImportant => 'Important';
 }
 
 // Path: quiz1.insight
@@ -253,6 +260,13 @@ extension on TranslationsEn {
 			'common.weekdays.5' => 'Sat',
 			'common.weekdays.6' => 'Sun',
 			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})',
+			'common.eventInterview' => 'Interview',
+			'common.eventParty' => 'Party',
+			'common.eventMeeting' => 'Meeting',
+			'common.eventHealth' => 'Health Check',
+			'common.eventDentist' => 'Dentist',
+			'common.eventLunch' => 'Lunch',
+			'common.eventImportant' => 'Important',
 			_ => null,
 		};
 	}

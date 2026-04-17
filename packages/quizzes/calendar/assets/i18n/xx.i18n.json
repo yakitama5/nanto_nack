@@ -64,7 +64,14 @@
     "newEvent": "Nw Evnt",
     "eventTitle": "Evnt Ttl",
     "addEventTitle": "Add Evnt",
-    "weekdays": ["月", "火", "水", "木", "金", "土", "日"],
-    "dateLabel": "$month月$day日（$weekday）"
+    "weekdays": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    "dateLabel": "$month/$day ($weekday)",
+    "eventInterview": "Intrvw",
+    "eventParty": "Prty",
+    "eventMeeting": "Mtng",
+    "eventHealth": "Hlth Chk",
+    "eventDentist": "Dntst",
+    "eventLunch": "Lnch",
+    "eventImportant": "Imprtnt"
   }
 }

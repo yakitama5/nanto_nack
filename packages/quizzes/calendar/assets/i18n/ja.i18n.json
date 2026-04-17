@@ -65,6 +65,13 @@
     "eventTitle": "Event Title",
     "addEventTitle": "Add Event",
     "weekdays": ["月", "火", "水", "木", "金", "土", "日"],
-    "dateLabel": "$month月$day日（$weekday）"
+    "dateLabel": "$month月$day日（$weekday）",
+    "eventInterview": "面接",
+    "eventParty": "飲み会",
+    "eventMeeting": "ミーティング",
+    "eventHealth": "健康診断",
+    "eventDentist": "歯医者",
+    "eventLunch": "ランチ",
+    "eventImportant": "大切な予定"
   }
 }

@@ -65,6 +65,13 @@
     "eventTitle": "Event Title",
     "addEventTitle": "Add Event",
     "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    "dateLabel": "$month/$day ($weekday)"
+    "dateLabel": "$month/$day ($weekday)",
+    "eventInterview": "Interview",
+    "eventParty": "Party",
+    "eventMeeting": "Meeting",
+    "eventHealth": "Health Check",
+    "eventDentist": "Dentist",
+    "eventLunch": "Lunch",
+    "eventImportant": "Important"
   }
 }

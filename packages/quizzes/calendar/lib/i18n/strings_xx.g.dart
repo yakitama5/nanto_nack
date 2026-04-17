@@ -110,15 +110,22 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get eventTitle => 'Evnt Ttl';
 	@override String get addEventTitle => 'Add Evnt';
 	@override List<String> get weekdays => [
-		'月',
-		'火',
-		'水',
-		'木',
-		'金',
-		'土',
-		'日',
+		'Mo',
+		'Tu',
+		'We',
+		'Th',
+		'Fr',
+		'Sa',
+		'Su',
 	];
-	@override String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）';
+	@override String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})';
+	@override String get eventInterview => 'Intrvw';
+	@override String get eventParty => 'Prty';
+	@override String get eventMeeting => 'Mtng';
+	@override String get eventHealth => 'Hlth Chk';
+	@override String get eventDentist => 'Dntst';
+	@override String get eventLunch => 'Lnch';
+	@override String get eventImportant => 'Imprtnt';
 }
 
 // Path: quiz1.insight
@@ -245,14 +252,21 @@ extension on TranslationsXx {
 			'common.newEvent' => 'Nw Evnt',
 			'common.eventTitle' => 'Evnt Ttl',
 			'common.addEventTitle' => 'Add Evnt',
-			'common.weekdays.0' => '月',
-			'common.weekdays.1' => '火',
-			'common.weekdays.2' => '水',
-			'common.weekdays.3' => '木',
-			'common.weekdays.4' => '金',
-			'common.weekdays.5' => '土',
-			'common.weekdays.6' => '日',
-			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）',
+			'common.weekdays.0' => 'Mo',
+			'common.weekdays.1' => 'Tu',
+			'common.weekdays.2' => 'We',
+			'common.weekdays.3' => 'Th',
+			'common.weekdays.4' => 'Fr',
+			'common.weekdays.5' => 'Sa',
+			'common.weekdays.6' => 'Su',
+			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})',
+			'common.eventInterview' => 'Intrvw',
+			'common.eventParty' => 'Prty',
+			'common.eventMeeting' => 'Mtng',
+			'common.eventHealth' => 'Hlth Chk',
+			'common.eventDentist' => 'Dntst',
+			'common.eventLunch' => 'Lnch',
+			'common.eventImportant' => 'Imprtnt',
 			_ => null,
 		};
 	}
