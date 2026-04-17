@@ -70,7 +70,7 @@ jobs:
         run: melos bootstrap
 
       - name: コード生成 (build_runner)
-        run: melos run generate:all
+        run: melos run gen:all
 
       - name: 最新の安定版XCodeをセットアップ
         if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}

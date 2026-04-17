@@ -11,7 +11,7 @@
     postCreate = fvm use
     postCreate = fvm flutter pub get
     postCreate = fvm dart run melos bs
-    postCreate = fvm dart run melos run generate:all
+    postCreate = fvm dart run melos run gen:all
 
 [defaults]
     editor = zed

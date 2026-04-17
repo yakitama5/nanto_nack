@@ -48,7 +48,7 @@ FlutterとDartを用いたモノレポ構成を採用しており、高い保守
 プロジェクトの管理には `melos` を使用します。
 
 - **依存関係の同期**: `melos bootstrap`
-- **コード生成 (build_runner)**: `melos run generate`
+- **コード生成 (build_runner)**: `melos run gen:all`
 - **静的解析**: `melos run lint`
 - **テスト全実行**: `melos run test:all`
 

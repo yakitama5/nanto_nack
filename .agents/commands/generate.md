@@ -4,7 +4,7 @@
 
 以下のコマンドを実行する:
 ```
-fvm dart run melos run generate
+fvm dart run melos run gen:all
 ```
 
 ## 対象となる生成ツール

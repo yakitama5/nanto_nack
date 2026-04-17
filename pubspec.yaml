@@ -25,13 +25,63 @@ dev_dependencies:
 
 melos:
   scripts:
-    generate:
-      run: melos exec --depends-on="build_runner" --diff="main" -- flutter pub run build_runner build --delete-conflicting-outputs
-      description: "変更されたパッケージのコード生成 (main ブランチとの差分、高速です)"
+    gen:all:
+      description: コードを再生成する
+      steps:
+        - gen:build
+        - gen:slang
 
-    generate:all:
-      run: melos exec -c 3 --depends-on="build_runner" -- flutter pub run build_runner build --delete-conflicting-outputs
-      description: "全パッケージのコード生成"
+    gen:build:  
+      description: build_runner を使用してコードを生成する
+      run: dart run build_runner build -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+    gen:build:watch:
+      description: build_runner watch を使用して、変更箇所を検知しつつコードを生成する。
+      run: dart run build_runner watch -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+
+    gen:slang:
+      description: slang を使用してコードを生成する
+      run: dart run slang
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: slang
+    gen:slang:watch:
+      description: slang watch を使用して、変更箇所を検知しつつコードを生成する。
+      run: dart run slang watch
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: slang
+
+    gen:diff:main:
+      description: main ブランチと差分のあるパッケージのみ build_runner と i18n の生成コマンドを実行します。
+      steps:
+        - gen:build:diff:main
+        - gen:i18n:diff:main
+    gen:build:diff:main:
+      description: main ブランチと差分のあるパッケージのみ build_runner を使用してコードを生成します。
+      run: dart run build_runner build -d
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: build_runner
+        diff: origin/main...HEAD
+    gen:slang:diff:main:
+      description: main ブランチと差分のあるパッケージのみ slang を使用して国際化ファイルを生成します。
+      run: dart run slang
+      exec:
+        orderDependents: true
+      packageFilters:
+        dependsOn: slang
+        diff: origin/main...HEAD
 
     lint:
       run: flutter analyze .
