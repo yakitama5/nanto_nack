@@ -17,12 +17,6 @@ analyst → planner → advisor → **coder** → reviewer → tester
 
 計画書（`spec/*.md`）がある場合: **coder から直接開始**し、reviewer・tester を厳格に実施。
 
-## 設計ドキュメント（必要時のみ参照）
-
-- `docs/table-design.md`: DB スキーマ変更時のみ
-- `docs/custom-language-design.md`: カスタム言語変換時のみ
-- `docs/quizzes/<category>.md`: 対象カテゴリの実装時のみ（1ファイル）
-
 ## 詳細ルール（`.agents/rules/` 配下、常時ロード）
 
 - アーキテクチャ・スタイル: `architecture-and-style.md`
