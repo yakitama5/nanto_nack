@@ -223,6 +223,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     routePath: kNewsQuiz4Path,
     difficulty: 4,
   ),
+  // カレンダーカテゴリー
+  Stage(
+    id: 'calendar_quiz1',
+    category: 'calendar',
+    routePath: kCalendarQuiz1Path,
+    difficulty: 1,
+  ),
+  Stage(
+    id: 'calendar_quiz2',
+    category: 'calendar',
+    routePath: kCalendarQuiz2Path,
+    difficulty: 2,
+  ),
+  Stage(
+    id: 'calendar_quiz3',
+    category: 'calendar',
+    routePath: kCalendarQuiz3Path,
+    difficulty: 3,
+  ),
+  Stage(
+    id: 'calendar_quiz4',
+    category: 'calendar',
+    routePath: kCalendarQuiz4Path,
+    difficulty: 4,
+  ),
 ]);
 
 /// ステージにクリア状況を付加したクラス

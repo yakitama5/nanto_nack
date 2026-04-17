@@ -49,4 +49,8 @@ const List<Category> kAllCategories = [
     id: 'news',
     icon: Icons.newspaper_outlined,
   ),
+  Category(
+    id: 'calendar',
+    icon: Icons.calendar_month_outlined,
+  ),
 ];
