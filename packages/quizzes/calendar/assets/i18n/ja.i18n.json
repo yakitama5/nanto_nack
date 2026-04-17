@@ -15,7 +15,7 @@
   },
   "quiz2": {
     "missionText": "15日に新しい予定を追加しよう",
-    "failureReason": "15日のマスを長押しするか、右下の＋ボタンを使って予定を追加してください",
+    "failureReason": "15日のマスを長押しして予定を追加してください",
     "insight": {
       "title": "なぜ長押しで追加できた？",
       "subtitle": "長押し＝隠れた操作メニューを呼び出す",
@@ -28,8 +28,8 @@
     }
   },
   "quiz3": {
-    "missionText": "当日の予定を2日後に変更しよう",
-    "failureReason": "当日の予定を長押しし、2日後の日付にドラッグ＆ドロップしてください",
+    "missionText": "当日の予定を翌日に変更しよう",
+    "failureReason": "当日の予定を長押しし、翌日のマスへドラッグ＆ドロップしてください",
     "insight": {
       "title": "なぜ予定を変更できた？",
       "subtitle": "ドラッグ＆ドロップで素早く予定を再調整",
@@ -56,16 +56,16 @@
     }
   },
   "common": {
-    "appTitle": "Calendar",
-    "today": "Today",
-    "add": "Add",
-    "save": "Save",
-    "cancel": "Cancel",
-    "newEvent": "New Event",
-    "eventTitle": "Event Title",
-    "addEventTitle": "Add Event",
+    "appTitle": "カレンダー",
+    "today": "今日",
+    "add": "追加",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "newEvent": "新しいイベント",
+    "eventTitle": "イベントタイトル",
+    "addEventTitle": "イベントを追加",
     "weekdays": ["月", "火", "水", "木", "金", "土", "日"],
-    "dateLabel": "$month月$day日（$weekday）",
+    "dateLabel": "{month}月{day}日（{weekday}）",
     "eventInterview": "面接",
     "eventParty": "飲み会",
     "eventMeeting": "ミーティング",

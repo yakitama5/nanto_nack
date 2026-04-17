@@ -30,8 +30,7 @@ class CalendarCatalog {
     return switch (quizType) {
       CalendarQuizType.quiz1 ||
       CalendarQuizType.quiz2 ||
-      CalendarQuizType.quiz3 =>
-        DateTime(now.year, now.month),
+      CalendarQuizType.quiz3 => DateTime(now.year, now.month),
       // Quiz4: 3年後の月から始まり「今日」に戻る操作を体験させる
       CalendarQuizType.quiz4 => DateTime(now.year + 3, now.month),
     };
@@ -79,7 +78,7 @@ class CalendarCatalog {
     ];
   }
 
-  /// Quiz3: 今日と明日にコンテキストイベント（2日後に追加させる）
+  /// Quiz3: 今日と明日にコンテキストイベント（翌日に移動させる）
   static List<CalendarEvent> _quiz3Events(DateTime now) {
     return [
       CalendarEvent(

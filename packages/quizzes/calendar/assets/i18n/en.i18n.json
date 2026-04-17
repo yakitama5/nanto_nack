@@ -15,7 +15,7 @@
   },
   "quiz2": {
     "missionText": "Add a new event on the 15th",
-    "failureReason": "Long press the 15th cell or use the + button in the bottom right to add an event",
+    "failureReason": "Long press the 15th cell to add an event",
     "insight": {
       "title": "How could you add by long pressing?",
       "subtitle": "Long press reveals hidden action menus",
@@ -28,17 +28,17 @@
     }
   },
   "quiz3": {
-    "missionText": "Add a new event 2 days from now",
-    "failureReason": "Tap the date 2 days from now or use the + button to add an event",
+    "missionText": "Move the event to tomorrow",
+    "failureReason": "Long press the event and drag & drop it to the next day",
     "insight": {
-      "title": "How did you add an event 2 days from now?",
-      "subtitle": "Tapping a date to add events is intuitive",
-      "tapTitle": "Tap a date to add an event",
-      "tapDesc": "Tapping a calendar date lets you add an event for that day. This works not just for today, but for any future date with the same operation.",
-      "futureTitle": "You can schedule events on future dates",
-      "futureDesc": "Smartphone calendars let you register events for any date — days, weeks, or months ahead. Pre-entering future plans is the foundation of schedule management.",
-      "planTitle": "Proactive planning improves your performance",
-      "planDesc": "Registering what you need to do '2 days from now' lets you prepare in advance. The habit of entering events immediately helps you stay organized."
+      "title": "How did you move the event to the next day?",
+      "subtitle": "Drag & drop is intuitive for moving events",
+      "tapTitle": "Long press and drag to move events",
+      "tapDesc": "Long pressing an event lets you drag it to a new date. This works for rescheduling existing events to different days.",
+      "futureTitle": "You can reschedule events to future dates",
+      "futureDesc": "Smartphone calendars let you move events to any date — days, weeks, or months ahead. Adjusting schedules is key to effective time management.",
+      "planTitle": "Flexible planning improves your adaptability",
+      "planDesc": "Moving what you need to do to the next day lets you adjust plans as needed. The ability to reschedule events helps you stay organized amidst changes."
     }
   },
   "quiz4": {
@@ -65,7 +65,7 @@
     "eventTitle": "Event Title",
     "addEventTitle": "Add Event",
     "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    "dateLabel": "$month/$day ($weekday)",
+    "dateLabel": "{month}/{day} ({weekday})",
     "eventInterview": "Interview",
     "eventParty": "Party",
     "eventMeeting": "Meeting",
