@@ -15,8 +15,7 @@ class CategoryListScreen extends ConsumerStatefulWidget {
   const CategoryListScreen({super.key});
 
   @override
-  ConsumerState<CategoryListScreen> createState() =>
-      _CategoryListScreenState();
+  ConsumerState<CategoryListScreen> createState() => _CategoryListScreenState();
 }
 
 class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
@@ -142,8 +141,8 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
                 child: Text(
                   t.play.selectCategoryDescription,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
+                    color: colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ),
             ),
@@ -161,15 +160,16 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                 ),
-                itemCount: kAllCategories.length,
+                itemCount: QuizCategory.values.length,
                 itemBuilder: (context, index) {
-                  final category = kAllCategories[index];
+                  final category = QuizCategory.values[index];
                   final stageCount = kAllStages
-                      .where((s) => s.category == category.id)
+                      .where((s) => s.category == category)
                       .length;
                   // Shopping カードは常にキーを設定（チュートリアルのタイミング問題を避けるため）
-                  final cardKey =
-                      category.id == 'shopping' ? _shoppingCardKey : null;
+                  final cardKey = category == QuizCategory.shopping
+                      ? _shoppingCardKey
+                      : null;
                   return Consumer(
                     builder: (context, ref, _) => _CategoryCard(
                       key: cardKey,
@@ -203,20 +203,18 @@ class _CategoryCard extends StatelessWidget {
     required this.onTap,
   });
 
-  final Category category;
+  final QuizCategory category;
   final int stageCount;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final ext =
-        Theme.of(context).extension<NantoNackThemeExtension>()!;
+    final ext = Theme.of(context).extension<NantoNackThemeExtension>()!;
     final colorScheme = Theme.of(context).colorScheme;
 
-    final categoryColor = _categoryColor(category.id, ext);
-    final categoryContainerColor =
-        _categoryContainerColor(category.id, ext);
+    final categoryColor = category.color(ext);
+    final categoryContainerColor = category.containerColor(ext);
 
     // Coming Soon の場合はグレースケール表示
     final effectiveColor = category.isComingSoon
@@ -260,13 +258,13 @@ class _CategoryCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    _categoryLabel(category.id, t),
+                    category.label(t),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: category.isComingSoon
-                              ? colorScheme.onSurfaceVariant
-                              : colorScheme.onSurface,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      color: category.isComingSoon
+                          ? colorScheme.onSurfaceVariant
+                          : colorScheme.onSurface,
+                    ),
                   ),
                   const SizedBox(height: 2),
                   Text(
@@ -277,9 +275,9 @@ class _CategoryCard extends StatelessWidget {
                             stageCount.toString(),
                           ),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: effectiveColor,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      color: effectiveColor,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -294,7 +292,9 @@ class _CategoryCard extends StatelessWidget {
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.12),
+                      color: colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.12,
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -308,11 +308,11 @@ class _CategoryCard extends StatelessWidget {
                         const SizedBox(width: 2),
                         Text(
                           t.play.comingSoon,
-                          style:
-                              Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: colorScheme.onSurfaceVariant,
-                                    fontSize: 10,
-                                  ),
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                                fontSize: 10,
+                              ),
                         ),
                       ],
                     ),
@@ -323,50 +323,5 @@ class _CategoryCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _categoryLabel(String categoryId, Translations t) {
-    return switch (categoryId) {
-      'shopping' => t.play.categoryLabel.shopping,
-      'chat' => t.play.categoryLabel.chat,
-      'streaming' => t.play.categoryLabel.streaming,
-      'map' => t.play.categoryLabel.map,
-      'alarm' => t.play.categoryLabel.alarm,
-      'payment' => t.play.categoryLabel.payment,
-      'mail' => t.play.categoryLabel.mail,
-      'news' => t.play.categoryLabel.news,
-      _ => categoryId,
-    };
-  }
-
-  Color _categoryColor(String categoryId, NantoNackThemeExtension ext) {
-    return switch (categoryId) {
-      'shopping' => ext.shoppingCategoryColor,
-      'chat' => ext.chatCategoryColor,
-      'streaming' => ext.streamingCategoryColor,
-      'map' => ext.mapCategoryColor,
-      'alarm' => ext.alarmCategoryColor,
-      'payment' => ext.paymentCategoryColor,
-      'mail' => ext.mailCategoryColor,
-      'news' => ext.newsCategoryColor,
-      _ => ext.shoppingCategoryColor,
-    };
-  }
-
-  Color _categoryContainerColor(
-    String categoryId,
-    NantoNackThemeExtension ext,
-  ) {
-    return switch (categoryId) {
-      'shopping' => ext.shoppingCategoryContainerColor,
-      'chat' => ext.chatCategoryContainerColor,
-      'streaming' => ext.streamingCategoryContainerColor,
-      'map' => ext.mapCategoryContainerColor,
-      'alarm' => ext.alarmCategoryContainerColor,
-      'payment' => ext.paymentCategoryContainerColor,
-      'mail' => ext.mailCategoryContainerColor,
-      'news' => ext.newsCategoryContainerColor,
-      _ => ext.shoppingCategoryContainerColor,
-    };
   }
 }

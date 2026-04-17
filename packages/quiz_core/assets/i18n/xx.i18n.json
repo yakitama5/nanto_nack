@@ -1,1 +1,296 @@
-{}
+{
+  "app": {
+    "title": "NantoNack",
+    "subtitle": "UI/UX直感クイズ"
+  },
+  "home": {
+    "stageList": "ステージ一覧",
+    "playCount": "{count}回プレイ済み",
+    "@playCount": { "param": "count" },
+    "subtitle": "UI/UX 直感クイズ",
+    "remainingPlaysLabel": "本日の残りプレイ回数",
+    "playButton": "プレイする",
+    "nextStageHint": "次のステージへ進む",
+    "past60Days": "過去60日間の\nクリア記録",
+    "noActivityHistory": "まだプレイ履歴が\nありません",
+    "categoriesLabel": "カテゴリー",
+    "categoryLockedLabel": "クリア後に解放",
+    "categoryClearCount": "{cleared}/{total} クリア",
+    "@categoryClearCount": {
+      "param(cleared)": "cleared",
+      "param(total)": "total"
+    },
+    "dateFormat": "{month}月{day}日（{weekday}）",
+    "@dateFormat": {
+      "param(month)": "month",
+      "param(day)": "day",
+      "param(weekday)": "weekday"
+    },
+    "weekday": {
+      "mon": "月",
+      "tue": "火",
+      "wed": "水",
+      "thu": "木",
+      "fri": "金",
+      "sat": "土",
+      "sun": "日"
+    }
+  },
+  "stage": {
+    "cleared": "クリア済み",
+    "available": "プレイ可能",
+    "locked": "クリア後に解放",
+    "play": "プレイ",
+    "clearTime": "クリアタイム: {time}",
+    "@clearTime": { "param": "time" },
+    "score": "スコア: {score}点",
+    "@score": { "param": "score" }
+  },
+  "quiz": {
+    "correct": "正解！",
+    "incorrect": "不正解",
+    "timeUp": "時間切れ",
+    "giveUp": "諦めた...",
+    "result": "結果",
+    "retry": "もう一度",
+    "next": "次へ",
+    "back": "戻る",
+    "score": "スコア: {score}点",
+    "@score": { "param": "score" },
+    "elapsedTime": "タイム: {time}秒",
+    "@elapsedTime": { "param": "time" },
+    "exitDialogTitle": "ゲームを中断しますか？",
+    "exitDialogContent": "プレイ中のゲームを終了します。",
+    "exitDialogContinue": "続ける",
+    "exitDialogExit": "終了する"
+  },
+  "mission": {
+    "title": "MISSION",
+    "topic": "お題",
+    "useHint": "ヒントを使う",
+    "giveUp": "諦める",
+    "timeLimit": "制限時間: {seconds}秒",
+    "@timeLimit": { "param": "seconds" }
+  },
+  "purchase": {
+    "limitReached": "本日のプレイ上限に達しました",
+    "unlockDescription": "プレミアムにアップグレードすると\n無制限でプレイできます",
+    "upgrade": "アップグレード",
+    "later": "あとで"
+  },
+  "error": {
+    "unknown": "エラーが発生しました",
+    "retry": "再試行"
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "todayTip": "今日のUI/UXヒント",
+    "remainingPlays": "残りプレイ数",
+    "remainingPlaysCount": "残り{count}回",
+    "@remainingPlaysCount": { "param": "count" },
+    "unlimitedPlays": "無制限",
+    "streak": "連続プレイ",
+    "streakDays(one)": "{days}日連続",
+    "streakDays(other)": "{days}日連続",
+    "activityHistory": "プレイ履歴",
+    "noActivity": "まだプレイ履歴がありません"
+  },
+  "play": {
+    "startPlay": "プレイする",
+    "selectCategory": "カテゴリー選択",
+    "selectCategoryDescription": "チャレンジするカテゴリーを選んでください",
+    "selectStage": "ステージ選択",
+    "stageCount": "{count}ステージ",
+    "@stageCount": { "param": "count" },
+    "noStages": "ステージがありません",
+    "comingSoon": "準備中",
+    "categoryLabel": {
+      "shopping": "ショッピング",
+      "chat": "チャット",
+      "streaming": "動画",
+      "map": "マップ",
+      "alarm": "アラーム",
+      "payment": "決済",
+      "mail": "メール",
+      "news": "ニュース",
+      "calendar": "カレンダー"
+    },
+    "categoryDescription": {
+      "shopping": "ECサイトのUI/UXを体験しよう",
+      "chat": "メッセージアプリのUI/UXを体験しよう",
+      "streaming": "動画アプリのUI/UXを体験しよう",
+      "map": "地図アプリのUI/UXを体験しよう",
+      "alarm": "時計・アラームアプリのUI/UXを体験しよう",
+      "payment": "モバイル決済アプリのUI/UXを体験しよう",
+      "mail": "メールアプリのUI/UXを体験しよう",
+      "news": "ニュースアプリのUI/UXを体験しよう",
+      "calendar": "カレンダーアプリのUI/UXを体験しよう"
+    },
+    "stageTitle": {
+      "shopping_quiz1": "水を2つ買おう",
+      "shopping_quiz2": "購入手続きを完了しよう",
+      "shopping_quiz3": "直近の注文を再注文しよう",
+      "shopping_quiz4": "カートの合計金額を選ぼう",
+      "chat_quiz1": "スタンプを返信しよう",
+      "chat_quiz2": "リアクションをしよう",
+      "chat_quiz3": "写真を送ろう",
+      "chat_quiz4": "メッセージを取り消そう",
+      "streaming_quiz1": "字幕をオンにしよう",
+      "streaming_quiz2": "動画の中盤まで進めよう",
+      "streaming_quiz3": "2倍速で再生しよう",
+      "streaming_quiz4": "動画をダウンロードしよう",
+      "map_quiz1": "現在地を表示しよう",
+      "map_quiz2": "学校の情報を表示しよう",
+      "map_quiz3": "公園に電車でルートを案内しよう",
+      "map_quiz4": "駅をお気に入りに追加しよう",
+      "alarm_quiz1": "アラームを追加しよう",
+      "alarm_quiz2": "平日だけ鳴るよう設定しよう",
+      "alarm_quiz3": "スヌーズをオフにしよう",
+      "alarm_quiz4": "アラームを削除しよう",
+      "payment_quiz1": "QRコードを表示しよう",
+      "payment_quiz2": "残高を隠そう",
+      "payment_quiz3": "送金しよう",
+      "payment_quiz4": "支払い方法を変更しよう",
+      "mail_quiz1": "メールをアーカイブしよう",
+      "mail_quiz2": "ゴミ箱を空にしよう",
+      "mail_quiz3": "3件のメールを削除しよう",
+      "mail_quiz4": "大きなメールを検索しよう",
+      "news_quiz1": "ニュースを更新しよう",
+      "news_quiz2": "スポーツカテゴリを表示しよう",
+      "news_quiz3": "文字サイズを『大』に変えよう",
+      "news_quiz4": "気になる記事を非表示にしよう",
+      "calendar_quiz1": "来月の予定を見よう",
+      "calendar_quiz2": "予定を素早く追加しよう",
+      "calendar_quiz3": "予定の日付を変えよう",
+      "calendar_quiz4": "一瞬で「今日」に戻ろう"
+    },
+    "stageDescription": {
+      "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
+      "shopping_quiz2": "住所入力・支払い方法選択・注文確認の3ステップを完了してください",
+      "shopping_quiz3": "注文履歴から直近で注文した商品をもう一度購入してください",
+      "shopping_quiz4": "カート内の商品の合計金額を4択から選んでください",
+      "chat_quiz1": "チャットアプリでスタンプを1つ返信してください",
+      "chat_quiz2": "相手のメッセージにハートリアクションをしてください",
+      "chat_quiz3": "チャットアプリで写真を1枚送信してください",
+      "chat_quiz4": "送信した自分のメッセージを取り消してください",
+      "streaming_quiz1": "動画アプリで字幕機能をオンにしてください",
+      "streaming_quiz2": "次の動画へ移動し、動画の中盤まで進めてください",
+      "streaming_quiz3": "動画アプリで動画を2倍速で再生してください",
+      "streaming_quiz4": "動画を最高画質に変更して端末にダウンロードしてください",
+      "map_quiz1": "地図アプリで現在地を表示してください",
+      "map_quiz2": "地図アプリで学校アイコンをタップして情報を表示してください",
+      "map_quiz3": "地図アプリで公園を選び電車でルートを案内してください",
+      "map_quiz4": "地図アプリで駅をタップしてお気に入りに保存してください",
+      "alarm_quiz1": "時計アプリで新しいアラームを追加してください",
+      "alarm_quiz2": "アラームを月〜金曜日だけ繰り返すように設定してください",
+      "alarm_quiz3": "アラームのスヌーズ機能をオフにして保存してください",
+      "alarm_quiz4": "アラーム一覧から一番上のアラームを削除してください",
+      "payment_quiz1": "決済アプリでQRコードを表示してください",
+      "payment_quiz2": "決済アプリで目のアイコンをタップして残高を隠してください",
+      "payment_quiz3": "決済アプリで誰かに送金してください",
+      "payment_quiz4": "決済アプリで支払い方法をクレジットカードに変更してQRコードを提示してください",
+      "mail_quiz1": "メールアプリで3番目のメールをアーカイブしてください",
+      "mail_quiz2": "メールアプリでゴミ箱を空にしてください",
+      "mail_quiz3": "メールアプリで3件のメールを選択して削除してください",
+      "mail_quiz4": "メールアプリで5MB以上のメールを検索してください",
+      "news_quiz1": "ニュース一覧を引っ張って更新してください",
+      "news_quiz2": "タブをスワイプまたはタップして『スポーツ』を表示してください",
+      "news_quiz3": "記事を開き、文字サイズを『大』に変更してください",
+      "news_quiz4": "映画レビュー記事のメニューから非表示にしてください",
+      "calendar_quiz1": "カレンダーを操作して翌月の予定を確認してください",
+      "calendar_quiz2": "15日に新しい予定を追加してください",
+      "calendar_quiz3": "歯医者の予定を翌日に移動してください",
+      "calendar_quiz4": "数年先に移動した後、今日の日付に戻ってください"
+    }
+  },
+  "scene": {
+    "greeting": {
+      "sunriseMorning": "おはようございます",
+      "sunnyDay": "今日もいい天気",
+      "cloudyDay": "曇り空の一日",
+      "rainyDay": "雨の一日",
+      "sunsetEvening": "お疲れ様でした",
+      "nightSky": "お疲れ様でした"
+    }
+  },
+  "tip": {
+    "defaultTitle": "UI/UXを学ぼう",
+    "defaultContent": "クイズを解いてUI/UXの感覚を磨きましょう！"
+  },
+  "tutorial": {
+    "skip": "スキップ",
+    "step1": "ようこそ！ボクはナントム！",
+    "step2": "ここではボクが作ったアプリをならべてるよ",
+    "step3": "一生懸命作ったからさっそく使ってみて！",
+    "step4": "まずはショッピングアプリを体験してみよう。いくよ！",
+    "step5": "うわー！文字が読めなくなっちゃってる",
+    "step6": "ボクのノロいが伝染ったのかも",
+    "step7": "でも大丈夫！文字が読めなくても、アイコンや色を見れば「なんとなく」わかるはず。さあ、やってみて！"
+  },
+  "settings": {
+    "title": "設定",
+    "appearance": {
+      "title": "アピアランス",
+      "theme": "テーマ",
+      "themeSystem": "システム設定",
+      "themeLight": "ライトテーマ",
+      "themeDark": "ダークテーマ",
+      "uiStyle": "UIスタイル",
+      "uiStyleSystem": "システム設定",
+      "uiStyleMaterial": "Android風",
+      "uiStyleCupertino": "iOS風"
+    },
+    "data": {
+      "title": "データとアカウント",
+      "restorePurchase": "購入の復元",
+      "resetData": "プレイデータの初期化",
+      "resetDataDialogTitle": "記憶を消去しますか？",
+      "resetDataDialogMessage": "これまでの学びが消え去ります…🥺\nクリア記録・プレイ履歴がすべて削除されます。",
+      "resetDataCancel": "やめておく",
+      "resetDataOk": "消去する",
+      "resetDataSuccess": "データを初期化しました"
+    },
+    "about": {
+      "title": "アプリについて",
+      "developerX": "開発者X（Twitter）",
+      "privacyPolicy": "プライバシーポリシー",
+      "contact": "お問い合わせ",
+      "licenses": "ライセンス",
+      "version": "バージョン {version}",
+      "@version": { "param": "version" }
+    }
+  },
+  "support": {
+    "title": "開発者を応援",
+    "totalCoffeesLabel": "これまでに贈ったコーヒー",
+    "totalCoffeesCount": "☕️ x {count}",
+    "@totalCoffeesCount": { "param": "count" },
+    "description": "NantoNackを応援していただきありがとうございます！\nいただいた支援は、今後のアプリ改善や運営のために大切に活用させていただきます。\n※本機能による特別な機能解放等はございません。",
+    "sendCoffeeButton": "コーヒーを送る",
+    "restoreButton": "購入内容を復元（カウントを同期）",
+    "restoreSuccess": "応援履歴を同期しました",
+    "thankYouTitle": "ありがとうございます！☕️",
+    "thankYouMessage": "いただいたコーヒーを糧に、より良いアプリに改善していきます！",
+    "close": "閉じる",
+    "fetchError": "取得エラー: {error}",
+    "@fetchError": { "param": "error" },
+    "purchaseError": "購入に失敗しました。もう一度お試しください。",
+    "restoreError": "購入の復元に失敗しました。もう一度お試しください。",
+    "noOfferings": "現在利用できるプランがありません。",
+    "packageName": {
+      "coffee100": "コーヒー1杯",
+      "coffee300": "コーヒー3杯"
+    }
+  },
+  "maintenance": {
+    "title": "メンテナンス中",
+    "defaultMessage": "ただいまメンテナンス中です。\nしばらくお待ちください。"
+  },
+  "update": {
+    "title": "アップデートのお知らせ",
+    "forceMessage": "引き続きご利用いただくには、アプリのアップデートが必要です。",
+    "optionalMessage": "新しいバージョンが利用可能です。アップデートをお勧めします。",
+    "updateButton": "アップデートする",
+    "laterButton": "あとで"
+  }
+}

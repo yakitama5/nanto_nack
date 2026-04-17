@@ -17,8 +17,7 @@ fvm flutter pub run melos <command>
 | 用途 | コマンド |
 |------|---------|
 | 依存解決 | `fvm dart run melos bootstrap` |
-| コード生成（差分のみ） | `fvm dart run melos run generate` |
-| コード生成（全パッケージ） | `fvm dart run melos run generate:all` |
+| コード生成（全パッケージ） | `fvm dart run melos run gen:all` |
 | 静的解析 | `fvm dart run melos run lint` |
 | ユニットテスト | `fvm dart run melos run test:unit` |
 | 全テスト | `fvm dart run melos run test:all` |

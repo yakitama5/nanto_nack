@@ -27,6 +27,8 @@ class NantoNackThemeExtension
     required this.mailCategoryContainerColor,
     required this.newsCategoryColor,
     required this.newsCategoryContainerColor,
+    required this.calendarCategoryColor,
+    required this.calendarCategoryContainerColor,
   });
 
   /// 連続プレイ日数（ストリーク）のアクセントカラー
@@ -89,6 +91,12 @@ class NantoNackThemeExtension
   /// ニュースカテゴリーカードの背景コンテナカラー
   final Color newsCategoryContainerColor;
 
+  /// カレンダーカテゴリーのブランドカラー（Google Calendar風ブルー）
+  final Color calendarCategoryColor;
+
+  /// カレンダーカテゴリーカードの背景コンテナカラー
+  final Color calendarCategoryContainerColor;
+
   /// ライトテーマ用デフォルト値
   static const light = NantoNackThemeExtension(
     streakColor: Color(0xFFE65100),
@@ -111,6 +119,8 @@ class NantoNackThemeExtension
     mailCategoryContainerColor: Color(0xFFFCE4EC),
     newsCategoryColor: Color(0xFFBF360C),
     newsCategoryContainerColor: Color(0xFFFBE9E7),
+    calendarCategoryColor: Color(0xFF00838F),
+    calendarCategoryContainerColor: Color(0xFFE0F7FA),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -147,6 +157,8 @@ class NantoNackThemeExtension
     mailCategoryContainerColor: Color(0xFF3D0014),
     newsCategoryColor: Color(0xFFFF8A65),
     newsCategoryContainerColor: Color(0xFF3E1108),
+    calendarCategoryColor: Color(0xFF4DD0E1),
+    calendarCategoryContainerColor: Color(0xFF002A2E),
   );
 
   @override
@@ -171,6 +183,8 @@ class NantoNackThemeExtension
     Color? mailCategoryContainerColor,
     Color? newsCategoryColor,
     Color? newsCategoryContainerColor,
+    Color? calendarCategoryColor,
+    Color? calendarCategoryContainerColor,
   }) {
     return NantoNackThemeExtension(
       streakColor: streakColor ?? this.streakColor,
@@ -204,6 +218,10 @@ class NantoNackThemeExtension
       newsCategoryColor: newsCategoryColor ?? this.newsCategoryColor,
       newsCategoryContainerColor:
           newsCategoryContainerColor ?? this.newsCategoryContainerColor,
+      calendarCategoryColor:
+          calendarCategoryColor ?? this.calendarCategoryColor,
+      calendarCategoryContainerColor:
+          calendarCategoryContainerColor ?? this.calendarCategoryContainerColor,
     );
   }
 
@@ -283,6 +301,13 @@ class NantoNackThemeExtension
       newsCategoryContainerColor: Color.lerp(
         newsCategoryContainerColor,
         other.newsCategoryContainerColor,
+        t,
+      )!,
+      calendarCategoryColor:
+          Color.lerp(calendarCategoryColor, other.calendarCategoryColor, t)!,
+      calendarCategoryContainerColor: Color.lerp(
+        calendarCategoryContainerColor,
+        other.calendarCategoryContainerColor,
         t,
       )!,
     );

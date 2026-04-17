@@ -17,7 +17,7 @@
 
 3. **コード生成が必要な場合**（Drift / Slang / Flutter Gen 変更時）
    ```bash
-   fvm dart run melos run generate
+   fvm dart run melos run gen:all
    ```
 
 ## コミットルール

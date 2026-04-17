@@ -17,7 +17,7 @@ final waterQuizProvider =
 );
 
 class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
-  static const _quizId = 'shopping_water';
+  static const _quizId = 'shopping_quiz1';
   // ヒント使用時のスコアペナルティ（ヒント使用で failureCount +1 換算）
   static const _hintPenaltyFailureCount = 2;
   // ヒント対象アイテムID（ミッション「水を2つ購入」の対象）

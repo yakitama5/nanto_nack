@@ -1,0 +1,77 @@
+{
+  "quiz1": {
+    "missionText": "Check what events are scheduled next month",
+    "failureReason": "Swipe left on the calendar to show next month",
+    "insight": {
+      "title": "How did you check next month?",
+      "subtitle": "Horizontal swipe switches months intuitively",
+      "swipeTitle": "Horizontal swipe is the standard page-turn gesture",
+      "swipeDesc": "In calendar apps, swiping left goes to the next month and swiping right goes to the previous month. This is consistent across almost all calendar apps.",
+      "calendarTitle": "Calendars are managed month by month",
+      "calendarDesc": "Smartphone calendar apps switch months by swiping rather than continuous scrolling. This month-by-month swipe UI design has become the mainstream.",
+      "gestureTitle": "You can operate even hidden UI",
+      "gestureDesc": "Even without a 'Next Month' button on screen, you can navigate using swipe gestures. This is one of the defining features of smartphone UI design."
+    }
+  },
+  "quiz2": {
+    "missionText": "Add a new event on the 15th",
+    "failureReason": "Long press the 15th cell to add an event",
+    "insight": {
+      "title": "How could you add by long pressing?",
+      "subtitle": "Long press reveals hidden action menus",
+      "longPressTitle": "Long press opens a context menu",
+      "longPressDesc": "Long pressing a calendar date lets you directly add an event for that day. This is a hidden but convenient feature adopted by many calendar apps.",
+      "fabTitle": "The + button is the universal language for creation",
+      "fabDesc": "The + (plus) button in the bottom right is a UI pattern that means 'create something new', which has become a world standard centered around Google apps.",
+      "addTitle": "Two operation paths exist",
+      "addDesc": "Adding an event to the calendar can be done in two ways: 'long press a date' or 'tap the + button'. Knowing both expands your operational choices."
+    }
+  },
+  "quiz3": {
+    "missionText": "Move the event to tomorrow",
+    "failureReason": "Long press the event and drag & drop it to the next day",
+    "insight": {
+      "title": "How did you move the event to the next day?",
+      "subtitle": "Drag & drop is intuitive for moving events",
+      "tapTitle": "Long press and drag to move events",
+      "tapDesc": "Long pressing an event lets you drag it to a new date. This works for rescheduling existing events to different days.",
+      "futureTitle": "You can reschedule events to future dates",
+      "futureDesc": "Smartphone calendars let you move events to any date — days, weeks, or months ahead. Adjusting schedules is key to effective time management.",
+      "planTitle": "Flexible planning improves your adaptability",
+      "planDesc": "Moving what you need to do to the next day lets you adjust plans as needed. The ability to reschedule events helps you stay organized amidst changes."
+    }
+  },
+  "quiz4": {
+    "missionText": "Got lost! Return to 'today' instantly",
+    "failureReason": "Tap the calendar icon (Today) button in the AppBar",
+    "insight": {
+      "title": "How could you return to 'today' so quickly?",
+      "subtitle": "The 'Today' button saves you from getting lost",
+      "todayTitle": "'Today' button is an essential calendar feature",
+      "todayDesc": "Calendar apps have a dedicated button to jump to today's date. Even after navigating far into the future or past, you can return instantly.",
+      "iconTitle": "Calendar icon = return to today",
+      "iconDesc": "The calendar icon displayed in the AppBar means 'show today's date'. This is a typical example of communicating function through icon design.",
+      "jumpTitle": "Jumping is more efficient than scrolling",
+      "jumpDesc": "When returning from years in the future or past to the present, jumping directly with a dedicated button is overwhelmingly faster than swiping back one month at a time."
+    }
+  },
+  "common": {
+    "appTitle": "Calendar",
+    "today": "Today",
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "newEvent": "New Event",
+    "eventTitle": "Event Title",
+    "addEventTitle": "Add Event",
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "dateLabel": "$month/$day ($weekday)",
+    "eventInterview": "Interview",
+    "eventParty": "Party",
+    "eventMeeting": "Meeting",
+    "eventHealth": "Health Check",
+    "eventDentist": "Dentist",
+    "eventLunch": "Lunch",
+    "eventImportant": "Important"
+  }
+}

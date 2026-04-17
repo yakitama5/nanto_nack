@@ -10,7 +10,7 @@ class PlayLogs extends Table {
   /// ログID（自動採番）
   IntColumn get id => integer().autoIncrement()();
 
-  /// クイズID (例: 'shopping_water')
+  /// クイズID (例: 'shopping_quiz1')
   TextColumn get quizId => text()();
 
   /// クリアできたかどうか

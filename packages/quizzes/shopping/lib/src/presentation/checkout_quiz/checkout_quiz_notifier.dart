@@ -15,7 +15,7 @@ final checkoutQuizProvider =
 );
 
 class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
-  static const _quizId = 'shopping_checkout';
+  static const _quizId = 'shopping_quiz2';
 
   final _useCase = const QuizCheckoutUseCase();
   Timer? _timer;

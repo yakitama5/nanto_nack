@@ -112,7 +112,8 @@
       "alarm": "Alarm",
       "payment": "Payment",
       "mail": "Mail",
-      "news": "News"
+      "news": "News",
+      "calendar": "Calendar"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -122,13 +123,14 @@
       "alarm": "Experience clock & alarm app UI/UX",
       "payment": "Experience mobile payment app UI/UX",
       "mail": "Experience email app UI/UX",
-      "news": "Experience news app UI/UX"
+      "news": "Experience news app UI/UX",
+      "calendar": "Experience calendar app UI/UX"
     },
     "stageTitle": {
-      "shopping_water": "Buy 2 Waters",
-      "shopping_checkout": "Complete Checkout",
-      "shopping_reorder": "Reorder Recent Purchase",
-      "shopping_cart": "Select Cart Total",
+      "shopping_quiz1": "Buy 2 Waters",
+      "shopping_quiz2": "Complete Checkout",
+      "shopping_quiz3": "Reorder Recent Purchase",
+      "shopping_quiz4": "Select Cart Total",
       "chat_quiz1": "Reply with a Sticker",
       "chat_quiz2": "React to a Message",
       "chat_quiz3": "Send a Photo",
@@ -156,13 +158,17 @@
       "news_quiz1": "Refresh the News",
       "news_quiz2": "Show Sports Category",
       "news_quiz3": "Change Font Size to Large",
-      "news_quiz4": "Hide an Unwanted Article"
+      "news_quiz4": "Hide an Unwanted Article",
+      "calendar_quiz1": "View Next Month Events",
+      "calendar_quiz2": "Add an Event Quickly",
+      "calendar_quiz3": "Change Event Date",
+      "calendar_quiz4": "Return to Today Instantly"
     },
     "stageDescription": {
-      "shopping_water": "Add 2 waters to the cart and purchase on the e-commerce site",
-      "shopping_checkout": "Complete 3 steps: address, payment method, and order confirmation",
-      "shopping_reorder": "Reorder the most recently purchased item from order history",
-      "shopping_cart": "Select the total amount of items in the cart from 4 choices",
+      "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
+      "shopping_quiz2": "Complete 3 steps: address, payment method, and order confirmation",
+      "shopping_quiz3": "Reorder the most recently purchased item from order history",
+      "shopping_quiz4": "Select the total amount of items in the cart from 4 choices",
       "chat_quiz1": "Reply with one sticker in the chat app",
       "chat_quiz2": "React to the other person's message with a heart",
       "chat_quiz3": "Send one photo in the chat app",
@@ -190,7 +196,11 @@
       "news_quiz1": "Pull down to refresh the news feed",
       "news_quiz2": "Swipe or tap the tab to show Sports",
       "news_quiz3": "Open an article and change the font size to Large",
-      "news_quiz4": "Hide the movie review article from the menu"
+      "news_quiz4": "Hide the movie review article from the menu",
+      "calendar_quiz1": "Use the calendar to check the events for next month",
+      "calendar_quiz2": "Add a new event on the 15th",
+      "calendar_quiz3": "Move the dentist appointment to the next day",
+      "calendar_quiz4": "After navigating years ahead, return to today's date"
     }
   },
   "scene": {

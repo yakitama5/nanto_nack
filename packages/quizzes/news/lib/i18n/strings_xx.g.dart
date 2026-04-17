@@ -75,7 +75,7 @@ class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Zyx zxtz rj zyrw kfzrucx rw zss wekcc zs fxkm. Uyкjpx zyx bsjz wrqx zs Ckfpx.';
+	@override String get missionText => 'Zyx zxtz rj zyrw kfzrucx rw zss wekcc zs fxkm. Uykjpx zyx bsjz wrqx zs Ckfpx.';
 	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
 
@@ -86,7 +86,7 @@ class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Yrmx zyx esnрx fxnрxg kfzrucx zykz usjzkrjw woсrcxfw bfse zyx crwz';
+	@override String get missionText => 'Yrmx zyx xweprx fxnrxg kfzrucx zykz usjzkrjw wsrcxfw bfse zyx crwz';
 	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
 }
 
@@ -126,7 +126,7 @@ class _TranslationsQuiz1InsightXx extends TranslationsQuiz1InsightJa {
 	@override String get spinnerTitle => 'Worijjrjp urfucx exkjw cskmrjp';
 	@override String get spinnerDesc => 'Zyx fszkzrjp urfuhckf rjmrukzsf rw k useesjchkjphkpx hwxm gsfcmgrmx rj koow zs rjmrukzx ofsuxxwwrjp sf cskmrjp.';
 	@override String get feedTitle => 'Bxxmw kcgkiw jxxm zyx ckzxwz rjbs';
-	@override String get feedDesc => 'Rjbsfeкzrsj bxxm wufxxjw crax jxgw kfx mxwrpjxm zs zfrppxf k ekjhkc fxbfxwy gyxj ohccxm bfse zso zs dszzsе.';
+	@override String get feedDesc => 'Rjbsfekzrsj bxxm wufxxjw crax jxgw kfx mxwrpjxm zs zfrppxf k ekjhkc fxbfxwy gyxj ohccxm bfse zso zs dszzse.';
 }
 
 // Path: quiz2.insight
@@ -137,13 +137,13 @@ class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
 
 	// Translations
 	@override String get title => 'Ysg mrm ish ajsg wgrorjp wrmxgkiw gshcm wgrzuy ukzxpsfrixw?';
-	@override String get subtitle => 'Zkdw kfx k wrpj sb ysfrqsjzkcciкffkjpxm okpxw';
-	@override String get tabTitle => 'Zkd HR whoosfzw ysfrqsjzkc wgroрrjp';
-	@override String get tabDesc => 'Zkdw crjxm ho kz zyx zso kfx k zkdcx sb usjzxjzw bsf ukzxpsfrixw. Rz rw wzkjmkfm mxwrpj zs wgrzuy dxzgxxj zyxe di wgroрrjp ysfrqsjzkcci crax zhfjrjp okpxw.';
+	@override String get subtitle => 'Zkdw kfx k wrpj sb ysfrqsjzkcciaffkjpxm okpxw';
+	@override String get tabTitle => 'Zkd HR whoosfzw ysfrqsjzkc wgrprnp';
+	@override String get tabDesc => 'Zkdw crjxm ho kz zyx zso kfx k zkdcx sb usjzxjzw bsf ukzxpsfrixw. Rz rw wzkjmkfm mxwrpj zs wgrzuy dxzgxxj zyxe di wgrprnp ysfrqsjzkcci crax zhfjrjp okpxw.';
 	@override String get swipeTitle => 'Esnrjp k brjpxf wrmxgkiw bxxcw crax zhfjrjp k okpx';
-	@override String get swipeDesc => 'Wgroрrjp cxbz kjm frpyz crax zhfjrjp zyx okpxw sb k dsса rw zyx eswz jkzhfkc okpx-wgrzuyrjp pxwzhfx rj esdrcx koow.';
+	@override String get swipeDesc => 'Wgrprnp cxbz kjm frpyz crax zhfjrjp zyx okpxw sb k dscca rw zyx eswz jkzhfkc okpx-wgrzuyrjp pxwzhfx rj esdrcx koow.';
 	@override String get labelTitle => 'Zkd ckdxcw osrjz zs zyx zkfpxz ukzxpsfi';
-	@override String get labelDesc => 'Ish ukj fxkuy zyx rjbsfekzrsj ish jxxm di zkoрrjp zyx zkd ckdxcxm Wosfzw sf wgroрrjp zs rz.';
+	@override String get labelDesc => 'Ish ukj fxkuy zyx rjbsfekzrsj ish jxxm di zkoпnp zyx zkd ckdxcxm Wosfzw sf wgrprnp zs rz.';
 }
 
 // Path: quiz3.insight
@@ -153,14 +153,14 @@ class _TranslationsQuiz3InsightXx extends TranslationsQuiz3InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ysg mrm ish ajsg zyx Kk rusj ushcm uyкjpx zyx bsjz wrqx?';
+	@override String get title => 'Ysg mrm ish ajsg zyx Kk rusj ushcm uykjpx zyx bsjz wrqx?';
 	@override String get subtitle => 'Kk rw zyx hjrnxfwkc rusj bsf bsjz wxzzrjpw';
 	@override String get aaTitle => 'Kk rw zyx gsfcm-wzkjmkfm rusj bsf uykjprjp bsjz wrqx';
-	@override String get aaDesc => 'Kj rusj wysgrjp kj hooрxfukwx K kjm csgxfukwx k zspxzyxf rw kmsozxm di dfsгwxfw kjm koow gsfcmgrmx kw k wiedsc bsf bsjz wrqx kjm mrwoцki wxzzrjpw.';
+	@override String get aaDesc => 'Kj rusj wysgrjp kj hopxfukwx K kjm csgxfukwx k zspxzyxf rw kmsozxm di dfsywxfw kjm koow gsfcmgrmx kw k wiedsc bsf bsjz wrqx kjm mrwzcki wxzzrjpw.';
 	@override String get accessTitle => 'Kuuxwwrdrcrzи kjm hwxf ofxbxfxjuxw';
-	@override String get accessDesc => 'Ekji koow yknx k bxkzhfx zykz cxzw ish kmvhwz zxtz nrwrdrcrzи isьfwxcb gyxj zyx zxtz rw zss wekcc zs fxkm usebsfzkdci.';
-	@override String get sizeTitle => 'Wekcc exmrhe ckfpx rw zyx ucкwwru wxz';
-	@override String get sizeDesc => 'Bsjz wrqx sozrsjw grzу zyfxx cxnxcw sb wekcc exmrhe kjm ckfpx kfx zyx wzkjmkfm. Rz rw wzkjmkfm mxwрpj zs cxz hwxfw uyssрx kuusfmrjp zs zyxrf ofxbxfxjux sf xinwрpyz.';
+	@override String get accessDesc => 'Ekji koow yknx k bxkzhfx zykz cxzw ish kmvhwz zxtz nrwrdrcrzи isyfwxcb gyxj zyx zxtz rw zss wekcc zs fxkm usebsfzkdci.';
+	@override String get sizeTitle => 'Wekcc exmrhe ckfpx rw zyx ucckwwru wxz';
+	@override String get sizeDesc => 'Bsjz wrqx sozrsjw grzu zyfxx cxnxcw sb wekcc exmrhe kjm ckfpx kfx zyx wzkjmkfm. Rz rw wzkjmkfm mxwrpj zs cxz hwxfw uysssx kuusfmrjp zs zyxrf ofxbxfxjux sf xixwrpyz.';
 }
 
 // Path: quiz4.insight
@@ -170,14 +170,14 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ysg mrm ish ajsg csjp оfxwwrjp gshcm cxz ish yrmx zyx kfzrucx?';
-	@override String get subtitle => 'Csjp оfxww рw k pxwzhfx zykz fxnxkcw yрmmxj sozрsjw';
-	@override String get longPressTitle => 'Csjp оfxww sоxjw kmmрzрsjkc exjh sozрsjw';
-	@override String get longPressDesc => 'Оfxwwрjp kjm yscmрjp kj рusj sf рzxe zs fxnxkc kmmрzрsjkc sozрsjw рw kj рjzxfkuzрsj оkzzxfj useesjzs дszу Kjmfsрm kjm рOW.';
-	@override String get menuTitle => 'Zyx ... рusj рw k wрpj sb yрmmxj kuzрsjw';
-	@override String get menuDesc => 'Zyx xccрowрw sf nxfzрukc zyfxx-mszрusj рw k hjрnxfwkc HR wiedsc exkjрjp Esfx Sozрsjw. Zkooрjp рz xtоkjmw k exjh.';
-	@override String get hideTitle => 'Usjzfsc isьf рjbsfekzрsj gрzy zyx yрmx bxkzhfx';
-	@override String get hideDesc => 'Zyx kdрcрzи zs рjmрnрmhkcciyrмx kfzрucxw kjm jszрbрukzрsjw ish ms jsz gkjz zs wxx рw k wzkjmkfm bxkzhfx sb esмxfj jxgw koow kjm wsуркc exмрk.';
+	@override String get title => 'Ysg mrm ish ajsg csjp ofxssrjp gshcm cxz ish yrmx zyx kfzrucx?';
+	@override String get subtitle => 'Csjp ofxww pw k pxwzhfx zykz fxnxkcw yrmmxj sozrsjw';
+	@override String get longPressTitle => 'Csjp ofxww spxjw kmmrzrsjkc exjh sozrsjw';
+	@override String get longPressDesc => 'Ofxssrjp kjm yscmrjp kj rusj sf rzxe zs fxnxkc kmmrzrsjkc sozrsjw rw kj rjzxfkuzrsj okzzxfj usuusj zs dszu Kjmfsrm kjm rOW.';
+	@override String get menuTitle => 'Zyx ... rusj rw k wrpj sb yrmmxj kuzrsjw';
+	@override String get menuDesc => 'Zyx xccrsswrw sf nxfzrukc zyfxx-mszzrsj rw k hjrnjxfwkc HR wiedsc exkjrjp Esfx Sozrsjw. Zkooрjp rz xtpkjmw k exjh.';
+	@override String get hideTitle => 'Usjzfsc ysyf rjbsfekzrsj grzy zyx yrmx bxkzhfx';
+	@override String get hideDesc => 'Zyx kdrcrzи zs rjmrnrmhkcciyrex kfzrucxw kjm jszrbrkzrsjw ish ms jsz gkjz zs wxx rw k wzkjmkfm bxkzhfx sb esmxfj jxgw koow kjm wspufkc exmrk.';
 }
 
 /// The flat map containing all translations for locale <xx>.
@@ -196,34 +196,34 @@ extension on TranslationsXx {
 			'quiz1.insight.spinnerTitle' => 'Worijjrjp urfucx exkjw cskmrjp',
 			'quiz1.insight.spinnerDesc' => 'Zyx fszkzrjp urfuhckf rjmrukzsf rw k useesjchkjphkpx hwxm gsfcmgrmx rj koow zs rjmrukzx ofsuxxwwrjp sf cskmrjp.',
 			'quiz1.insight.feedTitle' => 'Bxxmw kcgkiw jxxm zyx ckzxwz rjbs',
-			'quiz1.insight.feedDesc' => 'Rjbsfeкzrsj bxxm wufxxjw crax jxgw kfx mxwrpjxm zs zfrppxf k ekjhkc fxbfxwy gyxj ohccxm bfse zso zs dszzsе.',
+			'quiz1.insight.feedDesc' => 'Rjbsfekzrsj bxxm wufxxjw crax jxgw kfx mxwrpjxm zs zfrppxf k ekjhkc fxbfxwy gyxj ohccxm bfse zso zs dszzse.',
 			'quiz2.missionText' => 'Uyxua zyx zso jxgw rj zyx Wosfzw ukzxpsfi',
 			'quiz2.insight.title' => 'Ysg mrm ish ajsg wgrorjp wrmxgkiw gshcm wgrzuy ukzxpsfrixw?',
-			'quiz2.insight.subtitle' => 'Zkdw kfx k wrpj sb ysfrqsjzkcciкffkjpxm okpxw',
-			'quiz2.insight.tabTitle' => 'Zkd HR whoosfzw ysfrqsjzkc wgroрrjp',
-			'quiz2.insight.tabDesc' => 'Zkdw crjxm ho kz zyx zso kfx k zkdcx sb usjzxjzw bsf ukzxpsfrixw. Rz rw wzkjmkfm mxwrpj zs wgrzuy dxzgxxj zyxe di wgroрrjp ysfrqsjzkcci crax zhfjrjp okpxw.',
+			'quiz2.insight.subtitle' => 'Zkdw kfx k wrpj sb ysfrqsjzkcciaffkjpxm okpxw',
+			'quiz2.insight.tabTitle' => 'Zkd HR whoosfzw ysfrqsjzkc wgrprnp',
+			'quiz2.insight.tabDesc' => 'Zkdw crjxm ho kz zyx zso kfx k zkdcx sb usjzxjzw bsf ukzxpsfrixw. Rz rw wzkjmkfm mxwrpj zs wgrzuy dxzgxxj zyxe di wgrprnp ysfrqsjzkcci crax zhfjrjp okpxw.',
 			'quiz2.insight.swipeTitle' => 'Esnrjp k brjpxf wrmxgkiw bxxcw crax zhfjrjp k okpx',
-			'quiz2.insight.swipeDesc' => 'Wgroрrjp cxbz kjm frpyz crax zhfjrjp zyx okpxw sb k dsса rw zyx eswz jkzhfkc okpx-wgrzuyrjp pxwzhfx rj esdrcx koow.',
+			'quiz2.insight.swipeDesc' => 'Wgrprnp cxbz kjm frpyz crax zhfjrjp zyx okpxw sb k dscca rw zyx eswz jkzhfkc okpx-wgrzuyrjp pxwzhfx rj esdrcx koow.',
 			'quiz2.insight.labelTitle' => 'Zkd ckdxcw osrjz zs zyx zkfpxz ukzxpsfi',
-			'quiz2.insight.labelDesc' => 'Ish ukj fxkuy zyx rjbsfekzrsj ish jxxm di zkoрrjp zyx zkd ckdxcxm Wosfzw sf wgroрrjp zs rz.',
-			'quiz3.missionText' => 'Zyx zxtz rj zyrw kfzrucx rw zss wekcc zs fxkm. Uyкjpx zyx bsjz wrqx zs Ckfpx.',
-			'quiz3.insight.title' => 'Ysg mrm ish ajsg zyx Kk rusj ushcm uyкjpx zyx bsjz wrqx?',
+			'quiz2.insight.labelDesc' => 'Ish ukj fxkuy zyx rjbsfekzrsj ish jxxm di zkoпnp zyx zkd ckdxcxm Wosfzw sf wgrprnp zs rz.',
+			'quiz3.missionText' => 'Zyx zxtz rj zyrw kfzrucx rw zss wekcc zs fxkm. Uykjpx zyx bsjz wrqx zs Ckfpx.',
+			'quiz3.insight.title' => 'Ysg mrm ish ajsg zyx Kk rusj ushcm uykjpx zyx bsjz wrqx?',
 			'quiz3.insight.subtitle' => 'Kk rw zyx hjrnxfwkc rusj bsf bsjz wxzzrjpw',
 			'quiz3.insight.aaTitle' => 'Kk rw zyx gsfcm-wzkjmkfm rusj bsf uykjprjp bsjz wrqx',
-			'quiz3.insight.aaDesc' => 'Kj rusj wysgrjp kj hooрxfukwx K kjm csgxfukwx k zspxzyxf rw kmsozxm di dfsгwxfw kjm koow gsfcmgrmx kw k wiedsc bsf bsjz wrqx kjm mrwoцki wxzzrjpw.',
+			'quiz3.insight.aaDesc' => 'Kj rusj wysgrjp kj hopxfukwx K kjm csgxfukwx k zspxzyxf rw kmsozxm di dfsywxfw kjm koow gsfcmgrmx kw k wiedsc bsf bsjz wrqx kjm mrwzcki wxzzrjpw.',
 			'quiz3.insight.accessTitle' => 'Kuuxwwrdrcrzи kjm hwxf ofxbxfxjuxw',
-			'quiz3.insight.accessDesc' => 'Ekji koow yknx k bxkzhfx zykz cxzw ish kmvhwz zxtz nrwrdrcrzи isьfwxcb gyxj zyx zxtz rw zss wekcc zs fxkm usebsfzkdci.',
-			'quiz3.insight.sizeTitle' => 'Wekcc exmrhe ckfpx rw zyx ucкwwru wxz',
-			'quiz3.insight.sizeDesc' => 'Bsjz wrqx sozrsjw grzу zyfxx cxnxcw sb wekcc exmrhe kjm ckfpx kfx zyx wzkjmkfm. Rz rw wzkjmkfm mxwрpj zs cxz hwxfw uyssрx kuusfmrjp zs zyxrf ofxbxfxjux sf xinwрpyz.',
-			'quiz4.missionText' => 'Yrmx zyx esnрx fxnрxg kfzrucx zykz usjzkrjw woсrcxfw bfse zyx crwz',
-			'quiz4.insight.title' => 'Ysg mrm ish ajsg csjp оfxwwrjp gshcm cxz ish yrmx zyx kfzrucx?',
-			'quiz4.insight.subtitle' => 'Csjp оfxww рw k pxwzhfx zykz fxnxkcw yрmmxj sozрsjw',
-			'quiz4.insight.longPressTitle' => 'Csjp оfxww sоxjw kmmрzрsjkc exjh sozрsjw',
-			'quiz4.insight.longPressDesc' => 'Оfxwwрjp kjm yscmрjp kj рusj sf рzxe zs fxnxkc kmmрzрsjkc sozрsjw рw kj рjzxfkuzрsj оkzzxfj useesjzs дszу Kjmfsрm kjm рOW.',
-			'quiz4.insight.menuTitle' => 'Zyx ... рusj рw k wрpj sb yрmmxj kuzрsjw',
-			'quiz4.insight.menuDesc' => 'Zyx xccрowрw sf nxfzрukc zyfxx-mszрusj рw k hjрnxfwkc HR wiedsc exkjрjp Esfx Sozрsjw. Zkooрjp рz xtоkjmw k exjh.',
-			'quiz4.insight.hideTitle' => 'Usjzfsc isьf рjbsfekzрsj gрzy zyx yрmx bxkzhfx',
-			'quiz4.insight.hideDesc' => 'Zyx kdрcрzи zs рjmрnрmhkcciyrмx kfzрucxw kjm jszрbрukzрsjw ish ms jsz gkjz zs wxx рw k wzkjmkfm bxkzhfx sb esмxfj jxgw koow kjm wsуркc exмрk.',
+			'quiz3.insight.accessDesc' => 'Ekji koow yknx k bxkzhfx zykz cxzw ish kmvhwz zxtz nrwrdrcrzи isyfwxcb gyxj zyx zxtz rw zss wekcc zs fxkm usebsfzkdci.',
+			'quiz3.insight.sizeTitle' => 'Wekcc exmrhe ckfpx rw zyx ucckwwru wxz',
+			'quiz3.insight.sizeDesc' => 'Bsjz wrqx sozrsjw grzu zyfxx cxnxcw sb wekcc exmrhe kjm ckfpx kfx zyx wzkjmkfm. Rz rw wzkjmkfm mxwrpj zs cxz hwxfw uysssx kuusfmrjp zs zyxrf ofxbxfxjux sf xixwrpyz.',
+			'quiz4.missionText' => 'Yrmx zyx xweprx fxnrxg kfzrucx zykz usjzkrjw wsrcxfw bfse zyx crwz',
+			'quiz4.insight.title' => 'Ysg mrm ish ajsg csjp ofxssrjp gshcm cxz ish yrmx zyx kfzrucx?',
+			'quiz4.insight.subtitle' => 'Csjp ofxww pw k pxwzhfx zykz fxnxkcw yrmmxj sozrsjw',
+			'quiz4.insight.longPressTitle' => 'Csjp ofxww spxjw kmmrzrsjkc exjh sozrsjw',
+			'quiz4.insight.longPressDesc' => 'Ofxssrjp kjm yscmrjp kj rusj sf rzxe zs fxnxkc kmmrzrsjkc sozrsjw rw kj rjzxfkuzrsj okzzxfj usuusj zs dszu Kjmfsrm kjm rOW.',
+			'quiz4.insight.menuTitle' => 'Zyx ... rusj rw k wrpj sb yrmmxj kuzrsjw',
+			'quiz4.insight.menuDesc' => 'Zyx xccrsswrw sf nxfzrukc zyfxx-mszzrsj rw k hjrnjxfwkc HR wiedsc exkjrjp Esfx Sozrsjw. Zkooрjp rz xtpkjmw k exjh.',
+			'quiz4.insight.hideTitle' => 'Usjzfsc ysyf rjbsfekzrsj grzy zyx yrmx bxkzhfx',
+			'quiz4.insight.hideDesc' => 'Zyx kdrcrzи zs rjmrnrmhkcciyrex kfzrucxw kjm jszrbrkzrsjw ish ms jsz gkjz zs wxx rw k wzkjmkfm bxkzhfx sb esmxfj jxgw koow kjm wspufkc exmrk.',
 			'common.appTitle' => 'Jxgw',
 			'common.tabTop' => 'Zso',
 			'common.tabEntertainment' => 'Xjzxfzkrjexjz',

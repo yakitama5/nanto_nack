@@ -63,3 +63,10 @@ const String kNewsQuiz1Path = '$kNewsListPath/$kNewsQuiz1Segment';
 const String kNewsQuiz2Path = '$kNewsListPath/$kNewsQuiz2Segment';
 const String kNewsQuiz3Path = '$kNewsListPath/$kNewsQuiz3Segment';
 const String kNewsQuiz4Path = '$kNewsListPath/$kNewsQuiz4Segment';
+
+// Calendar
+const String kCalendarListPath = '/play/calendar';
+const String kCalendarQuiz1Path = '/play/calendar/quiz1';
+const String kCalendarQuiz2Path = '/play/calendar/quiz2';
+const String kCalendarQuiz3Path = '/play/calendar/quiz3';
+const String kCalendarQuiz4Path = '/play/calendar/quiz4';

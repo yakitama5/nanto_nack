@@ -1,13 +1,15 @@
 import 'package:alarm/alarm.dart';
 import 'package:go_router/go_router.dart';
 
+import '../domain/category.dart';
 import '../presentation/play/stage_list_screen.dart';
 import 'routes/alarm_route.dart';
 
 List<GoRoute> get alarmRoutes => [
   GoRoute(
     path: AlarmRoute.list.path.replaceFirst('/play/', ''),
-    builder: (context, state) => const StageListScreen(categoryId: 'alarm'),
+    builder: (context, state) =>
+        const StageListScreen(category: QuizCategory.alarm),
     routes: [
       GoRoute(
         path: AlarmRoute.quiz1.path.split('/').last,
