@@ -31,22 +31,22 @@ class QuizCalendarUseCase {
     );
   }
 
-  /// Quiz3: 'calendar_meeting' のイベントが翌日に移動されたかチェック
+  /// Quiz3: 開始時刻から2日後の日付にイベントが存在するかチェック
   bool isClearQuiz3({
     required List<CalendarEvent> events,
     required DateTime originalDate,
   }) {
-    final event = events.where((e) => e.id == 'calendar_meeting').firstOrNull;
-    if (event == null) return false;
-    // originalDate の翌日（月末をまたぐ場合も DateTime が自動補正する）
-    final tomorrowDate = DateTime(
+    final targetDate = DateTime(
       originalDate.year,
       originalDate.month,
-      originalDate.day + 1,
+      originalDate.day + 2,
     );
-    return event.begin.year == tomorrowDate.year &&
-        event.begin.month == tomorrowDate.month &&
-        event.begin.day == tomorrowDate.day;
+    return events.any(
+      (e) =>
+          e.begin.year == targetDate.year &&
+          e.begin.month == targetDate.month &&
+          e.begin.day == targetDate.day,
+    );
   }
 
   /// Quiz4: focusedMonth が現在の年月に戻ったかチェック

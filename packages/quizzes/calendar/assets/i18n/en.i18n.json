@@ -28,17 +28,17 @@
     }
   },
   "quiz3": {
-    "missionText": "The 'Meeting' is postponed to tomorrow! Move the event",
-    "failureReason": "Long press the 'Meeting' event block, then drag and drop it to tomorrow's cell",
+    "missionText": "Add a new event 2 days from now",
+    "failureReason": "Tap the date 2 days from now or use the + button to add an event",
     "insight": {
-      "title": "How could you move an event by dragging?",
-      "subtitle": "Long press & drag moves events intuitively",
-      "dragTitle": "Long press drag is the standard grab-and-move operation",
-      "dragDesc": "Dragging list items or event blocks by long pressing to 'grab' them is widely adopted in iOS and Android calendar and task apps.",
-      "dropTitle": "Dropping places the item at that location",
-      "dropDesc": "Releasing (dropping) the dragged element at the destination moves the content there. This is the essence of drag and drop operation.",
-      "intuitionTitle": "Operation that matches visual intuition",
-      "intuitionDesc": "UI that works exactly as intuitively expected, like 'pull to move', reduces cognitive load for users and represents excellent design."
+      "title": "How did you add an event 2 days from now?",
+      "subtitle": "Tapping a date to add events is intuitive",
+      "tapTitle": "Tap a date to add an event",
+      "tapDesc": "Tapping a calendar date lets you add an event for that day. This works not just for today, but for any future date with the same operation.",
+      "futureTitle": "You can schedule events on future dates",
+      "futureDesc": "Smartphone calendars let you register events for any date — days, weeks, or months ahead. Pre-entering future plans is the foundation of schedule management.",
+      "planTitle": "Proactive planning improves your performance",
+      "planDesc": "Registering what you need to do '2 days from now' lets you prepare in advance. The habit of entering events immediately helps you stay organized."
     }
   },
   "quiz4": {
@@ -63,6 +63,8 @@
     "cancel": "Cancel",
     "newEvent": "New Event",
     "eventTitle": "Event Title",
-    "addEventTitle": "Add Event"
+    "addEventTitle": "Add Event",
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "dateLabel": "$month/$day ($weekday)"
   }
 }

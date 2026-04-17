@@ -71,11 +71,6 @@ class CalendarQuizNotifier
       startedAt: now,
     );
 
-    // Quiz4: 初期月が3年後のため、コントローラをその月に移動する
-    if (arg == CalendarQuizType.quiz4) {
-      _controller.goToDate(state.initialMonth);
-    }
-
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: arg.quizId);
     _startTimer();
   }

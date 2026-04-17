@@ -31,7 +31,6 @@ class CalendarQuizScreen extends ConsumerStatefulWidget {
 
 class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
   bool _showCutIn = true;
-  // addPostFrameCallback 後に初期化される
   CrCalendarController? _calendarController;
 
   @override
@@ -47,6 +46,68 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
         _calendarController = notifier.controller;
       });
     });
+  }
+
+  /// 日付タップ → その日のボトムシートを表示（TimeTree風）
+  Future<void> _onDayTapped(
+    DateTime date,
+    List<CalendarEvent> eventsForDay,
+  ) async {
+    final notifier = ref.read(
+      calendarQuizNotifierProvider(widget.quizType).notifier,
+    );
+    final result = await _showDayBottomSheet(date, eventsForDay);
+    if (!mounted) return;
+    if (result != null && result.isNotEmpty) {
+      notifier.addEvent(date, result);
+    }
+  }
+
+  /// FABタップ → 表示中の月の今日（または1日）にボトムシートを表示
+  Future<void> _onFabPressed() async {
+    final state = ref.read(calendarQuizNotifierProvider(widget.quizType));
+    final notifier = ref.read(
+      calendarQuizNotifierProvider(widget.quizType).notifier,
+    );
+    // state.quizStartTime は clock.now() で初期化された今日の日付
+    final now = state.quizStartTime;
+    final date = DateTime(now.year, now.month, now.day);
+    final eventsForDay = state.events
+        .where(
+          (e) =>
+              e.begin.year == date.year &&
+              e.begin.month == date.month &&
+              e.begin.day == date.day,
+        )
+        .toList();
+    final result = await _showDayBottomSheet(date, eventsForDay);
+    if (!mounted) return;
+    if (result != null && result.isNotEmpty) {
+      notifier.addEvent(date, result);
+    }
+  }
+
+  /// 日付ボトムシートを表示し、追加した予定タイトルを返す
+  Future<String?> _showDayBottomSheet(
+    DateTime date,
+    List<CalendarEvent> eventsForDay,
+  ) async {
+    final t = context.s;
+    return showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => _DayBottomSheet(
+        date: date,
+        events: eventsForDay,
+        addLabel: t.common.add,
+        saveLabel: t.common.save,
+        cancelLabel: t.common.cancel,
+        eventTitleHint: t.common.eventTitle,
+      ),
+    );
   }
 
   @override
@@ -72,9 +133,14 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
               calendarController: _calendarController!,
               missionText: missionText,
               timeLimitSeconds: timeLimitSeconds,
+              onDayTapped: state.status == QuizStatus.playing
+                  ? _onDayTapped
+                  : null,
+              onFabPressed: state.status == QuizStatus.playing
+                  ? _onFabPressed
+                  : null,
             )
           else
-            // コントローラ初期化前のフォールバック表示
             const Scaffold(
               body: Center(child: CircularProgressIndicator()),
             ),
@@ -181,19 +247,19 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
               subtitle: insight.subtitle,
               items: [
                 QuizInsightItem(
-                  emoji: '✊',
-                  title: insight.dragTitle,
-                  desc: insight.dragDesc,
+                  emoji: '👆',
+                  title: insight.tapTitle,
+                  desc: insight.tapDesc,
                 ),
                 QuizInsightItem(
-                  emoji: '📦',
-                  title: insight.dropTitle,
-                  desc: insight.dropDesc,
+                  emoji: '📅',
+                  title: insight.futureTitle,
+                  desc: insight.futureDesc,
                 ),
                 QuizInsightItem(
                   emoji: '💡',
-                  title: insight.intuitionTitle,
-                  desc: insight.intuitionDesc,
+                  title: insight.planTitle,
+                  desc: insight.planDesc,
                 ),
               ],
             );
@@ -233,7 +299,6 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
 // _CalendarAppScaffold
 // ---------------------------------------------------------------------------
 
-/// カレンダーアプリ風のスキャフォールド（プライベートウィジェット）
 class _CalendarAppScaffold extends StatelessWidget {
   const _CalendarAppScaffold({
     required this.state,
@@ -241,6 +306,8 @@ class _CalendarAppScaffold extends StatelessWidget {
     required this.calendarController,
     required this.missionText,
     required this.timeLimitSeconds,
+    this.onDayTapped,
+    this.onFabPressed,
   });
 
   final CalendarQuizState state;
@@ -248,6 +315,9 @@ class _CalendarAppScaffold extends StatelessWidget {
   final CrCalendarController calendarController;
   final String missionText;
   final int timeLimitSeconds;
+  final Future<void> Function(DateTime date, List<CalendarEvent> events)?
+      onDayTapped;
+  final Future<void> Function()? onFabPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -262,7 +332,6 @@ class _CalendarAppScaffold extends StatelessWidget {
         ),
         centerTitle: false,
         actions: [
-          // 「今日」ボタン（Quiz4のクリア条件）
           IconButton(
             icon: const Icon(Icons.calendar_today),
             tooltip: sq.common.today,
@@ -273,9 +342,7 @@ class _CalendarAppScaffold extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: state.status == QuizStatus.playing
-            ? () => _showAddEventDialog(context, state.focusedMonth)
-            : null,
+        onPressed: onFabPressed,
         tooltip: sq.common.add,
         child: const Icon(Icons.add),
       ),
@@ -289,15 +356,14 @@ class _CalendarAppScaffold extends StatelessWidget {
             dayItemBuilder: (properties) => _DayItem(
               properties: properties,
               events: state.events,
-              onLongPress: state.status == QuizStatus.playing
-                  ? (date) => _showAddEventDialog(context, date)
+              onTap: onDayTapped != null
+                  ? (date, events) => onDayTapped!(date, events)
                   : null,
               onEventDrop: state.status == QuizStatus.playing
                   ? (eventId, date) => notifier.moveEvent(eventId, date)
                   : null,
             ),
           ),
-          // ミッションバブル
           FloatingMissionBubble(
             remainingSeconds: state.remainingSeconds,
             missionText: missionText,
@@ -309,65 +375,25 @@ class _CalendarAppScaffold extends StatelessWidget {
       ),
     );
   }
-
-  /// 予定追加ダイアログを表示する
-  Future<void> _showAddEventDialog(
-    BuildContext context,
-    DateTime date,
-  ) async {
-    final t = context.s;
-    final controller = TextEditingController();
-    final result = await showDialog<String>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(t.common.addEventTitle),
-        content: TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: t.common.eventTitle,
-          ),
-          autofocus: true,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(t.common.cancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(controller.text),
-            child: Text(t.common.save),
-          ),
-        ],
-      ),
-    );
-    if (result != null && result.isNotEmpty) {
-      notifier.addEvent(date, result);
-    }
-    controller.dispose();
-  }
 }
 
 // ---------------------------------------------------------------------------
 // _DayItem
 // ---------------------------------------------------------------------------
 
-/// カレンダーの1日分のセル（dayItemBuilder で使用）
-///
-/// cr_calendar 1.3.0 の [DayItemProperties] フィールド:
-/// - [DayItemProperties.date]: その日の DateTime
-/// - [DayItemProperties.isInMonth]: 現在の月に属するか
-/// - [DayItemProperties.isCurrentDay]: 今日かどうか
 class _DayItem extends StatelessWidget {
   const _DayItem({
     required this.properties,
     required this.events,
-    this.onLongPress,
+    this.onTap,
     this.onEventDrop,
   });
 
   final DayItemProperties properties;
   final List<CalendarEvent> events;
-  final void Function(DateTime date)? onLongPress;
+
+  /// 日付タップ時のコールバック（date, その日のイベント一覧）
+  final void Function(DateTime date, List<CalendarEvent> events)? onTap;
   final void Function(String eventId, DateTime date)? onEventDrop;
 
   @override
@@ -392,7 +418,6 @@ class _DayItem extends StatelessWidget {
       ),
     );
 
-    // 当月外のセルは薄い日付表示のみ
     if (!isCurrentMonth) {
       return Container(
         alignment: Alignment.topCenter,
@@ -401,6 +426,15 @@ class _DayItem extends StatelessWidget {
       );
     }
 
+    final dateEvents = events
+        .where(
+          (e) =>
+              e.begin.year == date.year &&
+              e.begin.month == date.month &&
+              e.begin.day == date.day,
+        )
+        .toList();
+
     return DragTarget<String>(
       onAcceptWithDetails: (details) {
         onEventDrop?.call(details.data, date);
@@ -408,7 +442,7 @@ class _DayItem extends StatelessWidget {
       builder: (context, candidateData, rejectedData) {
         final isHighlighted = candidateData.isNotEmpty;
         return GestureDetector(
-          onLongPress: onLongPress != null ? () => onLongPress!(date) : null,
+          onTap: onTap != null ? () => onTap!(date, dateEvents) : null,
           child: Container(
             decoration: isHighlighted
                 ? BoxDecoration(
@@ -445,8 +479,7 @@ class _DayItem extends StatelessWidget {
                         )
                       : dayLabel,
                 ),
-                // この日のイベントを表示
-                ..._buildEventChips(context, date),
+                ..._buildEventChips(dateEvents),
               ],
             ),
           ),
@@ -455,19 +488,8 @@ class _DayItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildEventChips(BuildContext context, DateTime date) {
-    final dateEvents = events
-        .where(
-          (e) =>
-              e.begin.year == date.year &&
-              e.begin.month == date.month &&
-              e.begin.day == date.day,
-        )
-        .toList();
-
+  List<Widget> _buildEventChips(List<CalendarEvent> dateEvents) {
     if (dateEvents.isEmpty) return [];
-
-    // 最大2件まで表示
     return dateEvents.take(2).map((event) {
       return LongPressDraggable<String>(
         data: event.id,
@@ -482,10 +504,7 @@ class _DayItem extends StatelessWidget {
             ),
             child: Text(
               event.title,
-              style: const TextStyle(
-                fontSize: 10,
-                color: Colors.white,
-              ),
+              style: const TextStyle(fontSize: 10, color: Colors.white),
             ),
           ),
         ),
@@ -517,5 +536,167 @@ class _DayItem extends StatelessWidget {
         ),
       );
     }).toList();
+  }
+}
+
+// ---------------------------------------------------------------------------
+// _DayBottomSheet（TimeTree風日付ボトムシート）
+// ---------------------------------------------------------------------------
+
+class _DayBottomSheet extends StatefulWidget {
+  const _DayBottomSheet({
+    required this.date,
+    required this.events,
+    required this.addLabel,
+    required this.saveLabel,
+    required this.cancelLabel,
+    required this.eventTitleHint,
+  });
+
+  final DateTime date;
+  final List<CalendarEvent> events;
+  final String addLabel;
+  final String saveLabel;
+  final String cancelLabel;
+  final String eventTitleHint;
+
+  @override
+  State<_DayBottomSheet> createState() => _DayBottomSheetState();
+}
+
+class _DayBottomSheetState extends State<_DayBottomSheet> {
+  final _controller = TextEditingController();
+  bool _showInput = false;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final bottomPadding = MediaQuery.viewInsetsOf(context).bottom;
+
+    // context.s は CalendarTranslationsExtension で定義された ja ロケール固定のアクセサ
+    final t = context.s;
+    final weekdayStr = t.common.weekdays[widget.date.weekday - 1];
+    final dateLabel = t.common.dateLabel(
+      month: widget.date.month,
+      day: widget.date.day,
+      weekday: weekdayStr,
+    );
+
+    return SafeArea(
+      top: false,
+      child: Padding(
+      padding: EdgeInsets.only(bottom: bottomPadding),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // ドラッグハンドル
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 12, bottom: 8),
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: colorScheme.outlineVariant,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          // 日付ヘッダー
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+            child: Text(
+              dateLabel,
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.primary,
+              ),
+            ),
+          ),
+          const Divider(height: 1),
+          // 既存イベント一覧
+          if (widget.events.isNotEmpty)
+            ...widget.events.map(
+              (e) => ListTile(
+                leading: Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: e.color,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                title: Text(e.title, style: textTheme.bodyMedium),
+                dense: true,
+              ),
+            ),
+          // 予定追加エリア
+          if (_showInput)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        hintText: widget.eventTitleHint,
+                        border: const OutlineInputBorder(),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        isDense: true,
+                      ),
+                      onSubmitted: (value) {
+                        if (value.isNotEmpty) {
+                          Navigator.of(context).pop(value);
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FilledButton(
+                    onPressed: () {
+                      final value = _controller.text;
+                      if (value.isNotEmpty) {
+                        Navigator.of(context).pop(value);
+                      }
+                    },
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                    ),
+                    child: Text(widget.saveLabel),
+                  ),
+                ],
+              ),
+            )
+          else
+            ListTile(
+              leading: Icon(Icons.add, color: colorScheme.primary),
+              title: Text(
+                widget.addLabel,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.primary,
+                ),
+              ),
+              onTap: () => setState(() => _showInput = true),
+            ),
+          const SizedBox(height: 8),
+        ],
+      ),
+      ),
+    );
   }
 }

@@ -77,8 +77,8 @@ class _TranslationsQuiz3En extends TranslationsQuiz3Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'The \'Meeting\' is postponed to tomorrow! Move the event';
-	@override String get failureReason => 'Long press the \'Meeting\' event block, then drag and drop it to tomorrow\'s cell';
+	@override String get missionText => 'Add a new event 2 days from now';
+	@override String get failureReason => 'Tap the date 2 days from now or use the + button to add an event';
 	@override late final _TranslationsQuiz3InsightEn insight = _TranslationsQuiz3InsightEn._(_root);
 }
 
@@ -109,6 +109,16 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get newEvent => 'New Event';
 	@override String get eventTitle => 'Event Title';
 	@override String get addEventTitle => 'Add Event';
+	@override List<String> get weekdays => [
+		'Mon',
+		'Tue',
+		'Wed',
+		'Thu',
+		'Fri',
+		'Sat',
+		'Sun',
+	];
+	@override String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})';
 }
 
 // Path: quiz1.insight
@@ -152,14 +162,14 @@ class _TranslationsQuiz3InsightEn extends TranslationsQuiz3InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How could you move an event by dragging?';
-	@override String get subtitle => 'Long press & drag moves events intuitively';
-	@override String get dragTitle => 'Long press drag is the standard grab-and-move operation';
-	@override String get dragDesc => 'Dragging list items or event blocks by long pressing to \'grab\' them is widely adopted in iOS and Android calendar and task apps.';
-	@override String get dropTitle => 'Dropping places the item at that location';
-	@override String get dropDesc => 'Releasing (dropping) the dragged element at the destination moves the content there. This is the essence of drag and drop operation.';
-	@override String get intuitionTitle => 'Operation that matches visual intuition';
-	@override String get intuitionDesc => 'UI that works exactly as intuitively expected, like \'pull to move\', reduces cognitive load for users and represents excellent design.';
+	@override String get title => 'How did you add an event 2 days from now?';
+	@override String get subtitle => 'Tapping a date to add events is intuitive';
+	@override String get tapTitle => 'Tap a date to add an event';
+	@override String get tapDesc => 'Tapping a calendar date lets you add an event for that day. This works not just for today, but for any future date with the same operation.';
+	@override String get futureTitle => 'You can schedule events on future dates';
+	@override String get futureDesc => 'Smartphone calendars let you register events for any date — days, weeks, or months ahead. Pre-entering future plans is the foundation of schedule management.';
+	@override String get planTitle => 'Proactive planning improves your performance';
+	@override String get planDesc => 'Registering what you need to do \'2 days from now\' lets you prepare in advance. The habit of entering events immediately helps you stay organized.';
 }
 
 // Path: quiz4.insight
@@ -207,16 +217,16 @@ extension on TranslationsEn {
 			'quiz2.insight.fabDesc' => 'The + (plus) button in the bottom right is a UI pattern that means \'create something new\', which has become a world standard centered around Google apps.',
 			'quiz2.insight.addTitle' => 'Two operation paths exist',
 			'quiz2.insight.addDesc' => 'Adding an event to the calendar can be done in two ways: \'long press a date\' or \'tap the + button\'. Knowing both expands your operational choices.',
-			'quiz3.missionText' => 'The \'Meeting\' is postponed to tomorrow! Move the event',
-			'quiz3.failureReason' => 'Long press the \'Meeting\' event block, then drag and drop it to tomorrow\'s cell',
-			'quiz3.insight.title' => 'How could you move an event by dragging?',
-			'quiz3.insight.subtitle' => 'Long press & drag moves events intuitively',
-			'quiz3.insight.dragTitle' => 'Long press drag is the standard grab-and-move operation',
-			'quiz3.insight.dragDesc' => 'Dragging list items or event blocks by long pressing to \'grab\' them is widely adopted in iOS and Android calendar and task apps.',
-			'quiz3.insight.dropTitle' => 'Dropping places the item at that location',
-			'quiz3.insight.dropDesc' => 'Releasing (dropping) the dragged element at the destination moves the content there. This is the essence of drag and drop operation.',
-			'quiz3.insight.intuitionTitle' => 'Operation that matches visual intuition',
-			'quiz3.insight.intuitionDesc' => 'UI that works exactly as intuitively expected, like \'pull to move\', reduces cognitive load for users and represents excellent design.',
+			'quiz3.missionText' => 'Add a new event 2 days from now',
+			'quiz3.failureReason' => 'Tap the date 2 days from now or use the + button to add an event',
+			'quiz3.insight.title' => 'How did you add an event 2 days from now?',
+			'quiz3.insight.subtitle' => 'Tapping a date to add events is intuitive',
+			'quiz3.insight.tapTitle' => 'Tap a date to add an event',
+			'quiz3.insight.tapDesc' => 'Tapping a calendar date lets you add an event for that day. This works not just for today, but for any future date with the same operation.',
+			'quiz3.insight.futureTitle' => 'You can schedule events on future dates',
+			'quiz3.insight.futureDesc' => 'Smartphone calendars let you register events for any date — days, weeks, or months ahead. Pre-entering future plans is the foundation of schedule management.',
+			'quiz3.insight.planTitle' => 'Proactive planning improves your performance',
+			'quiz3.insight.planDesc' => 'Registering what you need to do \'2 days from now\' lets you prepare in advance. The habit of entering events immediately helps you stay organized.',
 			'quiz4.missionText' => 'Got lost! Return to \'today\' instantly',
 			'quiz4.failureReason' => 'Tap the calendar icon (Today) button in the AppBar',
 			'quiz4.insight.title' => 'How could you return to \'today\' so quickly?',
@@ -235,6 +245,14 @@ extension on TranslationsEn {
 			'common.newEvent' => 'New Event',
 			'common.eventTitle' => 'Event Title',
 			'common.addEventTitle' => 'Add Event',
+			'common.weekdays.0' => 'Mon',
+			'common.weekdays.1' => 'Tue',
+			'common.weekdays.2' => 'Wed',
+			'common.weekdays.3' => 'Thu',
+			'common.weekdays.4' => 'Fri',
+			'common.weekdays.5' => 'Sat',
+			'common.weekdays.6' => 'Sun',
+			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})',
 			_ => null,
 		};
 	}

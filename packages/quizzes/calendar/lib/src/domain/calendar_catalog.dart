@@ -79,17 +79,22 @@ class CalendarCatalog {
     ];
   }
 
-  /// Quiz3: 今日10:00-11:00 に会議（翌日への移動を体験させる）
-  ///
-  /// id 'calendar_meeting' はクリア判定で参照される固定ID。
+  /// Quiz3: 今日と明日にコンテキストイベント（2日後に追加させる）
   static List<CalendarEvent> _quiz3Events(DateTime now) {
     return [
       CalendarEvent(
-        id: 'calendar_meeting',
-        title: '会議',
-        begin: DateTime(now.year, now.month, now.day, 10),
-        end: DateTime(now.year, now.month, now.day, 11),
-        color: Colors.red,
+        id: 'calendar_quiz3_today',
+        title: '歯医者',
+        begin: DateTime(now.year, now.month, now.day, 14),
+        end: DateTime(now.year, now.month, now.day, 15),
+        color: Colors.blue,
+      ),
+      CalendarEvent(
+        id: 'calendar_quiz3_tomorrow',
+        title: 'ランチ',
+        begin: DateTime(now.year, now.month, now.day + 1, 12),
+        end: DateTime(now.year, now.month, now.day + 1, 13),
+        color: Colors.orange,
       ),
     ];
   }

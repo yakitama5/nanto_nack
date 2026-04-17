@@ -89,11 +89,11 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: '「会議」の予定が明日に延期！予定を移動させよう'
-	String get missionText => '「会議」の予定が明日に延期！予定を移動させよう';
+	/// ja: '2日後に新しい予定を追加しよう'
+	String get missionText => '2日後に新しい予定を追加しよう';
 
-	/// ja: '「会議」の予定ブロックを長押しして掴み、翌日のマスへドラッグ＆ドロップしてください'
-	String get failureReason => '「会議」の予定ブロックを長押しして掴み、翌日のマスへドラッグ＆ドロップしてください';
+	/// ja: '2日後の日付をタップするか、右下の＋ボタンを使って予定を追加してください'
+	String get failureReason => '2日後の日付をタップするか、右下の＋ボタンを使って予定を追加してください';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -146,6 +146,19 @@ class TranslationsCommonJa {
 
 	/// ja: 'Add Event'
 	String get addEventTitle => 'Add Event';
+
+	List<String> get weekdays => [
+		'月',
+		'火',
+		'水',
+		'木',
+		'金',
+		'土',
+		'日',
+	];
+
+	/// ja: '$month月$day日（$weekday）'
+	String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）';
 }
 
 // Path: quiz1.insight
@@ -222,29 +235,29 @@ class TranslationsQuiz3InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜドラッグで予定を移動できた？'
-	String get title => 'なぜドラッグで予定を移動できた？';
+	/// ja: 'なぜ2日後に予定が追加できた？'
+	String get title => 'なぜ2日後に予定が追加できた？';
 
-	/// ja: '長押し＆ドラッグで予定を直感的に移動'
-	String get subtitle => '長押し＆ドラッグで予定を直感的に移動';
+	/// ja: '日付タップで予定追加は直感的な操作'
+	String get subtitle => '日付タップで予定追加は直感的な操作';
 
-	/// ja: '長押しドラッグは「掴んで移動」の定番操作'
-	String get dragTitle => '長押しドラッグは「掴んで移動」の定番操作';
+	/// ja: '日付をタップすると予定を追加できる'
+	String get tapTitle => '日付をタップすると予定を追加できる';
 
-	/// ja: 'リスト項目や予定ブロックを長押しして「掴む」感覚でドラッグするUIは、iOS・Androidのカレンダーアプリ・タスクアプリで広く採用されている。'
-	String get dragDesc => 'リスト項目や予定ブロックを長押しして「掴む」感覚でドラッグするUIは、iOS・Androidのカレンダーアプリ・タスクアプリで広く採用されている。';
+	/// ja: 'カレンダーの日付をタップすると、その日に予定を追加できる。今日だけでなく、未来の日付にも同じ操作で追加可能。'
+	String get tapDesc => 'カレンダーの日付をタップすると、その日に予定を追加できる。今日だけでなく、未来の日付にも同じ操作で追加可能。';
 
-	/// ja: 'ドロップした場所に「移動」される'
-	String get dropTitle => 'ドロップした場所に「移動」される';
+	/// ja: '未来の日付にも予定を立てられる'
+	String get futureTitle => '未来の日付にも予定を立てられる';
 
-	/// ja: 'ドラッグした要素を目的の場所で離す（ドロップする）と、その位置に内容が移動する。これがドラッグ&ドロップ操作の本質。'
-	String get dropDesc => 'ドラッグした要素を目的の場所で離す（ドロップする）と、その位置に内容が移動する。これがドラッグ&ドロップ操作の本質。';
+	/// ja: 'スマートフォンのカレンダーは数日後・数週間後など、あらゆる日付に予定を登録できる。先の予定をあらかじめ入力しておくことが予定管理の基本。'
+	String get futureDesc => 'スマートフォンのカレンダーは数日後・数週間後など、あらゆる日付に予定を登録できる。先の予定をあらかじめ入力しておくことが予定管理の基本。';
 
-	/// ja: '視覚的な直感と一致する操作'
-	String get intuitionTitle => '視覚的な直感と一致する操作';
+	/// ja: '先手の予定管理が行動の質を上げる'
+	String get planTitle => '先手の予定管理が行動の質を上げる';
 
-	/// ja: '「移動したいなら引っ張ればいい」という直感通りに機能するUIは、ユーザーの認知負荷を下げる優れたデザイン。'
-	String get intuitionDesc => '「移動したいなら引っ張ればいい」という直感通りに機能するUIは、ユーザーの認知負荷を下げる優れたデザイン。';
+	/// ja: '「2日後にやること」を今のうちにカレンダーへ登録すると、準備を前倒しできる。忘れる前に入力する習慣がスケジュール管理を助ける。'
+	String get planDesc => '「2日後にやること」を今のうちにカレンダーへ登録すると、準備を前倒しできる。忘れる前に入力する習慣がスケジュール管理を助ける。';
 }
 
 // Path: quiz4.insight
@@ -308,16 +321,16 @@ extension on Translations {
 			'quiz2.insight.fabDesc' => '右下の＋（プラス）ボタンは「新しいものを作成する」という意味のUIパターンとして、Google系アプリを中心に世界標準となっている。',
 			'quiz2.insight.addTitle' => '2つの操作経路が存在する',
 			'quiz2.insight.addDesc' => 'カレンダーへの予定追加は「日付を長押し」と「＋ボタンをタップ」の2種類の方法がある。使い方を知ることで操作の選択肢が広がる。',
-			'quiz3.missionText' => '「会議」の予定が明日に延期！予定を移動させよう',
-			'quiz3.failureReason' => '「会議」の予定ブロックを長押しして掴み、翌日のマスへドラッグ＆ドロップしてください',
-			'quiz3.insight.title' => 'なぜドラッグで予定を移動できた？',
-			'quiz3.insight.subtitle' => '長押し＆ドラッグで予定を直感的に移動',
-			'quiz3.insight.dragTitle' => '長押しドラッグは「掴んで移動」の定番操作',
-			'quiz3.insight.dragDesc' => 'リスト項目や予定ブロックを長押しして「掴む」感覚でドラッグするUIは、iOS・Androidのカレンダーアプリ・タスクアプリで広く採用されている。',
-			'quiz3.insight.dropTitle' => 'ドロップした場所に「移動」される',
-			'quiz3.insight.dropDesc' => 'ドラッグした要素を目的の場所で離す（ドロップする）と、その位置に内容が移動する。これがドラッグ&ドロップ操作の本質。',
-			'quiz3.insight.intuitionTitle' => '視覚的な直感と一致する操作',
-			'quiz3.insight.intuitionDesc' => '「移動したいなら引っ張ればいい」という直感通りに機能するUIは、ユーザーの認知負荷を下げる優れたデザイン。',
+			'quiz3.missionText' => '2日後に新しい予定を追加しよう',
+			'quiz3.failureReason' => '2日後の日付をタップするか、右下の＋ボタンを使って予定を追加してください',
+			'quiz3.insight.title' => 'なぜ2日後に予定が追加できた？',
+			'quiz3.insight.subtitle' => '日付タップで予定追加は直感的な操作',
+			'quiz3.insight.tapTitle' => '日付をタップすると予定を追加できる',
+			'quiz3.insight.tapDesc' => 'カレンダーの日付をタップすると、その日に予定を追加できる。今日だけでなく、未来の日付にも同じ操作で追加可能。',
+			'quiz3.insight.futureTitle' => '未来の日付にも予定を立てられる',
+			'quiz3.insight.futureDesc' => 'スマートフォンのカレンダーは数日後・数週間後など、あらゆる日付に予定を登録できる。先の予定をあらかじめ入力しておくことが予定管理の基本。',
+			'quiz3.insight.planTitle' => '先手の予定管理が行動の質を上げる',
+			'quiz3.insight.planDesc' => '「2日後にやること」を今のうちにカレンダーへ登録すると、準備を前倒しできる。忘れる前に入力する習慣がスケジュール管理を助ける。',
 			'quiz4.missionText' => '迷子になっちゃった！一瞬で「今日」に戻ろう',
 			'quiz4.failureReason' => 'AppBarのカレンダーアイコン（今日）ボタンをタップしてください',
 			'quiz4.insight.title' => 'なぜすぐに「今日」に戻れた？',
@@ -336,6 +349,14 @@ extension on Translations {
 			'common.newEvent' => 'New Event',
 			'common.eventTitle' => 'Event Title',
 			'common.addEventTitle' => 'Add Event',
+			'common.weekdays.0' => '月',
+			'common.weekdays.1' => '火',
+			'common.weekdays.2' => '水',
+			'common.weekdays.3' => '木',
+			'common.weekdays.4' => '金',
+			'common.weekdays.5' => '土',
+			'common.weekdays.6' => '日',
+			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）',
 			_ => null,
 		};
 	}
