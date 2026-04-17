@@ -15,13 +15,7 @@ class CalendarQuizRepository {
     int score = 0,
     int failureCount = 0,
   }) async {
-    await _quizResultRepository.logPlay(
-      quizId: quizId,
-      isCleared: isCleared,
-      score: score,
-      failureCount: failureCount,
-    );
-    await _quizResultRepository.saveBestRecord(
+    await _quizResultRepository.recordPlayAndSaveBest(
       quizId: quizId,
       isCleared: isCleared,
       clearTimeMs: clearTimeMs,

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../domain/calendar_catalog.dart';
@@ -6,6 +7,7 @@ import '../domain/entities/calendar_event.dart';
 import 'calendar_quiz_type.dart';
 
 /// カレンダークイズの状態（全4クイズ共通）
+@immutable
 class CalendarQuizState extends QuizStateBase {
   /// コンストラクタ
   const CalendarQuizState({
@@ -31,7 +33,7 @@ class CalendarQuizState extends QuizStateBase {
       failureCount: 0,
       elapsedMs: 0,
       startedAt: null,
-      events: events,
+      events: List.unmodifiable(events),
       focusedMonth: month,
       initialMonth: month,
       remainingSeconds: CalendarQuizConfig.timeLimitSecondsFor(quizType),
@@ -74,7 +76,7 @@ class CalendarQuizState extends QuizStateBase {
       failureCount: failureCount ?? this.failureCount,
       elapsedMs: elapsedMs ?? this.elapsedMs,
       startedAt: startedAt ?? this.startedAt,
-      events: events ?? this.events,
+      events: events != null ? List.unmodifiable(events) : this.events,
       focusedMonth: focusedMonth ?? this.focusedMonth,
       initialMonth: initialMonth ?? this.initialMonth,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,

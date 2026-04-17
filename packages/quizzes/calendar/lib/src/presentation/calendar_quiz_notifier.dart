@@ -20,11 +20,10 @@ import 'calendar_quiz_type.dart';
 /// ref.watch(calendarQuizNotifierProvider(CalendarQuizType.quiz1))
 /// ref.read(calendarQuizNotifierProvider(CalendarQuizType.quiz1).notifier).startQuiz()
 /// ```
-final calendarQuizNotifierProvider =
-    NotifierProvider.autoDispose.family<CalendarQuizNotifier, CalendarQuizState,
-        CalendarQuizType>(
-  CalendarQuizNotifier.new,
-);
+final calendarQuizNotifierProvider = NotifierProvider.autoDispose
+    .family<CalendarQuizNotifier, CalendarQuizState, CalendarQuizType>(
+      CalendarQuizNotifier.new,
+    );
 
 /// カレンダークイズの状態管理 Notifier
 class CalendarQuizNotifier
@@ -48,7 +47,7 @@ class CalendarQuizNotifier
         if (state.status != QuizStatus.playing) return;
         final newMonth = DateTime(year, month);
         state = state.copyWith(focusedMonth: newMonth);
-        _checkClearCondition();
+        unawaited(_checkClearCondition());
       },
     );
 
@@ -62,6 +61,7 @@ class CalendarQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
+    if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
     // clock.now() でテスト差し替え可能にする
     final now = clock.now();
@@ -81,7 +81,7 @@ class CalendarQuizNotifier
     final newEvent = _createEvent(date, title);
     final newEvents = [...state.events, newEvent];
     state = state.copyWith(events: newEvents);
-    _checkClearCondition();
+    unawaited(_checkClearCondition());
   }
 
   /// 予定を別の日付に移動する（Quiz3のクリア条件）
@@ -107,7 +107,7 @@ class CalendarQuizNotifier
     final newEvents = [...state.events];
     newEvents[eventIndex] = movedEvent;
     state = state.copyWith(events: newEvents);
-    _checkClearCondition();
+    unawaited(_checkClearCondition());
   }
 
   /// AppBarの「今日」ボタンを押して今月へジャンプする（Quiz4のクリア条件）
@@ -119,7 +119,7 @@ class CalendarQuizNotifier
     // goToDate で指定月へ移動（cr_calendar 1.3.0 の公式API）
     _controller.goToDate(today);
     state = state.copyWith(focusedMonth: today);
-    _checkClearCondition();
+    unawaited(_checkClearCondition());
   }
 
   /// 諦めてクイズを終了する
@@ -152,9 +152,7 @@ class CalendarQuizNotifier
       status: QuizStatus.playing,
       startedAt: now,
     );
-    if (arg == CalendarQuizType.quiz4) {
-      _controller.goToDate(state.initialMonth);
-    }
+    _controller.goToDate(state.initialMonth);
     _startTimer();
   }
 
@@ -167,6 +165,7 @@ class CalendarQuizNotifier
   void _startTimer() {
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (state.status != QuizStatus.playing) return;
       final remaining = state.remainingSeconds - 1;
       if (remaining <= 0) {
         _timer?.cancel();
@@ -191,26 +190,26 @@ class CalendarQuizNotifier
     }
   }
 
-  void _checkClearCondition() {
+  Future<void> _checkClearCondition() async {
     if (state.status != QuizStatus.playing) return;
 
     final isClear = switch (arg) {
       CalendarQuizType.quiz1 => _useCase.isClearQuiz1(
-          focusedMonth: state.focusedMonth,
-          initialMonth: state.initialMonth,
-        ),
+        focusedMonth: state.focusedMonth,
+        initialMonth: state.initialMonth,
+      ),
       CalendarQuizType.quiz2 => _useCase.isClearQuiz2(
-          events: state.events,
-          targetMonth: state.initialMonth,
-        ),
+        events: state.events,
+        targetMonth: state.initialMonth,
+      ),
       CalendarQuizType.quiz3 => _useCase.isClearQuiz3(
-          events: state.events,
-          originalDate: state.quizStartTime,
-        ),
+        events: state.events,
+        originalDate: state.quizStartTime,
+      ),
       CalendarQuizType.quiz4 => _useCase.isClearQuiz4(
-          focusedMonth: state.focusedMonth,
-          now: state.quizStartTime,
-        ),
+        focusedMonth: state.focusedMonth,
+        now: state.quizStartTime,
+      ),
     };
     if (!isClear) return;
 
@@ -222,8 +221,15 @@ class CalendarQuizNotifier
     );
     // haptic は ref を使わないため呼び出し可能
     hapticFeedback.playSuccessFeedback();
-    // ignore: discarded_futures
-    _saveResult(isCleared: true, elapsedMs: elapsed);
+    try {
+      await _saveResult(isCleared: true, elapsedMs: elapsed);
+    } on Exception catch (error, stackTrace) {
+      appLogger.e(
+        'clearQuiz save failed',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   Future<void> _saveResult({
@@ -255,7 +261,7 @@ class CalendarQuizNotifier
   /// 新しい予定を生成する
   CalendarEvent _createEvent(DateTime date, String title) {
     return CalendarEvent(
-      id: 'calendar_added_${date.millisecondsSinceEpoch}',
+      id: 'calendar_added_${clock.now().microsecondsSinceEpoch}',
       title: title,
       begin: DateTime(date.year, date.month, date.day, 9),
       end: DateTime(date.year, date.month, date.day, 10),
