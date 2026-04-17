@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 
 /// クイズ結果テーブル
 class QuizResults extends Table {
-  /// クイズID (例: 'shopping_water')
+  /// クイズID (例: 'shopping_quiz1')
   TextColumn get quizId => text()();
 
   /// クリア済みかどうか
