@@ -5,6 +5,7 @@
     include = **/.env**
     include = **/firebase_options**.dart
     include = **/google-services.json
+    includeDir = .venv
 
 [hooks]
     postCreate = fvm use
