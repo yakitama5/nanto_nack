@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:like_button/like_button.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../i18n/strings.g.dart' as sns_i18n;
-import '../domain/sns_quiz_config.dart';
 import '../domain/entities/sns_post.dart';
+import '../domain/sns_quiz_config.dart';
 import '../i18n/sns_translations_extension.dart';
 import 'sns_quiz_notifier.dart';
 import 'sns_quiz_state.dart';
 import 'sns_quiz_type.dart';
+import 'widgets/sns_widgets.dart';
 
 /// SNSクイズ画面（全4クイズ共通）
 class SnsQuizScreen extends ConsumerStatefulWidget {
-  /// コンストラクタ
   const SnsQuizScreen({
     super.key,
     required this.quizType,
     this.onCompleted,
   });
 
-  /// 表示するクイズの種類
   final SnsQuizType quizType;
-
-  /// クイズ完了コールバック
   final VoidCallback? onCompleted;
 
   @override
@@ -37,74 +35,76 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      ref
-          .read(snsQuizNotifierProvider(widget.quizType).notifier)
-          .startQuiz();
+      ref.read(snsQuizNotifierProvider(widget.quizType).notifier).startQuiz();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(snsQuizNotifierProvider(widget.quizType));
-    final notifier =
-        ref.read(snsQuizNotifierProvider(widget.quizType).notifier);
+    final notifier = ref.read(
+      snsQuizNotifierProvider(widget.quizType).notifier,
+    );
     final timeLimitSeconds = SnsQuizConfig.timeLimitSecondsFor(widget.quizType);
     final missionText = _missionText(widget.quizType);
-    final isDone = state.status == QuizStatus.correct ||
+    final isDone =
+        state.status == QuizStatus.correct ||
         state.status == QuizStatus.timeUp ||
         state.status == QuizStatus.giveUp;
 
     return QuizExitScope(
       quizStatus: state.status,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          _SnsAppScaffold(
-            quizType: widget.quizType,
-            state: state,
-            notifier: notifier,
-            missionText: missionText,
-            timeLimitSeconds: timeLimitSeconds,
-          ),
-          if (state.isFullScreenImageOpened && state.fullScreenImageUrl != null)
-            _FullScreenImageView(
-              imageUrl: state.fullScreenImageUrl!,
-              onClose: state.status == QuizStatus.playing
-                  ? notifier.closeFullScreenImage
-                  : null,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            _SnsAppScaffold(
+              quizType: widget.quizType,
+              state: state,
+              notifier: notifier,
             ),
-          if (_showCutIn)
-            MissionCutIn(
-              missionText: missionText,
-              timeLimitSeconds: timeLimitSeconds,
-              onFinished: () => setState(() => _showCutIn = false),
-            ),
-          if (state.status == QuizStatus.playing && !_showCutIn)
-            FloatingMissionBubble(
-              remainingSeconds: state.remainingSeconds,
-              missionText: missionText,
-              hintUsed: false,
-              timeLimitSeconds: timeLimitSeconds,
-              onGiveUp: notifier.giveUp,
-            ),
-          if (isDone)
-            Positioned.fill(
-              child: QuizResultOverlay(
-                status: state.status,
-                score: state.score,
-                elapsedMs: state.elapsedMs,
-                onRetry: () {
-                  setState(() => _showCutIn = true);
-                  notifier.retry();
-                },
-                onNext: state.status == QuizStatus.correct
-                    ? widget.onCompleted
+            if (state.isFullScreenImageOpened &&
+                state.fullScreenImageUrl != null)
+              _FullScreenImageView(
+                imageUrl: state.fullScreenImageUrl!,
+                onClose: state.status == QuizStatus.playing
+                    ? notifier.closeFullScreenImage
                     : null,
-                onBack: () => Navigator.of(context).pop(),
-                insight: _buildInsight(context, widget.quizType),
               ),
-            ),
-        ],
+            if (_showCutIn)
+              MissionCutIn(
+                missionText: missionText,
+                timeLimitSeconds: timeLimitSeconds,
+                onFinished: () => setState(() => _showCutIn = false),
+              ),
+            if (state.status == QuizStatus.playing && !_showCutIn)
+              FloatingMissionBubble(
+                remainingSeconds: state.remainingSeconds,
+                missionText: missionText,
+                hintUsed: false,
+                timeLimitSeconds: timeLimitSeconds,
+                onGiveUp: notifier.giveUp,
+              ),
+            if (isDone)
+              Positioned.fill(
+                child: QuizResultOverlay(
+                  status: state.status,
+                  score: state.score,
+                  elapsedMs: state.elapsedMs,
+                  onRetry: () {
+                    setState(() => _showCutIn = true);
+                    notifier.retry();
+                  },
+                  onNext: state.status == QuizStatus.correct
+                      ? widget.onCompleted
+                      : null,
+                  onBack: () => Navigator.of(context).pop(),
+                  insight: _buildInsight(context, widget.quizType),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -186,19 +186,19 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
       subtitle: insight.subtitle,
       items: [
         QuizInsightItem(
-          emoji: '📱',
-          title: insight.statusBarTitle,
-          desc: insight.statusBarDesc,
+          emoji: '👇',
+          title: insight.swipeTitle,
+          desc: insight.swipeDesc,
         ),
         QuizInsightItem(
-          emoji: '🏠',
-          title: insight.homeTabTitle,
-          desc: insight.homeTabDesc,
+          emoji: '🖼️',
+          title: insight.fullscreenTitle,
+          desc: insight.fullscreenDesc,
         ),
         QuizInsightItem(
-          emoji: '⚡',
-          title: insight.efficientTitle,
-          desc: insight.efficientDesc,
+          emoji: '💡',
+          title: insight.backTitle,
+          desc: insight.backDesc,
         ),
       ],
     );
@@ -211,17 +211,17 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
       subtitle: insight.subtitle,
       items: [
         QuizInsightItem(
-          emoji: '👤',
+          emoji: '🔍',
           title: insight.longPressTitle,
           desc: insight.longPressDesc,
         ),
         QuizInsightItem(
-          emoji: '🔒',
+          emoji: '📱',
           title: insight.subAccountTitle,
           desc: insight.subAccountDesc,
         ),
         QuizInsightItem(
-          emoji: '🔄',
+          emoji: '⚡',
           title: insight.multiAccountTitle,
           desc: insight.multiAccountDesc,
         ),
@@ -230,24 +230,30 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
   }
 }
 
-// ---------------------------------------------------------------------------
-// _SnsAppScaffold
-// ---------------------------------------------------------------------------
-
 class _SnsAppScaffold extends StatelessWidget {
   const _SnsAppScaffold({
     required this.quizType,
     required this.state,
     required this.notifier,
-    required this.missionText,
-    required this.timeLimitSeconds,
   });
 
   final SnsQuizType quizType;
   final SnsQuizState state;
   final SnsQuizNotifier notifier;
-  final String missionText;
-  final int timeLimitSeconds;
+
+  void _showComposeDialog(BuildContext context) {
+    showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.white,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return _SnsComposeDialog(
+          snsTheme: Theme.of(context).extension<SnsAppTheme>()!,
+          notifier: notifier,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -258,22 +264,27 @@ class _SnsAppScaffold extends StatelessWidget {
       backgroundColor: snsTheme.scaffoldBackground,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        // ステータスバーエリアのタップでトップへスクロール（Quiz3）
-        child: GestureDetector(
-          onTap: state.status == QuizStatus.playing ? notifier.scrollToTop : null,
-          child: AppBar(
-            backgroundColor: snsTheme.navBarBackground,
-            elevation: 0,
-            title: UnreadableText(
-              sq.common.appTitle,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: snsTheme.brandColor,
+        child: AppBar(
+          backgroundColor: snsTheme.navBarBackground,
+          elevation: 0,
+          title: InkWell(
+            onTap: state.status == QuizStatus.playing
+                ? notifier.scrollToTop
+                : null,
+            borderRadius: BorderRadius.circular(8),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: SnsText(
+                sq.common.appTitle,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: snsTheme.brandColor,
+                ),
               ),
             ),
-            centerTitle: false,
           ),
+          centerTitle: false,
         ),
       ),
       bottomNavigationBar: _SnsBottomNavBar(
@@ -283,19 +294,108 @@ class _SnsAppScaffold extends StatelessWidget {
         state: state,
         notifier: notifier,
       ),
-      body: _TimelineArea(
-        quizType: quizType,
-        posts: state.posts,
-        notifier: notifier,
-        state: state,
+      floatingActionButton: state.status == QuizStatus.playing
+          ? FloatingActionButton(
+              onPressed: () => _showComposeDialog(context),
+              backgroundColor: snsTheme.brandColor,
+              shape: const CircleBorder(),
+              child: const Icon(Icons.add, color: Colors.white, size: 32),
+            )
+          : null,
+      body: IndexedStack(
+        index: state.currentIndex,
+        children: [
+          _TimelineArea(
+            quizType: quizType,
+            posts: state.posts,
+            notifier: notifier,
+            state: state,
+          ),
+          _SearchView(quizType: quizType),
+          const _ComposeView(),
+        ],
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-// _SnsBottomNavBar
-// ---------------------------------------------------------------------------
+class _SnsComposeDialog extends StatelessWidget {
+  const _SnsComposeDialog({
+    required this.snsTheme,
+    required this.notifier,
+  });
+
+  final SnsAppTheme snsTheme;
+  final SnsQuizNotifier notifier;
+
+  @override
+  Widget build(BuildContext context) {
+    final sq = context.sq;
+    return Scaffold(
+      backgroundColor: snsTheme.scaffoldBackground,
+      appBar: AppBar(
+        backgroundColor: snsTheme.navBarBackground,
+        elevation: 0,
+        leading: TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: SnsText(
+            sq.common.cancel,
+            style: const TextStyle(color: Colors.black, fontSize: 16),
+          ),
+        ),
+        leadingWidth: 100,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+            child: ElevatedButton(
+              onPressed: () {
+                notifier.submitPost();
+                Navigator.of(context).pop();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: snsTheme.brandColor,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: SnsText(
+                sq.common.post,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              backgroundColor: snsTheme.brandColor,
+              child: const Icon(Icons.person, color: Colors.white),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: TextField(
+                autofocus: true,
+                maxLines: null,
+                onChanged: notifier.updateComposeText,
+                decoration: InputDecoration(
+                  hintText: sq.common.composeHint,
+                  border: InputBorder.none,
+                ),
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class _SnsBottomNavBar extends StatelessWidget {
   const _SnsBottomNavBar({
@@ -314,61 +414,68 @@ class _SnsBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: kBottomNavigationBarHeight + MediaQuery.paddingOf(context).bottom,
-      decoration: BoxDecoration(
-        color: snsTheme.navBarBackground,
-        border: Border(
-          top: BorderSide(color: snsTheme.postDividerColor),
+    // 余裕を持った高さ（72px + 下部パディング）に設定
+    return Material(
+      color: snsTheme.navBarBackground,
+      child: Container(
+        height: 72 + MediaQuery.paddingOf(context).bottom,
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: snsTheme.postDividerColor)),
         ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            // ホームタブ（再タップでトップへスクロール）
-            _NavItem(
-              icon: Icons.home,
-              label: sq.common.home,
-              isActive: true,
-              color: snsTheme.brandColor,
-              inactiveColor: snsTheme.navInactiveColor,
-              onTap: state.status == QuizStatus.playing
-                  ? notifier.scrollToTop
-                  : null,
-            ),
-            _NavItem(
-              icon: Icons.search,
-              label: sq.common.search,
-              isActive: false,
-              color: snsTheme.brandColor,
-              inactiveColor: snsTheme.navInactiveColor,
-              onTap: null,
-            ),
-            _NavItem(
-              icon: Icons.notifications_none,
-              label: sq.common.notifications,
-              isActive: false,
-              color: snsTheme.brandColor,
-              inactiveColor: snsTheme.navInactiveColor,
-              onTap: null,
-            ),
-            // プロフィールタブ（長押しでアカウント切り替え）
-            GestureDetector(
-              onLongPress: state.status == QuizStatus.playing
-                  ? () => _showAccountSwitchSheet(context)
-                  : null,
-              child: _NavItem(
-                icon: Icons.person_outline,
-                label: sq.common.profile,
-                isActive: false,
-                color: snsTheme.brandColor,
-                inactiveColor: snsTheme.navInactiveColor,
-                onTap: null,
+        child: SafeArea(
+          top: false,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: _NavItem(
+                  icon: Icons.home,
+                  label: sq.common.home,
+                  isActive: state.currentIndex == 0,
+                  color: snsTheme.brandColor,
+                  inactiveColor: snsTheme.navInactiveColor,
+                  onTap: () {
+                    if (state.currentIndex == 0) {
+                      notifier.scrollToTop();
+                    } else {
+                      notifier.updateTabIndex(0);
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: _NavItem(
+                  icon: Icons.search,
+                  label: sq.common.search,
+                  isActive: state.currentIndex == 1,
+                  color: snsTheme.brandColor,
+                  inactiveColor: snsTheme.navInactiveColor,
+                  onTap: () => notifier.updateTabIndex(1),
+                ),
+              ),
+              Expanded(
+                child: _NavItem(
+                  icon: Icons.notifications_none,
+                  label: sq.common.notifications,
+                  isActive: false,
+                  color: snsTheme.brandColor,
+                  inactiveColor: snsTheme.navInactiveColor,
+                ),
+              ),
+              Expanded(
+                child: _NavItem(
+                  icon: Icons.person_outline,
+                  label: sq.common.profile,
+                  isActive: false,
+                  color: snsTheme.brandColor,
+                  inactiveColor: snsTheme.navInactiveColor,
+                  onLongPress: state.status == QuizStatus.playing
+                      ? () => _showAccountSwitchSheet(context)
+                      : null,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -393,10 +500,6 @@ class _SnsBottomNavBar extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// _NavItem
-// ---------------------------------------------------------------------------
-
 class _NavItem extends StatelessWidget {
   const _NavItem({
     required this.icon,
@@ -405,6 +508,7 @@ class _NavItem extends StatelessWidget {
     required this.color,
     required this.inactiveColor,
     this.onTap,
+    this.onLongPress,
   });
 
   final IconData icon;
@@ -413,34 +517,28 @@ class _NavItem extends StatelessWidget {
   final Color color;
   final Color inactiveColor;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
     final iconColor = isActive ? color : inactiveColor;
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, color: iconColor),
-            const SizedBox(height: 2),
-            UnreadableText(
-              label,
-              style: TextStyle(fontSize: 10, color: iconColor),
-            ),
-          ],
-        ),
+      onLongPress: onLongPress,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: iconColor, size: 24),
+          const SizedBox(height: 2),
+          SnsText(
+            label,
+            style: TextStyle(fontSize: 10, color: iconColor),
+          ),
+        ],
       ),
     );
   }
 }
-
-// ---------------------------------------------------------------------------
-// _TimelineArea
-// ---------------------------------------------------------------------------
 
 class _TimelineArea extends ConsumerStatefulWidget {
   const _TimelineArea({
@@ -466,20 +564,6 @@ class _TimelineAreaState extends ConsumerState<_TimelineArea> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-
-    // Quiz3: 初期表示時にタイムラインの一番下へスクロール
-    if (widget.quizType == SnsQuizType.quiz3) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        if (_scrollController.hasClients) {
-          _scrollController.jumpTo(
-            _scrollController.position.maxScrollExtent,
-          );
-        }
-      });
-    }
-
-    // scrollToTopRequested フラグ監視はリスナーとして設定
     _scrollController.addListener(_onScroll);
   }
 
@@ -491,25 +575,23 @@ class _TimelineAreaState extends ConsumerState<_TimelineArea> {
   }
 
   void _onScroll() {
-    // scrollToTopRequested が true のときにスクロールが 0 に達したらクリア判定
-    if (_scrollController.offset <= 0 &&
-        widget.state.scrollToTopRequested) {
+    if (_scrollController.offset <= 0 && widget.state.scrollToTopRequested) {
       widget.notifier.onScrolledToTop();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // scrollToTopRequested の変化を監視してアニメーションスクロールを実行
     ref.listen(
-      snsQuizNotifierProvider(widget.quizType)
-          .select((s) => s.scrollToTopRequested),
+      snsQuizNotifierProvider(
+        widget.quizType,
+      ).select((s) => s.scrollToTopRequested),
       (previous, next) {
         if (next && _scrollController.hasClients) {
           _scrollController.animateTo(
             0,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOutQuart,
           );
         }
       },
@@ -520,10 +602,8 @@ class _TimelineAreaState extends ConsumerState<_TimelineArea> {
     return ListView.separated(
       controller: _scrollController,
       itemCount: widget.posts.length,
-      separatorBuilder: (context, index) => Divider(
-        height: 1,
-        color: snsTheme.postDividerColor,
-      ),
+      separatorBuilder: (context, index) =>
+          Divider(height: 1, color: snsTheme.postDividerColor),
       itemBuilder: (context, index) {
         final post = widget.posts[index];
         return _SnsPostItem(
@@ -533,7 +613,8 @@ class _TimelineAreaState extends ConsumerState<_TimelineArea> {
           onDoubleTap: widget.state.status == QuizStatus.playing
               ? () => widget.notifier.toggleLike(post.id)
               : null,
-          onTap: widget.state.status == QuizStatus.playing && post.imageUrl != null
+          onTap:
+              widget.state.status == QuizStatus.playing && post.imageUrl != null
               ? () => widget.notifier.openFullScreenImage(post.imageUrl!)
               : null,
         );
@@ -542,9 +623,60 @@ class _TimelineAreaState extends ConsumerState<_TimelineArea> {
   }
 }
 
-// ---------------------------------------------------------------------------
-// _SnsPostItem
-// ---------------------------------------------------------------------------
+class _FullScreenImageView extends StatefulWidget {
+  const _FullScreenImageView({
+    required this.imageUrl,
+    this.onClose,
+  });
+
+  final String imageUrl;
+  final VoidCallback? onClose;
+
+  @override
+  State<_FullScreenImageView> createState() => _FullScreenImageViewState();
+}
+
+class _FullScreenImageViewState extends State<_FullScreenImageView> {
+  double _dragOffset = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onVerticalDragUpdate: (details) {
+        setState(() {
+          _dragOffset += details.delta.dy;
+        });
+      },
+      onVerticalDragEnd: (details) {
+        if (_dragOffset.abs() > 200) {
+          widget.onClose?.call();
+        } else {
+          setState(() {
+            _dragOffset = 0.0;
+          });
+        }
+      },
+      child: Container(
+        color: Colors.black.withValues(
+          alpha: (1 - (_dragOffset.abs() / 600)).clamp(0.0, 1.0),
+        ),
+        child: Center(
+          child: Transform.translate(
+            offset: Offset(0, _dragOffset),
+            child: Text(
+              widget.imageUrl == 'cat' ? '🐱' : '🖼️',
+              style: const TextStyle(
+                fontSize: 120,
+                decoration: TextDecoration.none,
+                inherit: false,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _SnsPostItem extends StatefulWidget {
   const _SnsPostItem({
@@ -569,6 +701,8 @@ class _SnsPostItemState extends State<_SnsPostItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController _heartController;
   late final Animation<double> _heartOpacity;
+  final GlobalKey<LikeButtonState> _likeButtonKey =
+      GlobalKey<LikeButtonState>();
 
   @override
   void initState() {
@@ -589,9 +723,11 @@ class _SnsPostItemState extends State<_SnsPostItem>
   }
 
   void _playHeartAnimation() {
-    _heartController.forward(from: 0).then((_) {
-      _heartController.reverse();
-    });
+    _heartController.forward(from: 0).then((_) => _heartController.reverse());
+    // 画像ダブルタップ時に LikeButton のアニメーションもトリガーする
+    if (!widget.post.isLiked) {
+      _likeButtonKey.currentState?.onTap();
+    }
   }
 
   @override
@@ -600,59 +736,63 @@ class _SnsPostItemState extends State<_SnsPostItem>
     final avatarColor = Color(post.avatarColor);
     final snsTheme = widget.snsTheme;
 
-    return Padding(
-      padding: const EdgeInsets.all(12),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // プロフィールアイコン
           CircleAvatar(
-            radius: 20,
+            radius: 24,
             backgroundColor: avatarColor,
-            child: UnreadableText(
+            child: SnsText(
               post.userName.isNotEmpty ? post.userName[0] : '?',
               style: const TextStyle(
                 color: Colors.white,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ユーザー名・ID
                 Row(
                   children: [
-                    Flexible(
-                      child: UnreadableText(
+                    Expanded(
+                      child: SnsText(
                         post.userName,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
                         maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const SizedBox(width: 4),
-                    UnreadableText(
+                    SnsText(
                       post.userId,
                       style: TextStyle(
                         color: snsTheme.subTextColor,
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
-                // 投稿本文
-                UnreadableText(post.content),
-                // 画像エリア
+                SnsText(
+                  post.content,
+                  style: const TextStyle(fontSize: 15, color: Colors.black87),
+                ),
                 if (post.imageUrl != null) ...[
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 12),
                   GestureDetector(
                     onTap: widget.onTap,
                     onDoubleTap: widget.onDoubleTap != null
                         ? () {
-                            widget.onDoubleTap!.call();
                             _playHeartAnimation();
                           }
                         : null,
@@ -663,7 +803,6 @@ class _SnsPostItemState extends State<_SnsPostItem>
                           imageUrl: post.imageUrl!,
                           backgroundColor: snsTheme.imageBackgroundCat,
                         ),
-                        // ハートアニメーション
                         FadeTransition(
                           opacity: _heartOpacity,
                           child: Icon(
@@ -676,14 +815,55 @@ class _SnsPostItemState extends State<_SnsPostItem>
                     ),
                   ),
                 ],
-                const SizedBox(height: 8),
-                // いいねボタン
-                Icon(
-                  post.isLiked ? Icons.favorite : Icons.favorite_border,
-                  size: 18,
-                  color: post.isLiked
-                      ? snsTheme.heartColor
-                      : snsTheme.navInactiveColor,
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    _IconAction(
+                      icon: Icons.chat_bubble_outline,
+                      color: snsTheme.navInactiveColor,
+                    ),
+                    const SizedBox(width: 32),
+                    _IconAction(
+                      icon: Icons.repeat,
+                      color: snsTheme.navInactiveColor,
+                    ),
+                    const SizedBox(width: 32),
+                    LikeButton(
+                      key: _likeButtonKey,
+                      isLiked: post.isLiked,
+                      size: 20,
+                      circleColor: CircleColor(
+                        start: snsTheme.heartColor,
+                        end: snsTheme.heartColor,
+                      ),
+                      bubblesColor: BubblesColor(
+                        dotPrimaryColor: snsTheme.heartColor,
+                        dotSecondaryColor: snsTheme.brandColor,
+                      ),
+                      likeBuilder: (bool isLiked) {
+                        return Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: isLiked
+                              ? snsTheme.heartColor
+                              : snsTheme.navInactiveColor,
+                          size: 20,
+                        );
+                      },
+                      onTap: (isLiked) async {
+                        if (!isLiked && widget.isPlaying) {
+                          widget.onDoubleTap?.call();
+                          return true;
+                        }
+                        // 既にいいねされている場合は解除させない（クイズの仕様に合わせる）
+                        return isLiked;
+                      },
+                    ),
+                    const SizedBox(width: 32),
+                    _IconAction(
+                      icon: Icons.share_outlined,
+                      color: snsTheme.navInactiveColor,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -694,27 +874,34 @@ class _SnsPostItemState extends State<_SnsPostItem>
   }
 }
 
-// ---------------------------------------------------------------------------
-// _PostImage
-// ---------------------------------------------------------------------------
-
-/// 投稿の画像エリア（画像識別子に応じてコンテンツを描画）
-class _PostImage extends StatelessWidget {
-  const _PostImage({
-    required this.imageUrl,
-    required this.backgroundColor,
+class _IconAction extends StatelessWidget {
+  const _IconAction({
+    required this.icon,
+    required this.color,
   });
+
+  final IconData icon;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkResponse(
+      onTap: () {}, // Feed back even if no action
+      radius: 20,
+      child: Icon(icon, size: 20, color: color),
+    );
+  }
+}
+
+class _PostImage extends StatelessWidget {
+  const _PostImage({required this.imageUrl, required this.backgroundColor});
 
   final String imageUrl;
   final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    // 'cat' 識別子の場合はオレンジ背景 + 猫絵文字
-    final emoji = switch (imageUrl) {
-      'cat' || _ => '🐱',
-    };
-
+    final emoji = imageUrl == 'cat' ? '🐱' : '🖼️';
     return Container(
       height: 200,
       width: double.infinity,
@@ -723,52 +910,180 @@ class _PostImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       alignment: Alignment.center,
-      child: Text(
-        emoji,
-        style: const TextStyle(fontSize: 80),
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// _FullScreenImageView
-// ---------------------------------------------------------------------------
-
-class _FullScreenImageView extends StatelessWidget {
-  const _FullScreenImageView({
-    required this.imageUrl,
-    this.onClose,
-  });
-
-  final String imageUrl;
-  final VoidCallback? onClose;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onVerticalDragEnd: (details) {
-        // 下スワイプの勢いが一定以上なら閉じる
-        if (details.velocity.pixelsPerSecond.dy > 300) {
-          onClose?.call();
-        }
-      },
-      child: Container(
-        color: Colors.black,
-        alignment: Alignment.center,
+      child: Material(
+        type: MaterialType.transparency,
         child: Text(
-          // 'cat' 識別子の場合は猫絵文字で表示
-          imageUrl == 'cat' ? '🐱' : '🖼️',
-          style: const TextStyle(fontSize: 120),
+          emoji,
+          style: const TextStyle(
+            fontSize: 80,
+            decoration: TextDecoration.none,
+            inherit: false,
+          ),
         ),
       ),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-// _AccountSwitchSheet
-// ---------------------------------------------------------------------------
+class _TrendItem extends StatelessWidget {
+  const _TrendItem({
+    required this.category,
+    required this.title,
+    required this.postCount,
+    required this.snsTheme,
+  });
+
+  final String category;
+  final String title;
+  final String postCount;
+  final SnsAppTheme snsTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {}, // Feedback
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SnsText(
+                  category,
+                  style: TextStyle(color: snsTheme.subTextColor, fontSize: 13),
+                ),
+                Icon(Icons.more_horiz, color: snsTheme.subTextColor, size: 16),
+              ],
+            ),
+            const SizedBox(height: 2),
+            SnsText(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 2),
+            SnsText(
+              postCount,
+              style: TextStyle(color: snsTheme.subTextColor, fontSize: 13),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SearchView extends ConsumerStatefulWidget {
+  const _SearchView({required this.quizType});
+
+  final SnsQuizType quizType;
+
+  @override
+  ConsumerState<_SearchView> createState() => _SearchViewState();
+}
+
+class _SearchViewState extends ConsumerState<_SearchView> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final notifier = ref.read(snsQuizNotifierProvider(widget.quizType).notifier);
+
+    ref.listen(
+      snsQuizNotifierProvider(widget.quizType).select((s) => s.currentIndex),
+      (previous, next) {
+        if (next == 1) {
+          _focusNode.requestFocus();
+        }
+      },
+    );
+
+    final snsTheme = Theme.of(context).extension<SnsAppTheme>()!;
+    final sq = context.sq;
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: snsTheme.postDividerColor.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: TextField(
+              focusNode: _focusNode,
+              onChanged: notifier.updateSearchText,
+              onSubmitted: (_) => notifier.performSearch(),
+              decoration: InputDecoration(
+                hintText: sq.common.search,
+                hintStyle: TextStyle(color: snsTheme.subTextColor),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: snsTheme.subTextColor,
+                  size: 20,
+                ),
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.symmetric(vertical: 10),
+              ),
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ),
+        Divider(height: 1, color: snsTheme.postDividerColor),
+        Expanded(
+          child: ListView(
+            children: [
+              _TrendItem(
+                category: "Trending in Japan",
+                title: "Nanto Nack",
+                postCount: "1,234 posts",
+                snsTheme: snsTheme,
+              ),
+              _TrendItem(
+                category: "Technology · Trending",
+                title: "Flutter",
+                postCount: "5,678 posts",
+                snsTheme: snsTheme,
+              ),
+              _TrendItem(
+                category: "Gaming · Trending",
+                title: "Retro Games",
+                postCount: "9,012 posts",
+                snsTheme: snsTheme,
+              ),
+              _TrendItem(
+                category: "Trending in Japan",
+                title: "UI/UX Quiz",
+                postCount: "3,456 posts",
+                snsTheme: snsTheme,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ComposeView extends StatelessWidget {
+  const _ComposeView();
+
+  @override
+  Widget build(BuildContext context) =>
+      const Center(child: Text("投稿画面 (Twitter風UI実装予定)"));
+}
 
 class _AccountSwitchSheet extends StatelessWidget {
   const _AccountSwitchSheet({
@@ -800,7 +1115,6 @@ class _AccountSwitchSheet extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // ドラッグハンドル
             Center(
               child: Container(
                 margin: const EdgeInsets.only(top: 12, bottom: 8),
@@ -814,7 +1128,7 @@ class _AccountSwitchSheet extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-              child: UnreadableText(
+              child: SnsText(
                 switchLabel,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -851,10 +1165,6 @@ class _AccountSwitchSheet extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// _AccountItem
-// ---------------------------------------------------------------------------
-
 class _AccountItem extends StatelessWidget {
   const _AccountItem({
     required this.name,
@@ -875,13 +1185,16 @@ class _AccountItem extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: snsTheme.brandColor,
-        child: UnreadableText(
+        child: SnsText(
           name.isNotEmpty ? name[0] : '?',
           style: const TextStyle(color: Colors.white),
         ),
       ),
-      title: UnreadableText(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-      subtitle: UnreadableText(accountId, style: TextStyle(color: snsTheme.subTextColor)),
+      title: SnsText(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: SnsText(
+        accountId,
+        style: TextStyle(color: snsTheme.subTextColor),
+      ),
       trailing: isActive
           ? Icon(Icons.check_circle, color: snsTheme.brandColor)
           : null,

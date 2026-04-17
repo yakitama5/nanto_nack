@@ -74,22 +74,42 @@ void main() {
       });
     });
 
+    group('isClearQuiz2', () {
+      test('投稿内容が空でなければtrueを返す', () {
+        expect(
+          useCase.isClearQuiz2(composeText: 'Hello'),
+          isTrue,
+        );
+      });
+
+      test('投稿内容が空（または空白のみ）ならfalseを返す', () {
+        expect(
+          useCase.isClearQuiz2(composeText: ''),
+          isFalse,
+        );
+        expect(
+          useCase.isClearQuiz2(composeText: '   '),
+          isFalse,
+        );
+      });
+    });
+
     group('isClearQuiz4', () {
-      test('現在アカウントがサブアカウントIDと一致すればtrueを返す', () {
+      test('検索クエリがターゲットと一致すればtrueを返す', () {
         expect(
           useCase.isClearQuiz4(
-            currentAccount: SnsQuizConfig.subAccountId,
-            subAccountId: SnsQuizConfig.subAccountId,
+            searchText: SnsQuizConfig.searchQuery,
+            targetQuery: SnsQuizConfig.searchQuery,
           ),
           isTrue,
         );
       });
 
-      test('現在アカウントがメインアカウントのままならfalseを返す', () {
+      test('検索クエリが不一致ならfalseを返す', () {
         expect(
           useCase.isClearQuiz4(
-            currentAccount: SnsQuizConfig.mainAccountId,
-            subAccountId: SnsQuizConfig.subAccountId,
+            searchText: 'other query',
+            targetQuery: SnsQuizConfig.searchQuery,
           ),
           isFalse,
         );

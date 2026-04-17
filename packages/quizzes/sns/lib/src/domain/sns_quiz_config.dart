@@ -20,7 +20,10 @@ abstract final class SnsQuizConfig {
   /// サブアカウントのID
   static const String subAccountId = '@nanto_ura';
 
-  /// 猫投稿のID（Quiz1のクリア対象）
+  /// 検索クエリ（Quiz4のクリア対象）
+  static const String searchQuery = 'from:nantom';
+
+  /// 猫投稿のID（Quiz1/3のクリア対象）
   static const String catPostId = 'sns_quiz1_cat_post';
 
   /// クイズタイプに応じた制限時間を返す

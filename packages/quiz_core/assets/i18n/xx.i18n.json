@@ -113,7 +113,8 @@
       "payment": "決済",
       "mail": "メール",
       "news": "ニュース",
-      "calendar": "カレンダー"
+      "calendar": "カレンダー",
+      "sns": "SNS"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -124,7 +125,8 @@
       "payment": "モバイル決済アプリのUI/UXを体験しよう",
       "mail": "メールアプリのUI/UXを体験しよう",
       "news": "ニュースアプリのUI/UXを体験しよう",
-      "calendar": "カレンダーアプリのUI/UXを体験しよう"
+      "calendar": "カレンダーアプリのUI/UXを体験しよう",
+      "sns": "SNSアプリのUI/UXを体験しよう"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -162,7 +164,11 @@
       "calendar_quiz1": "来月の予定を見よう",
       "calendar_quiz2": "予定を素早く追加しよう",
       "calendar_quiz3": "予定の日付を変えよう",
-      "calendar_quiz4": "一瞬で「今日」に戻ろう"
+      "calendar_quiz4": "一瞬で「今日」に戻ろう",
+      "sns_quiz1": "タイムラインに流れてきた猫の写真に「いいネ！」をしよう",
+      "sns_quiz2": "何か投稿してみよう！",
+      "sns_quiz3": "画像を開いて表示した後に元の画面に戻ろう",
+      "sns_quiz4": "ナントム(@nantom)の投稿を検索しよう！"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",

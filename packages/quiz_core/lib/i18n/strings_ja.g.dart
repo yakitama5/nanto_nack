@@ -719,17 +719,17 @@ class TranslationsPlayStageTitleJa {
 	/// ja: '一瞬で「今日」に戻ろう'
 	String get calendar_quiz4 => '一瞬で「今日」に戻ろう';
 
-	/// ja: '猫の写真にいいねをしよう'
-	String get sns_quiz1 => '猫の写真にいいねをしよう';
+	/// ja: 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう'
+	String get sns_quiz1 => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう';
 
-	/// ja: '全画面画像を閉じよう'
-	String get sns_quiz2 => '全画面画像を閉じよう';
+	/// ja: '何か投稿してみよう！'
+	String get sns_quiz2 => '何か投稿してみよう！';
 
-	/// ja: 'タイムラインの一番上に戻ろう'
-	String get sns_quiz3 => 'タイムラインの一番上に戻ろう';
+	/// ja: '画像を開いて表示した後に元の画面に戻ろう'
+	String get sns_quiz3 => '画像を開いて表示した後に元の画面に戻ろう';
 
-	/// ja: 'サブアカウントに切り替えよう'
-	String get sns_quiz4 => 'サブアカウントに切り替えよう';
+	/// ja: 'ナントム(@nantom)の投稿を検索しよう！'
+	String get sns_quiz4 => 'ナントム(@nantom)の投稿を検索しよう！';
 }
 
 // Path: play.stageDescription
@@ -1131,10 +1131,10 @@ extension on Translations {
 			'play.stageTitle.calendar_quiz2' => '予定を素早く追加しよう',
 			'play.stageTitle.calendar_quiz3' => '予定の日付を変えよう',
 			'play.stageTitle.calendar_quiz4' => '一瞬で「今日」に戻ろう',
-			'play.stageTitle.sns_quiz1' => '猫の写真にいいねをしよう',
-			'play.stageTitle.sns_quiz2' => '全画面画像を閉じよう',
-			'play.stageTitle.sns_quiz3' => 'タイムラインの一番上に戻ろう',
-			'play.stageTitle.sns_quiz4' => 'サブアカウントに切り替えよう',
+			'play.stageTitle.sns_quiz1' => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう',
+			'play.stageTitle.sns_quiz2' => '何か投稿してみよう！',
+			'play.stageTitle.sns_quiz3' => '画像を開いて表示した後に元の画面に戻ろう',
+			'play.stageTitle.sns_quiz4' => 'ナントム(@nantom)の投稿を検索しよう！',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',

@@ -55,8 +55,8 @@ class TranslationsQuiz1Ja {
 
 	// Translations
 
-	/// ja: 'タイムラインに流れてきた猫の写真に「いいね」をしよう'
-	String get missionText => 'タイムラインに流れてきた猫の写真に「いいね」をしよう';
+	/// ja: 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう'
+	String get missionText => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう';
 
 	late final TranslationsQuiz1InsightJa insight = TranslationsQuiz1InsightJa.internal(_root);
 }
@@ -69,8 +69,8 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: '全画面で開いた画像を閉じて、タイムラインに戻ろう'
-	String get missionText => '全画面で開いた画像を閉じて、タイムラインに戻ろう';
+	/// ja: '何か投稿してみよう！'
+	String get missionText => '何か投稿してみよう！';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -83,8 +83,8 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: '昔の投稿を読みすぎた！一瞬で最新の投稿（一番上）に戻ろう'
-	String get missionText => '昔の投稿を読みすぎた！一瞬で最新の投稿（一番上）に戻ろう';
+	/// ja: '画像を開いて表示した後に元の画面に戻ろう'
+	String get missionText => '画像を開いて表示した後に元の画面に戻ろう';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -97,8 +97,8 @@ class TranslationsQuiz4Ja {
 
 	// Translations
 
-	/// ja: 'こっそり作っている「裏垢（サブアカウント）」に切り替えよう'
-	String get missionText => 'こっそり作っている「裏垢（サブアカウント）」に切り替えよう';
+	/// ja: 'ナントム(@nantom)の投稿を検索しよう！'
+	String get missionText => 'ナントム(@nantom)の投稿を検索しよう！';
 
 	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
 }
@@ -230,6 +230,15 @@ class TranslationsCommonJa {
 
 	/// ja: '蜂蜜を食べたくなってきた🍯'
 	String get post10Content => '蜂蜜を食べたくなってきた🍯';
+
+	/// ja: '投稿する'
+	String get post => '投稿する';
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
+
+	/// ja: 'いまどうしてる？'
+	String get composeHint => 'いまどうしてる？';
 }
 
 // Path: quiz1.insight
@@ -240,17 +249,17 @@ class TranslationsQuiz1InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜダブルタップでいいねできた？'
-	String get title => 'なぜダブルタップでいいねできた？';
+	/// ja: 'なぜダブルタップで「いいネ！」できた？'
+	String get title => 'なぜダブルタップで「いいネ！」できた？';
 
-	/// ja: 'ダブルタップ＝「いいね」はSNSの定番操作'
-	String get subtitle => 'ダブルタップ＝「いいね」はSNSの定番操作';
+	/// ja: 'ダブルタップ＝「いいネ！」はSNSの定番操作'
+	String get subtitle => 'ダブルタップ＝「いいネ！」はSNSの定番操作';
 
-	/// ja: 'ダブルタップは「いいね」のショートカット'
-	String get doubleTapTitle => 'ダブルタップは「いいね」のショートカット';
+	/// ja: 'ダブルタップは「いいネ！」のショートカット'
+	String get doubleTapTitle => 'ダブルタップは「いいネ！」のショートカット';
 
-	/// ja: 'X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいね」できる。ハートボタンを探す必要がなく、直感的に操作できる。'
-	String get doubleTapDesc => 'X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいね」できる。ハートボタンを探す必要がなく、直感的に操作できる。';
+	/// ja: 'X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいネ！」できる。ハートボタンを探す必要がなく、直感的に操作できる。'
+	String get doubleTapDesc => 'X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいネ！」できる。ハートボタンを探す必要がなく、直感的に操作できる。';
 
 	/// ja: 'ハートアニメーションが操作を確認させる'
 	String get heartTitle => 'ハートアニメーションが操作を確認させる';
@@ -261,13 +270,46 @@ class TranslationsQuiz1InsightJa {
 	/// ja: 'SNSジェスチャーは世界共通の操作'
 	String get gestureTitle => 'SNSジェスチャーは世界共通の操作';
 
-	/// ja: 'InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいね」が共通操作になっている。一度覚えれば複数のアプリで活用できる。'
-	String get gestureDesc => 'InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいね」が共通操作になっている。一度覚えれば複数のアプリで活用できる。';
+	/// ja: 'InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいネ！」が共通操作になっている。一度覚えれば複数のアプリで活用できる。'
+	String get gestureDesc => 'InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいネ！」が共通操作になっている。一度覚えれば複数のアプリで活用できる。';
 }
 
 // Path: quiz2.insight
 class TranslationsQuiz2InsightJa {
 	TranslationsQuiz2InsightJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'なぜ投稿画面が下から出てきた？'
+	String get title => 'なぜ投稿画面が下から出てきた？';
+
+	/// ja: '＋ボタン＝「新規作成・アクション」の目印'
+	String get subtitle => '＋ボタン＝「新規作成・アクション」の目印';
+
+	/// ja: 'FAB（Floating Action Button）の役割'
+	String get swipeTitle => 'FAB（Floating Action Button）の役割';
+
+	/// ja: '画面右下に浮かんでいる＋ボタンは、その画面で最も重要な操作（SNSなら投稿）を示す。親指で届きやすい位置にあり、すぐに操作を開始できる。'
+	String get swipeDesc => '画面右下に浮かんでいる＋ボタンは、その画面で最も重要な操作（SNSなら投稿）を示す。親指で届きやすい位置にあり、すぐに操作を開始できる。';
+
+	/// ja: '入力中はキーボードが自動で開く'
+	String get fullscreenTitle => '入力中はキーボードが自動で開く';
+
+	/// ja: '投稿画面を開くと自動的に入力欄にフォーカスが当たり、キーボードが表示される。ユーザーがすぐに文字を打ち込めるように工夫されている。'
+	String get fullscreenDesc => '投稿画面を開くと自動的に入力欄にフォーカスが当たり、キーボードが表示される。ユーザーがすぐに文字を打ち込めるように工夫されている。';
+
+	/// ja: '投稿ボタンの色が変わる'
+	String get backTitle => '投稿ボタンの色が変わる';
+
+	/// ja: '何も入力していない時は投稿ボタンが半透明で押せないようになっている。文字を入力することで色が濃くなり、操作可能であることを視覚的に伝える。'
+	String get backDesc => '何も入力していない時は投稿ボタンが半透明で押せないようになっている。文字を入力することで色が濃くなり、操作可能であることを視覚的に伝える。';
+}
+
+// Path: quiz3.insight
+class TranslationsQuiz3InsightJa {
+	TranslationsQuiz3InsightJa.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -298,39 +340,6 @@ class TranslationsQuiz2InsightJa {
 	String get backDesc => 'スマートフォンのUIでは×ボタンがなくても、スワイプジェスチャーで画面を閉じることができる。操作の手がかりがなくても試してみることが重要。';
 }
 
-// Path: quiz3.insight
-class TranslationsQuiz3InsightJa {
-	TranslationsQuiz3InsightJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: 'なぜ一瞬でトップに戻れた？'
-	String get title => 'なぜ一瞬でトップに戻れた？';
-
-	/// ja: 'ステータスバー・ホームタブのタップ＝先頭へ'
-	String get subtitle => 'ステータスバー・ホームタブのタップ＝先頭へ';
-
-	/// ja: 'ステータスバーのタップは「先頭に戻る」ショートカット'
-	String get statusBarTitle => 'ステータスバーのタップは「先頭に戻る」ショートカット';
-
-	/// ja: 'iPhoneのステータスバー（時刻表示エリア）をタップすると、多くのアプリでリストの先頭に瞬時に戻れる。長いタイムラインをスクロールして戻る手間が省ける。'
-	String get statusBarDesc => 'iPhoneのステータスバー（時刻表示エリア）をタップすると、多くのアプリでリストの先頭に瞬時に戻れる。長いタイムラインをスクロールして戻る手間が省ける。';
-
-	/// ja: 'ホームタブの再タップも「先頭に戻る」操作'
-	String get homeTabTitle => 'ホームタブの再タップも「先頭に戻る」操作';
-
-	/// ja: 'すでに表示中のタブ（ホームボタン）をもう一度タップすると、タイムラインが一番上に戻る。SNSアプリに限らず多くのアプリで使えるテクニック。'
-	String get homeTabDesc => 'すでに表示中のタブ（ホームボタン）をもう一度タップすると、タイムラインが一番上に戻る。SNSアプリに限らず多くのアプリで使えるテクニック。';
-
-	/// ja: 'スクロールより「ジャンプ」が圧倒的に速い'
-	String get efficientTitle => 'スクロールより「ジャンプ」が圧倒的に速い';
-
-	/// ja: '大量のコンテンツを一番上まで手動でスクロールするのは非効率。専用操作でトップに戻ることで、快適なアプリ体験が実現される。'
-	String get efficientDesc => '大量のコンテンツを一番上まで手動でスクロールするのは非効率。専用操作でトップに戻ることで、快適なアプリ体験が実現される。';
-}
-
 // Path: quiz4.insight
 class TranslationsQuiz4InsightJa {
 	TranslationsQuiz4InsightJa.internal(this._root);
@@ -339,29 +348,29 @@ class TranslationsQuiz4InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ長押しでアカウントが切り替えられた？'
-	String get title => 'なぜ長押しでアカウントが切り替えられた？';
+	/// ja: 'なぜ「from:」で検索できた？'
+	String get title => 'なぜ「from:」で検索できた？';
 
-	/// ja: 'プロフィールアイコンの長押し＝アカウント切り替え'
-	String get subtitle => 'プロフィールアイコンの長押し＝アカウント切り替え';
+	/// ja: '検索コマンドで絞り込みを効率化'
+	String get subtitle => '検索コマンドで絞り込みを効率化';
 
-	/// ja: 'プロフィールアイコンの長押しでアカウント選択'
-	String get longPressTitle => 'プロフィールアイコンの長押しでアカウント選択';
+	/// ja: '検索コマンド（from:）の便利さ'
+	String get longPressTitle => '検索コマンド（from:）の便利さ';
 
-	/// ja: '多くのSNSアプリでは、プロフィールアイコンやアバターを長押しすることでアカウント切り替えメニューが表示される。複数アカウントをすばやく使い分けられる機能。'
-	String get longPressDesc => '多くのSNSアプリでは、プロフィールアイコンやアバターを長押しすることでアカウント切り替えメニューが表示される。複数アカウントをすばやく使い分けられる機能。';
+	/// ja: '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。'
+	String get longPressDesc => '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。';
 
-	/// ja: 'サブアカウントは普段使いのアカウントと分ける'
-	String get subAccountTitle => 'サブアカウントは普段使いのアカウントと分ける';
+	/// ja: '検索タブへの切り替えはアイコンで判断'
+	String get subAccountTitle => '検索タブへの切り替えはアイコンで判断';
 
-	/// ja: 'SNSではメインアカウントと趣味・匿名用のサブアカウントを使い分ける人が多い。長押し操作で素早く切り替えることで、用途に応じた使い分けが快適にできる。'
-	String get subAccountDesc => 'SNSではメインアカウントと趣味・匿名用のサブアカウントを使い分ける人が多い。長押し操作で素早く切り替えることで、用途に応じた使い分けが快適にできる。';
+	/// ja: '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。'
+	String get subAccountDesc => '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。';
 
-	/// ja: 'マルチアカウント管理は現代の必須スキル'
-	String get multiAccountTitle => 'マルチアカウント管理は現代の必須スキル';
+	/// ja: 'オートフォーカスでスムーズに検索'
+	String get multiAccountTitle => 'オートフォーカスでスムーズに検索';
 
-	/// ja: '仕事用・プライベート用・趣味用など複数のSNSアカウントを持つことが一般化している。アカウント切り替えの操作を知ることで、SNSをより効果的に活用できる。'
-	String get multiAccountDesc => '仕事用・プライベート用・趣味用など複数のSNSアカウントを持つことが一般化している。アカウント切り替えの操作を知ることで、SNSをより効果的に活用できる。';
+	/// ja: '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。'
+	String get multiAccountDesc => '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -372,42 +381,42 @@ class TranslationsQuiz4InsightJa {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'タイムラインに流れてきた猫の写真に「いいね」をしよう',
-			'quiz1.insight.title' => 'なぜダブルタップでいいねできた？',
-			'quiz1.insight.subtitle' => 'ダブルタップ＝「いいね」はSNSの定番操作',
-			'quiz1.insight.doubleTapTitle' => 'ダブルタップは「いいね」のショートカット',
-			'quiz1.insight.doubleTapDesc' => 'X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいね」できる。ハートボタンを探す必要がなく、直感的に操作できる。',
+			'quiz1.missionText' => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう',
+			'quiz1.insight.title' => 'なぜダブルタップで「いいネ！」できた？',
+			'quiz1.insight.subtitle' => 'ダブルタップ＝「いいネ！」はSNSの定番操作',
+			'quiz1.insight.doubleTapTitle' => 'ダブルタップは「いいネ！」のショートカット',
+			'quiz1.insight.doubleTapDesc' => 'X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいネ！」できる。ハートボタンを探す必要がなく、直感的に操作できる。',
 			'quiz1.insight.heartTitle' => 'ハートアニメーションが操作を確認させる',
 			'quiz1.insight.heartDesc' => 'ダブルタップすると画像中央に大きなハートが表示される。これはフィードバックアニメーションと呼ばれ、操作が正しく認識されたことをユーザーに伝える仕組み。',
 			'quiz1.insight.gestureTitle' => 'SNSジェスチャーは世界共通の操作',
-			'quiz1.insight.gestureDesc' => 'InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいね」が共通操作になっている。一度覚えれば複数のアプリで活用できる。',
-			'quiz2.missionText' => '全画面で開いた画像を閉じて、タイムラインに戻ろう',
-			'quiz2.insight.title' => 'なぜ下にスワイプで閉じられた？',
-			'quiz2.insight.subtitle' => '下スワイプ＝「戻る・閉じる」の直感操作',
-			'quiz2.insight.swipeTitle' => '下スワイプは「閉じる」の直感ジェスチャー',
-			'quiz2.insight.swipeDesc' => '全画面表示された画像を下に向かってスワイプ（フリック）すると、元の画面に戻れる。重力を意識した「落とす」感覚が「閉じる」動作と結びついている。',
-			'quiz2.insight.fullscreenTitle' => '全画面モードはタップで開く',
-			'quiz2.insight.fullscreenDesc' => 'SNSアプリでは投稿の画像をタップすると全画面モードで表示される。ピンチアウトで拡大したり、より詳しく見ることができる。',
-			'quiz2.insight.backTitle' => '「×ボタン」がなくても閉じられる',
-			'quiz2.insight.backDesc' => 'スマートフォンのUIでは×ボタンがなくても、スワイプジェスチャーで画面を閉じることができる。操作の手がかりがなくても試してみることが重要。',
-			'quiz3.missionText' => '昔の投稿を読みすぎた！一瞬で最新の投稿（一番上）に戻ろう',
-			'quiz3.insight.title' => 'なぜ一瞬でトップに戻れた？',
-			'quiz3.insight.subtitle' => 'ステータスバー・ホームタブのタップ＝先頭へ',
-			'quiz3.insight.statusBarTitle' => 'ステータスバーのタップは「先頭に戻る」ショートカット',
-			'quiz3.insight.statusBarDesc' => 'iPhoneのステータスバー（時刻表示エリア）をタップすると、多くのアプリでリストの先頭に瞬時に戻れる。長いタイムラインをスクロールして戻る手間が省ける。',
-			'quiz3.insight.homeTabTitle' => 'ホームタブの再タップも「先頭に戻る」操作',
-			'quiz3.insight.homeTabDesc' => 'すでに表示中のタブ（ホームボタン）をもう一度タップすると、タイムラインが一番上に戻る。SNSアプリに限らず多くのアプリで使えるテクニック。',
-			'quiz3.insight.efficientTitle' => 'スクロールより「ジャンプ」が圧倒的に速い',
-			'quiz3.insight.efficientDesc' => '大量のコンテンツを一番上まで手動でスクロールするのは非効率。専用操作でトップに戻ることで、快適なアプリ体験が実現される。',
-			'quiz4.missionText' => 'こっそり作っている「裏垢（サブアカウント）」に切り替えよう',
-			'quiz4.insight.title' => 'なぜ長押しでアカウントが切り替えられた？',
-			'quiz4.insight.subtitle' => 'プロフィールアイコンの長押し＝アカウント切り替え',
-			'quiz4.insight.longPressTitle' => 'プロフィールアイコンの長押しでアカウント選択',
-			'quiz4.insight.longPressDesc' => '多くのSNSアプリでは、プロフィールアイコンやアバターを長押しすることでアカウント切り替えメニューが表示される。複数アカウントをすばやく使い分けられる機能。',
-			'quiz4.insight.subAccountTitle' => 'サブアカウントは普段使いのアカウントと分ける',
-			'quiz4.insight.subAccountDesc' => 'SNSではメインアカウントと趣味・匿名用のサブアカウントを使い分ける人が多い。長押し操作で素早く切り替えることで、用途に応じた使い分けが快適にできる。',
-			'quiz4.insight.multiAccountTitle' => 'マルチアカウント管理は現代の必須スキル',
-			'quiz4.insight.multiAccountDesc' => '仕事用・プライベート用・趣味用など複数のSNSアカウントを持つことが一般化している。アカウント切り替えの操作を知ることで、SNSをより効果的に活用できる。',
+			'quiz1.insight.gestureDesc' => 'InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいネ！」が共通操作になっている。一度覚えれば複数のアプリで活用できる。',
+			'quiz2.missionText' => '何か投稿してみよう！',
+			'quiz2.insight.title' => 'なぜ投稿画面が下から出てきた？',
+			'quiz2.insight.subtitle' => '＋ボタン＝「新規作成・アクション」の目印',
+			'quiz2.insight.swipeTitle' => 'FAB（Floating Action Button）の役割',
+			'quiz2.insight.swipeDesc' => '画面右下に浮かんでいる＋ボタンは、その画面で最も重要な操作（SNSなら投稿）を示す。親指で届きやすい位置にあり、すぐに操作を開始できる。',
+			'quiz2.insight.fullscreenTitle' => '入力中はキーボードが自動で開く',
+			'quiz2.insight.fullscreenDesc' => '投稿画面を開くと自動的に入力欄にフォーカスが当たり、キーボードが表示される。ユーザーがすぐに文字を打ち込めるように工夫されている。',
+			'quiz2.insight.backTitle' => '投稿ボタンの色が変わる',
+			'quiz2.insight.backDesc' => '何も入力していない時は投稿ボタンが半透明で押せないようになっている。文字を入力することで色が濃くなり、操作可能であることを視覚的に伝える。',
+			'quiz3.missionText' => '画像を開いて表示した後に元の画面に戻ろう',
+			'quiz3.insight.title' => 'なぜ下にスワイプで閉じられた？',
+			'quiz3.insight.subtitle' => '下スワイプ＝「戻る・閉じる」の直感操作',
+			'quiz3.insight.swipeTitle' => '下スワイプは「閉じる」の直感ジェスチャー',
+			'quiz3.insight.swipeDesc' => '全画面表示された画像を下に向かってスワイプ（フリック）すると、元の画面に戻れる。重力を意識した「落とす」感覚が「閉じる」動作と結びついている。',
+			'quiz3.insight.fullscreenTitle' => '全画面モードはタップで開く',
+			'quiz3.insight.fullscreenDesc' => 'SNSアプリでは投稿の画像をタップすると全画面モードで表示される。ピンチアウトで拡大したり、より詳しく見ることができる。',
+			'quiz3.insight.backTitle' => '「×ボタン」がなくても閉じられる',
+			'quiz3.insight.backDesc' => 'スマートフォンのUIでは×ボタンがなくても、スワイプジェスチャーで画面を閉じることができる。操作の手がかりがなくても試してみることが重要。',
+			'quiz4.missionText' => 'ナントム(@nantom)の投稿を検索しよう！',
+			'quiz4.insight.title' => 'なぜ「from:」で検索できた？',
+			'quiz4.insight.subtitle' => '検索コマンドで絞り込みを効率化',
+			'quiz4.insight.longPressTitle' => '検索コマンド（from:）の便利さ',
+			'quiz4.insight.longPressDesc' => '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。',
+			'quiz4.insight.subAccountTitle' => '検索タブへの切り替えはアイコンで判断',
+			'quiz4.insight.subAccountDesc' => '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。',
+			'quiz4.insight.multiAccountTitle' => 'オートフォーカスでスムーズに検索',
+			'quiz4.insight.multiAccountDesc' => '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。',
 			'common.appTitle' => 'NantoTweet',
 			'common.home' => 'ホーム',
 			'common.search' => '検索',
@@ -448,6 +457,9 @@ extension on Translations {
 			'common.post10UserName' => 'なんとくま太郎',
 			'common.post10UserId' => '@nanto_kuma',
 			'common.post10Content' => '蜂蜜を食べたくなってきた🍯',
+			'common.post' => '投稿する',
+			'common.cancel' => 'キャンセル',
+			'common.composeHint' => 'いまどうしてる？',
 			_ => null,
 		};
 	}

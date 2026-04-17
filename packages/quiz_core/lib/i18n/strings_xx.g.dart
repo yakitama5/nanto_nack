@@ -336,6 +336,7 @@ class _TranslationsPlayCategoryLabelXx extends TranslationsPlayCategoryLabelJa {
 	@override String get mail => 'メール';
 	@override String get news => 'ニュース';
 	@override String get calendar => 'カレンダー';
+	@override String get sns => 'SNS';
 }
 
 // Path: play.categoryDescription
@@ -354,6 +355,7 @@ class _TranslationsPlayCategoryDescriptionXx extends TranslationsPlayCategoryDes
 	@override String get mail => 'メールアプリのUI/UXを体験しよう';
 	@override String get news => 'ニュースアプリのUI/UXを体験しよう';
 	@override String get calendar => 'カレンダーアプリのUI/UXを体験しよう';
+	@override String get sns => 'SNSアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -399,6 +401,10 @@ class _TranslationsPlayStageTitleXx extends TranslationsPlayStageTitleJa {
 	@override String get calendar_quiz2 => '予定を素早く追加しよう';
 	@override String get calendar_quiz3 => '予定の日付を変えよう';
 	@override String get calendar_quiz4 => '一瞬で「今日」に戻ろう';
+	@override String get sns_quiz1 => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう';
+	@override String get sns_quiz2 => '何か投稿してみよう！';
+	@override String get sns_quiz3 => '画像を開いて表示した後に元の画面に戻ろう';
+	@override String get sns_quiz4 => 'ナントム(@nantom)の投稿を検索しよう！';
 }
 
 // Path: play.stageDescription
@@ -607,6 +613,7 @@ extension on TranslationsXx {
 			'play.categoryLabel.mail' => 'メール',
 			'play.categoryLabel.news' => 'ニュース',
 			'play.categoryLabel.calendar' => 'カレンダー',
+			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -616,6 +623,7 @@ extension on TranslationsXx {
 			'play.categoryDescription.mail' => 'メールアプリのUI/UXを体験しよう',
 			'play.categoryDescription.news' => 'ニュースアプリのUI/UXを体験しよう',
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
+			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -652,6 +660,10 @@ extension on TranslationsXx {
 			'play.stageTitle.calendar_quiz2' => '予定を素早く追加しよう',
 			'play.stageTitle.calendar_quiz3' => '予定の日付を変えよう',
 			'play.stageTitle.calendar_quiz4' => '一瞬で「今日」に戻ろう',
+			'play.stageTitle.sns_quiz1' => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう',
+			'play.stageTitle.sns_quiz2' => '何か投稿してみよう！',
+			'play.stageTitle.sns_quiz3' => '画像を開いて表示した後に元の画面に戻ろう',
+			'play.stageTitle.sns_quiz4' => 'ナントム(@nantom)の投稿を検索しよう！',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',

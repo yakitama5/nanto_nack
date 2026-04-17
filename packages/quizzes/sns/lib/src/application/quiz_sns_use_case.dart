@@ -15,11 +15,18 @@ class QuizSnsUseCase {
     return posts.any((p) => p.id == catPostId && p.isLiked);
   }
 
-  /// Quiz4: 現在のアカウントがサブアカウントIDになったかチェック
-  bool isClearQuiz4({
-    required String currentAccount,
-    required String subAccountId,
+  /// Quiz2: 投稿が入力されているかチェック
+  bool isClearQuiz2({
+    required String composeText,
   }) {
-    return currentAccount == subAccountId;
+    return composeText.trim().isNotEmpty;
+  }
+
+  /// Quiz4: 検索クエリが一致しているかチェック
+  bool isClearQuiz4({
+    required String searchText,
+    required String targetQuery,
+  }) {
+    return searchText.trim() == targetQuery;
   }
 }

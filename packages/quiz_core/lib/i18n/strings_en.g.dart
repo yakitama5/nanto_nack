@@ -401,10 +401,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get calendar_quiz2 => 'Add an Event Quickly';
 	@override String get calendar_quiz3 => 'Change Event Date';
 	@override String get calendar_quiz4 => 'Return to Today Instantly';
-	@override String get sns_quiz1 => 'Like the Cat Photo';
-	@override String get sns_quiz2 => 'Close the Fullscreen Image';
-	@override String get sns_quiz3 => 'Return to Top of Timeline';
-	@override String get sns_quiz4 => 'Switch to Sub Account';
+	@override String get sns_quiz1 => 'Like the cat photo on the timeline';
+	@override String get sns_quiz2 => 'Post something!';
+	@override String get sns_quiz3 => 'Open an image and return to the previous screen';
+	@override String get sns_quiz4 => 'Search for nantom\'s (@nantom) posts';
 }
 
 // Path: play.stageDescription
@@ -664,10 +664,10 @@ extension on TranslationsEn {
 			'play.stageTitle.calendar_quiz2' => 'Add an Event Quickly',
 			'play.stageTitle.calendar_quiz3' => 'Change Event Date',
 			'play.stageTitle.calendar_quiz4' => 'Return to Today Instantly',
-			'play.stageTitle.sns_quiz1' => 'Like the Cat Photo',
-			'play.stageTitle.sns_quiz2' => 'Close the Fullscreen Image',
-			'play.stageTitle.sns_quiz3' => 'Return to Top of Timeline',
-			'play.stageTitle.sns_quiz4' => 'Switch to Sub Account',
+			'play.stageTitle.sns_quiz1' => 'Like the cat photo on the timeline',
+			'play.stageTitle.sns_quiz2' => 'Post something!',
+			'play.stageTitle.sns_quiz3' => 'Open an image and return to the previous screen',
+			'play.stageTitle.sns_quiz4' => 'Search for nantom\'s (@nantom) posts',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',

@@ -165,10 +165,10 @@
       "calendar_quiz2": "Add an Event Quickly",
       "calendar_quiz3": "Change Event Date",
       "calendar_quiz4": "Return to Today Instantly",
-      "sns_quiz1": "Like the Cat Photo",
-      "sns_quiz2": "Close the Fullscreen Image",
-      "sns_quiz3": "Return to Top of Timeline",
-      "sns_quiz4": "Switch to Sub Account"
+      "sns_quiz1": "Like the cat photo on the timeline",
+      "sns_quiz2": "Post something!",
+      "sns_quiz3": "Open an image and return to the previous screen",
+      "sns_quiz4": "Search for nantom's (@nantom) posts"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",

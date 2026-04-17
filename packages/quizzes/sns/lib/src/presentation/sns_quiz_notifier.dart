@@ -66,7 +66,7 @@ class SnsQuizNotifier
     unawaited(_checkClearCondition());
   }
 
-  /// 画像を全画面で開く（Quiz2の前提操作）
+  /// 画像を全画面で開く
   void openFullScreenImage(String imageUrl) {
     if (state.status != QuizStatus.playing) return;
     if (state.isFullScreenImageOpened) return;
@@ -76,20 +76,20 @@ class SnsQuizNotifier
     );
   }
 
-  /// 全画面画像を閉じる（Quiz2のクリア条件）
+  /// 全画面画像を閉じる（Quiz3のクリア条件）
   void closeFullScreenImage() {
     if (state.status != QuizStatus.playing) return;
     if (!state.isFullScreenImageOpened) return;
     state = state.copyWith(
       isFullScreenImageOpened: false,
     );
-    // Quiz2のみ閉じた瞬間にクリア
-    if (arg == SnsQuizType.quiz2) {
+    // Quiz3のみ閉じた瞬間にクリア
+    if (arg == SnsQuizType.quiz3) {
       unawaited(_clearQuiz());
     }
   }
 
-  /// トップへのスクロールを要求する（Quiz3の操作）
+  /// トップへのスクロールを要求する（操作のみ）
   ///
   /// ステータスバータップまたはホームタブ再タップで呼ばれる。
   void scrollToTop() {
@@ -98,25 +98,61 @@ class SnsQuizNotifier
     state = state.copyWith(scrollToTopRequested: true);
   }
 
-  /// スクロールがトップに達したことを通知する（Quiz3のクリア判定）
+  /// スクロールがトップに達したことを通知する
   ///
   /// ScrollController のリスナーから、offset が 0 になった時点で呼ばれる。
   void onScrolledToTop() {
     if (state.status != QuizStatus.playing) return;
     if (!state.scrollToTopRequested) return;
     state = state.copyWith(scrollToTopRequested: false);
-    // Quiz3のみスクロールトップ到達でクリア
-    if (arg == SnsQuizType.quiz3) {
-      unawaited(_clearQuiz());
-    }
   }
 
-  /// アカウントを切り替える（Quiz4のクリア条件）
+  /// タブを切り替える
+  void updateTabIndex(int index) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(currentIndex: index);
+  }
+
+  /// アカウントを切り替える
   Future<void> switchAccount(String newAccountId) async {
     if (state.status != QuizStatus.playing) return;
     if (state.currentAccount == newAccountId) return;
     state = state.copyWith(currentAccount: newAccountId);
     unawaited(_checkClearCondition());
+  }
+
+  /// 投稿テキストを更新する
+  void updateComposeText(String text) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(composeText: text);
+  }
+
+  /// 投稿を実行する（Quiz2のクリア条件）
+  void submitPost() {
+    if (state.status != QuizStatus.playing) return;
+    if (arg == SnsQuizType.quiz2 &&
+        _useCase.isClearQuiz2(composeText: state.composeText)) {
+      unawaited(_clearQuiz());
+    }
+  }
+
+  /// 検索テキストを更新する
+  void updateSearchText(String text) {
+    if (state.status != QuizStatus.playing) return;
+    state = state.copyWith(searchText: text);
+    // 入力するだけでクリアするのではなく、検索ボタン押下を条件にするため、ここでは判定しない
+  }
+
+  /// 検索を実行する（Quiz4のクリア条件）
+  void performSearch() {
+    if (state.status != QuizStatus.playing) return;
+    if (arg == SnsQuizType.quiz4 &&
+        _useCase.isClearQuiz4(
+          searchText: state.searchText,
+          targetQuery: SnsQuizConfig.searchQuery,
+        )) {
+      unawaited(_clearQuiz());
+    }
   }
 
   /// 諦めてクイズを終了する
@@ -195,15 +231,14 @@ class SnsQuizNotifier
         catPostId: SnsQuizConfig.catPostId,
       ),
       SnsQuizType.quiz2 =>
-        // Quiz2のクリア判定は closeFullScreenImage() から直接 _clearQuiz() を呼ぶ
+        // Quiz2のクリア判定は submitPost() から直接 _clearQuiz() を呼ぶ
         false,
       SnsQuizType.quiz3 =>
-        // Quiz3のクリア判定は onScrolledToTop() から直接 _clearQuiz() を呼ぶ
+        // Quiz3のクリア判定は closeFullScreenImage() から直接 _clearQuiz() を呼ぶ
         false,
-      SnsQuizType.quiz4 => _useCase.isClearQuiz4(
-        currentAccount: state.currentAccount,
-        subAccountId: SnsQuizConfig.subAccountId,
-      ),
+      SnsQuizType.quiz4 =>
+        // Quiz4のクリア判定は performSearch() から直接 _clearQuiz() を呼ぶ
+        false,
     };
     if (!isClear) return;
     await _clearQuiz();

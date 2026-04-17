@@ -137,6 +137,9 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get post10UserName => 'Nn Km2';
 	@override String get post10UserId => '@nn_km2';
 	@override String get post10Content => 'Hny crv 🍯';
+	@override String get post => 'Pst';
+	@override String get cancel => 'Cncl';
+	@override String get composeHint => 'Wht\'s hppng?';
 }
 
 // Path: quiz1.insight
@@ -291,6 +294,9 @@ extension on TranslationsXx {
 			'common.post10UserName' => 'Nn Km2',
 			'common.post10UserId' => '@nn_km2',
 			'common.post10Content' => 'Hny crv 🍯',
+			'common.post' => 'Pst',
+			'common.cancel' => 'Cncl',
+			'common.composeHint' => 'Wht\'s hppng?',
 			_ => null,
 		};
 	}

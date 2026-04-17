@@ -21,14 +21,17 @@ class SnsQuizState extends QuizStateBase {
     this.fullScreenImageUrl,
     required this.remainingSeconds,
     required this.scrollToTopRequested,
+    required this.currentIndex,
+    required this.composeText,
+    required this.searchText,
   });
 
   /// 初期状態を生成する
   factory SnsQuizState.initial(SnsQuizType quizType) {
     final posts = SnsCatalog.initialPostsFor(quizType);
-    // Quiz2のみ最初から全画面画像が開いた状態で始まる
-    final isFullScreen = quizType == SnsQuizType.quiz2;
-    final fullScreenUrl = isFullScreen ? SnsQuizConfig.catPostId : null;
+    // 最初は全画面画像は閉じた状態で始まる
+    const isFullScreen = false;
+    const String? fullScreenUrl = null;
 
     return SnsQuizState(
       status: QuizStatus.idle,
@@ -41,6 +44,9 @@ class SnsQuizState extends QuizStateBase {
       fullScreenImageUrl: fullScreenUrl,
       remainingSeconds: SnsQuizConfig.timeLimitSecondsFor(quizType),
       scrollToTopRequested: false,
+      currentIndex: 0,
+      composeText: '',
+      searchText: '',
     );
   }
 
@@ -59,8 +65,17 @@ class SnsQuizState extends QuizStateBase {
   /// 残り時間（秒）
   final int remainingSeconds;
 
-  /// トップへのスクロールが要求されているかどうか（Quiz3用）
+  /// トップへのスクロールが要求されているかどうか（旧Quiz3用、操作としては残すがクリア条件ではない）
   final bool scrollToTopRequested;
+
+  /// 現在選択中のタブインデックス
+  final int currentIndex;
+
+  /// 投稿画面の入力テキスト
+  final String composeText;
+
+  /// 検索バーの入力テキスト
+  final String searchText;
 
   /// 指定フィールドを差し替えた新インスタンスを返す
   SnsQuizState copyWith({
@@ -74,6 +89,9 @@ class SnsQuizState extends QuizStateBase {
     String? fullScreenImageUrl,
     int? remainingSeconds,
     bool? scrollToTopRequested,
+    int? currentIndex,
+    String? composeText,
+    String? searchText,
   }) {
     return SnsQuizState(
       status: status ?? this.status,
@@ -87,6 +105,9 @@ class SnsQuizState extends QuizStateBase {
       fullScreenImageUrl: fullScreenImageUrl ?? this.fullScreenImageUrl,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       scrollToTopRequested: scrollToTopRequested ?? this.scrollToTopRequested,
+      currentIndex: currentIndex ?? this.currentIndex,
+      composeText: composeText ?? this.composeText,
+      searchText: searchText ?? this.searchText,
     );
   }
 }
