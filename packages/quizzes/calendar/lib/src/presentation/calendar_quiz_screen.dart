@@ -353,6 +353,19 @@ class _CalendarAppScaffold extends StatelessWidget {
             controller: calendarController,
             initialDate: state.focusedMonth,
             touchMode: TouchMode.none,
+            weekDaysBuilder: (day) => SizedBox(
+              height: 40,
+              child: Center(
+                child: UnreadableText(
+                  sq.common.weekdays[day.index],
+                  animateOnObfuscate: false,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
             dayItemBuilder: (properties) => _DayItem(
               properties: properties,
               events: state.events,
@@ -402,20 +415,22 @@ class _DayItem extends StatelessWidget {
     final isCurrentMonth = properties.isInMonth;
     final isToday = properties.isCurrentDay;
 
-    final dayLabel = Text(
+    final dayStyle = TextStyle(
+      fontSize: 14,
+      fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
+      color: isToday
+          ? Theme.of(context).colorScheme.primary
+          : isCurrentMonth
+              ? Theme.of(context).colorScheme.onSurface
+              : Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.3),
+    );
+    final dayLabel = UnreadableText(
       '${date.day}',
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-        color: isToday
-            ? Theme.of(context).colorScheme.primary
-            : isCurrentMonth
-                ? Theme.of(context).colorScheme.onSurface
-                : Theme.of(context)
-                    .colorScheme
-                    .onSurface
-                    .withValues(alpha: 0.3),
-      ),
+      style: dayStyle,
+      animateOnObfuscate: false,
     );
 
     if (!isCurrentMonth) {
@@ -442,45 +457,49 @@ class _DayItem extends StatelessWidget {
       builder: (context, candidateData, rejectedData) {
         final isHighlighted = candidateData.isNotEmpty;
         return GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: onTap != null ? () => onTap!(date, dateEvents) : null,
-          child: Container(
-            decoration: isHighlighted
-                ? BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .primaryContainer
-                        .withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(4),
-                  )
-                : null,
-            padding: const EdgeInsets.only(top: 4),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: isToday
-                      ? Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            '${date.day}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onPrimary,
+          child: SizedBox.expand(
+            child: Container(
+              decoration: isHighlighted
+                  ? BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primaryContainer
+                          .withValues(alpha: 0.5),
+                      borderRadius: BorderRadius.circular(4),
+                    )
+                  : null,
+              padding: const EdgeInsets.only(top: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: isToday
+                        ? Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              shape: BoxShape.circle,
                             ),
-                          ),
-                        )
-                      : dayLabel,
-                ),
-                ..._buildEventChips(dateEvents),
-              ],
+                            alignment: Alignment.center,
+                            child: UnreadableText(
+                              '${date.day}',
+                              animateOnObfuscate: false,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                            ),
+                          )
+                        : dayLabel,
+                  ),
+                  ..._buildEventChips(dateEvents),
+                ],
+              ),
             ),
           ),
         );
