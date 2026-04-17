@@ -17,6 +17,7 @@ workspace:
   - packages/quizzes/payment
   - packages/quizzes/mail
   - packages/quizzes/news
+  - packages/quizzes/calendar
   - packages/geolocator_windows_stub
 
 dev_dependencies:
