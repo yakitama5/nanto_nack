@@ -11,128 +11,126 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsXx extends Translations with BaseTranslations<AppLocale, Translations> {
+class TranslationsJa with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsXx({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = meta ?? TranslationMetadata(
-		    locale: AppLocale.xx,
+		    locale: AppLocale.ja,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ),
-		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		  ) {
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
-	/// Metadata for the translations of <xx>.
+	/// Metadata for the translations of <ja>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
-	late final TranslationsXx _root = this; // ignore: unused_field
+	late final TranslationsJa _root = this; // ignore: unused_field
 
 	@override 
-	TranslationsXx $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsXx(meta: meta ?? this.$meta);
+	TranslationsJa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsJa(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsQuiz1Xx quiz1 = _TranslationsQuiz1Xx._(_root);
-	@override late final _TranslationsQuiz2Xx quiz2 = _TranslationsQuiz2Xx._(_root);
-	@override late final _TranslationsQuiz3Xx quiz3 = _TranslationsQuiz3Xx._(_root);
-	@override late final _TranslationsQuiz4Xx quiz4 = _TranslationsQuiz4Xx._(_root);
-	@override late final _TranslationsCommonXx common = _TranslationsCommonXx._(_root);
+	@override late final _TranslationsQuiz1Ja quiz1 = _TranslationsQuiz1Ja._(_root);
+	@override late final _TranslationsQuiz2Ja quiz2 = _TranslationsQuiz2Ja._(_root);
+	@override late final _TranslationsQuiz3Ja quiz3 = _TranslationsQuiz3Ja._(_root);
+	@override late final _TranslationsQuiz4Ja quiz4 = _TranslationsQuiz4Ja._(_root);
+	@override late final _TranslationsCommonJa common = _TranslationsCommonJa._(_root);
 }
 
 // Path: quiz1
-class _TranslationsQuiz1Xx extends TranslationsQuiz1Ja {
-	_TranslationsQuiz1Xx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz1Ja implements TranslationsQuiz1En {
+	_TranslationsQuiz1Ja._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => '来月、どんな予定が入っていたか確認しよう';
 	@override String get failureReason => 'カレンダーを左にスワイプして翌月を表示してください';
-	@override late final _TranslationsQuiz1InsightXx insight = _TranslationsQuiz1InsightXx._(_root);
+	@override late final _TranslationsQuiz1InsightJa insight = _TranslationsQuiz1InsightJa._(_root);
 }
 
 // Path: quiz2
-class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
-	_TranslationsQuiz2Xx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz2Ja implements TranslationsQuiz2En {
+	_TranslationsQuiz2Ja._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => '15日に新しい予定を追加しよう';
 	@override String get failureReason => '15日のマスを長押しして予定を追加してください';
-	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
+	@override late final _TranslationsQuiz2InsightJa insight = _TranslationsQuiz2InsightJa._(_root);
 }
 
 // Path: quiz3
-class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
-	_TranslationsQuiz3Xx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz3Ja implements TranslationsQuiz3En {
+	_TranslationsQuiz3Ja._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => '当日の予定を翌日に変更しよう';
 	@override String get failureReason => '当日の予定を長押しし、翌日のマスへドラッグ＆ドロップしてください';
-	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
+	@override late final _TranslationsQuiz3InsightJa insight = _TranslationsQuiz3InsightJa._(_root);
 }
 
 // Path: quiz4
-class _TranslationsQuiz4Xx extends TranslationsQuiz4Ja {
-	_TranslationsQuiz4Xx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz4Ja implements TranslationsQuiz4En {
+	_TranslationsQuiz4Ja._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get missionText => '迷子になっちゃった！一瞬で「今日」に戻ろう';
 	@override String get failureReason => 'AppBarのカレンダーアイコン（今日）ボタンをタップしてください';
-	@override late final _TranslationsQuiz4InsightXx insight = _TranslationsQuiz4InsightXx._(_root);
+	@override late final _TranslationsQuiz4InsightJa insight = _TranslationsQuiz4InsightJa._(_root);
 }
 
 // Path: common
-class _TranslationsCommonXx extends TranslationsCommonJa {
-	_TranslationsCommonXx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsCommonJa implements TranslationsCommonEn {
+	_TranslationsCommonJa._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'Clndr';
-	@override String get today => 'Tdy';
-	@override String get add => 'Add';
-	@override String get save => 'Sv';
-	@override String get cancel => 'Cnc';
-	@override String get newEvent => 'Nw Evnt';
-	@override String get eventTitle => 'Evnt Ttl';
-	@override String get addEventTitle => 'Add Evnt';
+	@override String get appTitle => 'カレンダー';
+	@override String get today => '今日';
+	@override String get add => '追加';
+	@override String get save => '保存';
+	@override String get cancel => 'キャンセル';
+	@override String get newEvent => '新しいイベント';
+	@override String get eventTitle => 'イベントタイトル';
+	@override String get addEventTitle => 'イベントを追加';
 	@override List<String> get weekdays => [
-		'Mo',
-		'Tu',
-		'We',
-		'Th',
-		'Fr',
-		'Sa',
-		'Su',
+		'月',
+		'火',
+		'水',
+		'木',
+		'金',
+		'土',
+		'日',
 	];
-	@override String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})';
-	@override String get eventInterview => 'Intrvw';
-	@override String get eventParty => 'Prty';
-	@override String get eventMeeting => 'Mtng';
-	@override String get eventHealth => 'Hlth Chk';
-	@override String get eventDentist => 'Dntst';
-	@override String get eventLunch => 'Lnch';
-	@override String get eventImportant => 'Imprtnt';
+	@override String dateLabel({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）';
+	@override String get eventInterview => '面接';
+	@override String get eventParty => '飲み会';
+	@override String get eventMeeting => 'ミーティング';
+	@override String get eventHealth => '健康診断';
+	@override String get eventDentist => '歯医者';
+	@override String get eventLunch => 'ランチ';
+	@override String get eventImportant => '大切な予定';
 }
 
 // Path: quiz1.insight
-class _TranslationsQuiz1InsightXx extends TranslationsQuiz1InsightJa {
-	_TranslationsQuiz1InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz1InsightJa implements TranslationsQuiz1InsightEn {
+	_TranslationsQuiz1InsightJa._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'なぜ来月が確認できた？';
@@ -146,10 +144,10 @@ class _TranslationsQuiz1InsightXx extends TranslationsQuiz1InsightJa {
 }
 
 // Path: quiz2.insight
-class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
-	_TranslationsQuiz2InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz2InsightJa implements TranslationsQuiz2InsightEn {
+	_TranslationsQuiz2InsightJa._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'なぜ長押しで追加できた？';
@@ -163,10 +161,10 @@ class _TranslationsQuiz2InsightXx extends TranslationsQuiz2InsightJa {
 }
 
 // Path: quiz3.insight
-class _TranslationsQuiz3InsightXx extends TranslationsQuiz3InsightJa {
-	_TranslationsQuiz3InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz3InsightJa implements TranslationsQuiz3InsightEn {
+	_TranslationsQuiz3InsightJa._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'なぜ予定を変更できた？';
@@ -180,10 +178,10 @@ class _TranslationsQuiz3InsightXx extends TranslationsQuiz3InsightJa {
 }
 
 // Path: quiz4.insight
-class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
-	_TranslationsQuiz4InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
+class _TranslationsQuiz4InsightJa implements TranslationsQuiz4InsightEn {
+	_TranslationsQuiz4InsightJa._(this._root);
 
-	final TranslationsXx _root; // ignore: unused_field
+	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'なぜすぐに「今日」に戻れた？';
@@ -196,12 +194,12 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	@override String get jumpDesc => '数年後の未来や過去から現在に戻るとき、スワイプで一枚ずつ戻るより専用ボタンで直接ジャンプする方が圧倒的に速い。';
 }
 
-/// The flat map containing all translations for locale <xx>.
+/// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
 /// The Dart AOT compiler has issues with very large switch statements,
 /// so the map is split into smaller functions (512 entries each).
-extension on TranslationsXx {
+extension on TranslationsJa {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'quiz1.missionText' => '来月、どんな予定が入っていたか確認しよう',
@@ -244,29 +242,29 @@ extension on TranslationsXx {
 			'quiz4.insight.iconDesc' => 'AppBarに表示されたカレンダーアイコンは「今日の日付を表示する」という意味を持つ。アイコンのデザインで機能を伝える典型例。',
 			'quiz4.insight.jumpTitle' => 'スクロールより「ジャンプ」が効率的',
 			'quiz4.insight.jumpDesc' => '数年後の未来や過去から現在に戻るとき、スワイプで一枚ずつ戻るより専用ボタンで直接ジャンプする方が圧倒的に速い。',
-			'common.appTitle' => 'Clndr',
-			'common.today' => 'Tdy',
-			'common.add' => 'Add',
-			'common.save' => 'Sv',
-			'common.cancel' => 'Cnc',
-			'common.newEvent' => 'Nw Evnt',
-			'common.eventTitle' => 'Evnt Ttl',
-			'common.addEventTitle' => 'Add Evnt',
-			'common.weekdays.0' => 'Mo',
-			'common.weekdays.1' => 'Tu',
-			'common.weekdays.2' => 'We',
-			'common.weekdays.3' => 'Th',
-			'common.weekdays.4' => 'Fr',
-			'common.weekdays.5' => 'Sa',
-			'common.weekdays.6' => 'Su',
-			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}/${day} (${weekday})',
-			'common.eventInterview' => 'Intrvw',
-			'common.eventParty' => 'Prty',
-			'common.eventMeeting' => 'Mtng',
-			'common.eventHealth' => 'Hlth Chk',
-			'common.eventDentist' => 'Dntst',
-			'common.eventLunch' => 'Lnch',
-			'common.eventImportant' => 'Imprtnt',
+			'common.appTitle' => 'カレンダー',
+			'common.today' => '今日',
+			'common.add' => '追加',
+			'common.save' => '保存',
+			'common.cancel' => 'キャンセル',
+			'common.newEvent' => '新しいイベント',
+			'common.eventTitle' => 'イベントタイトル',
+			'common.addEventTitle' => 'イベントを追加',
+			'common.weekdays.0' => '月',
+			'common.weekdays.1' => '火',
+			'common.weekdays.2' => '水',
+			'common.weekdays.3' => '木',
+			'common.weekdays.4' => '金',
+			'common.weekdays.5' => '土',
+			'common.weekdays.6' => '日',
+			'common.dateLabel' => ({required Object month, required Object day, required Object weekday}) => '${month}月${day}日（${weekday}）',
+			'common.eventInterview' => '面接',
+			'common.eventParty' => '飲み会',
+			'common.eventMeeting' => 'ミーティング',
+			'common.eventHealth' => '健康診断',
+			'common.eventDentist' => '歯医者',
+			'common.eventLunch' => 'ランチ',
+			'common.eventImportant' => '大切な予定',
 			_ => null,
 		};
 	}

@@ -75,8 +75,8 @@ class TranslationsQuiz2Ja {
 	/// ja: '15日に新しい予定を追加しよう'
 	String get missionText => '15日に新しい予定を追加しよう';
 
-	/// ja: '15日のマスを長押しするか、右下の＋ボタンを使って予定を追加してください'
-	String get failureReason => '15日のマスを長押しするか、右下の＋ボタンを使って予定を追加してください';
+	/// ja: '15日のマスを長押しして予定を追加してください'
+	String get failureReason => '15日のマスを長押しして予定を追加してください';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -89,11 +89,11 @@ class TranslationsQuiz3Ja {
 
 	// Translations
 
-	/// ja: '2日後に新しい予定を追加しよう'
-	String get missionText => '2日後に新しい予定を追加しよう';
+	/// ja: '当日の予定を翌日に変更しよう'
+	String get missionText => '当日の予定を翌日に変更しよう';
 
-	/// ja: '2日後の日付をタップするか、右下の＋ボタンを使って予定を追加してください'
-	String get failureReason => '2日後の日付をタップするか、右下の＋ボタンを使って予定を追加してください';
+	/// ja: '当日の予定を長押しし、翌日のマスへドラッグ＆ドロップしてください'
+	String get failureReason => '当日の予定を長押しし、翌日のマスへドラッグ＆ドロップしてください';
 
 	late final TranslationsQuiz3InsightJa insight = TranslationsQuiz3InsightJa.internal(_root);
 }
@@ -123,29 +123,29 @@ class TranslationsCommonJa {
 
 	// Translations
 
-	/// ja: 'Calendar'
-	String get appTitle => 'Calendar';
+	/// ja: 'カレンダー'
+	String get appTitle => 'カレンダー';
 
-	/// ja: 'Today'
-	String get today => 'Today';
+	/// ja: '今日'
+	String get today => '今日';
 
-	/// ja: 'Add'
-	String get add => 'Add';
+	/// ja: '追加'
+	String get add => '追加';
 
-	/// ja: 'Save'
-	String get save => 'Save';
+	/// ja: '保存'
+	String get save => '保存';
 
-	/// ja: 'Cancel'
-	String get cancel => 'Cancel';
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
 
-	/// ja: 'New Event'
-	String get newEvent => 'New Event';
+	/// ja: '新しいイベント'
+	String get newEvent => '新しいイベント';
 
-	/// ja: 'Event Title'
-	String get eventTitle => 'Event Title';
+	/// ja: 'イベントタイトル'
+	String get eventTitle => 'イベントタイトル';
 
-	/// ja: 'Add Event'
-	String get addEventTitle => 'Add Event';
+	/// ja: 'イベントを追加'
+	String get addEventTitle => 'イベントを追加';
 
 	List<String> get weekdays => [
 		'月',
@@ -256,29 +256,29 @@ class TranslationsQuiz3InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜ2日後に予定が追加できた？'
-	String get title => 'なぜ2日後に予定が追加できた？';
+	/// ja: 'なぜ予定を変更できた？'
+	String get title => 'なぜ予定を変更できた？';
 
-	/// ja: '日付タップで予定追加は直感的な操作'
-	String get subtitle => '日付タップで予定追加は直感的な操作';
+	/// ja: 'ドラッグ＆ドロップで素早く予定を再調整'
+	String get subtitle => 'ドラッグ＆ドロップで素早く予定を再調整';
 
-	/// ja: '日付をタップすると予定を追加できる'
-	String get tapTitle => '日付をタップすると予定を追加できる';
+	/// ja: '予定をドラッグ＆ドロップする'
+	String get tapTitle => '予定をドラッグ＆ドロップする';
 
-	/// ja: 'カレンダーの日付をタップすると、その日に予定を追加できる。今日だけでなく、未来の日付にも同じ操作で追加可能。'
-	String get tapDesc => 'カレンダーの日付をタップすると、その日に予定を追加できる。今日だけでなく、未来の日付にも同じ操作で追加可能。';
+	/// ja: 'カレンダー上の予定を長押しすると移動モードになり、そのまま別の日付へ移動させることができる。急な予定変更も指先一つで完了。'
+	String get tapDesc => 'カレンダー上の予定を長押しすると移動モードになり、そのまま別の日付へ移動させることができる。急な予定変更も指先一つで完了。';
 
-	/// ja: '未来の日付にも予定を立てられる'
-	String get futureTitle => '未来の日付にも予定を立てられる';
+	/// ja: '柔軟なスケジュール管理'
+	String get futureTitle => '柔軟なスケジュール管理';
 
-	/// ja: 'スマートフォンのカレンダーは数日後・数週間後など、あらゆる日付に予定を登録できる。先の予定をあらかじめ入力しておくことが予定管理の基本。'
-	String get futureDesc => 'スマートフォンのカレンダーは数日後・数週間後など、あらゆる日付に予定を登録できる。先の予定をあらかじめ入力しておくことが予定管理の基本。';
+	/// ja: 'スマートフォンのカレンダーアプリは、予定を直感的に動かせる。予定の移動がスムーズに行えることは、時間を無駄にしないために重要。'
+	String get futureDesc => 'スマートフォンのカレンダーアプリは、予定を直感的に動かせる。予定の移動がスムーズに行えることは、時間を無駄にしないために重要。';
 
-	/// ja: '先手の予定管理が行動の質を上げる'
-	String get planTitle => '先手の予定管理が行動の質を上げる';
+	/// ja: '変更に強い生活リズム'
+	String get planTitle => '変更に強い生活リズム';
 
-	/// ja: '「2日後にやること」を今のうちにカレンダーへ登録すると、準備を前倒しできる。忘れる前に入力する習慣がスケジュール管理を助ける。'
-	String get planDesc => '「2日後にやること」を今のうちにカレンダーへ登録すると、準備を前倒しできる。忘れる前に入力する習慣がスケジュール管理を助ける。';
+	/// ja: '急な用事が入っても、カレンダーの予定をずらすだけで整理できる。デジタルツールで柔軟に管理し、常に整ったスケジュールを保とう。'
+	String get planDesc => '急な用事が入っても、カレンダーの予定をずらすだけで整理できる。デジタルツールで柔軟に管理し、常に整ったスケジュールを保とう。';
 }
 
 // Path: quiz4.insight
@@ -333,7 +333,7 @@ extension on Translations {
 			'quiz1.insight.gestureTitle' => '見えないUIも操作できる',
 			'quiz1.insight.gestureDesc' => '画面に「次の月へ」ボタンがなくても、スワイプジェスチャーで操作できる。これがスマートフォンのUI設計の特徴の一つ。',
 			'quiz2.missionText' => '15日に新しい予定を追加しよう',
-			'quiz2.failureReason' => '15日のマスを長押しするか、右下の＋ボタンを使って予定を追加してください',
+			'quiz2.failureReason' => '15日のマスを長押しして予定を追加してください',
 			'quiz2.insight.title' => 'なぜ長押しで追加できた？',
 			'quiz2.insight.subtitle' => '長押し＝隠れた操作メニューを呼び出す',
 			'quiz2.insight.longPressTitle' => '長押しは「コンテキストメニュー」を開く',
@@ -342,8 +342,8 @@ extension on Translations {
 			'quiz2.insight.fabDesc' => '右下の＋（プラス）ボタンは「新しいものを作成する」という意味のUIパターンとして、Google系アプリを中心に世界標準となっている。',
 			'quiz2.insight.addTitle' => '2つの操作経路が存在する',
 			'quiz2.insight.addDesc' => 'カレンダーへの予定追加は「日付を長押し」と「＋ボタンをタップ」の2種類の方法がある。使い方を知ることで操作の選択肢が広がる。',
-			'quiz3.missionText' => '当日の予定を2日後に変更しよう',
-			'quiz3.failureReason' => '当日の予定を長押しし、2日後の日付にドラッグ＆ドロップしてください',
+			'quiz3.missionText' => '当日の予定を翌日に変更しよう',
+			'quiz3.failureReason' => '当日の予定を長押しし、翌日のマスへドラッグ＆ドロップしてください',
 			'quiz3.insight.title' => 'なぜ予定を変更できた？',
 			'quiz3.insight.subtitle' => 'ドラッグ＆ドロップで素早く予定を再調整',
 			'quiz3.insight.tapTitle' => '予定をドラッグ＆ドロップする',
@@ -362,14 +362,14 @@ extension on Translations {
 			'quiz4.insight.iconDesc' => 'AppBarに表示されたカレンダーアイコンは「今日の日付を表示する」という意味を持つ。アイコンのデザインで機能を伝える典型例。',
 			'quiz4.insight.jumpTitle' => 'スクロールより「ジャンプ」が効率的',
 			'quiz4.insight.jumpDesc' => '数年後の未来や過去から現在に戻るとき、スワイプで一枚ずつ戻るより専用ボタンで直接ジャンプする方が圧倒的に速い。',
-			'common.appTitle' => 'Calendar',
-			'common.today' => 'Today',
-			'common.add' => 'Add',
-			'common.save' => 'Save',
-			'common.cancel' => 'Cancel',
-			'common.newEvent' => 'New Event',
-			'common.eventTitle' => 'Event Title',
-			'common.addEventTitle' => 'Add Event',
+			'common.appTitle' => 'カレンダー',
+			'common.today' => '今日',
+			'common.add' => '追加',
+			'common.save' => '保存',
+			'common.cancel' => 'キャンセル',
+			'common.newEvent' => '新しいイベント',
+			'common.eventTitle' => 'イベントタイトル',
+			'common.addEventTitle' => 'イベントを追加',
 			'common.weekdays.0' => '月',
 			'common.weekdays.1' => '火',
 			'common.weekdays.2' => '水',

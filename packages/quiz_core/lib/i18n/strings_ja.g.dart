@@ -824,8 +824,8 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: '15日に新しい予定を追加してください'
 	String get calendar_quiz2 => '15日に新しい予定を追加してください';
 
-	/// ja: '会議の予定を翌日に移動してください'
-	String get calendar_quiz3 => '会議の予定を翌日に移動してください';
+	/// ja: '歯医者の予定を翌日に移動してください'
+	String get calendar_quiz3 => '歯医者の予定を翌日に移動してください';
 
 	/// ja: '数年先に移動した後、今日の日付に戻ってください'
 	String get calendar_quiz4 => '数年先に移動した後、今日の日付に戻ってください';
@@ -1133,7 +1133,7 @@ extension on Translations {
 			'play.stageDescription.news_quiz4' => '映画レビュー記事のメニューから非表示にしてください',
 			'play.stageDescription.calendar_quiz1' => 'カレンダーを操作して翌月の予定を確認してください',
 			'play.stageDescription.calendar_quiz2' => '15日に新しい予定を追加してください',
-			'play.stageDescription.calendar_quiz3' => '会議の予定を翌日に移動してください',
+			'play.stageDescription.calendar_quiz3' => '歯医者の予定を翌日に移動してください',
 			'play.stageDescription.calendar_quiz4' => '数年先に移動した後、今日の日付に戻ってください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',

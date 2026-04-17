@@ -65,7 +65,7 @@
     "eventTitle": "イベントタイトル",
     "addEventTitle": "イベントを追加",
     "weekdays": ["月", "火", "水", "木", "金", "土", "日"],
-    "dateLabel": "{month}月{day}日（{weekday}）",
+    "dateLabel": "$month月$day日（$weekday）",
     "eventInterview": "面接",
     "eventParty": "飲み会",
     "eventMeeting": "ミーティング",

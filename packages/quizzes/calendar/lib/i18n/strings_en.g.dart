@@ -66,7 +66,7 @@ class _TranslationsQuiz2En extends TranslationsQuiz2Ja {
 
 	// Translations
 	@override String get missionText => 'Add a new event on the 15th';
-	@override String get failureReason => 'Long press the 15th cell or use the + button in the bottom right to add an event';
+	@override String get failureReason => 'Long press the 15th cell to add an event';
 	@override late final _TranslationsQuiz2InsightEn insight = _TranslationsQuiz2InsightEn._(_root);
 }
 
@@ -77,8 +77,8 @@ class _TranslationsQuiz3En extends TranslationsQuiz3Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Add a new event 2 days from now';
-	@override String get failureReason => 'Tap the date 2 days from now or use the + button to add an event';
+	@override String get missionText => 'Move the event to tomorrow';
+	@override String get failureReason => 'Long press the event and drag & drop it to the next day';
 	@override late final _TranslationsQuiz3InsightEn insight = _TranslationsQuiz3InsightEn._(_root);
 }
 
@@ -169,14 +169,14 @@ class _TranslationsQuiz3InsightEn extends TranslationsQuiz3InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you add an event 2 days from now?';
-	@override String get subtitle => 'Tapping a date to add events is intuitive';
-	@override String get tapTitle => 'Tap a date to add an event';
-	@override String get tapDesc => 'Tapping a calendar date lets you add an event for that day. This works not just for today, but for any future date with the same operation.';
-	@override String get futureTitle => 'You can schedule events on future dates';
-	@override String get futureDesc => 'Smartphone calendars let you register events for any date — days, weeks, or months ahead. Pre-entering future plans is the foundation of schedule management.';
-	@override String get planTitle => 'Proactive planning improves your performance';
-	@override String get planDesc => 'Registering what you need to do \'2 days from now\' lets you prepare in advance. The habit of entering events immediately helps you stay organized.';
+	@override String get title => 'How did you move the event to the next day?';
+	@override String get subtitle => 'Drag & drop is intuitive for moving events';
+	@override String get tapTitle => 'Long press and drag to move events';
+	@override String get tapDesc => 'Long pressing an event lets you drag it to a new date. This works for rescheduling existing events to different days.';
+	@override String get futureTitle => 'You can reschedule events to future dates';
+	@override String get futureDesc => 'Smartphone calendars let you move events to any date — days, weeks, or months ahead. Adjusting schedules is key to effective time management.';
+	@override String get planTitle => 'Flexible planning improves your adaptability';
+	@override String get planDesc => 'Moving what you need to do to the next day lets you adjust plans as needed. The ability to reschedule events helps you stay organized amidst changes.';
 }
 
 // Path: quiz4.insight
@@ -215,7 +215,7 @@ extension on TranslationsEn {
 			'quiz1.insight.gestureTitle' => 'You can operate even hidden UI',
 			'quiz1.insight.gestureDesc' => 'Even without a \'Next Month\' button on screen, you can navigate using swipe gestures. This is one of the defining features of smartphone UI design.',
 			'quiz2.missionText' => 'Add a new event on the 15th',
-			'quiz2.failureReason' => 'Long press the 15th cell or use the + button in the bottom right to add an event',
+			'quiz2.failureReason' => 'Long press the 15th cell to add an event',
 			'quiz2.insight.title' => 'How could you add by long pressing?',
 			'quiz2.insight.subtitle' => 'Long press reveals hidden action menus',
 			'quiz2.insight.longPressTitle' => 'Long press opens a context menu',
@@ -224,16 +224,16 @@ extension on TranslationsEn {
 			'quiz2.insight.fabDesc' => 'The + (plus) button in the bottom right is a UI pattern that means \'create something new\', which has become a world standard centered around Google apps.',
 			'quiz2.insight.addTitle' => 'Two operation paths exist',
 			'quiz2.insight.addDesc' => 'Adding an event to the calendar can be done in two ways: \'long press a date\' or \'tap the + button\'. Knowing both expands your operational choices.',
-			'quiz3.missionText' => 'Add a new event 2 days from now',
-			'quiz3.failureReason' => 'Tap the date 2 days from now or use the + button to add an event',
-			'quiz3.insight.title' => 'How did you add an event 2 days from now?',
-			'quiz3.insight.subtitle' => 'Tapping a date to add events is intuitive',
-			'quiz3.insight.tapTitle' => 'Tap a date to add an event',
-			'quiz3.insight.tapDesc' => 'Tapping a calendar date lets you add an event for that day. This works not just for today, but for any future date with the same operation.',
-			'quiz3.insight.futureTitle' => 'You can schedule events on future dates',
-			'quiz3.insight.futureDesc' => 'Smartphone calendars let you register events for any date — days, weeks, or months ahead. Pre-entering future plans is the foundation of schedule management.',
-			'quiz3.insight.planTitle' => 'Proactive planning improves your performance',
-			'quiz3.insight.planDesc' => 'Registering what you need to do \'2 days from now\' lets you prepare in advance. The habit of entering events immediately helps you stay organized.',
+			'quiz3.missionText' => 'Move the event to tomorrow',
+			'quiz3.failureReason' => 'Long press the event and drag & drop it to the next day',
+			'quiz3.insight.title' => 'How did you move the event to the next day?',
+			'quiz3.insight.subtitle' => 'Drag & drop is intuitive for moving events',
+			'quiz3.insight.tapTitle' => 'Long press and drag to move events',
+			'quiz3.insight.tapDesc' => 'Long pressing an event lets you drag it to a new date. This works for rescheduling existing events to different days.',
+			'quiz3.insight.futureTitle' => 'You can reschedule events to future dates',
+			'quiz3.insight.futureDesc' => 'Smartphone calendars let you move events to any date — days, weeks, or months ahead. Adjusting schedules is key to effective time management.',
+			'quiz3.insight.planTitle' => 'Flexible planning improves your adaptability',
+			'quiz3.insight.planDesc' => 'Moving what you need to do to the next day lets you adjust plans as needed. The ability to reschedule events helps you stay organized amidst changes.',
 			'quiz4.missionText' => 'Got lost! Return to \'today\' instantly',
 			'quiz4.failureReason' => 'Tap the calendar icon (Today) button in the AppBar',
 			'quiz4.insight.title' => 'How could you return to \'today\' so quickly?',

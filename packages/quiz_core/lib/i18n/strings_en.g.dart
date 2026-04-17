@@ -442,7 +442,7 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get news_quiz4 => 'Hide the movie review article from the menu';
 	@override String get calendar_quiz1 => 'Use the calendar to check the events for next month';
 	@override String get calendar_quiz2 => 'Add a new event on the 15th';
-	@override String get calendar_quiz3 => 'Move the meeting event to the next day';
+	@override String get calendar_quiz3 => 'Move the dentist appointment to the next day';
 	@override String get calendar_quiz4 => 'After navigating years ahead, return to today\'s date';
 }
 
@@ -686,7 +686,7 @@ extension on TranslationsEn {
 			'play.stageDescription.news_quiz4' => 'Hide the movie review article from the menu',
 			'play.stageDescription.calendar_quiz1' => 'Use the calendar to check the events for next month',
 			'play.stageDescription.calendar_quiz2' => 'Add a new event on the 15th',
-			'play.stageDescription.calendar_quiz3' => 'Move the meeting event to the next day',
+			'play.stageDescription.calendar_quiz3' => 'Move the dentist appointment to the next day',
 			'play.stageDescription.calendar_quiz4' => 'After navigating years ahead, return to today\'s date',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
