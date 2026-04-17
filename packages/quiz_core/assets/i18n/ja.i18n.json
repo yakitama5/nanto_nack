@@ -112,7 +112,8 @@
       "alarm": "アラーム",
       "payment": "決済",
       "mail": "メール",
-      "news": "ニュース"
+      "news": "ニュース",
+      "calendar": "カレンダー"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -122,7 +123,8 @@
       "alarm": "時計・アラームアプリのUI/UXを体験しよう",
       "payment": "モバイル決済アプリのUI/UXを体験しよう",
       "mail": "メールアプリのUI/UXを体験しよう",
-      "news": "ニュースアプリのUI/UXを体験しよう"
+      "news": "ニュースアプリのUI/UXを体験しよう",
+      "calendar": "カレンダーアプリのUI/UXを体験しよう"
     },
     "stageTitle": {
       "shopping_water": "水を2つ買おう",
@@ -156,7 +158,11 @@
       "news_quiz1": "ニュースを更新しよう",
       "news_quiz2": "スポーツカテゴリを表示しよう",
       "news_quiz3": "文字サイズを『大』に変えよう",
-      "news_quiz4": "気になる記事を非表示にしよう"
+      "news_quiz4": "気になる記事を非表示にしよう",
+      "calendar_quiz1": "来月の予定を見よう",
+      "calendar_quiz2": "予定を素早く追加しよう",
+      "calendar_quiz3": "予定の日付を変えよう",
+      "calendar_quiz4": "一瞬で「今日」に戻ろう"
     },
     "stageDescription": {
       "shopping_water": "ECサイトで水を2つカートに入れて購入してください",
@@ -190,7 +196,11 @@
       "news_quiz1": "ニュース一覧を引っ張って更新してください",
       "news_quiz2": "タブをスワイプまたはタップして『スポーツ』を表示してください",
       "news_quiz3": "記事を開き、文字サイズを『大』に変更してください",
-      "news_quiz4": "映画レビュー記事のメニューから非表示にしてください"
+      "news_quiz4": "映画レビュー記事のメニューから非表示にしてください",
+      "calendar_quiz1": "カレンダーを操作して翌月の予定を確認してください",
+      "calendar_quiz2": "15日に新しい予定を追加してください",
+      "calendar_quiz3": "会議の予定を翌日に移動してください",
+      "calendar_quiz4": "数年先に移動した後、今日の日付に戻ってください"
     }
   },
   "scene": {

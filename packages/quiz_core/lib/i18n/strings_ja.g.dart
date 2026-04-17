@@ -556,6 +556,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: 'ニュース'
 	String get news => 'ニュース';
+
+	/// ja: 'カレンダー'
+	String get calendar => 'カレンダー';
 }
 
 // Path: play.categoryDescription
@@ -589,6 +592,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: 'ニュースアプリのUI/UXを体験しよう'
 	String get news => 'ニュースアプリのUI/UXを体験しよう';
+
+	/// ja: 'カレンダーアプリのUI/UXを体験しよう'
+	String get calendar => 'カレンダーアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -694,6 +700,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '気になる記事を非表示にしよう'
 	String get news_quiz4 => '気になる記事を非表示にしよう';
+
+	/// ja: '来月の予定を見よう'
+	String get calendar_quiz1 => '来月の予定を見よう';
+
+	/// ja: '予定を素早く追加しよう'
+	String get calendar_quiz2 => '予定を素早く追加しよう';
+
+	/// ja: '予定の日付を変えよう'
+	String get calendar_quiz3 => '予定の日付を変えよう';
+
+	/// ja: '一瞬で「今日」に戻ろう'
+	String get calendar_quiz4 => '一瞬で「今日」に戻ろう';
 }
 
 // Path: play.stageDescription
@@ -785,8 +803,8 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: 'メールアプリで3件のメールを選択して削除してください'
 	String get mail_quiz3 => 'メールアプリで3件のメールを選択して削除してください';
 
-	/// ja: 'メールアプリで5Mバイト以上のメールを検索してください'
-	String get mail_quiz4 => 'メールアプリで5Mバイト以上のメールを検索してください';
+	/// ja: 'メールアプリで5MB以上のメールを検索してください'
+	String get mail_quiz4 => 'メールアプリで5MB以上のメールを検索してください';
 
 	/// ja: 'ニュース一覧を引っ張って更新してください'
 	String get news_quiz1 => 'ニュース一覧を引っ張って更新してください';
@@ -799,6 +817,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '映画レビュー記事のメニューから非表示にしてください'
 	String get news_quiz4 => '映画レビュー記事のメニューから非表示にしてください';
+
+	/// ja: 'カレンダーを操作して翌月の予定を確認してください'
+	String get calendar_quiz1 => 'カレンダーを操作して翌月の予定を確認してください';
+
+	/// ja: '15日に新しい予定を追加してください'
+	String get calendar_quiz2 => '15日に新しい予定を追加してください';
+
+	/// ja: '会議の予定を翌日に移動してください'
+	String get calendar_quiz3 => '会議の予定を翌日に移動してください';
+
+	/// ja: '数年先に移動した後、今日の日付に戻ってください'
+	String get calendar_quiz4 => '数年先に移動した後、今日の日付に戻ってください';
 }
 
 // Path: scene.greeting
@@ -1023,6 +1053,7 @@ extension on Translations {
 			'play.categoryLabel.payment' => '決済',
 			'play.categoryLabel.mail' => 'メール',
 			'play.categoryLabel.news' => 'ニュース',
+			'play.categoryLabel.calendar' => 'カレンダー',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1031,6 +1062,7 @@ extension on Translations {
 			'play.categoryDescription.payment' => 'モバイル決済アプリのUI/UXを体験しよう',
 			'play.categoryDescription.mail' => 'メールアプリのUI/UXを体験しよう',
 			'play.categoryDescription.news' => 'ニュースアプリのUI/UXを体験しよう',
+			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_water' => '水を2つ買おう',
 			'play.stageTitle.shopping_checkout' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_reorder' => '直近の注文を再注文しよう',
@@ -1063,6 +1095,10 @@ extension on Translations {
 			'play.stageTitle.news_quiz2' => 'スポーツカテゴリを表示しよう',
 			'play.stageTitle.news_quiz3' => '文字サイズを『大』に変えよう',
 			'play.stageTitle.news_quiz4' => '気になる記事を非表示にしよう',
+			'play.stageTitle.calendar_quiz1' => '来月の予定を見よう',
+			'play.stageTitle.calendar_quiz2' => '予定を素早く追加しよう',
+			'play.stageTitle.calendar_quiz3' => '予定の日付を変えよう',
+			'play.stageTitle.calendar_quiz4' => '一瞬で「今日」に戻ろう',
 			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1090,11 +1126,15 @@ extension on Translations {
 			'play.stageDescription.mail_quiz1' => 'メールアプリで3番目のメールをアーカイブしてください',
 			'play.stageDescription.mail_quiz2' => 'メールアプリでゴミ箱を空にしてください',
 			'play.stageDescription.mail_quiz3' => 'メールアプリで3件のメールを選択して削除してください',
-			'play.stageDescription.mail_quiz4' => 'メールアプリで5Mバイト以上のメールを検索してください',
+			'play.stageDescription.mail_quiz4' => 'メールアプリで5MB以上のメールを検索してください',
 			'play.stageDescription.news_quiz1' => 'ニュース一覧を引っ張って更新してください',
 			'play.stageDescription.news_quiz2' => 'タブをスワイプまたはタップして『スポーツ』を表示してください',
 			'play.stageDescription.news_quiz3' => '記事を開き、文字サイズを『大』に変更してください',
 			'play.stageDescription.news_quiz4' => '映画レビュー記事のメニューから非表示にしてください',
+			'play.stageDescription.calendar_quiz1' => 'カレンダーを操作して翌月の予定を確認してください',
+			'play.stageDescription.calendar_quiz2' => '15日に新しい予定を追加してください',
+			'play.stageDescription.calendar_quiz3' => '会議の予定を翌日に移動してください',
+			'play.stageDescription.calendar_quiz4' => '数年先に移動した後、今日の日付に戻ってください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

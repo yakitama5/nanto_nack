@@ -112,7 +112,8 @@
       "alarm": "Alarm",
       "payment": "Payment",
       "mail": "Mail",
-      "news": "News"
+      "news": "News",
+      "calendar": "Calendar"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -122,7 +123,8 @@
       "alarm": "Experience clock & alarm app UI/UX",
       "payment": "Experience mobile payment app UI/UX",
       "mail": "Experience email app UI/UX",
-      "news": "Experience news app UI/UX"
+      "news": "Experience news app UI/UX",
+      "calendar": "Experience calendar app UI/UX"
     },
     "stageTitle": {
       "shopping_water": "Buy 2 Waters",
@@ -156,7 +158,11 @@
       "news_quiz1": "Refresh the News",
       "news_quiz2": "Show Sports Category",
       "news_quiz3": "Change Font Size to Large",
-      "news_quiz4": "Hide an Unwanted Article"
+      "news_quiz4": "Hide an Unwanted Article",
+      "calendar_quiz1": "View Next Month Events",
+      "calendar_quiz2": "Add an Event Quickly",
+      "calendar_quiz3": "Change Event Date",
+      "calendar_quiz4": "Return to Today Instantly"
     },
     "stageDescription": {
       "shopping_water": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -190,7 +196,11 @@
       "news_quiz1": "Pull down to refresh the news feed",
       "news_quiz2": "Swipe or tap the tab to show Sports",
       "news_quiz3": "Open an article and change the font size to Large",
-      "news_quiz4": "Hide the movie review article from the menu"
+      "news_quiz4": "Hide the movie review article from the menu",
+      "calendar_quiz1": "Use the calendar to check the events for next month",
+      "calendar_quiz2": "Add a new event on the 15th",
+      "calendar_quiz3": "Move the meeting event to the next day",
+      "calendar_quiz4": "After navigating years ahead, return to today's date"
     }
   },
   "scene": {

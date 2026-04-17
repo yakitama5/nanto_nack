@@ -335,6 +335,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get payment => 'Payment';
 	@override String get mail => 'Mail';
 	@override String get news => 'News';
+	@override String get calendar => 'Calendar';
 }
 
 // Path: play.categoryDescription
@@ -352,6 +353,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get payment => 'Experience mobile payment app UI/UX';
 	@override String get mail => 'Experience email app UI/UX';
 	@override String get news => 'Experience news app UI/UX';
+	@override String get calendar => 'Experience calendar app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -393,6 +395,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get news_quiz2 => 'Show Sports Category';
 	@override String get news_quiz3 => 'Change Font Size to Large';
 	@override String get news_quiz4 => 'Hide an Unwanted Article';
+	@override String get calendar_quiz1 => 'View Next Month Events';
+	@override String get calendar_quiz2 => 'Add an Event Quickly';
+	@override String get calendar_quiz3 => 'Change Event Date';
+	@override String get calendar_quiz4 => 'Return to Today Instantly';
 }
 
 // Path: play.stageDescription
@@ -434,6 +440,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get news_quiz2 => 'Swipe or tap the tab to show Sports';
 	@override String get news_quiz3 => 'Open an article and change the font size to Large';
 	@override String get news_quiz4 => 'Hide the movie review article from the menu';
+	@override String get calendar_quiz1 => 'Use the calendar to check the events for next month';
+	@override String get calendar_quiz2 => 'Add a new event on the 15th';
+	@override String get calendar_quiz3 => 'Move the meeting event to the next day';
+	@override String get calendar_quiz4 => 'After navigating years ahead, return to today\'s date';
 }
 
 // Path: scene.greeting
@@ -596,6 +606,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.payment' => 'Payment',
 			'play.categoryLabel.mail' => 'Mail',
 			'play.categoryLabel.news' => 'News',
+			'play.categoryLabel.calendar' => 'Calendar',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -604,6 +615,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.payment' => 'Experience mobile payment app UI/UX',
 			'play.categoryDescription.mail' => 'Experience email app UI/UX',
 			'play.categoryDescription.news' => 'Experience news app UI/UX',
+			'play.categoryDescription.calendar' => 'Experience calendar app UI/UX',
 			'play.stageTitle.shopping_water' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_checkout' => 'Complete Checkout',
 			'play.stageTitle.shopping_reorder' => 'Reorder Recent Purchase',
@@ -636,6 +648,10 @@ extension on TranslationsEn {
 			'play.stageTitle.news_quiz2' => 'Show Sports Category',
 			'play.stageTitle.news_quiz3' => 'Change Font Size to Large',
 			'play.stageTitle.news_quiz4' => 'Hide an Unwanted Article',
+			'play.stageTitle.calendar_quiz1' => 'View Next Month Events',
+			'play.stageTitle.calendar_quiz2' => 'Add an Event Quickly',
+			'play.stageTitle.calendar_quiz3' => 'Change Event Date',
+			'play.stageTitle.calendar_quiz4' => 'Return to Today Instantly',
 			'play.stageDescription.shopping_water' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_checkout' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_reorder' => 'Reorder the most recently purchased item from order history',
@@ -668,6 +684,10 @@ extension on TranslationsEn {
 			'play.stageDescription.news_quiz2' => 'Swipe or tap the tab to show Sports',
 			'play.stageDescription.news_quiz3' => 'Open an article and change the font size to Large',
 			'play.stageDescription.news_quiz4' => 'Hide the movie review article from the menu',
+			'play.stageDescription.calendar_quiz1' => 'Use the calendar to check the events for next month',
+			'play.stageDescription.calendar_quiz2' => 'Add a new event on the 15th',
+			'play.stageDescription.calendar_quiz3' => 'Move the meeting event to the next day',
+			'play.stageDescription.calendar_quiz4' => 'After navigating years ahead, return to today\'s date',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',
