@@ -188,7 +188,7 @@ class $QuizResultsTable extends QuizResults
 }
 
 class QuizResult extends DataClass implements Insertable<QuizResult> {
-  /// クイズID (例: 'shopping_water')
+  /// クイズID (例: 'shopping_quiz1')
   final String quizId;
 
   /// クリア済みかどうか
@@ -965,7 +965,7 @@ class PlayLog extends DataClass implements Insertable<PlayLog> {
   /// ログID（自動採番）
   final int id;
 
-  /// クイズID (例: 'shopping_water')
+  /// クイズID (例: 'shopping_quiz1')
   final String quizId;
 
   /// クリアできたかどうか
