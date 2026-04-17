@@ -1,0 +1,96 @@
+{
+  "quiz1": {
+    "missionText": "Xmvqk ktpln fzr wbn qrs",
+    "insight": {
+      "title": "Wzky blx rmpt?",
+      "subtitle": "Dbl tp = lk",
+      "doubleTapTitle": "Dbl Tp Shrtct",
+      "doubleTapDesc": "Dbl tp on img to lk. No btn needed.",
+      "heartTitle": "Hrt Anmtn",
+      "heartDesc": "Lrg hrt on ctr of img cnfrms.",
+      "gestureTitle": "Unvrsl Gstre",
+      "gestureDesc": "Wrks acrss mny apps."
+    }
+  },
+  "quiz2": {
+    "missionText": "Cls flscn img rtrn",
+    "insight": {
+      "title": "Dwn swp cls?",
+      "subtitle": "Swp dwn = cls",
+      "swipeTitle": "Swp Dwn Cls",
+      "swipeDesc": "Swp dwn on flscn img to cls.",
+      "fullscreenTitle": "Flscn Opn Tp",
+      "fullscreenDesc": "Tp img to opn flscn.",
+      "backTitle": "No X Btn Ndd",
+      "backDesc": "Swp to cls wthout X btn."
+    }
+  },
+  "quiz3": {
+    "missionText": "Jmp tp inst",
+    "insight": {
+      "title": "Fst tp rttn?",
+      "subtitle": "Sttsbr/Hm tp = tp",
+      "statusBarTitle": "Sttsbr Tp",
+      "statusBarDesc": "Tp sttsbr to scrl tp.",
+      "homeTabTitle": "Hm Tb Re-Tp",
+      "homeTabDesc": "Re-tp hm tb to scrl tp.",
+      "efficientTitle": "Jmp Fstr Scrl",
+      "efficientDesc": "Jmp shrtct mch fstr thn scrlng."
+    }
+  },
+  "quiz4": {
+    "missionText": "Swch sub acct",
+    "insight": {
+      "title": "Lng prs swch?",
+      "subtitle": "Lng prs prfl = swch",
+      "longPressTitle": "Lng Prs Prfl",
+      "longPressDesc": "Lng prs prfl icn shws acct mnu.",
+      "subAccountTitle": "Sub Acct Spr",
+      "subAccountDesc": "Sub acct fr hbbs/anon.",
+      "multiAccountTitle": "Mlti Acct Skll",
+      "multiAccountDesc": "Mstr acct swching."
+    }
+  },
+  "common": {
+    "appTitle": "NnTwt",
+    "home": "Hm",
+    "search": "Srch",
+    "notifications": "Ntfs",
+    "profile": "Prfl",
+    "mainAccountName": "Nn Usr",
+    "mainAccountId": "@nn_usr",
+    "subAccountName": "Nn Alt",
+    "subAccountId": "@nn_alt",
+    "switchAccountLabel": "Swch Acct",
+    "post1UserName": "Nn Nyn",
+    "post1UserId": "@nn_nyn",
+    "post1Content": "Ct pht tdy 🐱",
+    "post2UserName": "Nn Wnk",
+    "post2UserId": "@nn_wnk",
+    "post2Content": "Wlk rtnd 🐶",
+    "post3UserName": "Nn Py",
+    "post3UserId": "@nn_py",
+    "post3Content": "Py py! Enrgy 🐥",
+    "post4UserName": "Nn Us",
+    "post4UserId": "@nn_us",
+    "post4Content": "Crrt tdy 🥕",
+    "post5UserName": "Nn Hm",
+    "post5UserId": "@nn_hm",
+    "post5Content": "Whl spng 🐹",
+    "post6UserName": "Nn Km",
+    "post6UserId": "@nn_km",
+    "post6Content": "Sn bth 🐢",
+    "post7UserName": "Nn Sk",
+    "post7UserId": "@nn_sk",
+    "post7Content": "Tnk cln 🐟",
+    "post8UserName": "Nn Sz",
+    "post8UserId": "@nn_sz",
+    "post8Content": "Twt twt 🐦",
+    "post9UserName": "Nn Nk2",
+    "post9UserId": "@nn_nk2",
+    "post9Content": "Np tm 😴",
+    "post10UserName": "Nn Km2",
+    "post10UserId": "@nn_km2",
+    "post10Content": "Hny crv 🍯"
+  }
+}

@@ -70,3 +70,10 @@ const String kCalendarQuiz1Path = '/play/calendar/quiz1';
 const String kCalendarQuiz2Path = '/play/calendar/quiz2';
 const String kCalendarQuiz3Path = '/play/calendar/quiz3';
 const String kCalendarQuiz4Path = '/play/calendar/quiz4';
+
+// SNS
+const String kSnsListPath = '/play/sns';
+const String kSnsQuiz1Path = '/play/sns/quiz1';
+const String kSnsQuiz2Path = '/play/sns/quiz2';
+const String kSnsQuiz3Path = '/play/sns/quiz3';
+const String kSnsQuiz4Path = '/play/sns/quiz4';

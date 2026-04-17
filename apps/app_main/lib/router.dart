@@ -13,6 +13,7 @@ import 'presentation/support/support_screen.dart';
 import 'router/alarm_router.dart';
 import 'router/calendar_router.dart';
 import 'router/chat_router.dart';
+import 'router/sns_router.dart';
 import 'router/mail_router.dart';
 import 'router/map_router.dart';
 import 'router/news_router.dart';
@@ -67,6 +68,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           ...mailRoutes,
           ...newsRoutes,
           ...calendarRoutes,
+          ...snsRoutes,
         ],
       ),
       GoRoute(

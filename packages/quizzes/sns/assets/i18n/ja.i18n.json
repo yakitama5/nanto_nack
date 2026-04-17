@@ -1,0 +1,96 @@
+{
+  "quiz1": {
+    "missionText": "タイムラインに流れてきた猫の写真に「いいね」をしよう",
+    "insight": {
+      "title": "なぜダブルタップでいいねできた？",
+      "subtitle": "ダブルタップ＝「いいね」はSNSの定番操作",
+      "doubleTapTitle": "ダブルタップは「いいね」のショートカット",
+      "doubleTapDesc": "X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいね」できる。ハートボタンを探す必要がなく、直感的に操作できる。",
+      "heartTitle": "ハートアニメーションが操作を確認させる",
+      "heartDesc": "ダブルタップすると画像中央に大きなハートが表示される。これはフィードバックアニメーションと呼ばれ、操作が正しく認識されたことをユーザーに伝える仕組み。",
+      "gestureTitle": "SNSジェスチャーは世界共通の操作",
+      "gestureDesc": "InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいね」が共通操作になっている。一度覚えれば複数のアプリで活用できる。"
+    }
+  },
+  "quiz2": {
+    "missionText": "全画面で開いた画像を閉じて、タイムラインに戻ろう",
+    "insight": {
+      "title": "なぜ下にスワイプで閉じられた？",
+      "subtitle": "下スワイプ＝「戻る・閉じる」の直感操作",
+      "swipeTitle": "下スワイプは「閉じる」の直感ジェスチャー",
+      "swipeDesc": "全画面表示された画像を下に向かってスワイプ（フリック）すると、元の画面に戻れる。重力を意識した「落とす」感覚が「閉じる」動作と結びついている。",
+      "fullscreenTitle": "全画面モードはタップで開く",
+      "fullscreenDesc": "SNSアプリでは投稿の画像をタップすると全画面モードで表示される。ピンチアウトで拡大したり、より詳しく見ることができる。",
+      "backTitle": "「×ボタン」がなくても閉じられる",
+      "backDesc": "スマートフォンのUIでは×ボタンがなくても、スワイプジェスチャーで画面を閉じることができる。操作の手がかりがなくても試してみることが重要。"
+    }
+  },
+  "quiz3": {
+    "missionText": "昔の投稿を読みすぎた！一瞬で最新の投稿（一番上）に戻ろう",
+    "insight": {
+      "title": "なぜ一瞬でトップに戻れた？",
+      "subtitle": "ステータスバー・ホームタブのタップ＝先頭へ",
+      "statusBarTitle": "ステータスバーのタップは「先頭に戻る」ショートカット",
+      "statusBarDesc": "iPhoneのステータスバー（時刻表示エリア）をタップすると、多くのアプリでリストの先頭に瞬時に戻れる。長いタイムラインをスクロールして戻る手間が省ける。",
+      "homeTabTitle": "ホームタブの再タップも「先頭に戻る」操作",
+      "homeTabDesc": "すでに表示中のタブ（ホームボタン）をもう一度タップすると、タイムラインが一番上に戻る。SNSアプリに限らず多くのアプリで使えるテクニック。",
+      "efficientTitle": "スクロールより「ジャンプ」が圧倒的に速い",
+      "efficientDesc": "大量のコンテンツを一番上まで手動でスクロールするのは非効率。専用操作でトップに戻ることで、快適なアプリ体験が実現される。"
+    }
+  },
+  "quiz4": {
+    "missionText": "こっそり作っている「裏垢（サブアカウント）」に切り替えよう",
+    "insight": {
+      "title": "なぜ長押しでアカウントが切り替えられた？",
+      "subtitle": "プロフィールアイコンの長押し＝アカウント切り替え",
+      "longPressTitle": "プロフィールアイコンの長押しでアカウント選択",
+      "longPressDesc": "多くのSNSアプリでは、プロフィールアイコンやアバターを長押しすることでアカウント切り替えメニューが表示される。複数アカウントをすばやく使い分けられる機能。",
+      "subAccountTitle": "サブアカウントは普段使いのアカウントと分ける",
+      "subAccountDesc": "SNSではメインアカウントと趣味・匿名用のサブアカウントを使い分ける人が多い。長押し操作で素早く切り替えることで、用途に応じた使い分けが快適にできる。",
+      "multiAccountTitle": "マルチアカウント管理は現代の必須スキル",
+      "multiAccountDesc": "仕事用・プライベート用・趣味用など複数のSNSアカウントを持つことが一般化している。アカウント切り替えの操作を知ることで、SNSをより効果的に活用できる。"
+    }
+  },
+  "common": {
+    "appTitle": "NantoTweet",
+    "home": "ホーム",
+    "search": "検索",
+    "notifications": "通知",
+    "profile": "プロフィール",
+    "mainAccountName": "なんとユーザー",
+    "mainAccountId": "@nanto_user",
+    "subAccountName": "なんとの裏垢",
+    "subAccountId": "@nanto_ura",
+    "switchAccountLabel": "アカウントを切り替える",
+    "post1UserName": "なんとにゃん太",
+    "post1UserId": "@nanto_nyan",
+    "post1Content": "今日もかわいい写真が撮れた🐱",
+    "post2UserName": "なんとわん子",
+    "post2UserId": "@nanto_wanko",
+    "post2Content": "散歩から帰ってきたよ🐶",
+    "post3UserName": "なんとぴよ子",
+    "post3UserId": "@nanto_piyo",
+    "post3Content": "ぴよぴよ！元気いっぱいだよ🐥",
+    "post4UserName": "なんとうさ吉",
+    "post4UserId": "@nanto_usa",
+    "post4Content": "今日はにんじんをいっぱい食べた🥕",
+    "post5UserName": "なんとはむすけ",
+    "post5UserId": "@nanto_hamu",
+    "post5Content": "回し車が止まらない🐹",
+    "post6UserName": "なんとかめ次郎",
+    "post6UserId": "@nanto_kame",
+    "post6Content": "ゆっくりと日光浴中🐢",
+    "post7UserName": "なんとさかな男",
+    "post7UserId": "@nanto_sakana",
+    "post7Content": "水槽の掃除をしたら気持ちよさそうに泳いでいる🐟",
+    "post8UserName": "なんとすずめ",
+    "post8UserId": "@nanto_suzume",
+    "post8Content": "ちゅんちゅん！今日も元気です🐦",
+    "post9UserName": "なんとねこ平",
+    "post9UserId": "@nanto_neko2",
+    "post9Content": "お昼寝タイムです😴",
+    "post10UserName": "なんとくま太郎",
+    "post10UserId": "@nanto_kuma",
+    "post10Content": "蜂蜜を食べたくなってきた🍯"
+  }
+}

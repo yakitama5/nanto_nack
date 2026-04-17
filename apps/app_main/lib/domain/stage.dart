@@ -21,6 +21,7 @@ enum GenericQuizStage {
             QuizCategory.mail => t.play.stageTitle.mail_quiz1,
             QuizCategory.news => t.play.stageTitle.news_quiz1,
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz1,
+            QuizCategory.sns => t.play.stageTitle.sns_quiz1,
           },
         quiz2 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz2,
@@ -32,6 +33,7 @@ enum GenericQuizStage {
             QuizCategory.mail => t.play.stageTitle.mail_quiz2,
             QuizCategory.news => t.play.stageTitle.news_quiz2,
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz2,
+            QuizCategory.sns => t.play.stageTitle.sns_quiz2,
           },
         quiz3 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz3,
@@ -43,6 +45,7 @@ enum GenericQuizStage {
             QuizCategory.mail => t.play.stageTitle.mail_quiz3,
             QuizCategory.news => t.play.stageTitle.news_quiz3,
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz3,
+            QuizCategory.sns => t.play.stageTitle.sns_quiz3,
           },
         quiz4 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz4,
@@ -54,6 +57,7 @@ enum GenericQuizStage {
             QuizCategory.mail => t.play.stageTitle.mail_quiz4,
             QuizCategory.news => t.play.stageTitle.news_quiz4,
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz4,
+            QuizCategory.sns => t.play.stageTitle.sns_quiz4,
           },
       };
 
@@ -310,6 +314,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     id: 'calendar_quiz4',
     category: QuizCategory.calendar,
     routePath: kCalendarQuiz4Path,
+    difficulty: 4,
+  ),
+  // SNSカテゴリー
+  const Stage(
+    id: 'sns_quiz1',
+    category: QuizCategory.sns,
+    routePath: kSnsQuiz1Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'sns_quiz2',
+    category: QuizCategory.sns,
+    routePath: kSnsQuiz2Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'sns_quiz3',
+    category: QuizCategory.sns,
+    routePath: kSnsQuiz3Path,
+    difficulty: 3,
+  ),
+  const Stage(
+    id: 'sns_quiz4',
+    category: QuizCategory.sns,
+    routePath: kSnsQuiz4Path,
     difficulty: 4,
   ),
 ]);
