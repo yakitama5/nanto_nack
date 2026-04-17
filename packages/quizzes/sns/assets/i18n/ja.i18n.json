@@ -94,6 +94,7 @@
     "post10Content": "蜂蜜を食べたくなってきた🍯",
     "post": "投稿する",
     "cancel": "キャンセル",
-    "composeHint": "いまどうしてる？"
+    "composeHint": "いまどうしてる？",
+    "composePlaceholder": "投稿画面 (Twitter風UI実装予定)"
   }
 }

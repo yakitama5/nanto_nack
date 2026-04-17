@@ -170,7 +170,7 @@ class SnsQuizNotifier
     );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } on Exception catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       appLogger.e('giveUp save failed', error: error, stackTrace: stackTrace);
     }
   }
@@ -215,9 +215,12 @@ class SnsQuizNotifier
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizTimeUp(quizId: arg.quizId),
+    );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } on Exception catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       appLogger.e('timeUp save failed', error: error, stackTrace: stackTrace);
     }
   }
@@ -256,7 +259,7 @@ class SnsQuizNotifier
     hapticFeedback.playSuccessFeedback();
     try {
       await _saveResult(isCleared: true, elapsedMs: elapsed);
-    } on Exception catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       appLogger.e(
         'clearQuiz save failed',
         error: error,

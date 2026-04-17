@@ -1077,12 +1077,18 @@ class _SearchViewState extends ConsumerState<_SearchView> {
   }
 }
 
-class _ComposeView extends StatelessWidget {
+/// TODO: この画面は現在未使用（currentIndex が 2 になるパスが存在しない）
+/// 将来的に投稿機能の拡張が必要な場合に使用する予定
+class _ComposeView extends ConsumerWidget {
   const _ComposeView();
 
   @override
-  Widget build(BuildContext context) =>
-      const Center(child: Text("投稿画面 (Twitter風UI実装予定)"));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sq = context.sq;
+    return Center(
+      child: Text(sq.common.composePlaceholder),
+    );
+  }
 }
 
 class _AccountSwitchSheet extends StatelessWidget {

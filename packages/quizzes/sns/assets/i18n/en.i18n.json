@@ -94,6 +94,7 @@
     "post10Content": "I'm starting to crave some honey 🍯",
     "post": "Post",
     "cancel": "Cancel",
-    "composeHint": "What's happening?"
+    "composeHint": "What's happening?",
+    "composePlaceholder": "Compose screen (Twitter-like UI planned)"
   }
 }

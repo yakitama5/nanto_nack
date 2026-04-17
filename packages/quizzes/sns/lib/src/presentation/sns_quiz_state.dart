@@ -26,6 +26,9 @@ class SnsQuizState extends QuizStateBase {
     required this.searchText,
   });
 
+  /// copyWith で nullable フィールドを明示的に null にするための番兵値
+  static const Object _sentinel = Object();
+
   /// 初期状態を生成する
   factory SnsQuizState.initial(SnsQuizType quizType) {
     final posts = SnsCatalog.initialPostsFor(quizType);
@@ -78,15 +81,18 @@ class SnsQuizState extends QuizStateBase {
   final String searchText;
 
   /// 指定フィールドを差し替えた新インスタンスを返す
+  ///
+  /// nullable フィールド (fullScreenImageUrl, startedAt) を明示的に null にするには、
+  /// 番兵値 _sentinel を使用する。
   SnsQuizState copyWith({
     QuizStatus? status,
     int? failureCount,
     int? elapsedMs,
-    DateTime? startedAt,
+    Object? startedAt = _sentinel,
     List<SnsPost>? posts,
     String? currentAccount,
     bool? isFullScreenImageOpened,
-    String? fullScreenImageUrl,
+    Object? fullScreenImageUrl = _sentinel,
     int? remainingSeconds,
     bool? scrollToTopRequested,
     int? currentIndex,
@@ -97,12 +103,16 @@ class SnsQuizState extends QuizStateBase {
       status: status ?? this.status,
       failureCount: failureCount ?? this.failureCount,
       elapsedMs: elapsedMs ?? this.elapsedMs,
-      startedAt: startedAt ?? this.startedAt,
+      startedAt: identical(startedAt, _sentinel)
+          ? this.startedAt
+          : startedAt as DateTime?,
       posts: posts != null ? List.unmodifiable(posts) : this.posts,
       currentAccount: currentAccount ?? this.currentAccount,
       isFullScreenImageOpened:
           isFullScreenImageOpened ?? this.isFullScreenImageOpened,
-      fullScreenImageUrl: fullScreenImageUrl ?? this.fullScreenImageUrl,
+      fullScreenImageUrl: identical(fullScreenImageUrl, _sentinel)
+          ? this.fullScreenImageUrl
+          : fullScreenImageUrl as String?,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       scrollToTopRequested: scrollToTopRequested ?? this.scrollToTopRequested,
       currentIndex: currentIndex ?? this.currentIndex,

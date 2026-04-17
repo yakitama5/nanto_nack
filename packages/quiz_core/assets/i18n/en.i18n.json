@@ -208,9 +208,9 @@
       "calendar_quiz3": "Move the dentist appointment to the next day",
       "calendar_quiz4": "After navigating years ahead, return to today's date",
       "sns_quiz1": "Double tap the cat photo to like it",
-      "sns_quiz2": "Swipe down to close the fullscreen image",
-      "sns_quiz3": "Scroll back to the top of the timeline instantly",
-      "sns_quiz4": "Long press the profile icon to switch to your sub account"
+      "sns_quiz2": "Post something in the SNS app",
+      "sns_quiz3": "Open an image in fullscreen, then swipe down to close and return to the previous screen",
+      "sns_quiz4": "Search for Nantom's (@nantom) posts in the SNS app"
     }
   },
   "scene": {

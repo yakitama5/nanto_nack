@@ -170,7 +170,7 @@ class NantoNackThemeExtension
     calendarCategoryColor: Color(0xFF4DD0E1),
     calendarCategoryContainerColor: Color(0xFF002A2E),
     snsCategoryColor: Color(0xFF64B5F6),
-    snsCategoryContainerColor: Color(0xFF0D2137),
+    snsCategoryContainerColor: Color(0xFF0A2A3D),
   );
 
   @override
