@@ -32,7 +32,7 @@ class CalendarQuizScreen extends ConsumerStatefulWidget {
 
 class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
   bool _showCutIn = true;
-  CrCalendarController? _calendarController;
+  late final CrCalendarController _calendarController;
 
   @override
   void initState() {
@@ -48,13 +48,19 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
   }
 
   /// 日付タップ → その日のボトムシートを表示（TimeTree風）
-  Future<void> _onDayTapped(
-    DateTime date,
-    List<CalendarEvent> eventsForDay,
-  ) async {
+  Future<void> _onDayTapped(DateTime date) async {
+    final state = ref.read(calendarQuizNotifierProvider(widget.quizType));
     final notifier = ref.read(
       calendarQuizNotifierProvider(widget.quizType).notifier,
     );
+    final eventsForDay = state.events
+        .where(
+          (e) =>
+              e.begin.year == date.year &&
+              e.begin.month == date.month &&
+              e.begin.day == date.day,
+        )
+        .toList();
     final result = await _showDayBottomSheet(date, eventsForDay);
     if (!mounted) return;
     if (result != null && result.isNotEmpty) {
@@ -126,27 +132,22 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          if (_calendarController != null)
-            _CalendarAppScaffold(
-              quizType: widget.quizType,
-              state: state,
-              notifier: notifier,
-              calendarController: _calendarController!,
-              missionText: missionText,
-              timeLimitSeconds: timeLimitSeconds,
-              onDayTapped: state.status == QuizStatus.playing
-                  ? _onDayTapped
-                  : null,
-              onFabPressed:
-                  widget.quizType == CalendarQuizType.quiz2 &&
-                      state.status == QuizStatus.playing
-                  ? _onFabPressed
-                  : null,
-            )
-          else
-            const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            ),
+          _CalendarAppScaffold(
+            quizType: widget.quizType,
+            state: state,
+            notifier: notifier,
+            calendarController: _calendarController,
+            missionText: missionText,
+            timeLimitSeconds: timeLimitSeconds,
+            onDayTapped: state.status == QuizStatus.playing
+                ? _onDayTapped
+                : null,
+            onFabPressed:
+                widget.quizType == CalendarQuizType.quiz2 &&
+                    state.status == QuizStatus.playing
+                ? _onFabPressed
+                : null,
+          ),
           if (_showCutIn)
             MissionCutIn(
               missionText: missionText,
@@ -320,8 +321,7 @@ class _CalendarAppScaffold extends StatelessWidget {
   final CrCalendarController calendarController;
   final String missionText;
   final int timeLimitSeconds;
-  final Future<void> Function(DateTime date, List<CalendarEvent> events)?
-  onDayTapped;
+  final Future<void> Function(DateTime date)? onDayTapped;
   final Future<void> Function()? onFabPressed;
 
   @override
@@ -376,9 +376,7 @@ class _CalendarAppScaffold extends StatelessWidget {
             dayItemBuilder: (properties) => _DayItem(
               properties: properties,
               events: state.events,
-              onTap: onDayTapped != null
-                  ? (date, events) => onDayTapped!(date, events)
-                  : null,
+              onTap: onDayTapped,
               onEventDrop: state.status == QuizStatus.playing
                   ? (eventId, date) => notifier.moveEvent(eventId, date)
                   : null,
@@ -412,8 +410,8 @@ class _DayItem extends StatelessWidget {
   final DayItemProperties properties;
   final List<CalendarEvent> events;
 
-  /// 日付タップ時のコールバック（date, その日のイベント一覧）
-  final void Function(DateTime date, List<CalendarEvent> events)? onTap;
+  /// 日付タップ時のコールバック
+  final void Function(DateTime date)? onTap;
   final void Function(String eventId, DateTime date)? onEventDrop;
 
   @override
@@ -462,7 +460,7 @@ class _DayItem extends StatelessWidget {
         final isHighlighted = candidateData.isNotEmpty;
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: onTap != null ? () => onTap!(date, dateEvents) : null,
+          onTap: onTap != null ? () => onTap!(date) : null,
           child: SizedBox.expand(
             child: Container(
               decoration: isHighlighted
@@ -575,7 +573,7 @@ class _DayItem extends StatelessWidget {
             color: Colors.grey,
             borderRadius: BorderRadius.circular(3),
           ),
-          child: Text(
+          child: UnreadableText(
             '+${dateEvents.length - 2}',
             style: const TextStyle(
               fontSize: 9,
