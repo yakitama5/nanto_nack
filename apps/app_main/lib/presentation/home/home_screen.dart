@@ -20,7 +20,6 @@ import '../../domain/weather/weather_condition.dart';
 import '../../domain/weather/weather_scene_key.dart';
 import '../tutorial/nantom_speech_bubble.dart';
 
-
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -54,8 +53,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     try {
       final tutState = await ref.read(tutorialNotifierProvider.future);
       if (!mounted) return;
-      appLogger.d('[HomeScreen] tutState: screen=${tutState.screen} '
-          'isCompleted=${tutState.isCompleted}');
+      appLogger.d(
+        '[HomeScreen] tutState: screen=${tutState.screen} '
+        'isCompleted=${tutState.isCompleted}',
+      );
       if (!tutState.isCompleted && tutState.screen == TutorialScreen.home) {
         // Step 1-2 は即座にオーバーレイ表示。Step 3 のコーチマーク表示前に
         // _playButtonKey が設定されているかを確認してから表示する。
@@ -95,9 +96,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   // Step 3: _playButtonKey が使用可能になるまで最大 retries 回フレームをまたいで待つ
   void _showPlayButtonCoachMarkWhenReady([int retries = 10]) {
     final isCurrent = ModalRoute.of(context)?.isCurrent;
-    appLogger.d('[HomeScreen] _showPlayButtonCoachMarkWhenReady: retries=$retries '
-        'mounted=$mounted isCurrent=$isCurrent '
-        'hasKey=${_playButtonKey.currentContext != null}');
+    appLogger.d(
+      '[HomeScreen] _showPlayButtonCoachMarkWhenReady: retries=$retries '
+      'mounted=$mounted isCurrent=$isCurrent '
+      'hasKey=${_playButtonKey.currentContext != null}',
+    );
     if (!mounted || isCurrent != true) return;
     if (_playButtonKey.currentContext != null) {
       _showPlayButtonCoachMark();
@@ -190,8 +193,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         maxWidth: 800,
         child: RefreshIndicator(
           displacement: 80,
-          onRefresh: () async =>
-              ref.read(dashboardProvider.notifier).refresh(),
+          onRefresh: () async => ref.read(dashboardProvider.notifier).refresh(),
           child: CustomScrollView(
             slivers: [
               SliverList.list(
@@ -234,7 +236,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 /// 画像ファイル自体が存在しない場合は [DailySceneTheme] のグラデーションを表示する。
 class _TodayHeroCard extends ConsumerWidget {
   const _TodayHeroCard();
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -328,21 +329,16 @@ class _TodayHeroCard extends ConsumerWidget {
                           children: [
                             Text(
                               dateLabel,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
+                              style: Theme.of(context).textTheme.labelLarge
                                   ?.copyWith(
-                                    color: Colors.white
-                                        .withValues(alpha: 0.75),
+                                    color: Colors.white.withValues(alpha: 0.75),
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               _sceneGreeting(scene, t),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
+                              style: Theme.of(context).textTheme.titleMedium
                                   ?.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
@@ -368,14 +364,11 @@ class _TodayHeroCard extends ConsumerWidget {
                   const SizedBox(height: 28),
                   Text(
                     'NantoNack',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          letterSpacing: -1,
-                        ),
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: -1,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   const SizedBox(height: 20),
@@ -408,6 +401,8 @@ String _categoryLabel(String categoryId, Translations t) {
     'map' => t.play.categoryLabel.map,
     'alarm' => t.play.categoryLabel.alarm,
     'payment' => t.play.categoryLabel.payment,
+    'mail' => t.play.categoryLabel.mail,
+    'news' => t.play.categoryLabel.news,
     _ => categoryId,
   };
 }
@@ -626,7 +621,9 @@ class _PlayHeroCard extends ConsumerWidget {
                   alignment: Alignment.center,
                   children: [
                     CircularProgressIndicator(
-                      value: isUnlimited ? 1.0 : (limit > 0 ? remaining / limit : 0.0),
+                      value: isUnlimited
+                          ? 1.0
+                          : (limit > 0 ? remaining / limit : 0.0),
                       strokeWidth: 5,
                       backgroundColor: Colors.white.withValues(alpha: 0.25),
                       color: Colors.white,
@@ -641,9 +638,7 @@ class _PlayHeroCard extends ConsumerWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                isUnlimited
-                    ? '∞ / ∞'
-                    : '$remaining / $limit',
+                isUnlimited ? '∞ / ∞' : '$remaining / $limit',
                 style: textTheme.titleMedium?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -870,13 +865,15 @@ class _CategoryCarousel extends ConsumerWidget {
               separatorBuilder: (_, __) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
                 final cat = kAllCategories[index];
-                final categoryStages =
-                    stages.where((s) => s.stage.category == cat.id).toList();
+                final categoryStages = stages
+                    .where((s) => s.stage.category == cat.id)
+                    .toList();
                 final cleared = categoryStages
                     .where((s) => s.status == StageStatus.cleared)
                     .length;
                 final total = categoryStages.length;
-                final isLocked = categoryStages.isNotEmpty &&
+                final isLocked =
+                    categoryStages.isNotEmpty &&
                     categoryStages.first.status == StageStatus.locked;
                 // カテゴリ固有色を取得し、カードの配色に反映する
                 final categoryColor = switch (cat.id) {
@@ -886,6 +883,8 @@ class _CategoryCarousel extends ConsumerWidget {
                   'map' => ext.mapCategoryColor,
                   'alarm' => ext.alarmCategoryColor,
                   'payment' => ext.paymentCategoryColor,
+                  'mail' => ext.mailCategoryColor,
+                  'news' => ext.newsCategoryColor,
                   _ => colorScheme.primary,
                 };
                 return _CategoryCard(
@@ -953,7 +952,13 @@ class _CategoryCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon, size: 20, color: isLocked ? colorScheme.onSurface.withValues(alpha: 0.3) : categoryColor),
+              Icon(
+                icon,
+                size: 20,
+                color: isLocked
+                    ? colorScheme.onSurface.withValues(alpha: 0.3)
+                    : categoryColor,
+              ),
               const Spacer(),
               if (isLocked)
                 Icon(
@@ -990,8 +995,8 @@ class _CategoryCard extends StatelessWidget {
             isLocked
                 ? t.home.categoryLockedLabel
                 : t.home.categoryClearCount
-                    .replaceAll('{cleared}', cleared.toString())
-                    .replaceAll('{total}', total.toString()),
+                      .replaceAll('{cleared}', cleared.toString())
+                      .replaceAll('{total}', total.toString()),
             style: textTheme.labelSmall?.copyWith(
               color: isLocked
                   ? colorScheme.onSurface.withValues(alpha: 0.3)
@@ -1039,10 +1044,10 @@ class _LabelPill extends StatelessWidget {
           Text(
             label,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: textColor,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.3,
-                ),
+              color: textColor,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.3,
+            ),
           ),
         ],
       ),

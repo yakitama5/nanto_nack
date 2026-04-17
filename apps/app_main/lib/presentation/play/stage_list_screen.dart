@@ -33,6 +33,7 @@ class StageListScreen extends ConsumerWidget {
       'alarm' => ext.alarmCategoryColor,
       'payment' => ext.paymentCategoryColor,
       'mail' => ext.shoppingCategoryColor,
+      'news' => ext.newsCategoryColor,
       _ => colorScheme.primary,
     };
 
@@ -156,6 +157,7 @@ class StageListScreen extends ConsumerWidget {
       'alarm' => t.play.categoryLabel.alarm,
       'payment' => t.play.categoryLabel.payment,
       'mail' => t.play.categoryLabel.mail,
+      'news' => t.play.categoryLabel.news,
       _ => categoryId,
     };
   }
@@ -190,6 +192,10 @@ class StageListScreen extends ConsumerWidget {
       'mail_quiz2' => t.play.stageTitle.mail_quiz2,
       'mail_quiz3' => t.play.stageTitle.mail_quiz3,
       'mail_quiz4' => t.play.stageTitle.mail_quiz4,
+      'news_quiz1' => t.play.stageTitle.news_quiz1,
+      'news_quiz2' => t.play.stageTitle.news_quiz2,
+      'news_quiz3' => t.play.stageTitle.news_quiz3,
+      'news_quiz4' => t.play.stageTitle.news_quiz4,
       _ => stageId,
     };
   }

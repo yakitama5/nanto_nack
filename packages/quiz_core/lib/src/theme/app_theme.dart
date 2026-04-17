@@ -6,6 +6,7 @@ import 'package:quiz_core/src/theme/nanto_nack_theme_extension.dart';
 import 'package:quiz_core/src/theme/payment_app_theme.dart';
 import 'package:quiz_core/src/theme/shopping_app_theme.dart';
 import 'package:quiz_core/src/theme/mail_app_theme.dart';
+import 'package:quiz_core/src/theme/news_app_theme.dart';
 import 'package:quiz_core/src/theme/streaming_app_theme.dart';
 
 /// NantoNack テーマ定義
@@ -30,6 +31,7 @@ abstract final class AppTheme {
         ChatAppTheme.light,
         MailAppTheme.light,
         MapAppTheme.light,
+        NewsAppTheme.light,
         PaymentAppTheme.light,
         ShoppingAppTheme.light,
         StreamingAppTheme.light,
@@ -57,6 +59,7 @@ abstract final class AppTheme {
         ChatAppTheme.dark,
         MailAppTheme.dark,
         MapAppTheme.dark,
+        NewsAppTheme.dark,
         PaymentAppTheme.dark,
         ShoppingAppTheme.dark,
         StreamingAppTheme.dark,

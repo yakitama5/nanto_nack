@@ -1,0 +1,69 @@
+{
+  "quiz1": {
+    "missionText": "Refresh the news to get the latest updates",
+    "insight": {
+      "title": "How did you know pulling down would refresh the news?",
+      "subtitle": "Pulling down is the universal refresh gesture",
+      "pullTitle": "Pull to Refresh",
+      "pullDesc": "Pulling down on a list screen is a refresh gesture popularized by Twitter and mail apps. It is now adopted by apps worldwide.",
+      "spinnerTitle": "Spinning circle means loading",
+      "spinnerDesc": "The rotating circular indicator is a common visual language used worldwide in apps to indicate processing or loading.",
+      "feedTitle": "Feeds always need the latest info",
+      "feedDesc": "Information feed screens like news, social media, and mail are designed to trigger a manual refresh when pulled from top to bottom."
+    }
+  },
+  "quiz2": {
+    "missionText": "Check the top news in the Sports category",
+    "insight": {
+      "title": "How did you know swiping sideways would switch categories?",
+      "subtitle": "Tabs are a sign of horizontally arranged pages",
+      "tabTitle": "Tab UI supports horizontal swiping",
+      "tabDesc": "Tabs lined up at the top are a table of contents for categories. It is standard design to switch between them by swiping horizontally like turning pages.",
+      "swipeTitle": "Moving a finger sideways feels like turning a page",
+      "swipeDesc": "Swiping left and right like turning the pages of a book is the most natural page-switching gesture in mobile apps.",
+      "labelTitle": "Tab labels point to the target category",
+      "labelDesc": "You can reach the information you need by tapping the tab labeled Sports or swiping to it."
+    }
+  },
+  "quiz3": {
+    "missionText": "The text in this article is too small to read. Change the font size to Large.",
+    "insight": {
+      "title": "How did you know the Aa icon could change the font size?",
+      "subtitle": "Aa is the universal icon for font settings",
+      "aaTitle": "Aa is the world-standard icon for changing font size",
+      "aaDesc": "An icon showing an uppercase A and lowercase a together is adopted by browsers and apps worldwide as a symbol for font size and display settings.",
+      "accessTitle": "Accessibility and user preferences",
+      "accessDesc": "Many apps have a feature that lets you adjust text visibility yourself when the text is too small to read comfortably.",
+      "sizeTitle": "Small, medium, large is the classic set",
+      "sizeDesc": "Font size options with three levels of small, medium, and large are the standard. It is standard design to let users choose according to their preference or eyesight."
+    }
+  },
+  "quiz4": {
+    "missionText": "Hide the movie review article that contains spoilers from the list",
+    "insight": {
+      "title": "How did you know long pressing would let you hide the article?",
+      "subtitle": "Long press is a gesture that reveals hidden options",
+      "longPressTitle": "Long press opens additional menu options",
+      "longPressDesc": "Pressing and holding an icon or item to reveal additional options is an interaction pattern common to both Android and iOS.",
+      "menuTitle": "The ... icon is a sign of hidden actions",
+      "menuDesc": "The ellipsis or vertical three-dot icon is a universal UI symbol meaning More Options. Tapping it expands a menu.",
+      "hideTitle": "Control your information with the hide feature",
+      "hideDesc": "The ability to individually hide articles and notifications you do not want to see is a standard feature of modern news apps and social media."
+    }
+  },
+  "common": {
+    "appTitle": "News",
+    "tabTop": "Top",
+    "tabEntertainment": "Entertainment",
+    "tabSports": "Sports",
+    "noArticles": "No articles",
+    "hideArticle": "Hide this article",
+    "fontSizeLabel": "Font size",
+    "fontSizeSmall": "Small",
+    "fontSizeMedium": "Medium",
+    "fontSizeLarge": "Large",
+    "moreOptions": "More options",
+    "articleDetailTitle": "Article detail",
+    "spoilerLabel": "Spoiler"
+  }
+}

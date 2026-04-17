@@ -1,5 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../config/route_path_constants.dart';
+
 /// ステージの定義（静的データ）
 class Stage {
   const Stage({
@@ -18,183 +20,210 @@ class Stage {
 }
 
 /// アプリで定義するステージ一覧
-const List<Stage> kAllStages = [
+///
+/// EnumのゲッターはDartのconst contextで使えないため、finalで定義し、不変コンテナでラップしている。
+final List<Stage> kAllStages = List.unmodifiable([
   // ショッピングカテゴリー
   Stage(
     id: 'shopping_water',
     category: 'shopping',
-    routePath: '/shopping/water',
+    routePath: kShoppingWaterPath,
     difficulty: 1,
   ),
   Stage(
     id: 'shopping_checkout',
     category: 'shopping',
-    routePath: '/shopping/checkout',
+    routePath: kShoppingCheckoutPath,
     difficulty: 2,
   ),
   Stage(
     id: 'shopping_reorder',
     category: 'shopping',
-    routePath: '/shopping/reorder',
+    routePath: kShoppingReorderPath,
     difficulty: 3,
   ),
   Stage(
     id: 'shopping_cart',
     category: 'shopping',
-    routePath: '/shopping/cart',
+    routePath: kShoppingCartPath,
     difficulty: 5,
   ),
   // チャットカテゴリー
   Stage(
     id: 'chat_quiz1',
     category: 'chat',
-    routePath: '/chat/quiz1',
+    routePath: kChatQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'chat_quiz2',
     category: 'chat',
-    routePath: '/chat/quiz2',
+    routePath: kChatQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'chat_quiz3',
     category: 'chat',
-    routePath: '/chat/quiz3',
+    routePath: kChatQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'chat_quiz4',
     category: 'chat',
-    routePath: '/chat/quiz4',
+    routePath: kChatQuiz4Path,
     difficulty: 4,
   ),
   // 動画カテゴリー
   Stage(
     id: 'streaming_quiz1',
     category: 'streaming',
-    routePath: '/streaming/quiz1',
+    routePath: kStreamingQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'streaming_quiz2',
     category: 'streaming',
-    routePath: '/streaming/quiz2',
+    routePath: kStreamingQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'streaming_quiz3',
     category: 'streaming',
-    routePath: '/streaming/quiz3',
+    routePath: kStreamingQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'streaming_quiz4',
     category: 'streaming',
-    routePath: '/streaming/quiz4',
+    routePath: kStreamingQuiz4Path,
     difficulty: 4,
   ),
   // マップカテゴリー
   Stage(
     id: 'map_quiz1',
     category: 'map',
-    routePath: '/map/quiz1',
+    routePath: kMapQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'map_quiz2',
     category: 'map',
-    routePath: '/map/quiz2',
+    routePath: kMapQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'map_quiz3',
     category: 'map',
-    routePath: '/map/quiz3',
+    routePath: kMapQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'map_quiz4',
     category: 'map',
-    routePath: '/map/quiz4',
+    routePath: kMapQuiz4Path,
     difficulty: 4,
   ),
   // アラームカテゴリー
   Stage(
     id: 'alarm_quiz1',
     category: 'alarm',
-    routePath: '/alarm/quiz1',
+    routePath: kAlarmQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'alarm_quiz2',
     category: 'alarm',
-    routePath: '/alarm/quiz2',
+    routePath: kAlarmQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'alarm_quiz3',
     category: 'alarm',
-    routePath: '/alarm/quiz3',
+    routePath: kAlarmQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'alarm_quiz4',
     category: 'alarm',
-    routePath: '/alarm/quiz4',
+    routePath: kAlarmQuiz4Path,
     difficulty: 4,
   ),
   // 決済カテゴリー
   Stage(
     id: 'payment_quiz1',
     category: 'payment',
-    routePath: '/payment/quiz1',
+    routePath: kPaymentQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'payment_quiz2',
     category: 'payment',
-    routePath: '/payment/quiz2',
+    routePath: kPaymentQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'payment_quiz3',
     category: 'payment',
-    routePath: '/payment/quiz3',
+    routePath: kPaymentQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'payment_quiz4',
     category: 'payment',
-    routePath: '/payment/quiz4',
+    routePath: kPaymentQuiz4Path,
     difficulty: 4,
   ),
   // メールカテゴリー
   Stage(
     id: 'mail_quiz1',
     category: 'mail',
-    routePath: '/mail/quiz1',
+    routePath: kMailQuiz1Path,
     difficulty: 1,
   ),
   Stage(
     id: 'mail_quiz2',
     category: 'mail',
-    routePath: '/mail/quiz2',
+    routePath: kMailQuiz2Path,
     difficulty: 2,
   ),
   Stage(
     id: 'mail_quiz3',
     category: 'mail',
-    routePath: '/mail/quiz3',
+    routePath: kMailQuiz3Path,
     difficulty: 3,
   ),
   Stage(
     id: 'mail_quiz4',
     category: 'mail',
-    routePath: '/mail/quiz4',
+    routePath: kMailQuiz4Path,
     difficulty: 4,
   ),
-];
+  // ニュースカテゴリー
+  Stage(
+    id: 'news_quiz1',
+    category: 'news',
+    routePath: kNewsQuiz1Path,
+    difficulty: 1,
+  ),
+  Stage(
+    id: 'news_quiz2',
+    category: 'news',
+    routePath: kNewsQuiz2Path,
+    difficulty: 2,
+  ),
+  Stage(
+    id: 'news_quiz3',
+    category: 'news',
+    routePath: kNewsQuiz3Path,
+    difficulty: 3,
+  ),
+  Stage(
+    id: 'news_quiz4',
+    category: 'news',
+    routePath: kNewsQuiz4Path,
+    difficulty: 4,
+  ),
+]);
 
 /// ステージにクリア状況を付加したクラス
 class StageWithStatus {
