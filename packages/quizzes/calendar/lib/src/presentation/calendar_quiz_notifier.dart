@@ -192,6 +192,7 @@ class CalendarQuizNotifier
 
   Future<void> _checkClearCondition() async {
     if (state.status != QuizStatus.playing) return;
+    final now = clock.now();
 
     final isClear = switch (arg) {
       CalendarQuizType.quiz1 => _useCase.isClearQuiz1(
@@ -208,7 +209,7 @@ class CalendarQuizNotifier
       ),
       CalendarQuizType.quiz4 => _useCase.isClearQuiz4(
         focusedMonth: state.focusedMonth,
-        now: state.quizStartTime,
+        now: now,
       ),
     };
     if (!isClear) return;
