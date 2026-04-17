@@ -3,3 +3,4 @@ fallback_strategy: base_locale
 input_directory: assets/i18n
 output_directory: lib/i18n
 output_file_name: strings.g.dart
+string_interpolation: brace
