@@ -119,8 +119,8 @@ class NantoNackThemeExtension
     mailCategoryContainerColor: Color(0xFFFCE4EC),
     newsCategoryColor: Color(0xFFBF360C),
     newsCategoryContainerColor: Color(0xFFFBE9E7),
-    calendarCategoryColor: Color(0xFF1976D2),
-    calendarCategoryContainerColor: Color(0xFFE3F2FD),
+    calendarCategoryColor: Color(0xFF00838F),
+    calendarCategoryContainerColor: Color(0xFFE0F7FA),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -157,8 +157,8 @@ class NantoNackThemeExtension
     mailCategoryContainerColor: Color(0xFF3D0014),
     newsCategoryColor: Color(0xFFFF8A65),
     newsCategoryContainerColor: Color(0xFF3E1108),
-    calendarCategoryColor: Color(0xFF64B5F6),
-    calendarCategoryContainerColor: Color(0xFF0D2137),
+    calendarCategoryColor: Color(0xFF4DD0E1),
+    calendarCategoryContainerColor: Color(0xFF002A2E),
   );
 
   @override
