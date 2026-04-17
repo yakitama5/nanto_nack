@@ -9,10 +9,12 @@ import 'routes/news_route.dart';
 class _NewsQuizConfig {
   const _NewsQuizConfig({
     required this.path,
+    required this.absolutePath,
     required this.type,
   });
 
   final String path;
+  final String absolutePath;
   final NewsQuizType type;
 }
 
@@ -31,10 +33,26 @@ List<GoRoute> get newsRoutes => [
 /// ニュースクイズの GoRoute リストを生成
 List<GoRoute> _buildNewsQuizRoutes() {
   const configs = <_NewsQuizConfig>[
-    _NewsQuizConfig(path: kNewsQuiz1Segment, type: NewsQuizType.refresh),
-    _NewsQuizConfig(path: kNewsQuiz2Segment, type: NewsQuizType.category),
-    _NewsQuizConfig(path: kNewsQuiz3Segment, type: NewsQuizType.fontSize),
-    _NewsQuizConfig(path: kNewsQuiz4Segment, type: NewsQuizType.hideArticle),
+    _NewsQuizConfig(
+      path: kNewsQuiz1Segment,
+      absolutePath: kNewsQuiz1Path,
+      type: NewsQuizType.refresh,
+    ),
+    _NewsQuizConfig(
+      path: kNewsQuiz2Segment,
+      absolutePath: kNewsQuiz2Path,
+      type: NewsQuizType.category,
+    ),
+    _NewsQuizConfig(
+      path: kNewsQuiz3Segment,
+      absolutePath: kNewsQuiz3Path,
+      type: NewsQuizType.fontSize,
+    ),
+    _NewsQuizConfig(
+      path: kNewsQuiz4Segment,
+      absolutePath: kNewsQuiz4Path,
+      type: NewsQuizType.hideArticle,
+    ),
   ];
 
   return configs
@@ -45,9 +63,8 @@ List<GoRoute> _buildNewsQuizRoutes() {
             type: config.type,
             onCompleted: () => context.go(NewsRoute.list.path),
             onBack: () => context.go(NewsRoute.list.path),
-            onRestart: () => context.pushReplacement(
-              '${NewsRoute.list.path}/${config.path}',
-            ),
+            onRestart: () =>
+                context.pushReplacement(config.absolutePath),
           ),
         ),
       )
