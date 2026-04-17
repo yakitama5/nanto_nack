@@ -393,21 +393,6 @@ String _sceneGreeting(DailyScene scene, Translations t) {
   };
 }
 
-String _categoryLabel(String categoryId, Translations t) {
-  return switch (categoryId) {
-    'shopping' => t.play.categoryLabel.shopping,
-    'chat' => t.play.categoryLabel.chat,
-    'streaming' => t.play.categoryLabel.streaming,
-    'map' => t.play.categoryLabel.map,
-    'alarm' => t.play.categoryLabel.alarm,
-    'payment' => t.play.categoryLabel.payment,
-    'mail' => t.play.categoryLabel.mail,
-    'news' => t.play.categoryLabel.news,
-    'calendar' => t.play.categoryLabel.calendar,
-    _ => categoryId,
-  };
-}
-
 /// ヘッダー上に表示する半透明背景付きアイコンボタン。
 ///
 /// グラデーション背景に対して視認性を高めるため、
@@ -862,12 +847,12 @@ class _CategoryCarousel extends ConsumerWidget {
             error: (_, __) => const SizedBox.shrink(),
             data: (stages) => ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: kAllCategories.length,
+              itemCount: QuizCategory.values.length,
               separatorBuilder: (_, __) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
-                final cat = kAllCategories[index];
+                final cat = QuizCategory.values[index];
                 final categoryStages = stages
-                    .where((s) => s.stage.category == cat.id)
+                    .where((s) => s.stage.category == cat)
                     .toList();
                 final cleared = categoryStages
                     .where((s) => s.status == StageStatus.cleared)
@@ -876,27 +861,13 @@ class _CategoryCarousel extends ConsumerWidget {
                 final isLocked =
                     categoryStages.isNotEmpty &&
                     categoryStages.first.status == StageStatus.locked;
-                // カテゴリ固有色を取得し、カードの配色に反映する
-                final categoryColor = switch (cat.id) {
-                  'shopping' => ext.shoppingCategoryColor,
-                  'chat' => ext.chatCategoryColor,
-                  'streaming' => ext.streamingCategoryColor,
-                  'map' => ext.mapCategoryColor,
-                  'alarm' => ext.alarmCategoryColor,
-                  'payment' => ext.paymentCategoryColor,
-                  'mail' => ext.mailCategoryColor,
-                  'news' => ext.newsCategoryColor,
-                  'calendar' => ext.calendarCategoryColor,
-                  _ => colorScheme.primary,
-                };
                 return _CategoryCard(
-                  categoryId: cat.id,
                   icon: cat.icon,
-                  label: _categoryLabel(cat.id, t),
+                  label: cat.label(t),
                   cleared: cleared,
                   total: total,
                   isLocked: isLocked,
-                  categoryColor: categoryColor,
+                  categoryColor: cat.color(ext),
                 );
               },
             ),
@@ -909,7 +880,6 @@ class _CategoryCarousel extends ConsumerWidget {
 
 class _CategoryCard extends StatelessWidget {
   const _CategoryCard({
-    required this.categoryId,
     required this.icon,
     required this.label,
     required this.cleared,
@@ -918,7 +888,6 @@ class _CategoryCard extends StatelessWidget {
     this.isLocked = false,
   });
 
-  final String categoryId;
   final IconData icon;
   final String label;
   final int cleared;

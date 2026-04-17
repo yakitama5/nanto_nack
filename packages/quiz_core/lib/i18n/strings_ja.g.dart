@@ -606,16 +606,16 @@ class TranslationsPlayStageTitleJa {
 	// Translations
 
 	/// ja: '水を2つ買おう'
-	String get shopping_water => '水を2つ買おう';
+	String get shopping_quiz1 => '水を2つ買おう';
 
 	/// ja: '購入手続きを完了しよう'
-	String get shopping_checkout => '購入手続きを完了しよう';
+	String get shopping_quiz2 => '購入手続きを完了しよう';
 
 	/// ja: '直近の注文を再注文しよう'
-	String get shopping_reorder => '直近の注文を再注文しよう';
+	String get shopping_quiz3 => '直近の注文を再注文しよう';
 
 	/// ja: 'カートの合計金額を選ぼう'
-	String get shopping_cart => 'カートの合計金額を選ぼう';
+	String get shopping_quiz4 => 'カートの合計金額を選ぼう';
 
 	/// ja: 'スタンプを返信しよう'
 	String get chat_quiz1 => 'スタンプを返信しよう';
@@ -723,16 +723,16 @@ class TranslationsPlayStageDescriptionJa {
 	// Translations
 
 	/// ja: 'ECサイトで水を2つカートに入れて購入してください'
-	String get shopping_water => 'ECサイトで水を2つカートに入れて購入してください';
+	String get shopping_quiz1 => 'ECサイトで水を2つカートに入れて購入してください';
 
 	/// ja: '住所入力・支払い方法選択・注文確認の3ステップを完了してください'
-	String get shopping_checkout => '住所入力・支払い方法選択・注文確認の3ステップを完了してください';
+	String get shopping_quiz2 => '住所入力・支払い方法選択・注文確認の3ステップを完了してください';
 
 	/// ja: '注文履歴から直近で注文した商品をもう一度購入してください'
-	String get shopping_reorder => '注文履歴から直近で注文した商品をもう一度購入してください';
+	String get shopping_quiz3 => '注文履歴から直近で注文した商品をもう一度購入してください';
 
 	/// ja: 'カート内の商品の合計金額を4択から選んでください'
-	String get shopping_cart => 'カート内の商品の合計金額を4択から選んでください';
+	String get shopping_quiz4 => 'カート内の商品の合計金額を4択から選んでください';
 
 	/// ja: 'チャットアプリでスタンプを1つ返信してください'
 	String get chat_quiz1 => 'チャットアプリでスタンプを1つ返信してください';
@@ -1063,10 +1063,10 @@ extension on Translations {
 			'play.categoryDescription.mail' => 'メールアプリのUI/UXを体験しよう',
 			'play.categoryDescription.news' => 'ニュースアプリのUI/UXを体験しよう',
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
-			'play.stageTitle.shopping_water' => '水を2つ買おう',
-			'play.stageTitle.shopping_checkout' => '購入手続きを完了しよう',
-			'play.stageTitle.shopping_reorder' => '直近の注文を再注文しよう',
-			'play.stageTitle.shopping_cart' => 'カートの合計金額を選ぼう',
+			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
+			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
+			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
+			'play.stageTitle.shopping_quiz4' => 'カートの合計金額を選ぼう',
 			'play.stageTitle.chat_quiz1' => 'スタンプを返信しよう',
 			'play.stageTitle.chat_quiz2' => 'リアクションをしよう',
 			'play.stageTitle.chat_quiz3' => '写真を送ろう',
@@ -1099,10 +1099,10 @@ extension on Translations {
 			'play.stageTitle.calendar_quiz2' => '予定を素早く追加しよう',
 			'play.stageTitle.calendar_quiz3' => '予定の日付を変えよう',
 			'play.stageTitle.calendar_quiz4' => '一瞬で「今日」に戻ろう',
-			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
-			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
-			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
-			'play.stageDescription.shopping_cart' => 'カート内の商品の合計金額を4択から選んでください',
+			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
+			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
+			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
+			'play.stageDescription.shopping_quiz4' => 'カート内の商品の合計金額を4択から選んでください',
 			'play.stageDescription.chat_quiz1' => 'チャットアプリでスタンプを1つ返信してください',
 			'play.stageDescription.chat_quiz2' => '相手のメッセージにハートリアクションをしてください',
 			'play.stageDescription.chat_quiz3' => 'チャットアプリで写真を1枚送信してください',

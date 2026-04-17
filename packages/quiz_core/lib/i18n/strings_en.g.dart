@@ -363,10 +363,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get shopping_water => 'Buy 2 Waters';
-	@override String get shopping_checkout => 'Complete Checkout';
-	@override String get shopping_reorder => 'Reorder Recent Purchase';
-	@override String get shopping_cart => 'Select Cart Total';
+	@override String get shopping_quiz1 => 'Buy 2 Waters';
+	@override String get shopping_quiz2 => 'Complete Checkout';
+	@override String get shopping_quiz3 => 'Reorder Recent Purchase';
+	@override String get shopping_quiz4 => 'Select Cart Total';
 	@override String get chat_quiz1 => 'Reply with a Sticker';
 	@override String get chat_quiz2 => 'React to a Message';
 	@override String get chat_quiz3 => 'Send a Photo';
@@ -408,10 +408,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get shopping_water => 'Add 2 waters to the cart and purchase on the e-commerce site';
-	@override String get shopping_checkout => 'Complete 3 steps: address, payment method, and order confirmation';
-	@override String get shopping_reorder => 'Reorder the most recently purchased item from order history';
-	@override String get shopping_cart => 'Select the total amount of items in the cart from 4 choices';
+	@override String get shopping_quiz1 => 'Add 2 waters to the cart and purchase on the e-commerce site';
+	@override String get shopping_quiz2 => 'Complete 3 steps: address, payment method, and order confirmation';
+	@override String get shopping_quiz3 => 'Reorder the most recently purchased item from order history';
+	@override String get shopping_quiz4 => 'Select the total amount of items in the cart from 4 choices';
 	@override String get chat_quiz1 => 'Reply with one sticker in the chat app';
 	@override String get chat_quiz2 => 'React to the other person\'s message with a heart';
 	@override String get chat_quiz3 => 'Send one photo in the chat app';
@@ -616,10 +616,10 @@ extension on TranslationsEn {
 			'play.categoryDescription.mail' => 'Experience email app UI/UX',
 			'play.categoryDescription.news' => 'Experience news app UI/UX',
 			'play.categoryDescription.calendar' => 'Experience calendar app UI/UX',
-			'play.stageTitle.shopping_water' => 'Buy 2 Waters',
-			'play.stageTitle.shopping_checkout' => 'Complete Checkout',
-			'play.stageTitle.shopping_reorder' => 'Reorder Recent Purchase',
-			'play.stageTitle.shopping_cart' => 'Select Cart Total',
+			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
+			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
+			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
+			'play.stageTitle.shopping_quiz4' => 'Select Cart Total',
 			'play.stageTitle.chat_quiz1' => 'Reply with a Sticker',
 			'play.stageTitle.chat_quiz2' => 'React to a Message',
 			'play.stageTitle.chat_quiz3' => 'Send a Photo',
@@ -652,10 +652,10 @@ extension on TranslationsEn {
 			'play.stageTitle.calendar_quiz2' => 'Add an Event Quickly',
 			'play.stageTitle.calendar_quiz3' => 'Change Event Date',
 			'play.stageTitle.calendar_quiz4' => 'Return to Today Instantly',
-			'play.stageDescription.shopping_water' => 'Add 2 waters to the cart and purchase on the e-commerce site',
-			'play.stageDescription.shopping_checkout' => 'Complete 3 steps: address, payment method, and order confirmation',
-			'play.stageDescription.shopping_reorder' => 'Reorder the most recently purchased item from order history',
-			'play.stageDescription.shopping_cart' => 'Select the total amount of items in the cart from 4 choices',
+			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
+			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
+			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
+			'play.stageDescription.shopping_quiz4' => 'Select the total amount of items in the cart from 4 choices',
 			'play.stageDescription.chat_quiz1' => 'Reply with one sticker in the chat app',
 			'play.stageDescription.chat_quiz2' => 'React to the other person\'s message with a heart',
 			'play.stageDescription.chat_quiz3' => 'Send one photo in the chat app',

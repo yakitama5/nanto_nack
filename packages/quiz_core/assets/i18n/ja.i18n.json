@@ -127,10 +127,10 @@
       "calendar": "カレンダーアプリのUI/UXを体験しよう"
     },
     "stageTitle": {
-      "shopping_water": "水を2つ買おう",
-      "shopping_checkout": "購入手続きを完了しよう",
-      "shopping_reorder": "直近の注文を再注文しよう",
-      "shopping_cart": "カートの合計金額を選ぼう",
+      "shopping_quiz1": "水を2つ買おう",
+      "shopping_quiz2": "購入手続きを完了しよう",
+      "shopping_quiz3": "直近の注文を再注文しよう",
+      "shopping_quiz4": "カートの合計金額を選ぼう",
       "chat_quiz1": "スタンプを返信しよう",
       "chat_quiz2": "リアクションをしよう",
       "chat_quiz3": "写真を送ろう",
@@ -165,10 +165,10 @@
       "calendar_quiz4": "一瞬で「今日」に戻ろう"
     },
     "stageDescription": {
-      "shopping_water": "ECサイトで水を2つカートに入れて購入してください",
-      "shopping_checkout": "住所入力・支払い方法選択・注文確認の3ステップを完了してください",
-      "shopping_reorder": "注文履歴から直近で注文した商品をもう一度購入してください",
-      "shopping_cart": "カート内の商品の合計金額を4択から選んでください",
+      "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
+      "shopping_quiz2": "住所入力・支払い方法選択・注文確認の3ステップを完了してください",
+      "shopping_quiz3": "注文履歴から直近で注文した商品をもう一度購入してください",
+      "shopping_quiz4": "カート内の商品の合計金額を4択から選んでください",
       "chat_quiz1": "チャットアプリでスタンプを1つ返信してください",
       "chat_quiz2": "相手のメッセージにハートリアクションをしてください",
       "chat_quiz3": "チャットアプリで写真を1枚送信してください",

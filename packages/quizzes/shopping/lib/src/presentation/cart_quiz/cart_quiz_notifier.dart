@@ -16,7 +16,7 @@ final cartQuizProvider =
 );
 
 class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
-  static const _quizId = 'shopping_cart';
+  static const _quizId = 'shopping_quiz4';
 
   final _useCase = const QuizCartUseCase();
   Timer? _timer;

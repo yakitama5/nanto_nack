@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:news/news.dart';
 
 import '../config/route_path_constants.dart';
+import '../domain/category.dart';
 import '../presentation/play/stage_list_screen.dart';
 import 'routes/news_route.dart';
 
@@ -22,7 +23,7 @@ List<GoRoute> get newsRoutes => [
   GoRoute(
     path: kNewsSegment,
     builder: (context, state) =>
-        const StageListScreen(categoryId: kNewsSegment),
+        const StageListScreen(category: QuizCategory.news),
     routes: [
       // ニュースクイズの設定リスト
       ..._buildNewsQuizRoutes(),
@@ -63,8 +64,7 @@ List<GoRoute> _buildNewsQuizRoutes() {
             type: config.type,
             onCompleted: () => context.go(NewsRoute.list.path),
             onBack: () => context.go(NewsRoute.list.path),
-            onRestart: () =>
-                context.pushReplacement(config.absolutePath),
+            onRestart: () => context.pushReplacement(config.absolutePath),
           ),
         ),
       )
