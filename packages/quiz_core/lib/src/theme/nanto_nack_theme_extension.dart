@@ -169,8 +169,8 @@ class NantoNackThemeExtension
     newsCategoryContainerColor: Color(0xFF3E1108),
     calendarCategoryColor: Color(0xFF4DD0E1),
     calendarCategoryContainerColor: Color(0xFF002A2E),
-    snsCategoryColor: Color(0xFF64B5F6),
-    snsCategoryContainerColor: Color(0xFF0A2A3D),
+    snsCategoryColor: Color(0xFF7EC8FF),
+    snsCategoryContainerColor: Color(0xFF0F2035),
   );
 
   @override
