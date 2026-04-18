@@ -43,12 +43,12 @@
     "insight": {
       "title": "Lng prs swch?",
       "subtitle": "Lng prs prfl = swch",
-      "longPressTitle": "Lng Prs Prfl",
-      "longPressDesc": "Lng prs prfl icn shws acct mnu.",
-      "subAccountTitle": "Sub Acct Spr",
-      "subAccountDesc": "Sub acct fr hbbs/anon.",
-      "multiAccountTitle": "Mlti Acct Skll",
-      "multiAccountDesc": "Mstr acct swching."
+      "searchCommandTitle": "Lng Prs Prfl",
+      "searchCommandDesc": "Lng prs prfl icn shws acct mnu.",
+      "searchTabIconTitle": "Sub Acct Spr",
+      "searchTabIconDesc": "Sub acct fr hbbs/anon.",
+      "autoFocusTitle": "Mlti Acct Skll",
+      "autoFocusDesc": "Mstr acct swching."
     }
   },
   "common": {

@@ -70,12 +70,11 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
                 missionText: missionText,
                 timeLimitSeconds: timeLimitSeconds,
                 onFinished: () {
+                  if (!mounted) return;
                   setState(() => _showCutIn = false);
-                  if (mounted) {
-                    ref
-                        .read(snsQuizNotifierProvider(widget.quizType).notifier)
-                        .startQuiz();
-                  }
+                  ref
+                      .read(snsQuizNotifierProvider(widget.quizType).notifier)
+                      .startQuiz();
                 },
               ),
             if (state.status == QuizStatus.playing && !_showCutIn)
@@ -212,18 +211,18 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
       items: [
         QuizInsightItem(
           emoji: '🔍',
-          title: insight.longPressTitle,
-          desc: insight.longPressDesc,
+          title: insight.searchCommandTitle,
+          desc: insight.searchCommandDesc,
         ),
         QuizInsightItem(
           emoji: '📱',
-          title: insight.subAccountTitle,
-          desc: insight.subAccountDesc,
+          title: insight.searchTabIconTitle,
+          desc: insight.searchTabIconDesc,
         ),
         QuizInsightItem(
           emoji: '⚡',
-          title: insight.multiAccountTitle,
-          desc: insight.multiAccountDesc,
+          title: insight.autoFocusTitle,
+          desc: insight.autoFocusDesc,
         ),
       ],
     );
@@ -312,7 +311,6 @@ class _SnsAppScaffold extends StatelessWidget {
             state: state,
           ),
           _SearchView(quizType: quizType),
-          const _ComposeView(),
         ],
       ),
     );
@@ -730,9 +728,6 @@ class _SnsPostItemState extends State<_SnsPostItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController _heartController;
   late final Animation<double> _heartOpacity;
-  final GlobalKey<LikeButtonState> _likeButtonKey =
-      GlobalKey<LikeButtonState>();
-
   @override
   void initState() {
     super.initState();
@@ -753,10 +748,6 @@ class _SnsPostItemState extends State<_SnsPostItem>
 
   void _playHeartAnimation() {
     _heartController.forward(from: 0).then((_) => _heartController.reverse());
-    // 画像ダブルタップ時に LikeButton のアニメーションもトリガーする
-    if (!widget.post.isLiked) {
-      _likeButtonKey.currentState?.onTap();
-    }
   }
 
   @override
@@ -822,6 +813,7 @@ class _SnsPostItemState extends State<_SnsPostItem>
                     onTap: widget.onTap,
                     onDoubleTap: widget.onDoubleTap != null
                         ? () {
+                            widget.onDoubleTap!.call();
                             _playHeartAnimation();
                           }
                         : null,
@@ -858,7 +850,6 @@ class _SnsPostItemState extends State<_SnsPostItem>
                     ),
                     const SizedBox(width: 32),
                     LikeButton(
-                      key: _likeButtonKey,
                       isLiked: post.isLiked,
                       size: 20,
                       circleColor: CircleColor(
@@ -1102,20 +1093,6 @@ class _SearchViewState extends ConsumerState<_SearchView> {
           ),
         ),
       ],
-    );
-  }
-}
-
-/// TODO: この画面は現在未使用（currentIndex が 2 になるパスが存在しない）
-/// 将来的に投稿機能の拡張が必要な場合に使用する予定
-class _ComposeView extends ConsumerWidget {
-  const _ComposeView();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final sq = context.sq;
-    return Center(
-      child: Text(sq.common.composePlaceholder),
     );
   }
 }

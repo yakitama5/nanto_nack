@@ -204,12 +204,12 @@ class _TranslationsQuiz4InsightEn extends TranslationsQuiz4InsightJa {
 	// Translations
 	@override String get title => 'How did \'from:\' work for searching?';
 	@override String get subtitle => 'Search commands for efficient filtering';
-	@override String get longPressTitle => 'The convenience of search commands (from:)';
-	@override String get longPressDesc => 'Typing \'from:username\' allows you to search for posts from a specific user. SNS search bars often support such commands for advanced filtering.';
-	@override String get subAccountTitle => 'Switching tabs via icons';
-	@override String get subAccountDesc => 'The magnifying glass icon is a global symbol for \'Search\'. You can intuitively switch functions using the icons in the tab bar.';
-	@override String get multiAccountTitle => 'Smooth search with auto-focus';
-	@override String get multiAccountDesc => 'The cursor automatically moves to the search bar when you switch to the search tab, allowing you to start typing without an extra tap.';
+	@override String get searchCommandTitle => 'The convenience of search commands (from:)';
+	@override String get searchCommandDesc => 'Typing \'from:username\' allows you to search for posts from a specific user. SNS search bars often support such commands for advanced filtering.';
+	@override String get searchTabIconTitle => 'Switching tabs via icons';
+	@override String get searchTabIconDesc => 'The magnifying glass icon is a global symbol for \'Search\'. You can intuitively switch functions using the icons in the tab bar.';
+	@override String get autoFocusTitle => 'Smooth search with auto-focus';
+	@override String get autoFocusDesc => 'The cursor automatically moves to the search bar when you switch to the search tab, allowing you to start typing without an extra tap.';
 }
 
 // Path: common.trends
@@ -267,12 +267,12 @@ extension on TranslationsEn {
 			'quiz4.missionText' => 'Find @nantom\'s posts by searching!',
 			'quiz4.insight.title' => 'How did \'from:\' work for searching?',
 			'quiz4.insight.subtitle' => 'Search commands for efficient filtering',
-			'quiz4.insight.longPressTitle' => 'The convenience of search commands (from:)',
-			'quiz4.insight.longPressDesc' => 'Typing \'from:username\' allows you to search for posts from a specific user. SNS search bars often support such commands for advanced filtering.',
-			'quiz4.insight.subAccountTitle' => 'Switching tabs via icons',
-			'quiz4.insight.subAccountDesc' => 'The magnifying glass icon is a global symbol for \'Search\'. You can intuitively switch functions using the icons in the tab bar.',
-			'quiz4.insight.multiAccountTitle' => 'Smooth search with auto-focus',
-			'quiz4.insight.multiAccountDesc' => 'The cursor automatically moves to the search bar when you switch to the search tab, allowing you to start typing without an extra tap.',
+			'quiz4.insight.searchCommandTitle' => 'The convenience of search commands (from:)',
+			'quiz4.insight.searchCommandDesc' => 'Typing \'from:username\' allows you to search for posts from a specific user. SNS search bars often support such commands for advanced filtering.',
+			'quiz4.insight.searchTabIconTitle' => 'Switching tabs via icons',
+			'quiz4.insight.searchTabIconDesc' => 'The magnifying glass icon is a global symbol for \'Search\'. You can intuitively switch functions using the icons in the tab bar.',
+			'quiz4.insight.autoFocusTitle' => 'Smooth search with auto-focus',
+			'quiz4.insight.autoFocusDesc' => 'The cursor automatically moves to the search bar when you switch to the search tab, allowing you to start typing without an extra tap.',
 			'common.appTitle' => 'NantoTweet',
 			'common.home' => 'Home',
 			'common.search' => 'Search',

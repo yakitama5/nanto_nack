@@ -360,22 +360,22 @@ class TranslationsQuiz4InsightJa {
 	String get subtitle => '検索コマンドで絞り込みを効率化';
 
 	/// ja: '検索コマンド（from:）の便利さ'
-	String get longPressTitle => '検索コマンド（from:）の便利さ';
+	String get searchCommandTitle => '検索コマンド（from:）の便利さ';
 
 	/// ja: '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。'
-	String get longPressDesc => '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。';
+	String get searchCommandDesc => '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。';
 
 	/// ja: '検索タブへの切り替えはアイコンで判断'
-	String get subAccountTitle => '検索タブへの切り替えはアイコンで判断';
+	String get searchTabIconTitle => '検索タブへの切り替えはアイコンで判断';
 
 	/// ja: '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。'
-	String get subAccountDesc => '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。';
+	String get searchTabIconDesc => '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。';
 
 	/// ja: 'オートフォーカスでスムーズに検索'
-	String get multiAccountTitle => 'オートフォーカスでスムーズに検索';
+	String get autoFocusTitle => 'オートフォーカスでスムーズに検索';
 
 	/// ja: '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。'
-	String get multiAccountDesc => '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。';
+	String get autoFocusDesc => '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。';
 }
 
 // Path: common.trends
@@ -449,12 +449,12 @@ extension on Translations {
 			'quiz4.missionText' => 'ナントム(@nantom)の投稿を検索しよう！',
 			'quiz4.insight.title' => 'なぜ「from:」で検索できた？',
 			'quiz4.insight.subtitle' => '検索コマンドで絞り込みを効率化',
-			'quiz4.insight.longPressTitle' => '検索コマンド（from:）の便利さ',
-			'quiz4.insight.longPressDesc' => '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。',
-			'quiz4.insight.subAccountTitle' => '検索タブへの切り替えはアイコンで判断',
-			'quiz4.insight.subAccountDesc' => '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。',
-			'quiz4.insight.multiAccountTitle' => 'オートフォーカスでスムーズに検索',
-			'quiz4.insight.multiAccountDesc' => '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。',
+			'quiz4.insight.searchCommandTitle' => '検索コマンド（from:）の便利さ',
+			'quiz4.insight.searchCommandDesc' => '「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。',
+			'quiz4.insight.searchTabIconTitle' => '検索タブへの切り替えはアイコンで判断',
+			'quiz4.insight.searchTabIconDesc' => '虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。',
+			'quiz4.insight.autoFocusTitle' => 'オートフォーカスでスムーズに検索',
+			'quiz4.insight.autoFocusDesc' => '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。',
 			'common.appTitle' => 'NantoTweet',
 			'common.home' => 'ホーム',
 			'common.search' => '検索',

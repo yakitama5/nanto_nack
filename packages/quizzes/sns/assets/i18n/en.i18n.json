@@ -43,12 +43,12 @@
     "insight": {
       "title": "How did 'from:' work for searching?",
       "subtitle": "Search commands for efficient filtering",
-      "longPressTitle": "The convenience of search commands (from:)",
-      "longPressDesc": "Typing 'from:username' allows you to search for posts from a specific user. SNS search bars often support such commands for advanced filtering.",
-      "subAccountTitle": "Switching tabs via icons",
-      "subAccountDesc": "The magnifying glass icon is a global symbol for 'Search'. You can intuitively switch functions using the icons in the tab bar.",
-      "multiAccountTitle": "Smooth search with auto-focus",
-      "multiAccountDesc": "The cursor automatically moves to the search bar when you switch to the search tab, allowing you to start typing without an extra tap."
+      "searchCommandTitle": "The convenience of search commands (from:)",
+      "searchCommandDesc": "Typing 'from:username' allows you to search for posts from a specific user. SNS search bars often support such commands for advanced filtering.",
+      "searchTabIconTitle": "Switching tabs via icons",
+      "searchTabIconDesc": "The magnifying glass icon is a global symbol for 'Search'. You can intuitively switch functions using the icons in the tab bar.",
+      "autoFocusTitle": "Smooth search with auto-focus",
+      "autoFocusDesc": "The cursor automatically moves to the search bar when you switch to the search tab, allowing you to start typing without an extra tap."
     }
   },
   "common": {

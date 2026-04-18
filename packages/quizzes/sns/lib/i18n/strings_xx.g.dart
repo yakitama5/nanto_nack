@@ -203,12 +203,12 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	// Translations
 	@override String get title => 'Lng prs swch?';
 	@override String get subtitle => 'Lng prs prfl = swch';
-	@override String get longPressTitle => 'Lng Prs Prfl';
-	@override String get longPressDesc => 'Lng prs prfl icn shws acct mnu.';
-	@override String get subAccountTitle => 'Sub Acct Spr';
-	@override String get subAccountDesc => 'Sub acct fr hbbs/anon.';
-	@override String get multiAccountTitle => 'Mlti Acct Skll';
-	@override String get multiAccountDesc => 'Mstr acct swching.';
+	@override String get searchCommandTitle => 'Lng Prs Prfl';
+	@override String get searchCommandDesc => 'Lng prs prfl icn shws acct mnu.';
+	@override String get searchTabIconTitle => 'Sub Acct Spr';
+	@override String get searchTabIconDesc => 'Sub acct fr hbbs/anon.';
+	@override String get autoFocusTitle => 'Mlti Acct Skll';
+	@override String get autoFocusDesc => 'Mstr acct swching.';
 }
 
 // Path: common.trends
@@ -266,12 +266,12 @@ extension on TranslationsXx {
 			'quiz4.missionText' => 'Swch sub acct',
 			'quiz4.insight.title' => 'Lng prs swch?',
 			'quiz4.insight.subtitle' => 'Lng prs prfl = swch',
-			'quiz4.insight.longPressTitle' => 'Lng Prs Prfl',
-			'quiz4.insight.longPressDesc' => 'Lng prs prfl icn shws acct mnu.',
-			'quiz4.insight.subAccountTitle' => 'Sub Acct Spr',
-			'quiz4.insight.subAccountDesc' => 'Sub acct fr hbbs/anon.',
-			'quiz4.insight.multiAccountTitle' => 'Mlti Acct Skll',
-			'quiz4.insight.multiAccountDesc' => 'Mstr acct swching.',
+			'quiz4.insight.searchCommandTitle' => 'Lng Prs Prfl',
+			'quiz4.insight.searchCommandDesc' => 'Lng prs prfl icn shws acct mnu.',
+			'quiz4.insight.searchTabIconTitle' => 'Sub Acct Spr',
+			'quiz4.insight.searchTabIconDesc' => 'Sub acct fr hbbs/anon.',
+			'quiz4.insight.autoFocusTitle' => 'Mlti Acct Skll',
+			'quiz4.insight.autoFocusDesc' => 'Mstr acct swching.',
 			'common.appTitle' => 'NnTwt',
 			'common.home' => 'Hm',
 			'common.search' => 'Srch',
