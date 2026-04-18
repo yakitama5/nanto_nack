@@ -43,6 +43,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsQuiz2En quiz2 = _TranslationsQuiz2En._(_root);
 	@override late final _TranslationsQuiz3En quiz3 = _TranslationsQuiz3En._(_root);
 	@override late final _TranslationsQuiz4En quiz4 = _TranslationsQuiz4En._(_root);
+	@override late final _TranslationsEndPageEn endPage = _TranslationsEndPageEn._(_root);
 }
 
 // Path: quiz1
@@ -91,6 +92,19 @@ class _TranslationsQuiz4En extends TranslationsQuiz4Ja {
 	@override String get mission => 'That was great! Tap the support button 10 times to send power to the creator!';
 	@override String get hint => 'Quickly tap the large heart button on the last page 10 times.';
 	@override late final _TranslationsQuiz4InsightEn insight = _TranslationsQuiz4InsightEn._(_root);
+}
+
+// Path: endPage
+class _TranslationsEndPageEn extends TranslationsEndPageJa {
+	_TranslationsEndPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get complete => '完';
+	@override String get theEnd => 'The End';
+	@override String get supportLabel => 'Support';
+	@override String get supportCount => '{count} / {target}';
 }
 
 // Path: quiz1.insight
@@ -177,6 +191,10 @@ extension on TranslationsEn {
 			'quiz4.insight.subtitle' => 'Many manga apps have a \'rapid-tap support\' feature to send encouragement to creators.',
 			'quiz4.insight.step1Title' => 'Rapid-tap the support button',
 			'quiz4.insight.step1Desc' => 'Quickly tap the heart button multiple times to send your support to the creator.',
+			'endPage.complete' => '完',
+			'endPage.theEnd' => 'The End',
+			'endPage.supportLabel' => 'Support',
+			'endPage.supportCount' => '{count} / {target}',
 			_ => null,
 		};
 	}

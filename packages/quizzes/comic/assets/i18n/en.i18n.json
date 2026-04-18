@@ -38,5 +38,11 @@
       "step1Title": "Rapid-tap the support button",
       "step1Desc": "Quickly tap the heart button multiple times to send your support to the creator."
     }
+  },
+  "endPage": {
+    "complete": "完",
+    "theEnd": "The End",
+    "supportLabel": "Support",
+    "supportCount": "{count} / {target}"
   }
 }

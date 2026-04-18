@@ -44,6 +44,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsQuiz2Ja quiz2 = TranslationsQuiz2Ja.internal(_root);
 	late final TranslationsQuiz3Ja quiz3 = TranslationsQuiz3Ja.internal(_root);
 	late final TranslationsQuiz4Ja quiz4 = TranslationsQuiz4Ja.internal(_root);
+	late final TranslationsEndPageJa endPage = TranslationsEndPageJa.internal(_root);
 }
 
 // Path: quiz1
@@ -112,6 +113,27 @@ class TranslationsQuiz4Ja {
 	String get hint => '最終ページの大きなハートボタンを素早く10回タップしましょう';
 
 	late final TranslationsQuiz4InsightJa insight = TranslationsQuiz4InsightJa.internal(_root);
+}
+
+// Path: endPage
+class TranslationsEndPageJa {
+	TranslationsEndPageJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '完'
+	String get complete => '完';
+
+	/// ja: 'おわり'
+	String get theEnd => 'おわり';
+
+	/// ja: '応援する'
+	String get supportLabel => '応援する';
+
+	/// ja: '{count} / {target}'
+	String get supportCount => '{count} / {target}';
 }
 
 // Path: quiz1.insight
@@ -230,6 +252,10 @@ extension on Translations {
 			'quiz4.insight.subtitle' => '連続タップで気持ちを届ける「連打応援」機能は、多くの漫画アプリに搭載されています',
 			'quiz4.insight.step1Title' => '応援ボタンを連打',
 			'quiz4.insight.step1Desc' => 'ハートボタンを素早く何度もタップして、作者への応援を送りましょう',
+			'endPage.complete' => '完',
+			'endPage.theEnd' => 'おわり',
+			'endPage.supportLabel' => '応援する',
+			'endPage.supportCount' => '{count} / {target}',
 			_ => null,
 		};
 	}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 
+import '../i18n/comic_translations_extension.dart';
 import 'manga_app_state.dart';
 
 /// 漫画ビューア全体のスキャフォールド
@@ -366,9 +367,10 @@ class _LastMangaPageState extends State<_LastMangaPage>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // 「完」表示
-          Text(
-            '完',
+          // 「完」表示（UnreadableText でカスタム言語に変換）
+          UnreadableText(
+            context.sq.endPage.complete,
+            isObfuscated: true,
             style: TextStyle(
               fontSize: 48,
               fontWeight: FontWeight.bold,
@@ -376,8 +378,9 @@ class _LastMangaPageState extends State<_LastMangaPage>
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'THE END',
+          UnreadableText(
+            context.sq.endPage.theEnd,
+            isObfuscated: true,
             style: TextStyle(
               fontSize: 16,
               color: theme.primaryColor.withValues(alpha: 0.6),
@@ -415,7 +418,9 @@ class _LastMangaPageState extends State<_LastMangaPage>
           const SizedBox(height: 20),
           // いいね数表示
           Text(
-            '${widget.likeCount} / ${widget.likeTarget}',
+            context.sq.endPage.supportCount
+                .replaceAll('{count}', '${widget.likeCount}')
+                .replaceAll('{target}', '${widget.likeTarget}'),
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -447,6 +452,8 @@ class _LastMangaPageState extends State<_LastMangaPage>
 /// 漫画ビューアのヘッダー・フッターオーバーレイメニュー
 ///
 /// [isVisible] が true のときにアニメーション付きでスライドイン表示される。
+/// ヘッダーは画面上部、フッターのページスライダーは画面下部に固定表示する。
+/// どちらも [SafeArea] でノッチ・ホームバーの見切れを防ぐ。
 class MangaOverlayMenu extends StatelessWidget {
   const MangaOverlayMenu({
     super.key,
@@ -466,107 +473,122 @@ class MangaOverlayMenu extends StatelessWidget {
 
     return IgnorePointer(
       ignoring: !isVisible,
-      child: Stack(
-        children: [
-          // ヘッダー
-          AnimatedSlide(
-            offset: isVisible ? Offset.zero : const Offset(0, -1),
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.easeInOut,
-            child: AnimatedOpacity(
-              opacity: isVisible ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 250),
-              child: Container(
-                height: kToolbarHeight + MediaQuery.paddingOf(context).top,
-                color: overlayColor,
-                padding: EdgeInsets.only(
-                  top: MediaQuery.paddingOf(context).top,
-                  left: 8,
-                  right: 8,
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.more_vert,
-                        color: Colors.white,
+      // SizedBox.expand でフル画面に広げ、Positioned(bottom:0) が正しく機能するようにする
+      child: SizedBox.expand(
+        child: Stack(
+          children: [
+            // ヘッダー（上部固定）
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: AnimatedSlide(
+                offset: isVisible ? Offset.zero : const Offset(0, -1),
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+                child: AnimatedOpacity(
+                  opacity: isVisible ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 250),
+                  child: Material(
+                    color: overlayColor,
+                    child: SafeArea(
+                      bottom: false,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {},
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.more_vert,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
                       ),
-                      onPressed: () {},
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-          // フッター
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: AnimatedSlide(
-              offset: isVisible ? Offset.zero : const Offset(0, 1),
-              duration: const Duration(milliseconds: 250),
-              curve: Curves.easeInOut,
-              child: AnimatedOpacity(
-                opacity: isVisible ? 1.0 : 0.0,
+            // フッター（下部固定）：ページスライダー
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: AnimatedSlide(
+                offset: isVisible ? Offset.zero : const Offset(0, 1),
                 duration: const Duration(milliseconds: 250),
-                child: Container(
-                  color: overlayColor,
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.paddingOf(context).bottom + 8,
-                    left: 16,
-                    right: 16,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
+                curve: Curves.easeInOut,
+                child: AnimatedOpacity(
+                  opacity: isVisible ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 250),
+                  child: Material(
+                    color: overlayColor,
+                    child: SafeArea(
+                      top: false,
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              '${currentPage + 1}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${currentPage + 1}',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    '$totalPages',
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              '$totalPages',
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 14,
+                            SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                activeTrackColor: Colors.white,
+                                inactiveTrackColor: Colors.white30,
+                                thumbColor: Colors.white,
+                                overlayColor: Colors.white24,
+                              ),
+                              child: Slider(
+                                value: currentPage.toDouble(),
+                                min: 0,
+                                max: (totalPages - 1).toDouble(),
+                                divisions: totalPages - 1,
+                                onChanged: (_) {},
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: Colors.white,
-                          inactiveTrackColor: Colors.white30,
-                          thumbColor: Colors.white,
-                          overlayColor: Colors.white24,
-                        ),
-                        child: Slider(
-                          value: currentPage.toDouble(),
-                          min: 0,
-                          max: (totalPages - 1).toDouble(),
-                          divisions: totalPages - 1,
-                          onChanged: (_) {},
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

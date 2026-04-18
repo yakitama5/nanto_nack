@@ -1,42 +1,48 @@
 {
   "quiz1": {
-    "mission": "内容を読み飛ばしてしまった！3ページ戻ろう",
-    "hint": "画面の右端をタップするか、左にスワイプするとページが戻ります",
+    "mission": "I skipped some pages! Go back 3 pages.",
+    "hint": "Tap the right edge of the screen or swipe left to go back a page.",
     "insight": {
-      "title": "漫画アプリのページ操作",
-      "subtitle": "日本の漫画は右開き（右から左へ読む）のため、ページを「戻る」には右側をタップします",
-      "step1Title": "右端タップ or 左スワイプ",
-      "step1Desc": "画面右端をタップするか、左にスワイプするとページが1枚戻ります"
+      "title": "Page Navigation in Manga Apps",
+      "subtitle": "Japanese manga reads right to left, so going back means tapping the right side.",
+      "step1Title": "Tap right edge or swipe left",
+      "step1Desc": "Tap the right edge or swipe left to go back one page."
     }
   },
   "quiz2": {
-    "mission": "コマの隅の文字が読めない……画面を拡大しよう",
-    "hint": "2本指を広げる（ピンチアウト）か、ダブルタップで拡大できます",
+    "mission": "I can not read the small text in the corner. Zoom in!",
+    "hint": "Pinch out with two fingers or double-tap to zoom in.",
     "insight": {
-      "title": "拡大・縮小操作",
-      "subtitle": "小さな文字や細かい描写は、ピンチ操作やダブルタップで拡大して読めます",
-      "step1Title": "ピンチアウト",
-      "step1Desc": "2本指を画面上で広げると、漫画を拡大表示できます"
+      "title": "Zoom In and Out",
+      "subtitle": "You can zoom in on small text or fine details using pinch or double-tap.",
+      "step1Title": "Pinch Out",
+      "step1Desc": "Spread two fingers on the screen to zoom in on the manga."
     }
   },
   "quiz3": {
-    "mission": "一度読むのをやめよう。メニューを表示させて",
-    "hint": "画面の中央あたりをタップするとメニューが表示されます",
+    "mission": "Let us stop reading for now. Show the menu.",
+    "hint": "Tap the center of the screen to show the menu.",
     "insight": {
-      "title": "メニューの表示方法",
-      "subtitle": "多くの漫画アプリは、画面中央タップでヘッダー/フッターのメニューを表示します",
-      "step1Title": "画面中央タップ",
-      "step1Desc": "画面の中央部分をタップすると、ヘッダーとフッターのメニューが表示されます"
+      "title": "Showing the Menu",
+      "subtitle": "Most manga apps show the header and footer menu when you tap the center of the screen.",
+      "step1Title": "Tap the Center",
+      "step1Desc": "Tap the center of the screen to show the header and footer menu."
     }
   },
   "quiz4": {
-    "mission": "面白かった！応援ボタンを10回連打して作者にパワーを送ろう",
-    "hint": "最終ページの大きなハートボタンを素早く10回タップしましょう",
+    "mission": "That was great! Tap the support button ten times to send power to the creator!",
+    "hint": "Quickly tap the large heart button on the last page ten times.",
     "insight": {
-      "title": "応援・いいね機能",
-      "subtitle": "連続タップで気持ちを届ける「連打応援」機能は、多くの漫画アプリに搭載されています",
-      "step1Title": "応援ボタンを連打",
-      "step1Desc": "ハートボタンを素早く何度もタップして、作者への応援を送りましょう"
+      "title": "Support and Like Feature",
+      "subtitle": "Many manga apps have a rapid-tap support feature to send encouragement to creators.",
+      "step1Title": "Rapid-tap the support button",
+      "step1Desc": "Quickly tap the heart button multiple times to send your support to the creator."
     }
+  },
+  "endPage": {
+    "complete": "Complete",
+    "theEnd": "The End",
+    "supportLabel": "Support",
+    "supportCount": "{count} / {target}"
   }
 }

@@ -38,5 +38,11 @@
       "step1Title": "応援ボタンを連打",
       "step1Desc": "ハートボタンを素早く何度もタップして、作者への応援を送りましょう"
     }
+  },
+  "endPage": {
+    "complete": "完",
+    "theEnd": "おわり",
+    "supportLabel": "応援する",
+    "supportCount": "{count} / {target}"
   }
 }
