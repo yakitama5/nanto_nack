@@ -26,10 +26,12 @@ void main() {
         expect(catPost.first.isLiked, isFalse);
       });
 
-      test('Quiz2の初期状態は全画面画像が開いた状態', () {
+      test('Quiz2の初期状態（idle）は全画面画像が閉じた状態', () {
+        // Quiz2の全画面フラグは startQuiz()/retry() 時にセットされる
+        // idle 状態ではホームタブを表示するため初期値は false
         final state = SnsQuizState.initial(SnsQuizType.quiz2);
-        expect(state.isFullScreenImageOpened, isTrue);
-        expect(state.fullScreenImageUrl, isNotNull);
+        expect(state.isFullScreenImageOpened, isFalse);
+        expect(state.fullScreenImageUrl, isNull);
       });
 
       test('Quiz3の初期状態は全画面画像が閉じた状態', () {
