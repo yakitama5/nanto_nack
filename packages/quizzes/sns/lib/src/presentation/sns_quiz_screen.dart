@@ -1046,6 +1046,7 @@ class _SearchViewState extends ConsumerState<_SearchView> {
               focusNode: _focusNode,
               onChanged: notifier.updateSearchText,
               onSubmitted: (_) => notifier.performSearch(),
+              textInputAction: TextInputAction.search,
               decoration: InputDecoration(
                 hintText: sq.common.search,
                 hintStyle: TextStyle(color: snsTheme.subTextColor),
