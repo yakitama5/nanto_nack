@@ -19,6 +19,7 @@ workspace:
   - packages/quizzes/news
   - packages/quizzes/calendar
   - packages/quizzes/sns
+  - packages/quizzes/comic
   - packages/geolocator_windows_stub
 
 dev_dependencies:
