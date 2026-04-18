@@ -336,6 +336,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get mail => 'Mail';
 	@override String get news => 'News';
 	@override String get calendar => 'Calendar';
+	@override String get sns => 'SNS';
 }
 
 // Path: play.categoryDescription
@@ -354,6 +355,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get mail => 'Experience email app UI/UX';
 	@override String get news => 'Experience news app UI/UX';
 	@override String get calendar => 'Experience calendar app UI/UX';
+	@override String get sns => 'Experience social media app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -399,6 +401,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get calendar_quiz2 => 'Add an Event Quickly';
 	@override String get calendar_quiz3 => 'Change Event Date';
 	@override String get calendar_quiz4 => 'Return to Today Instantly';
+	@override String get sns_quiz1 => 'Like the cat photo on the timeline';
+	@override String get sns_quiz2 => 'Post something!';
+	@override String get sns_quiz3 => 'Open an image and return to the previous screen';
+	@override String get sns_quiz4 => 'Search for nantom\'s (@nantom) posts';
 }
 
 // Path: play.stageDescription
@@ -444,6 +450,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get calendar_quiz2 => 'Add a new event on the 15th';
 	@override String get calendar_quiz3 => 'Move the dentist appointment to the next day';
 	@override String get calendar_quiz4 => 'After navigating years ahead, return to today\'s date';
+	@override String get sns_quiz1 => 'Double tap the cat photo to like it';
+	@override String get sns_quiz2 => 'Swipe down to close the fullscreen image';
+	@override String get sns_quiz3 => 'Scroll back to the top of the timeline instantly';
+	@override String get sns_quiz4 => 'Long press the profile icon to switch to your sub account';
 }
 
 // Path: scene.greeting
@@ -607,6 +617,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.mail' => 'Mail',
 			'play.categoryLabel.news' => 'News',
 			'play.categoryLabel.calendar' => 'Calendar',
+			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -616,6 +627,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.mail' => 'Experience email app UI/UX',
 			'play.categoryDescription.news' => 'Experience news app UI/UX',
 			'play.categoryDescription.calendar' => 'Experience calendar app UI/UX',
+			'play.categoryDescription.sns' => 'Experience social media app UI/UX',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -652,6 +664,10 @@ extension on TranslationsEn {
 			'play.stageTitle.calendar_quiz2' => 'Add an Event Quickly',
 			'play.stageTitle.calendar_quiz3' => 'Change Event Date',
 			'play.stageTitle.calendar_quiz4' => 'Return to Today Instantly',
+			'play.stageTitle.sns_quiz1' => 'Like the cat photo on the timeline',
+			'play.stageTitle.sns_quiz2' => 'Post something!',
+			'play.stageTitle.sns_quiz3' => 'Open an image and return to the previous screen',
+			'play.stageTitle.sns_quiz4' => 'Search for nantom\'s (@nantom) posts',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -688,6 +704,10 @@ extension on TranslationsEn {
 			'play.stageDescription.calendar_quiz2' => 'Add a new event on the 15th',
 			'play.stageDescription.calendar_quiz3' => 'Move the dentist appointment to the next day',
 			'play.stageDescription.calendar_quiz4' => 'After navigating years ahead, return to today\'s date',
+			'play.stageDescription.sns_quiz1' => 'Double tap the cat photo to like it',
+			'play.stageDescription.sns_quiz2' => 'Swipe down to close the fullscreen image',
+			'play.stageDescription.sns_quiz3' => 'Scroll back to the top of the timeline instantly',
+			'play.stageDescription.sns_quiz4' => 'Long press the profile icon to switch to your sub account',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

@@ -51,6 +51,14 @@ class AnalyticsService {
     );
   }
 
+  /// クイズ時間切れイベントを記録する
+  Future<void> logQuizTimeUp({required String quizId}) async {
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'quiz_time_up',
+      parameters: {'quiz_id': quizId},
+    );
+  }
+
   // ─────────────────────────────────────────
   // ナビゲーション
   // ─────────────────────────────────────────

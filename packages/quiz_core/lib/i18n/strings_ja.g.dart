@@ -559,6 +559,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: 'カレンダー'
 	String get calendar => 'カレンダー';
+
+	/// ja: 'SNS'
+	String get sns => 'SNS';
 }
 
 // Path: play.categoryDescription
@@ -595,6 +598,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: 'カレンダーアプリのUI/UXを体験しよう'
 	String get calendar => 'カレンダーアプリのUI/UXを体験しよう';
+
+	/// ja: 'SNSアプリのUI/UXを体験しよう'
+	String get sns => 'SNSアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -712,6 +718,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '一瞬で「今日」に戻ろう'
 	String get calendar_quiz4 => '一瞬で「今日」に戻ろう';
+
+	/// ja: 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう'
+	String get sns_quiz1 => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう';
+
+	/// ja: '何か投稿してみよう！'
+	String get sns_quiz2 => '何か投稿してみよう！';
+
+	/// ja: '画像を開いて表示した後に元の画面に戻ろう'
+	String get sns_quiz3 => '画像を開いて表示した後に元の画面に戻ろう';
+
+	/// ja: 'ナントム(@nantom)の投稿を検索しよう！'
+	String get sns_quiz4 => 'ナントム(@nantom)の投稿を検索しよう！';
 }
 
 // Path: play.stageDescription
@@ -829,6 +847,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '数年先に移動した後、今日の日付に戻ってください'
 	String get calendar_quiz4 => '数年先に移動した後、今日の日付に戻ってください';
+
+	/// ja: 'SNSアプリで猫の写真にダブルタップでいいねしてください'
+	String get sns_quiz1 => 'SNSアプリで猫の写真にダブルタップでいいねしてください';
+
+	/// ja: '全画面で表示された画像を下スワイプで閉じてください'
+	String get sns_quiz2 => '全画面で表示された画像を下スワイプで閉じてください';
+
+	/// ja: 'タイムラインを下まで読んだら、一瞬でトップに戻ってください'
+	String get sns_quiz3 => 'タイムラインを下まで読んだら、一瞬でトップに戻ってください';
+
+	/// ja: 'プロフィールアイコンを長押しして、サブアカウントに切り替えてください'
+	String get sns_quiz4 => 'プロフィールアイコンを長押しして、サブアカウントに切り替えてください';
 }
 
 // Path: scene.greeting
@@ -1054,6 +1084,7 @@ extension on Translations {
 			'play.categoryLabel.mail' => 'メール',
 			'play.categoryLabel.news' => 'ニュース',
 			'play.categoryLabel.calendar' => 'カレンダー',
+			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1063,6 +1094,7 @@ extension on Translations {
 			'play.categoryDescription.mail' => 'メールアプリのUI/UXを体験しよう',
 			'play.categoryDescription.news' => 'ニュースアプリのUI/UXを体験しよう',
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
+			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1099,6 +1131,10 @@ extension on Translations {
 			'play.stageTitle.calendar_quiz2' => '予定を素早く追加しよう',
 			'play.stageTitle.calendar_quiz3' => '予定の日付を変えよう',
 			'play.stageTitle.calendar_quiz4' => '一瞬で「今日」に戻ろう',
+			'play.stageTitle.sns_quiz1' => 'タイムラインに流れてきた猫の写真に「いいネ！」をしよう',
+			'play.stageTitle.sns_quiz2' => '何か投稿してみよう！',
+			'play.stageTitle.sns_quiz3' => '画像を開いて表示した後に元の画面に戻ろう',
+			'play.stageTitle.sns_quiz4' => 'ナントム(@nantom)の投稿を検索しよう！',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1135,6 +1171,10 @@ extension on Translations {
 			'play.stageDescription.calendar_quiz2' => '15日に新しい予定を追加してください',
 			'play.stageDescription.calendar_quiz3' => '歯医者の予定を翌日に移動してください',
 			'play.stageDescription.calendar_quiz4' => '数年先に移動した後、今日の日付に戻ってください',
+			'play.stageDescription.sns_quiz1' => 'SNSアプリで猫の写真にダブルタップでいいねしてください',
+			'play.stageDescription.sns_quiz2' => '全画面で表示された画像を下スワイプで閉じてください',
+			'play.stageDescription.sns_quiz3' => 'タイムラインを下まで読んだら、一瞬でトップに戻ってください',
+			'play.stageDescription.sns_quiz4' => 'プロフィールアイコンを長押しして、サブアカウントに切り替えてください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

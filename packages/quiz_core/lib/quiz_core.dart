@@ -11,6 +11,7 @@ export 'src/theme/news_app_theme.dart';
 export 'src/theme/nanto_nack_theme_extension.dart';
 export 'src/theme/payment_app_theme.dart';
 export 'src/theme/shopping_app_theme.dart';
+export 'src/theme/sns_app_theme.dart';
 export 'src/theme/streaming_app_theme.dart';
 export 'src/utils/custom_language_encoder.dart';
 export 'src/utils/haptic_feedback_service.dart';

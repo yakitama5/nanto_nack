@@ -50,6 +50,8 @@ dependencies:
     path: ../../packages/quizzes/news
   calendar:
     path: ../../packages/quizzes/calendar
+  sns:
+    path: ../../packages/quizzes/sns
   slang_flutter: ^4.3.1
   system:
     path: ../../packages/system

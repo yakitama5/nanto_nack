@@ -113,7 +113,8 @@
       "payment": "Payment",
       "mail": "Mail",
       "news": "News",
-      "calendar": "Calendar"
+      "calendar": "Calendar",
+      "sns": "SNS"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -124,7 +125,8 @@
       "payment": "Experience mobile payment app UI/UX",
       "mail": "Experience email app UI/UX",
       "news": "Experience news app UI/UX",
-      "calendar": "Experience calendar app UI/UX"
+      "calendar": "Experience calendar app UI/UX",
+      "sns": "Experience social media app UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -162,7 +164,11 @@
       "calendar_quiz1": "View Next Month Events",
       "calendar_quiz2": "Add an Event Quickly",
       "calendar_quiz3": "Change Event Date",
-      "calendar_quiz4": "Return to Today Instantly"
+      "calendar_quiz4": "Return to Today Instantly",
+      "sns_quiz1": "Like the cat photo on the timeline",
+      "sns_quiz2": "Post something!",
+      "sns_quiz3": "Open an image and return to the previous screen",
+      "sns_quiz4": "Search for nantom's (@nantom) posts"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -200,7 +206,11 @@
       "calendar_quiz1": "Use the calendar to check the events for next month",
       "calendar_quiz2": "Add a new event on the 15th",
       "calendar_quiz3": "Move the dentist appointment to the next day",
-      "calendar_quiz4": "After navigating years ahead, return to today's date"
+      "calendar_quiz4": "After navigating years ahead, return to today's date",
+      "sns_quiz1": "Double tap the cat photo to like it",
+      "sns_quiz2": "Post something in the SNS app",
+      "sns_quiz3": "Open an image in fullscreen, then swipe down to close and return to the previous screen",
+      "sns_quiz4": "Search for Nantom's (@nantom) posts in the SNS app"
     }
   },
   "scene": {

@@ -1,0 +1,110 @@
+{
+  "quiz1": {
+    "missionText": "タイムラインに流れてきた猫の写真に「いいネ！」をしよう",
+    "insight": {
+      "title": "なぜダブルタップで「いいネ！」できた？",
+      "subtitle": "ダブルタップ＝「いいネ！」はSNSの定番操作",
+      "doubleTapTitle": "ダブルタップは「いいネ！」のショートカット",
+      "doubleTapDesc": "X（旧Twitter）やInstagramでは、投稿の写真をすばやく2回タップすると「いいネ！」できる。ハートボタンを探す必要がなく、直感的に操作できる。",
+      "heartTitle": "ハートアニメーションが操作を確認させる",
+      "heartDesc": "ダブルタップすると画像中央に大きなハートが表示される。これはフィードバックアニメーションと呼ばれ、操作が正しく認識されたことをユーザーに伝える仕組み。",
+      "gestureTitle": "SNSジェスチャーは世界共通の操作",
+      "gestureDesc": "InstagramやX・TikTokなど多くのSNSで「ダブルタップ＝いいネ！」が共通操作になっている。一度覚えれば複数のアプリで活用できる。"
+    }
+  },
+  "quiz2": {
+    "missionText": "何か投稿してみよう！",
+    "insight": {
+      "title": "なぜ投稿画面が下から出てきた？",
+      "subtitle": "＋ボタン＝「新規作成・アクション」の目印",
+      "swipeTitle": "FAB（Floating Action Button）の役割",
+      "swipeDesc": "画面右下に浮かんでいる＋ボタンは、その画面で最も重要な操作（SNSなら投稿）を示す。親指で届きやすい位置にあり、すぐに操作を開始できる。",
+      "fullscreenTitle": "入力中はキーボードが自動で開く",
+      "fullscreenDesc": "投稿画面を開くと自動的に入力欄にフォーカスが当たり、キーボードが表示される。ユーザーがすぐに文字を打ち込めるように工夫されている。",
+      "backTitle": "投稿ボタンの色が変わる",
+      "backDesc": "何も入力していない時は投稿ボタンが半透明で押せないようになっている。文字を入力することで色が濃くなり、操作可能であることを視覚的に伝える。"
+    }
+  },
+  "quiz3": {
+    "missionText": "画像を開いて表示した後に元の画面に戻ろう",
+    "insight": {
+      "title": "なぜ下にスワイプで閉じられた？",
+      "subtitle": "下スワイプ＝「戻る・閉じる」の直感操作",
+      "swipeTitle": "下スワイプは「閉じる」の直感ジェスチャー",
+      "swipeDesc": "全画面表示された画像を下に向かってスワイプ（フリック）すると、元の画面に戻れる。重力を意識した「落とす」感覚が「閉じる」動作と結びついている。",
+      "fullscreenTitle": "全画面モードはタップで開く",
+      "fullscreenDesc": "SNSアプリでは投稿の画像をタップすると全画面モードで表示される。ピンチアウトで拡大したり、より詳しく見ることができる。",
+      "backTitle": "「×ボタン」がなくても閉じられる",
+      "backDesc": "スマートフォンのUIでは×ボタンがなくても、スワイプジェスチャーで画面を閉じることができる。操作の手がかりがなくても試してみることが重要。"
+    }
+  },
+  "quiz4": {
+    "missionText": "ナントム(@nantom)の投稿を検索しよう！",
+    "insight": {
+      "title": "なぜ「from:」で検索できた？",
+      "subtitle": "検索コマンドで絞り込みを効率化",
+      "searchCommandTitle": "検索コマンド（from:）の便利さ",
+      "searchCommandDesc": "「from:ユーザー名」と入力することで、その特定のユーザーの投稿だけを検索できる。SNSの検索バーでは、こうしたコマンドを使うことで高度な絞り込みが可能。",
+      "searchTabIconTitle": "検索タブへの切り替えはアイコンで判断",
+      "searchTabIconDesc": "虫眼鏡アイコンは世界的に「検索」を意味する。タブバーのアイコンから、自分が今どの機能を使おうとしているかを直感的に判断できる。",
+      "autoFocusTitle": "オートフォーカスでスムーズに検索",
+      "autoFocusDesc": "検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。"
+    }
+  },
+  "common": {
+    "appTitle": "NantoTweet",
+    "home": "ホーム",
+    "search": "検索",
+    "notifications": "通知",
+    "profile": "プロフィール",
+    "mainAccountName": "なんとユーザー",
+    "mainAccountId": "@nanto_user",
+    "subAccountName": "なんとの裏垢",
+    "subAccountId": "@nanto_ura",
+    "switchAccountLabel": "アカウントを切り替える",
+    "post1UserName": "なんとにゃん太",
+    "post1UserId": "@nanto_nyan",
+    "post1Content": "今日もかわいい写真が撮れた🐱",
+    "post2UserName": "なんとわん子",
+    "post2UserId": "@nanto_wanko",
+    "post2Content": "散歩から帰ってきたよ🐶",
+    "post3UserName": "なんとぴよ子",
+    "post3UserId": "@nanto_piyo",
+    "post3Content": "ぴよぴよ！元気いっぱいだよ🐥",
+    "post4UserName": "なんとうさ吉",
+    "post4UserId": "@nanto_usa",
+    "post4Content": "今日はにんじんをいっぱい食べた🥕",
+    "post5UserName": "なんとはむすけ",
+    "post5UserId": "@nanto_hamu",
+    "post5Content": "回し車が止まらない🐹",
+    "post6UserName": "なんとかめ次郎",
+    "post6UserId": "@nanto_kame",
+    "post6Content": "ゆっくりと日光浴中🐢",
+    "post7UserName": "なんとさかな男",
+    "post7UserId": "@nanto_sakana",
+    "post7Content": "水槽の掃除をしたら気持ちよさそうに泳いでいる🐟",
+    "post8UserName": "なんとすずめ",
+    "post8UserId": "@nanto_suzume",
+    "post8Content": "ちゅんちゅん！今日も元気です🐦",
+    "post9UserName": "なんとねこ平",
+    "post9UserId": "@nanto_neko2",
+    "post9Content": "お昼寝タイムです😴",
+    "post10UserName": "なんとくま太郎",
+    "post10UserId": "@nanto_kuma",
+    "post10Content": "蜂蜜を食べたくなってきた🍯",
+    "post": "投稿する",
+    "cancel": "キャンセル",
+    "composeHint": "いまどうしてる？",
+    "composePlaceholder": "投稿画面 (Twitter風UI実装予定)",
+    "trends": {
+      "trendingInJapan": "日本のトレンド",
+      "technologyTrending": "テクノロジー · トレンド",
+      "gamingTrending": "ゲーム · トレンド",
+      "postsCountSuffix": "件の投稿",
+      "nantoNack": "ナントナック",
+      "flutter": "Flutter",
+      "retroGames": "レトロゲーム",
+      "uiUxQuiz": "UI/UX クイズ"
+    }
+  }
+}

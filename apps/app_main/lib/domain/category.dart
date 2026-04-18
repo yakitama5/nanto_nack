@@ -10,7 +10,8 @@ enum QuizCategory {
   payment,
   mail,
   news,
-  calendar
+  calendar,
+  sns
   ;
 
   String get id => name;
@@ -25,6 +26,7 @@ enum QuizCategory {
     mail => Icons.mail_outlined,
     news => Icons.newspaper_outlined,
     calendar => Icons.calendar_month_outlined,
+    sns => Icons.people_alt_outlined,
   };
 
   bool get isComingSoon => false;
@@ -39,6 +41,7 @@ enum QuizCategory {
     mail => t.play.categoryLabel.mail,
     news => t.play.categoryLabel.news,
     calendar => t.play.categoryLabel.calendar,
+    sns => t.play.categoryLabel.sns,
   };
 
   Color color(NantoNackThemeExtension ext) => switch (this) {
@@ -51,6 +54,7 @@ enum QuizCategory {
     mail => ext.mailCategoryColor,
     news => ext.newsCategoryColor,
     calendar => ext.calendarCategoryColor,
+    sns => ext.snsCategoryColor,
   };
 
   Color containerColor(NantoNackThemeExtension ext) => switch (this) {
@@ -63,6 +67,7 @@ enum QuizCategory {
     mail => ext.mailCategoryContainerColor,
     news => ext.newsCategoryContainerColor,
     calendar => ext.calendarCategoryContainerColor,
+    sns => ext.snsCategoryContainerColor,
   };
 
   static QuizCategory fromId(String id) => QuizCategory.values.firstWhere(
