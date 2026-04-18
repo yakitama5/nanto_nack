@@ -34,6 +34,8 @@ dependencies:
   responsive_framework: ^1.5.1
   chat:
     path: ../../packages/quizzes/chat
+  comic:
+    path: ../../packages/quizzes/comic
   streaming:
     path: ../../packages/quizzes/streaming
   shopping:
