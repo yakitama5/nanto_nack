@@ -11,25 +11,24 @@ import 'comic_quiz_type.dart';
 
 final comicQuizProvider = NotifierProvider.autoDispose
     .family<ComicQuizNotifier, ComicQuizState, ComicQuizType>(
-  ComicQuizNotifier.new,
-);
+      ComicQuizNotifier.new,
+    );
 
 class ComicQuizNotifier
     extends AutoDisposeFamilyNotifier<ComicQuizState, ComicQuizType> {
   Timer? _timer;
 
   static String _quizId(ComicQuizType type) => switch (type) {
-        ComicQuizType.quiz1 => 'comic_quiz1',
-        ComicQuizType.quiz2 => 'comic_quiz2',
-        ComicQuizType.quiz3 => 'comic_quiz3',
-        ComicQuizType.quiz4 => 'comic_quiz4',
-      };
+    ComicQuizType.quiz1 => 'comic_quiz1',
+    ComicQuizType.quiz2 => 'comic_quiz2',
+    ComicQuizType.quiz3 => 'comic_quiz3',
+    ComicQuizType.quiz4 => 'comic_quiz4',
+  };
 
   static int _initialPageIndex(ComicQuizType type) => switch (type) {
-        ComicQuizType.quiz1 => ComicQuizConfig.quiz1InitialPage,
-        ComicQuizType.quiz4 => ComicQuizConfig.totalPages - 1,
-        _ => 0,
-      };
+    ComicQuizType.quiz1 => ComicQuizConfig.quiz1InitialPage,
+    _ => 0,
+  };
 
   @override
   ComicQuizState build(ComicQuizType arg) {
@@ -113,12 +112,6 @@ class ComicQuizNotifier
         stackTrace: stackTrace,
       );
     }
-  }
-
-  void useHint() {
-    if (state.status != QuizStatus.playing) return;
-    if (state.hintUsed) return;
-    state = state.copyWith(hintUsed: true);
   }
 
   void retry() {
@@ -226,14 +219,18 @@ class ComicQuizNotifier
     required int elapsedMs,
   }) async {
     if (isCleared) {
-      await ref.read(analyticsServiceProvider).logQuizCompleted(
+      await ref
+          .read(analyticsServiceProvider)
+          .logQuizCompleted(
             quizId: _quizId(arg),
             score: state.score,
             failureCount: state.failureCount,
             clearTimeMs: elapsedMs,
           );
     }
-    await ref.read(quizResultRepositoryProvider).saveBestRecord(
+    await ref
+        .read(quizResultRepositoryProvider)
+        .saveBestRecord(
           quizId: _quizId(arg),
           isCleared: isCleared,
           clearTimeMs: isCleared ? elapsedMs : null,

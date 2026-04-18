@@ -3,6 +3,8 @@ import 'package:quiz_core/quiz_core.dart';
 import 'manga_app_state.dart';
 
 /// コミッククイズの状態
+///
+/// ヒント機能はないため [hintUsed] フィールドは持たない。
 class ComicQuizState extends QuizStateBase {
   const ComicQuizState({
     required super.status,
@@ -10,7 +12,6 @@ class ComicQuizState extends QuizStateBase {
     required super.elapsedMs,
     required super.startedAt,
     required this.remainingSeconds,
-    required this.hintUsed,
     required this.mangaApp,
   });
 
@@ -24,15 +25,11 @@ class ComicQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         remainingSeconds: timeLimitSeconds,
-        hintUsed: false,
         mangaApp: MangaAppState.initial(initialPageIndex: initialPageIndex),
       );
 
   /// 残り時間（秒）
   final int remainingSeconds;
-
-  /// ヒントを使用済みかどうか
-  final bool hintUsed;
 
   /// 漫画ビューアのUI状態
   final MangaAppState mangaApp;
@@ -43,7 +40,6 @@ class ComicQuizState extends QuizStateBase {
     int? elapsedMs,
     DateTime? startedAt,
     int? remainingSeconds,
-    bool? hintUsed,
     MangaAppState? mangaApp,
   }) =>
       ComicQuizState(
@@ -52,7 +48,6 @@ class ComicQuizState extends QuizStateBase {
         elapsedMs: elapsedMs ?? this.elapsedMs,
         startedAt: startedAt ?? this.startedAt,
         remainingSeconds: remainingSeconds ?? this.remainingSeconds,
-        hintUsed: hintUsed ?? this.hintUsed,
         mangaApp: mangaApp ?? this.mangaApp,
       );
 }

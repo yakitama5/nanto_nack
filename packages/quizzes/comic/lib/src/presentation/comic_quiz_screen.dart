@@ -134,9 +134,9 @@ class _ComicQuizScreenState extends ConsumerState<ComicQuizScreen> {
           FloatingMissionBubble(
             remainingSeconds: quizState.remainingSeconds,
             missionText: missionText,
-            hintUsed: quizState.hintUsed,
+            // comic カテゴリはヒント機能なし
+            hintUsed: false,
             timeLimitSeconds: ComicQuizConfig.timeLimitSeconds,
-            onHintTap: notifier.useHint,
             onGiveUp: () => notifier.giveUp(),
           ),
         // ミッションカットイン演出
