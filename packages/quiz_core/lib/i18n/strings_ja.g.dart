@@ -562,6 +562,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: 'SNS'
 	String get sns => 'SNS';
+
+	/// ja: '漫画アプリ'
+	String get comic => '漫画アプリ';
 }
 
 // Path: play.categoryDescription
@@ -601,6 +604,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: 'SNSアプリのUI/UXを体験しよう'
 	String get sns => 'SNSアプリのUI/UXを体験しよう';
+
+	/// ja: '漫画アプリの操作をマスターしよう'
+	String get comic => '漫画アプリの操作をマスターしよう';
 }
 
 // Path: play.stageTitle
@@ -730,6 +736,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: 'ナントム(@nantom)の投稿を検索しよう！'
 	String get sns_quiz4 => 'ナントム(@nantom)の投稿を検索しよう！';
+
+	/// ja: '3ページ戻る'
+	String get comic_quiz1 => '3ページ戻る';
+
+	/// ja: '画面を拡大する'
+	String get comic_quiz2 => '画面を拡大する';
+
+	/// ja: 'メニューを表示する'
+	String get comic_quiz3 => 'メニューを表示する';
+
+	/// ja: '作者を応援する'
+	String get comic_quiz4 => '作者を応援する';
 }
 
 // Path: play.stageDescription
@@ -851,14 +869,26 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: 'SNSアプリで猫の写真にダブルタップでいいねしてください'
 	String get sns_quiz1 => 'SNSアプリで猫の写真にダブルタップでいいねしてください';
 
-	/// ja: '全画面で表示された画像を下スワイプで閉じてください'
-	String get sns_quiz2 => '全画面で表示された画像を下スワイプで閉じてください';
+	/// ja: 'SNSアプリで何か投稿してください'
+	String get sns_quiz2 => 'SNSアプリで何か投稿してください';
 
-	/// ja: 'タイムラインを下まで読んだら、一瞬でトップに戻ってください'
-	String get sns_quiz3 => 'タイムラインを下まで読んだら、一瞬でトップに戻ってください';
+	/// ja: 'SNSアプリで画像を全画面表示した後、下スワイプで閉じて元の画面に戻ってください'
+	String get sns_quiz3 => 'SNSアプリで画像を全画面表示した後、下スワイプで閉じて元の画面に戻ってください';
 
-	/// ja: 'プロフィールアイコンを長押しして、サブアカウントに切り替えてください'
-	String get sns_quiz4 => 'プロフィールアイコンを長押しして、サブアカウントに切り替えてください';
+	/// ja: 'SNSアプリでナントム(@nantom)の投稿を検索してください'
+	String get sns_quiz4 => 'SNSアプリでナントム(@nantom)の投稿を検索してください';
+
+	/// ja: 'ページを3つ前に戻そう'
+	String get comic_quiz1 => 'ページを3つ前に戻そう';
+
+	/// ja: '小さな文字を読めるよう拡大しよう'
+	String get comic_quiz2 => '小さな文字を読めるよう拡大しよう';
+
+	/// ja: 'メニューを表示してみよう'
+	String get comic_quiz3 => 'メニューを表示してみよう';
+
+	/// ja: '応援ボタンを10回連打しよう'
+	String get comic_quiz4 => '応援ボタンを10回連打しよう';
 }
 
 // Path: scene.greeting
@@ -1085,6 +1115,7 @@ extension on Translations {
 			'play.categoryLabel.news' => 'ニュース',
 			'play.categoryLabel.calendar' => 'カレンダー',
 			'play.categoryLabel.sns' => 'SNS',
+			'play.categoryLabel.comic' => '漫画アプリ',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1095,6 +1126,7 @@ extension on Translations {
 			'play.categoryDescription.news' => 'ニュースアプリのUI/UXを体験しよう',
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
 			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
+			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1135,6 +1167,10 @@ extension on Translations {
 			'play.stageTitle.sns_quiz2' => '何か投稿してみよう！',
 			'play.stageTitle.sns_quiz3' => '画像を開いて表示した後に元の画面に戻ろう',
 			'play.stageTitle.sns_quiz4' => 'ナントム(@nantom)の投稿を検索しよう！',
+			'play.stageTitle.comic_quiz1' => '3ページ戻る',
+			'play.stageTitle.comic_quiz2' => '画面を拡大する',
+			'play.stageTitle.comic_quiz3' => 'メニューを表示する',
+			'play.stageTitle.comic_quiz4' => '作者を応援する',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1172,9 +1208,13 @@ extension on Translations {
 			'play.stageDescription.calendar_quiz3' => '歯医者の予定を翌日に移動してください',
 			'play.stageDescription.calendar_quiz4' => '数年先に移動した後、今日の日付に戻ってください',
 			'play.stageDescription.sns_quiz1' => 'SNSアプリで猫の写真にダブルタップでいいねしてください',
-			'play.stageDescription.sns_quiz2' => '全画面で表示された画像を下スワイプで閉じてください',
-			'play.stageDescription.sns_quiz3' => 'タイムラインを下まで読んだら、一瞬でトップに戻ってください',
-			'play.stageDescription.sns_quiz4' => 'プロフィールアイコンを長押しして、サブアカウントに切り替えてください',
+			'play.stageDescription.sns_quiz2' => 'SNSアプリで何か投稿してください',
+			'play.stageDescription.sns_quiz3' => 'SNSアプリで画像を全画面表示した後、下スワイプで閉じて元の画面に戻ってください',
+			'play.stageDescription.sns_quiz4' => 'SNSアプリでナントム(@nantom)の投稿を検索してください',
+			'play.stageDescription.comic_quiz1' => 'ページを3つ前に戻そう',
+			'play.stageDescription.comic_quiz2' => '小さな文字を読めるよう拡大しよう',
+			'play.stageDescription.comic_quiz3' => 'メニューを表示してみよう',
+			'play.stageDescription.comic_quiz4' => '応援ボタンを10回連打しよう',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

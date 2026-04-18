@@ -114,7 +114,8 @@
       "mail": "Mail",
       "news": "News",
       "calendar": "Calendar",
-      "sns": "SNS"
+      "sns": "SNS",
+      "comic": "Manga App"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -126,7 +127,8 @@
       "mail": "Experience email app UI/UX",
       "news": "Experience news app UI/UX",
       "calendar": "Experience calendar app UI/UX",
-      "sns": "Experience social media app UI/UX"
+      "sns": "Experience social media app UI/UX",
+      "comic": "Master manga app operations"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -168,7 +170,11 @@
       "sns_quiz1": "Like the cat photo on the timeline",
       "sns_quiz2": "Post something!",
       "sns_quiz3": "Open an image and return to the previous screen",
-      "sns_quiz4": "Search for nantom's (@nantom) posts"
+      "sns_quiz4": "Search for nantom's (@nantom) posts",
+      "comic_quiz1": "Go Back 3 Pages",
+      "comic_quiz2": "Zoom In",
+      "comic_quiz3": "Show the Menu",
+      "comic_quiz4": "Support the Creator"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -210,7 +216,11 @@
       "sns_quiz1": "Double tap the cat photo to like it",
       "sns_quiz2": "Post something in the SNS app",
       "sns_quiz3": "Open an image in fullscreen, then swipe down to close and return to the previous screen",
-      "sns_quiz4": "Search for Nantom's (@nantom) posts in the SNS app"
+      "sns_quiz4": "Search for Nantom's (@nantom) posts in the SNS app",
+      "comic_quiz1": "Go back 3 pages in the manga app",
+      "comic_quiz2": "Zoom in to read the small text",
+      "comic_quiz3": "Show the menu in the manga app",
+      "comic_quiz4": "Tap the support button 10 times"
     }
   },
   "scene": {

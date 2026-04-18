@@ -114,7 +114,8 @@
       "mail": "メール",
       "news": "ニュース",
       "calendar": "カレンダー",
-      "sns": "SNS"
+      "sns": "SNS",
+      "comic": "漫画アプリ"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -126,7 +127,8 @@
       "mail": "メールアプリのUI/UXを体験しよう",
       "news": "ニュースアプリのUI/UXを体験しよう",
       "calendar": "カレンダーアプリのUI/UXを体験しよう",
-      "sns": "SNSアプリのUI/UXを体験しよう"
+      "sns": "SNSアプリのUI/UXを体験しよう",
+      "comic": "漫画アプリの操作をマスターしよう"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -168,7 +170,11 @@
       "sns_quiz1": "タイムラインに流れてきた猫の写真に「いいネ！」をしよう",
       "sns_quiz2": "何か投稿してみよう！",
       "sns_quiz3": "画像を開いて表示した後に元の画面に戻ろう",
-      "sns_quiz4": "ナントム(@nantom)の投稿を検索しよう！"
+      "sns_quiz4": "ナントム(@nantom)の投稿を検索しよう！",
+      "comic_quiz1": "3ページ戻る",
+      "comic_quiz2": "画面を拡大する",
+      "comic_quiz3": "メニューを表示する",
+      "comic_quiz4": "作者を応援する"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -210,7 +216,11 @@
       "sns_quiz1": "SNSアプリで猫の写真にダブルタップでいいねしてください",
       "sns_quiz2": "SNSアプリで何か投稿してください",
       "sns_quiz3": "SNSアプリで画像を全画面表示した後、下スワイプで閉じて元の画面に戻ってください",
-      "sns_quiz4": "SNSアプリでナントム(@nantom)の投稿を検索してください"
+      "sns_quiz4": "SNSアプリでナントム(@nantom)の投稿を検索してください",
+      "comic_quiz1": "ページを3つ前に戻そう",
+      "comic_quiz2": "小さな文字を読めるよう拡大しよう",
+      "comic_quiz3": "メニューを表示してみよう",
+      "comic_quiz4": "応援ボタンを10回連打しよう"
     }
   },
   "scene": {
