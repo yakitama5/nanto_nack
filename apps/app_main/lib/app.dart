@@ -69,6 +69,7 @@ class _NantoNackAppState extends ConsumerState<NantoNackApp>
 
     return MaterialApp.router(
       title: 'NantoNack',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.light().copyWith(platform: targetPlatform),
       darkTheme: AppTheme.dark().copyWith(platform: targetPlatform),
       themeMode: themeMode,
