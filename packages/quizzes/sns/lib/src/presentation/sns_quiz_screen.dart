@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
@@ -6,10 +8,10 @@ import 'package:quiz_core/quiz_core.dart';
 import '../../i18n/strings.g.dart' as sns_i18n;
 import '../domain/entities/sns_post.dart';
 import '../domain/sns_quiz_config.dart';
+import '../domain/sns_quiz_type.dart';
 import '../i18n/sns_translations_extension.dart';
 import 'sns_quiz_notifier.dart';
 import 'sns_quiz_state.dart';
-import 'sns_quiz_type.dart';
 import 'widgets/sns_widgets.dart';
 
 /// SNSクイズ画面（全4クイズ共通）
@@ -319,7 +321,7 @@ class _SnsAppScaffold extends StatelessWidget {
   }
 }
 
-class _SnsComposeDialog extends StatelessWidget {
+class _SnsComposeDialog extends StatefulWidget {
   const _SnsComposeDialog({
     required this.snsTheme,
     required this.notifier,
@@ -329,12 +331,31 @@ class _SnsComposeDialog extends StatelessWidget {
   final SnsQuizNotifier notifier;
 
   @override
+  State<_SnsComposeDialog> createState() => _SnsComposeDialogState();
+}
+
+class _SnsComposeDialogState extends State<_SnsComposeDialog> {
+  late final TextEditingController _textController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final sq = context.sq;
     return Scaffold(
-      backgroundColor: snsTheme.scaffoldBackground,
+      backgroundColor: widget.snsTheme.scaffoldBackground,
       appBar: AppBar(
-        backgroundColor: snsTheme.navBarBackground,
+        backgroundColor: widget.snsTheme.navBarBackground,
         elevation: 0,
         leading: TextButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -349,11 +370,13 @@ class _SnsComposeDialog extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
             child: ElevatedButton(
               onPressed: () {
-                notifier.submitPost();
+                // 投稿ボタン押下時のみ状態を更新
+                widget.notifier.updateComposeText(_textController.text);
+                widget.notifier.submitPost();
                 Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: snsTheme.brandColor,
+                backgroundColor: widget.snsTheme.brandColor,
                 foregroundColor: Colors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -374,15 +397,15 @@ class _SnsComposeDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              backgroundColor: snsTheme.brandColor,
+              backgroundColor: widget.snsTheme.brandColor,
               child: const Icon(Icons.person, color: Colors.white),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: TextField(
+                controller: _textController,
                 autofocus: true,
                 maxLines: null,
-                onChanged: notifier.updateComposeText,
                 decoration: InputDecoration(
                   hintText: sq.common.composeHint,
                   border: InputBorder.none,
@@ -588,11 +611,19 @@ class _TimelineAreaState extends ConsumerState<_TimelineArea> {
       ).select((s) => s.scrollToTopRequested),
       (previous, next) {
         if (next && _scrollController.hasClients) {
-          _scrollController.animateTo(
-            0,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeOutQuart,
-          );
+          // 既にトップにいる場合は即座に完了マークする
+          if (_scrollController.offset == 0) {
+            widget.notifier.onScrolledToTop();
+          } else {
+            // スクロールアニメーションを実行（unawaited で Future を破棄）
+            unawaited(
+              _scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeOutQuart,
+              ),
+            );
+          }
         }
       },
     );
@@ -1046,27 +1077,27 @@ class _SearchViewState extends ConsumerState<_SearchView> {
           child: ListView(
             children: [
               _TrendItem(
-                category: "Trending in Japan",
-                title: "Nanto Nack",
-                postCount: "1,234 posts",
+                category: sq.common.trends.trendingInJapan,
+                title: sq.common.trends.nantoNack,
+                postCount: sq.common.trends.postsCount(count: '1,234'),
                 snsTheme: snsTheme,
               ),
               _TrendItem(
-                category: "Technology · Trending",
-                title: "Flutter",
-                postCount: "5,678 posts",
+                category: sq.common.trends.technologyTrending,
+                title: sq.common.trends.flutter,
+                postCount: sq.common.trends.postsCount(count: '5,678'),
                 snsTheme: snsTheme,
               ),
               _TrendItem(
-                category: "Gaming · Trending",
-                title: "Retro Games",
-                postCount: "9,012 posts",
+                category: sq.common.trends.gamingTrending,
+                title: sq.common.trends.retroGames,
+                postCount: sq.common.trends.postsCount(count: '9,012'),
                 snsTheme: snsTheme,
               ),
               _TrendItem(
-                category: "Trending in Japan",
-                title: "UI/UX Quiz",
-                postCount: "3,456 posts",
+                category: sq.common.trends.trendingInJapan,
+                title: sq.common.trends.uiUxQuiz,
+                postCount: sq.common.trends.postsCount(count: '3,456'),
                 snsTheme: snsTheme,
               ),
             ],

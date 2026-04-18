@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:sns/src/domain/sns_quiz_config.dart';
+import 'package:sns/src/domain/sns_quiz_type.dart';
 import 'package:sns/src/presentation/sns_quiz_state.dart';
-import 'package:sns/src/presentation/sns_quiz_type.dart';
 
 void main() {
   group('SnsQuizState', () {

@@ -94,6 +94,16 @@
     "post10Content": "Hny crv 🍯",
     "post": "Pst",
     "cancel": "Cncl",
-    "composeHint": "Wht's hppng?"
+    "composeHint": "Wht's hppng?",
+    "trends": {
+      "trendingInJapan": "Trnding in Jpn",
+      "technologyTrending": "Tchnlgy · Trnding",
+      "gamingTrending": "Gmng · Trnding",
+      "postsCount": "{count} psts",
+      "nantoNack": "Nnto Nck",
+      "flutter": "Flttr",
+      "retroGames": "Rtro Gms",
+      "uiUxQuiz": "UI/UX Qz"
+    }
   }
 }

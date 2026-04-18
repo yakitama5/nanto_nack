@@ -95,6 +95,16 @@
     "post": "投稿する",
     "cancel": "キャンセル",
     "composeHint": "いまどうしてる？",
-    "composePlaceholder": "投稿画面 (Twitter風UI実装予定)"
+    "composePlaceholder": "投稿画面 (Twitter風UI実装予定)",
+    "trends": {
+      "trendingInJapan": "日本のトレンド",
+      "technologyTrending": "テクノロジー · トレンド",
+      "gamingTrending": "ゲーム · トレンド",
+      "postsCount": "{count}件の投稿",
+      "nantoNack": "ナントナック",
+      "flutter": "Flutter",
+      "retroGames": "レトロゲーム",
+      "uiUxQuiz": "UI/UX クイズ"
+    }
   }
 }

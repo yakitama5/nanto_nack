@@ -4,7 +4,7 @@ import 'package:quiz_core/quiz_core.dart';
 import '../domain/entities/sns_post.dart';
 import '../domain/sns_catalog.dart';
 import '../domain/sns_quiz_config.dart';
-import 'sns_quiz_type.dart';
+import '../domain/sns_quiz_type.dart';
 
 /// SNSクイズの状態（全4クイズ共通）
 @immutable

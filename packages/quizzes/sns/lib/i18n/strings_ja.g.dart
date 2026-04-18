@@ -239,6 +239,44 @@ class TranslationsCommonJa {
 
 	/// ja: 'いまどうしてる？'
 	String get composeHint => 'いまどうしてる？';
+
+	/// ja: '投稿画面 (Twitter風UI実装予定)'
+	String get composePlaceholder => '投稿画面 (Twitter風UI実装予定)';
+
+	late final TranslationsCommonTrendsJa trends = TranslationsCommonTrendsJa.internal(_root);
+}
+
+// Path: common.trends
+class TranslationsCommonTrendsJa {
+	TranslationsCommonTrendsJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '日本のトレンド'
+	String get trendingInJapan => '日本のトレンド';
+
+	/// ja: 'テクノロジー · トレンド'
+	String get technologyTrending => 'テクノロジー · トレンド';
+
+	/// ja: 'ゲーム · トレンド'
+	String get gamingTrending => 'ゲーム · トレンド';
+
+	/// ja: '{count}件の投稿'
+	String postsCount({required Object count}) => '${count}件の投稿';
+
+	/// ja: 'ナントナック'
+	String get nantoNack => 'ナントナック';
+
+	/// ja: 'Flutter'
+	String get flutter => 'Flutter';
+
+	/// ja: 'レトロゲーム'
+	String get retroGames => 'レトロゲーム';
+
+	/// ja: 'UI/UX クイズ'
+	String get uiUxQuiz => 'UI/UX クイズ';
 }
 
 // Path: quiz1.insight
@@ -460,6 +498,14 @@ extension on Translations {
 			'common.post' => '投稿する',
 			'common.cancel' => 'キャンセル',
 			'common.composeHint' => 'いまどうしてる？',
+			'common.composePlaceholder' => '投稿画面 (Twitter風UI実装予定)',
+			'common.trends.trendingInJapan' => '日本のトレンド',
+			'common.trends.technologyTrending' => 'テクノロジー · トレンド',
+			'common.trends.gamingTrending' => 'ゲーム · トレンド',
+			'common.trends.nantoNack' => 'ナントナック',
+			'common.trends.flutter' => 'Flutter',
+			'common.trends.retroGames' => 'レトロゲーム',
+			'common.trends.uiUxQuiz' => 'UI/UX クイズ',
 			_ => null,
 		};
 	}

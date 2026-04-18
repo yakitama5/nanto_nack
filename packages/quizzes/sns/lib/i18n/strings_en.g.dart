@@ -140,6 +140,25 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get post => 'Post';
 	@override String get cancel => 'Cancel';
 	@override String get composeHint => 'What\'s happening?';
+	@override String get composePlaceholder => 'Compose screen (Twitter-like UI planned)';
+	@override late final _TranslationsCommonTrendsEn trends = _TranslationsCommonTrendsEn._(_root);
+}
+
+// Path: common.trends
+class _TranslationsCommonTrendsEn extends TranslationsCommonTrendsJa {
+	_TranslationsCommonTrendsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get trendingInJapan => 'Trending in Japan';
+	@override String get technologyTrending => 'Technology · Trending';
+	@override String get gamingTrending => 'Gaming · Trending';
+	@override String postsCount({required Object count}) => '${count} posts';
+	@override String get nantoNack => 'Nanto Nack';
+	@override String get flutter => 'Flutter';
+	@override String get retroGames => 'Retro Games';
+	@override String get uiUxQuiz => 'UI/UX Quiz';
 }
 
 // Path: quiz1.insight
@@ -297,6 +316,14 @@ extension on TranslationsEn {
 			'common.post' => 'Post',
 			'common.cancel' => 'Cancel',
 			'common.composeHint' => 'What\'s happening?',
+			'common.composePlaceholder' => 'Compose screen (Twitter-like UI planned)',
+			'common.trends.trendingInJapan' => 'Trending in Japan',
+			'common.trends.technologyTrending' => 'Technology · Trending',
+			'common.trends.gamingTrending' => 'Gaming · Trending',
+			'common.trends.nantoNack' => 'Nanto Nack',
+			'common.trends.flutter' => 'Flutter',
+			'common.trends.retroGames' => 'Retro Games',
+			'common.trends.uiUxQuiz' => 'UI/UX Quiz',
 			_ => null,
 		};
 	}

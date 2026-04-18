@@ -95,6 +95,16 @@
     "post": "Post",
     "cancel": "Cancel",
     "composeHint": "What's happening?",
-    "composePlaceholder": "Compose screen (Twitter-like UI planned)"
+    "composePlaceholder": "Compose screen (Twitter-like UI planned)",
+    "trends": {
+      "trendingInJapan": "Trending in Japan",
+      "technologyTrending": "Technology · Trending",
+      "gamingTrending": "Gaming · Trending",
+      "postsCount": "{count} posts",
+      "nantoNack": "Nanto Nack",
+      "flutter": "Flutter",
+      "retroGames": "Retro Games",
+      "uiUxQuiz": "UI/UX Quiz"
+    }
   }
 }

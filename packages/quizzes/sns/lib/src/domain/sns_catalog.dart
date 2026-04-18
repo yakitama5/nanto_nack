@@ -1,5 +1,5 @@
 import 'entities/sns_post.dart';
-import '../presentation/sns_quiz_type.dart';
+import 'sns_quiz_type.dart';
 
 /// SNSクイズのモックデータカタログ
 ///
@@ -11,7 +11,7 @@ abstract final class SnsCatalog {
   ///
   /// 現在は全クイズで同一のタイムラインを共有する設計。
   /// 各クイズは異なる操作（いいね・投稿・画像閲覧・検索）を同じタイムライン上で行う。
-  // ignore: avoid_unused_parameters
+  // ignore: unused_element_parameter
   static List<SnsPost> initialPostsFor(SnsQuizType quizType) {
     // 全クイズタイプで同一の投稿リストを返す（意図的な設計）
     return _allPosts;

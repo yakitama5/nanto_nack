@@ -1,4 +1,4 @@
-import '../presentation/sns_quiz_type.dart';
+import 'sns_quiz_type.dart';
 
 /// SNSクイズの設定値定数
 abstract final class SnsQuizConfig {

@@ -7,9 +7,9 @@ import 'package:system/system.dart';
 
 import '../application/quiz_sns_use_case.dart';
 import '../domain/sns_quiz_config.dart';
+import '../domain/sns_quiz_type.dart';
 import '../infrastructure/sns_quiz_repository_provider.dart';
 import 'sns_quiz_state.dart';
-import 'sns_quiz_type.dart';
 
 /// SNSクイズ Notifier の Provider（全4クイズ共通）
 ///
@@ -276,12 +276,15 @@ class SnsQuizNotifier
     // 必要な参照を変数に取り出しておく（dispose 後のアクセスを防ぐ）
     final analyticsService = ref.read(analyticsServiceProvider);
     final repo = ref.read(snsQuizRepositoryProvider);
+    // await をまたぐ前に state の値をスナップショットする
+    final score = state.score;
+    final failureCount = state.failureCount;
 
     if (isCleared) {
       await analyticsService.logQuizCompleted(
         quizId: arg.quizId,
-        score: state.score,
-        failureCount: state.failureCount,
+        score: score,
+        failureCount: failureCount,
         clearTimeMs: elapsedMs,
       );
     }
@@ -289,8 +292,8 @@ class SnsQuizNotifier
       quizId: arg.quizId,
       isCleared: isCleared,
       clearTimeMs: isCleared ? elapsedMs : null,
-      score: isCleared ? state.score : 0,
-      failureCount: state.failureCount,
+      score: isCleared ? score : 0,
+      failureCount: failureCount,
     );
   }
 }
