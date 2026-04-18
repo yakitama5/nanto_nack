@@ -143,6 +143,23 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override late final _TranslationsCommonTrendsXx trends = _TranslationsCommonTrendsXx._(_root);
 }
 
+// Path: common.trends
+class _TranslationsCommonTrendsXx extends TranslationsCommonTrendsJa {
+	_TranslationsCommonTrendsXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get trendingInJapan => 'Trnding in Jpn';
+	@override String get technologyTrending => 'Tchnlgy · Trnding';
+	@override String get gamingTrending => 'Gmng · Trnding';
+	@override String postsCount({required Object count}) => '${count} psts';
+	@override String get nantoNack => 'Nnto Nck';
+	@override String get flutter => 'Flttr';
+	@override String get retroGames => 'Rtro Gms';
+	@override String get uiUxQuiz => 'UI/UX Qz';
+}
+
 // Path: quiz1.insight
 class _TranslationsQuiz1InsightXx extends TranslationsQuiz1InsightJa {
 	_TranslationsQuiz1InsightXx._(TranslationsXx root) : this._root = root, super.internal(root);
@@ -209,23 +226,6 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	@override String get subAccountDesc => 'Sub acct fr hbbs/anon.';
 	@override String get multiAccountTitle => 'Mlti Acct Skll';
 	@override String get multiAccountDesc => 'Mstr acct swching.';
-}
-
-// Path: common.trends
-class _TranslationsCommonTrendsXx extends TranslationsCommonTrendsJa {
-	_TranslationsCommonTrendsXx._(TranslationsXx root) : this._root = root, super.internal(root);
-
-	final TranslationsXx _root; // ignore: unused_field
-
-	// Translations
-	@override String get trendingInJapan => 'Trnding in Jpn';
-	@override String get technologyTrending => 'Tchnlgy · Trnding';
-	@override String get gamingTrending => 'Gmng · Trnding';
-	@override String get postsCountSuffix => ' psts';
-	@override String get nantoNack => 'Nnto Nck';
-	@override String get flutter => 'Flttr';
-	@override String get retroGames => 'Rtro Gms';
-	@override String get uiUxQuiz => 'UI/UX Qz';
 }
 
 /// The flat map containing all translations for locale <xx>.
@@ -318,7 +318,6 @@ extension on TranslationsXx {
 			'common.trends.trendingInJapan' => 'Trnding in Jpn',
 			'common.trends.technologyTrending' => 'Tchnlgy · Trnding',
 			'common.trends.gamingTrending' => 'Gmng · Trnding',
-			'common.trends.postsCountSuffix' => ' psts',
 			'common.trends.nantoNack' => 'Nnto Nck',
 			'common.trends.flutter' => 'Flttr',
 			'common.trends.retroGames' => 'Rtro Gms',

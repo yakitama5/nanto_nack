@@ -144,6 +144,23 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override late final _TranslationsCommonTrendsEn trends = _TranslationsCommonTrendsEn._(_root);
 }
 
+// Path: common.trends
+class _TranslationsCommonTrendsEn extends TranslationsCommonTrendsJa {
+	_TranslationsCommonTrendsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get trendingInJapan => 'Trending in Japan';
+	@override String get technologyTrending => 'Technology · Trending';
+	@override String get gamingTrending => 'Gaming · Trending';
+	@override String postsCount({required Object count}) => '${count} posts';
+	@override String get nantoNack => 'Nanto Nack';
+	@override String get flutter => 'Flutter';
+	@override String get retroGames => 'Retro Games';
+	@override String get uiUxQuiz => 'UI/UX Quiz';
+}
+
 // Path: quiz1.insight
 class _TranslationsQuiz1InsightEn extends TranslationsQuiz1InsightJa {
 	_TranslationsQuiz1InsightEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -210,23 +227,6 @@ class _TranslationsQuiz4InsightEn extends TranslationsQuiz4InsightJa {
 	@override String get subAccountDesc => 'The magnifying glass icon is a global symbol for \'Search\'. You can intuitively switch functions using the icons in the tab bar.';
 	@override String get multiAccountTitle => 'Smooth search with auto-focus';
 	@override String get multiAccountDesc => 'The cursor automatically moves to the search bar when you switch to the search tab, allowing you to start typing without an extra tap.';
-}
-
-// Path: common.trends
-class _TranslationsCommonTrendsEn extends TranslationsCommonTrendsJa {
-	_TranslationsCommonTrendsEn._(TranslationsEn root) : this._root = root, super.internal(root);
-
-	final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get trendingInJapan => 'Trending in Japan';
-	@override String get technologyTrending => 'Technology · Trending';
-	@override String get gamingTrending => 'Gaming · Trending';
-	@override String get postsCountSuffix => ' posts';
-	@override String get nantoNack => 'Nanto Nack';
-	@override String get flutter => 'Flutter';
-	@override String get retroGames => 'Retro Games';
-	@override String get uiUxQuiz => 'UI/UX Quiz';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -320,7 +320,6 @@ extension on TranslationsEn {
 			'common.trends.trendingInJapan' => 'Trending in Japan',
 			'common.trends.technologyTrending' => 'Technology · Trending',
 			'common.trends.gamingTrending' => 'Gaming · Trending',
-			'common.trends.postsCountSuffix' => ' posts',
 			'common.trends.nantoNack' => 'Nanto Nack',
 			'common.trends.flutter' => 'Flutter',
 			'common.trends.retroGames' => 'Retro Games',
