@@ -32,9 +32,10 @@ class SnsQuizState extends QuizStateBase {
   /// 初期状態を生成する
   factory SnsQuizState.initial(SnsQuizType quizType) {
     final posts = SnsCatalog.initialPostsFor(quizType);
-    // 最初は全画面画像は閉じた状態で始まる
-    const isFullScreen = false;
-    const String? fullScreenUrl = null;
+    // Quiz2のみ最初から全画面画像が開いた状態で始まる（猫写真を閉じる操作を学ぶ）
+    final isFullScreen = quizType == SnsQuizType.quiz2;
+    final String? fullScreenUrl =
+        isFullScreen ? posts.firstWhere((p) => p.imageUrl != null).imageUrl : null;
 
     return SnsQuizState(
       status: QuizStatus.idle,
