@@ -100,7 +100,7 @@
       "trendingInJapan": "日本のトレンド",
       "technologyTrending": "テクノロジー · トレンド",
       "gamingTrending": "ゲーム · トレンド",
-      "postsCount": "{count}件の投稿",
+      "postsCountSuffix": "件の投稿",
       "nantoNack": "ナントナック",
       "flutter": "Flutter",
       "retroGames": "レトロゲーム",

@@ -246,39 +246,6 @@ class TranslationsCommonJa {
 	late final TranslationsCommonTrendsJa trends = TranslationsCommonTrendsJa.internal(_root);
 }
 
-// Path: common.trends
-class TranslationsCommonTrendsJa {
-	TranslationsCommonTrendsJa.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '日本のトレンド'
-	String get trendingInJapan => '日本のトレンド';
-
-	/// ja: 'テクノロジー · トレンド'
-	String get technologyTrending => 'テクノロジー · トレンド';
-
-	/// ja: 'ゲーム · トレンド'
-	String get gamingTrending => 'ゲーム · トレンド';
-
-	/// ja: '{count}件の投稿'
-	String postsCount({required Object count}) => '${count}件の投稿';
-
-	/// ja: 'ナントナック'
-	String get nantoNack => 'ナントナック';
-
-	/// ja: 'Flutter'
-	String get flutter => 'Flutter';
-
-	/// ja: 'レトロゲーム'
-	String get retroGames => 'レトロゲーム';
-
-	/// ja: 'UI/UX クイズ'
-	String get uiUxQuiz => 'UI/UX クイズ';
-}
-
 // Path: quiz1.insight
 class TranslationsQuiz1InsightJa {
 	TranslationsQuiz1InsightJa.internal(this._root);
@@ -411,6 +378,39 @@ class TranslationsQuiz4InsightJa {
 	String get multiAccountDesc => '検索タブに切り替えた瞬間に検索バーにカーソルが移動することで、タップの手間を省いてすぐにタイピングを開始できるUI設計。';
 }
 
+// Path: common.trends
+class TranslationsCommonTrendsJa {
+	TranslationsCommonTrendsJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '日本のトレンド'
+	String get trendingInJapan => '日本のトレンド';
+
+	/// ja: 'テクノロジー · トレンド'
+	String get technologyTrending => 'テクノロジー · トレンド';
+
+	/// ja: 'ゲーム · トレンド'
+	String get gamingTrending => 'ゲーム · トレンド';
+
+	/// ja: '件の投稿'
+	String get postsCountSuffix => '件の投稿';
+
+	/// ja: 'ナントナック'
+	String get nantoNack => 'ナントナック';
+
+	/// ja: 'Flutter'
+	String get flutter => 'Flutter';
+
+	/// ja: 'レトロゲーム'
+	String get retroGames => 'レトロゲーム';
+
+	/// ja: 'UI/UX クイズ'
+	String get uiUxQuiz => 'UI/UX クイズ';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -502,6 +502,7 @@ extension on Translations {
 			'common.trends.trendingInJapan' => '日本のトレンド',
 			'common.trends.technologyTrending' => 'テクノロジー · トレンド',
 			'common.trends.gamingTrending' => 'ゲーム · トレンド',
+			'common.trends.postsCountSuffix' => '件の投稿',
 			'common.trends.nantoNack' => 'ナントナック',
 			'common.trends.flutter' => 'Flutter',
 			'common.trends.retroGames' => 'レトロゲーム',
