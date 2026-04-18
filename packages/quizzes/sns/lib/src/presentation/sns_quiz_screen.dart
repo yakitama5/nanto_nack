@@ -33,15 +33,6 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
   bool _showCutIn = true;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      ref.read(snsQuizNotifierProvider(widget.quizType).notifier).startQuiz();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final state = ref.watch(snsQuizNotifierProvider(widget.quizType));
     final notifier = ref.read(
@@ -78,7 +69,14 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
               MissionCutIn(
                 missionText: missionText,
                 timeLimitSeconds: timeLimitSeconds,
-                onFinished: () => setState(() => _showCutIn = false),
+                onFinished: () {
+                  setState(() => _showCutIn = false);
+                  if (mounted) {
+                    ref
+                        .read(snsQuizNotifierProvider(widget.quizType).notifier)
+                        .startQuiz();
+                  }
+                },
               ),
             if (state.status == QuizStatus.playing && !_showCutIn)
               FloatingMissionBubble(
