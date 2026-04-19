@@ -10,7 +10,7 @@
     }
   },
   "quiz2": {
-    "mission": "I can not read the small text in the corner. Zoom in!",
+    "mission": "I cannot read the small text in the corner. Zoom in!",
     "hint": "Pinch out with two fingers or double-tap to zoom in.",
     "insight": {
       "title": "Zoom In and Out",
@@ -20,7 +20,7 @@
     }
   },
   "quiz3": {
-    "mission": "Let us stop reading for now. Show the menu.",
+    "mission": "Let's stop reading for now. Show the menu.",
     "hint": "Tap the center of the screen to show the menu.",
     "insight": {
       "title": "Showing the Menu",
