@@ -11,6 +11,7 @@ class MangaViewerScaffold extends StatelessWidget {
   const MangaViewerScaffold({
     super.key,
     required this.state,
+    required this.quizStatus,
     required this.totalPages,
     required this.onPageChanged,
     required this.onScaleChanged,
@@ -21,6 +22,7 @@ class MangaViewerScaffold extends StatelessWidget {
   });
 
   final MangaAppState state;
+  final QuizStatus quizStatus;
   final int totalPages;
   final void Function(int) onPageChanged;
   final void Function(double) onScaleChanged;
@@ -32,15 +34,8 @@ class MangaViewerScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<ComicAppTheme>()!;
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, _) async {
-        if (didPop) return;
-        final confirmed = await QuizExitScope.showConfirmDialog(context);
-        if (confirmed == true && context.mounted) {
-          Navigator.of(context).pop();
-        }
-      },
+    return QuizExitScope(
+      quizStatus: quizStatus,
       child: Stack(
         children: [
           Scaffold(
@@ -389,28 +384,34 @@ class _LastMangaPageState extends State<_LastMangaPage>
           ),
           const SizedBox(height: 40),
           // 応援ボタン（大きなハートアイコン）
-          GestureDetector(
+          Semantics(
+            button: true,
+            label: context.sq.endPage.supportLabel,
             onTap: _handleLikeTap,
-            child: ScaleTransition(
-              scale: _heartScaleAnimation,
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: theme.primaryColor,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: theme.primaryColor.withValues(alpha: 0.4),
-                      blurRadius: 16,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.favorite,
-                  color: Colors.white,
-                  size: 52,
+            child: GestureDetector(
+              excludeFromSemantics: true,
+              onTap: _handleLikeTap,
+              child: ScaleTransition(
+                scale: _heartScaleAnimation,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.primaryColor.withValues(alpha: 0.4),
+                        blurRadius: 16,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.favorite,
+                    color: Colors.white,
+                    size: 52,
+                  ),
                 ),
               ),
             ),
@@ -500,7 +501,7 @@ class MangaOverlayMenu extends StatelessWidget {
                               Icons.arrow_back,
                               color: Colors.white,
                             ),
-                            onPressed: () {},
+                            onPressed: null,
                           ),
                           const Spacer(),
                           IconButton(
@@ -508,7 +509,7 @@ class MangaOverlayMenu extends StatelessWidget {
                               Icons.more_vert,
                               color: Colors.white,
                             ),
-                            onPressed: () {},
+                            onPressed: null,
                           ),
                         ],
                       ),
@@ -576,7 +577,7 @@ class MangaOverlayMenu extends StatelessWidget {
                                 min: 0,
                                 max: (totalPages - 1).toDouble(),
                                 divisions: totalPages - 1,
-                                onChanged: (_) {},
+                                onChanged: null,
                               ),
                             ),
                           ],

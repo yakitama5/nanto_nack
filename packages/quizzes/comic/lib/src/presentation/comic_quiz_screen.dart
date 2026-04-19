@@ -34,9 +34,6 @@ class _ComicQuizScreenState extends ConsumerState<ComicQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(comicQuizProvider(widget.type).notifier).startQuiz();
-    });
   }
 
   String _missionText(BuildContext context) => switch (widget.type) {
@@ -122,6 +119,7 @@ class _ComicQuizScreenState extends ConsumerState<ComicQuizScreen> {
     return MangaViewerScaffold(
       key: ValueKey(_viewerKey),
       state: quizState.mangaApp,
+      quizStatus: quizState.status,
       totalPages: ComicQuizConfig.totalPages,
       onPageChanged: notifier.goToPage,
       onScaleChanged: notifier.updateScale,
@@ -144,7 +142,11 @@ class _ComicQuizScreenState extends ConsumerState<ComicQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: ComicQuizConfig.timeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(comicQuizProvider(widget.type).notifier).startQuiz();
+            },
           ),
         // クイズ結果オーバーレイ
         if (quizState.status == QuizStatus.correct ||
