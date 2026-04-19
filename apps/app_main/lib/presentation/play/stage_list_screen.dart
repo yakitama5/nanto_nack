@@ -143,23 +143,28 @@ class StageListScreen extends ConsumerWidget {
   ) async {
     if (item.status == StageStatus.locked) return;
 
-    final userStatusRepo = ref.read(userStatusRepositoryProvider);
-    final isLimitReached = await userStatusRepo.isLimitReached();
-    if (isLimitReached && context.mounted) {
-      await ref
-          .read(analyticsServiceProvider)
-          .logPlayLimitReached(
-            stageId: item.stage.id,
+    final remoteConfig = ref.read(remoteConfigServiceProvider);
+    if (remoteConfig.isPlayLimitEnabled) {
+      final userStatusRepo = ref.read(userStatusRepositoryProvider);
+      final isLimitReached = await userStatusRepo.isLimitReached(
+        dailyLimit: remoteConfig.dailyPlayLimit,
+      );
+      if (isLimitReached && context.mounted) {
+        await ref
+            .read(analyticsServiceProvider)
+            .logPlayLimitReached(
+              stageId: item.stage.id,
+            );
+        if (context.mounted) {
+          await PlayLimitModal.show(
+            context,
+            onUpgrade: () {
+              // TODO: IAP 実装後に課金フローへ
+            },
           );
-      if (context.mounted) {
-        await PlayLimitModal.show(
-          context,
-          onUpgrade: () {
-            // TODO: IAP 実装後に課金フローへ
-          },
-        );
+        }
+        return;
       }
-      return;
     }
 
     if (context.mounted) {
