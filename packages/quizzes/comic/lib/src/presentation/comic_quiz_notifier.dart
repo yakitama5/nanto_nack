@@ -78,8 +78,22 @@ class ComicQuizNotifier
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
+    // await をまたぐ前に ref.read・state 値をスナップショット
+    final quizId = _quizId(arg);
+    final score = state.score;
+    final failureCount = state.failureCount;
+    final analyticsService = ref.read(analyticsServiceProvider);
+    final quizResultRepository = ref.read(quizResultRepositoryProvider);
     try {
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
+      await _saveResult(
+        isCleared: false,
+        elapsedMs: elapsed,
+        quizId: quizId,
+        score: score,
+        failureCount: failureCount,
+        analyticsService: analyticsService,
+        quizResultRepository: quizResultRepository,
+      );
     } catch (error, stackTrace) {
       appLogger.e(
         'Failed to save quiz result on time up',
@@ -100,11 +114,23 @@ class ComicQuizNotifier
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
-    unawaited(
-      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId(arg)),
-    );
+    // await をまたぐ前に ref.read・state 値をスナップショット
+    final quizId = _quizId(arg);
+    final score = state.score;
+    final failureCount = state.failureCount;
+    final analyticsService = ref.read(analyticsServiceProvider);
+    final quizResultRepository = ref.read(quizResultRepositoryProvider);
+    unawaited(analyticsService.logQuizGivenUp(quizId: quizId));
     try {
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
+      await _saveResult(
+        isCleared: false,
+        elapsedMs: elapsed,
+        quizId: quizId,
+        score: score,
+        failureCount: failureCount,
+        analyticsService: analyticsService,
+        quizResultRepository: quizResultRepository,
+      );
     } catch (error, stackTrace) {
       appLogger.e(
         'Failed to save quiz result on give up',
@@ -198,11 +224,25 @@ class ComicQuizNotifier
   }
 
   void _saveResultAsync({required int elapsedMs}) {
+    // await をまたぐ前に ref.read・state 値をスナップショット
+    final quizId = _quizId(arg);
+    final score = state.score;
+    final failureCount = state.failureCount;
+    final analyticsService = ref.read(analyticsServiceProvider);
+    final quizResultRepository = ref.read(quizResultRepositoryProvider);
     unawaited(
       () async {
         try {
           await hapticFeedback.playSuccessFeedback();
-          await _saveResult(isCleared: true, elapsedMs: elapsedMs);
+          await _saveResult(
+            isCleared: true,
+            elapsedMs: elapsedMs,
+            quizId: quizId,
+            score: score,
+            failureCount: failureCount,
+            analyticsService: analyticsService,
+            quizResultRepository: quizResultRepository,
+          );
         } catch (error, stackTrace) {
           appLogger.e(
             'Failed to save quiz result on cleared',
@@ -217,33 +257,32 @@ class ComicQuizNotifier
   Future<void> _saveResult({
     required bool isCleared,
     required int elapsedMs,
+    required String quizId,
+    required int score,
+    required int failureCount,
+    required AnalyticsService analyticsService,
+    required QuizResultRepository quizResultRepository,
   }) async {
     if (isCleared) {
-      await ref
-          .read(analyticsServiceProvider)
-          .logQuizCompleted(
-            quizId: _quizId(arg),
-            score: state.score,
-            failureCount: state.failureCount,
-            clearTimeMs: elapsedMs,
-          );
+      await analyticsService.logQuizCompleted(
+        quizId: quizId,
+        score: score,
+        failureCount: failureCount,
+        clearTimeMs: elapsedMs,
+      );
     }
-    await ref
-        .read(quizResultRepositoryProvider)
-        .saveBestRecord(
-          quizId: _quizId(arg),
-          isCleared: isCleared,
-          clearTimeMs: isCleared ? elapsedMs : null,
-          score: isCleared ? state.score : 0,
-          failureCount: state.failureCount,
-        );
-    await ref
-        .read(quizResultRepositoryProvider)
-        .logPlay(
-          quizId: _quizId(arg),
-          isCleared: isCleared,
-          score: isCleared ? state.score : 0,
-          failureCount: state.failureCount,
-        );
+    await quizResultRepository.saveBestRecord(
+      quizId: quizId,
+      isCleared: isCleared,
+      clearTimeMs: isCleared ? elapsedMs : null,
+      score: isCleared ? score : 0,
+      failureCount: failureCount,
+    );
+    await quizResultRepository.logPlay(
+      quizId: quizId,
+      isCleared: isCleared,
+      score: isCleared ? score : 0,
+      failureCount: failureCount,
+    );
   }
 }
