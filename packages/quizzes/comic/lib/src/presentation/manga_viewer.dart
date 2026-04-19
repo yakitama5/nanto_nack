@@ -126,7 +126,12 @@ class _MangaPageViewState extends State<_MangaPageView> {
           reverse: true,
           controller: _pageController,
           itemCount: widget.totalPages,
-          onPageChanged: widget.onPageChanged,
+          onPageChanged: (index) {
+            // ページ切り替え時にズーム状態をリセット（前ページの拡大が引き継がれないようにする）
+            _transformationController.value = Matrix4.identity();
+            widget.onScaleChanged(1.0);
+            widget.onPageChanged(index);
+          },
           itemBuilder: (context, index) {
             final isLastPage = index == widget.totalPages - 1;
             return GestureDetector(
@@ -135,7 +140,9 @@ class _MangaPageViewState extends State<_MangaPageView> {
                 final x = details.localPosition.dx;
                 if (x < width / 3) {
                   // 左1/3タップ：次ページへ（reverse: true のため実際は前に進む）
-                  final nextPage = _pageController.page!.round() + 1;
+                  final currentPage =
+                      _pageController.page?.round() ?? widget.state.currentPageIndex;
+                  final nextPage = currentPage + 1;
                   if (nextPage < widget.totalPages) {
                     _pageController.animateToPage(
                       nextPage,
@@ -145,7 +152,9 @@ class _MangaPageViewState extends State<_MangaPageView> {
                   }
                 } else if (x > width * 2 / 3) {
                   // 右1/3タップ：前ページへ（日本語漫画の「戻る」操作）
-                  final prevPage = _pageController.page!.round() - 1;
+                  final currentPage =
+                      _pageController.page?.round() ?? widget.state.currentPageIndex;
+                  final prevPage = currentPage - 1;
                   if (prevPage >= 0) {
                     _pageController.animateToPage(
                       prevPage,
