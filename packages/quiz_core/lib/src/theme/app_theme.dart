@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_core/src/theme/app_colors.dart';
 import 'package:quiz_core/src/theme/chat_app_theme.dart';
+import 'package:quiz_core/src/theme/comic_app_theme.dart';
 import 'package:quiz_core/src/theme/map_app_theme.dart';
 import 'package:quiz_core/src/theme/nanto_nack_theme_extension.dart';
 import 'package:quiz_core/src/theme/payment_app_theme.dart';
@@ -30,6 +31,7 @@ abstract final class AppTheme {
       extensions: const [
         NantoNackThemeExtension.light,
         ChatAppTheme.light,
+        ComicAppTheme.light,
         MailAppTheme.light,
         MapAppTheme.light,
         NewsAppTheme.light,
@@ -59,6 +61,7 @@ abstract final class AppTheme {
       extensions: const [
         NantoNackThemeExtension.dark,
         ChatAppTheme.dark,
+        ComicAppTheme.dark,
         MailAppTheme.dark,
         MapAppTheme.dark,
         NewsAppTheme.dark,

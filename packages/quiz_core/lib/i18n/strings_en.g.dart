@@ -337,6 +337,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get news => 'News';
 	@override String get calendar => 'Calendar';
 	@override String get sns => 'SNS';
+	@override String get comic => 'Manga App';
 }
 
 // Path: play.categoryDescription
@@ -356,6 +357,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get news => 'Experience news app UI/UX';
 	@override String get calendar => 'Experience calendar app UI/UX';
 	@override String get sns => 'Experience social media app UI/UX';
+	@override String get comic => 'Master manga app operations';
 }
 
 // Path: play.stageTitle
@@ -405,6 +407,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get sns_quiz2 => 'Post something!';
 	@override String get sns_quiz3 => 'Open an image and return to the previous screen';
 	@override String get sns_quiz4 => 'Search for nantom\'s (@nantom) posts';
+	@override String get comic_quiz1 => 'Go Back 3 Pages';
+	@override String get comic_quiz2 => 'Zoom In';
+	@override String get comic_quiz3 => 'Show the Menu';
+	@override String get comic_quiz4 => 'Support the Creator';
 }
 
 // Path: play.stageDescription
@@ -451,9 +457,13 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get calendar_quiz3 => 'Move the dentist appointment to the next day';
 	@override String get calendar_quiz4 => 'After navigating years ahead, return to today\'s date';
 	@override String get sns_quiz1 => 'Double tap the cat photo to like it';
-	@override String get sns_quiz2 => 'Swipe down to close the fullscreen image';
-	@override String get sns_quiz3 => 'Scroll back to the top of the timeline instantly';
-	@override String get sns_quiz4 => 'Long press the profile icon to switch to your sub account';
+	@override String get sns_quiz2 => 'Post something in the SNS app';
+	@override String get sns_quiz3 => 'Open an image in fullscreen, then swipe down to close and return to the previous screen';
+	@override String get sns_quiz4 => 'Search for Nantom\'s (@nantom) posts in the SNS app';
+	@override String get comic_quiz1 => 'Go back 3 pages in the manga app';
+	@override String get comic_quiz2 => 'Zoom in to read the small text';
+	@override String get comic_quiz3 => 'Show the menu in the manga app';
+	@override String get comic_quiz4 => 'Tap the support button 10 times';
 }
 
 // Path: scene.greeting
@@ -618,6 +628,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.news' => 'News',
 			'play.categoryLabel.calendar' => 'Calendar',
 			'play.categoryLabel.sns' => 'SNS',
+			'play.categoryLabel.comic' => 'Manga App',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -628,6 +639,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.news' => 'Experience news app UI/UX',
 			'play.categoryDescription.calendar' => 'Experience calendar app UI/UX',
 			'play.categoryDescription.sns' => 'Experience social media app UI/UX',
+			'play.categoryDescription.comic' => 'Master manga app operations',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -668,6 +680,10 @@ extension on TranslationsEn {
 			'play.stageTitle.sns_quiz2' => 'Post something!',
 			'play.stageTitle.sns_quiz3' => 'Open an image and return to the previous screen',
 			'play.stageTitle.sns_quiz4' => 'Search for nantom\'s (@nantom) posts',
+			'play.stageTitle.comic_quiz1' => 'Go Back 3 Pages',
+			'play.stageTitle.comic_quiz2' => 'Zoom In',
+			'play.stageTitle.comic_quiz3' => 'Show the Menu',
+			'play.stageTitle.comic_quiz4' => 'Support the Creator',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -705,9 +721,13 @@ extension on TranslationsEn {
 			'play.stageDescription.calendar_quiz3' => 'Move the dentist appointment to the next day',
 			'play.stageDescription.calendar_quiz4' => 'After navigating years ahead, return to today\'s date',
 			'play.stageDescription.sns_quiz1' => 'Double tap the cat photo to like it',
-			'play.stageDescription.sns_quiz2' => 'Swipe down to close the fullscreen image',
-			'play.stageDescription.sns_quiz3' => 'Scroll back to the top of the timeline instantly',
-			'play.stageDescription.sns_quiz4' => 'Long press the profile icon to switch to your sub account',
+			'play.stageDescription.sns_quiz2' => 'Post something in the SNS app',
+			'play.stageDescription.sns_quiz3' => 'Open an image in fullscreen, then swipe down to close and return to the previous screen',
+			'play.stageDescription.sns_quiz4' => 'Search for Nantom\'s (@nantom) posts in the SNS app',
+			'play.stageDescription.comic_quiz1' => 'Go back 3 pages in the manga app',
+			'play.stageDescription.comic_quiz2' => 'Zoom in to read the small text',
+			'play.stageDescription.comic_quiz3' => 'Show the menu in the manga app',
+			'play.stageDescription.comic_quiz4' => 'Tap the support button 10 times',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

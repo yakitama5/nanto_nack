@@ -337,6 +337,7 @@ class _TranslationsPlayCategoryLabelXx extends TranslationsPlayCategoryLabelJa {
 	@override String get news => 'ニュース';
 	@override String get calendar => 'カレンダー';
 	@override String get sns => 'SNS';
+	@override String get comic => '漫画アプリ';
 }
 
 // Path: play.categoryDescription
@@ -356,6 +357,7 @@ class _TranslationsPlayCategoryDescriptionXx extends TranslationsPlayCategoryDes
 	@override String get news => 'ニュースアプリのUI/UXを体験しよう';
 	@override String get calendar => 'カレンダーアプリのUI/UXを体験しよう';
 	@override String get sns => 'SNSアプリのUI/UXを体験しよう';
+	@override String get comic => '漫画アプリの操作をマスターしよう';
 }
 
 // Path: play.stageTitle
@@ -405,6 +407,10 @@ class _TranslationsPlayStageTitleXx extends TranslationsPlayStageTitleJa {
 	@override String get sns_quiz2 => '何か投稿してみよう！';
 	@override String get sns_quiz3 => '画像を開いて表示した後に元の画面に戻ろう';
 	@override String get sns_quiz4 => 'ナントム(@nantom)の投稿を検索しよう！';
+	@override String get comic_quiz1 => '3ページ戻る';
+	@override String get comic_quiz2 => '画面を拡大する';
+	@override String get comic_quiz3 => 'メニューを表示する';
+	@override String get comic_quiz4 => '作者を応援する';
 }
 
 // Path: play.stageDescription
@@ -450,6 +456,10 @@ class _TranslationsPlayStageDescriptionXx extends TranslationsPlayStageDescripti
 	@override String get calendar_quiz2 => '15日に新しい予定を追加してください';
 	@override String get calendar_quiz3 => '歯医者の予定を翌日に移動してください';
 	@override String get calendar_quiz4 => '数年先に移動した後、今日の日付に戻ってください';
+	@override String get comic_quiz1 => 'ページを3つ前に戻そう';
+	@override String get comic_quiz2 => '小さな文字を読めるよう拡大しよう';
+	@override String get comic_quiz3 => 'メニューを表示してみよう';
+	@override String get comic_quiz4 => '応援ボタンを10回連打しよう';
 }
 
 // Path: scene.greeting
@@ -614,6 +624,7 @@ extension on TranslationsXx {
 			'play.categoryLabel.news' => 'ニュース',
 			'play.categoryLabel.calendar' => 'カレンダー',
 			'play.categoryLabel.sns' => 'SNS',
+			'play.categoryLabel.comic' => '漫画アプリ',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -624,6 +635,7 @@ extension on TranslationsXx {
 			'play.categoryDescription.news' => 'ニュースアプリのUI/UXを体験しよう',
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
 			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
+			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -664,6 +676,10 @@ extension on TranslationsXx {
 			'play.stageTitle.sns_quiz2' => '何か投稿してみよう！',
 			'play.stageTitle.sns_quiz3' => '画像を開いて表示した後に元の画面に戻ろう',
 			'play.stageTitle.sns_quiz4' => 'ナントム(@nantom)の投稿を検索しよう！',
+			'play.stageTitle.comic_quiz1' => '3ページ戻る',
+			'play.stageTitle.comic_quiz2' => '画面を拡大する',
+			'play.stageTitle.comic_quiz3' => 'メニューを表示する',
+			'play.stageTitle.comic_quiz4' => '作者を応援する',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -700,6 +716,10 @@ extension on TranslationsXx {
 			'play.stageDescription.calendar_quiz2' => '15日に新しい予定を追加してください',
 			'play.stageDescription.calendar_quiz3' => '歯医者の予定を翌日に移動してください',
 			'play.stageDescription.calendar_quiz4' => '数年先に移動した後、今日の日付に戻ってください',
+			'play.stageDescription.comic_quiz1' => 'ページを3つ前に戻そう',
+			'play.stageDescription.comic_quiz2' => '小さな文字を読めるよう拡大しよう',
+			'play.stageDescription.comic_quiz3' => 'メニューを表示してみよう',
+			'play.stageDescription.comic_quiz4' => '応援ボタンを10回連打しよう',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

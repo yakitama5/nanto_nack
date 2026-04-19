@@ -77,3 +77,15 @@ const String kSnsQuiz1Path = '/play/sns/quiz1';
 const String kSnsQuiz2Path = '/play/sns/quiz2';
 const String kSnsQuiz3Path = '/play/sns/quiz3';
 const String kSnsQuiz4Path = '/play/sns/quiz4';
+
+// Comic
+const String kComicSegment = 'comic';
+const String kComicQuiz1Segment = 'quiz1';
+const String kComicQuiz2Segment = 'quiz2';
+const String kComicQuiz3Segment = 'quiz3';
+const String kComicQuiz4Segment = 'quiz4';
+const String kComicListPath = '/play/$kComicSegment';
+const String kComicQuiz1Path = '$kComicListPath/$kComicQuiz1Segment';
+const String kComicQuiz2Path = '$kComicListPath/$kComicQuiz2Segment';
+const String kComicQuiz3Path = '$kComicListPath/$kComicQuiz3Segment';
+const String kComicQuiz4Path = '$kComicListPath/$kComicQuiz4Segment';

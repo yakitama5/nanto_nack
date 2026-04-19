@@ -1,0 +1,53 @@
+{
+  "quiz1": {
+    "mission": "I skipped some pages! Go back 3 pages.",
+    "hint": "Tap the right edge of the screen or swipe left to go back a page.",
+    "insight": {
+      "title": "Page Navigation in Manga Apps",
+      "subtitle": "Japanese manga reads right to left, so 'going back' means tapping the right side.",
+      "step1Title": "Tap right edge or swipe left",
+      "step1Desc": "Tap the right edge or swipe left to go back one page."
+    }
+  },
+  "quiz2": {
+    "mission": "I can't read the small text in the corner... Zoom in!",
+    "hint": "Pinch out with two fingers or double-tap to zoom in.",
+    "insight": {
+      "title": "Zoom In / Out",
+      "subtitle": "You can zoom in on small text or fine details using pinch or double-tap.",
+      "step1Title": "Pinch Out",
+      "step1Desc": "Spread two fingers on the screen to zoom in on the manga."
+    }
+  },
+  "quiz3": {
+    "mission": "Let's stop reading for now. Show the menu.",
+    "hint": "Tap the center of the screen to show the menu.",
+    "insight": {
+      "title": "Showing the Menu",
+      "subtitle": "Most manga apps show the header/footer menu when you tap the center of the screen.",
+      "step1Title": "Tap the Center",
+      "step1Desc": "Tap the center of the screen to show the header and footer menu."
+    }
+  },
+  "quiz4": {
+    "mission": "That was great! Tap the support button 10 times to send power to the creator!",
+    "hint": "Quickly tap the large heart button on the last page 10 times.",
+    "insight": {
+      "title": "Support / Like Feature",
+      "subtitle": "Many manga apps have a 'rapid-tap support' feature to send encouragement to creators.",
+      "step1Title": "Rapid-tap the support button",
+      "step1Desc": "Quickly tap the heart button multiple times to send your support to the creator."
+    }
+  },
+  "endPage": {
+    "complete": "完",
+    "theEnd": "The End",
+    "supportLabel": "Support",
+    "supportCount": "{count} / {target}"
+  },
+  "viewer": {
+    "pageOperationLabel": "Page Navigation",
+    "nextPageAction": "Next Page",
+    "previousPageAction": "Previous Page"
+  }
+}
