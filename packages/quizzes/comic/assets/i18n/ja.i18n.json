@@ -44,5 +44,10 @@
     "theEnd": "おわり",
     "supportLabel": "応援する",
     "supportCount": "{count} / {target}"
+  },
+  "viewer": {
+    "pageOperationLabel": "ページ操作",
+    "nextPageAction": "次ページ",
+    "previousPageAction": "前ページ"
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../i18n/comic_translations_extension.dart';
@@ -116,6 +117,31 @@ class _MangaPageViewState extends State<_MangaPageView> {
     widget.onScaleChanged(scale);
   }
 
+  int get _currentPage =>
+      _pageController.page?.round() ?? widget.state.currentPageIndex;
+
+  void _goToNextPage() {
+    final nextPage = _currentPage + 1;
+    if (nextPage < widget.totalPages) {
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _goToPreviousPage() {
+    final prevPage = _currentPage - 1;
+    if (prevPage >= 0) {
+      _pageController.animateToPage(
+        prevPage,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -134,52 +160,45 @@ class _MangaPageViewState extends State<_MangaPageView> {
           },
           itemBuilder: (context, index) {
             final isLastPage = index == widget.totalPages - 1;
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTapUp: (details) {
-                final x = details.localPosition.dx;
-                if (x < width / 3) {
-                  // 左1/3タップ：次ページへ（reverse: true のため実際は前に進む）
-                  final currentPage =
-                      _pageController.page?.round() ?? widget.state.currentPageIndex;
-                  final nextPage = currentPage + 1;
-                  if (nextPage < widget.totalPages) {
-                    _pageController.animateToPage(
-                      nextPage,
-                      duration: const Duration(milliseconds: 250),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                } else if (x > width * 2 / 3) {
-                  // 右1/3タップ：前ページへ（日本語漫画の「戻る」操作）
-                  final currentPage =
-                      _pageController.page?.round() ?? widget.state.currentPageIndex;
-                  final prevPage = currentPage - 1;
-                  if (prevPage >= 0) {
-                    _pageController.animateToPage(
-                      prevPage,
-                      duration: const Duration(milliseconds: 250),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                } else {
-                  // 中央1/3タップ：メニュー表示切替
-                  widget.onToggleMenu();
-                }
+            final sq = context.sq;
+            return Semantics(
+              label: sq.viewer.pageOperationLabel,
+              customSemanticsActions: {
+                CustomSemanticsAction(label: sq.viewer.nextPageAction):
+                    _goToNextPage,
+                CustomSemanticsAction(label: sq.viewer.previousPageAction):
+                    _goToPreviousPage,
               },
-              child: InteractiveViewer(
-                transformationController: _transformationController,
-                minScale: 1.0,
-                maxScale: 4.0,
-                onInteractionUpdate: _onInteractionUpdate,
-                child: isLastPage
-                    ? _LastMangaPage(
-                        pageIndex: index,
-                        likeCount: widget.state.likeCount,
-                        likeTarget: widget.likeTarget,
-                        onLike: widget.onIncrementLikes,
-                      )
-                    : _MangaPageContent(pageIndex: index),
+              child: GestureDetector(
+                excludeFromSemantics: true,
+                behavior: HitTestBehavior.opaque,
+                onTapUp: (details) {
+                  final x = details.localPosition.dx;
+                  if (x < width / 3) {
+                    // 左1/3タップ：次ページへ（reverse: true のため実際は前に進む）
+                    _goToNextPage();
+                  } else if (x > width * 2 / 3) {
+                    // 右1/3タップ：前ページへ（日本語漫画の「戻る」操作）
+                    _goToPreviousPage();
+                  } else {
+                    // 中央1/3タップ：メニュー表示切替
+                    widget.onToggleMenu();
+                  }
+                },
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+                  minScale: 1.0,
+                  maxScale: 4.0,
+                  onInteractionUpdate: _onInteractionUpdate,
+                  child: isLastPage
+                      ? _LastMangaPage(
+                          pageIndex: index,
+                          likeCount: widget.state.likeCount,
+                          likeTarget: widget.likeTarget,
+                          onLike: widget.onIncrementLikes,
+                        )
+                      : _MangaPageContent(pageIndex: index),
+                ),
               ),
             );
           },

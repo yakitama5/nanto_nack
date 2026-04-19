@@ -45,6 +45,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsQuiz3Ja quiz3 = TranslationsQuiz3Ja.internal(_root);
 	late final TranslationsQuiz4Ja quiz4 = TranslationsQuiz4Ja.internal(_root);
 	late final TranslationsEndPageJa endPage = TranslationsEndPageJa.internal(_root);
+	late final TranslationsViewerJa viewer = TranslationsViewerJa.internal(_root);
 }
 
 // Path: quiz1
@@ -134,6 +135,24 @@ class TranslationsEndPageJa {
 
 	/// ja: '{count} / {target}'
 	String get supportCount => '{count} / {target}';
+}
+
+// Path: viewer
+class TranslationsViewerJa {
+	TranslationsViewerJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ページ操作'
+	String get pageOperationLabel => 'ページ操作';
+
+	/// ja: '次ページ'
+	String get nextPageAction => '次ページ';
+
+	/// ja: '前ページ'
+	String get previousPageAction => '前ページ';
 }
 
 // Path: quiz1.insight
@@ -256,6 +275,9 @@ extension on Translations {
 			'endPage.theEnd' => 'おわり',
 			'endPage.supportLabel' => '応援する',
 			'endPage.supportCount' => '{count} / {target}',
+			'viewer.pageOperationLabel' => 'ページ操作',
+			'viewer.nextPageAction' => '次ページ',
+			'viewer.previousPageAction' => '前ページ',
 			_ => null,
 		};
 	}

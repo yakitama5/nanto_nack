@@ -44,5 +44,10 @@
     "theEnd": "The End",
     "supportLabel": "Support",
     "supportCount": "{count} / {target}"
+  },
+  "viewer": {
+    "pageOperationLabel": "Page Navigation",
+    "nextPageAction": "Next Page",
+    "previousPageAction": "Previous Page"
   }
 }

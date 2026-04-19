@@ -44,6 +44,7 @@ class TranslationsXx extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsQuiz3Xx quiz3 = _TranslationsQuiz3Xx._(_root);
 	@override late final _TranslationsQuiz4Xx quiz4 = _TranslationsQuiz4Xx._(_root);
 	@override late final _TranslationsEndPageXx endPage = _TranslationsEndPageXx._(_root);
+	@override late final _TranslationsViewerXx viewer = _TranslationsViewerXx._(_root);
 }
 
 // Path: quiz1
@@ -65,7 +66,7 @@ class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get mission => 'I can not read the small text in the corner. Zoom in!';
+	@override String get mission => 'I cannot read the small text in the corner. Zoom in!';
 	@override String get hint => 'Pinch out with two fingers or double-tap to zoom in.';
 	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
@@ -77,7 +78,7 @@ class _TranslationsQuiz3Xx extends TranslationsQuiz3Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get mission => 'Let us stop reading for now. Show the menu.';
+	@override String get mission => 'Let\'s stop reading for now. Show the menu.';
 	@override String get hint => 'Tap the center of the screen to show the menu.';
 	@override late final _TranslationsQuiz3InsightXx insight = _TranslationsQuiz3InsightXx._(_root);
 }
@@ -105,6 +106,18 @@ class _TranslationsEndPageXx extends TranslationsEndPageJa {
 	@override String get theEnd => 'The End';
 	@override String get supportLabel => 'Support';
 	@override String get supportCount => '{count} / {target}';
+}
+
+// Path: viewer
+class _TranslationsViewerXx extends TranslationsViewerJa {
+	_TranslationsViewerXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageOperationLabel => 'Page Navigation';
+	@override String get nextPageAction => 'Next Page';
+	@override String get previousPageAction => 'Previous Page';
 }
 
 // Path: quiz1.insight
@@ -173,13 +186,13 @@ extension on TranslationsXx {
 			'quiz1.insight.subtitle' => 'Japanese manga reads right to left, so going back means tapping the right side.',
 			'quiz1.insight.step1Title' => 'Tap right edge or swipe left',
 			'quiz1.insight.step1Desc' => 'Tap the right edge or swipe left to go back one page.',
-			'quiz2.mission' => 'I can not read the small text in the corner. Zoom in!',
+			'quiz2.mission' => 'I cannot read the small text in the corner. Zoom in!',
 			'quiz2.hint' => 'Pinch out with two fingers or double-tap to zoom in.',
 			'quiz2.insight.title' => 'Zoom In and Out',
 			'quiz2.insight.subtitle' => 'You can zoom in on small text or fine details using pinch or double-tap.',
 			'quiz2.insight.step1Title' => 'Pinch Out',
 			'quiz2.insight.step1Desc' => 'Spread two fingers on the screen to zoom in on the manga.',
-			'quiz3.mission' => 'Let us stop reading for now. Show the menu.',
+			'quiz3.mission' => 'Let\'s stop reading for now. Show the menu.',
 			'quiz3.hint' => 'Tap the center of the screen to show the menu.',
 			'quiz3.insight.title' => 'Showing the Menu',
 			'quiz3.insight.subtitle' => 'Most manga apps show the header and footer menu when you tap the center of the screen.',
@@ -195,6 +208,9 @@ extension on TranslationsXx {
 			'endPage.theEnd' => 'The End',
 			'endPage.supportLabel' => 'Support',
 			'endPage.supportCount' => '{count} / {target}',
+			'viewer.pageOperationLabel' => 'Page Navigation',
+			'viewer.nextPageAction' => 'Next Page',
+			'viewer.previousPageAction' => 'Previous Page',
 			_ => null,
 		};
 	}

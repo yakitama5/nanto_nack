@@ -44,6 +44,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsQuiz3En quiz3 = _TranslationsQuiz3En._(_root);
 	@override late final _TranslationsQuiz4En quiz4 = _TranslationsQuiz4En._(_root);
 	@override late final _TranslationsEndPageEn endPage = _TranslationsEndPageEn._(_root);
+	@override late final _TranslationsViewerEn viewer = _TranslationsViewerEn._(_root);
 }
 
 // Path: quiz1
@@ -105,6 +106,18 @@ class _TranslationsEndPageEn extends TranslationsEndPageJa {
 	@override String get theEnd => 'The End';
 	@override String get supportLabel => 'Support';
 	@override String get supportCount => '{count} / {target}';
+}
+
+// Path: viewer
+class _TranslationsViewerEn extends TranslationsViewerJa {
+	_TranslationsViewerEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageOperationLabel => 'Page Navigation';
+	@override String get nextPageAction => 'Next Page';
+	@override String get previousPageAction => 'Previous Page';
 }
 
 // Path: quiz1.insight
@@ -195,6 +208,9 @@ extension on TranslationsEn {
 			'endPage.theEnd' => 'The End',
 			'endPage.supportLabel' => 'Support',
 			'endPage.supportCount' => '{count} / {target}',
+			'viewer.pageOperationLabel' => 'Page Navigation',
+			'viewer.nextPageAction' => 'Next Page',
+			'viewer.previousPageAction' => 'Previous Page',
 			_ => null,
 		};
 	}
