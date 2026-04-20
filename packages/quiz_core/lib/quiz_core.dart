@@ -14,6 +14,7 @@ export 'src/theme/payment_app_theme.dart';
 export 'src/theme/shopping_app_theme.dart';
 export 'src/theme/sns_app_theme.dart';
 export 'src/theme/streaming_app_theme.dart';
+export 'src/theme/todo_app_theme.dart';
 export 'src/utils/custom_language_encoder.dart';
 export 'src/utils/haptic_feedback_service.dart';
 export 'src/utils/score_rank.dart';

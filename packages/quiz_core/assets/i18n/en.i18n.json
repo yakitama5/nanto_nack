@@ -114,7 +114,8 @@
       "news": "News",
       "calendar": "Calendar",
       "sns": "SNS",
-      "comic": "Manga App"
+      "comic": "Manga App",
+      "todo": "TODO App"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -173,7 +174,11 @@
       "comic_quiz1": "Go Back 3 Pages",
       "comic_quiz2": "Zoom In",
       "comic_quiz3": "Show the Menu",
-      "comic_quiz4": "Support the Creator"
+      "comic_quiz4": "Support the Creator",
+      "todo_quiz1": "Complete Buy Milk",
+      "todo_quiz2": "Move Create Proposal to Top",
+      "todo_quiz3": "Mark Pay Rent as Important",
+      "todo_quiz4": "Undo Prepare for Meeting"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -219,7 +224,11 @@
       "comic_quiz1": "Go back 3 pages in the manga app",
       "comic_quiz2": "Zoom in to read the small text",
       "comic_quiz3": "Show the menu in the manga app",
-      "comic_quiz4": "Tap the support button 10 times"
+      "comic_quiz4": "Tap the support button 10 times",
+      "todo_quiz1": "Mark the Buy Milk task as complete",
+      "todo_quiz2": "Drag and drop to move Create Proposal to the top",
+      "todo_quiz3": "Swipe left on Pay Rent and tap the star to mark as important",
+      "todo_quiz4": "Open the completed list and uncheck Prepare for Meeting"
     }
   },
   "scene": {

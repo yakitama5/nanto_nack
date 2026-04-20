@@ -1,0 +1,64 @@
+{
+  "quiz1": {
+    "missionText": "Complete the task 'Buy milk'",
+    "insight": {
+      "title": "How did you know tapping the checkbox or swiping left would complete the task?",
+      "subtitle": "A round checkbox is the universal sign for 'done'",
+      "checkTitle": "Round checkbox = tap to complete",
+      "checkDesc": "Tapping the round checkbox in a TODO app marks the task as complete. This is adopted by many apps such as Microsoft To Do and Google Tasks.",
+      "swipeTitle": "Left-to-right swipe = completion gesture",
+      "swipeDesc": "Many TODO apps allow you to complete a task by swiping from left to right. This uses the same directional sense as marking an email as read.",
+      "feedbackTitle": "Visual feedback on completion",
+      "feedbackDesc": "When a task is completed, a blue background and check icon appear, intuitively communicating the meaning of the action."
+    }
+  },
+  "quiz2": {
+    "missionText": "Move the task 'Create proposal' to the top",
+    "insight": {
+      "title": "How did you know you could drag by long pressing?",
+      "subtitle": "Long press + drag is the universal gesture for reordering",
+      "longPressTitle": "Long press = grab signal",
+      "longPressDesc": "Long pressing a list item triggers reorder mode with a haptic feedback sensation. This is a standard interaction supported on both Android and iOS.",
+      "dragTitle": "Drag and drop to change priority",
+      "dragDesc": "In TODO apps, tasks higher in the list often have higher priority. Dragging to the top sets the highest priority task.",
+      "handleTitle": "Drag handle icon signal",
+      "handleDesc": "Three-line (hamburger) or dotted icons indicate that an item can be dragged. This is a universal UI symbol for draggable items."
+    }
+  },
+  "quiz3": {
+    "missionText": "Mark the task 'Pay rent' as important",
+    "insight": {
+      "title": "How did you know swiping left would let you mark it as important?",
+      "subtitle": "Right-to-left swipe is a sign of additional actions",
+      "swipeTitle": "Right-to-left swipe = reveals hidden actions",
+      "swipeDesc": "In mail and TODO apps, swiping from right to left reveals additional actions such as delete, archive, or mark as important.",
+      "starTitle": "Star mark = important task signal",
+      "starDesc": "The star icon is a common symbol for 'favorite' or 'important' in apps worldwide. In TODO apps, it is often used to move tasks to 'Today'.",
+      "priorityTitle": "Improve focus with important tasks",
+      "priorityDesc": "Prioritizing tasks helps you focus on what truly needs to be done. Use the important mark to make tasks stand out and avoid missing them."
+    }
+  },
+  "quiz4": {
+    "missionText": "Undo the task 'Prepare for meeting' that was accidentally marked as complete",
+    "insight": {
+      "title": "How did you know you could undo from the completed list?",
+      "subtitle": "The completed list is an archive where you can undo actions",
+      "accordionTitle": "Collapsible list = accordion UI",
+      "accordionDesc": "Tapping the 'Completed (X)' header expands the list of completed tasks. This is a type of accordion UI commonly used in email folders and FAQs.",
+      "undoTitle": "Undo completion to fix mistakes",
+      "undoDesc": "Unchecking a completed task returns it to incomplete status. Designs that allow easy correction of mistakes are fundamental to modern apps.",
+      "checkTitle": "Moving from completed back to incomplete",
+      "checkDesc": "Open the completed list and tap the checkmark or swipe left to restore the task to incomplete status."
+    }
+  },
+  "common": {
+    "appTitle": "Tasks",
+    "completedLabel": "Completed",
+    "importantLabel": "Important",
+    "noTasks": "No tasks",
+    "addTask": "Add task",
+    "importantAction": "Mark as important",
+    "completeAction": "Mark as complete",
+    "uncompleteAction": "Mark as incomplete"
+  }
+}

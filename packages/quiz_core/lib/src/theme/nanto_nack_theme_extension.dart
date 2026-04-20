@@ -33,6 +33,8 @@ class NantoNackThemeExtension
     required this.snsCategoryContainerColor,
     required this.comicCategoryColor,
     required this.comicCategoryContainerColor,
+    required this.todoCategoryColor,
+    required this.todoCategoryContainerColor,
   });
 
   /// 連続プレイ日数（ストリーク）のアクセントカラー
@@ -112,6 +114,11 @@ class NantoNackThemeExtension
 
   /// 漫画カテゴリーカードの背景コンテナカラー
   final Color comicCategoryContainerColor;
+  /// TODOカテゴリーのブランドカラー（Microsoft To Do風ブルー）
+  final Color todoCategoryColor;
+
+  /// TODOカテゴリーカードの背景コンテナカラー
+  final Color todoCategoryContainerColor;
 
   /// ライトテーマ用デフォルト値
   static const light = NantoNackThemeExtension(
@@ -141,6 +148,8 @@ class NantoNackThemeExtension
     snsCategoryContainerColor: Color(0xFFE8F5FD),
     comicCategoryColor: Color(0xFFE91E63),
     comicCategoryContainerColor: Color(0xFFFCE4EC),
+    todoCategoryColor: Color(0xFF1565C0),
+    todoCategoryContainerColor: Color(0xFFE3F2FD),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -183,6 +192,8 @@ class NantoNackThemeExtension
     snsCategoryContainerColor: Color(0xFF0F2035),
     comicCategoryColor: Color(0xFFF48FB1),
     comicCategoryContainerColor: Color(0xFF880E4F),
+    todoCategoryColor: Color(0xFF90CAF9),
+    todoCategoryContainerColor: Color(0xFF0D2137),
   );
 
   @override
@@ -213,6 +224,8 @@ class NantoNackThemeExtension
     Color? snsCategoryContainerColor,
     Color? comicCategoryColor,
     Color? comicCategoryContainerColor,
+    Color? todoCategoryColor,
+    Color? todoCategoryContainerColor,
   }) {
     return NantoNackThemeExtension(
       streakColor: streakColor ?? this.streakColor,
@@ -256,6 +269,9 @@ class NantoNackThemeExtension
       comicCategoryColor: comicCategoryColor ?? this.comicCategoryColor,
       comicCategoryContainerColor:
           comicCategoryContainerColor ?? this.comicCategoryContainerColor,
+      todoCategoryColor: todoCategoryColor ?? this.todoCategoryColor,
+      todoCategoryContainerColor:
+          todoCategoryContainerColor ?? this.todoCategoryContainerColor,
     );
   }
 
@@ -356,6 +372,13 @@ class NantoNackThemeExtension
       comicCategoryContainerColor: Color.lerp(
         comicCategoryContainerColor,
         other.comicCategoryContainerColor,
+        t,
+      )!,
+      todoCategoryColor:
+          Color.lerp(todoCategoryColor, other.todoCategoryColor, t)!,
+      todoCategoryContainerColor: Color.lerp(
+        todoCategoryContainerColor,
+        other.todoCategoryContainerColor,
         t,
       )!,
     );
