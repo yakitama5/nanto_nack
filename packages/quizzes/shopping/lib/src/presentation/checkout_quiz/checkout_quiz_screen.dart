@@ -94,6 +94,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                       onChanged: (v) => ref
                           .read(checkoutQuizProvider.notifier)
                           .updateAddress(v),
+                      onTapOutside: (_) => FocusScope.of(context).unfocus(),
                     ),
                   ),
                   const SizedBox(height: 8),
