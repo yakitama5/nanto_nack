@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/alarm_quiz_config.dart';
 import '../../domain/entities/alarm_item.dart';
 
 /// Quiz 1「アラームを追加する」の状態
@@ -19,7 +20,6 @@ class AddAlarmQuizState extends QuizStateBase {
   /// 初期状態を生成する
   factory AddAlarmQuizState.initial({
     required AlarmItem draft,
-    int timeLimitSeconds = 30,
   }) =>
       AddAlarmQuizState(
         status: QuizStatus.idle,
@@ -29,7 +29,7 @@ class AddAlarmQuizState extends QuizStateBase {
         showEditForm: false,
         draftAlarm: draft,
         alarmSaved: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
       );
 
   /// 編集フォームを表示中か
