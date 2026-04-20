@@ -30,7 +30,7 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
   @override
   ReorderQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return ReorderQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds);
+    return ReorderQuizState.initial();
   }
 
   void startQuiz() {
@@ -146,7 +146,6 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ReorderQuizState.initial(
-      timeLimitSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
       targetItemId: _targetItemId,
     ).copyWith(
       status: QuizStatus.playing,

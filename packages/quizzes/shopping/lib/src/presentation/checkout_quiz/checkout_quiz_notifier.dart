@@ -23,7 +23,7 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   @override
   CheckoutQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return CheckoutQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds);
+    return CheckoutQuizState.initial();
   }
 
   /// クイズを開始する（タイマー始動）
@@ -115,8 +115,7 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = CheckoutQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds)
-        .copyWith(
+    state = CheckoutQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
       failureCount: state.failureCount,

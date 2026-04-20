@@ -24,7 +24,7 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
   @override
   CartQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return CartQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.cartTimeLimitSeconds);
+    return CartQuizState.initial();
   }
 
   /// クイズを開始する（タイマー始動）
@@ -110,7 +110,7 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = CartQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.cartTimeLimitSeconds).copyWith(
+    state = CartQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
       failureCount: state.failureCount,

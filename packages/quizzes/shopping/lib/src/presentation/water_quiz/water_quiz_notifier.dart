@@ -29,7 +29,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   @override
   WaterQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return WaterQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.waterTimeLimitSeconds);
+    return WaterQuizState.initial();
   }
 
   void startQuiz() {
@@ -132,7 +132,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = WaterQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.waterTimeLimitSeconds).copyWith(
+    state = WaterQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
