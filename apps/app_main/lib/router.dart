@@ -19,6 +19,7 @@ import 'router/mail_router.dart';
 import 'router/map_router.dart';
 import 'router/news_router.dart';
 import 'router/payment_router.dart';
+import 'router/todo_router.dart';
 import 'router/shopping_router.dart';
 import 'router/streaming_router.dart';
 
@@ -71,6 +72,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           ...newsRoutes,
           ...calendarRoutes,
           ...snsRoutes,
+          ...todoRoutes,
         ],
       ),
       GoRoute(

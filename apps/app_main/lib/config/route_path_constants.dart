@@ -52,6 +52,18 @@ const String kMailQuiz2Path = '/play/mail/quiz2';
 const String kMailQuiz3Path = '/play/mail/quiz3';
 const String kMailQuiz4Path = '/play/mail/quiz4';
 
+// Todo
+const String kTodoSegment = 'todo';
+const String kTodoQuiz1Segment = 'quiz1';
+const String kTodoQuiz2Segment = 'quiz2';
+const String kTodoQuiz3Segment = 'quiz3';
+const String kTodoQuiz4Segment = 'quiz4';
+const String kTodoListPath = '/play/$kTodoSegment';
+const String kTodoQuiz1Path = '$kTodoListPath/$kTodoQuiz1Segment';
+const String kTodoQuiz2Path = '$kTodoListPath/$kTodoQuiz2Segment';
+const String kTodoQuiz3Path = '$kTodoListPath/$kTodoQuiz3Segment';
+const String kTodoQuiz4Path = '$kTodoListPath/$kTodoQuiz4Segment';
+
 // News
 const String kNewsSegment = 'news';
 const String kNewsQuiz1Segment = 'quiz1';
