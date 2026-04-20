@@ -233,14 +233,11 @@ class TranslationsPurchaseJa {
 	/// ja: '本日のプレイ上限に達しました'
 	String get limitReached => '本日のプレイ上限に達しました';
 
-	/// ja: 'プレミアムにアップグレードすると 無制限でプレイできます'
-	String get unlockDescription => 'プレミアムにアップグレードすると\n無制限でプレイできます';
+	/// ja: 'また明日プレイしてください！'
+	String get unlockDescription => 'また明日プレイしてください！';
 
-	/// ja: 'アップグレード'
-	String get upgrade => 'アップグレード';
-
-	/// ja: 'あとで'
-	String get later => 'あとで';
+	/// ja: '閉じる'
+	String get close => '閉じる';
 }
 
 // Path: error
@@ -1084,9 +1081,8 @@ extension on Translations {
 			'mission.giveUp' => '諦める',
 			'mission.timeLimit' => '制限時間: {seconds}秒',
 			'purchase.limitReached' => '本日のプレイ上限に達しました',
-			'purchase.unlockDescription' => 'プレミアムにアップグレードすると\n無制限でプレイできます',
-			'purchase.upgrade' => 'アップグレード',
-			'purchase.later' => 'あとで',
+			'purchase.unlockDescription' => 'また明日プレイしてください！',
+			'purchase.close' => '閉じる',
 			'error.unknown' => 'エラーが発生しました',
 			'error.retry' => '再試行',
 			'dashboard.title' => 'ダッシュボード',

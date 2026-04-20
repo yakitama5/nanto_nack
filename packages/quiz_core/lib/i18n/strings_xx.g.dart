@@ -150,9 +150,8 @@ class _TranslationsPurchaseXx extends TranslationsPurchaseJa {
 
 	// Translations
 	@override String get limitReached => '本日のプレイ上限に達しました';
-	@override String get unlockDescription => 'プレミアムにアップグレードすると\n無制限でプレイできます';
-	@override String get upgrade => 'アップグレード';
-	@override String get later => 'あとで';
+	@override String get unlockDescription => 'また明日プレイしてください！';
+	@override String get close => '閉じる';
 }
 
 // Path: error
@@ -593,9 +592,8 @@ extension on TranslationsXx {
 			'mission.giveUp' => '諦める',
 			'mission.timeLimit' => '制限時間: {seconds}秒',
 			'purchase.limitReached' => '本日のプレイ上限に達しました',
-			'purchase.unlockDescription' => 'プレミアムにアップグレードすると\n無制限でプレイできます',
-			'purchase.upgrade' => 'アップグレード',
-			'purchase.later' => 'あとで',
+			'purchase.unlockDescription' => 'また明日プレイしてください！',
+			'purchase.close' => '閉じる',
 			'error.unknown' => 'エラーが発生しました',
 			'error.retry' => '再試行',
 			'dashboard.title' => 'ダッシュボード',
