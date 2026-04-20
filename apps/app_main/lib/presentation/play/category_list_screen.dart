@@ -72,7 +72,7 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
       ref
           .read(tutorialNotifierProvider.notifier)
           .advanceTo(TutorialScreen.waterQuiz);
-      context.push('/shopping/water', extra: true);
+      context.push('/play/shopping/water', extra: true);
     }
 
     TutorialCoachMark(
