@@ -12,6 +12,7 @@ class SnsAppTheme extends ThemeExtension<SnsAppTheme> {
     required this.postDividerColor,
     required this.heartColor,
     required this.subTextColor,
+    required this.primaryTextColor,
     required this.imageBackgroundCat,
     required this.accountSwitchBackground,
   });
@@ -37,6 +38,9 @@ class SnsAppTheme extends ThemeExtension<SnsAppTheme> {
   /// @userId などのサブテキスト色
   final Color subTextColor;
 
+  /// 投稿本文・ユーザー名などのメインテキスト色
+  final Color primaryTextColor;
+
   /// 猫画像の背景色
   final Color imageBackgroundCat;
 
@@ -52,6 +56,7 @@ class SnsAppTheme extends ThemeExtension<SnsAppTheme> {
     postDividerColor: Color(0xFFE0E0E0),
     heartColor: Color(0xFFE0245E),
     subTextColor: Color(0xFF757575),
+    primaryTextColor: Color(0xFF0F1419),
     imageBackgroundCat: Color(0xFFFF8F00),
     accountSwitchBackground: Color(0xFFF5F8FA),
   );
@@ -61,10 +66,11 @@ class SnsAppTheme extends ThemeExtension<SnsAppTheme> {
     brandColor: Color(0xFF1DA1F2),
     scaffoldBackground: Color(0xFF15202B),
     navBarBackground: Color(0xFF15202B),
-    navInactiveColor: Color(0xFF6E7680),
+    navInactiveColor: Color(0xFF8B98A5),
     postDividerColor: Color(0xFF2D3741),
     heartColor: Color(0xFFE0245E),
-    subTextColor: Color(0xFF6E7680),
+    subTextColor: Color(0xFF8B98A5),
+    primaryTextColor: Color(0xFFE7E9EA),
     imageBackgroundCat: Color(0xFFE65100),
     accountSwitchBackground: Color(0xFF1A2A38),
   );
@@ -78,6 +84,7 @@ class SnsAppTheme extends ThemeExtension<SnsAppTheme> {
     Color? postDividerColor,
     Color? heartColor,
     Color? subTextColor,
+    Color? primaryTextColor,
     Color? imageBackgroundCat,
     Color? accountSwitchBackground,
   }) {
@@ -89,6 +96,7 @@ class SnsAppTheme extends ThemeExtension<SnsAppTheme> {
       postDividerColor: postDividerColor ?? this.postDividerColor,
       heartColor: heartColor ?? this.heartColor,
       subTextColor: subTextColor ?? this.subTextColor,
+      primaryTextColor: primaryTextColor ?? this.primaryTextColor,
       imageBackgroundCat: imageBackgroundCat ?? this.imageBackgroundCat,
       accountSwitchBackground:
           accountSwitchBackground ?? this.accountSwitchBackground,
@@ -110,6 +118,7 @@ class SnsAppTheme extends ThemeExtension<SnsAppTheme> {
           Color.lerp(postDividerColor, other.postDividerColor, t)!,
       heartColor: Color.lerp(heartColor, other.heartColor, t)!,
       subTextColor: Color.lerp(subTextColor, other.subTextColor, t)!,
+      primaryTextColor: Color.lerp(primaryTextColor, other.primaryTextColor, t)!,
       imageBackgroundCat:
           Color.lerp(imageBackgroundCat, other.imageBackgroundCat, t)!,
       accountSwitchBackground: Color.lerp(
