@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
@@ -20,19 +22,30 @@ class CartQuizScreen extends ConsumerStatefulWidget {
 
 class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   bool _showCutIn = true;
+  late final ShoppingCart _cart;
 
-  // クイズ問題として使用するカート（固定データ）
-  static final _cart = ShoppingCart(
-    items: const [
-      CartItem(id: 'water_500ml', price: 100, quantity: 3),
-      CartItem(id: 'tea_500ml', price: 150, quantity: 2),
-      CartItem(id: 'coffee_500ml', price: 180, quantity: 1),
-    ],
-  );
+  // 1の位を0固定、100の位と10の位をランダムに決定した単価（¥XY0形式）
+  // 合計が4桁入力の上限（9999円）に収まるまで再生成する
+  static ShoppingCart _buildRandomCart() {
+    final rng = Random();
+    int randomPrice() => (rng.nextInt(9) + 1) * 100 + rng.nextInt(10) * 10;
+    int randomQty() => rng.nextInt(5) + 1;
+
+    while (true) {
+      final items = [
+        CartItem(id: 'water_500ml', price: randomPrice(), quantity: randomQty()),
+        CartItem(id: 'tea_500ml', price: randomPrice(), quantity: randomQty()),
+        CartItem(id: 'coffee_500ml', price: randomPrice(), quantity: randomQty()),
+      ];
+      final cart = ShoppingCart(items: items);
+      if (cart.totalPrice <= 9999) return cart;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _cart = _buildRandomCart();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(cartQuizProvider.notifier).startQuiz();
     });
@@ -310,7 +323,7 @@ class _CartItemTile extends StatelessWidget {
                     ),
                     const Spacer(),
                     UnreadableText(
-                      '¥${item.totalPrice}',
+                      '¥${item.price}',
                       isObfuscated: true,
                       animateOnObfuscate: false,
                       style: const TextStyle(
