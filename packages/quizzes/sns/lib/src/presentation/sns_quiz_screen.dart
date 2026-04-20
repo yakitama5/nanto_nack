@@ -359,7 +359,10 @@ class _SnsComposeDialogState extends State<_SnsComposeDialog> {
           onPressed: () => Navigator.of(context).pop(),
           child: SnsText(
             sq.common.cancel,
-            style: const TextStyle(color: Colors.black, fontSize: 16),
+            style: TextStyle(
+              color: widget.snsTheme.primaryTextColor,
+              fontSize: 16,
+            ),
           ),
         ),
         leadingWidth: 100,
@@ -408,7 +411,10 @@ class _SnsComposeDialogState extends State<_SnsComposeDialog> {
                   hintText: sq.common.composeHint,
                   border: InputBorder.none,
                 ),
-                style: const TextStyle(fontSize: 18),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: widget.snsTheme.primaryTextColor,
+                ),
               ),
             ),
           ],
@@ -785,10 +791,10 @@ class _SnsPostItemState extends State<_SnsPostItem>
                     Expanded(
                       child: SnsText(
                         post.userName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.black,
+                          color: snsTheme.primaryTextColor,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -807,7 +813,10 @@ class _SnsPostItemState extends State<_SnsPostItem>
                 const SizedBox(height: 4),
                 SnsText(
                   post.content,
-                  style: const TextStyle(fontSize: 15, color: Colors.black87),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: snsTheme.primaryTextColor,
+                  ),
                 ),
                 if (post.imageUrl != null) ...[
                   const SizedBox(height: 12),
@@ -982,10 +991,10 @@ class _TrendItem extends StatelessWidget {
             const SizedBox(height: 2),
             SnsText(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
-                color: Colors.black,
+                color: snsTheme.primaryTextColor,
               ),
             ),
             const SizedBox(height: 2),
@@ -1060,7 +1069,7 @@ class _SearchViewState extends ConsumerState<_SearchView> {
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 10),
               ),
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: snsTheme.primaryTextColor),
             ),
           ),
         ),
