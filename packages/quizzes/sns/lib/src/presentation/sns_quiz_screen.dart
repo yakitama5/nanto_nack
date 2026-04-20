@@ -100,7 +100,7 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
                       ? widget.onCompleted
                       : null,
                   onBack: () => Navigator.of(context).pop(),
-                  isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
+                  isLimitReached: ref.isPlayLimitReached,
                   insight: _buildInsight(context, widget.quizType),
                 ),
               ),

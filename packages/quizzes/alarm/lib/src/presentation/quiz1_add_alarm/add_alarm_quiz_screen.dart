@@ -88,7 +88,7 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
               onNext:
                   state.status == QuizStatus.correct ? widget.onCompleted : null,
               onBack: () => Navigator.of(context).pop(),
-              isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
+              isLimitReached: ref.isPlayLimitReached,
               insight: Builder(
                 builder: (context) {
                   final insight = context.s.quiz1.insight;

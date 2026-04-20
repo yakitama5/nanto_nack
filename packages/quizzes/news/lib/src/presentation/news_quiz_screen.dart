@@ -138,7 +138,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
               Navigator.of(context, rootNavigator: true).pop();
               widget.onBack?.call();
             },
-            isLimitReached: ref.read(isPlayLimitReachedProvider).valueOrNull ?? false,
+            isLimitReached: ref.isPlayLimitReached,
             insight: _buildInsight(),
           ),
         ),

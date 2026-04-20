@@ -143,7 +143,7 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
                 ? widget.onCompleted
                 : null,
             onBack: () => Navigator.of(context).pop(),
-            isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
+            isLimitReached: ref.isPlayLimitReached,
             insight: const _SendImageInsight(),
           ),
         ),

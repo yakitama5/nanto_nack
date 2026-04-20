@@ -110,7 +110,7 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
                 ? widget.onCompleted
                 : null,
             onBack: () => Navigator.of(context).pop(),
-            isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
+            isLimitReached: ref.isPlayLimitReached,
             insight: _SendMoneyInsight(),
           ),
         ),

@@ -12,3 +12,14 @@ final isPlayLimitReachedProvider = FutureProvider.autoDispose<bool>((ref) async 
   final repo = ref.read(userStatusRepositoryProvider);
   return repo.isLimitReached(dailyLimit: remoteConfig.dailyPlayLimit);
 });
+
+/// [isPlayLimitReachedProvider] を watch して上限到達状態を返す拡張。
+///
+/// ローディング中は `true`（安全側）、エラー時は `false` を返す。
+extension PlayLimitWidgetRefX on WidgetRef {
+  bool get isPlayLimitReached => watch(isPlayLimitReachedProvider).when(
+        data: (v) => v,
+        loading: () => true,
+        error: (_, __) => false,
+      );
+}

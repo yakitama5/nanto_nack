@@ -113,7 +113,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
                     ? widget.onCompleted
                     : null,
                 onBack: () => Navigator.of(context).pop(),
-                isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
+                isLimitReached: ref.isPlayLimitReached,
                 insight: _buildInsight(),
               ),
             ),

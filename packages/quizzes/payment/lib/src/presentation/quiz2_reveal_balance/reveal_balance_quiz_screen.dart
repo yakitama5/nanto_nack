@@ -78,7 +78,7 @@ class _RevealBalanceQuizScreenState
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
-              isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
+              isLimitReached: ref.isPlayLimitReached,
               insight: _RevealBalanceInsight(),
             ),
           ),
