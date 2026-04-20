@@ -4,7 +4,6 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_checkout_use_case.dart';
-import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:system/system.dart';
 import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
@@ -29,10 +28,9 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
   /// クイズを開始する（タイマー始動）
   void startQuiz() {
     _timer?.cancel();
-    state = state.copyWith(
+    state = CheckoutQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
-      remainingSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();

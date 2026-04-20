@@ -4,10 +4,8 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_reorder_use_case.dart';
-import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:system/system.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
-import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.dart';
 import 'package:shopping/src/presentation/reorder_quiz/reorder_quiz_state.dart';
 
@@ -35,13 +33,9 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
 
   void startQuiz() {
     _timer?.cancel();
-    state = state.copyWith(
+    state = ReorderQuizState.initial(targetItemId: _targetItemId).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
-      cart: const ShoppingCart(),
-      isPurchased: false,
-      remainingSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
-      hintUsed: false,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
