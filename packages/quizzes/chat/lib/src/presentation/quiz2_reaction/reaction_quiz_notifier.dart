@@ -28,7 +28,6 @@ class ReactionQuizNotifier extends AutoDisposeNotifier<ReactionQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return ReactionQuizState.initial(
       initialMessages: ChatCatalog.quiz2InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
     );
   }
 
@@ -204,7 +203,6 @@ class ReactionQuizNotifier extends AutoDisposeNotifier<ReactionQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ReactionQuizState.initial(
       initialMessages: ChatCatalog.quiz2InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

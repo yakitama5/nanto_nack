@@ -26,7 +26,7 @@ class CreateGroupQuizNotifier
   @override
   CreateGroupQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return CreateGroupQuizState.initial(timeLimitSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds);
+    return CreateGroupQuizState.initial();
   }
 
   void startQuiz() {
@@ -122,9 +122,7 @@ class CreateGroupQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = CreateGroupQuizState.initial(
-      timeLimitSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds,
-    ).copyWith(
+    state = CreateGroupQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );

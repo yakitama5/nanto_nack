@@ -28,7 +28,6 @@ class CancelMessageQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return CancelMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz4InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
     );
   }
 
@@ -129,7 +128,6 @@ class CancelMessageQuizNotifier
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = CancelMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz4InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

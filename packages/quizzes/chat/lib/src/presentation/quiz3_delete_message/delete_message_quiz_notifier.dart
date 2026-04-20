@@ -27,7 +27,6 @@ class DeleteMessageQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return DeleteMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
     );
   }
 
@@ -95,7 +94,6 @@ class DeleteMessageQuizNotifier
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = DeleteMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

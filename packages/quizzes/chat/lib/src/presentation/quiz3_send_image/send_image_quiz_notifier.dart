@@ -29,7 +29,6 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return SendImageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
     );
   }
 
@@ -177,7 +176,6 @@ class SendImageQuizNotifier extends AutoDisposeNotifier<SendImageQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendImageQuizState.initial(
       initialMessages: ChatCatalog.quiz3InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
     );

@@ -27,7 +27,6 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return SendStampQuizState.initial(
       initialMessages: ChatCatalog.quiz2InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz2SendStampTimeLimitSeconds,
     );
   }
 
@@ -110,7 +109,6 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendStampQuizState.initial(
       initialMessages: ChatCatalog.quiz2InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz2SendStampTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

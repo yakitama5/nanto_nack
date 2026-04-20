@@ -28,7 +28,6 @@ class SendMessageQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return SendMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz1InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz1SendMessageTimeLimitSeconds,
     );
   }
 
@@ -107,7 +106,6 @@ class SendMessageQuizNotifier
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz1InitialMessages(clock.now()),
-      timeLimitSeconds: ChatQuizConfig.quiz1SendMessageTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
