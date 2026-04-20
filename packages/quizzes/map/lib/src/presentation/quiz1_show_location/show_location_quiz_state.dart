@@ -1,5 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/map_quiz_config.dart';
+
 /// Quiz 1「現在地を表示する」の状態
 class ShowLocationQuizState extends QuizStateBase {
   /// コンストラクタ
@@ -13,14 +15,14 @@ class ShowLocationQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する
-  factory ShowLocationQuizState.initial({int timeLimitSeconds = 60}) =>
+  factory ShowLocationQuizState.initial() =>
       ShowLocationQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
         locationShown: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: MapQuizConfig.quiz1ShowLocationTimeLimitSeconds,
       );
 
   /// 現在地が表示されているかどうか
