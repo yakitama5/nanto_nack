@@ -55,7 +55,6 @@
     "appTitle": "Tasks",
     "completedLabel": "Completed",
     "completedCount": "Completed ({count})",
-    "@completedCount": { "param": "count" },
     "importantLabel": "Important",
     "noTasks": "No tasks",
     "addTask": "Add task",

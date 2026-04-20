@@ -55,7 +55,6 @@
     "appTitle": "タスク",
     "completedLabel": "完了済み",
     "completedCount": "完了済み（{count}件）",
-    "@completedCount": { "param": "count" },
     "importantLabel": "重要",
     "noTasks": "タスクなし",
     "addTask": "タスクを追加",
