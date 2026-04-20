@@ -11,6 +11,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 class CancelMessageQuizScreen extends ConsumerStatefulWidget {
   const CancelMessageQuizScreen({super.key, this.onCompleted});
@@ -169,6 +170,7 @@ class _CancelMessageQuizScreenState
                 ? widget.onCompleted
                 : null,
             onBack: () => Navigator.of(context).pop(),
+            isLimitReached: ref.isPlayLimitReached,
             insight: const _CancelMessageInsight(),
           ),
         ),

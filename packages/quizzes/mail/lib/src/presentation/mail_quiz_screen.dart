@@ -10,6 +10,7 @@ import 'package:mail/src/presentation/mail_quiz_notifier.dart';
 import 'package:mail/src/presentation/mail_quiz_state.dart';
 import 'package:mail/src/presentation/mail_quiz_type.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 /// メールアプリ謎解きの共通画面。
 ///
@@ -112,6 +113,7 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
                     ? widget.onCompleted
                     : null,
                 onBack: () => Navigator.of(context).pop(),
+                isLimitReached: ref.isPlayLimitReached,
                 insight: _buildInsight(),
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/cart_item.dart';
+import 'package:system/system.dart';
 import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/shopping_app.dart';
@@ -102,6 +103,7 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.isPlayLimitReached,
               insight: Builder(
                 builder: (context) {
                   final insight = context.s.water.insight;

@@ -150,9 +150,8 @@ class _TranslationsPurchaseEn extends TranslationsPurchaseJa {
 
 	// Translations
 	@override String get limitReached => 'Daily play limit reached';
-	@override String get unlockDescription => 'Upgrade to Premium to play\nwithout limits';
-	@override String get upgrade => 'Upgrade';
-	@override String get later => 'Later';
+	@override String get unlockDescription => 'Come back and play again tomorrow!';
+	@override String get close => 'Close';
 }
 
 // Path: error
@@ -597,9 +596,8 @@ extension on TranslationsEn {
 			'mission.giveUp' => 'Give Up',
 			'mission.timeLimit' => 'Time Limit: {seconds}s',
 			'purchase.limitReached' => 'Daily play limit reached',
-			'purchase.unlockDescription' => 'Upgrade to Premium to play\nwithout limits',
-			'purchase.upgrade' => 'Upgrade',
-			'purchase.later' => 'Later',
+			'purchase.unlockDescription' => 'Come back and play again tomorrow!',
+			'purchase.close' => 'Close',
 			'error.unknown' => 'An error occurred',
 			'error.retry' => 'Retry',
 			'dashboard.title' => 'Dashboard',

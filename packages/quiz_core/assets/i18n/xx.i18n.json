@@ -74,9 +74,8 @@
   },
   "purchase": {
     "limitReached": "本日のプレイ上限に達しました",
-    "unlockDescription": "プレミアムにアップグレードすると\n無制限でプレイできます",
-    "upgrade": "アップグレード",
-    "later": "あとで"
+    "unlockDescription": "また明日プレイしてください！",
+    "close": "閉じる"
   },
   "error": {
     "unknown": "エラーが発生しました",

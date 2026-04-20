@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../domain/payment_catalog.dart';
 import '../../domain/payment_method.dart';
@@ -117,6 +118,7 @@ class _ChangePaymentMethodQuizScreenState
                 ? widget.onCompleted
                 : null,
             onBack: () => Navigator.of(context).pop(),
+            isLimitReached: ref.isPlayLimitReached,
             insight: _ChangePaymentMethodInsight(),
           ),
         ),

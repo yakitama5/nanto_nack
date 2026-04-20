@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../domain/comic_quiz_config.dart';
 import '../i18n/comic_translations_extension.dart';
@@ -169,6 +170,7 @@ class _ComicQuizScreenState extends ConsumerState<ComicQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.isPlayLimitReached,
               insight: _buildInsight(context),
             ),
           ),

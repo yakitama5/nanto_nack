@@ -9,6 +9,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 class SendImageQuizScreen extends ConsumerStatefulWidget {
   const SendImageQuizScreen({super.key, this.onCompleted});
@@ -142,6 +143,7 @@ class _SendImageQuizScreenState extends ConsumerState<SendImageQuizScreen> {
                 ? widget.onCompleted
                 : null,
             onBack: () => Navigator.of(context).pop(),
+            isLimitReached: ref.isPlayLimitReached,
             insight: const _SendImageInsight(),
           ),
         ),

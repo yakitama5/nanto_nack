@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/shopping_quiz_config.dart';
+import 'package:system/system.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
@@ -191,6 +192,7 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
                     ? widget.onCompleted
                     : null,
                 onBack: () => Navigator.of(context).pop(),
+                isLimitReached: ref.isPlayLimitReached,
                 insight: Builder(
                 builder: (context) {
                   final insight = context.s.checkout.insight;

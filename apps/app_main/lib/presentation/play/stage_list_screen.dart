@@ -143,24 +143,8 @@ class StageListScreen extends ConsumerWidget {
   ) async {
     if (item.status == StageStatus.locked) return;
 
-    final userStatusRepo = ref.read(userStatusRepositoryProvider);
-    final isLimitReached = await userStatusRepo.isLimitReached();
-    if (isLimitReached && context.mounted) {
-      await ref
-          .read(analyticsServiceProvider)
-          .logPlayLimitReached(
-            stageId: item.stage.id,
-          );
-      if (context.mounted) {
-        await PlayLimitModal.show(
-          context,
-          onUpgrade: () {
-            // TODO: IAP 実装後に課金フローへ
-          },
-        );
-      }
-      return;
-    }
+    final blocked = await _checkPlayLimit(context, ref, item);
+    if (blocked) return;
 
     if (context.mounted) {
       await ref
@@ -174,5 +158,31 @@ class StageListScreen extends ConsumerWidget {
         ref.invalidate(stageListProvider);
       }
     }
+  }
+
+  /// プレイ上限チェックを行い、上限に達している場合はモーダルを表示して true を返す。
+  Future<bool> _checkPlayLimit(
+    BuildContext context,
+    WidgetRef ref,
+    StageWithStatus item,
+  ) async {
+    final remoteConfig = ref.read(remoteConfigServiceProvider);
+    if (!remoteConfig.isPlayLimitEnabled) return false;
+
+    final userStatusRepo = ref.read(userStatusRepositoryProvider);
+    final isLimitReached = await userStatusRepo.isLimitReached(
+      dailyLimit: remoteConfig.dailyPlayLimit,
+    );
+    if (!isLimitReached) return false;
+
+    if (context.mounted) {
+      await ref.read(analyticsServiceProvider).logPlayLimitReached(
+        stageId: item.stage.id,
+      );
+    }
+    if (context.mounted) {
+      await PlayLimitModal.show(context);
+    }
+    return true;
   }
 }

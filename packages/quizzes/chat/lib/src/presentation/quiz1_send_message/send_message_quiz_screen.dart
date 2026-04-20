@@ -6,6 +6,7 @@ import 'package:chat/src/presentation/quiz1_send_message/send_message_quiz_notif
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 class SendMessageQuizScreen extends ConsumerStatefulWidget {
   const SendMessageQuizScreen({super.key, this.onCompleted});
@@ -80,6 +81,7 @@ class _SendMessageQuizScreenState
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.isPlayLimitReached,
               insight: Builder(
                 builder: (context) {
                   final insight = context.s.quiz1.insight;

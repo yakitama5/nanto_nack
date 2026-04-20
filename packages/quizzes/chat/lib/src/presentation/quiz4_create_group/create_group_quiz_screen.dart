@@ -7,6 +7,7 @@ import 'package:chat/src/presentation/quiz4_create_group/create_group_quiz_state
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 class CreateGroupQuizScreen extends ConsumerStatefulWidget {
   const CreateGroupQuizScreen({super.key, this.onCompleted});
@@ -139,6 +140,7 @@ class _CreateGroupQuizScreenState
                     ? widget.onCompleted
                     : null,
                 onBack: () => Navigator.of(context).pop(),
+                isLimitReached: ref.isPlayLimitReached,
                 insight: _CreateGroupInsight(),
               ),
             ),

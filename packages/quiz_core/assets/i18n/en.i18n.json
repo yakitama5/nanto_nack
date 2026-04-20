@@ -74,9 +74,8 @@
   },
   "purchase": {
     "limitReached": "Daily play limit reached",
-    "unlockDescription": "Upgrade to Premium to play\nwithout limits",
-    "upgrade": "Upgrade",
-    "later": "Later"
+    "unlockDescription": "Come back and play again tomorrow!",
+    "close": "Close"
   },
   "error": {
     "unknown": "An error occurred",

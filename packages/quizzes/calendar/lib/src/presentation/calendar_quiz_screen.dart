@@ -2,6 +2,7 @@ import 'package:cr_calendar/cr_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../i18n/strings.g.dart' as cal;
 import '../domain/calendar_quiz_config.dart';
@@ -170,6 +171,7 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
                     ? widget.onCompleted
                     : null,
                 onBack: () => Navigator.of(context).pop(),
+                isLimitReached: ref.isPlayLimitReached,
                 insight: _buildInsight(context, widget.quizType),
               ),
             ),
