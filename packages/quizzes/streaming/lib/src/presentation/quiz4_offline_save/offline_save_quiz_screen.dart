@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/streaming_quiz_config.dart';
+import 'package:system/system.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz4_offline_save/offline_save_quiz_notifier.dart';
 import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
@@ -114,6 +115,7 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
               insight: Builder(
                 builder: (context) {
                   final insight = context.s.quiz4.insight;

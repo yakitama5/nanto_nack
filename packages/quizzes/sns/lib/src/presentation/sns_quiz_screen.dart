@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../i18n/strings.g.dart' as sns_i18n;
 import '../domain/entities/sns_post.dart';
@@ -99,6 +100,7 @@ class _SnsQuizScreenState extends ConsumerState<SnsQuizScreen> {
                       ? widget.onCompleted
                       : null,
                   onBack: () => Navigator.of(context).pop(),
+                  isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
                   insight: _buildInsight(context, widget.quizType),
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../domain/alarm_catalog.dart';
 import '../../domain/alarm_quiz_config.dart';
@@ -101,6 +102,7 @@ class _DisableSnoozeQuizScreenState
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
               insight: _DisableSnoozeInsight(),
             ),
           ),

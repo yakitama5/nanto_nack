@@ -11,6 +11,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 class SendStampQuizScreen extends ConsumerStatefulWidget {
   const SendStampQuizScreen({super.key, this.onCompleted});
@@ -152,6 +153,7 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
                 ? widget.onCompleted
                 : null,
             onBack: () => Navigator.of(context).pop(),
+            isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
             insight: const _SendStampInsight(),
           ),
         ),

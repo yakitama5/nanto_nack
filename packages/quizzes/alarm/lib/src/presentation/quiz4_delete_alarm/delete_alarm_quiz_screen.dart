@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../domain/alarm_quiz_config.dart';
 import '../../i18n/alarm_translations_extension.dart';
@@ -74,6 +75,7 @@ class _DeleteAlarmQuizScreenState
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
               insight: _DeleteAlarmInsight(),
             ),
           ),

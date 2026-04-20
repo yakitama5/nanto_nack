@@ -7,6 +7,7 @@ import 'package:news/src/presentation/news_quiz_notifier.dart';
 import 'package:news/src/presentation/news_quiz_state.dart';
 import 'package:news/src/presentation/news_quiz_type.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 /// ニュースアプリ謎解きの共通画面。
 ///
@@ -137,6 +138,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
               Navigator.of(context, rootNavigator: true).pop();
               widget.onBack?.call();
             },
+            isLimitReached: ref.read(isPlayLimitReachedProvider).valueOrNull ?? false,
             insight: _buildInsight(),
           ),
         ),

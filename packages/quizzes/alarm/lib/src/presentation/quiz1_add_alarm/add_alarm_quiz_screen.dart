@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 import '../../domain/alarm_catalog.dart';
 import '../../domain/alarm_quiz_config.dart';
@@ -87,6 +88,7 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
               onNext:
                   state.status == QuizStatus.correct ? widget.onCompleted : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
               insight: Builder(
                 builder: (context) {
                   final insight = context.s.quiz1.insight;

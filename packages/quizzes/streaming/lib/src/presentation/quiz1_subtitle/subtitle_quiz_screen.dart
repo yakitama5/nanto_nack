@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/streaming_quiz_config.dart';
+import 'package:system/system.dart';
 import 'package:streaming/src/i18n/streaming_translations_extension.dart';
 import 'package:streaming/src/presentation/quiz1_subtitle/subtitle_quiz_notifier.dart';
 import 'package:streaming/src/presentation/streaming_overlay_menu.dart';
@@ -103,6 +104,7 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
                   ? widget.onCompleted
                   : null,
               onBack: () => Navigator.of(context).pop(),
+              isLimitReached: ref.watch(isPlayLimitReachedProvider).valueOrNull ?? false,
               insight: Builder(
                 builder: (context) {
                   final insight = context.s.quiz1.insight;
