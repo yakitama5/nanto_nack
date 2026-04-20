@@ -99,12 +99,14 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	// Translations
 	@override String get appTitle => 'Tasks';
 	@override String get completedLabel => 'Completed';
+	@override String get completedCount => 'Completed ({count})';
 	@override String get importantLabel => 'Important';
 	@override String get noTasks => 'No tasks';
 	@override String get addTask => 'Add task';
 	@override String get importantAction => 'Mark as important';
 	@override String get completeAction => 'Mark as complete';
 	@override String get uncompleteAction => 'Mark as incomplete';
+	@override late final _TranslationsCommonTasksEn tasks = _TranslationsCommonTasksEn._(_root);
 }
 
 // Path: quiz1.insight
@@ -114,7 +116,7 @@ class _TranslationsQuiz1InsightEn extends TranslationsQuiz1InsightJa {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How did you know tapping the checkbox or swiping left would complete the task?';
+	@override String get title => 'How did you know tapping the checkbox or swiping left to right would complete the task?';
 	@override String get subtitle => 'A round checkbox is the universal sign for \'done\'';
 	@override String get checkTitle => 'Round checkbox = tap to complete';
 	@override String get checkDesc => 'Tapping the round checkbox in a TODO app marks the task as complete. This is adopted by many apps such as Microsoft To Do and Google Tasks.';
@@ -175,6 +177,21 @@ class _TranslationsQuiz4InsightEn extends TranslationsQuiz4InsightJa {
 	@override String get checkDesc => 'Open the completed list and tap the checkmark or swipe left to restore the task to incomplete status.';
 }
 
+// Path: common.tasks
+class _TranslationsCommonTasksEn extends TranslationsCommonTasksJa {
+	_TranslationsCommonTasksEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get buyMilk => 'Buy milk';
+	@override String get rentPayment => 'Pay rent';
+	@override String get planningDoc => 'Create proposal';
+	@override String get meetingPrep => 'Prepare for meeting';
+	@override String get replyEmail => 'Reply to email';
+	@override String get bookDentist => 'Book dentist appointment';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -184,7 +201,7 @@ extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'quiz1.missionText' => 'Complete the task \'Buy milk\'',
-			'quiz1.insight.title' => 'How did you know tapping the checkbox or swiping left would complete the task?',
+			'quiz1.insight.title' => 'How did you know tapping the checkbox or swiping left to right would complete the task?',
 			'quiz1.insight.subtitle' => 'A round checkbox is the universal sign for \'done\'',
 			'quiz1.insight.checkTitle' => 'Round checkbox = tap to complete',
 			'quiz1.insight.checkDesc' => 'Tapping the round checkbox in a TODO app marks the task as complete. This is adopted by many apps such as Microsoft To Do and Google Tasks.',
@@ -221,12 +238,19 @@ extension on TranslationsEn {
 			'quiz4.insight.checkDesc' => 'Open the completed list and tap the checkmark or swipe left to restore the task to incomplete status.',
 			'common.appTitle' => 'Tasks',
 			'common.completedLabel' => 'Completed',
+			'common.completedCount' => 'Completed ({count})',
 			'common.importantLabel' => 'Important',
 			'common.noTasks' => 'No tasks',
 			'common.addTask' => 'Add task',
 			'common.importantAction' => 'Mark as important',
 			'common.completeAction' => 'Mark as complete',
 			'common.uncompleteAction' => 'Mark as incomplete',
+			'common.tasks.buyMilk' => 'Buy milk',
+			'common.tasks.rentPayment' => 'Pay rent',
+			'common.tasks.planningDoc' => 'Create proposal',
+			'common.tasks.meetingPrep' => 'Prepare for meeting',
+			'common.tasks.replyEmail' => 'Reply to email',
+			'common.tasks.bookDentist' => 'Book dentist appointment',
 			_ => null,
 		};
 	}

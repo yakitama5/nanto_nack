@@ -117,6 +117,9 @@ class TranslationsCommonJa {
 	/// ja: '完了済み'
 	String get completedLabel => '完了済み';
 
+	/// ja: '完了済み（{count}件）'
+	String get completedCount => '完了済み（{count}件）';
+
 	/// ja: '重要'
 	String get importantLabel => '重要';
 
@@ -134,6 +137,8 @@ class TranslationsCommonJa {
 
 	/// ja: '未完了に戻す'
 	String get uncompleteAction => '未完了に戻す';
+
+	late final TranslationsCommonTasksJa tasks = TranslationsCommonTasksJa.internal(_root);
 }
 
 // Path: quiz1.insight
@@ -144,8 +149,8 @@ class TranslationsQuiz1InsightJa {
 
 	// Translations
 
-	/// ja: 'なぜチェックボックスや左スワイプでタスクが完了できるとわかった？'
-	String get title => 'なぜチェックボックスや左スワイプでタスクが完了できるとわかった？';
+	/// ja: 'なぜチェックボックスや左から右スワイプでタスクが完了できるとわかった？'
+	String get title => 'なぜチェックボックスや左から右スワイプでタスクが完了できるとわかった？';
 
 	/// ja: '丸いチェックボックスは『完了』の世界標準サイン'
 	String get subtitle => '丸いチェックボックスは『完了』の世界標準サイン';
@@ -268,6 +273,33 @@ class TranslationsQuiz4InsightJa {
 	String get checkDesc => '完了済みリストを開いてチェックマークをタップするか左スワイプすることで、タスクを未完了状態に復元できる。';
 }
 
+// Path: common.tasks
+class TranslationsCommonTasksJa {
+	TranslationsCommonTasksJa.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '牛乳を買う'
+	String get buyMilk => '牛乳を買う';
+
+	/// ja: '家賃の振り込み'
+	String get rentPayment => '家賃の振り込み';
+
+	/// ja: '企画書の作成'
+	String get planningDoc => '企画書の作成';
+
+	/// ja: '会議の準備'
+	String get meetingPrep => '会議の準備';
+
+	/// ja: 'メールの返信'
+	String get replyEmail => 'メールの返信';
+
+	/// ja: '歯医者の予約'
+	String get bookDentist => '歯医者の予約';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -277,7 +309,7 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'quiz1.missionText' => '『牛乳を買う』タスクを完了にしよう',
-			'quiz1.insight.title' => 'なぜチェックボックスや左スワイプでタスクが完了できるとわかった？',
+			'quiz1.insight.title' => 'なぜチェックボックスや左から右スワイプでタスクが完了できるとわかった？',
 			'quiz1.insight.subtitle' => '丸いチェックボックスは『完了』の世界標準サイン',
 			'quiz1.insight.checkTitle' => '丸いチェックボックス＝タップで完了',
 			'quiz1.insight.checkDesc' => 'TODOアプリの丸いチェックボックスをタップすることでタスクを完了にできる。Microsoft To DoやGoogleタスクなど多くのアプリで採用されている。',
@@ -314,12 +346,19 @@ extension on Translations {
 			'quiz4.insight.checkDesc' => '完了済みリストを開いてチェックマークをタップするか左スワイプすることで、タスクを未完了状態に復元できる。',
 			'common.appTitle' => 'タスク',
 			'common.completedLabel' => '完了済み',
+			'common.completedCount' => '完了済み（{count}件）',
 			'common.importantLabel' => '重要',
 			'common.noTasks' => 'タスクなし',
 			'common.addTask' => 'タスクを追加',
 			'common.importantAction' => '重要にする',
 			'common.completeAction' => '完了にする',
 			'common.uncompleteAction' => '未完了に戻す',
+			'common.tasks.buyMilk' => '牛乳を買う',
+			'common.tasks.rentPayment' => '家賃の振り込み',
+			'common.tasks.planningDoc' => '企画書の作成',
+			'common.tasks.meetingPrep' => '会議の準備',
+			'common.tasks.replyEmail' => 'メールの返信',
+			'common.tasks.bookDentist' => '歯医者の予約',
 			_ => null,
 		};
 	}

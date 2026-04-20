@@ -14,33 +14,33 @@ class TodoCatalog {
   static List<TodoItem> items({required bool forQuiz4}) => [
         const TodoItem(
           id: 'todo_buy_milk',
-          title: '牛乳を買う',
+          titleKey: 'buyMilk',
           order: 0,
         ),
         const TodoItem(
           id: 'todo_rent_payment',
-          title: '家賃の振り込み',
+          titleKey: 'rentPayment',
           order: 1,
         ),
         const TodoItem(
           id: 'todo_planning_doc',
-          title: '企画書の作成',
+          titleKey: 'planningDoc',
           order: 2,
         ),
         const TodoItem(
           id: 'todo_meeting_prep',
-          title: '会議の準備',
+          titleKey: 'meetingPrep',
           order: 3,
           isCompleted: true,
         ),
         const TodoItem(
           id: 'todo_reply_email',
-          title: 'メールの返信',
+          titleKey: 'replyEmail',
           order: 4,
         ),
         const TodoItem(
           id: 'todo_book_dentist',
-          title: '歯医者の予約',
+          titleKey: 'bookDentist',
           order: 5,
         ),
       ].map((item) {

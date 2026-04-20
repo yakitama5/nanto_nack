@@ -562,6 +562,7 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: '漫画アプリ'
 	String get comic => '漫画アプリ';
+
 	/// ja: 'TODOアプリ'
 	String get todo => 'TODOアプリ';
 }
@@ -606,6 +607,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: '漫画アプリの操作をマスターしよう'
 	String get comic => '漫画アプリの操作をマスターしよう';
+
+	/// ja: 'TODOアプリのUI/UXを体験しよう'
+	String get todo => 'TODOアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -747,6 +751,7 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '作者を応援する'
 	String get comic_quiz4 => '作者を応援する';
+
 	/// ja: '『牛乳を買う』タスクを完了にしよう'
 	String get todo_quiz1 => '『牛乳を買う』タスクを完了にしよう';
 
@@ -899,6 +904,7 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '応援ボタンを10回連打しよう'
 	String get comic_quiz4 => '応援ボタンを10回連打しよう';
+
 	/// ja: 'タスクをタップするか左スワイプで完了にしてください'
 	String get todo_quiz1 => 'タスクをタップするか左スワイプで完了にしてください';
 
@@ -1148,6 +1154,7 @@ extension on Translations {
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
 			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
 			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
+			'play.categoryDescription.todo' => 'TODOアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1192,18 +1199,14 @@ extension on Translations {
 			'play.stageTitle.comic_quiz2' => '画面を拡大する',
 			'play.stageTitle.comic_quiz3' => 'メニューを表示する',
 			'play.stageTitle.comic_quiz4' => '作者を応援する',
-			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
-			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
-			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
-			'play.stageDescription.shopping_quiz4' => 'カート内の商品の合計金額を4択から選んでください',
 			'play.stageTitle.todo_quiz1' => '『牛乳を買う』タスクを完了にしよう',
 			'play.stageTitle.todo_quiz2' => '『企画書の作成』を一番上に移動しよう',
 			'play.stageTitle.todo_quiz3' => '『家賃の振り込み』を重要タスクにしよう',
 			'play.stageTitle.todo_quiz4' => '間違えて完了にしたタスクを元に戻そう',
-			'play.stageDescription.shopping_water' => 'ECサイトで水を2つカートに入れて購入してください',
-			'play.stageDescription.shopping_checkout' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
-			'play.stageDescription.shopping_reorder' => '注文履歴から直近で注文した商品をもう一度購入してください',
-			'play.stageDescription.shopping_cart' => 'カート内の商品の合計金額を4択から選んでください',
+			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
+			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
+			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
+			'play.stageDescription.shopping_quiz4' => 'カート内の商品の合計金額を4択から選んでください',
 			'play.stageDescription.chat_quiz1' => 'チャットアプリでスタンプを1つ返信してください',
 			'play.stageDescription.chat_quiz2' => '相手のメッセージにハートリアクションをしてください',
 			'play.stageDescription.chat_quiz3' => 'チャットアプリで写真を1枚送信してください',

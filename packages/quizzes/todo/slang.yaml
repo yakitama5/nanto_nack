@@ -4,3 +4,4 @@ input_directory: assets/i18n
 output_directory: lib/i18n
 output_file_name: strings.g.dart
 lazy: false
+string_interpolation: brace

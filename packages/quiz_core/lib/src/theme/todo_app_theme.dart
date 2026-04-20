@@ -77,7 +77,7 @@ class TodoAppTheme extends ThemeExtension<TodoAppTheme> {
     uncompletionBackground: Color(0xFFE3F2FD),
     importantBackground: Color(0xFFFFF8E1),
     importantColor: Color(0xFFF9A825),
-    insightIconColor: Color(0xFFFFD814),
+    insightIconColor: Color(0xFFF9A825),
   );
 
   /// ダークテーマ用デフォルト値

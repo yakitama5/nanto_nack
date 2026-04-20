@@ -357,6 +357,7 @@ class _TranslationsPlayCategoryDescriptionXx extends TranslationsPlayCategoryDes
 	@override String get calendar => 'カレンダーアプリのUI/UXを体験しよう';
 	@override String get sns => 'SNSアプリのUI/UXを体験しよう';
 	@override String get comic => '漫画アプリの操作をマスターしよう';
+	@override String get todo => 'ZSMS koo HR/HT xtoxfrxjux';
 }
 
 // Path: play.stageTitle
@@ -634,6 +635,7 @@ extension on TranslationsXx {
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
 			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
 			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
+			'play.categoryDescription.todo' => 'ZSMS koo HR/HT xtoxfrxjux',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',

@@ -2,7 +2,7 @@
   "quiz1": {
     "missionText": "Complete the task 'Buy milk'",
     "insight": {
-      "title": "How did you know tapping the checkbox or swiping left would complete the task?",
+      "title": "How did you know tapping the checkbox or swiping left to right would complete the task?",
       "subtitle": "A round checkbox is the universal sign for 'done'",
       "checkTitle": "Round checkbox = tap to complete",
       "checkDesc": "Tapping the round checkbox in a TODO app marks the task as complete. This is adopted by many apps such as Microsoft To Do and Google Tasks.",
@@ -54,11 +54,21 @@
   "common": {
     "appTitle": "Tasks",
     "completedLabel": "Completed",
+    "completedCount": "Completed ({count})",
+    "@completedCount": { "param": "count" },
     "importantLabel": "Important",
     "noTasks": "No tasks",
     "addTask": "Add task",
     "importantAction": "Mark as important",
     "completeAction": "Mark as complete",
-    "uncompleteAction": "Mark as incomplete"
+    "uncompleteAction": "Mark as incomplete",
+    "tasks": {
+      "buyMilk": "Buy milk",
+      "rentPayment": "Pay rent",
+      "planningDoc": "Create proposal",
+      "meetingPrep": "Prepare for meeting",
+      "replyEmail": "Reply to email",
+      "bookDentist": "Book dentist appointment"
+    }
   }
 }

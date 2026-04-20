@@ -54,11 +54,21 @@
   "common": {
     "appTitle": "Zkwaw",
     "completedLabel": "Useocxzxm",
+    "completedCount": "Useocxzxm ({count})",
+    "@completedCount": { "param": "count" },
     "importantLabel": "Reosf zkjz",
     "noTasks": "Js zkwaw",
     "addTask": "Kmm zkwa",
     "importantAction": "Ekfa kw reosf zkjz",
     "completeAction": "Ekfa kw useocxzx",
-    "uncompleteAction": "Ekfa kw rjuseocxzx"
+    "uncompleteAction": "Ekfa kw rjuseocxzx",
+    "tasks": {
+      "buyMilk": "Dhi erca",
+      "rentPayment": "Oki fxjz",
+      "planningDoc": "Ufxkzx ofsoswkc",
+      "meetingPrep": "Ofxokfx bsf exxzrjp",
+      "replyEmail": "Fxoci zs xekrc",
+      "bookDentist": "Dssa mxjzrwz koosrjzexjz"
+    }
   }
 }

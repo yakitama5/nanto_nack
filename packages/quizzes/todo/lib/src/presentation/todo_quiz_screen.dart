@@ -488,7 +488,7 @@ class _TodoListItemState extends State<_TodoListItem> {
                     ),
                   ),
                   title: Text(
-                    item.title,
+                    item.localizedTitle(context),
                     style: TextStyle(
                       color: todoTheme.textPrimary,
                       fontSize: 15,
@@ -591,7 +591,10 @@ class _CompletedListAccordion extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '${context.sq.common.completedLabel}（${completedTodos.length}件）',
+                  context.sq.common.completedCount.replaceAll(
+                    '{count}',
+                    completedTodos.length.toString(),
+                  ),
                   style: TextStyle(
                     color: todoTheme.textSecondary,
                     fontSize: 14,
@@ -661,7 +664,7 @@ class _CompletedTodoItem extends StatelessWidget {
             ),
           ),
           title: Text(
-            item.title,
+            item.localizedTitle(context),
             style: TextStyle(
               color: todoTheme.textSecondary,
               fontSize: 15,
@@ -671,5 +674,27 @@ class _CompletedTodoItem extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// ─────────────────────────────────────────────
+// TodoItem のローカライズ補助 extension
+// ─────────────────────────────────────────────
+
+/// [TodoItem.titleKey] から Slang 経由でローカライズ済みタイトルを返す。
+///
+/// クイズ画面は常に xx ロケールで表示するため、[context.sq.common.tasks] を参照する。
+/// 未知のキーは titleKey をそのまま返すフォールバック。
+extension _TodoItemLocalized on TodoItem {
+  String localizedTitle(BuildContext context) {
+    return switch (titleKey) {
+      'buyMilk' => context.sq.common.tasks.buyMilk,
+      'rentPayment' => context.sq.common.tasks.rentPayment,
+      'planningDoc' => context.sq.common.tasks.planningDoc,
+      'meetingPrep' => context.sq.common.tasks.meetingPrep,
+      'replyEmail' => context.sq.common.tasks.replyEmail,
+      'bookDentist' => context.sq.common.tasks.bookDentist,
+      _ => titleKey,
+    };
   }
 }

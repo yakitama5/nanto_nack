@@ -148,8 +148,8 @@ class NantoNackThemeExtension
     snsCategoryContainerColor: Color(0xFFE8F5FD),
     comicCategoryColor: Color(0xFFE91E63),
     comicCategoryContainerColor: Color(0xFFFCE4EC),
-    todoCategoryColor: Color(0xFF1565C0),
-    todoCategoryContainerColor: Color(0xFFE3F2FD),
+    todoCategoryColor: Color(0xFF2564CF),
+    todoCategoryContainerColor: Color(0xFFDEEBFF),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -192,8 +192,8 @@ class NantoNackThemeExtension
     snsCategoryContainerColor: Color(0xFF0F2035),
     comicCategoryColor: Color(0xFFF48FB1),
     comicCategoryContainerColor: Color(0xFF880E4F),
-    todoCategoryColor: Color(0xFF90CAF9),
-    todoCategoryContainerColor: Color(0xFF0D2137),
+    todoCategoryColor: Color(0xFF5C9CF5),
+    todoCategoryContainerColor: Color(0xFF0C1C3A),
   );
 
   @override

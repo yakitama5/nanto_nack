@@ -128,7 +128,8 @@
       "news": "Experience news app UI/UX",
       "calendar": "Experience calendar app UI/UX",
       "sns": "Experience social media app UI/UX",
-      "comic": "Master manga app operations"
+      "comic": "Master manga app operations",
+      "todo": "Experience task management app UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",

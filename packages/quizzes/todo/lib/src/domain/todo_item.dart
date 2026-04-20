@@ -2,7 +2,7 @@
 class TodoItem {
   const TodoItem({
     required this.id,
-    required this.title,
+    required this.titleKey,
     required this.order,
     this.isCompleted = false,
     this.isImportant = false,
@@ -11,8 +11,8 @@ class TodoItem {
   /// タスクの一意ID
   final String id;
 
-  /// タスク名
-  final String title;
+  /// タスク名のi18nキー（slangのcommon.tasksに対応するキー名）
+  final String titleKey;
 
   /// 完了フラグ（初期値 false）
   final bool isCompleted;
@@ -25,14 +25,14 @@ class TodoItem {
 
   TodoItem copyWith({
     String? id,
-    String? title,
+    String? titleKey,
     bool? isCompleted,
     bool? isImportant,
     int? order,
   }) {
     return TodoItem(
       id: id ?? this.id,
-      title: title ?? this.title,
+      titleKey: titleKey ?? this.titleKey,
       isCompleted: isCompleted ?? this.isCompleted,
       isImportant: isImportant ?? this.isImportant,
       order: order ?? this.order,

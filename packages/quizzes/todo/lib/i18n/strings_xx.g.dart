@@ -99,12 +99,14 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	// Translations
 	@override String get appTitle => 'Zkwaw';
 	@override String get completedLabel => 'Useocxzxm';
+	@override String get completedCount => 'Useocxzxm ({count})';
 	@override String get importantLabel => 'Reosf zkjz';
 	@override String get noTasks => 'Js zkwaw';
 	@override String get addTask => 'Kmm zkwa';
 	@override String get importantAction => 'Ekfa kw reosf zkjz';
 	@override String get completeAction => 'Ekfa kw useocxzx';
 	@override String get uncompleteAction => 'Ekfa kw rjuseocxzx';
+	@override late final _TranslationsCommonTasksXx tasks = _TranslationsCommonTasksXx._(_root);
 }
 
 // Path: quiz1.insight
@@ -175,6 +177,21 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 	@override String get checkDesc => 'Soxj zyx useocxzxm crwz kjm zko zyx uyxuaekfa sf wgrox cxbz zs fxwzsfx zyx zkwa zs rjuseocxzx wzkzhw.';
 }
 
+// Path: common.tasks
+class _TranslationsCommonTasksXx extends TranslationsCommonTasksJa {
+	_TranslationsCommonTasksXx._(TranslationsXx root) : this._root = root, super.internal(root);
+
+	final TranslationsXx _root; // ignore: unused_field
+
+	// Translations
+	@override String get buyMilk => 'Dhi erca';
+	@override String get rentPayment => 'Oki fxjz';
+	@override String get planningDoc => 'Ufxkzx ofsoswkc';
+	@override String get meetingPrep => 'Ofxokfx bsf exxzrjp';
+	@override String get replyEmail => 'Fxoci zs xekrc';
+	@override String get bookDentist => 'Dssa mxjzrwz koosrjzexjz';
+}
+
 /// The flat map containing all translations for locale <xx>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -221,12 +238,19 @@ extension on TranslationsXx {
 			'quiz4.insight.checkDesc' => 'Soxj zyx useocxzxm crwz kjm zko zyx uyxuaekfa sf wgrox cxbz zs fxwzsfx zyx zkwa zs rjuseocxzx wzkzhw.',
 			'common.appTitle' => 'Zkwaw',
 			'common.completedLabel' => 'Useocxzxm',
+			'common.completedCount' => 'Useocxzxm ({count})',
 			'common.importantLabel' => 'Reosf zkjz',
 			'common.noTasks' => 'Js zkwaw',
 			'common.addTask' => 'Kmm zkwa',
 			'common.importantAction' => 'Ekfa kw reosf zkjz',
 			'common.completeAction' => 'Ekfa kw useocxzx',
 			'common.uncompleteAction' => 'Ekfa kw rjuseocxzx',
+			'common.tasks.buyMilk' => 'Dhi erca',
+			'common.tasks.rentPayment' => 'Oki fxjz',
+			'common.tasks.planningDoc' => 'Ufxkzx ofsoswkc',
+			'common.tasks.meetingPrep' => 'Ofxokfx bsf exxzrjp',
+			'common.tasks.replyEmail' => 'Fxoci zs xekrc',
+			'common.tasks.bookDentist' => 'Dssa mxjzrwz koosrjzexjz',
 			_ => null,
 		};
 	}
