@@ -7,6 +7,7 @@ import 'package:system/system.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../application/tutorial/tutorial_notifier.dart';
+import '../../config/route_path_constants.dart';
 import '../../domain/category.dart';
 import '../../domain/stage.dart';
 import '../tutorial/nantom_speech_bubble.dart';
@@ -72,7 +73,7 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
       ref
           .read(tutorialNotifierProvider.notifier)
           .advanceTo(TutorialScreen.waterQuiz);
-      context.push('/play/shopping/water', extra: true);
+      context.push(kShoppingWaterPath, extra: true);
     }
 
     TutorialCoachMark(
