@@ -1,5 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/payment_quiz_config.dart';
+
 /// Quiz 2「残高を隠す」の状態
 class RevealBalanceQuizState extends QuizStateBase {
   /// コンストラクタ
@@ -14,7 +16,7 @@ class RevealBalanceQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する
-  factory RevealBalanceQuizState.initial({int timeLimitSeconds = 45}) =>
+  factory RevealBalanceQuizState.initial() =>
       RevealBalanceQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
@@ -22,7 +24,7 @@ class RevealBalanceQuizState extends QuizStateBase {
         startedAt: null,
         // 初期状態: 残高は見えている（非表示フラグ = false）
         balanceHidden: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: PaymentQuizConfig.quiz2RevealBalanceTimeLimitSeconds,
         hintUsed: false,
       );
 

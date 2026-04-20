@@ -6,7 +6,6 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
 import '../../application/quiz_send_money_use_case.dart';
-import '../../domain/payment_quiz_config.dart';
 import '../../infrastructure/payment_quiz_repository_provider.dart';
 import 'send_money_quiz_state.dart';
 
@@ -26,13 +25,13 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
   @override
   SendMoneyQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return SendMoneyQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds);
+    return SendMoneyQuizState.initial();
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
-    state = SendMoneyQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds)
+    state = SendMoneyQuizState.initial()
         .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -145,7 +144,7 @@ class SendMoneyQuizNotifier extends AutoDisposeNotifier<SendMoneyQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = SendMoneyQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds)
+    state = SendMoneyQuizState.initial()
         .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

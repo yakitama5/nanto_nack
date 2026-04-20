@@ -1,5 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/payment_quiz_config.dart';
+
 /// Quiz 3「送金する」の状態
 class SendMoneyQuizState extends QuizStateBase {
   /// コンストラクタ
@@ -17,7 +19,7 @@ class SendMoneyQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する
-  factory SendMoneyQuizState.initial({int timeLimitSeconds = 60}) =>
+  factory SendMoneyQuizState.initial() =>
       SendMoneyQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
@@ -27,7 +29,7 @@ class SendMoneyQuizState extends QuizStateBase {
         selectedContactId: null,
         amount: 0,
         moneySent: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds,
         hintUsed: false,
       );
 

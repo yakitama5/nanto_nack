@@ -7,7 +7,6 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_change_payment_method_use_case.dart';
 import '../../domain/payment_method.dart';
-import '../../domain/payment_quiz_config.dart';
 import '../../infrastructure/payment_quiz_repository_provider.dart';
 import 'change_payment_method_quiz_state.dart';
 
@@ -28,17 +27,13 @@ class ChangePaymentMethodQuizNotifier
   @override
   ChangePaymentMethodQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return ChangePaymentMethodQuizState.initial(
-      timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
-    );
+    return ChangePaymentMethodQuizState.initial();
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
-    state = ChangePaymentMethodQuizState.initial(
-      timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
-    ).copyWith(
+    state = ChangePaymentMethodQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
@@ -96,9 +91,7 @@ class ChangePaymentMethodQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = ChangePaymentMethodQuizState.initial(
-      timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
-    ).copyWith(
+    state = ChangePaymentMethodQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
       failureCount: state.failureCount,
