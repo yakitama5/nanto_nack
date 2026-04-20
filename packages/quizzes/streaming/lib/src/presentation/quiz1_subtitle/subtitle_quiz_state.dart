@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/entities/streaming_video.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 
 class SubtitleQuizState extends QuizStateBase {
   const SubtitleQuizState({
@@ -38,7 +39,6 @@ class SubtitleQuizState extends QuizStateBase {
 
   factory SubtitleQuizState.initial({
     required StreamingVideo video,
-    int timeLimitSeconds = 30,
   }) =>
       SubtitleQuizState(
         status: QuizStatus.idle,
@@ -46,7 +46,7 @@ class SubtitleQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         video: video,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: StreamingQuizConfig.quiz1SubtitleTimeLimitSeconds,
         isSettingsOpen: false,
       );
 }

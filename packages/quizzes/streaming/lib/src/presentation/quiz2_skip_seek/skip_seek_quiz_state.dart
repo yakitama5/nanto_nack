@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/entities/streaming_video.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 
 class SkipSeekQuizState extends QuizStateBase {
   const SkipSeekQuizState({
@@ -46,7 +47,6 @@ class SkipSeekQuizState extends QuizStateBase {
 
   factory SkipSeekQuizState.initial({
     required StreamingVideo video,
-    int timeLimitSeconds = 45,
   }) =>
       SkipSeekQuizState(
         status: QuizStatus.idle,
@@ -56,7 +56,7 @@ class SkipSeekQuizState extends QuizStateBase {
         video: video,
         progressSeconds: 0,
         isSkipped: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: StreamingQuizConfig.quiz2SkipSeekTimeLimitSeconds,
         isSettingsOpen: false,
       );
 }

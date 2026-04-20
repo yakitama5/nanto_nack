@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/entities/streaming_video.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 
 class OfflineSaveQuizState extends QuizStateBase {
   const OfflineSaveQuizState({
@@ -42,7 +43,6 @@ class OfflineSaveQuizState extends QuizStateBase {
 
   factory OfflineSaveQuizState.initial({
     required StreamingVideo video,
-    int timeLimitSeconds = 90,
   }) =>
       OfflineSaveQuizState(
         status: QuizStatus.idle,
@@ -50,7 +50,7 @@ class OfflineSaveQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         video: video,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: StreamingQuizConfig.quiz4OfflineSaveTimeLimitSeconds,
         isSettingsOpen: false,
         isQualityListOpen: false,
       );
