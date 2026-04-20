@@ -1,3 +1,4 @@
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:quiz_core/quiz_core.dart';
 
@@ -38,7 +39,6 @@ class SendStampQuizState extends QuizStateBase {
 
   factory SendStampQuizState.initial({
     required List<ChatMessage> initialMessages,
-    int timeLimitSeconds = 60,
   }) =>
       SendStampQuizState(
         status: QuizStatus.idle,
@@ -46,6 +46,6 @@ class SendStampQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         messages: initialMessages,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ChatQuizConfig.quiz2SendStampTimeLimitSeconds,
       );
 }

@@ -7,7 +7,6 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_disable_snooze_use_case.dart';
 import '../../domain/alarm_catalog.dart';
-import '../../domain/alarm_quiz_config.dart';
 import '../../infrastructure/alarm_quiz_repository_provider.dart';
 import 'disable_snooze_quiz_state.dart';
 
@@ -31,7 +30,6 @@ class DisableSnoozeQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return DisableSnoozeQuizState.initial(
       alarm: AlarmCatalog.initialAlarms[0],
-      timeLimitSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
     );
   }
 
@@ -40,7 +38,6 @@ class DisableSnoozeQuizNotifier
     _timer?.cancel();
     state = DisableSnoozeQuizState.initial(
       alarm: AlarmCatalog.initialAlarms[0],
-      timeLimitSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -149,7 +146,6 @@ class DisableSnoozeQuizNotifier
     final prevFailureCount = state.failureCount;
     state = DisableSnoozeQuizState.initial(
       alarm: AlarmCatalog.initialAlarms[0],
-      timeLimitSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

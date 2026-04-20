@@ -6,7 +6,6 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/application/quiz_playback_speed_use_case.dart';
 import 'package:system/system.dart';
 import 'package:streaming/src/domain/streaming_catalog.dart';
-import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz3_playback_speed/playback_speed_quiz_state.dart';
 
@@ -26,7 +25,6 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
     ref.onDispose(() => _timer?.cancel());
     return PlaybackSpeedQuizState.initial(
       video: StreamingCatalog.videos[2], // Quiz 3用の動画
-      timeLimitSeconds: StreamingQuizConfig.quiz3PlaybackSpeedTimeLimitSeconds,
     );
   }
 
@@ -34,7 +32,6 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
     _timer?.cancel();
     state = PlaybackSpeedQuizState.initial(
       video: StreamingCatalog.videos[2],
-      timeLimitSeconds: StreamingQuizConfig.quiz3PlaybackSpeedTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -150,7 +147,6 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = PlaybackSpeedQuizState.initial(
       video: StreamingCatalog.videos[2],
-      timeLimitSeconds: StreamingQuizConfig.quiz3PlaybackSpeedTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

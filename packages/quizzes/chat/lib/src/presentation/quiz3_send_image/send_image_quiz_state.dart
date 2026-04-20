@@ -1,3 +1,4 @@
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/chat_tab.dart';
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
@@ -57,7 +58,6 @@ class SendImageQuizState extends QuizStateBase {
 
   factory SendImageQuizState.initial({
     required List<ChatMessage> initialMessages,
-    int timeLimitSeconds = 60,
   }) =>
       SendImageQuizState(
         status: QuizStatus.idle,
@@ -67,6 +67,6 @@ class SendImageQuizState extends QuizStateBase {
         currentTab: ChatTab.home,
         isInChatRoom: false,
         messages: initialMessages,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ChatQuizConfig.quiz3SendImageTimeLimitSeconds,
       );
 }

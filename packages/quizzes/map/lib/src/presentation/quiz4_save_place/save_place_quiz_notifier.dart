@@ -7,7 +7,6 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_save_place_use_case.dart';
 import '../../domain/entities/map_place.dart';
-import '../../domain/map_quiz_config.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'save_place_quiz_state.dart';
 
@@ -26,15 +25,13 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   @override
   SavePlaceQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return SavePlaceQuizState.initial(timeLimitSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds);
+    return SavePlaceQuizState.initial();
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
-    state = SavePlaceQuizState.initial(
-      timeLimitSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds,
-    ).copyWith(
+    state = SavePlaceQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
@@ -108,9 +105,7 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = SavePlaceQuizState.initial(
-      timeLimitSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds,
-    ).copyWith(
+    state = SavePlaceQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );

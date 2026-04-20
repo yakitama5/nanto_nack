@@ -1,3 +1,4 @@
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/chat_tab.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:quiz_core/quiz_core.dart';
@@ -59,7 +60,6 @@ class ReactionQuizState extends QuizStateBase {
 
   factory ReactionQuizState.initial({
     required List<ChatMessage> initialMessages,
-    int timeLimitSeconds = 45,
   }) =>
       ReactionQuizState(
         status: QuizStatus.idle,
@@ -69,7 +69,7 @@ class ReactionQuizState extends QuizStateBase {
         currentTab: ChatTab.home,
         isInChatRoom: false,
         messages: initialMessages,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
         isCorrectChatRoom: true,
       );
 }

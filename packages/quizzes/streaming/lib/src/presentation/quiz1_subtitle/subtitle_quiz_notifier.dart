@@ -6,7 +6,6 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/application/quiz_subtitle_use_case.dart';
 import 'package:system/system.dart';
 import 'package:streaming/src/domain/streaming_catalog.dart';
-import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz1_subtitle/subtitle_quiz_state.dart';
 
@@ -26,7 +25,6 @@ class SubtitleQuizNotifier extends AutoDisposeNotifier<SubtitleQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return SubtitleQuizState.initial(
       video: StreamingCatalog.featuredVideo,
-      timeLimitSeconds: StreamingQuizConfig.quiz1SubtitleTimeLimitSeconds,
     );
   }
 
@@ -34,7 +32,6 @@ class SubtitleQuizNotifier extends AutoDisposeNotifier<SubtitleQuizState> {
     _timer?.cancel();
     state = SubtitleQuizState.initial(
       video: StreamingCatalog.featuredVideo,
-      timeLimitSeconds: StreamingQuizConfig.quiz1SubtitleTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -133,7 +130,6 @@ class SubtitleQuizNotifier extends AutoDisposeNotifier<SubtitleQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SubtitleQuizState.initial(
       video: StreamingCatalog.featuredVideo,
-      timeLimitSeconds: StreamingQuizConfig.quiz1SubtitleTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

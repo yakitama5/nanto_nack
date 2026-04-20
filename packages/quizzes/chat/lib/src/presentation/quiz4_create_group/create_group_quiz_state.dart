@@ -1,3 +1,4 @@
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_contact.dart';
 import 'package:quiz_core/quiz_core.dart';
 
@@ -55,13 +56,13 @@ class CreateGroupQuizState extends QuizStateBase {
     );
   }
 
-  factory CreateGroupQuizState.initial({int timeLimitSeconds = 120}) =>
+  factory CreateGroupQuizState.initial() =>
       CreateGroupQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ChatQuizConfig.quiz4CreateGroupTimeLimitSeconds,
         step: CreateGroupStep.contactList,
         selectedMembers: const [],
         groupCreated: false,

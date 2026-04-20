@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/domain/entities/streaming_video.dart';
+import 'package:streaming/src/domain/streaming_quiz_config.dart';
 
 class PlaybackSpeedQuizState extends QuizStateBase {
   const PlaybackSpeedQuizState({
@@ -42,7 +43,6 @@ class PlaybackSpeedQuizState extends QuizStateBase {
 
   factory PlaybackSpeedQuizState.initial({
     required StreamingVideo video,
-    int timeLimitSeconds = 60,
   }) =>
       PlaybackSpeedQuizState(
         status: QuizStatus.idle,
@@ -50,7 +50,8 @@ class PlaybackSpeedQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         video: video,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds:
+            StreamingQuizConfig.quiz3PlaybackSpeedTimeLimitSeconds,
         isSettingsOpen: false,
         isSpeedListOpen: false,
       );

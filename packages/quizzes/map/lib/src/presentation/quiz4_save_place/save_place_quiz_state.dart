@@ -1,6 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/entities/map_place.dart';
+import '../../domain/map_quiz_config.dart';
 
 /// Quiz 4「指定した場所をお気に入りに追加する」の状態
 class SavePlaceQuizState extends QuizStateBase {
@@ -15,14 +16,14 @@ class SavePlaceQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する（場所は未選択）
-  factory SavePlaceQuizState.initial({int timeLimitSeconds = 60}) =>
+  factory SavePlaceQuizState.initial() =>
       SavePlaceQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
         selectedPlace: null,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds,
       );
 
   /// 選択された場所（未選択の場合は null）

@@ -1,4 +1,5 @@
 import 'package:quiz_core/quiz_core.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 
 /// カート合計金額クイズの状態
 class CartQuizState extends QuizStateBase {
@@ -48,11 +49,11 @@ class CartQuizState extends QuizStateBase {
     );
   }
 
-  factory CartQuizState.initial({int timeLimitSeconds = 60}) => CartQuizState(
+  factory CartQuizState.initial() => CartQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ShoppingQuizConfig.cartTimeLimitSeconds,
       );
 }

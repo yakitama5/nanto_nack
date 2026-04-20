@@ -6,7 +6,6 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
 import '../../application/quiz_reveal_balance_use_case.dart';
-import '../../domain/payment_quiz_config.dart';
 import '../../infrastructure/payment_quiz_repository_provider.dart';
 import 'reveal_balance_quiz_state.dart';
 
@@ -27,14 +26,14 @@ class RevealBalanceQuizNotifier
   @override
   RevealBalanceQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return RevealBalanceQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz2RevealBalanceTimeLimitSeconds);
+    return RevealBalanceQuizState.initial();
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
     state =
-        RevealBalanceQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz2RevealBalanceTimeLimitSeconds)
+        RevealBalanceQuizState.initial()
             .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -97,7 +96,7 @@ class RevealBalanceQuizNotifier
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state =
-        RevealBalanceQuizState.initial(timeLimitSeconds: PaymentQuizConfig.quiz2RevealBalanceTimeLimitSeconds)
+        RevealBalanceQuizState.initial()
             .copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

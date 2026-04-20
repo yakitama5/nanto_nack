@@ -7,7 +7,6 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_search_place_use_case.dart';
 import '../../domain/entities/map_place.dart';
-import '../../domain/map_quiz_config.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'search_place_quiz_state.dart';
 
@@ -27,15 +26,13 @@ class ShowSchoolInfoQuizNotifier
   @override
   ShowSchoolInfoQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return ShowSchoolInfoQuizState.initial(timeLimitSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds);
+    return ShowSchoolInfoQuizState.initial();
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
-    state = ShowSchoolInfoQuizState.initial(
-      timeLimitSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds,
-    ).copyWith(
+    state = ShowSchoolInfoQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
@@ -92,9 +89,7 @@ class ShowSchoolInfoQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = ShowSchoolInfoQuizState.initial(
-      timeLimitSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds,
-    ).copyWith(
+    state = ShowSchoolInfoQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );

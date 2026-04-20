@@ -6,7 +6,6 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:streaming/src/application/quiz_skip_seek_use_case.dart';
 import 'package:system/system.dart';
 import 'package:streaming/src/domain/streaming_catalog.dart';
-import 'package:streaming/src/domain/streaming_quiz_config.dart';
 import 'package:streaming/src/infrastructure/streaming_quiz_repository_provider.dart';
 import 'package:streaming/src/presentation/quiz2_skip_seek/skip_seek_quiz_state.dart';
 
@@ -26,7 +25,6 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return SkipSeekQuizState.initial(
       video: StreamingCatalog.videos[1], // Quiz 2用の動画
-      timeLimitSeconds: StreamingQuizConfig.quiz2SkipSeekTimeLimitSeconds,
     );
   }
 
@@ -34,7 +32,6 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
     _timer?.cancel();
     state = SkipSeekQuizState.initial(
       video: StreamingCatalog.videos[1],
-      timeLimitSeconds: StreamingQuizConfig.quiz2SkipSeekTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -150,7 +147,6 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SkipSeekQuizState.initial(
       video: StreamingCatalog.videos[1],
-      timeLimitSeconds: StreamingQuizConfig.quiz2SkipSeekTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

@@ -7,7 +7,6 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_add_alarm_use_case.dart';
 import '../../domain/alarm_catalog.dart';
-import '../../domain/alarm_quiz_config.dart';
 import '../../infrastructure/alarm_quiz_repository_provider.dart';
 import 'add_alarm_quiz_state.dart';
 
@@ -28,7 +27,6 @@ class AddAlarmQuizNotifier extends AutoDisposeNotifier<AddAlarmQuizState> {
     ref.onDispose(() => _timer?.cancel());
     return AddAlarmQuizState.initial(
       draft: AlarmCatalog.newAlarmDefault,
-      timeLimitSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
     );
   }
 
@@ -37,7 +35,6 @@ class AddAlarmQuizNotifier extends AutoDisposeNotifier<AddAlarmQuizState> {
     _timer?.cancel();
     state = AddAlarmQuizState.initial(
       draft: AlarmCatalog.newAlarmDefault,
-      timeLimitSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -100,7 +97,6 @@ class AddAlarmQuizNotifier extends AutoDisposeNotifier<AddAlarmQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = AddAlarmQuizState.initial(
       draft: AlarmCatalog.newAlarmDefault,
-      timeLimitSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

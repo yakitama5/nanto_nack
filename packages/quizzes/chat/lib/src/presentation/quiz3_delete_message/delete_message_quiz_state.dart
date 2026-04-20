@@ -1,3 +1,4 @@
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:quiz_core/quiz_core.dart';
 
@@ -38,7 +39,6 @@ class DeleteMessageQuizState extends QuizStateBase {
 
   factory DeleteMessageQuizState.initial({
     required List<ChatMessage> initialMessages,
-    int timeLimitSeconds = 90,
   }) =>
       DeleteMessageQuizState(
         status: QuizStatus.idle,
@@ -46,7 +46,7 @@ class DeleteMessageQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         messages: initialMessages,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ChatQuizConfig.quiz3DeleteMessageTimeLimitSeconds,
         messageDeleted: false,
       );
 }

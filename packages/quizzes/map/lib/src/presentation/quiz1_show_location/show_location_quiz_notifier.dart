@@ -6,7 +6,6 @@ import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
 import '../../application/quiz_show_location_use_case.dart';
-import '../../domain/map_quiz_config.dart';
 import '../../infrastructure/map_quiz_repository_provider.dart';
 import 'show_location_quiz_state.dart';
 
@@ -26,15 +25,13 @@ class ShowLocationQuizNotifier
   @override
   ShowLocationQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return ShowLocationQuizState.initial(timeLimitSeconds: MapQuizConfig.quiz1ShowLocationTimeLimitSeconds);
+    return ShowLocationQuizState.initial();
   }
 
   /// クイズを開始する
   void startQuiz() {
     _timer?.cancel();
-    state = ShowLocationQuizState.initial(
-      timeLimitSeconds: MapQuizConfig.quiz1ShowLocationTimeLimitSeconds,
-    ).copyWith(
+    state = ShowLocationQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );
@@ -82,9 +79,7 @@ class ShowLocationQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = ShowLocationQuizState.initial(
-      timeLimitSeconds: MapQuizConfig.quiz1ShowLocationTimeLimitSeconds,
-    ).copyWith(
+    state = ShowLocationQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
     );

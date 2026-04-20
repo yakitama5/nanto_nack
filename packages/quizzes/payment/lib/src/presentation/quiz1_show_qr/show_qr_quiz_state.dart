@@ -1,5 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/payment_quiz_config.dart';
+
 /// Quiz 1「QRコードを表示する」の状態
 class ShowQrQuizState extends QuizStateBase {
   /// コンストラクタ
@@ -14,14 +16,14 @@ class ShowQrQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する
-  factory ShowQrQuizState.initial({int timeLimitSeconds = 30}) =>
+  factory ShowQrQuizState.initial() =>
       ShowQrQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
         paymentShown: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds,
         hintUsed: false,
       );
 

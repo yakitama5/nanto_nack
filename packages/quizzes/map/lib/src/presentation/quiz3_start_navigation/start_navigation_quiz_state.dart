@@ -1,6 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/entities/map_place.dart';
+import '../../domain/map_quiz_config.dart';
 
 /// Quiz 3「目的地と交通手段を選んでルートを案内する」の状態
 class StartNavigationQuizState extends QuizStateBase {
@@ -18,7 +19,7 @@ class StartNavigationQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する（目的地・交通手段ともに未選択）
-  factory StartNavigationQuizState.initial({int timeLimitSeconds = 60}) =>
+  factory StartNavigationQuizState.initial() =>
       StartNavigationQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
@@ -28,7 +29,7 @@ class StartNavigationQuizState extends QuizStateBase {
         showDirections: false,
         selectedTransportIndex: null,
         navigationStarted: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: MapQuizConfig.quiz3StartNavigationTimeLimitSeconds,
       );
 
   /// 選択された目的地

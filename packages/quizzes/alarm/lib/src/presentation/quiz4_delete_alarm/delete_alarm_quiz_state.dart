@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/alarm_quiz_config.dart';
 import '../../domain/entities/alarm_item.dart';
 
 /// Quiz 4「アラームを削除する」の状態
@@ -18,7 +19,6 @@ class DeleteAlarmQuizState extends QuizStateBase {
   /// 初期状態を生成する
   factory DeleteAlarmQuizState.initial({
     required List<AlarmItem> alarms,
-    int timeLimitSeconds = 45,
   }) =>
       DeleteAlarmQuizState(
         status: QuizStatus.idle,
@@ -27,7 +27,7 @@ class DeleteAlarmQuizState extends QuizStateBase {
         startedAt: null,
         alarms: alarms,
         deletedAlarmIds: const {},
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: AlarmQuizConfig.quiz4DeleteAlarmTimeLimitSeconds,
       );
 
   /// 表示中のアラームリスト

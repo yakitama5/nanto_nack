@@ -1,3 +1,4 @@
+import 'package:chat/src/domain/chat_quiz_config.dart';
 import 'package:chat/src/domain/chat_tab.dart';
 import 'package:chat/src/domain/entities/chat_message.dart';
 import 'package:quiz_core/quiz_core.dart';
@@ -56,7 +57,6 @@ class CancelMessageQuizState extends QuizStateBase {
 
   factory CancelMessageQuizState.initial({
     required List<ChatMessage> initialMessages,
-    int timeLimitSeconds = 60,
   }) =>
       CancelMessageQuizState(
         status: QuizStatus.idle,
@@ -66,7 +66,7 @@ class CancelMessageQuizState extends QuizStateBase {
         currentTab: ChatTab.home,
         isInChatRoom: false,
         messages: initialMessages,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
         messageCancelled: false,
         isCorrectChatRoom: true,
       );

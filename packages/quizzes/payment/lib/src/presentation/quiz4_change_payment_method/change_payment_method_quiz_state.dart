@@ -1,6 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/payment_method.dart';
+import '../../domain/payment_quiz_config.dart';
 
 /// Quiz 4「支払い元を変更してバーコードを提示する」の状態
 class ChangePaymentMethodQuizState extends QuizStateBase {
@@ -17,7 +18,7 @@ class ChangePaymentMethodQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する
-  factory ChangePaymentMethodQuizState.initial({int timeLimitSeconds = 60}) =>
+  factory ChangePaymentMethodQuizState.initial() =>
       ChangePaymentMethodQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
@@ -25,7 +26,8 @@ class ChangePaymentMethodQuizState extends QuizStateBase {
         startedAt: null,
         currentPaymentMethod: PaymentMethod.balance,
         paymentScreenShown: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds:
+            PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
         hintUsed: false,
       );
 

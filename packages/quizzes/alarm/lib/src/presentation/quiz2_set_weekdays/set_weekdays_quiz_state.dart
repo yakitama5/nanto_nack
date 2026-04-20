@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/alarm_quiz_config.dart';
 import '../../domain/entities/alarm_item.dart';
 
 /// Quiz 2「平日繰り返しを設定する」の状態
@@ -18,7 +19,6 @@ class SetWeekdaysQuizState extends QuizStateBase {
   /// 初期状態を生成する
   factory SetWeekdaysQuizState.initial({
     required AlarmItem draft,
-    int timeLimitSeconds = 45,
   }) =>
       SetWeekdaysQuizState(
         status: QuizStatus.idle,
@@ -26,7 +26,7 @@ class SetWeekdaysQuizState extends QuizStateBase {
         elapsedMs: 0,
         startedAt: null,
         draftAlarm: draft,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
         showEditForm: false,
       );
 

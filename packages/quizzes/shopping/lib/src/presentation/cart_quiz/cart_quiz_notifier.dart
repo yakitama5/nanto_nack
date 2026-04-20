@@ -4,7 +4,6 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/application/quiz_cart_use_case.dart';
-import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:system/system.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/infrastructure/shopping_quiz_repository_provider.dart';
@@ -24,15 +23,14 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
   @override
   CartQuizState build() {
     ref.onDispose(() => _timer?.cancel());
-    return CartQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.cartTimeLimitSeconds);
+    return CartQuizState.initial();
   }
 
   /// クイズを開始する（タイマー始動）
   void startQuiz() {
-    state = state.copyWith(
+    state = CartQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
-      remainingSeconds: ShoppingQuizConfig.cartTimeLimitSeconds,
     );
     ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
     _startTimer();
@@ -110,7 +108,7 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = CartQuizState.initial(timeLimitSeconds: ShoppingQuizConfig.cartTimeLimitSeconds).copyWith(
+    state = CartQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
       failureCount: state.failureCount,

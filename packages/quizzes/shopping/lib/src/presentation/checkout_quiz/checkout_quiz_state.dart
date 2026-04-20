@@ -1,4 +1,5 @@
 import 'package:quiz_core/quiz_core.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 
 /// 購入手続きクイズの状態
 class CheckoutQuizState extends QuizStateBase {
@@ -47,12 +48,12 @@ class CheckoutQuizState extends QuizStateBase {
     );
   }
 
-  factory CheckoutQuizState.initial({int timeLimitSeconds = 90}) =>
+  factory CheckoutQuizState.initial() =>
       CheckoutQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds,
       );
 }

@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 
+import '../../domain/alarm_quiz_config.dart';
 import '../../domain/entities/alarm_item.dart';
 
 /// Quiz 3「スヌーズをオフにする」の状態
@@ -19,7 +20,6 @@ class DisableSnoozeQuizState extends QuizStateBase {
   /// 初期状態を生成する
   factory DisableSnoozeQuizState.initial({
     required AlarmItem alarm,
-    int timeLimitSeconds = 60,
   }) =>
       DisableSnoozeQuizState(
         status: QuizStatus.idle,
@@ -28,7 +28,7 @@ class DisableSnoozeQuizState extends QuizStateBase {
         startedAt: null,
         draftAlarm: alarm,
         saved: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
         showEditForm: false,
       );
 

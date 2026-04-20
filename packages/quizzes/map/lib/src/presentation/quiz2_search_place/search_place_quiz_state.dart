@@ -1,6 +1,7 @@
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../domain/entities/map_place.dart';
+import '../../domain/map_quiz_config.dart';
 
 /// Quiz 2「学校の情報を表示する」の状態
 class ShowSchoolInfoQuizState extends QuizStateBase {
@@ -15,14 +16,14 @@ class ShowSchoolInfoQuizState extends QuizStateBase {
   });
 
   /// 初期状態を生成する
-  factory ShowSchoolInfoQuizState.initial({int timeLimitSeconds = 60}) =>
+  factory ShowSchoolInfoQuizState.initial() =>
       ShowSchoolInfoQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
         selectedPlace: null,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds,
       );
 
   /// 選択された場所（クリア時のみセット）

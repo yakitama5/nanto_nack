@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 
 class WaterQuizState extends QuizStateBase {
   const WaterQuizState({
@@ -50,13 +51,13 @@ class WaterQuizState extends QuizStateBase {
     );
   }
 
-  factory WaterQuizState.initial({int timeLimitSeconds = 60}) => WaterQuizState(
+  factory WaterQuizState.initial() => WaterQuizState(
         status: QuizStatus.idle,
         failureCount: 0,
         elapsedMs: 0,
         startedAt: null,
         cart: const ShoppingCart(),
         isPurchased: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ShoppingQuizConfig.waterTimeLimitSeconds,
       );
 }

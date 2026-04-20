@@ -7,7 +7,6 @@ import 'package:system/system.dart';
 
 import '../../application/quiz_delete_alarm_use_case.dart';
 import '../../domain/alarm_catalog.dart';
-import '../../domain/alarm_quiz_config.dart';
 import '../../infrastructure/alarm_quiz_repository_provider.dart';
 import 'delete_alarm_quiz_state.dart';
 
@@ -30,7 +29,6 @@ class DeleteAlarmQuizNotifier
     ref.onDispose(() => _timer?.cancel());
     return DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
-      timeLimitSeconds: AlarmQuizConfig.quiz4DeleteAlarmTimeLimitSeconds,
     );
   }
 
@@ -39,7 +37,6 @@ class DeleteAlarmQuizNotifier
     _timer?.cancel();
     state = DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
-      timeLimitSeconds: AlarmQuizConfig.quiz4DeleteAlarmTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -114,7 +111,6 @@ class DeleteAlarmQuizNotifier
     final prevFailureCount = state.failureCount;
     state = DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
-      timeLimitSeconds: AlarmQuizConfig.quiz4DeleteAlarmTimeLimitSeconds,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),

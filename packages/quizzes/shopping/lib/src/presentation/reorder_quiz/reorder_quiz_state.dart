@@ -1,5 +1,6 @@
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/src/domain/entities/shopping_cart.dart';
+import 'package:shopping/src/domain/shopping_quiz_config.dart';
 
 class ReorderQuizState extends QuizStateBase {
   const ReorderQuizState({
@@ -51,7 +52,6 @@ class ReorderQuizState extends QuizStateBase {
   }
 
   factory ReorderQuizState.initial({
-    int timeLimitSeconds = 90,
     String targetItemId = 'snack_chips',
   }) =>
       ReorderQuizState(
@@ -61,7 +61,7 @@ class ReorderQuizState extends QuizStateBase {
         startedAt: null,
         cart: const ShoppingCart(),
         isPurchased: false,
-        remainingSeconds: timeLimitSeconds,
+        remainingSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
         targetItemId: targetItemId,
       );
 }
