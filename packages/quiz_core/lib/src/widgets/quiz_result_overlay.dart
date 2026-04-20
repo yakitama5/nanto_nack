@@ -31,6 +31,7 @@ class QuizResultOverlay extends ConsumerStatefulWidget {
     this.onBack,
     this.insight,
     this.rippleOrigin,
+    this.isLimitReached = false,
   });
 
   final QuizStatus status;
@@ -38,6 +39,9 @@ class QuizResultOverlay extends ConsumerStatefulWidget {
   final int elapsedMs;
   final VoidCallback onRetry;
   final VoidCallback? onNext;
+
+  /// true のとき「もう一度」ボタンを非活性にし、上限到達メッセージを表示する。
+  final bool isLimitReached;
 
   /// 失敗・諦め時に表示する「戻る」ボタンのコールバック
   final VoidCallback? onBack;
@@ -369,31 +373,45 @@ class _QuizResultOverlayState extends ConsumerState<QuizResultOverlay>
               // [3] ボタン
               _FadeSlide(
                 progress: _contentAnims[3].value,
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 12,
-                  runSpacing: 12,
+                child: Column(
                   children: [
-                    if (!_isSuccess && widget.onBack != null)
-                      OutlinedButton(
-                        onPressed: widget.onBack,
-                        child: Text(context.t.quiz.back),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 12,
+                      runSpacing: 12,
+                      children: [
+                        if (!_isSuccess && widget.onBack != null)
+                          OutlinedButton(
+                            onPressed: widget.onBack,
+                            child: Text(context.t.quiz.back),
+                          ),
+                        if (_isSuccess)
+                          OutlinedButton(
+                            onPressed: widget.isLimitReached ? null : widget.onRetry,
+                            child: Text(context.t.quiz.retry),
+                          )
+                        else
+                          FilledButton(
+                            onPressed: widget.isLimitReached ? null : widget.onRetry,
+                            child: Text(context.t.quiz.retry),
+                          ),
+                        if (widget.onNext != null)
+                          FilledButton(
+                            onPressed: widget.onNext,
+                            child: Text(context.t.quiz.next),
+                          ),
+                      ],
+                    ),
+                    if (widget.isLimitReached) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        context.t.purchase.unlockDescription,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                        textAlign: TextAlign.center,
                       ),
-                    if (_isSuccess)
-                      OutlinedButton(
-                        onPressed: widget.onRetry,
-                        child: Text(context.t.quiz.retry),
-                      )
-                    else
-                      FilledButton(
-                        onPressed: widget.onRetry,
-                        child: Text(context.t.quiz.retry),
-                      ),
-                    if (widget.onNext != null)
-                      FilledButton(
-                        onPressed: widget.onNext,
-                        child: Text(context.t.quiz.next),
-                      ),
+                    ],
                   ],
                 ),
               ),
