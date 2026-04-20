@@ -9,7 +9,6 @@ import 'package:shopping/src/domain/entities/shopping_cart.dart';
 import 'package:shopping/src/domain/shopping_quiz_config.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/cart_quiz/cart_quiz_notifier.dart';
-import 'package:shopping/src/presentation/shopping_app.dart' show ShoppingInsightItem;
 
 /// カートの合計金額を当てるクイズ画面（Amazon風カートページ）
 class CartQuizScreen extends ConsumerStatefulWidget {

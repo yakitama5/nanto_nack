@@ -6,8 +6,6 @@ import 'package:system/system.dart';
 import 'package:shopping/src/i18n/shopping_translations_extension.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_notifier.dart';
 import 'package:shopping/src/presentation/checkout_quiz/checkout_quiz_state.dart';
-import 'package:shopping/src/presentation/shopping_app.dart'
-    show ShoppingInsightItem;
 
 class CheckoutQuizScreen extends ConsumerStatefulWidget {
   const CheckoutQuizScreen({super.key, this.onCompleted});
