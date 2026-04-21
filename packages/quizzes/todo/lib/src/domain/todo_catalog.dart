@@ -15,32 +15,38 @@ class TodoCatalog {
         const TodoItem(
           id: 'todo_buy_milk',
           titleKey: 'buyMilk',
+          emoji: '🥛',
           order: 0,
         ),
         const TodoItem(
           id: 'todo_rent_payment',
           titleKey: 'rentPayment',
+          emoji: '🏠',
           order: 1,
         ),
         const TodoItem(
           id: 'todo_planning_doc',
           titleKey: 'planningDoc',
+          emoji: '📋',
           order: 2,
         ),
         const TodoItem(
           id: 'todo_meeting_prep',
           titleKey: 'meetingPrep',
+          emoji: '📅',
           order: 3,
           isCompleted: true,
         ),
         const TodoItem(
           id: 'todo_reply_email',
           titleKey: 'replyEmail',
+          emoji: '📧',
           order: 4,
         ),
         const TodoItem(
           id: 'todo_book_dentist',
           titleKey: 'bookDentist',
+          emoji: '🦷',
           order: 5,
         ),
       ].map((item) {

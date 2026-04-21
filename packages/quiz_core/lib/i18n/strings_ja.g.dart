@@ -563,8 +563,8 @@ class TranslationsPlayCategoryLabelJa {
 	/// ja: '漫画アプリ'
 	String get comic => '漫画アプリ';
 
-	/// ja: 'TODOアプリ'
-	String get todo => 'TODOアプリ';
+	/// ja: 'タスク管理'
+	String get todo => 'タスク管理';
 }
 
 // Path: play.categoryDescription
@@ -1142,7 +1142,7 @@ extension on Translations {
 			'play.categoryLabel.calendar' => 'カレンダー',
 			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryLabel.comic' => '漫画アプリ',
-			'play.categoryLabel.todo' => 'TODOアプリ',
+			'play.categoryLabel.todo' => 'タスク管理',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',

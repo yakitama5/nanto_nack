@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/src/domain/todo_item.dart';
@@ -105,8 +106,8 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
               backgroundColor: todoTheme.appBarBackground,
               foregroundColor: todoTheme.textPrimary,
               elevation: 0,
-              title: Text(
-                context.sq.common.appTitle,
+              title: UnreadableText(
+                context.se.common.appTitle,
                 style: TextStyle(
                   color: todoTheme.brandBlue,
                   fontWeight: FontWeight.bold,
@@ -119,8 +120,8 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
                     Icons.more_horiz,
                     color: todoTheme.textSecondary,
                   ),
-                  tooltip: context.sq.common.addTask,
-                  onPressed: null, // モックのため操作不要
+                  tooltip: context.se.common.addTask,
+                  onPressed: () {}, // モック：リップルのみ
                 ),
               ],
             ),
@@ -128,8 +129,8 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: todoTheme.brandBlue,
               foregroundColor: Colors.white,
-              onPressed: null, // モック用：タスク追加は行わない
-              tooltip: context.sq.common.addTask,
+              onPressed: () {}, // モック：リップルのみ
+              tooltip: context.se.common.addTask,
               child: const Icon(Icons.add),
             ),
           ),
@@ -171,8 +172,8 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
         Expanded(
           child: incompletes.isEmpty
               ? Center(
-                  child: Text(
-                    context.sq.common.noTasks,
+                  child: UnreadableText(
+                    context.se.common.noTasks,
                     style: TextStyle(color: todoTheme.textSecondary),
                   ),
                 )
@@ -184,18 +185,48 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
                   onReorder: (oldIndex, newIndex) {
                     notifier.reorderTodo(oldIndex, newIndex);
                   },
+                  proxyDecorator: (child, index, animation) {
+                    return AnimatedBuilder(
+                      animation: animation,
+                      builder: (context, child) {
+                        final todoTheme =
+                            Theme.of(context).extension<TodoAppTheme>()!;
+                        final elevation = Tween<double>(begin: 0, end: 8)
+                            .evaluate(CurvedAnimation(
+                              parent: animation,
+                              curve: Curves.easeOut,
+                            ));
+                        return Material(
+                          elevation: elevation,
+                          color: todoTheme.itemBackground,
+                          child: child,
+                        );
+                      },
+                      child: child,
+                    );
+                  },
                   itemBuilder: (context, index) {
                     final item = incompletes[index];
-                    return ReorderableDragStartListener(
+                    final child = _TodoListItem(
+                      item: item,
+                      onToggleCompletion: () =>
+                          notifier.toggleCompletion(item.id),
+                      onToggleImportant: () =>
+                          notifier.toggleImportant(item.id),
+                    );
+                    // Web（マウス）はスクロールとの競合がないため即時ドラッグ開始。
+                    // モバイルはスクロールと区別するためロングプレス後にドラッグ開始。
+                    if (kIsWeb) {
+                      return ReorderableDragStartListener(
+                        key: ValueKey(item.id),
+                        index: index,
+                        child: child,
+                      );
+                    }
+                    return ReorderableDelayedDragStartListener(
                       key: ValueKey(item.id),
                       index: index,
-                      child: _TodoListItem(
-                        item: item,
-                        onToggleCompletion: () =>
-                            notifier.toggleCompletion(item.id),
-                        onToggleImportant: () =>
-                            notifier.toggleImportant(item.id),
-                      ),
+                      child: child,
                     );
                   },
                 ),
@@ -434,8 +465,8 @@ class _TodoListItemState extends State<_TodoListItem> {
                           size: 24,
                         ),
                         const SizedBox(height: 2),
-                        Text(
-                          context.sq.common.importantLabel,
+                        UnreadableText(
+                          context.se.common.importantLabel,
                           style: TextStyle(
                             color: todoTheme.importantColor,
                             fontSize: 10,
@@ -487,15 +518,24 @@ class _TodoListItemState extends State<_TodoListItem> {
                       color: todoTheme.brandBlue,
                     ),
                   ),
-                  title: Text(
-                    item.localizedTitle(context),
-                    style: TextStyle(
-                      color: todoTheme.textPrimary,
-                      fontSize: 15,
-                      decoration: item.isCompleted
-                          ? TextDecoration.lineThrough
-                          : TextDecoration.none,
-                    ),
+                  title: Row(
+                    children: [
+                      Text(item.emoji, style: const TextStyle(fontSize: 15)),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: UnreadableText(
+                          item.localizedTitle(context),
+                          style: TextStyle(
+                            color: todoTheme.textPrimary,
+                            fontSize: 15,
+                            decoration: item.isCompleted
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                   trailing: item.isImportant
                       ? Icon(
@@ -590,8 +630,8 @@ class _CompletedListAccordion extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  context.sq.common.completedCount.replaceAll(
+                UnreadableText(
+                  context.se.common.completedCount.replaceAll(
                     '{count}',
                     completedTodos.length.toString(),
                   ),
@@ -663,13 +703,22 @@ class _CompletedTodoItem extends StatelessWidget {
               color: todoTheme.brandBlue,
             ),
           ),
-          title: Text(
-            item.localizedTitle(context),
-            style: TextStyle(
-              color: todoTheme.textSecondary,
-              fontSize: 15,
-              decoration: TextDecoration.lineThrough,
-            ),
+          title: Row(
+            children: [
+              Text(item.emoji, style: const TextStyle(fontSize: 15)),
+              const SizedBox(width: 8),
+              Expanded(
+                child: UnreadableText(
+                  item.localizedTitle(context),
+                  style: TextStyle(
+                    color: todoTheme.textSecondary,
+                    fontSize: 15,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -681,19 +730,20 @@ class _CompletedTodoItem extends StatelessWidget {
 // TodoItem のローカライズ補助 extension
 // ─────────────────────────────────────────────
 
-/// [TodoItem.titleKey] から Slang 経由でローカライズ済みタイトルを返す。
+/// [TodoItem.titleKey] から英語テキストを返す。
 ///
-/// クイズ画面は常に xx ロケールで表示するため、[context.sq.common.tasks] を参照する。
+/// クイズ画面は英語テキストを [UnreadableText] に渡して難読化する仕様のため、
+/// [context.se.common.tasks] を参照する。
 /// 未知のキーは titleKey をそのまま返すフォールバック。
 extension _TodoItemLocalized on TodoItem {
   String localizedTitle(BuildContext context) {
     return switch (titleKey) {
-      'buyMilk' => context.sq.common.tasks.buyMilk,
-      'rentPayment' => context.sq.common.tasks.rentPayment,
-      'planningDoc' => context.sq.common.tasks.planningDoc,
-      'meetingPrep' => context.sq.common.tasks.meetingPrep,
-      'replyEmail' => context.sq.common.tasks.replyEmail,
-      'bookDentist' => context.sq.common.tasks.bookDentist,
+      'buyMilk' => context.se.common.tasks.buyMilk,
+      'rentPayment' => context.se.common.tasks.rentPayment,
+      'planningDoc' => context.se.common.tasks.planningDoc,
+      'meetingPrep' => context.se.common.tasks.meetingPrep,
+      'replyEmail' => context.se.common.tasks.replyEmail,
+      'bookDentist' => context.se.common.tasks.bookDentist,
       _ => titleKey,
     };
   }
