@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/src/domain/todo_item.dart';
@@ -165,10 +164,22 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
     final todoTheme = Theme.of(context).extension<TodoAppTheme>()!;
     final incompletes = state.todoApp.incompleteTodos;
     final completed = state.todoApp.completedTodos;
+    final isReorderQuiz = _type == TodoQuizType.reorder;
+
+    Widget buildItem(BuildContext context, int index) {
+      final item = incompletes[index];
+      return _TodoListItem(
+        key: ValueKey(item.id),
+        index: index,
+        item: item,
+        isReorderable: isReorderQuiz,
+        onToggleCompletion: () => notifier.toggleCompletion(item.id),
+        onToggleImportant: () => notifier.toggleImportant(item.id),
+      );
+    }
 
     return Column(
       children: [
-        // 未完了タスク（ドラッグ並び替え可能）
         Expanded(
           child: incompletes.isEmpty
               ? Center(
@@ -177,61 +188,42 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
                     style: TextStyle(color: todoTheme.textSecondary),
                   ),
                 )
-              : ReorderableListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: incompletes.length,
-                  // 長押しでドラッグ開始
-                  buildDefaultDragHandles: false,
-                  onReorder: (oldIndex, newIndex) {
-                    notifier.reorderTodo(oldIndex, newIndex);
-                  },
-                  proxyDecorator: (child, index, animation) {
-                    return AnimatedBuilder(
-                      animation: animation,
-                      builder: (context, child) {
-                        final todoTheme =
-                            Theme.of(context).extension<TodoAppTheme>()!;
-                        final elevation = Tween<double>(begin: 0, end: 8)
-                            .evaluate(CurvedAnimation(
-                              parent: animation,
-                              curve: Curves.easeOut,
-                            ));
-                        return Material(
-                          elevation: elevation,
-                          color: todoTheme.itemBackground,
+              : isReorderQuiz
+                  // Quiz2のみ ReorderableListView（ロングプレスでドラッグ）
+                  ? ReorderableListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: incompletes.length,
+                      buildDefaultDragHandles: false,
+                      onReorder: notifier.reorderTodo,
+                      proxyDecorator: (child, index, animation) {
+                        return AnimatedBuilder(
+                          animation: animation,
+                          builder: (context, child) {
+                            final t =
+                                Theme.of(context).extension<TodoAppTheme>()!;
+                            final elevation = Tween<double>(begin: 0, end: 8)
+                                .evaluate(CurvedAnimation(
+                                  parent: animation,
+                                  curve: Curves.easeOut,
+                                ));
+                            return Material(
+                              elevation: elevation,
+                              color: t.itemBackground,
+                              child: child,
+                            );
+                          },
                           child: child,
                         );
                       },
-                      child: child,
-                    );
-                  },
-                  itemBuilder: (context, index) {
-                    final item = incompletes[index];
-                    final child = _TodoListItem(
-                      item: item,
-                      onToggleCompletion: () =>
-                          notifier.toggleCompletion(item.id),
-                      onToggleImportant: () =>
-                          notifier.toggleImportant(item.id),
-                    );
-                    // Web（マウス）はスクロールとの競合がないため即時ドラッグ開始。
-                    // モバイルはスクロールと区別するためロングプレス後にドラッグ開始。
-                    if (kIsWeb) {
-                      return ReorderableDragStartListener(
-                        key: ValueKey(item.id),
-                        index: index,
-                        child: child,
-                      );
-                    }
-                    return ReorderableDelayedDragStartListener(
-                      key: ValueKey(item.id),
-                      index: index,
-                      child: child,
-                    );
-                  },
-                ),
+                      itemBuilder: buildItem,
+                    )
+                  // Quiz1/3/4 は通常の ListView（ReorderableListView の干渉なし）
+                  : ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: incompletes.length,
+                      itemBuilder: buildItem,
+                    ),
         ),
-        // 完了済みアコーディオン
         if (completed.isNotEmpty)
           _CompletedListAccordion(
             completedTodos: completed,
@@ -378,178 +370,155 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
 // TodoListItem（1行分のUI）
 // ─────────────────────────────────────────────
 
-class _TodoListItem extends StatefulWidget {
+class _TodoListItem extends StatelessWidget {
   const _TodoListItem({
+    super.key,
+    required this.index,
     required this.item,
+    required this.isReorderable,
     required this.onToggleCompletion,
     required this.onToggleImportant,
   });
 
+  final int index;
   final TodoItem item;
+  final bool isReorderable;
   final VoidCallback onToggleCompletion;
   final VoidCallback onToggleImportant;
 
   @override
-  State<_TodoListItem> createState() => _TodoListItemState();
-}
-
-class _TodoListItemState extends State<_TodoListItem> {
-  // 右から左スワイプ時のオフセット（重要ボタン露出用）
-  double _dragOffset = 0;
-  static const double _revealThreshold = 60.0;
-  static const double _revealWidth = 80.0;
-  bool _isRevealed = false;
-
-  void _resetSwipe() {
-    setState(() {
-      _dragOffset = 0;
-      _isRevealed = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final todoTheme = Theme.of(context).extension<TodoAppTheme>()!;
-    final item = widget.item;
 
-    return GestureDetector(
-      // 横スワイプを検出する
-      onHorizontalDragUpdate: (details) {
-        if (details.delta.dx < 0) {
-          // 右から左へスワイプ → 重要ボタンを露出
-          setState(() {
-            _dragOffset =
-                (_dragOffset - details.delta.dx).clamp(0, _revealWidth);
-          });
-        } else if (details.delta.dx > 0 && _dragOffset > 0) {
-          // 左から右へスワイプ → 戻す
-          setState(() {
-            _dragOffset =
-                (_dragOffset - details.delta.dx).clamp(0, _revealWidth);
-          });
-        }
-      },
-      onHorizontalDragEnd: (_) {
-        if (_dragOffset >= _revealThreshold) {
-          setState(() {
-            _dragOffset = _revealWidth;
-            _isRevealed = true;
-          });
-        } else {
-          _resetSwipe();
-        }
-      },
-      child: Stack(
-        children: [
-          // 背景の重要ボタン（右端に表示）
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: AnimatedOpacity(
-                opacity: (_dragOffset / _revealWidth).clamp(0, 1),
-                duration: const Duration(milliseconds: 150),
-                child: GestureDetector(
-                  onTap: () {
-                    widget.onToggleImportant();
-                    _resetSwipe();
-                  },
-                  child: Container(
-                    width: _revealWidth,
-                    color: todoTheme.importantBackground,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          item.isImportant ? Icons.star : Icons.star_border,
-                          color: todoTheme.importantColor,
-                          size: 24,
-                        ),
-                        const SizedBox(height: 2),
-                        UnreadableText(
-                          context.se.common.importantLabel,
-                          style: TextStyle(
-                            color: todoTheme.importantColor,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+    final trailing = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (item.isImportant)
+          Padding(
+            padding: const EdgeInsets.only(right: 4),
+            child: Icon(
+              Icons.star,
+              color: todoTheme.importantColor,
+              size: 18,
             ),
           ),
-          // 左から右スワイプで完了にする（Dismissible）
-          Dismissible(
-            key: ValueKey('dismissible_${item.id}'),
-            direction: DismissDirection.startToEnd,
-            background: Container(
-              color: todoTheme.completionBackground,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 24),
-              child: const Icon(Icons.check, color: Colors.white, size: 28),
-            ),
-            confirmDismiss: (_) async {
-              widget.onToggleCompletion();
-              // 完了した場合は Dismissible のアニメーションを使わず、
-              // 状態更新によってリストから消えるため false を返す
-              return false;
-            },
-            child: Transform.translate(
-              offset: Offset(-_dragOffset, 0),
-              child: Container(
-                color: todoTheme.itemBackground,
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
-                  leading: GestureDetector(
-                    onTap: () {
-                      if (_isRevealed) {
-                        _resetSwipe();
-                      } else {
-                        widget.onToggleCompletion();
-                      }
-                    },
-                    child: _RoundCheckbox(
-                      isChecked: item.isCompleted,
-                      color: todoTheme.brandBlue,
-                    ),
-                  ),
-                  title: Row(
-                    children: [
-                      Text(item.emoji, style: const TextStyle(fontSize: 15)),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: UnreadableText(
-                          item.localizedTitle(context),
-                          style: TextStyle(
-                            color: todoTheme.textPrimary,
-                            fontSize: 15,
-                            decoration: item.isCompleted
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  trailing: item.isImportant
-                      ? Icon(
-                          Icons.star,
-                          color: todoTheme.importantColor,
-                          size: 18,
-                        )
-                      : null,
-                ),
+        // Quiz2: Container(color)→ColoredBox で hitTestSelf=true により
+        //        padding 領域も含めて Listener がタッチを受け取る。
+        // Quiz1/3/4: Listener なし（Dismissible のスワイプと競合させない）。
+        if (isReorderable)
+          ReorderableDelayedDragStartListener(
+            index: index,
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Icon(
+                Icons.drag_handle,
+                color: todoTheme.textSecondary,
+                size: 20,
               ),
             ),
+          )
+        else
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Icon(
+              Icons.drag_handle,
+              color: todoTheme.textSecondary,
+              size: 20,
+            ),
           ),
-        ],
+      ],
+    );
+
+    final tile = Container(
+      color: todoTheme.itemBackground,
+      child: ListTile(
+        contentPadding: const EdgeInsets.only(
+          left: 16,
+          right: 8,
+          top: 4,
+          bottom: 4,
+        ),
+        leading: GestureDetector(
+          onTap: onToggleCompletion,
+          child: _RoundCheckbox(
+            isChecked: item.isCompleted,
+            color: todoTheme.brandBlue,
+          ),
+        ),
+        title: Row(
+          children: [
+            Text(item.emoji, style: const TextStyle(fontSize: 15)),
+            const SizedBox(width: 8),
+            Expanded(
+              child: UnreadableText(
+                item.localizedTitle(context),
+                style: TextStyle(
+                  color: todoTheme.textPrimary,
+                  fontSize: 15,
+                  decoration: item.isCompleted
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+        trailing: trailing,
       ),
+    );
+
+    // Quiz2 は ReorderableListView でドラッグ並び替えするため Dismissible を使わない。
+    // Dismissible(HorizontalDragGestureRecognizer) と
+    // ReorderableDelayedDragStartListener(DelayedMultiDragGestureRecognizer) は
+    // ジェスチャーアリーナで競合するため、両者を同一アイテムに共存させない。
+    if (isReorderable) {
+      return tile;
+    }
+
+    return Dismissible(
+      key: ValueKey('dismissible_${item.id}'),
+      direction: DismissDirection.horizontal,
+      background: Container(
+        color: todoTheme.completionBackground,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.only(left: 24),
+        child: const Icon(Icons.check, color: Colors.white, size: 28),
+      ),
+      secondaryBackground: Container(
+        color: todoTheme.importantBackground,
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              item.isImportant ? Icons.star : Icons.star_border,
+              color: todoTheme.importantColor,
+              size: 24,
+            ),
+            const SizedBox(height: 2),
+            UnreadableText(
+              context.se.common.importantLabel,
+              style: TextStyle(
+                color: todoTheme.importantColor,
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+      confirmDismiss: (direction) async {
+        if (direction == DismissDirection.startToEnd) {
+          onToggleCompletion();
+        } else {
+          onToggleImportant();
+        }
+        return false;
+      },
+      child: tile,
     );
   }
 }
