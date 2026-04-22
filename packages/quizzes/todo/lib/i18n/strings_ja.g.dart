@@ -129,6 +129,9 @@ class TranslationsCommonJa {
 	/// ja: 'タスクを追加'
 	String get addTask => 'タスクを追加';
 
+	/// ja: 'その他のオプション'
+	String get moreOptions => 'その他のオプション';
+
 	/// ja: '重要にする'
 	String get importantAction => '重要にする';
 
@@ -350,6 +353,7 @@ extension on Translations {
 			'common.importantLabel' => '重要',
 			'common.noTasks' => 'タスクなし',
 			'common.addTask' => 'タスクを追加',
+			'common.moreOptions' => 'その他のオプション',
 			'common.importantAction' => '重要にする',
 			'common.completeAction' => '完了にする',
 			'common.uncompleteAction' => '未完了に戻す',

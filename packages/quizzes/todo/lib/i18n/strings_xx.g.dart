@@ -103,6 +103,7 @@ class _TranslationsCommonXx extends TranslationsCommonJa {
 	@override String get importantLabel => 'Reosf zkjz';
 	@override String get noTasks => 'Js zkwaw';
 	@override String get addTask => 'Kmm zkwa';
+	@override String get moreOptions => 'Esfx sozrsjw';
 	@override String get importantAction => 'Ekfa kw reosf zkjz';
 	@override String get completeAction => 'Ekfa kw useocxzx';
 	@override String get uncompleteAction => 'Ekfa kw rjuseocxzx';
@@ -242,6 +243,7 @@ extension on TranslationsXx {
 			'common.importantLabel' => 'Reosf zkjz',
 			'common.noTasks' => 'Js zkwaw',
 			'common.addTask' => 'Kmm zkwa',
+			'common.moreOptions' => 'Esfx sozrsjw',
 			'common.importantAction' => 'Ekfa kw reosf zkjz',
 			'common.completeAction' => 'Ekfa kw useocxzx',
 			'common.uncompleteAction' => 'Ekfa kw rjuseocxzx',

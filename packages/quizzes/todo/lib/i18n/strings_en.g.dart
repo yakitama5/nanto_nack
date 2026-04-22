@@ -103,6 +103,7 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get importantLabel => 'Important';
 	@override String get noTasks => 'No tasks';
 	@override String get addTask => 'Add task';
+	@override String get moreOptions => 'More options';
 	@override String get importantAction => 'Mark as important';
 	@override String get completeAction => 'Mark as complete';
 	@override String get uncompleteAction => 'Mark as incomplete';
@@ -242,6 +243,7 @@ extension on TranslationsEn {
 			'common.importantLabel' => 'Important',
 			'common.noTasks' => 'No tasks',
 			'common.addTask' => 'Add task',
+			'common.moreOptions' => 'More options',
 			'common.importantAction' => 'Mark as important',
 			'common.completeAction' => 'Mark as complete',
 			'common.uncompleteAction' => 'Mark as incomplete',
