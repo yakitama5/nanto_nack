@@ -45,6 +45,7 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       ref.read(todoQuizProvider(_type).notifier).startQuiz();
     });
   }
@@ -75,9 +76,15 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
             elapsedMs: currentState.elapsedMs,
             onRetry: () {
               Navigator.of(context, rootNavigator: true).pop();
-              _showCutIn = true;
-              _resultOverlayShown = false;
-              widget.onRestart?.call();
+              setState(() {
+                _showCutIn = true;
+                _resultOverlayShown = false;
+              });
+              if (widget.onRestart != null) {
+                widget.onRestart!.call();
+              } else {
+                notifier.startQuiz();
+              }
             },
             onNext: next == QuizStatus.correct
                 ? () {
