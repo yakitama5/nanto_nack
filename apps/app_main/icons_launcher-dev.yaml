@@ -4,8 +4,14 @@ icons_launcher:
     android:
       enable: true
       flavor: dev
+      image_path: "assets/launcher_icon/icon_dev.png"
+      adaptive_background_color: '#FFFFFF'
+      adaptive_foreground_image: "assets/launcher_icon/icon_adaptive_dev.png"
+      adaptive_round_image: "assets/launcher_icon/icon_adaptive_dev.png"
+      adaptive_monochrome_image: "assets/launcher_icon/icon_adaptive_monochrome_dev.png"
     ios:
       enable: true
+      image_path: "assets/launcher_icon/icon_dev.png"
     macos:
       enable: true
     web:
