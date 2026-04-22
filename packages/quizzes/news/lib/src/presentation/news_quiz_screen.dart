@@ -37,6 +37,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
   NewsArticle? _selectedArticle;
 
   bool _isConfirmDialogOpen = false;
+  bool _isExiting = false;
 
   NewsQuizType get _type => widget.type;
 
@@ -96,7 +97,9 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     // 記事詳細が開いている場合はバックで詳細を閉じ、
     // プレイ中かつ詳細が閉じている場合は退出確認ダイアログを表示する。
     return PopScope(
-      canPop: state.status != QuizStatus.playing && _selectedArticle == null,
+      canPop:
+          (state.status != QuizStatus.playing || _isExiting) &&
+          _selectedArticle == null,
       onPopInvokedWithResult: (didPop, _) async {
         if (didPop) return;
         if (_selectedArticle != null) {
@@ -107,8 +110,11 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
         setState(() => _isConfirmDialogOpen = true);
         try {
           final confirmed = await QuizExitScope.showConfirmDialog(context);
-          if (confirmed == true && context.mounted) {
-            Navigator.of(context).pop();
+          if (confirmed == true && mounted) {
+            setState(() => _isExiting = true);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) Navigator.of(context).pop();
+            });
           }
         } finally {
           if (mounted) setState(() => _isConfirmDialogOpen = false);
