@@ -119,7 +119,7 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
                     Icons.more_horiz,
                     color: todoTheme.textSecondary,
                   ),
-                  tooltip: context.se.common.addTask,
+                  tooltip: context.se.common.moreOptions,
                   onPressed: () {}, // モック：リップルのみ
                 ),
               ],
@@ -164,7 +164,6 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
     final todoTheme = Theme.of(context).extension<TodoAppTheme>()!;
     final incompletes = state.todoApp.incompleteTodos;
     final completed = state.todoApp.completedTodos;
-    final isReorderQuiz = _type == TodoQuizType.reorder;
 
     Widget buildItem(BuildContext context, int index) {
       final item = incompletes[index];
@@ -172,7 +171,6 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
         key: ValueKey(item.id),
         index: index,
         item: item,
-        isReorderable: isReorderQuiz,
         onToggleCompletion: () => notifier.toggleCompletion(item.id),
         onToggleImportant: () => notifier.toggleImportant(item.id),
       );
@@ -188,49 +186,57 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
                     style: TextStyle(color: todoTheme.textSecondary),
                   ),
                 )
-              : isReorderQuiz
-                  // Quiz2のみ ReorderableListView（ロングプレスでドラッグ）
-                  ? ReorderableListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: incompletes.length,
-                      buildDefaultDragHandles: false,
-                      onReorder: notifier.reorderTodo,
-                      proxyDecorator: (child, index, animation) {
-                        return AnimatedBuilder(
-                          animation: animation,
-                          builder: (context, child) {
-                            final t =
-                                Theme.of(context).extension<TodoAppTheme>()!;
-                            final elevation = Tween<double>(begin: 0, end: 8)
-                                .evaluate(CurvedAnimation(
-                                  parent: animation,
-                                  curve: Curves.easeOut,
-                                ));
-                            return Material(
-                              elevation: elevation,
-                              color: t.itemBackground,
-                              child: child,
-                            );
-                          },
-                          child: child,
+              : ReorderableListView.builder(
+                  padding: const EdgeInsets.only(bottom: 80),
+                  itemCount: incompletes.length,
+                  buildDefaultDragHandles: false,
+                  onReorder: notifier.reorderTodo,
+                  proxyDecorator: (child, index, animation) {
+                    final curved = CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeOut,
+                    );
+                    return AnimatedBuilder(
+                      animation: curved,
+                      builder: (context, child) {
+                        final t =
+                            Theme.of(context).extension<TodoAppTheme>()!;
+                        final elevation =
+                            Tween<double>(begin: 0, end: 8).evaluate(curved);
+                        final scale =
+                            Tween<double>(begin: 1.0, end: 1.03).evaluate(curved);
+                        return Transform.scale(
+                          scale: scale,
+                          child: Material(
+                            elevation: elevation,
+                            color: t.itemBackground,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              side: BorderSide(
+                                color: t.brandBlue
+                                    .withValues(alpha: curved.value * 0.7),
+                                width: 2,
+                              ),
+                            ),
+                            child: child,
+                          ),
                         );
                       },
-                      itemBuilder: buildItem,
-                    )
-                  // Quiz1/3/4 は通常の ListView（ReorderableListView の干渉なし）
-                  : ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: incompletes.length,
-                      itemBuilder: buildItem,
-                    ),
+                      child: child,
+                    );
+                  },
+                  itemBuilder: buildItem,
+                ),
         ),
-        if (completed.isNotEmpty)
+        if (completed.isNotEmpty) ...[
           _CompletedListAccordion(
             completedTodos: completed,
             isExpanded: state.todoApp.isCompletedListExpanded,
             onToggleExpansion: notifier.toggleCompletedListExpansion,
             onToggleCompletion: notifier.toggleCompletion,
           ),
+          const SizedBox(height: 80),
+        ],
       ],
     );
   }
@@ -375,14 +381,12 @@ class _TodoListItem extends StatelessWidget {
     super.key,
     required this.index,
     required this.item,
-    required this.isReorderable,
     required this.onToggleCompletion,
     required this.onToggleImportant,
   });
 
   final int index;
   final TodoItem item;
-  final bool isReorderable;
   final VoidCallback onToggleCompletion;
   final VoidCallback onToggleImportant;
 
@@ -402,24 +406,13 @@ class _TodoListItem extends StatelessWidget {
               size: 18,
             ),
           ),
-        // Quiz2: Container(color)→ColoredBox で hitTestSelf=true により
-        //        padding 領域も含めて Listener がタッチを受け取る。
-        // Quiz1/3/4: Listener なし（Dismissible のスワイプと競合させない）。
-        if (isReorderable)
-          ReorderableDelayedDragStartListener(
-            index: index,
-            child: Container(
-              color: Colors.transparent,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Icon(
-                Icons.drag_handle,
-                color: todoTheme.textSecondary,
-                size: 20,
-              ),
-            ),
-          )
-        else
-          Padding(
+        // ハンドル領域のみ DelayedMultiDragGestureRecognizer を登録する。
+        // タイル本体の Dismissible（HorizontalDragGestureRecognizer）とは
+        // 領域が分離されているため、スワイプとドラッグ並び替えが共存できる。
+        ReorderableDelayedDragStartListener(
+          index: index,
+          child: Container(
+            color: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Icon(
               Icons.drag_handle,
@@ -427,6 +420,7 @@ class _TodoListItem extends StatelessWidget {
               size: 20,
             ),
           ),
+        ),
       ],
     );
 
@@ -468,14 +462,6 @@ class _TodoListItem extends StatelessWidget {
         trailing: trailing,
       ),
     );
-
-    // Quiz2 は ReorderableListView でドラッグ並び替えするため Dismissible を使わない。
-    // Dismissible(HorizontalDragGestureRecognizer) と
-    // ReorderableDelayedDragStartListener(DelayedMultiDragGestureRecognizer) は
-    // ジェスチャーアリーナで競合するため、両者を同一アイテムに共存させない。
-    if (isReorderable) {
-      return tile;
-    }
 
     return Dismissible(
       key: ValueKey('dismissible_${item.id}'),
