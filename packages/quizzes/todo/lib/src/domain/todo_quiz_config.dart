@@ -1,7 +1,7 @@
 /// TODOクイズの設定値
 abstract final class TodoQuizConfig {
   /// 全クイズ共通の制限時間（秒）
-  static const int timeLimitSeconds = 90;
+  static const int timeLimitSeconds = 30;
 
   /// Quiz1のターゲットタスクID（牛乳を買う）
   static const String quiz1TargetId = 'todo_buy_milk';
