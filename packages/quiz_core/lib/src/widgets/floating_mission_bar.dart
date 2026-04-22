@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_core/i18n/strings.g.dart';
+import 'unreadable_text.dart';
 
 /// ドラッグ可能な円形ミッションバブル
 ///
@@ -33,6 +34,7 @@ class FloatingMissionBubble extends StatefulWidget {
     this.onGiveUp,
     this.timeLimitSeconds = 60,
     this.initialOffset,
+    this.isObfuscated = false,
   });
 
   /// 残り時間（秒）
@@ -55,6 +57,9 @@ class FloatingMissionBubble extends StatefulWidget {
 
   /// バブルの初期表示位置（省略時は [Stack] のサイズから右上付近を自動計算）
   final Offset? initialOffset;
+
+  /// true のときミッションテキストを [UnreadableText] で難読化して表示する
+  final bool isObfuscated;
 
   @override
   State<FloatingMissionBubble> createState() => _FloatingMissionBubbleState();
@@ -193,6 +198,7 @@ class _FloatingMissionBubbleState extends State<FloatingMissionBubble>
                     onHintTap: widget.hintUsed ? null : widget.onHintTap,
                     onGiveUp: widget.onGiveUp,
                     onClose: _toggleMission,
+                    isObfuscated: widget.isObfuscated,
                   ),
                 ),
               ),
@@ -293,6 +299,7 @@ class _MissionPopup extends StatelessWidget {
     this.onHintTap,
     this.onGiveUp,
     this.onClose,
+    this.isObfuscated = false,
   });
 
   final String missionText;
@@ -300,6 +307,7 @@ class _MissionPopup extends StatelessWidget {
   final VoidCallback? onHintTap;
   final VoidCallback? onGiveUp;
   final VoidCallback? onClose;
+  final bool isObfuscated;
 
   @override
   Widget build(BuildContext context) {
@@ -355,10 +363,16 @@ class _MissionPopup extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           // お題テキスト
-          Text(
-            missionText,
-            style: const TextStyle(fontSize: 13, height: 1.4),
-          ),
+          if (isObfuscated)
+            UnreadableText(
+              missionText,
+              style: const TextStyle(fontSize: 13, height: 1.4),
+            )
+          else
+            Text(
+              missionText,
+              style: const TextStyle(fontSize: 13, height: 1.4),
+            ),
           // ヒントボタン（未使用時のみ）
           if (!hintUsed && onHintTap != null) ...[
             const Divider(height: 16),

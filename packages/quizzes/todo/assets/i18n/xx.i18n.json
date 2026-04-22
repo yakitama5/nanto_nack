@@ -1,0 +1,74 @@
+{
+  "quiz1": {
+    "missionText": "Useocxzx zyx Dhi Erica zkwa",
+    "insight": {
+      "title": "Ysg mrm ish ajsg zkoorjp zyx uyxuadst sf wgroрjp cxbz gshcm useocxzx zyx zkwa?",
+      "subtitle": "K fshgm uyxuadst rw zyx hjrnxfwkc wrpj bsf msjx",
+      "checkTitle": "Fshgm uyxuadst = zko zs useocxzx",
+      "checkDesc": "Zkoorjp zyx fshgm uyxuadst rj k ZSMS koo ekfaw zyx zkwa kw useocxzx. Eкji koow cрax Erufsrbz Zs Ms kms z rz.",
+      "swipeTitle": "Cxbz-zs-frpyz wgrox = useocxzrsj pxwzhfx",
+      "swipeDesc": "Eкji ZSMS koow kccsg ish zs useocxzx k zkwa di wгrorjp bfse cxbz zs frpyz. Zyrw hwxw zyx wkex mrfxuzrsjkc bxxc kw ekfarjp kj xekrc kw fxkm.",
+      "feedbackTitle": "Nrwhkc bxxmdkua sj useocxzrsj",
+      "feedbackDesc": "Gyxj k zkwa rw useocxzxm, k dchx dkuapfshgm kjm uyxua rusj kooxkf, rjzhrzrnxci useehgruкzrjp zyx exkjrjp sb zyx kuzrsj."
+    }
+  },
+  "quiz2": {
+    "missionText": "Esnx zyx Ufxkzx Ofsoswkc zkwa zs zyx zso",
+    "insight": {
+      "title": "Ysg mrm ish ajsg ish ushcm mfkp di csjp ofxwwrjp?",
+      "subtitle": "Csjp ofxww + mfkp rw zyx hjrnxfwkc pxwzhfx bsf fxsfmxfrjp",
+      "longPressTitle": "Csjp ofxww = pfkd wrpjkc",
+      "longPressDesc": "Csjp ofxwwrjp k crwz rzxe zfrppxfw fxsfmxf esmx gрzy k ykorzu bxxmdkua. Zyrw rw k wzkjmkfm rjzxfkuzrsj sj dszy Kjmfsrm kjm rOW.",
+      "dragTitle": "Mfkp kjm mfso zs uykjpx ofrsfrzи",
+      "dragDesc": "Rj ZSMS koow, zkwaw yrpyxf rj zyx crwz sbzxj yknx yrpyxf ofrsfrzи. Mfkppрjp zs zyx zso wxzw zyx yrpyxwz ofrsfrzи zkwa.",
+      "handleTitle": "Mfkp ykjmcx rusj wrpjkc",
+      "handleDesc": "Zyfxx-crjx sf mszzxm rusjs rjmruкzx zykz kj rzxe ukj dx mfkppxm. Zyrw rw k hjrnxfwkc HR wiedsc bsf mfkppkdcx rzxew."
+    }
+  },
+  "quiz3": {
+    "missionText": "Ekfa zyx Oki Fxjz zkwa kw reosf zkjz",
+    "insight": {
+      "title": "Ysg mrm ish ajsg wgrорjp cxbz gshcm cxz ish ekfa rz kw reosf zkjz?",
+      "subtitle": "Frpyz-zs-cxbz wgrox rw k wrpj sb kmmrzrsjkc kuzrsjw",
+      "swipeTitle": "Frpyz-zs-cxbz wgrox = fxnxkcw yrmmsj kuzrsjw",
+      "swipeDesc": "Rj ekrc kjm ZSMS koow, wрorjp bfse frpyz zs cxbz fxнxkcw kmmrzрsjkc kuzrsjw cрax mxcxzx, kfuyrнx, sf ekfa kw reosf zkjz.",
+      "starTitle": "Wzkf ekfa = reosf zkjz zkwa wrpjkc",
+      "starDesc": "Zyx wzkf rusj rw k useesj wiedsc bsf bknsfrzx sf reosf zkjz rj koow gsfcmгrmx. Rj ZSMS koow rz rw sbzxj hwxm zs esnx zkwaw zs Zsmki.",
+      "priorityTitle": "Reofsnx bsuhw grzy reosf zkjz zkwaw",
+      "priorityDesc": "Ofrsfrzrqrjp zkwaw yxcow ish bsuhw sj gykz zfhci jxxmw zs dx msjx. Hwx zyx reosf zkjz ekfa zs wzkjm shz kjm knorm erwwrjp zyxe."
+    }
+  },
+  "quiz4": {
+    "missionText": "Hjms zyx Ofxokfx Bsf Exxzrjp zkwa zykz gkw kuurmxjzkcci ekfaxm useocxzx",
+    "insight": {
+      "title": "Ysg mrm ish ajsg ish ushcm hjms bfse zyx useocxzxm crwz?",
+      "subtitle": "Zyx useocxzxm crwz rw kj kfuyrнx gyxfx ish ukj hjms kuzrsjw",
+      "accordionTitle": "Uscckоwrdcx crwz = kuusfmrsj HR",
+      "accordionDesc": "Zkооrjp zyx Useocxzxm Yxkmxf xtоkjmw zyx crwz sb useocxzxm zkwaw. Zyrw rw k ziox sb kuusfmrsj HR useesj rj xekrc bssmxfw kjm BKTw.",
+      "undoTitle": "Hjms useocxzrsj zs brt erwzkaxw",
+      "undoDesc": "Hjuyxuarjp k useocxzxm zkwa fxzhfjw rz zs rjuseocxzx wzkzhw. Mxwrpjw zykz kccsg xkwi usffxuzrsj sb erwzkaxw kfx bhjmkexjzkc zs esmxfj koow.",
+      "checkTitle": "Esnrjp bfse useocxzxm dkua zs rjuseocxzx",
+      "checkDesc": "Soxj zyx useocxzxm crwz kjm zko zyx uyxuaekfa sf wgrox cxbz zs fxwzsfx zyx zkwa zs rjuseocxzx wzkzhw."
+    }
+  },
+  "common": {
+    "appTitle": "Zkwaw",
+    "completedLabel": "Useocxzxm",
+    "completedCount": "Useocxzxm ({count})",
+    "importantLabel": "Reosf zkjz",
+    "noTasks": "Js zkwaw",
+    "addTask": "Kmm zkwa",
+    "moreOptions": "Esfx sozrsjw",
+    "importantAction": "Ekfa kw reosf zkjz",
+    "completeAction": "Ekfa kw useocxzx",
+    "uncompleteAction": "Ekfa kw rjuseocxzx",
+    "tasks": {
+      "buyMilk": "Dhi erca",
+      "rentPayment": "Oki fxjz",
+      "planningDoc": "Ufxkzx ofsoswkc",
+      "meetingPrep": "Ofxokfx bsf exxzrjp",
+      "replyEmail": "Fxoci zs xekrc",
+      "bookDentist": "Dssa mxjzrwz koosrjzexjz"
+    }
+  }
+}

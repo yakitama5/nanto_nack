@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_core/i18n/strings.g.dart';
+import 'unreadable_text.dart';
 
 /// クイズ開始直後に全画面を暗転させてミッションを大きく表示し、
 /// 円形バブルへ縮小するアニメーションで消えるカットイン演出ウィジェット。
@@ -31,6 +32,7 @@ class MissionCutIn extends StatefulWidget {
     required this.onFinished,
     this.displayDuration = const Duration(milliseconds: 3000),
     this.bubbleOffset,
+    this.isObfuscated = false,
   });
 
   /// ミッション説明テキスト
@@ -47,6 +49,9 @@ class MissionCutIn extends StatefulWidget {
 
   /// 縮小先バブルの左上座標（省略時はスクリーンサイズから自動計算）
   final Offset? bubbleOffset;
+
+  /// true のときミッションテキストを [UnreadableText] で難読化して表示する
+  final bool isObfuscated;
 
   @override
   State<MissionCutIn> createState() => _MissionCutInState();
@@ -202,16 +207,26 @@ class _MissionCutInState extends State<MissionCutIn>
                                   borderRadius:
                                       BorderRadius.circular(12),
                                 ),
-                                child: Text(
-                                  widget.missionText,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    height: 1.5,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
+                                child: widget.isObfuscated
+                                    ? UnreadableText(
+                                        widget.missionText,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          height: 1.5,
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      )
+                                    : Text(
+                                        widget.missionText,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          height: 1.5,
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
                               ),
                               const SizedBox(height: 20),
                               Text(

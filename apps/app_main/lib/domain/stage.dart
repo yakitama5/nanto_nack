@@ -23,6 +23,7 @@ enum GenericQuizStage {
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz1,
             QuizCategory.sns => t.play.stageTitle.sns_quiz1,
             QuizCategory.comic => t.play.stageTitle.comic_quiz1,
+            QuizCategory.todo => t.play.stageTitle.todo_quiz1,
           },
         quiz2 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz2,
@@ -36,6 +37,7 @@ enum GenericQuizStage {
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz2,
             QuizCategory.sns => t.play.stageTitle.sns_quiz2,
             QuizCategory.comic => t.play.stageTitle.comic_quiz2,
+            QuizCategory.todo => t.play.stageTitle.todo_quiz2,
           },
         quiz3 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz3,
@@ -49,6 +51,7 @@ enum GenericQuizStage {
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz3,
             QuizCategory.sns => t.play.stageTitle.sns_quiz3,
             QuizCategory.comic => t.play.stageTitle.comic_quiz3,
+            QuizCategory.todo => t.play.stageTitle.todo_quiz3,
           },
         quiz4 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz4,
@@ -62,6 +65,7 @@ enum GenericQuizStage {
             QuizCategory.calendar => t.play.stageTitle.calendar_quiz4,
             QuizCategory.sns => t.play.stageTitle.sns_quiz4,
             QuizCategory.comic => t.play.stageTitle.comic_quiz4,
+            QuizCategory.todo => t.play.stageTitle.todo_quiz4,
           },
       };
 
@@ -268,6 +272,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     id: 'mail_quiz4',
     category: QuizCategory.mail,
     routePath: kMailQuiz4Path,
+    difficulty: 4,
+  ),
+  // TODOカテゴリー
+  const Stage(
+    id: 'todo_quiz1',
+    category: QuizCategory.todo,
+    routePath: kTodoQuiz1Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'todo_quiz2',
+    category: QuizCategory.todo,
+    routePath: kTodoQuiz2Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'todo_quiz3',
+    category: QuizCategory.todo,
+    routePath: kTodoQuiz3Path,
+    difficulty: 3,
+  ),
+  const Stage(
+    id: 'todo_quiz4',
+    category: QuizCategory.todo,
+    routePath: kTodoQuiz4Path,
     difficulty: 4,
   ),
   // ニュースカテゴリー

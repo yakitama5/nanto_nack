@@ -337,6 +337,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get calendar => 'Calendar';
 	@override String get sns => 'SNS';
 	@override String get comic => 'Manga App';
+	@override String get todo => 'TODO App';
 }
 
 // Path: play.categoryDescription
@@ -357,6 +358,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get calendar => 'Experience calendar app UI/UX';
 	@override String get sns => 'Experience social media app UI/UX';
 	@override String get comic => 'Master manga app operations';
+	@override String get todo => 'Experience task management app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -410,6 +412,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get comic_quiz2 => 'Zoom In';
 	@override String get comic_quiz3 => 'Show the Menu';
 	@override String get comic_quiz4 => 'Support the Creator';
+	@override String get todo_quiz1 => 'Complete Buy Milk';
+	@override String get todo_quiz2 => 'Move Create Proposal to Top';
+	@override String get todo_quiz3 => 'Mark Pay Rent as Important';
+	@override String get todo_quiz4 => 'Undo Prepare for Meeting';
 }
 
 // Path: play.stageDescription
@@ -463,6 +469,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get comic_quiz2 => 'Zoom in to read the small text';
 	@override String get comic_quiz3 => 'Show the menu in the manga app';
 	@override String get comic_quiz4 => 'Tap the support button 10 times';
+	@override String get todo_quiz1 => 'Mark the Buy Milk task as complete';
+	@override String get todo_quiz2 => 'Drag and drop to move Create Proposal to the top';
+	@override String get todo_quiz3 => 'Swipe left on Pay Rent and tap the star to mark as important';
+	@override String get todo_quiz4 => 'Open the completed list and uncheck Prepare for Meeting';
 }
 
 // Path: scene.greeting
@@ -627,6 +637,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.calendar' => 'Calendar',
 			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryLabel.comic' => 'Manga App',
+			'play.categoryLabel.todo' => 'TODO App',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -638,6 +649,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.calendar' => 'Experience calendar app UI/UX',
 			'play.categoryDescription.sns' => 'Experience social media app UI/UX',
 			'play.categoryDescription.comic' => 'Master manga app operations',
+			'play.categoryDescription.todo' => 'Experience task management app UI/UX',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -682,6 +694,10 @@ extension on TranslationsEn {
 			'play.stageTitle.comic_quiz2' => 'Zoom In',
 			'play.stageTitle.comic_quiz3' => 'Show the Menu',
 			'play.stageTitle.comic_quiz4' => 'Support the Creator',
+			'play.stageTitle.todo_quiz1' => 'Complete Buy Milk',
+			'play.stageTitle.todo_quiz2' => 'Move Create Proposal to Top',
+			'play.stageTitle.todo_quiz3' => 'Mark Pay Rent as Important',
+			'play.stageTitle.todo_quiz4' => 'Undo Prepare for Meeting',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -726,6 +742,10 @@ extension on TranslationsEn {
 			'play.stageDescription.comic_quiz2' => 'Zoom in to read the small text',
 			'play.stageDescription.comic_quiz3' => 'Show the menu in the manga app',
 			'play.stageDescription.comic_quiz4' => 'Tap the support button 10 times',
+			'play.stageDescription.todo_quiz1' => 'Mark the Buy Milk task as complete',
+			'play.stageDescription.todo_quiz2' => 'Drag and drop to move Create Proposal to the top',
+			'play.stageDescription.todo_quiz3' => 'Swipe left on Pay Rent and tap the star to mark as important',
+			'play.stageDescription.todo_quiz4' => 'Open the completed list and uncheck Prepare for Meeting',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

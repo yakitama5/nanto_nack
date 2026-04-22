@@ -562,6 +562,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: '漫画アプリ'
 	String get comic => '漫画アプリ';
+
+	/// ja: 'タスク管理'
+	String get todo => 'タスク管理';
 }
 
 // Path: play.categoryDescription
@@ -604,6 +607,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: '漫画アプリの操作をマスターしよう'
 	String get comic => '漫画アプリの操作をマスターしよう';
+
+	/// ja: 'TODOアプリのUI/UXを体験しよう'
+	String get todo => 'TODOアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -745,6 +751,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '作者を応援する'
 	String get comic_quiz4 => '作者を応援する';
+
+	/// ja: '『牛乳を買う』タスクを完了にしよう'
+	String get todo_quiz1 => '『牛乳を買う』タスクを完了にしよう';
+
+	/// ja: '『企画書の作成』を一番上に移動しよう'
+	String get todo_quiz2 => '『企画書の作成』を一番上に移動しよう';
+
+	/// ja: '『家賃の振り込み』を重要タスクにしよう'
+	String get todo_quiz3 => '『家賃の振り込み』を重要タスクにしよう';
+
+	/// ja: '間違えて完了にしたタスクを元に戻そう'
+	String get todo_quiz4 => '間違えて完了にしたタスクを元に戻そう';
 }
 
 // Path: play.stageDescription
@@ -886,6 +904,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '応援ボタンを10回連打しよう'
 	String get comic_quiz4 => '応援ボタンを10回連打しよう';
+
+	/// ja: 'タスクをタップするか左スワイプで完了にしてください'
+	String get todo_quiz1 => 'タスクをタップするか左スワイプで完了にしてください';
+
+	/// ja: 'タスクを長押ししてドラッグし、一番上に移動してください'
+	String get todo_quiz2 => 'タスクを長押ししてドラッグし、一番上に移動してください';
+
+	/// ja: 'タスクを右から左にスワイプして星マークをタップしてください'
+	String get todo_quiz3 => 'タスクを右から左にスワイプして星マークをタップしてください';
+
+	/// ja: '完了済みリストを開いてチェックを外してください'
+	String get todo_quiz4 => '完了済みリストを開いてチェックを外してください';
 }
 
 // Path: scene.greeting
@@ -1112,6 +1142,7 @@ extension on Translations {
 			'play.categoryLabel.calendar' => 'カレンダー',
 			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryLabel.comic' => '漫画アプリ',
+			'play.categoryLabel.todo' => 'タスク管理',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1123,6 +1154,7 @@ extension on Translations {
 			'play.categoryDescription.calendar' => 'カレンダーアプリのUI/UXを体験しよう',
 			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
 			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
+			'play.categoryDescription.todo' => 'TODOアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1167,6 +1199,10 @@ extension on Translations {
 			'play.stageTitle.comic_quiz2' => '画面を拡大する',
 			'play.stageTitle.comic_quiz3' => 'メニューを表示する',
 			'play.stageTitle.comic_quiz4' => '作者を応援する',
+			'play.stageTitle.todo_quiz1' => '『牛乳を買う』タスクを完了にしよう',
+			'play.stageTitle.todo_quiz2' => '『企画書の作成』を一番上に移動しよう',
+			'play.stageTitle.todo_quiz3' => '『家賃の振り込み』を重要タスクにしよう',
+			'play.stageTitle.todo_quiz4' => '間違えて完了にしたタスクを元に戻そう',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1211,6 +1247,10 @@ extension on Translations {
 			'play.stageDescription.comic_quiz2' => '小さな文字を読めるよう拡大しよう',
 			'play.stageDescription.comic_quiz3' => 'メニューを表示してみよう',
 			'play.stageDescription.comic_quiz4' => '応援ボタンを10回連打しよう',
+			'play.stageDescription.todo_quiz1' => 'タスクをタップするか左スワイプで完了にしてください',
+			'play.stageDescription.todo_quiz2' => 'タスクを長押ししてドラッグし、一番上に移動してください',
+			'play.stageDescription.todo_quiz3' => 'タスクを右から左にスワイプして星マークをタップしてください',
+			'play.stageDescription.todo_quiz4' => '完了済みリストを開いてチェックを外してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',
