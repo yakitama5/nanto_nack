@@ -21,6 +21,24 @@ class $AssetsImagesGen {
 class $AssetsLauncherIconGen {
   const $AssetsLauncherIconGen();
 
+  /// File path: assets/launcher_icon/icon_adaptive_dev.png
+  AssetGenImage get iconAdaptiveDev =>
+      const AssetGenImage('assets/launcher_icon/icon_adaptive_dev.png');
+
+  /// File path: assets/launcher_icon/icon_adaptive_monochrome_dev.png
+  AssetGenImage get iconAdaptiveMonochromeDev => const AssetGenImage(
+    'assets/launcher_icon/icon_adaptive_monochrome_dev.png',
+  );
+
+  /// File path: assets/launcher_icon/icon_adaptive_monochrome_prod.png
+  AssetGenImage get iconAdaptiveMonochromeProd => const AssetGenImage(
+    'assets/launcher_icon/icon_adaptive_monochrome_prod.png',
+  );
+
+  /// File path: assets/launcher_icon/icon_adaptive_prod.png
+  AssetGenImage get iconAdaptiveProd =>
+      const AssetGenImage('assets/launcher_icon/icon_adaptive_prod.png');
+
   /// File path: assets/launcher_icon/icon_dev.png
   AssetGenImage get iconDev =>
       const AssetGenImage('assets/launcher_icon/icon_dev.png');
@@ -30,7 +48,14 @@ class $AssetsLauncherIconGen {
       const AssetGenImage('assets/launcher_icon/icon_prod.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [iconDev, iconProd];
+  List<AssetGenImage> get values => [
+    iconAdaptiveDev,
+    iconAdaptiveMonochromeDev,
+    iconAdaptiveMonochromeProd,
+    iconAdaptiveProd,
+    iconDev,
+    iconProd,
+  ];
 }
 
 class $AssetsLottieGen {
