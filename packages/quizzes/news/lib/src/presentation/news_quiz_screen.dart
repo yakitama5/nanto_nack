@@ -19,25 +19,10 @@ class NewsQuizScreen extends ConsumerStatefulWidget {
     super.key,
     required this.type,
     this.onCompleted,
-    this.onBack,
-    this.onRestart,
   });
 
   final NewsQuizType type;
   final VoidCallback? onCompleted;
-
-  /// リザルトの「戻る」タップ時に呼ばれるコールバック。
-  ///
-  /// GoRouter 経由で遷移している場合は [context.pop] を渡すこと。
-  /// Navigator スタック上に _ArticleDetailPage が積まれていても
-  /// GoRouter レベルで一括クリアできる。
-  final VoidCallback? onBack;
-
-  /// リザルトの「もう一度」タップ時に呼ばれるコールバック。
-  ///
-  /// GoRouter 経由で遷移している場合は [context.pushReplacement] を渡すこと。
-  /// 詳細画面を含む Navigator スタックを丸ごと置き換えて再スタートできる。
-  final VoidCallback? onRestart;
 
   @override
   ConsumerState<NewsQuizScreen> createState() => _NewsQuizScreenState();
@@ -47,6 +32,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     with TickerProviderStateMixin {
   bool _showCutIn = true;
   bool _resultOverlayShown = false;
+  bool _isLimitReached = false;
 
   NewsQuizType get _type => widget.type;
 
@@ -103,6 +89,10 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     final notifier = ref.read(newsQuizProvider(_type).notifier);
     final newsTheme = Theme.of(context).extension<NewsAppTheme>()!;
 
+    // isPlayLimitReachedProvider を build() 内で watch することで、
+    // overlay 表示タイミングに最新値が取得できる状態を保証する。
+    _isLimitReached = ref.isPlayLimitReached;
+
     // rootNavigator 経由でリザルトオーバーレイを最前面に表示する。
     // Navigator.push した詳細ページが開いている場合もオーバーレイが上に被さる。
     ref.listen(newsQuizProvider(_type).select((s) => s.status), (prev, next) {
@@ -113,6 +103,7 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
       if (!done || _resultOverlayShown) return;
       _resultOverlayShown = true;
       final currentState = ref.read(newsQuizProvider(_type));
+      final isLimitReached = _isLimitReached;
       Navigator.of(context, rootNavigator: true).push(
         PageRouteBuilder<void>(
           opaque: false,
@@ -123,10 +114,11 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
             elapsedMs: currentState.elapsedMs,
             onRetry: () {
               Navigator.of(context, rootNavigator: true).pop();
-              // UI フラグをリセット
-              _showCutIn = true;
-              _resultOverlayShown = false;
-              widget.onRestart?.call();
+              setState(() {
+                _showCutIn = true;
+                _resultOverlayShown = false;
+              });
+              notifier.retry();
             },
             onNext: next == QuizStatus.correct
                 ? () {
@@ -136,9 +128,9 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
                 : null,
             onBack: () {
               Navigator.of(context, rootNavigator: true).pop();
-              widget.onBack?.call();
+              Navigator.of(context).pop();
             },
-            isLimitReached: ref.isPlayLimitReached,
+            isLimitReached: isLimitReached,
             insight: _buildInsight(),
           ),
         ),
@@ -415,6 +407,7 @@ class _NewsAppBar extends ConsumerWidget implements PreferredSizeWidget {
     final sq = context.sq;
 
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: newsTheme.tabBarBackground,
       foregroundColor: newsTheme.textPrimary,
       elevation: 1,

@@ -7,6 +7,7 @@ import 'package:todo/src/presentation/todo_quiz_notifier.dart';
 import 'package:todo/src/presentation/todo_quiz_state.dart';
 import 'package:todo/src/presentation/todo_quiz_type.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:system/system.dart';
 
 /// TODOアプリ謎解きの共通画面。
 ///
@@ -18,18 +19,10 @@ class TodoQuizScreen extends ConsumerStatefulWidget {
     super.key,
     required this.type,
     this.onCompleted,
-    this.onBack,
-    this.onRestart,
   });
 
   final TodoQuizType type;
   final VoidCallback? onCompleted;
-
-  /// リザルトの「戻る」タップ時に呼ばれるコールバック。
-  final VoidCallback? onBack;
-
-  /// リザルトの「もう一度」タップ時に呼ばれるコールバック。
-  final VoidCallback? onRestart;
 
   @override
   ConsumerState<TodoQuizScreen> createState() => _TodoQuizScreenState();
@@ -37,7 +30,6 @@ class TodoQuizScreen extends ConsumerStatefulWidget {
 
 class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
   bool _showCutIn = true;
-  bool _resultOverlayShown = false;
 
   TodoQuizType get _type => widget.type;
 
@@ -57,51 +49,6 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
     final notifier = ref.read(todoQuizProvider(_type).notifier);
     final todoTheme = Theme.of(context).extension<TodoAppTheme>()!;
 
-    // rootNavigator 経由でリザルトオーバーレイを最前面に表示する。
-    ref.listen(todoQuizProvider(_type).select((s) => s.status), (prev, next) {
-      final done =
-          next == QuizStatus.correct ||
-          next == QuizStatus.giveUp ||
-          next == QuizStatus.timeUp;
-      if (!done || _resultOverlayShown) return;
-      _resultOverlayShown = true;
-      final currentState = ref.read(todoQuizProvider(_type));
-      Navigator.of(context, rootNavigator: true).push(
-        PageRouteBuilder<void>(
-          opaque: false,
-          barrierColor: Colors.transparent,
-          pageBuilder: (_, __, ___) => QuizResultOverlay(
-            status: next,
-            score: currentState.score,
-            elapsedMs: currentState.elapsedMs,
-            onRetry: () {
-              Navigator.of(context, rootNavigator: true).pop();
-              setState(() {
-                _showCutIn = true;
-                _resultOverlayShown = false;
-              });
-              if (widget.onRestart != null) {
-                widget.onRestart!.call();
-              } else {
-                notifier.startQuiz();
-              }
-            },
-            onNext: next == QuizStatus.correct
-                ? () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    widget.onCompleted?.call();
-                  }
-                : null,
-            onBack: () {
-              Navigator.of(context, rootNavigator: true).pop();
-              widget.onBack?.call();
-            },
-            insight: _buildInsight(),
-          ),
-        ),
-      );
-    });
-
     return QuizExitScope(
       quizStatus: state.status,
       child: Stack(
@@ -109,6 +56,7 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
           Scaffold(
             backgroundColor: todoTheme.scaffoldBackground,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: todoTheme.appBarBackground,
               foregroundColor: todoTheme.textPrimary,
               elevation: 0,
@@ -154,6 +102,26 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
               missionText: missionText,
               timeLimitSeconds: TodoQuizConfig.timeLimitSeconds,
               onFinished: () => setState(() => _showCutIn = false),
+            ),
+          if (state.status == QuizStatus.correct ||
+              state.status == QuizStatus.timeUp ||
+              state.status == QuizStatus.giveUp)
+            Positioned.fill(
+              child: QuizResultOverlay(
+                status: state.status,
+                score: state.score,
+                elapsedMs: state.elapsedMs,
+                onRetry: () {
+                  setState(() => _showCutIn = true);
+                  notifier.retry();
+                },
+                onNext: state.status == QuizStatus.correct
+                    ? widget.onCompleted
+                    : null,
+                onBack: () => Navigator.of(context).pop(),
+                isLimitReached: ref.isPlayLimitReached,
+                insight: _buildInsight(),
+              ),
             ),
         ],
       ),
