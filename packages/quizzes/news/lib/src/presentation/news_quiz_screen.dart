@@ -19,25 +19,10 @@ class NewsQuizScreen extends ConsumerStatefulWidget {
     super.key,
     required this.type,
     this.onCompleted,
-    this.onBack,
-    this.onRestart,
   });
 
   final NewsQuizType type;
   final VoidCallback? onCompleted;
-
-  /// リザルトの「戻る」タップ時に呼ばれるコールバック。
-  ///
-  /// GoRouter 経由で遷移している場合は [context.pop] を渡すこと。
-  /// Navigator スタック上に _ArticleDetailPage が積まれていても
-  /// GoRouter レベルで一括クリアできる。
-  final VoidCallback? onBack;
-
-  /// リザルトの「もう一度」タップ時に呼ばれるコールバック。
-  ///
-  /// GoRouter 経由で遷移している場合は [context.pushReplacement] を渡すこと。
-  /// 詳細画面を含む Navigator スタックを丸ごと置き換えて再スタートできる。
-  final VoidCallback? onRestart;
 
   @override
   ConsumerState<NewsQuizScreen> createState() => _NewsQuizScreenState();
@@ -46,7 +31,13 @@ class NewsQuizScreen extends ConsumerStatefulWidget {
 class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     with TickerProviderStateMixin {
   bool _showCutIn = true;
-  bool _resultOverlayShown = false;
+
+  /// 記事詳細を Stack 内でインライン表示するための状態。
+  /// Navigator.push を使わないことで、FloatingMissionBubble が詳細画面上にも表示され続ける。
+  NewsArticle? _selectedArticle;
+
+  bool _isConfirmDialogOpen = false;
+  bool _isExiting = false;
 
   NewsQuizType get _type => widget.type;
 
@@ -103,50 +94,32 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
     final notifier = ref.read(newsQuizProvider(_type).notifier);
     final newsTheme = Theme.of(context).extension<NewsAppTheme>()!;
 
-    // rootNavigator 経由でリザルトオーバーレイを最前面に表示する。
-    // Navigator.push した詳細ページが開いている場合もオーバーレイが上に被さる。
-    ref.listen(newsQuizProvider(_type).select((s) => s.status), (prev, next) {
-      final done =
-          next == QuizStatus.correct ||
-          next == QuizStatus.giveUp ||
-          next == QuizStatus.timeUp;
-      if (!done || _resultOverlayShown) return;
-      _resultOverlayShown = true;
-      final currentState = ref.read(newsQuizProvider(_type));
-      Navigator.of(context, rootNavigator: true).push(
-        PageRouteBuilder<void>(
-          opaque: false,
-          barrierColor: Colors.transparent,
-          pageBuilder: (_, __, ___) => QuizResultOverlay(
-            status: next,
-            score: currentState.score,
-            elapsedMs: currentState.elapsedMs,
-            onRetry: () {
-              Navigator.of(context, rootNavigator: true).pop();
-              // UI フラグをリセット
-              _showCutIn = true;
-              _resultOverlayShown = false;
-              widget.onRestart?.call();
-            },
-            onNext: next == QuizStatus.correct
-                ? () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    widget.onCompleted?.call();
-                  }
-                : null,
-            onBack: () {
-              Navigator.of(context, rootNavigator: true).pop();
-              widget.onBack?.call();
-            },
-            isLimitReached: ref.isPlayLimitReached,
-            insight: _buildInsight(),
-          ),
-        ),
-      );
-    });
-
-    return QuizExitScope(
-      quizStatus: state.status,
+    // 記事詳細が開いている場合はバックで詳細を閉じ、
+    // プレイ中かつ詳細が閉じている場合は退出確認ダイアログを表示する。
+    return PopScope(
+      canPop:
+          (state.status != QuizStatus.playing || _isExiting) &&
+          _selectedArticle == null,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        if (_selectedArticle != null) {
+          setState(() => _selectedArticle = null);
+          return;
+        }
+        if (_isConfirmDialogOpen) return;
+        setState(() => _isConfirmDialogOpen = true);
+        try {
+          final confirmed = await QuizExitScope.showConfirmDialog(context);
+          if (confirmed == true && mounted) {
+            setState(() => _isExiting = true);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) Navigator.of(context).pop();
+            });
+          }
+        } finally {
+          if (mounted) setState(() => _isConfirmDialogOpen = false);
+        }
+      },
       child: Stack(
         children: [
           Scaffold(
@@ -160,6 +133,16 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
             ),
             body: _buildBody(state: state, notifier: notifier),
           ),
+          // 記事詳細を Stack 内でインライン表示（Navigator.push 不使用）。
+          // FloatingMissionBubble が詳細画面に重なって常時表示される。
+          if (_selectedArticle != null)
+            Positioned.fill(
+              child: _ArticleDetailPage(
+                article: _selectedArticle!,
+                type: _type,
+                onBack: () => setState(() => _selectedArticle = null),
+              ),
+            ),
           if (state.status == QuizStatus.playing)
             FloatingMissionBubble(
               missionText: missionText,
@@ -174,6 +157,29 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
               missionText: missionText,
               timeLimitSeconds: NewsQuizConfig.timeLimitSeconds,
               onFinished: () => setState(() => _showCutIn = false),
+            ),
+          if (state.status == QuizStatus.correct ||
+              state.status == QuizStatus.timeUp ||
+              state.status == QuizStatus.giveUp)
+            Positioned.fill(
+              child: QuizResultOverlay(
+                status: state.status,
+                score: state.score,
+                elapsedMs: state.elapsedMs,
+                onRetry: () {
+                  setState(() {
+                    _showCutIn = true;
+                    _selectedArticle = null;
+                  });
+                  notifier.retry();
+                },
+                onNext: state.status == QuizStatus.correct
+                    ? widget.onCompleted
+                    : null,
+                onBack: () => Navigator.of(context).pop(),
+                isLimitReached: ref.isPlayLimitReached,
+                insight: _buildInsight(),
+              ),
             ),
         ],
       ),
@@ -236,25 +242,13 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
                     final article = articles[index];
                     return _NewsListItem(
                       article: article,
-                      onTap: () => _openArticleDetail(article),
+                      onTap: () => setState(() => _selectedArticle = article),
                       onHide: () => _hideArticle(article.id),
                     );
                   },
                 ),
         );
       },
-    );
-  }
-
-  void _openArticleDetail(NewsArticle article) {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (_) => _ArticleDetailPage(
-          article: article,
-          type: _type,
-        ),
-      ),
     );
   }
 
@@ -415,6 +409,7 @@ class _NewsAppBar extends ConsumerWidget implements PreferredSizeWidget {
     final sq = context.sq;
 
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: newsTheme.tabBarBackground,
       foregroundColor: newsTheme.textPrimary,
       elevation: 1,
@@ -575,17 +570,19 @@ class _NewsListItem extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────
-// 記事詳細ページ（Navigator.push で遷移）
+// 記事詳細ページ（Stack 内インライン表示）
 // ─────────────────────────────────────────────
 
 class _ArticleDetailPage extends ConsumerWidget {
   const _ArticleDetailPage({
     required this.article,
     required this.type,
+    required this.onBack,
   });
 
   final NewsArticle article;
   final NewsQuizType type;
+  final VoidCallback onBack;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -603,8 +600,13 @@ class _ArticleDetailPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: newsTheme.scaffoldBackground,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: newsTheme.tabBarBackground,
         foregroundColor: newsTheme.textPrimary,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: onBack,
+        ),
         title: Text(
           sq.common.articleDetailTitle,
           style: TextStyle(color: newsTheme.textPrimary),
