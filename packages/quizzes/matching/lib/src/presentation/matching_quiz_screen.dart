@@ -402,6 +402,8 @@ class _ProfileCardWidget extends StatelessWidget {
           Image.network(
             imageUrl,
             fit: BoxFit.cover,
+            // ロード中も前の画像を維持し、後ろのカードが透けて見えるのを防ぐ
+            gaplessPlayback: true,
             errorBuilder: (context, error, stackTrace) => Container(
               color: matchingTheme.cardBackground,
               child: Icon(
