@@ -152,11 +152,10 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
             controller: _cardSwiperController,
             cardsCount: profiles.length,
             // autoPlay は false（ユーザー操作のみ）
-            isLoop: false,
+            isLoop: true,
             cardBuilder: (context, index, horizontalOffsetPercentage, verticalOffsetPercentage) {
               final profile = profiles[index];
-              // index == 0 がトップカード（一番前）
-              final isTopCard = index == 0;
+              final isTopCard = index == state.matchingApp.currentCardIndex;
               return _ProfileCardWidget(
                 profile: profile,
                 currentImageIndex: isTopCard
@@ -167,7 +166,9 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
               );
             },
             onSwipe: (previousIndex, currentIndex, direction) {
-              notifier.resetImageIndex();
+              if (currentIndex != null) {
+                notifier.onCardSwiped(currentIndex);
+              }
               switch (direction) {
                 case CardSwiperDirection.right:
                   notifier.swipeRight(profiles[previousIndex].id);

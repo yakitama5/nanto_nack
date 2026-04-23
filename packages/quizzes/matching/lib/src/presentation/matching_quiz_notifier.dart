@@ -149,7 +149,7 @@ class MatchingQuizNotifier
     if (state.status != QuizStatus.playing) return;
     final profiles = state.matchingApp.profiles;
     if (profiles.isEmpty) return;
-    final currentProfile = profiles.first;
+    final currentProfile = profiles[state.matchingApp.currentCardIndex];
     final nextIndex = state.matchingApp.currentImageIndex + 1;
     if (nextIndex >= currentProfile.imageUrls.length) return; // 最後の写真の場合は何もしない
     state = state.copyWith(
@@ -170,11 +170,17 @@ class MatchingQuizNotifier
     );
   }
 
-  /// スワイプ時にインデックスを 0 にリセットする。
-  void resetImageIndex() {
-    if (state.matchingApp.currentImageIndex == 0) return; // 冪等ガード
+  /// スワイプ完了時に呼び出す。トップカードのインデックスと写真インデックスを同時に更新する。
+  void onCardSwiped(int newTopCardIndex) {
+    if (state.status != QuizStatus.playing) return;
+    final alreadyUpdated = state.matchingApp.currentCardIndex == newTopCardIndex &&
+        state.matchingApp.currentImageIndex == 0;
+    if (alreadyUpdated) return; // 冪等ガード
     state = state.copyWith(
-      matchingApp: state.matchingApp.copyWith(currentImageIndex: 0),
+      matchingApp: state.matchingApp.copyWith(
+        currentCardIndex: newTopCardIndex,
+        currentImageIndex: 0,
+      ),
     );
   }
 
