@@ -565,6 +565,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: 'タスク管理'
 	String get todo => 'タスク管理';
+
+	/// ja: 'マッチング'
+	String get matching => 'マッチング';
 }
 
 // Path: play.categoryDescription
@@ -610,6 +613,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: 'TODOアプリのUI/UXを体験しよう'
 	String get todo => 'TODOアプリのUI/UXを体験しよう';
+
+	/// ja: 'マッチングアプリのUI/UXを体験しよう'
+	String get matching => 'マッチングアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -763,6 +769,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '間違えて完了にしたタスクを元に戻そう'
 	String get todo_quiz4 => '間違えて完了にしたタスクを元に戻そう';
+
+	/// ja: '素敵な人に『いいね』しよう'
+	String get matching_quiz1 => '素敵な人に『いいね』しよう';
+
+	/// ja: '気が合わなそう……スキップしよう'
+	String get matching_quiz2 => '気が合わなそう……スキップしよう';
+
+	/// ja: '2枚目の写真を見てみよう'
+	String get matching_quiz3 => '2枚目の写真を見てみよう';
+
+	/// ja: '運命の出会い！『超いいね』を送ろう'
+	String get matching_quiz4 => '運命の出会い！『超いいね』を送ろう';
 }
 
 // Path: play.stageDescription
@@ -916,6 +934,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '完了済みリストを開いてチェックを外してください'
 	String get todo_quiz4 => '完了済みリストを開いてチェックを外してください';
+
+	/// ja: '気になるプロフィールを右にスワイプしていいねしてください'
+	String get matching_quiz1 => '気になるプロフィールを右にスワイプしていいねしてください';
+
+	/// ja: '左にスワイプしてスキップしてください'
+	String get matching_quiz2 => '左にスワイプしてスキップしてください';
+
+	/// ja: 'プロフィールカードの右半分をタップして2枚目の写真を見てください'
+	String get matching_quiz3 => 'プロフィールカードの右半分をタップして2枚目の写真を見てください';
+
+	/// ja: '上にスワイプして超いいねを送ってください'
+	String get matching_quiz4 => '上にスワイプして超いいねを送ってください';
 }
 
 // Path: scene.greeting
@@ -1143,6 +1173,7 @@ extension on Translations {
 			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryLabel.comic' => '漫画アプリ',
 			'play.categoryLabel.todo' => 'タスク管理',
+			'play.categoryLabel.matching' => 'マッチング',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1155,6 +1186,7 @@ extension on Translations {
 			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
 			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
 			'play.categoryDescription.todo' => 'TODOアプリのUI/UXを体験しよう',
+			'play.categoryDescription.matching' => 'マッチングアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1203,6 +1235,10 @@ extension on Translations {
 			'play.stageTitle.todo_quiz2' => '『企画書の作成』を一番上に移動しよう',
 			'play.stageTitle.todo_quiz3' => '『家賃の振り込み』を重要タスクにしよう',
 			'play.stageTitle.todo_quiz4' => '間違えて完了にしたタスクを元に戻そう',
+			'play.stageTitle.matching_quiz1' => '素敵な人に『いいね』しよう',
+			'play.stageTitle.matching_quiz2' => '気が合わなそう……スキップしよう',
+			'play.stageTitle.matching_quiz3' => '2枚目の写真を見てみよう',
+			'play.stageTitle.matching_quiz4' => '運命の出会い！『超いいね』を送ろう',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1251,6 +1287,10 @@ extension on Translations {
 			'play.stageDescription.todo_quiz2' => 'タスクを長押ししてドラッグし、一番上に移動してください',
 			'play.stageDescription.todo_quiz3' => 'タスクを右から左にスワイプして星マークをタップしてください',
 			'play.stageDescription.todo_quiz4' => '完了済みリストを開いてチェックを外してください',
+			'play.stageDescription.matching_quiz1' => '気になるプロフィールを右にスワイプしていいねしてください',
+			'play.stageDescription.matching_quiz2' => '左にスワイプしてスキップしてください',
+			'play.stageDescription.matching_quiz3' => 'プロフィールカードの右半分をタップして2枚目の写真を見てください',
+			'play.stageDescription.matching_quiz4' => '上にスワイプして超いいねを送ってください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

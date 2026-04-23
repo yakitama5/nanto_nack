@@ -115,7 +115,8 @@
       "calendar": "Calendar",
       "sns": "SNS",
       "comic": "Manga App",
-      "todo": "TODO App"
+      "todo": "TODO App",
+      "matching": "Matching"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -129,7 +130,8 @@
       "calendar": "Experience calendar app UI/UX",
       "sns": "Experience social media app UI/UX",
       "comic": "Master manga app operations",
-      "todo": "Experience task management app UI/UX"
+      "todo": "Experience task management app UI/UX",
+      "matching": "Experience matching app UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -179,7 +181,11 @@
       "todo_quiz1": "Complete Buy Milk",
       "todo_quiz2": "Move Create Proposal to Top",
       "todo_quiz3": "Mark Pay Rent as Important",
-      "todo_quiz4": "Undo Prepare for Meeting"
+      "todo_quiz4": "Undo Prepare for Meeting",
+      "matching_quiz1": "Like someone you're interested in",
+      "matching_quiz2": "Not quite your type... skip them",
+      "matching_quiz3": "View the second photo",
+      "matching_quiz4": "Your destiny! Send a Super Like"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -229,7 +235,11 @@
       "todo_quiz1": "Mark the Buy Milk task as complete",
       "todo_quiz2": "Drag and drop to move Create Proposal to the top",
       "todo_quiz3": "Swipe left on Pay Rent and tap the star to mark as important",
-      "todo_quiz4": "Open the completed list and uncheck Prepare for Meeting"
+      "todo_quiz4": "Open the completed list and uncheck Prepare for Meeting",
+      "matching_quiz1": "Swipe right on a profile you like",
+      "matching_quiz2": "Swipe left to skip",
+      "matching_quiz3": "Tap the right half of the profile card to see the second photo",
+      "matching_quiz4": "Swipe up to send a Super Like"
     }
   },
   "scene": {

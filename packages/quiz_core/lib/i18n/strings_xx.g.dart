@@ -338,6 +338,7 @@ class _TranslationsPlayCategoryLabelXx extends TranslationsPlayCategoryLabelJa {
 	@override String get sns => 'SNS';
 	@override String get comic => '漫画アプリ';
 	@override String get todo => 'タスク管理';
+	@override String get matching => 'Ekzuyrjp';
 }
 
 // Path: play.categoryDescription
@@ -359,6 +360,7 @@ class _TranslationsPlayCategoryDescriptionXx extends TranslationsPlayCategoryDes
 	@override String get sns => 'SNSアプリのUI/UXを体験しよう';
 	@override String get comic => '漫画アプリの操作をマスターしよう';
 	@override String get todo => 'ZSMS koo HR/HT xtoxfrxjux';
+	@override String get matching => 'Ekzuyrjp koo HR/HT xtoxfrxjux';
 }
 
 // Path: play.stageTitle
@@ -416,6 +418,10 @@ class _TranslationsPlayStageTitleXx extends TranslationsPlayStageTitleJa {
 	@override String get todo_quiz2 => '『企画書の作成』を一番上に移動しよう';
 	@override String get todo_quiz3 => '『家賃の振り込み』を重要タスクにしよう';
 	@override String get todo_quiz4 => '間違えて完了にしたタスクを元に戻そう';
+	@override String get matching_quiz1 => 'Crax wsexsjx ish\'fх rjzxfxwzxm rj';
+	@override String get matching_quiz2 => 'Jsz lhrzx ishf zioх... waро zyxe';
+	@override String get matching_quiz3 => 'Nrxg zyx wxusjm oyszs';
+	@override String get matching_quiz4 => 'Ishf mxwzrji! Wxjm k Whoef Crax';
 }
 
 // Path: play.stageDescription
@@ -469,6 +475,10 @@ class _TranslationsPlayStageDescriptionXx extends TranslationsPlayStageDescripti
 	@override String get todo_quiz2 => 'タスクを長押ししてドラッグし、一番上に移動してください';
 	@override String get todo_quiz3 => 'タスクを右から左にスワイプして星マークをタップしてください';
 	@override String get todo_quiz4 => '完了済みリストを開いてチェックを外してください';
+	@override String get matching_quiz1 => 'Wgrox frpyz sj k ofsbrcх ish crax';
+	@override String get matching_quiz2 => 'Wgrox cxbz zs waро';
+	@override String get matching_quiz3 => 'Zko zyx frpyz ykcb sb zyx ofsbrcх ukfm zs wxx zyx wxusjm oyszs';
+	@override String get matching_quiz4 => 'Wgrox ho zs wxjm k Whoef Crax';
 }
 
 // Path: scene.greeting
@@ -634,6 +644,7 @@ extension on TranslationsXx {
 			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryLabel.comic' => '漫画アプリ',
 			'play.categoryLabel.todo' => 'タスク管理',
+			'play.categoryLabel.matching' => 'Ekzuyrjp',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -646,6 +657,7 @@ extension on TranslationsXx {
 			'play.categoryDescription.sns' => 'SNSアプリのUI/UXを体験しよう',
 			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
 			'play.categoryDescription.todo' => 'ZSMS koo HR/HT xtoxfrxjux',
+			'play.categoryDescription.matching' => 'Ekzuyrjp koo HR/HT xtoxfrxjux',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -694,6 +706,10 @@ extension on TranslationsXx {
 			'play.stageTitle.todo_quiz2' => '『企画書の作成』を一番上に移動しよう',
 			'play.stageTitle.todo_quiz3' => '『家賃の振り込み』を重要タスクにしよう',
 			'play.stageTitle.todo_quiz4' => '間違えて完了にしたタスクを元に戻そう',
+			'play.stageTitle.matching_quiz1' => 'Crax wsexsjx ish\'fх rjzxfxwzxm rj',
+			'play.stageTitle.matching_quiz2' => 'Jsz lhrzx ishf zioх... waро zyxe',
+			'play.stageTitle.matching_quiz3' => 'Nrxg zyx wxusjm oyszs',
+			'play.stageTitle.matching_quiz4' => 'Ishf mxwzrji! Wxjm k Whoef Crax',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -738,6 +754,10 @@ extension on TranslationsXx {
 			'play.stageDescription.todo_quiz2' => 'タスクを長押ししてドラッグし、一番上に移動してください',
 			'play.stageDescription.todo_quiz3' => 'タスクを右から左にスワイプして星マークをタップしてください',
 			'play.stageDescription.todo_quiz4' => '完了済みリストを開いてチェックを外してください',
+			'play.stageDescription.matching_quiz1' => 'Wgrox frpyz sj k ofsbrcх ish crax',
+			'play.stageDescription.matching_quiz2' => 'Wgrox cxbz zs waро',
+			'play.stageDescription.matching_quiz3' => 'Zko zyx frpyz ykcb sb zyx ofsbrcх ukfm zs wxx zyx wxusjm oyszs',
+			'play.stageDescription.matching_quiz4' => 'Wgrox ho zs wxjm k Whoef Crax',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',
