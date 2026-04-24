@@ -7,8 +7,8 @@ class MatchProfile {
     required this.name,
     required this.age,
     required this.bio,
-    required List<String> imageUrls,
-  }) : _imageUrls = imageUrls;
+    required List<String> emojis,
+  }) : _emojis = emojis;
 
   final String id;
 
@@ -21,24 +21,24 @@ class MatchProfile {
   /// 自己紹介文（英語。UIではカスタム言語に変換して表示）
   final String bio;
 
-  final List<String> _imageUrls;
+  final List<String> _emojis;
 
-  /// プロフィール画像URLリスト（読み取り専用）
-  UnmodifiableListView<String> get imageUrls => UnmodifiableListView(_imageUrls);
+  /// プロフィール表示用絵文字リスト（読み取り専用）
+  UnmodifiableListView<String> get emojis => UnmodifiableListView(_emojis);
 
   MatchProfile copyWith({
     String? id,
     String? name,
     int? age,
     String? bio,
-    List<String>? imageUrls,
+    List<String>? emojis,
   }) {
     return MatchProfile(
       id: id ?? this.id,
       name: name ?? this.name,
       age: age ?? this.age,
       bio: bio ?? this.bio,
-      imageUrls: imageUrls ?? _imageUrls,
+      emojis: emojis ?? _emojis,
     );
   }
 }

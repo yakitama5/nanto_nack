@@ -162,7 +162,7 @@ class MatchingQuizNotifier
     if (profiles.isEmpty) return;
     final currentProfile = profiles[state.matchingApp.currentCardIndex];
     final nextIndex = state.matchingApp.currentImageIndex + 1;
-    if (nextIndex >= currentProfile.imageUrls.length) return; // 最後の写真の場合は何もしない
+    if (nextIndex >= currentProfile.emojis.length) return; // 最後の絵文字の場合は何もしない
     state = state.copyWith(
       matchingApp: state.matchingApp.copyWith(currentImageIndex: nextIndex),
     );
