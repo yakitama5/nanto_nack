@@ -1,43 +1,33 @@
 import 'package:go_router/go_router.dart';
 import 'package:matching/matching.dart';
 
+import '../config/route_path_constants.dart';
 import '../domain/category.dart';
 import '../presentation/play/stage_list_screen.dart';
 
+extension _MatchingQuizTypeRoute on MatchingQuizType {
+  String get segment => switch (this) {
+        MatchingQuizType.swipeRight => kMatchingQuiz1Segment,
+        MatchingQuizType.swipeLeft => kMatchingQuiz2Segment,
+        MatchingQuizType.viewPhoto => kMatchingQuiz3Segment,
+        MatchingQuizType.superLike => kMatchingQuiz4Segment,
+      };
+}
+
 List<GoRoute> get matchingRoutes => [
       GoRoute(
-        path: 'matching',
+        path: kMatchingSegment,
         builder: (context, state) =>
             const StageListScreen(category: QuizCategory.matching),
         routes: [
-          GoRoute(
-            path: 'quiz1',
-            builder: (context, state) => MatchingQuizScreen(
-              type: MatchingQuizType.swipeRight,
-              onCompleted: () => context.pop(),
+          for (final type in MatchingQuizType.values)
+            GoRoute(
+              path: type.segment,
+              builder: (context, state) => MatchingQuizScreen(
+                type: type,
+                onCompleted: () => context.pop(),
+              ),
             ),
-          ),
-          GoRoute(
-            path: 'quiz2',
-            builder: (context, state) => MatchingQuizScreen(
-              type: MatchingQuizType.swipeLeft,
-              onCompleted: () => context.pop(),
-            ),
-          ),
-          GoRoute(
-            path: 'quiz3',
-            builder: (context, state) => MatchingQuizScreen(
-              type: MatchingQuizType.viewPhoto,
-              onCompleted: () => context.pop(),
-            ),
-          ),
-          GoRoute(
-            path: 'quiz4',
-            builder: (context, state) => MatchingQuizScreen(
-              type: MatchingQuizType.superLike,
-              onCompleted: () => context.pop(),
-            ),
-          ),
         ],
       ),
     ];

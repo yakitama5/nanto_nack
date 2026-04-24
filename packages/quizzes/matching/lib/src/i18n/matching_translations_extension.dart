@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import '../../i18n/strings.g.dart' as $matching;
 
 // buildSync() は呼び出しコストが低いが、同一ロケールは毎回同じ結果を返すため
-// モジュールレベルでキャッシュしておき不要な再生成を避ける
+// トップレベル final で遅延初期化＆キャッシュし、2 回目以降の再生成を避ける
 final _jaTranslations = $matching.AppLocale.ja.buildSync();
 final _xxTranslations = $matching.AppLocale.xx.buildSync();
 

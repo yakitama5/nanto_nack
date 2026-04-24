@@ -37,9 +37,7 @@ class MatchingAppState {
     int? currentCardIndex,
   }) {
     return MatchingAppState(
-      profiles: profiles != null
-          ? List.from(profiles)
-          : this.profiles.toList(),
+      profiles: profiles ?? this.profiles,
       currentImageIndex: currentImageIndex ?? this.currentImageIndex,
       currentCardIndex: currentCardIndex ?? this.currentCardIndex,
     );

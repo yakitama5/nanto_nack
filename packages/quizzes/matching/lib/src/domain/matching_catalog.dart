@@ -8,7 +8,7 @@ class MatchingCatalog {
   MatchingCatalog._();
 
   /// 全クイズ共通のプロフィールリスト（5件）
-  static List<MatchProfile> profiles() => const [
+  static List<MatchProfile> get profiles => const [
         MatchProfile(
           id: 'matching_1',
           name: 'Yuki',
