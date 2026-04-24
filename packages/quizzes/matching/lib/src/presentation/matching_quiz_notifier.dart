@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:matching/src/domain/matching_catalog.dart';
 import 'package:matching/src/domain/matching_quiz_config.dart';
+import 'package:matching/src/infrastructure/matching_quiz_repository.dart';
 import 'package:matching/src/infrastructure/matching_quiz_repository_provider.dart';
 import 'package:matching/src/presentation/matching_app_state.dart';
 import 'package:matching/src/presentation/matching_quiz_state.dart';
@@ -42,7 +43,7 @@ class MatchingQuizNotifier
   @override
   MatchingQuizState build(MatchingQuizType arg) {
     ref.onDispose(() => _timer?.cancel());
-    return MatchingQuizState.initial(initialProfiles: MatchingCatalog.profiles());
+    return MatchingQuizState.initial(initialProfiles: MatchingCatalog.profiles);
   }
 
   // ─────────────────────────────────────────────
@@ -57,10 +58,12 @@ class MatchingQuizNotifier
       startedAt: clock.now(),
       remainingSeconds: MatchingQuizConfig.timeLimitSeconds,
       matchingApp: MatchingAppState.initial(
-        initialProfiles: MatchingCatalog.profiles(),
+        initialProfiles: MatchingCatalog.profiles,
       ),
     );
-    ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId);
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizStarted(quizId: _quizId),
+    );
     _startTimer();
   }
 
@@ -68,12 +71,17 @@ class MatchingQuizNotifier
     if (state.status != QuizStatus.playing) return;
     _timer?.cancel();
     final elapsed = _elapsed;
+    final analyticsService = ref.read(analyticsServiceProvider);
+    final repo = ref.read(matchingQuizRepositoryProvider);
     state = state.copyWith(status: QuizStatus.giveUp, elapsedMs: elapsed);
-    unawaited(
-      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
-    );
+    unawaited(analyticsService.logQuizGivenUp(quizId: _quizId));
     try {
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
+      await _saveResult(
+        isCleared: false,
+        elapsedMs: elapsed,
+        analyticsService: analyticsService,
+        repo: repo,
+      );
     } catch (error, stackTrace) {
       appLogger.e(
         '[MatchingQuizNotifier] giveUp: _saveResult failed',
@@ -86,12 +94,15 @@ class MatchingQuizNotifier
   void retry() {
     if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
-    ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
+    unawaited(
+      ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId),
+    );
     state = MatchingQuizState.initial(
-      initialProfiles: MatchingCatalog.profiles(),
+      initialProfiles: MatchingCatalog.profiles,
     ).copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
+      remainingSeconds: MatchingQuizConfig.timeLimitSeconds,
     );
     _startTimer();
   }
@@ -106,7 +117,7 @@ class MatchingQuizNotifier
   void swipeRight(String id) {
     if (state.status != QuizStatus.playing) return;
     if (arg == MatchingQuizType.swipeRight) {
-      _onClear();
+      unawaited(_onClear());
     }
   }
 
@@ -120,7 +131,7 @@ class MatchingQuizNotifier
   void swipeLeft(String id) {
     if (state.status != QuizStatus.playing) return;
     if (arg == MatchingQuizType.swipeLeft) {
-      _onClear();
+      unawaited(_onClear());
     }
   }
 
@@ -134,7 +145,7 @@ class MatchingQuizNotifier
   void swipeUp(String id) {
     if (state.status != QuizStatus.playing) return;
     if (arg == MatchingQuizType.superLike) {
-      _onClear();
+      unawaited(_onClear());
     }
   }
 
@@ -144,7 +155,7 @@ class MatchingQuizNotifier
 
   /// 現在表示中のプロフィールの次の写真へ切り替える。
   ///
-  /// Quiz3 のクリア条件: currentImageIndex が 1 になった瞬間にクリア。
+  /// Quiz3 のクリア条件: currentImageIndex が 1 以上になった瞬間にクリア。
   void nextImage() {
     if (state.status != QuizStatus.playing) return;
     final profiles = state.matchingApp.profiles;
@@ -155,8 +166,8 @@ class MatchingQuizNotifier
     state = state.copyWith(
       matchingApp: state.matchingApp.copyWith(currentImageIndex: nextIndex),
     );
-    if (arg == MatchingQuizType.viewPhoto && nextIndex == 1) {
-      _onClear();
+    if (arg == MatchingQuizType.viewPhoto && nextIndex >= 1) {
+      unawaited(_onClear());
     }
   }
 
@@ -201,7 +212,7 @@ class MatchingQuizNotifier
       final remaining = state.remainingSeconds - 1;
       if (remaining <= 0) {
         _timer?.cancel();
-        _onTimeUp();
+        unawaited(_onTimeUp());
       } else {
         state = state.copyWith(remainingSeconds: remaining);
       }
@@ -210,12 +221,17 @@ class MatchingQuizNotifier
 
   Future<void> _onTimeUp() async {
     final elapsed = _elapsed;
+    final analyticsService = ref.read(analyticsServiceProvider);
+    final repo = ref.read(matchingQuizRepositoryProvider);
     state = state.copyWith(status: QuizStatus.timeUp, elapsedMs: elapsed);
-    unawaited(
-      ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
-    );
+    unawaited(analyticsService.logQuizTimeUp(quizId: _quizId));
     try {
-      await _saveResult(isCleared: false, elapsedMs: elapsed);
+      await _saveResult(
+        isCleared: false,
+        elapsedMs: elapsed,
+        analyticsService: analyticsService,
+        repo: repo,
+      );
     } catch (error, stackTrace) {
       appLogger.e(
         '[MatchingQuizNotifier] _onTimeUp: _saveResult failed',
@@ -228,13 +244,20 @@ class MatchingQuizNotifier
   /// クリア処理。
   ///
   /// autoDispose により dispose 後に ref.read すると例外になるため、
-  /// 永続化処理を先に完了させてから haptic を再生する。
+  /// state 変更前に依存サービスをキャッシュしてから非同期処理を行う。
   Future<void> _onClear() async {
     _timer?.cancel();
     final elapsed = _elapsed;
+    final analyticsService = ref.read(analyticsServiceProvider);
+    final repo = ref.read(matchingQuizRepositoryProvider);
     state = state.copyWith(status: QuizStatus.correct, elapsedMs: elapsed);
     try {
-      await _saveResult(isCleared: true, elapsedMs: elapsed);
+      await _saveResult(
+        isCleared: true,
+        elapsedMs: elapsed,
+        analyticsService: analyticsService,
+        repo: repo,
+      );
     } catch (error, stackTrace) {
       appLogger.e(
         '[MatchingQuizNotifier] _onClear: _saveResult failed',
@@ -249,16 +272,17 @@ class MatchingQuizNotifier
   Future<void> _saveResult({
     required bool isCleared,
     required int elapsedMs,
+    required AnalyticsService analyticsService,
+    required MatchingQuizRepository repo,
   }) async {
     if (isCleared) {
-      await ref.read(analyticsServiceProvider).logQuizCompleted(
+      await analyticsService.logQuizCompleted(
             quizId: _quizId,
             score: state.score,
             failureCount: state.failureCount,
             clearTimeMs: elapsedMs,
           );
     }
-    final repo = ref.read(matchingQuizRepositoryProvider);
     await repo.saveResult(
       quizId: _quizId,
       isCleared: isCleared,

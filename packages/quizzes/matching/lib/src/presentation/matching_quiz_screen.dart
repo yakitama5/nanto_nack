@@ -110,6 +110,7 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
                 elapsedMs: state.elapsedMs,
                 onRetry: () {
                   setState(() => _showCutIn = true);
+                  _cardSwiperController.moveTo(0);
                   notifier.retry();
                 },
                 onNext: state.status == QuizStatus.correct
@@ -166,9 +167,6 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
               );
             },
             onSwipe: (previousIndex, currentIndex, direction) {
-              if (currentIndex != null) {
-                notifier.onCardSwiped(currentIndex);
-              }
               switch (direction) {
                 case CardSwiperDirection.right:
                   notifier.swipeRight(profiles[previousIndex].id);
@@ -178,6 +176,9 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
                   notifier.swipeUp(profiles[previousIndex].id);
                 default:
                   break;
+              }
+              if (currentIndex != null) {
+                notifier.onCardSwiped(currentIndex);
               }
               return true;
             },
