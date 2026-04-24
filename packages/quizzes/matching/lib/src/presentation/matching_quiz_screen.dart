@@ -149,7 +149,14 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
     return Column(
       children: [
         Expanded(
-          child: CardSwiper(
+          // CutIn 表示中は背後のカードを不可視にして絵文字の未ラスタライズ状態が
+          // 透けて見えないようにする（サイズ・状態は維持）
+          child: Visibility(
+            visible: !_showCutIn,
+            maintainState: true,
+            maintainSize: true,
+            maintainAnimation: true,
+            child: CardSwiper(
             controller: _cardSwiperController,
             cardsCount: profiles.length,
             // autoPlay は false（ユーザー操作のみ）
@@ -185,6 +192,7 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
             onEnd: () {
               // カードがなくなった場合は何もしない（タイムアップまで待つ）
             },
+          ),
           ),
         ),
         _BottomActionButtons(
@@ -390,38 +398,33 @@ class _ProfileCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final matchingTheme = Theme.of(context).extension<MatchingAppTheme>()!;
-    final imageUrls = profile.imageUrls;
-    final safeIndex = currentImageIndex.clamp(0, imageUrls.length - 1);
-    final imageUrl = imageUrls[safeIndex];
+    final emojis = profile.emojis;
+    final safeIndex = currentImageIndex.clamp(0, emojis.length - 1);
+    final emoji = emojis[safeIndex];
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // 背景画像
-          Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            // ロード中も前の画像を維持し、後ろのカードが透けて見えるのを防ぐ
-            gaplessPlayback: true,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: matchingTheme.cardBackground,
-              child: Icon(
-                Icons.person,
-                size: 80,
-                color: matchingTheme.appBarForeground.withValues(alpha: 0.3),
+          // 背景（絵文字を中央に大きく表示）
+          Container(
+            color: matchingTheme.cardBackground,
+            child: Center(
+              child: Text(
+                emoji,
+                style: const TextStyle(fontSize: 120),
               ),
             ),
           ),
-          // 写真インジケーター（上部）
-          if (imageUrls.length > 1)
+          // 絵文字インジケーター（上部）
+          if (emojis.length > 1)
             Positioned(
               top: 8,
               left: 8,
               right: 8,
               child: Row(
-                children: List.generate(imageUrls.length, (index) {
+                children: List.generate(emojis.length, (index) {
                   final isActive = index == safeIndex;
                   return Expanded(
                     child: Container(
