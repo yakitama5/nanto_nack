@@ -42,9 +42,6 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
   void initState() {
     super.initState();
     _cardSwiperController = CardSwiperController();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(matchingQuizProvider(_type).notifier).startQuiz();
-    });
   }
 
   @override
@@ -98,7 +95,11 @@ class _MatchingQuizScreenState extends ConsumerState<MatchingQuizScreen> {
             MissionCutIn(
               missionText: missionText,
               timeLimitSeconds: MatchingQuizConfig.timeLimitSeconds,
-              onFinished: () => setState(() => _showCutIn = false),
+              onFinished: () {
+                if (!mounted) return;
+                setState(() => _showCutIn = false);
+                ref.read(matchingQuizProvider(_type).notifier).startQuiz();
+              },
             ),
           if (state.status == QuizStatus.correct ||
               state.status == QuizStatus.timeUp ||

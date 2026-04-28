@@ -32,7 +32,7 @@ class ChangePaymentMethodQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = ChangePaymentMethodQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -89,14 +89,12 @@ class ChangePaymentMethodQuizNotifier
 
   /// クイズをリトライする
   void retry() {
+    final previousFailureCount = state.failureCount;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = ChangePaymentMethodQuizState.initial().copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: state.failureCount,
+      failureCount: previousFailureCount,
     );
-    _startTimer();
   }
 
   /// クリア条件を確認し、満たしていれば完了処理を行う

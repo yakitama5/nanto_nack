@@ -61,8 +61,7 @@ class CalendarQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
-    if (state.status == QuizStatus.playing) return;
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     // clock.now() でテスト差し替え可能にする
     final now = clock.now();
     final initialState = CalendarQuizState.initial(arg, now);
@@ -144,16 +143,12 @@ class CalendarQuizNotifier
 
   /// クイズをリトライする
   void retry() {
+    if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: arg.quizId);
     final now = clock.now();
-    final initialState = CalendarQuizState.initial(arg, now);
-    state = initialState.copyWith(
-      status: QuizStatus.playing,
-      startedAt: now,
-    );
+    state = CalendarQuizState.initial(arg, now);
     _controller.goToDate(state.initialMonth);
-    _startTimer();
   }
 
   // ---- Private helpers ----

@@ -30,9 +30,6 @@ class _RevealBalanceQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(revealBalanceQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -60,7 +57,11 @@ class _RevealBalanceQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: PaymentQuizConfig.quiz2RevealBalanceTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(revealBalanceQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.timeUp ||

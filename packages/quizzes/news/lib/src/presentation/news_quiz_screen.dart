@@ -62,10 +62,6 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
 
     // タブタップ → PageView ジャンプ
     _tabController.addListener(_onTabChanged);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(newsQuizProvider(_type).notifier).startQuiz();
-    });
   }
 
   void _onTabChanged() {
@@ -156,7 +152,11 @@ class _NewsQuizScreenState extends ConsumerState<NewsQuizScreen>
             MissionCutIn(
               missionText: missionText,
               timeLimitSeconds: NewsQuizConfig.timeLimitSeconds,
-              onFinished: () => setState(() => _showCutIn = false),
+              onFinished: () {
+                if (!mounted) return;
+                setState(() => _showCutIn = false);
+                ref.read(newsQuizProvider(_type).notifier).startQuiz();
+              },
             ),
           if (state.status == QuizStatus.correct ||
               state.status == QuizStatus.timeUp ||

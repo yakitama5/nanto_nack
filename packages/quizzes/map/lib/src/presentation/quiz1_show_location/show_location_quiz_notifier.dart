@@ -30,7 +30,7 @@ class ShowLocationQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = ShowLocationQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -79,11 +79,7 @@ class ShowLocationQuizNotifier
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = ShowLocationQuizState.initial().copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-    );
-    _startTimer();
+    state = ShowLocationQuizState.initial();
   }
 
   int get _elapsed => state.startedAt != null

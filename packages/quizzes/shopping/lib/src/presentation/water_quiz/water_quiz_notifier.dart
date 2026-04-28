@@ -31,7 +31,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   }
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = WaterQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -127,11 +127,7 @@ class WaterQuizNotifier extends AutoDisposeNotifier<WaterQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = WaterQuizState.initial().copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-    );
-    _startTimer();
+    state = WaterQuizState.initial();
   }
 
   /// チュートリアル中にタイマーを一時停止する。

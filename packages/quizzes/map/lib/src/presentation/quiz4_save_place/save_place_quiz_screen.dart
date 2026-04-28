@@ -29,9 +29,6 @@ class _SavePlaceQuizScreenState extends ConsumerState<SavePlaceQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(savePlaceQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -61,7 +58,11 @@ class _SavePlaceQuizScreenState extends ConsumerState<SavePlaceQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: MapQuizConfig.quiz4SavePlaceTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(savePlaceQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||

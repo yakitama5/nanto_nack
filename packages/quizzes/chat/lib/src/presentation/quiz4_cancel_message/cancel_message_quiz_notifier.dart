@@ -32,7 +32,7 @@ class CancelMessageQuizNotifier
   }
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -128,11 +128,7 @@ class CancelMessageQuizNotifier
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = CancelMessageQuizState.initial(
       initialMessages: ChatCatalog.quiz4InitialMessages(clock.now()),
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
   }
 
   void _startTimer() {

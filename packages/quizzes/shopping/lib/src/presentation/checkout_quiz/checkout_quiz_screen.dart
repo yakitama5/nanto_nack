@@ -23,9 +23,6 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(checkoutQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -173,7 +170,11 @@ class _CheckoutQuizScreenState extends ConsumerState<CheckoutQuizScreen> {
             MissionCutIn(
               missionText: missionText,
               timeLimitSeconds: ShoppingQuizConfig.checkoutTimeLimitSeconds,
-              onFinished: () => setState(() => _showCutIn = false),
+              onFinished: () {
+                if (!mounted) return;
+                setState(() => _showCutIn = false);
+                ref.read(checkoutQuizProvider.notifier).startQuiz();
+              },
             ),
           // 正誤結果オーバーレイ
           if (quizState.status == QuizStatus.correct ||

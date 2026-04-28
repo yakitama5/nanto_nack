@@ -177,21 +177,10 @@ class SnsQuizNotifier
 
   /// クイズをリトライする
   void retry() {
+    if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: arg.quizId);
-    final now = clock.now();
-    final initialState = SnsQuizState.initial(arg);
-    // Quiz2のみ開始時から全画面画像を表示（猫写真を下スワイプで閉じる操作を学ぶ）
-    final String? quiz2ImageUrl = arg == SnsQuizType.quiz2
-        ? initialState.posts.firstWhere((p) => p.imageUrl != null).imageUrl
-        : null;
-    state = initialState.copyWith(
-      status: QuizStatus.playing,
-      startedAt: now,
-      isFullScreenImageOpened: arg == SnsQuizType.quiz2,
-      fullScreenImageUrl: quiz2ImageUrl,
-    );
-    _startTimer();
+    state = SnsQuizState.initial(arg);
   }
 
   // ---- Private helpers ----

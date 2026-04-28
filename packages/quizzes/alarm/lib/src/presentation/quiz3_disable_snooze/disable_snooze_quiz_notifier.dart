@@ -35,7 +35,7 @@ class DisableSnoozeQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = DisableSnoozeQuizState.initial(
       alarm: AlarmCatalog.initialAlarms[0],
     ).copyWith(
@@ -146,12 +146,7 @@ class DisableSnoozeQuizNotifier
     final prevFailureCount = state.failureCount;
     state = DisableSnoozeQuizState.initial(
       alarm: AlarmCatalog.initialAlarms[0],
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: prevFailureCount,
-    );
-    _startTimer();
+    ).copyWith(failureCount: prevFailureCount);
   }
 
   int get _elapsed => state.startedAt != null

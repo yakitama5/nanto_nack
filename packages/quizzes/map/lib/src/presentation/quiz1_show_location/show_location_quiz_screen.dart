@@ -30,9 +30,6 @@ class _ShowLocationQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(showLocationQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -61,7 +58,11 @@ class _ShowLocationQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: MapQuizConfig.quiz1ShowLocationTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(showLocationQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.timeUp ||

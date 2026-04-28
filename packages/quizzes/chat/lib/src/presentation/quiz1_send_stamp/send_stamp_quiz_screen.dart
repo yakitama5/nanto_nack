@@ -35,9 +35,6 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(sendStampQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -134,7 +131,11 @@ class _SendStampQuizScreenState extends ConsumerState<SendStampQuizScreen> {
         MissionCutIn(
           missionText: missionText,
           timeLimitSeconds: ChatQuizConfig.quiz1SendStampTimeLimitSeconds,
-          onFinished: () => setState(() => _showCutIn = false),
+          onFinished: () {
+            if (!mounted) return;
+            setState(() => _showCutIn = false);
+            notifier.startQuiz();
+          },
         ),
       if (state.status == QuizStatus.correct ||
           state.status == QuizStatus.incorrect ||

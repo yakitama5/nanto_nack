@@ -32,9 +32,6 @@ class _DisableSnoozeQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(disableSnoozeQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -83,7 +80,11 @@ class _DisableSnoozeQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: AlarmQuizConfig.quiz3DisableSnoozeTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(disableSnoozeQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||

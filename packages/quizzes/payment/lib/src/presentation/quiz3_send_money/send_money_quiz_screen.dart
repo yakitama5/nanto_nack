@@ -30,9 +30,6 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(sendMoneyQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -81,7 +78,11 @@ class _SendMoneyQuizScreenState extends ConsumerState<SendMoneyQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: PaymentQuizConfig.quiz3SendMoneyTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(sendMoneyQuizProvider.notifier).startQuiz();
+            },
           ),
         ...resultOverlays,
       ],

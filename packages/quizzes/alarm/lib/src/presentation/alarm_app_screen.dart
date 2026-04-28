@@ -103,13 +103,14 @@ class AlarmListScreen extends StatelessWidget {
               },
             ),
             // ミッションバブル
-            FloatingMissionBubble(
-              remainingSeconds: remainingSeconds,
-              missionText: missionText,
-              hintUsed: false,
-              timeLimitSeconds: timeLimitSeconds,
-              onGiveUp: onGiveUp,
-            ),
+            if (quizStatus == QuizStatus.playing)
+              FloatingMissionBubble(
+                remainingSeconds: remainingSeconds,
+                missionText: missionText,
+                hintUsed: false,
+                timeLimitSeconds: timeLimitSeconds,
+                onGiveUp: onGiveUp,
+              ),
             ...overlays,
           ],
         ),
@@ -400,13 +401,14 @@ class AlarmEditScreen extends StatelessWidget {
                 ],
               ),
             ),
-            FloatingMissionBubble(
-              remainingSeconds: remainingSeconds,
-              missionText: missionText,
-              hintUsed: false,
-              timeLimitSeconds: timeLimitSeconds,
-              onGiveUp: onGiveUp,
-            ),
+            if (quizStatus == QuizStatus.playing)
+              FloatingMissionBubble(
+                remainingSeconds: remainingSeconds,
+                missionText: missionText,
+                hintUsed: false,
+                timeLimitSeconds: timeLimitSeconds,
+                onGiveUp: onGiveUp,
+              ),
             ...overlays,
           ],
         ),

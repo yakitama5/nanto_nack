@@ -36,9 +36,6 @@ class _ReactionQuizScreenState extends ConsumerState<ReactionQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(reactionQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -141,7 +138,11 @@ class _ReactionQuizScreenState extends ConsumerState<ReactionQuizScreen> {
         MissionCutIn(
           missionText: missionText,
           timeLimitSeconds: ChatQuizConfig.quiz2ReactionTimeLimitSeconds,
-          onFinished: () => setState(() => _showCutIn = false),
+          onFinished: () {
+            if (!mounted) return;
+            setState(() => _showCutIn = false);
+            notifier.startQuiz();
+          },
         ),
       if (state.status == QuizStatus.correct ||
           state.status == QuizStatus.incorrect ||

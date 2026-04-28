@@ -28,9 +28,6 @@ class _DeleteAlarmQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(deleteAlarmQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -56,7 +53,11 @@ class _DeleteAlarmQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: AlarmQuizConfig.quiz4DeleteAlarmTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(deleteAlarmQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||

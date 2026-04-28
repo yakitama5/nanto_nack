@@ -30,7 +30,7 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = SavePlaceQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -105,11 +105,7 @@ class SavePlaceQuizNotifier extends AutoDisposeNotifier<SavePlaceQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = SavePlaceQuizState.initial().copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-    );
-    _startTimer();
+    state = SavePlaceQuizState.initial();
   }
 
   int get _elapsed => state.startedAt != null

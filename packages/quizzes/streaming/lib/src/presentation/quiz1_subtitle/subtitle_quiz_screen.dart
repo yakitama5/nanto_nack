@@ -24,9 +24,6 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(subtitleQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -66,7 +63,11 @@ class _SubtitleQuizScreenState extends ConsumerState<SubtitleQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: StreamingQuizConfig.quiz1SubtitleTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(subtitleQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.isSettingsOpen)
           StreamingOverlayMenu(

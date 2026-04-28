@@ -26,8 +26,8 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
     return CartQuizState.initial();
   }
 
-  /// クイズを開始する（タイマー始動）
   void startQuiz() {
+    if (state.status != QuizStatus.idle) return;
     state = CartQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -104,16 +104,11 @@ class CartQuizNotifier extends AutoDisposeNotifier<CartQuizState> {
     await _saveResult(isCleared: false, elapsedMs: elapsed);
   }
 
-  /// リトライ（桁入力をリセット）
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = CartQuizState.initial().copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: state.failureCount,
-    );
-    _startTimer();
+    final prevFailureCount = state.failureCount;
+    state = CartQuizState.initial().copyWith(failureCount: prevFailureCount);
   }
 
   void _startTimer() {

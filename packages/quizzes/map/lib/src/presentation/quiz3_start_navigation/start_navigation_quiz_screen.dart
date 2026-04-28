@@ -30,9 +30,6 @@ class _StartNavigationQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(startNavigationQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -64,7 +61,11 @@ class _StartNavigationQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: MapQuizConfig.quiz3StartNavigationTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(startNavigationQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||

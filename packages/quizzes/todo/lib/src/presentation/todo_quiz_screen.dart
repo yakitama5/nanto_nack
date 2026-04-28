@@ -34,15 +34,6 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
   TodoQuizType get _type => widget.type;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      ref.read(todoQuizProvider(_type).notifier).startQuiz();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final state = ref.watch(todoQuizProvider(_type));
     final missionText = _missionText();
@@ -101,7 +92,11 @@ class _TodoQuizScreenState extends ConsumerState<TodoQuizScreen> {
             MissionCutIn(
               missionText: missionText,
               timeLimitSeconds: TodoQuizConfig.timeLimitSeconds,
-              onFinished: () => setState(() => _showCutIn = false),
+              onFinished: () {
+                if (!mounted) return;
+                setState(() => _showCutIn = false);
+                ref.read(todoQuizProvider(_type).notifier).startQuiz();
+              },
             ),
           if (state.status == QuizStatus.correct ||
               state.status == QuizStatus.timeUp ||

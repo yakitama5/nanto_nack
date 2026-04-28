@@ -51,7 +51,7 @@ class NewsQuizNotifier
   // ─────────────────────────────────────────────
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -86,13 +86,7 @@ class NewsQuizNotifier
     if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = NewsQuizState.initial(
-      initialArticles: NewsCatalog.articles(),
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-    );
-    _startTimer();
+    state = NewsQuizState.initial(initialArticles: NewsCatalog.articles());
   }
 
   // ─────────────────────────────────────────────

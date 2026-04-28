@@ -26,9 +26,6 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(reorderQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -67,7 +64,11 @@ class _ReorderQuizScreenState extends ConsumerState<ReorderQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: ShoppingQuizConfig.reorderTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(reorderQuizProvider.notifier).startQuiz();
+            },
           ),
         if (quizState.status == QuizStatus.correct ||
             quizState.status == QuizStatus.incorrect ||

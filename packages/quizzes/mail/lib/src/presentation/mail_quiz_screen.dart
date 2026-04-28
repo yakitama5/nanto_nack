@@ -40,14 +40,6 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
   MailQuizType get _type => widget.type;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(mailQuizProvider(_type).notifier).startQuiz();
-    });
-  }
-
-  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
@@ -94,7 +86,11 @@ class _MailQuizScreenState extends ConsumerState<MailQuizScreen> {
             MissionCutIn(
               missionText: missionText,
               timeLimitSeconds: MailQuizConfig.timeLimitSeconds,
-              onFinished: () => setState(() => _showCutIn = false),
+              onFinished: () {
+                if (!mounted) return;
+                setState(() => _showCutIn = false);
+                ref.read(mailQuizProvider(_type).notifier).startQuiz();
+              },
             ),
           if (state.status == QuizStatus.correct ||
               state.status == QuizStatus.giveUp ||

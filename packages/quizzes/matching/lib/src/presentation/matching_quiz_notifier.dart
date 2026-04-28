@@ -51,7 +51,7 @@ class MatchingQuizNotifier
   // ─────────────────────────────────────────────
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = state.copyWith(
       status: QuizStatus.playing,
       // clock.now() を使用してテスト時に差し替え可能にする
@@ -99,12 +99,7 @@ class MatchingQuizNotifier
     );
     state = MatchingQuizState.initial(
       initialProfiles: MatchingCatalog.profiles,
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      remainingSeconds: MatchingQuizConfig.timeLimitSeconds,
     );
-    _startTimer();
   }
 
   // ─────────────────────────────────────────────

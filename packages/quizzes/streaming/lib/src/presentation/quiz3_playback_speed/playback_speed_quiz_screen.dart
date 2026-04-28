@@ -24,9 +24,6 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(playbackSpeedQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -62,7 +59,11 @@ class _PlaybackSpeedQuizScreenState extends ConsumerState<PlaybackSpeedQuizScree
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: StreamingQuizConfig.quiz3PlaybackSpeedTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(playbackSpeedQuizProvider.notifier).startQuiz();
+            },
           ),
         // 設定メニュー
         if (state.isSettingsOpen && !state.isSpeedListOpen)

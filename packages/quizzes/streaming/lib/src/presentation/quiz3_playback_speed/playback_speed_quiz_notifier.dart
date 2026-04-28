@@ -29,7 +29,7 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
   }
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = PlaybackSpeedQuizState.initial(
       video: StreamingCatalog.videos[2],
     ).copyWith(
@@ -147,11 +147,7 @@ class PlaybackSpeedQuizNotifier extends AutoDisposeNotifier<PlaybackSpeedQuizSta
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = PlaybackSpeedQuizState.initial(
       video: StreamingCatalog.videos[2],
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
   }
 
   void _startTimer() {
