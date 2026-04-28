@@ -270,14 +270,6 @@ class MatchingQuizNotifier
     required AnalyticsService analyticsService,
     required MatchingQuizRepository repo,
   }) async {
-    if (isCleared) {
-      await analyticsService.logQuizCompleted(
-            quizId: _quizId,
-            score: state.score,
-            failureCount: state.failureCount,
-            clearTimeMs: elapsedMs,
-          );
-    }
     await repo.saveResult(
       quizId: _quizId,
       isCleared: isCleared,
@@ -285,5 +277,21 @@ class MatchingQuizNotifier
       score: isCleared ? state.score : 0,
       failureCount: state.failureCount,
     );
+    if (isCleared) {
+      try {
+        await analyticsService.logQuizCompleted(
+          quizId: _quizId,
+          score: state.score,
+          failureCount: state.failureCount,
+          clearTimeMs: elapsedMs,
+        );
+      } catch (error, stackTrace) {
+        appLogger.e(
+          '[MatchingQuizNotifier] _saveResult: logQuizCompleted failed',
+          error: error,
+          stackTrace: stackTrace,
+        );
+      }
+    }
   }
 }
