@@ -1,18 +1,5 @@
 {
   "env": {
     "CLAUDE_CODE_NO_FLICKER": "1"
-  },
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "shell": "bash",
-            "command": "if [ -s \".claude/review/pending.md\" ]; then printf '{\"systemMessage\": \"📋 未適用の改善提案があります。/apply-learnings で確認・適用できます。\"}'; fi"
-          }
-        ]
-      }
-    ]
   }
 }
