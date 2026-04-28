@@ -139,7 +139,9 @@ class ReorderQuizNotifier extends AutoDisposeNotifier<ReorderQuizState> {
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = ReorderQuizState.initial(targetItemId: _targetItemId);
+    final prevFailureCount = state.failureCount;
+    state = ReorderQuizState.initial(targetItemId: _targetItemId)
+        .copyWith(failureCount: prevFailureCount);
   }
 
   void _startTimer() {
