@@ -9,25 +9,41 @@ Flutter/Dart開発専門家として、UI/UX直感クイズアプリ「NantoNack
 
 ## プロジェクト構成・コマンド
 
-詳細は Serena メモリ（`project_overview` / `suggested_commands`）を参照。
+詳細は Serena メモリ（`project_overview` / `suggested_commands`）、または `.agents/common/melos-monorepo.md` を参照。
+
+## シンボリックリンクによる共通化
+
+このプロジェクトでは `.claude/`, `.gemini/` が `.agents/` へのシンボリックリンクとして設定されています。
+全AIツールは同一の定義ファイル群を共有します。本ファイル（`AGENTS.md`）がすべてのエントリーポイントの実体です。
+
+| シンボリックリンク | 実体 |
+|---|---|
+| `CLAUDE.md` → `AGENTS.md` | 本ファイル |
+| `GEMINI.md` → `AGENTS.md` | 本ファイル |
+| `.agents/GEMINI.md` → `../AGENTS.md` | 本ファイル |
+| `.claude/` → `.agents/` | `.agents/` 配下の全ファイル |
+| `.gemini/` → `.agents/` | `.agents/` 配下の全ファイル |
+
+## Blackboardパターン（段階的開示）
+
+タスクに応じて必要なファイルのみを読み込むこと。常時すべてを読む必要はない。
+
+| タスク | 読むべきファイル |
+|---|---|
+| 新機能実装・アーキテクチャ設計 | `.agents/skills/4-layer-architecture.md` |
+| UI・状態管理・ナビゲーション | `.agents/skills/ui-state-rules.md` |
+| ローカルDB・Firebase・ゲーム進行 | `.agents/skills/data-and-logic.md` |
+| テストコード作成 | `.agents/skills/testing-patterns.md` |
+| 新クイズカテゴリ/クイズ追加 | スキル `/quiz-category-design` を起動 |
+| スキル・エージェント・コマンドの改善 | スキル `/tune` を起動 |
+| Melosコマンド・パッケージ依存 | `.agents/common/melos-monorepo.md` |
+| セキュリティ・操作制限の確認 | `.agents/common/security.md` |
 
 ## 実装フロー（`/implement` スキル）
 
 analyst → planner → advisor → **coder** → reviewer → tester
 
 計画書（`spec/*.md`）がある場合: **coder から直接開始**し、reviewer・tester を厳格に実施。
-
-## 詳細ルール（`.agents/rules/` 配下、常時ロード）
-
-- アーキテクチャ・スタイル: `architecture-and-style.md`
-- 状態管理・禁止事項: `state-management-and-codegen.md`
-- UI・レイアウト・国際化: `ui-and-navigation.md`
-- データ管理・ゲームロジック: `data-and-logic.md`
-
-以下はオンデマンドで参照（常時ロード不要）:
-- コミットルール: `/commit` スキル実行時に自動適用
-- テスティング: `/write-test` スキル実行時に自動適用
-- クイズカテゴリ設計規約: `.agents/references/quiz-category-design.md`（新カテゴリ作成時のみ読み込む）
 
 ## コード調査の効率化
 
