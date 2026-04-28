@@ -16,9 +16,9 @@ $ARGUMENTS
 - **日時取得**: `DateTime.now()` は禁止。必ず `clock.now()` を使用すること
 - **`copyWith`**: モデルクラスには必ず手動で `copyWith` メソッドを実装すること
 
-### 新クイズカテゴリを追加する場合
+### 新クイズカテゴリ/クイズを追加する場合
 
-`.agents/references/quiz-category-design.md` を必ず読み込んでから実装すること。
+`/quiz-category-design` スキルを起動してから実装すること。
 
 ### 実装後の必須チェック
 
