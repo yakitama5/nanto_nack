@@ -32,7 +32,7 @@ class AddAlarmQuizNotifier extends AutoDisposeNotifier<AddAlarmQuizState> {
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = AddAlarmQuizState.initial(
       draft: AlarmCatalog.newAlarmDefault,
     ).copyWith(
@@ -97,11 +97,7 @@ class AddAlarmQuizNotifier extends AutoDisposeNotifier<AddAlarmQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = AddAlarmQuizState.initial(
       draft: AlarmCatalog.newAlarmDefault,
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
   }
 
   int get _elapsed => state.startedAt != null

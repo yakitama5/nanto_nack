@@ -69,7 +69,7 @@ class MailQuizNotifier
   // ─────────────────────────────────────────────
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -105,15 +105,10 @@ class MailQuizNotifier
   }
 
   void retry() {
+    if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = MailQuizState.initial(
-      initialMails: _initialMails,
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-    );
-    _startTimer();
+    state = MailQuizState.initial(initialMails: _initialMails);
   }
 
   // ─────────────────────────────────────────────

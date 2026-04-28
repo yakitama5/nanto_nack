@@ -34,7 +34,7 @@ class DeleteAlarmQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
     ).copyWith(
@@ -111,12 +111,7 @@ class DeleteAlarmQuizNotifier
     final prevFailureCount = state.failureCount;
     state = DeleteAlarmQuizState.initial(
       alarms: AlarmCatalog.initialAlarms,
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: prevFailureCount,
-    );
-    _startTimer();
+    ).copyWith(failureCount: prevFailureCount);
   }
 
   int get _elapsed => state.startedAt != null

@@ -38,14 +38,9 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
   @override
   void initState() {
     super.initState();
-    final notifier = ref.read(
+    _calendarController = ref.read(
       calendarQuizNotifierProvider(widget.quizType).notifier,
-    );
-    _calendarController = notifier.controller;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      notifier.startQuiz();
-    });
+    ).controller;
   }
 
   /// 日付タップ → その日のボトムシートを表示（TimeTree風）
@@ -153,7 +148,15 @@ class _CalendarQuizScreenState extends ConsumerState<CalendarQuizScreen> {
             MissionCutIn(
               missionText: missionText,
               timeLimitSeconds: timeLimitSeconds,
-              onFinished: () => setState(() => _showCutIn = false),
+              onFinished: () {
+                if (!mounted) return;
+                setState(() => _showCutIn = false);
+                ref
+                    .read(
+                      calendarQuizNotifierProvider(widget.quizType).notifier,
+                    )
+                    .startQuiz();
+              },
             ),
           if (state.status == QuizStatus.correct ||
               state.status == QuizStatus.timeUp ||
@@ -384,13 +387,14 @@ class _CalendarAppScaffold extends StatelessWidget {
                   : null,
             ),
           ),
-          FloatingMissionBubble(
-            remainingSeconds: state.remainingSeconds,
-            missionText: missionText,
-            hintUsed: false,
-            timeLimitSeconds: timeLimitSeconds,
-            onGiveUp: notifier.giveUp,
-          ),
+          if (state.status == QuizStatus.playing)
+            FloatingMissionBubble(
+              remainingSeconds: state.remainingSeconds,
+              missionText: missionText,
+              hintUsed: false,
+              timeLimitSeconds: timeLimitSeconds,
+              onGiveUp: notifier.giveUp,
+            ),
         ],
       ),
     );

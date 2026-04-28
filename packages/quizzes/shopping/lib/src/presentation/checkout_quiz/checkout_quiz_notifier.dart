@@ -25,9 +25,8 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
     return CheckoutQuizState.initial();
   }
 
-  /// クイズを開始する（タイマー始動）
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = CheckoutQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -109,16 +108,11 @@ class CheckoutQuizNotifier extends AutoDisposeNotifier<CheckoutQuizState> {
     }
   }
 
-  /// リトライ
   void retry() {
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = CheckoutQuizState.initial().copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: state.failureCount,
-    );
-    _startTimer();
+    final prevFailureCount = state.failureCount;
+    state = CheckoutQuizState.initial().copyWith(failureCount: prevFailureCount);
   }
 
   void _startTimer() {

@@ -24,9 +24,6 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(skipSeekQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -67,7 +64,11 @@ class _SkipSeekQuizScreenState extends ConsumerState<SkipSeekQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: StreamingQuizConfig.quiz2SkipSeekTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(skipSeekQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.isSettingsOpen)
           StreamingOverlayMenu(

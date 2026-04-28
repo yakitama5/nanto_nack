@@ -31,9 +31,6 @@ class _ChangePaymentMethodQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(changePaymentMethodQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -90,7 +87,11 @@ class _ChangePaymentMethodQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: PaymentQuizConfig.quiz4ChangePaymentMethodTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(changePaymentMethodQuizProvider.notifier).startQuiz();
+            },
           ),
         ...resultOverlays,
       ],

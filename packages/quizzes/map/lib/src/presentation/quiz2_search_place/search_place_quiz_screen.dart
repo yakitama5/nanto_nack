@@ -30,9 +30,6 @@ class _ShowSchoolInfoQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(showSchoolInfoQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -60,7 +57,11 @@ class _ShowSchoolInfoQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: MapQuizConfig.quiz2SearchPlaceTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(showSchoolInfoQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||

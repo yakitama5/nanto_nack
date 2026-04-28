@@ -29,7 +29,7 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
   }
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = OfflineSaveQuizState.initial(
       video: StreamingCatalog.videos[3].copyWith(quality: '360p'),
     ).copyWith(
@@ -165,11 +165,7 @@ class OfflineSaveQuizNotifier extends AutoDisposeNotifier<OfflineSaveQuizState> 
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = OfflineSaveQuizState.initial(
       video: StreamingCatalog.videos[3].copyWith(quality: '360p'),
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
   }
 
   void _startTimer() {

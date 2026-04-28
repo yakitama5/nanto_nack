@@ -36,7 +36,7 @@ class SetWeekdaysQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = SetWeekdaysQuizState.initial(
       draft: AlarmCatalog.initialAlarms[1],
     ).copyWith(
@@ -144,12 +144,7 @@ class SetWeekdaysQuizNotifier
     final prevFailureCount = state.failureCount;
     state = SetWeekdaysQuizState.initial(
       draft: AlarmCatalog.initialAlarms[1],
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: prevFailureCount,
-    );
-    _startTimer();
+    ).copyWith(failureCount: prevFailureCount);
   }
 
   int get _elapsed => state.startedAt != null

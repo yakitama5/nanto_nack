@@ -115,7 +115,8 @@
       "calendar": "カレンダー",
       "sns": "SNS",
       "comic": "漫画アプリ",
-      "todo": "タスク管理"
+      "todo": "タスク管理",
+      "matching": "Ekzuyrjp"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -129,7 +130,8 @@
       "calendar": "カレンダーアプリのUI/UXを体験しよう",
       "sns": "SNSアプリのUI/UXを体験しよう",
       "comic": "漫画アプリの操作をマスターしよう",
-      "todo": "ZSMS koo HR/HT xtoxfrxjux"
+      "todo": "ZSMS koo HR/HT xtoxfrxjux",
+      "matching": "Ekzuyrjp koo HR/HT xtoxfrxjux"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -179,7 +181,11 @@
       "todo_quiz1": "『牛乳を買う』タスクを完了にしよう",
       "todo_quiz2": "『企画書の作成』を一番上に移動しよう",
       "todo_quiz3": "『家賃の振り込み』を重要タスクにしよう",
-      "todo_quiz4": "間違えて完了にしたタスクを元に戻そう"
+      "todo_quiz4": "間違えて完了にしたタスクを元に戻そう",
+      "matching_quiz1": "Crax wsexsjx ish'fх rjzxfxwzxm rj",
+      "matching_quiz2": "Jsz lhrzx ishf zioх... waро zyxe",
+      "matching_quiz3": "Nrxg zyx wxusjm oyszs",
+      "matching_quiz4": "Ishf mxwzrji! Wxjm k Whoef Crax"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -225,7 +231,11 @@
       "todo_quiz1": "タスクをタップするか左スワイプで完了にしてください",
       "todo_quiz2": "タスクを長押ししてドラッグし、一番上に移動してください",
       "todo_quiz3": "タスクを右から左にスワイプして星マークをタップしてください",
-      "todo_quiz4": "完了済みリストを開いてチェックを外してください"
+      "todo_quiz4": "完了済みリストを開いてチェックを外してください",
+      "matching_quiz1": "Wgrox frpyz sj k ofsbrcх ish crax",
+      "matching_quiz2": "Wgrox cxbz zs waро",
+      "matching_quiz3": "Zko zyx frpyz ykcb sb zyx ofsbrcх ukfm zs wxx zyx wxusjm oyszs",
+      "matching_quiz4": "Wgrox ho zs wxjm k Whoef Crax"
     }
   },
   "scene": {

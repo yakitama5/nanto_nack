@@ -27,9 +27,6 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(addAlarmQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -71,7 +68,11 @@ class _AddAlarmQuizScreenState extends ConsumerState<AddAlarmQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: AlarmQuizConfig.quiz1AddAlarmTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(addAlarmQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.timeUp ||

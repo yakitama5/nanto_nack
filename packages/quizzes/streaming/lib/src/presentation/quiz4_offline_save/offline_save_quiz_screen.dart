@@ -24,9 +24,6 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(offlineSaveQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -67,7 +64,11 @@ class _OfflineSaveQuizScreenState extends ConsumerState<OfflineSaveQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: StreamingQuizConfig.quiz4OfflineSaveTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(offlineSaveQuizProvider.notifier).startQuiz();
+            },
           ),
         // 設定メニュー
         if (state.isSettingsOpen && !state.isQualityListOpen)

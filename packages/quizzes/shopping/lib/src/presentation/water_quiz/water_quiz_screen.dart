@@ -42,9 +42,6 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(waterQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -79,7 +76,9 @@ class _WaterQuizScreenState extends ConsumerState<WaterQuizScreen> {
             missionText: missionText,
             timeLimitSeconds: ShoppingQuizConfig.waterTimeLimitSeconds,
             onFinished: () {
+              if (!mounted) return;
               setState(() => _showCutIn = false);
+              ref.read(waterQuizProvider.notifier).startQuiz();
               widget.onMissionCutInFinished?.call();
             },
           ),

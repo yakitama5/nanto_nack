@@ -29,7 +29,7 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
   }
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = SkipSeekQuizState.initial(
       video: StreamingCatalog.videos[1],
     ).copyWith(
@@ -147,11 +147,7 @@ class SkipSeekQuizNotifier extends AutoDisposeNotifier<SkipSeekQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SkipSeekQuizState.initial(
       video: StreamingCatalog.videos[1],
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
   }
 
   void _startTimer() {

@@ -338,6 +338,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get sns => 'SNS';
 	@override String get comic => 'Manga App';
 	@override String get todo => 'TODO App';
+	@override String get matching => 'Matching';
 }
 
 // Path: play.categoryDescription
@@ -359,6 +360,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get sns => 'Experience social media app UI/UX';
 	@override String get comic => 'Master manga app operations';
 	@override String get todo => 'Experience task management app UI/UX';
+	@override String get matching => 'Experience matching app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -416,6 +418,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get todo_quiz2 => 'Move Create Proposal to Top';
 	@override String get todo_quiz3 => 'Mark Pay Rent as Important';
 	@override String get todo_quiz4 => 'Undo Prepare for Meeting';
+	@override String get matching_quiz1 => 'Like someone you\'re interested in';
+	@override String get matching_quiz2 => 'Not quite your type... skip them';
+	@override String get matching_quiz3 => 'View the second photo';
+	@override String get matching_quiz4 => 'Your destiny! Send a Super Like';
 }
 
 // Path: play.stageDescription
@@ -473,6 +479,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get todo_quiz2 => 'Drag and drop to move Create Proposal to the top';
 	@override String get todo_quiz3 => 'Swipe left on Pay Rent and tap the star to mark as important';
 	@override String get todo_quiz4 => 'Open the completed list and uncheck Prepare for Meeting';
+	@override String get matching_quiz1 => 'Swipe right on a profile you like';
+	@override String get matching_quiz2 => 'Swipe left to skip';
+	@override String get matching_quiz3 => 'Tap the right half of the profile card to see the second photo';
+	@override String get matching_quiz4 => 'Swipe up to send a Super Like';
 }
 
 // Path: scene.greeting
@@ -638,6 +648,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.sns' => 'SNS',
 			'play.categoryLabel.comic' => 'Manga App',
 			'play.categoryLabel.todo' => 'TODO App',
+			'play.categoryLabel.matching' => 'Matching',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -650,6 +661,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.sns' => 'Experience social media app UI/UX',
 			'play.categoryDescription.comic' => 'Master manga app operations',
 			'play.categoryDescription.todo' => 'Experience task management app UI/UX',
+			'play.categoryDescription.matching' => 'Experience matching app UI/UX',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -698,6 +710,10 @@ extension on TranslationsEn {
 			'play.stageTitle.todo_quiz2' => 'Move Create Proposal to Top',
 			'play.stageTitle.todo_quiz3' => 'Mark Pay Rent as Important',
 			'play.stageTitle.todo_quiz4' => 'Undo Prepare for Meeting',
+			'play.stageTitle.matching_quiz1' => 'Like someone you\'re interested in',
+			'play.stageTitle.matching_quiz2' => 'Not quite your type... skip them',
+			'play.stageTitle.matching_quiz3' => 'View the second photo',
+			'play.stageTitle.matching_quiz4' => 'Your destiny! Send a Super Like',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -746,6 +762,10 @@ extension on TranslationsEn {
 			'play.stageDescription.todo_quiz2' => 'Drag and drop to move Create Proposal to the top',
 			'play.stageDescription.todo_quiz3' => 'Swipe left on Pay Rent and tap the star to mark as important',
 			'play.stageDescription.todo_quiz4' => 'Open the completed list and uncheck Prepare for Meeting',
+			'play.stageDescription.matching_quiz1' => 'Swipe right on a profile you like',
+			'play.stageDescription.matching_quiz2' => 'Swipe left to skip',
+			'play.stageDescription.matching_quiz3' => 'Tap the right half of the profile card to see the second photo',
+			'play.stageDescription.matching_quiz4' => 'Swipe up to send a Super Like',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

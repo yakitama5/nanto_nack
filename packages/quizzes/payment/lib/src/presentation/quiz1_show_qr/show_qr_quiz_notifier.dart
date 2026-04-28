@@ -30,7 +30,7 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = ShowQrQuizState.initial()
         .copyWith(
       status: QuizStatus.playing,
@@ -95,15 +95,12 @@ class ShowQrQuizNotifier extends AutoDisposeNotifier<ShowQrQuizState> {
 
   /// クイズをリトライする
   void retry() {
+    final previousFailureCount = state.failureCount;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = ShowQrQuizState.initial()
-        .copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: state.failureCount,
+    state = ShowQrQuizState.initial().copyWith(
+      failureCount: previousFailureCount,
     );
-    _startTimer();
   }
 
   int get _elapsed => state.startedAt != null

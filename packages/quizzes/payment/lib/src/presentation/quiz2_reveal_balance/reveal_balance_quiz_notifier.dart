@@ -31,7 +31,7 @@ class RevealBalanceQuizNotifier
 
   /// クイズを開始する
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state =
         RevealBalanceQuizState.initial()
             .copyWith(
@@ -93,16 +93,12 @@ class RevealBalanceQuizNotifier
 
   /// クイズをリトライする
   void retry() {
+    final previousFailureCount = state.failureCount;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state =
-        RevealBalanceQuizState.initial()
-            .copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-      failureCount: state.failureCount,
+    state = RevealBalanceQuizState.initial().copyWith(
+      failureCount: previousFailureCount,
     );
-    _startTimer();
   }
 
   int get _elapsed => state.startedAt != null

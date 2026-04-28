@@ -46,9 +46,6 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
   void initState() {
     super.initState();
     _cart = _buildRandomCart();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(cartQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -112,7 +109,11 @@ class _CartQuizScreenState extends ConsumerState<CartQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: ShoppingQuizConfig.cartTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(cartQuizProvider.notifier).startQuiz();
+            },
           ),
         // 正誤結果オーバーレイ
         if (quizState.status == QuizStatus.correct ||

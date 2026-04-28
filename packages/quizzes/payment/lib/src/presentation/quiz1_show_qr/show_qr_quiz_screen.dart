@@ -28,9 +28,6 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(showQrQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -73,7 +70,11 @@ class _ShowQrQuizScreenState extends ConsumerState<ShowQrQuizScreen> {
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: PaymentQuizConfig.quiz1ShowQrTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(showQrQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.timeUp ||

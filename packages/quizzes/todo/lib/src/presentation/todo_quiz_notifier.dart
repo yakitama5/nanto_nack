@@ -55,7 +55,7 @@ class TodoQuizNotifier
   // ─────────────────────────────────────────────
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -89,11 +89,7 @@ class TodoQuizNotifier
     if (state.status == QuizStatus.playing) return;
     _timer?.cancel();
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    state = TodoQuizState.initial(initialItems: _initialItems).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
-    );
-    _startTimer();
+    state = TodoQuizState.initial(initialItems: _initialItems);
   }
 
   // ─────────────────────────────────────────────

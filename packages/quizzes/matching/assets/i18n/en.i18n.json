@@ -1,0 +1,62 @@
+{
+  "quiz1": {
+    "missionText": "Found someone great! Try sending a 'Like'",
+    "insight": {
+      "title": "How did you know a right swipe means 'Like'?",
+      "subtitle": "Right swipe is the world standard gesture for YES/approval",
+      "swipeTitle": "Right swipe = LIKE (world standard)",
+      "swipeDesc": "Tinder created the 'right for like, left for skip' swipe UI in 2012. Now it is the standard interaction adopted by matching apps worldwide.",
+      "heartTitle": "The heart button has the same effect",
+      "heartDesc": "Tapping the heart icon button at the bottom of the screen triggers the same 'Like' action. It is designed as an alternative UI to swiping.",
+      "feedbackTitle": "Immediate feedback creates clarity",
+      "feedbackDesc": "The animation of the card flying to the right intuitively conveys the result of the action. Visual feedback allows users to act without hesitation."
+    }
+  },
+  "quiz2": {
+    "missionText": "Not quite your type... skip and see the next person",
+    "insight": {
+      "title": "How did you know a left swipe means 'Skip'?",
+      "subtitle": "Left swipe is the opposing gesture for NO/rejection",
+      "swipeTitle": "Left swipe = NOPE (world standard)",
+      "swipeDesc": "If right is YES, left is NO. This symmetrical design creates intuition. The same rule is used in any app with a card-based UI, not just matching apps.",
+      "xTitle": "The X button has the same effect",
+      "xDesc": "The X (cross) button at the bottom left means 'skip'. It leverages the universal icon language where 'X = reject/cancel'.",
+      "gestureTitle": "Gesture symmetry makes UX simple",
+      "gestureDesc": "The consistent rule of 'right = OK, left = NG' allows users to start using a new app without explanation. A design philosophy that reduces learning cost to zero."
+    }
+  },
+  "quiz3": {
+    "missionText": "I wonder if this person has other photos? Let's look at the second photo",
+    "insight": {
+      "title": "How did you know a tap would switch to the next photo?",
+      "subtitle": "Tapping to advance photos is a standard smartphone browsing operation",
+      "tapTitle": "Tap right = next photo, tap left = previous photo",
+      "tapDesc": "Tapping the right half of the profile card advances to the next photo; tapping the left half goes back. The same intuitive operation as Instagram Stories.",
+      "indicatorTitle": "The bars at the top are photo count indicators",
+      "indicatorDesc": "The short bars at the top of the card show the total number of photos and which one is currently displayed. The bright bar indicates the current position.",
+      "multiPhotoTitle": "Multiple photos better convey personality",
+      "multiPhotoDesc": "In matching apps, having multiple photos viewed conveys personality and atmosphere better than just one. The number of photos is an important factor in selection."
+    }
+  },
+  "quiz4": {
+    "missionText": "This is destiny!! Make a strong impression with a special 'Super Like'",
+    "insight": {
+      "title": "How did you know an upward swipe means 'Super Like'?",
+      "subtitle": "Upward swipe is the intuitive gesture for a special action",
+      "superTitle": "Upward swipe = Super Like",
+      "superDesc": "The upward swipe added by Tinder is a differentiating action that shows 'special interest'. It stands out as a third option beyond the right/left binary choice.",
+      "starTitle": "The star button also triggers Super Like",
+      "starDesc": "Tapping the star button at the bottom of the screen triggers the same Super Like. This allows reliable operation even in situations where swiping is difficult.",
+      "specialTitle": "Scarcity increases appeal",
+      "specialDesc": "Super Like notifies the other person more strongly than a regular like, said to increase match rate. A design that leverages the psychology that value increases the more limited something is."
+    }
+  },
+  "common": {
+    "appTitle": "Matching",
+    "like": "LIKE",
+    "nope": "NOPE",
+    "superLike": "SUPER",
+    "noMoreProfiles": "No more profiles",
+    "profilesLabel": "People near you"
+  }
+}

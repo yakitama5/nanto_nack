@@ -32,9 +32,6 @@ class _CancelMessageQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(cancelMessageQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -151,7 +148,11 @@ class _CancelMessageQuizScreenState
         MissionCutIn(
           missionText: missionText,
           timeLimitSeconds: ChatQuizConfig.quiz4CancelMessageTimeLimitSeconds,
-          onFinished: () => setState(() => _showCutIn = false),
+          onFinished: () {
+            if (!mounted) return;
+            setState(() => _showCutIn = false);
+            notifier.startQuiz();
+          },
         ),
       if (state.status == QuizStatus.correct ||
           state.status == QuizStatus.incorrect ||

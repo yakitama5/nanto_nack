@@ -32,7 +32,7 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
   }
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = state.copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -186,11 +186,7 @@ class SendStampQuizNotifier extends AutoDisposeNotifier<SendStampQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SendStampQuizState.initial(
       initialMessages: ChatCatalog.quiz1InitialMessages(clock.now()),
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
   }
 
   void _startTimer() {

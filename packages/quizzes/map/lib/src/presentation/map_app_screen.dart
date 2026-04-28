@@ -189,13 +189,14 @@ class MapAppScreen extends StatelessWidget {
               ),
             ),
           // ミッションバブル
-          FloatingMissionBubble(
-            remainingSeconds: remainingSeconds,
-            missionText: missionText,
-            hintUsed: false,
-            timeLimitSeconds: timeLimitSeconds,
-            onGiveUp: onGiveUp,
-          ),
+          if (quizStatus == QuizStatus.playing)
+            FloatingMissionBubble(
+              remainingSeconds: remainingSeconds,
+              missionText: missionText,
+              hintUsed: false,
+              timeLimitSeconds: timeLimitSeconds,
+              onGiveUp: onGiveUp,
+            ),
           // オーバーレイ（クリア演出など）
           ...overlays,
         ],

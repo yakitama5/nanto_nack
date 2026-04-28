@@ -32,9 +32,6 @@ class _SetWeekdaysQuizScreenState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(setWeekdaysQuizProvider.notifier).startQuiz();
-    });
   }
 
   @override
@@ -85,7 +82,11 @@ class _SetWeekdaysQuizScreenState
           MissionCutIn(
             missionText: missionText,
             timeLimitSeconds: AlarmQuizConfig.quiz2SetWeekdaysTimeLimitSeconds,
-            onFinished: () => setState(() => _showCutIn = false),
+            onFinished: () {
+              if (!mounted) return;
+              setState(() => _showCutIn = false);
+              ref.read(setWeekdaysQuizProvider.notifier).startQuiz();
+            },
           ),
         if (state.status == QuizStatus.correct ||
             state.status == QuizStatus.incorrect ||

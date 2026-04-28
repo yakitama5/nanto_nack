@@ -21,6 +21,7 @@ workspace:
   - packages/quizzes/sns
   - packages/quizzes/comic
   - packages/quizzes/todo
+  - packages/quizzes/matching
   - packages/geolocator_windows_stub
 
 dev_dependencies:

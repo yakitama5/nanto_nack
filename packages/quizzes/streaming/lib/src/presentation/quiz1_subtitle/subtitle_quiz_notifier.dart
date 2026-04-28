@@ -29,7 +29,7 @@ class SubtitleQuizNotifier extends AutoDisposeNotifier<SubtitleQuizState> {
   }
 
   void startQuiz() {
-    _timer?.cancel();
+    if (state.status != QuizStatus.idle) return;
     state = SubtitleQuizState.initial(
       video: StreamingCatalog.featuredVideo,
     ).copyWith(
@@ -130,11 +130,7 @@ class SubtitleQuizNotifier extends AutoDisposeNotifier<SubtitleQuizState> {
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
     state = SubtitleQuizState.initial(
       video: StreamingCatalog.featuredVideo,
-    ).copyWith(
-      status: QuizStatus.playing,
-      startedAt: clock.now(),
     );
-    _startTimer();
   }
 
   void _startTimer() {
