@@ -13,6 +13,13 @@ class MatchingAppState {
     required this.currentCardIndex,
   }) : profiles = UnmodifiableListView(List.from(profiles));
 
+  // copyWith でリストを変更しない場合に既存の UnmodifiableListView を再利用する
+  MatchingAppState._wrap({
+    required this.profiles,
+    required this.currentImageIndex,
+    required this.currentCardIndex,
+  });
+
   /// スワイプ待ちのプロフィールリスト（読み取り専用）
   final UnmodifiableListView<MatchProfile> profiles;
 
@@ -36,10 +43,27 @@ class MatchingAppState {
     int? currentImageIndex,
     int? currentCardIndex,
   }) {
-    return MatchingAppState(
-      profiles: profiles ?? this.profiles,
+    return MatchingAppState._wrap(
+      profiles: profiles != null
+          ? UnmodifiableListView(List.from(profiles))
+          : this.profiles,
       currentImageIndex: currentImageIndex ?? this.currentImageIndex,
       currentCardIndex: currentCardIndex ?? this.currentCardIndex,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MatchingAppState &&
+          identical(profiles, other.profiles) &&
+          currentImageIndex == other.currentImageIndex &&
+          currentCardIndex == other.currentCardIndex;
+
+  @override
+  int get hashCode => Object.hash(
+        identityHashCode(profiles),
+        currentImageIndex,
+        currentCardIndex,
+      );
 }
