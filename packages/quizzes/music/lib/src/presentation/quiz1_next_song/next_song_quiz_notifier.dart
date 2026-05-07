@@ -39,8 +39,8 @@ class NextSongQuizNotifier extends AutoDisposeNotifier<NextSongQuizState> {
       _player!.setLoopMode(LoopMode.off);
       final source = ConcatenatingAudioSource(
         children: [
-          AudioSource.asset(MusicCatalog.songs[0].audioAssetPath),
-          AudioSource.asset(MusicCatalog.songs[1].audioAssetPath),
+          AudioSource.asset(MusicCatalog.audioPaths[0]),
+          AudioSource.asset(MusicCatalog.audioPaths[1]),
         ],
       );
       _player!.setAudioSource(source).then((_) {
@@ -62,7 +62,7 @@ class NextSongQuizNotifier extends AutoDisposeNotifier<NextSongQuizState> {
   Future<void> nextSong() async {
     if (state.status != QuizStatus.playing) return;
     final previousIndex = state.musicState.currentSongIndex;
-    final nextIndex = (previousIndex + 1) % MusicCatalog.songs.length;
+    final nextIndex = (previousIndex + 1) % MusicCatalog.songCount;
 
     await _player?.seekToNext();
 
@@ -93,8 +93,8 @@ class NextSongQuizNotifier extends AutoDisposeNotifier<NextSongQuizState> {
   Future<void> previousSong() async {
     if (state.status != QuizStatus.playing) return;
     final prevIndex =
-        (state.musicState.currentSongIndex - 1 + MusicCatalog.songs.length) %
-        MusicCatalog.songs.length;
+        (state.musicState.currentSongIndex - 1 + MusicCatalog.songCount) %
+        MusicCatalog.songCount;
     await _player?.seekToPrevious();
     state = state.copyWith(
       musicState: state.musicState.copyWith(currentSongIndex: prevIndex),

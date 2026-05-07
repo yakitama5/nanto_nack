@@ -153,6 +153,12 @@ class TranslationsCommonJa {
 
 	/// ja: '終了する'
 	String get quitButton => '終了する';
+
+	/// ja: '1:12'
+	String get mockCurrentTime => '1:12';
+
+	/// ja: '3:45'
+	String get mockDuration => '3:45';
 }
 
 // Path: songs
@@ -372,6 +378,8 @@ extension on Translations {
 			'common.quitConfirmMessage' => 'プレイ中のゲームを終了します。',
 			'common.continueButton' => '続ける',
 			'common.quitButton' => '終了する',
+			'common.mockCurrentTime' => '1:12',
+			'common.mockDuration' => '3:45',
 			'songs.song1Title' => 'Starlight Drive',
 			'songs.song1Artist' => 'The Cosmic Band',
 			'songs.song1Lyrics' => 'Driving down the starlit road\nFeeling free, no heavy load\nNeon lights and city dreams\nNothing\'s ever what it seems\n\nRide with me through the night\nEverything will be alright\nStarlight drive, starlight drive\nKeep us feeling so alive',

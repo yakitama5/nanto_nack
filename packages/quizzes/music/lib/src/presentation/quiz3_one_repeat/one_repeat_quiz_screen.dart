@@ -30,7 +30,7 @@ class _OneRepeatQuizScreenState extends ConsumerState<OneRepeatQuizScreen> {
 
     return MusicAppScaffold(
       musicState: state.musicState,
-      songs: MusicCatalog.songs,
+      songs: MusicCatalog.buildSongs(context.sq),
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: MusicQuizConfig.quiz3TimeLimitSeconds,

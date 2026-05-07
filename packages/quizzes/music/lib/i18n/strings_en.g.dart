@@ -112,6 +112,8 @@ class _TranslationsCommonEn extends TranslationsCommonJa {
 	@override String get quitConfirmMessage => 'Your current game will end.';
 	@override String get continueButton => 'Continue';
 	@override String get quitButton => 'Quit';
+	@override String get mockCurrentTime => '1:12';
+	@override String get mockDuration => '3:45';
 }
 
 // Path: songs
@@ -255,6 +257,8 @@ extension on TranslationsEn {
 			'common.quitConfirmMessage' => 'Your current game will end.',
 			'common.continueButton' => 'Continue',
 			'common.quitButton' => 'Quit',
+			'common.mockCurrentTime' => '1:12',
+			'common.mockDuration' => '3:45',
 			'songs.song1Title' => 'Starlight Drive',
 			'songs.song1Artist' => 'The Cosmic Band',
 			'songs.song1Lyrics' => 'Driving down the starlit road\nFeeling free, no heavy load\nNeon lights and city dreams\nNothing\'s ever what it seems\n\nRide with me through the night\nEverything will be alright\nStarlight drive, starlight drive\nKeep us feeling so alive',

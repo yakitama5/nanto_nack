@@ -174,7 +174,7 @@ class _HomeBackground extends StatelessWidget {
                       color: color,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Icon(icon, color: Colors.white, size: 24),
+                    child: Icon(icon, color: ext.onAlbumColor, size: 24),
                   ),
                   title: UnreadableText(
                     song.title,
@@ -413,7 +413,7 @@ class _ArtworkArea extends StatelessWidget {
                 : null,
           ),
           child: Center(
-            child: Icon(albumIcon, size: 96, color: Colors.white70),
+            child: Icon(albumIcon, size: 96, color: ext.onAlbumColor.withValues(alpha: 0.7)),
           ),
         ),
       ),
@@ -493,6 +493,7 @@ class _PlaybackControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sq = context.sq;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -518,11 +519,11 @@ class _PlaybackControls extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '1:12',
+                  sq.common.mockCurrentTime,
                   style: TextStyle(color: ext.subTextColor, fontSize: 12),
                 ),
                 Text(
-                  '3:45',
+                  sq.common.mockDuration,
                   style: TextStyle(color: ext.subTextColor, fontSize: 12),
                 ),
               ],
@@ -552,7 +553,7 @@ class _PlaybackControls extends StatelessWidget {
                   ),
                   child: Icon(
                     isPlaying ? Icons.pause : Icons.play_arrow,
-                    color: Colors.white,
+                    color: ext.onAlbumColor,
                     size: 36,
                   ),
                 ),
@@ -734,7 +735,7 @@ class _MiniPlayer extends StatelessWidget {
                   color: albumColor,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Icon(albumIcon, color: Colors.white, size: 24),
+                child: Icon(albumIcon, color: ext.onAlbumColor, size: 24),
               ),
               const SizedBox(width: 12),
               Expanded(

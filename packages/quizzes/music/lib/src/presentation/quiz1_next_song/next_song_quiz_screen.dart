@@ -29,7 +29,7 @@ class _NextSongQuizScreenState extends ConsumerState<NextSongQuizScreen> {
 
     return MusicAppScaffold(
       musicState: state.musicState,
-      songs: MusicCatalog.songs,
+      songs: MusicCatalog.buildSongs(context.sq),
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: MusicQuizConfig.quiz1TimeLimitSeconds,

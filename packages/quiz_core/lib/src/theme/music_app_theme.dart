@@ -15,6 +15,7 @@ class MusicAppTheme extends ThemeExtension<MusicAppTheme> {
     required this.inactiveColor,
     required this.highlightBorderColor,
     required this.miniPlayerBackground,
+    required this.onAlbumColor,
   });
 
   /// プレイヤー背景色
@@ -50,6 +51,9 @@ class MusicAppTheme extends ThemeExtension<MusicAppTheme> {
   /// ミニプレイヤー背景色
   final Color miniPlayerBackground;
 
+  /// アルバムカラー背景上のアイコン・テキスト色
+  final Color onAlbumColor;
+
   static const light = MusicAppTheme(
     playerBackground: Color(0xFF1A0533),
     appBarBackground: Color(0xFF120024),
@@ -62,6 +66,7 @@ class MusicAppTheme extends ThemeExtension<MusicAppTheme> {
     inactiveColor: Color(0xFF7E57C2),
     highlightBorderColor: Color(0xFFFFEB3B),
     miniPlayerBackground: Color(0xFF2D1B47),
+    onAlbumColor: Color(0xFFFFFFFF),
   );
 
   static const dark = MusicAppTheme(
@@ -76,6 +81,7 @@ class MusicAppTheme extends ThemeExtension<MusicAppTheme> {
     inactiveColor: Color(0xFF5E35B1),
     highlightBorderColor: Color(0xFFFFEB3B),
     miniPlayerBackground: Color(0xFF1A0533),
+    onAlbumColor: Color(0xFFFFFFFF),
   );
 
   @override
@@ -91,6 +97,7 @@ class MusicAppTheme extends ThemeExtension<MusicAppTheme> {
     Color? inactiveColor,
     Color? highlightBorderColor,
     Color? miniPlayerBackground,
+    Color? onAlbumColor,
   }) {
     return MusicAppTheme(
       playerBackground: playerBackground ?? this.playerBackground,
@@ -104,6 +111,7 @@ class MusicAppTheme extends ThemeExtension<MusicAppTheme> {
       inactiveColor: inactiveColor ?? this.inactiveColor,
       highlightBorderColor: highlightBorderColor ?? this.highlightBorderColor,
       miniPlayerBackground: miniPlayerBackground ?? this.miniPlayerBackground,
+      onAlbumColor: onAlbumColor ?? this.onAlbumColor,
     );
   }
 
@@ -127,6 +135,7 @@ class MusicAppTheme extends ThemeExtension<MusicAppTheme> {
           Color.lerp(highlightBorderColor, other.highlightBorderColor, t)!,
       miniPlayerBackground:
           Color.lerp(miniPlayerBackground, other.miniPlayerBackground, t)!,
+      onAlbumColor: Color.lerp(onAlbumColor, other.onAlbumColor, t)!,
     );
   }
 }
