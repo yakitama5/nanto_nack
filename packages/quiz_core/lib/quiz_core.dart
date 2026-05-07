@@ -9,6 +9,7 @@ export 'src/theme/comic_app_theme.dart';
 export 'src/theme/mail_app_theme.dart';
 export 'src/theme/map_app_theme.dart';
 export 'src/theme/matching_app_theme.dart';
+export 'src/theme/music_app_theme.dart';
 export 'src/theme/news_app_theme.dart';
 export 'src/theme/nanto_nack_theme_extension.dart';
 export 'src/theme/payment_app_theme.dart';

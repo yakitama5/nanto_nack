@@ -1,0 +1,79 @@
+{
+  "quiz1": {
+    "missionText": "この曲じゃないなぁ。次の曲に進めてみよう",
+    "insight": {
+      "title": "なぜ次の曲に進めたの？",
+      "subtitle": "スワイプで曲を変える感覚",
+      "swipeTitle": "ジャケ写の左スワイプ",
+      "swipeDesc": "アルバムアートを左にスワイプすると次の曲に進む操作は、スマホのギャラリー画像送りと同じ感覚。視覚的なカードUIが「送れる」ことを直感的に示している。",
+      "skipTitle": "スキップボタン（⏭）の意味",
+      "skipDesc": "カセットデッキの時代から続く「▶▶|」記号は、次のトラックへのスキップを意味する。音楽プレイヤー共通の配置（再生ボタンの右隣）が世界標準となっている。",
+      "gestureTitle": "ジェスチャーとボタンの二重操作",
+      "gestureDesc": "同じ機能（曲送り）をスワイプとタップの両方で実現することで、ユーザーは好みの操作方法を選べる。これはモバイルUXの「複数の入力経路」の原則だ。"
+    }
+  },
+  "quiz2": {
+    "missionText": "曲を探しに戻りたい。再生画面を小さくして収納しよう",
+    "insight": {
+      "title": "なぜ画面を下に引けるとわかった？",
+      "subtitle": "シートUIの「引き下げ」パターン",
+      "dragTitle": "下ドラッグで「閉じる」",
+      "dragDesc": "全画面から下にドラッグして画面を小さくする操作は、iOSのSpotify・Apple Musicで定着した。「引き下げ = 閉じる/収納」の概念がスマホユーザーの共通認識となっている。",
+      "miniTitle": "ミニプレイヤーで音楽を継続",
+      "miniDesc": "全画面を閉じても音楽が止まらず、画面下部のミニプレイヤーで再生が続く。この「ながら操作」のUXパターンは、動画・音楽アプリで広く採用されている。",
+      "notchTitle": "上部のインジケーター（ノッチ）",
+      "notchDesc": "全画面シートの上部にある細い横棒（ドラッグハンドル）は、「このUIは引っ張れる」というシグナル。小さくても存在感があり、ユーザーに操作を促す。"
+    }
+  },
+  "quiz3": {
+    "missionText": "この曲最高！ずっとこれだけを繰り返し聴きたいな",
+    "insight": {
+      "title": "繰り返しボタンの意味がわかった？",
+      "subtitle": "3段階リピートの視覚的切り替え",
+      "repeatTitle": "リピートボタンの3状態",
+      "repeatDesc": "🔁（全体リピート）→🔂（1曲リピート）→なし（オフ）の3段階が1つのボタンで切り替わる。「1」の数字バッジが付いて初めて1曲リピートとわかる記号表現だ。",
+      "iconTitle": "循環矢印＋「1」の組み合わせ",
+      "iconDesc": "2本の矢印が循環している記号は「繰り返し」を表すが、「1」が付くと「1曲だけ」の意味に変わる。修飾子（数字）で意味を拡張するUI表現の好例だ。",
+      "tapTitle": "連続タップで状態を巡回",
+      "tapDesc": "同じボタンを繰り返しタップすることで複数の状態を切り替える「サイクル操作」は、音楽プレイヤーに限らず多くのアプリで使われるUXパターンだ。"
+    }
+  },
+  "quiz4": {
+    "missionText": "なんて歌ってるんだろう？歌詞を確認してみて",
+    "insight": {
+      "title": "歌詞エリアをどうやって引き上げた？",
+      "subtitle": "ドラッグシートの「引き上げ」パターン",
+      "dragTitle": "下部シートを上に引き上げる",
+      "dragDesc": "画面下部に少しだけ見えるパネルを上にスワイプして全画面に引き上げる操作は、Googleマップの場所情報シートで広く普及した。「つかんで引き上げる」物理的な感覚がそのままUIに反映されている。",
+      "handleTitle": "ドラッグハンドルが「操作できる」を伝える",
+      "handleDesc": "パネル上部の細い横棒（ドラッグハンドル）は、このUIが上下にドラッグできることを示すシグナル。文字の代わりに形状でインタラクティブ性を伝えるアフォーダンスの典型例だ。",
+      "lyricsTitle": "歌詞表示はスクロールと組み合わせ",
+      "lyricsDesc": "引き上げたシート内で歌詞がスクロールできる構造は、「一度引き上げれば好きなだけ読める」という期待に応える。シートの状態とコンテンツの状態を分離した優れた設計だ。"
+    }
+  },
+  "common": {
+    "appTitle": "MusicHub",
+    "homeTab": "Home",
+    "libraryTab": "Library",
+    "searchTab": "Search",
+    "likeButton": "Like",
+    "moreButton": "More",
+    "playlistTitle": "マイプレイリスト",
+    "songCount": "{count}曲",
+    "@songCount": { "param": "count" },
+    "lyrics": "歌詞",
+    "lyricsNotAvailable": "歌詞はありません",
+    "quitConfirmTitle": "ゲームを中断しますか？",
+    "quitConfirmMessage": "プレイ中のゲームを終了します。",
+    "continueButton": "続ける",
+    "quitButton": "終了する"
+  },
+  "songs": {
+    "song1Title": "Starlight Drive",
+    "song1Artist": "The Cosmic Band",
+    "song1Lyrics": "Driving down the starlit road\nFeeling free, no heavy load\nNeon lights and city dreams\nNothing's ever what it seems\n\nRide with me through the night\nEverything will be alright\nStarlight drive, starlight drive\nKeep us feeling so alive",
+    "song2Title": "Ocean Waves",
+    "song2Artist": "Blue Horizon",
+    "song2Lyrics": "The ocean calls my name tonight\nWaves of blue in morning light\nSalt and sea and endless sky\nWatching seagulls as they fly\n\nLet the tide wash away\nAll the worries of the day\nOcean waves, ocean waves\nFind the peace that silence saves"
+  }
+}

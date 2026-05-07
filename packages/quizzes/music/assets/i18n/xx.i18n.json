@@ -1,0 +1,79 @@
+{
+  "quiz1": {
+    "missionText": "Skip to the next song",
+    "insight": {
+      "title": "Song Navigation",
+      "subtitle": "Swipe or skip",
+      "swipeTitle": "Swipe artwork",
+      "swipeDesc": "Swipe left to skip.",
+      "skipTitle": "Skip button",
+      "skipDesc": "Next track symbol.",
+      "gestureTitle": "Two ways",
+      "gestureDesc": "Swipe or tap works."
+    }
+  },
+  "quiz2": {
+    "missionText": "Minimize the player",
+    "insight": {
+      "title": "Player Control",
+      "subtitle": "Pull down",
+      "dragTitle": "Drag down",
+      "dragDesc": "Pull to minimize.",
+      "miniTitle": "Mini player",
+      "miniDesc": "Music keeps playing.",
+      "notchTitle": "Drag handle",
+      "notchDesc": "Bar shows draggability."
+    }
+  },
+  "quiz3": {
+    "missionText": "Set to 1-song repeat",
+    "insight": {
+      "title": "Repeat Mode",
+      "subtitle": "Tap to cycle",
+      "repeatTitle": "3 states",
+      "repeatDesc": "Tap cycles repeat.",
+      "iconTitle": "Arrow + 1",
+      "iconDesc": "1 badge means one.",
+      "tapTitle": "Cycle tap",
+      "tapDesc": "Same button cycles."
+    }
+  },
+  "quiz4": {
+    "missionText": "Show the lyrics",
+    "insight": {
+      "title": "Lyrics Panel",
+      "subtitle": "Pull up",
+      "dragTitle": "Pull up sheet",
+      "dragDesc": "Swipe up to show.",
+      "handleTitle": "Drag handle",
+      "handleDesc": "Bar is draggable.",
+      "lyricsTitle": "Lyrics scroll",
+      "lyricsDesc": "Scroll inside sheet."
+    }
+  },
+  "common": {
+    "appTitle": "MusicHub",
+    "homeTab": "Home",
+    "libraryTab": "Library",
+    "searchTab": "Search",
+    "likeButton": "Like",
+    "moreButton": "More",
+    "playlistTitle": "Playlist",
+    "songCount": "{count} songs",
+    "@songCount": { "param": "count" },
+    "lyrics": "Lyrics",
+    "lyricsNotAvailable": "No lyrics",
+    "quitConfirmTitle": "Quit?",
+    "quitConfirmMessage": "Game will end.",
+    "continueButton": "Continue",
+    "quitButton": "Quit"
+  },
+  "songs": {
+    "song1Title": "Starlight Drive",
+    "song1Artist": "The Cosmic Band",
+    "song1Lyrics": "Driving down the starlit road\nFeeling free, no heavy load\nNeon lights and city dreams\nNothing's ever what it seems\n\nRide with me through the night\nEverything will be alright",
+    "song2Title": "Ocean Waves",
+    "song2Artist": "Blue Horizon",
+    "song2Lyrics": "The ocean calls my name tonight\nWaves of blue in morning light\nSalt and sea and endless sky\nWatching seagulls as they fly\n\nLet the tide wash away\nAll the worries of the day"
+  }
+}

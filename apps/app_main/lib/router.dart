@@ -12,6 +12,7 @@ import 'presentation/splash/splash_screen.dart';
 import 'presentation/support/support_screen.dart';
 import 'router/alarm_router.dart';
 import 'router/matching_router.dart';
+import 'router/music_router.dart';
 import 'router/calendar_router.dart';
 import 'router/chat_router.dart';
 import 'router/comic_router.dart';
@@ -75,6 +76,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           ...snsRoutes,
           ...todoRoutes,
           ...matchingRoutes,
+          ...musicRoutes,
         ],
       ),
       GoRoute(

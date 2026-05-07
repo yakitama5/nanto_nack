@@ -1,0 +1,9 @@
+targets:
+  $default:
+    sources:
+      include:
+        - assets/i18n/**
+        - lib/gen/**
+        - $package$
+      exclude:
+        - lib/gen/**/*.g.dart

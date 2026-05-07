@@ -58,6 +58,8 @@ dependencies:
     path: ../../packages/quizzes/todo
   matching:
     path: ../../packages/quizzes/matching
+  music:
+    path: ../../packages/quizzes/music
   slang_flutter: ^4.3.1
   system:
     path: ../../packages/system
