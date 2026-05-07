@@ -200,7 +200,7 @@ class _HomeBackground extends StatelessWidget {
 
 // ─── 全画面プレイヤー ──────────────────────────────────────────────────────────
 
-class _FullPlayerView extends StatelessWidget {
+class _FullPlayerView extends StatefulWidget {
   const _FullPlayerView({
     required this.ext,
     required this.currentSong,
@@ -232,71 +232,156 @@ class _FullPlayerView extends StatelessWidget {
   final bool highlightLyrics;
 
   @override
+  State<_FullPlayerView> createState() => _FullPlayerViewState();
+}
+
+class _FullPlayerViewState extends State<_FullPlayerView>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late Animation<double> _anim;
+
+  // 現在の下方向ドラッグ量（0以上）
+  double _dragY = 0;
+  bool _pendingMinimize = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this)
+      ..addListener(() => setState(() {}))
+      ..addStatusListener(_onAnimStatus);
+    _anim = const AlwaysStoppedAnimation(0.0);
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  void _onAnimStatus(AnimationStatus status) {
+    if (status != AnimationStatus.completed) return;
+    if (_pendingMinimize) {
+      _pendingMinimize = false;
+      widget.onTogglePlayerExpansion(false);
+    } else {
+      setState(() => _dragY = 0);
+    }
+  }
+
+  void _animateTo(double to, {Duration? duration, Curve curve = Curves.easeOutCubic}) {
+    _ctrl.stop();
+    _anim = Tween<double>(begin: _dragY, end: to).animate(
+      CurvedAnimation(parent: _ctrl, curve: curve),
+    );
+    _ctrl.duration = duration ?? const Duration(milliseconds: 300);
+    _ctrl.reset();
+    _ctrl.forward();
+  }
+
+  void _onDragUpdate(DragUpdateDetails details) {
+    if (_ctrl.isAnimating) return;
+    // 下方向のみ反応、上への戻しも許可
+    final newY = (_dragY + details.delta.dy).clamp(0.0, double.infinity);
+    setState(() => _dragY = newY);
+  }
+
+  void _onDragEnd(DragEndDetails details) {
+    if (_ctrl.isAnimating) return;
+    final velocity = details.primaryVelocity ?? 0;
+    final screenHeight = MediaQuery.heightOf(context);
+
+    if (velocity > 400 || _dragY > screenHeight * 0.25) {
+      _pendingMinimize = true;
+      _animateTo(
+        screenHeight,
+        duration: const Duration(milliseconds: 240),
+        curve: Curves.easeInCubic,
+      );
+    } else {
+      _animateTo(
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final currentY = _ctrl.isAnimating ? _anim.value : _dragY;
+    final screenHeight = MediaQuery.heightOf(context);
+    final progress = (currentY / screenHeight).clamp(0.0, 1.0);
+    final scale = 1.0 - progress * 0.15;
+
     final albumColor = MusicCatalog
-        .albumColors[currentSong.colorSeed % MusicCatalog.albumColors.length];
+        .albumColors[widget.currentSong.colorSeed % MusicCatalog.albumColors.length];
     final albumIcon = MusicCatalog
-        .albumIcons[currentSong.colorSeed % MusicCatalog.albumIcons.length];
+        .albumIcons[widget.currentSong.colorSeed % MusicCatalog.albumIcons.length];
 
     return GestureDetector(
-      onVerticalDragEnd: (details) {
-        if (details.primaryVelocity != null && details.primaryVelocity! > 200) {
-          onTogglePlayerExpansion(false);
-        }
-      },
-      child: Container(
-        color: ext.playerBackground,
-        child: SafeArea(
-          child: Stack(
-            children: [
-              Column(
+      onVerticalDragUpdate: _onDragUpdate,
+      onVerticalDragEnd: _onDragEnd,
+      child: Transform.translate(
+        offset: Offset(0, currentY),
+        child: Transform.scale(
+          scale: scale,
+          alignment: Alignment.topCenter,
+          child: Container(
+            color: widget.ext.playerBackground,
+            child: SafeArea(
+              child: Stack(
                 children: [
-                  _PlayerAppBar(
-                    ext: ext,
-                    highlightMinimize: highlightMinimize,
-                    onMinimize: () => onTogglePlayerExpansion(false),
+                  Column(
+                    children: [
+                      _PlayerAppBar(
+                        ext: widget.ext,
+                        highlightMinimize: widget.highlightMinimize,
+                        onMinimize: () => widget.onTogglePlayerExpansion(false),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 16),
+                            _ArtworkArea(
+                              ext: widget.ext,
+                              albumColor: albumColor,
+                              albumIcon: albumIcon,
+                              onNextSong: widget.onNextSong,
+                              onPreviousSong: widget.onPreviousSong,
+                              highlightSwipe: widget.highlightSwipe,
+                            ),
+                            const SizedBox(height: 24),
+                            _SongInfo(
+                              ext: widget.ext,
+                              currentSong: widget.currentSong,
+                            ),
+                            const SizedBox(height: 24),
+                            _PlaybackControls(
+                              ext: widget.ext,
+                              isPlaying: widget.musicState.isPlaying,
+                              repeatMode: widget.musicState.repeatMode,
+                              onTogglePlayPause: widget.onTogglePlayPause,
+                              onNextSong: widget.onNextSong,
+                              onPreviousSong: widget.onPreviousSong,
+                              onCycleRepeatMode: widget.onCycleRepeatMode,
+                              highlightRepeat: widget.highlightRepeat,
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 16),
-                        _ArtworkArea(
-                          ext: ext,
-                          albumColor: albumColor,
-                          albumIcon: albumIcon,
-                          onNextSong: onNextSong,
-                          onPreviousSong: onPreviousSong,
-                          highlightSwipe: highlightSwipe,
-                        ),
-                        const SizedBox(height: 24),
-                        _SongInfo(
-                          ext: ext,
-                          currentSong: currentSong,
-                        ),
-                        const SizedBox(height: 24),
-                        _PlaybackControls(
-                          ext: ext,
-                          isPlaying: musicState.isPlaying,
-                          repeatMode: musicState.repeatMode,
-                          onTogglePlayPause: onTogglePlayPause,
-                          onNextSong: onNextSong,
-                          onPreviousSong: onPreviousSong,
-                          onCycleRepeatMode: onCycleRepeatMode,
-                          highlightRepeat: highlightRepeat,
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
+                  _LyricsPanel(
+                    ext: widget.ext,
+                    lyrics: widget.currentSong.lyrics,
+                    onLyricsSizeChanged: widget.onLyricsSizeChanged,
+                    highlightLyrics: widget.highlightLyrics,
                   ),
                 ],
               ),
-              _LyricsPanel(
-                ext: ext,
-                lyrics: currentSong.lyrics,
-                onLyricsSizeChanged: onLyricsSizeChanged,
-                highlightLyrics: highlightLyrics,
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -367,9 +452,9 @@ class _PlayerAppBar extends StatelessWidget {
   }
 }
 
-// ─── アートワークエリア ─────────────────────────────────────────────────────────
+// ─── アートワークエリア（スワイプアニメーション付き） ─────────────────────────
 
-class _ArtworkArea extends StatelessWidget {
+class _ArtworkArea extends StatefulWidget {
   const _ArtworkArea({
     required this.ext,
     required this.albumColor,
@@ -387,33 +472,143 @@ class _ArtworkArea extends StatelessWidget {
   final bool highlightSwipe;
 
   @override
+  State<_ArtworkArea> createState() => _ArtworkAreaState();
+}
+
+class _ArtworkAreaState extends State<_ArtworkArea>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late Animation<double> _anim;
+
+  // 現在の水平オフセット（ドラッグ中・アニメーション中ともにこの値を参照）
+  double _offset = 0;
+  VoidCallback? _onAnimComplete;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this)
+      ..addListener(_onAnimTick)
+      ..addStatusListener(_onAnimStatus);
+    _anim = const AlwaysStoppedAnimation(0.0);
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  void _onAnimTick() {
+    setState(() => _offset = _anim.value);
+  }
+
+  void _onAnimStatus(AnimationStatus status) {
+    if (status != AnimationStatus.completed) return;
+    final cb = _onAnimComplete;
+    _onAnimComplete = null;
+    cb?.call();
+  }
+
+  void _animateTo(
+    double to, {
+    required Duration duration,
+    Curve curve = Curves.easeOutCubic,
+    VoidCallback? onComplete,
+  }) {
+    _ctrl.stop();
+    _anim = Tween<double>(begin: _offset, end: to).animate(
+      CurvedAnimation(parent: _ctrl, curve: curve),
+    );
+    _onAnimComplete = onComplete;
+    _ctrl.duration = duration;
+    _ctrl.reset();
+    _ctrl.forward();
+  }
+
+  void _onDragUpdate(DragUpdateDetails details) {
+    if (_ctrl.isAnimating) return;
+    setState(() => _offset += details.delta.dx);
+  }
+
+  void _onDragEnd(DragEndDetails details) {
+    if (_ctrl.isAnimating) return;
+    final velocity = details.primaryVelocity ?? 0;
+    final width = context.size?.width ?? 400.0;
+
+    if (velocity < -500 || _offset < -width * 0.3) {
+      // 左スワイプ → 次の曲
+      _animateTo(
+        -width,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInCubic,
+        onComplete: () {
+          widget.onNextSong();
+          setState(() => _offset = width); // 右端から入場
+          _animateTo(
+            0,
+            duration: const Duration(milliseconds: 280),
+            curve: Curves.easeOutCubic,
+          );
+        },
+      );
+    } else if (velocity > 500 || _offset > width * 0.3) {
+      // 右スワイプ → 前の曲
+      _animateTo(
+        width,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInCubic,
+        onComplete: () {
+          widget.onPreviousSong();
+          setState(() => _offset = -width); // 左端から入場
+          _animateTo(
+            0,
+            duration: const Duration(milliseconds: 280),
+            curve: Curves.easeOutCubic,
+          );
+        },
+      );
+    } else {
+      // 不十分なスワイプ → 元に戻す
+      _animateTo(
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: GestureDetector(
-        onHorizontalDragEnd: (details) {
-          if (details.primaryVelocity != null && details.primaryVelocity! < 0) {
-            onNextSong();
-          } else if (details.primaryVelocity != null &&
-              details.primaryVelocity! > 0) {
-            onPreviousSong();
-          }
-        },
-        child: Container(
-          width: double.infinity,
-          height: 240,
-          decoration: BoxDecoration(
-            color: albumColor,
-            borderRadius: BorderRadius.circular(12),
-            border: highlightSwipe
-                ? Border.all(
-                    color: ext.highlightBorderColor,
-                    width: 3,
-                  )
-                : null,
-          ),
-          child: Center(
-            child: Icon(albumIcon, size: 96, color: ext.onAlbumColor.withValues(alpha: 0.7)),
+      child: ClipRect(
+        child: GestureDetector(
+          onHorizontalDragUpdate: _onDragUpdate,
+          onHorizontalDragEnd: _onDragEnd,
+          child: Transform.translate(
+            offset: Offset(_offset, 0),
+            child: Container(
+              width: double.infinity,
+              height: 240,
+              decoration: BoxDecoration(
+                color: widget.albumColor,
+                borderRadius: BorderRadius.circular(12),
+                border: widget.highlightSwipe
+                    ? Border.all(
+                        color: widget.ext.highlightBorderColor,
+                        width: 3,
+                      )
+                    : null,
+              ),
+              child: Center(
+                child: Icon(
+                  widget.albumIcon,
+                  size: 96,
+                  color: widget.ext.onAlbumColor.withValues(alpha: 0.7),
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -594,9 +789,9 @@ class _PlaybackControls extends StatelessWidget {
   }
 }
 
-// ─── 歌詞パネル ────────────────────────────────────────────────────────────────
+// ─── 歌詞パネル（ヘッダードラッグ対応） ────────────────────────────────────────
 
-class _LyricsPanel extends StatelessWidget {
+class _LyricsPanel extends StatefulWidget {
   const _LyricsPanel({
     required this.ext,
     required this.lyrics,
@@ -610,50 +805,86 @@ class _LyricsPanel extends StatelessWidget {
   final bool highlightLyrics;
 
   @override
+  State<_LyricsPanel> createState() => _LyricsPanelState();
+}
+
+class _LyricsPanelState extends State<_LyricsPanel> {
+  final _sheetController = DraggableScrollableController();
+
+  @override
+  void dispose() {
+    _sheetController.dispose();
+    super.dispose();
+  }
+
+  void _onHeaderDragUpdate(DragUpdateDetails details) {
+    if (!_sheetController.isAttached) return;
+    final screenHeight = MediaQuery.heightOf(context);
+    final delta = -details.delta.dy / screenHeight;
+    final newSize = (_sheetController.size + delta).clamp(0.08, 1.0);
+    _sheetController.jumpTo(newSize);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final sq = context.sq;
     return DraggableScrollableSheet(
+      controller: _sheetController,
       initialChildSize: 0.12,
       minChildSize: 0.08,
       maxChildSize: 1.0,
       builder: (context, scrollController) {
         return NotificationListener<DraggableScrollableNotification>(
           onNotification: (notification) {
-            onLyricsSizeChanged(notification.extent);
+            widget.onLyricsSizeChanged(notification.extent);
             return false;
           },
           child: Container(
             decoration: BoxDecoration(
-              color: ext.cardBackground,
+              color: widget.ext.cardBackground,
               borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-              border: highlightLyrics
-                  ? Border.all(color: ext.highlightBorderColor, width: 2)
+              border: widget.highlightLyrics
+                  ? Border.all(color: widget.ext.highlightBorderColor, width: 2)
                   : null,
             ),
             child: Column(
               children: [
-                const SizedBox(height: 8),
-                Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: ext.inactiveColor,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                // ヘッダー領域：ドラッグでシートを展開・縮小できる
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onVerticalDragUpdate: _onHeaderDragUpdate,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.lyrics_outlined, color: ext.subTextColor, size: 16),
-                      const SizedBox(width: 4),
-                      UnreadableText(
-                        sq.common.lyrics,
-                        style: TextStyle(
-                          color: ext.subTextColor,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
+                      const SizedBox(height: 8),
+                      Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: widget.ext.inactiveColor,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.lyrics_outlined,
+                              color: widget.ext.subTextColor,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 4),
+                            UnreadableText(
+                              sq.common.lyrics,
+                              style: TextStyle(
+                                color: widget.ext.subTextColor,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -663,19 +894,19 @@ class _LyricsPanel extends StatelessWidget {
                   child: SingleChildScrollView(
                     controller: scrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                    child: lyrics.isEmpty
+                    child: widget.lyrics.isEmpty
                         ? Text(
                             sq.common.lyricsNotAvailable,
                             style: TextStyle(
-                              color: ext.subTextColor,
+                              color: widget.ext.subTextColor,
                               fontSize: 14,
                             ),
                             textAlign: TextAlign.center,
                           )
                         : Text(
-                            lyrics,
+                            widget.lyrics,
                             style: TextStyle(
-                              color: ext.primaryTextColor,
+                              color: widget.ext.primaryTextColor,
                               fontSize: 16,
                               height: 1.8,
                             ),
