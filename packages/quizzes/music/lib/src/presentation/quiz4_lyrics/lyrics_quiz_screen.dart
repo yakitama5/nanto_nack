@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:system/system.dart';
 
+import '../../domain/entities/music_song.dart';
 import '../../domain/music_catalog.dart';
 import '../../domain/music_quiz_config.dart';
 import '../../i18n/music_translations_extension.dart';
@@ -21,6 +22,13 @@ class LyricsQuizScreen extends ConsumerStatefulWidget {
 class _LyricsQuizScreenState extends ConsumerState<LyricsQuizScreen> {
   bool _showCutIn = true;
   bool _hintUsed = false;
+  late List<MusicSong> _songs;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _songs = MusicCatalog.buildSongs(context.sq);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class _LyricsQuizScreenState extends ConsumerState<LyricsQuizScreen> {
 
     return MusicAppScaffold(
       musicState: state.musicState,
-      songs: MusicCatalog.buildSongs(context.sq),
+      songs: _songs,
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: MusicQuizConfig.quiz4TimeLimitSeconds,
