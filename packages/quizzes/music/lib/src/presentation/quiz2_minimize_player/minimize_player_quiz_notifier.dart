@@ -30,28 +30,29 @@ class MinimizePlayerQuizNotifier
       _timer?.cancel();
       _player?.dispose();
     });
-    _initPlayer();
     return MinimizePlayerQuizState.initial();
   }
 
   void _initPlayer() {
     try {
-      _player = AudioPlayer();
-      _player!.setLoopMode(LoopMode.off);
+      final player = AudioPlayer();
+      player.setLoopMode(LoopMode.off);
       final source = ConcatenatingAudioSource(
         children: [
           AudioSource.asset(MusicCatalog.audioPaths[0]),
           AudioSource.asset(MusicCatalog.audioPaths[1]),
         ],
       );
-      _player!.setAudioSource(source).then((_) {
-        _player!.play();
+      _player = player;
+      player.setAudioSource(source).then((_) {
+        player.play();
       }).catchError((_) {});
     } catch (_) {}
   }
 
   void startQuiz() {
     if (state.status != QuizStatus.idle) return;
+    _initPlayer();
     state = MinimizePlayerQuizState.initial().copyWith(
       status: QuizStatus.playing,
       startedAt: clock.now(),
@@ -111,7 +112,15 @@ class MinimizePlayerQuizNotifier
         elapsedMs: elapsed,
       );
       unawaited(hapticFeedback.playSuccessFeedback());
-      await _saveResult(isCleared: true, elapsedMs: elapsed);
+      try {
+        await _saveResult(isCleared: true, elapsedMs: elapsed);
+      } catch (error, stackTrace) {
+        appLogger.e(
+          'Failed to save correct result',
+          error: error,
+          stackTrace: stackTrace,
+        );
+      }
     } else {
       state = state.copyWith(
         musicState: state.musicState.copyWith(isPlayerExpanded: expanded),
@@ -134,6 +143,7 @@ class MinimizePlayerQuizNotifier
 
   void updateLyricsSize(double size) {
     if (state.status != QuizStatus.playing) return;
+    if ((size - state.musicState.lyricsSheetSize).abs() < 0.01) return;
     state = state.copyWith(
       musicState: state.musicState.copyWith(lyricsSheetSize: size),
     );
@@ -166,8 +176,9 @@ class MinimizePlayerQuizNotifier
 
   void retry() {
     _timer?.cancel();
+    _player?.dispose();
+    _player = null;
     ref.read(analyticsServiceProvider).logQuizRetried(quizId: _quizId);
-    _initPlayer();
     state = MinimizePlayerQuizState.initial();
   }
 
