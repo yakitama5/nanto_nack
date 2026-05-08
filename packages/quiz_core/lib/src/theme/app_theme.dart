@@ -8,6 +8,7 @@ import 'package:quiz_core/src/theme/payment_app_theme.dart';
 import 'package:quiz_core/src/theme/shopping_app_theme.dart';
 import 'package:quiz_core/src/theme/mail_app_theme.dart';
 import 'package:quiz_core/src/theme/matching_app_theme.dart';
+import 'package:quiz_core/src/theme/music_app_theme.dart';
 import 'package:quiz_core/src/theme/news_app_theme.dart';
 import 'package:quiz_core/src/theme/sns_app_theme.dart';
 import 'package:quiz_core/src/theme/streaming_app_theme.dart';
@@ -37,6 +38,7 @@ abstract final class AppTheme {
         MailAppTheme.light,
         MapAppTheme.light,
         MatchingAppTheme.light,
+        MusicAppTheme.light,
         NewsAppTheme.light,
         PaymentAppTheme.light,
         ShoppingAppTheme.light,
@@ -69,6 +71,7 @@ abstract final class AppTheme {
         MailAppTheme.dark,
         MapAppTheme.dark,
         MatchingAppTheme.dark,
+        MusicAppTheme.dark,
         NewsAppTheme.dark,
         PaymentAppTheme.dark,
         ShoppingAppTheme.dark,

@@ -25,6 +25,7 @@ enum GenericQuizStage {
             QuizCategory.comic => t.play.stageTitle.comic_quiz1,
             QuizCategory.todo => t.play.stageTitle.todo_quiz1,
             QuizCategory.matching => t.play.stageTitle.matching_quiz1,
+            QuizCategory.music => t.play.stageTitle.music_quiz1,
           },
         quiz2 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz2,
@@ -40,6 +41,7 @@ enum GenericQuizStage {
             QuizCategory.comic => t.play.stageTitle.comic_quiz2,
             QuizCategory.todo => t.play.stageTitle.todo_quiz2,
             QuizCategory.matching => t.play.stageTitle.matching_quiz2,
+            QuizCategory.music => t.play.stageTitle.music_quiz2,
           },
         quiz3 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz3,
@@ -55,6 +57,7 @@ enum GenericQuizStage {
             QuizCategory.comic => t.play.stageTitle.comic_quiz3,
             QuizCategory.todo => t.play.stageTitle.todo_quiz3,
             QuizCategory.matching => t.play.stageTitle.matching_quiz3,
+            QuizCategory.music => t.play.stageTitle.music_quiz3,
           },
         quiz4 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz4,
@@ -70,6 +73,7 @@ enum GenericQuizStage {
             QuizCategory.comic => t.play.stageTitle.comic_quiz4,
             QuizCategory.todo => t.play.stageTitle.todo_quiz4,
             QuizCategory.matching => t.play.stageTitle.matching_quiz4,
+            QuizCategory.music => t.play.stageTitle.music_quiz4,
           },
       };
 
@@ -427,6 +431,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     category: QuizCategory.comic,
     routePath: kComicQuiz4Path,
     difficulty: 2,
+  ),
+  // 音楽カテゴリー
+  const Stage(
+    id: 'music_quiz1',
+    category: QuizCategory.music,
+    routePath: kMusicQuiz1Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'music_quiz2',
+    category: QuizCategory.music,
+    routePath: kMusicQuiz2Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'music_quiz3',
+    category: QuizCategory.music,
+    routePath: kMusicQuiz3Path,
+    difficulty: 3,
+  ),
+  const Stage(
+    id: 'music_quiz4',
+    category: QuizCategory.music,
+    routePath: kMusicQuiz4Path,
+    difficulty: 4,
   ),
 ]);
 

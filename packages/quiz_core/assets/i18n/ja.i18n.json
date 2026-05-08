@@ -116,7 +116,8 @@
       "sns": "SNS",
       "comic": "漫画アプリ",
       "todo": "タスク管理",
-      "matching": "マッチング"
+      "matching": "マッチング",
+      "music": "音楽"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -131,7 +132,8 @@
       "sns": "SNSアプリのUI/UXを体験しよう",
       "comic": "漫画アプリの操作をマスターしよう",
       "todo": "TODOアプリのUI/UXを体験しよう",
-      "matching": "マッチングアプリのUI/UXを体験しよう"
+      "matching": "マッチングアプリのUI/UXを体験しよう",
+      "music": "音楽プレイヤーのUI/UXを体験しよう"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -185,7 +187,11 @@
       "matching_quiz1": "素敵な人に『いいね』しよう",
       "matching_quiz2": "気が合わなそう……スキップしよう",
       "matching_quiz3": "2枚目の写真を見てみよう",
-      "matching_quiz4": "運命の出会い！『超いいね』を送ろう"
+      "matching_quiz4": "運命の出会い！『超いいね』を送ろう",
+      "music_quiz1": "次の曲に進めよう",
+      "music_quiz2": "再生画面を収納しよう",
+      "music_quiz3": "1曲リピートに設定しよう",
+      "music_quiz4": "歌詞を表示しよう"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -239,7 +245,11 @@
       "matching_quiz1": "気になるプロフィールを右にスワイプしていいねしてください",
       "matching_quiz2": "左にスワイプしてスキップしてください",
       "matching_quiz3": "プロフィールカードの右半分をタップして2枚目の写真を見てください",
-      "matching_quiz4": "上にスワイプして超いいねを送ってください"
+      "matching_quiz4": "上にスワイプして超いいねを送ってください",
+      "music_quiz1": "アルバムアートを左にスワイプするか、スキップボタンで次の曲に進んでください",
+      "music_quiz2": "全画面プレイヤーを下にスワイプしてミニプレイヤーに収納してください",
+      "music_quiz3": "リピートボタンを2回タップして1曲リピート状態にしてください",
+      "music_quiz4": "画面下部の歌詞パネルを上にスワイプして引き上げてください"
     }
   },
   "scene": {

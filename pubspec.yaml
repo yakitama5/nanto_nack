@@ -22,6 +22,7 @@ workspace:
   - packages/quizzes/comic
   - packages/quizzes/todo
   - packages/quizzes/matching
+  - packages/quizzes/music
   - packages/geolocator_windows_stub
 
 dev_dependencies:

@@ -102,6 +102,13 @@ const String kMatchingQuiz2Path = '$kMatchingListPath/$kMatchingQuiz2Segment';
 const String kMatchingQuiz3Path = '$kMatchingListPath/$kMatchingQuiz3Segment';
 const String kMatchingQuiz4Path = '$kMatchingListPath/$kMatchingQuiz4Segment';
 
+// Music
+const String kMusicListPath = '/play/music';
+const String kMusicQuiz1Path = '/play/music/quiz1';
+const String kMusicQuiz2Path = '/play/music/quiz2';
+const String kMusicQuiz3Path = '/play/music/quiz3';
+const String kMusicQuiz4Path = '/play/music/quiz4';
+
 // Comic
 const String kComicSegment = 'comic';
 const String kComicQuiz1Segment = 'quiz1';

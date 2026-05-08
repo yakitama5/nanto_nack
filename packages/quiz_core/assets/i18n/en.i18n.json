@@ -116,7 +116,8 @@
       "sns": "SNS",
       "comic": "Manga App",
       "todo": "TODO App",
-      "matching": "Matching"
+      "matching": "Matching",
+      "music": "Music"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -131,7 +132,8 @@
       "sns": "Experience social media app UI/UX",
       "comic": "Master manga app operations",
       "todo": "Experience task management app UI/UX",
-      "matching": "Experience matching app UI/UX"
+      "matching": "Experience matching app UI/UX",
+      "music": "Experience music player UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -185,7 +187,11 @@
       "matching_quiz1": "Like someone you're interested in",
       "matching_quiz2": "Not quite your type... skip them",
       "matching_quiz3": "View the second photo",
-      "matching_quiz4": "Your destiny! Send a Super Like"
+      "matching_quiz4": "Your destiny! Send a Super Like",
+      "music_quiz1": "Skip to the next song",
+      "music_quiz2": "Minimize the player",
+      "music_quiz3": "Set to 1-song repeat",
+      "music_quiz4": "Show the lyrics"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -239,7 +245,11 @@
       "matching_quiz1": "Swipe right on a profile you like",
       "matching_quiz2": "Swipe left to skip",
       "matching_quiz3": "Tap the right half of the profile card to see the second photo",
-      "matching_quiz4": "Swipe up to send a Super Like"
+      "matching_quiz4": "Swipe up to send a Super Like",
+      "music_quiz1": "Swipe left on the album art or tap the skip button to go to the next song",
+      "music_quiz2": "Swipe down on the full-screen player to minimize it",
+      "music_quiz3": "Tap the repeat button twice to set 1-song repeat",
+      "music_quiz4": "Swipe up the lyrics panel at the bottom of the screen"
     }
   },
   "scene": {

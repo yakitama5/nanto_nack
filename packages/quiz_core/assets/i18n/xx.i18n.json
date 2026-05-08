@@ -116,7 +116,8 @@
       "sns": "SNS",
       "comic": "漫画アプリ",
       "todo": "タスク管理",
-      "matching": "Ekzuyrjp"
+      "matching": "Ekzuyrjp",
+      "music": "Tnwru"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -131,7 +132,8 @@
       "sns": "SNSアプリのUI/UXを体験しよう",
       "comic": "漫画アプリの操作をマスターしよう",
       "todo": "ZSMS koo HR/HT xtoxfrxjux",
-      "matching": "Ekzuyrjp koo HR/HT xtoxfrxjux"
+      "matching": "Ekzuyrjp koo HR/HT xtoxfrxjux",
+      "music": "Tnwru ockirxf HR/HT xtoxfrxjux"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -185,7 +187,11 @@
       "matching_quiz1": "Crax wsexsjx ish'fх rjzxfxwzxm rj",
       "matching_quiz2": "Jsz lhrzx ishf zioх... waро zyxe",
       "matching_quiz3": "Nrxg zyx wxusjm oyszs",
-      "matching_quiz4": "Ishf mxwzrji! Wxjm k Whoef Crax"
+      "matching_quiz4": "Ishf mxwzrji! Wxjm k Whoef Crax",
+      "music_quiz1": "Waро zs jxtz wsjp",
+      "music_quiz2": "Mrjreryx ockirxf",
+      "music_quiz3": "Wxz 1-wsjp fxoxkz",
+      "music_quiz4": "Wysw cifruv"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -235,7 +241,11 @@
       "matching_quiz1": "Wgrox frpyz sj k ofsbrcх ish crax",
       "matching_quiz2": "Wgrox cxbz zs waро",
       "matching_quiz3": "Zko zyx frpyz ykcb sb zyx ofsbrcх ukfm zs wxx zyx wxusjm oyszs",
-      "matching_quiz4": "Wgrox ho zs wxjm k Whoef Crax"
+      "matching_quiz4": "Wgrox ho zs wxjm k Whoef Crax",
+      "music_quiz1": "Wgrox cxbz sj kcbhe kfz sf zko waро",
+      "music_quiz2": "Wgrox msij zs erjereryх ockirxf",
+      "music_quiz3": "Zko fxoxkz ziruх ziruх zsxw zsrw",
+      "music_quiz4": "Wgrox ho cifruv okjxc"
     }
   },
   "scene": {

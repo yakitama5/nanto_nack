@@ -339,6 +339,7 @@ class _TranslationsPlayCategoryLabelXx extends TranslationsPlayCategoryLabelJa {
 	@override String get comic => '漫画アプリ';
 	@override String get todo => 'タスク管理';
 	@override String get matching => 'Ekzuyrjp';
+	@override String get music => 'Tnwru';
 }
 
 // Path: play.categoryDescription
@@ -361,6 +362,7 @@ class _TranslationsPlayCategoryDescriptionXx extends TranslationsPlayCategoryDes
 	@override String get comic => '漫画アプリの操作をマスターしよう';
 	@override String get todo => 'ZSMS koo HR/HT xtoxfrxjux';
 	@override String get matching => 'Ekzuyrjp koo HR/HT xtoxfrxjux';
+	@override String get music => 'Tnwru ockirxf HR/HT xtoxfrxjux';
 }
 
 // Path: play.stageTitle
@@ -422,6 +424,10 @@ class _TranslationsPlayStageTitleXx extends TranslationsPlayStageTitleJa {
 	@override String get matching_quiz2 => 'Jsz lhrzx ishf zioх... waро zyxe';
 	@override String get matching_quiz3 => 'Nrxg zyx wxusjm oyszs';
 	@override String get matching_quiz4 => 'Ishf mxwzrji! Wxjm k Whoef Crax';
+	@override String get music_quiz1 => 'Waро zs jxtz wsjp';
+	@override String get music_quiz2 => 'Mrjreryx ockirxf';
+	@override String get music_quiz3 => 'Wxz 1-wsjp fxoxkz';
+	@override String get music_quiz4 => 'Wysw cifruv';
 }
 
 // Path: play.stageDescription
@@ -479,6 +485,10 @@ class _TranslationsPlayStageDescriptionXx extends TranslationsPlayStageDescripti
 	@override String get matching_quiz2 => 'Wgrox cxbz zs waро';
 	@override String get matching_quiz3 => 'Zko zyx frpyz ykcb sb zyx ofsbrcх ukfm zs wxx zyx wxusjm oyszs';
 	@override String get matching_quiz4 => 'Wgrox ho zs wxjm k Whoef Crax';
+	@override String get music_quiz1 => 'Wgrox cxbz sj kcbhe kfz sf zko waро';
+	@override String get music_quiz2 => 'Wgrox msij zs erjereryх ockirxf';
+	@override String get music_quiz3 => 'Zko fxoxkz ziruх ziruх zsxw zsrw';
+	@override String get music_quiz4 => 'Wgrox ho cifruv okjxc';
 }
 
 // Path: scene.greeting
@@ -645,6 +655,7 @@ extension on TranslationsXx {
 			'play.categoryLabel.comic' => '漫画アプリ',
 			'play.categoryLabel.todo' => 'タスク管理',
 			'play.categoryLabel.matching' => 'Ekzuyrjp',
+			'play.categoryLabel.music' => 'Tnwru',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -658,6 +669,7 @@ extension on TranslationsXx {
 			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
 			'play.categoryDescription.todo' => 'ZSMS koo HR/HT xtoxfrxjux',
 			'play.categoryDescription.matching' => 'Ekzuyrjp koo HR/HT xtoxfrxjux',
+			'play.categoryDescription.music' => 'Tnwru ockirxf HR/HT xtoxfrxjux',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -710,6 +722,10 @@ extension on TranslationsXx {
 			'play.stageTitle.matching_quiz2' => 'Jsz lhrzx ishf zioх... waро zyxe',
 			'play.stageTitle.matching_quiz3' => 'Nrxg zyx wxusjm oyszs',
 			'play.stageTitle.matching_quiz4' => 'Ishf mxwzrji! Wxjm k Whoef Crax',
+			'play.stageTitle.music_quiz1' => 'Waро zs jxtz wsjp',
+			'play.stageTitle.music_quiz2' => 'Mrjreryx ockirxf',
+			'play.stageTitle.music_quiz3' => 'Wxz 1-wsjp fxoxkz',
+			'play.stageTitle.music_quiz4' => 'Wysw cifruv',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -758,6 +774,10 @@ extension on TranslationsXx {
 			'play.stageDescription.matching_quiz2' => 'Wgrox cxbz zs waро',
 			'play.stageDescription.matching_quiz3' => 'Zko zyx frpyz ykcb sb zyx ofsbrcх ukfm zs wxx zyx wxusjm oyszs',
 			'play.stageDescription.matching_quiz4' => 'Wgrox ho zs wxjm k Whoef Crax',
+			'play.stageDescription.music_quiz1' => 'Wgrox cxbz sj kcbhe kfz sf zko waро',
+			'play.stageDescription.music_quiz2' => 'Wgrox msij zs erjereryх ockirxf',
+			'play.stageDescription.music_quiz3' => 'Zko fxoxkz ziruх ziruх zsxw zsrw',
+			'play.stageDescription.music_quiz4' => 'Wgrox ho cifruv okjxc',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

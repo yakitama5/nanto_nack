@@ -1,0 +1,81 @@
+{
+  "quiz1": {
+    "missionText": "Don't like this song? Try skipping to the next one",
+    "insight": {
+      "title": "How did you skip to the next song?",
+      "subtitle": "The swipe-to-change feeling",
+      "swipeTitle": "Left swipe on album art",
+      "swipeDesc": "Swiping left on album artwork to go to the next song feels just like flipping through gallery photos. The visual card UI intuitively signals that it can be 'swiped'.",
+      "skipTitle": "The skip button (⏭) meaning",
+      "skipDesc": "The '▶▶|' symbol from the cassette era means 'skip to next track'. Its placement next to the play button (on the right) has become a global standard.",
+      "gestureTitle": "Dual operation: gesture and button",
+      "gestureDesc": "Offering the same function (song change) through both swipe and tap lets users choose their preferred input method — a 'multiple input paths' principle of mobile UX."
+    }
+  },
+  "quiz2": {
+    "missionText": "Want to browse for a song? Minimize the player to go back",
+    "insight": {
+      "title": "How did you know to drag the screen down?",
+      "subtitle": "The sheet UI 'pull-down' pattern",
+      "dragTitle": "Drag down to 'close'",
+      "dragDesc": "Dragging down to minimize the full-screen player became popular through Spotify and Apple Music on iOS. 'Pull down = close/store' is now a shared concept among smartphone users.",
+      "miniTitle": "Music continues in mini player",
+      "miniDesc": "Closing the full-screen view doesn't stop the music — playback continues in the mini player at the bottom. This 'keep doing other things while listening' UX pattern is widely used.",
+      "notchTitle": "The drag indicator (notch)",
+      "notchDesc": "The thin horizontal bar at the top of the sheet signals 'this UI can be dragged'. Small but visually significant, it prompts users to try pulling."
+    }
+  },
+  "quiz3": {
+    "missionText": "This song is amazing! Set it to repeat just this one song",
+    "insight": {
+      "title": "Did you figure out the repeat button?",
+      "subtitle": "The 3-state repeat button",
+      "repeatTitle": "3 states in one button",
+      "repeatDesc": "🔁 (loop all) → 🔂 (loop one) → off: three states cycle through one button. The '1' badge is what distinguishes 'loop one' from 'loop all' — a clever symbol extension.",
+      "iconTitle": "Circular arrows + '1'",
+      "iconDesc": "Two circular arrows mean 'repeat', but adding '1' changes the meaning to 'repeat this one track'. A great example of using a modifier number to expand meaning.",
+      "tapTitle": "Tap to cycle through states",
+      "tapDesc": "Repeatedly tapping the same button to cycle through states — the 'cycle operation' UX pattern — is used in many apps beyond music players."
+    }
+  },
+  "quiz4": {
+    "missionText": "What are they singing? Try checking the lyrics",
+    "insight": {
+      "title": "How did you pull up the lyrics panel?",
+      "subtitle": "The bottom sheet 'pull-up' pattern",
+      "dragTitle": "Pull up the bottom sheet",
+      "dragDesc": "Swiping up a partially visible panel at the bottom of the screen became mainstream through Google Maps' place info sheet. The physical sensation of 'grab and pull up' is directly reflected in the UI.",
+      "handleTitle": "The drag handle says 'I can be dragged'",
+      "handleDesc": "The thin bar at the top of the panel signals that this UI can be dragged up and down. It's a classic affordance — using shape instead of text to communicate interactivity.",
+      "lyricsTitle": "Lyrics combined with scrolling",
+      "lyricsDesc": "Having lyrics scroll inside the pulled-up sheet answers the expectation of 'once pulled up, I can read as much as I want' — a clean separation of sheet state and content state."
+    }
+  },
+  "common": {
+    "appTitle": "MusicHub",
+    "homeTab": "Home",
+    "libraryTab": "Library",
+    "searchTab": "Search",
+    "likeButton": "Like",
+    "moreButton": "More",
+    "playlistTitle": "My Playlist",
+    "songCount": "{count} songs",
+    "@songCount": { "param": "count" },
+    "lyrics": "Lyrics",
+    "lyricsNotAvailable": "No lyrics available",
+    "quitConfirmTitle": "Quit Game?",
+    "quitConfirmMessage": "Your current game will end.",
+    "continueButton": "Continue",
+    "quitButton": "Quit",
+    "mockCurrentTime": "1:12",
+    "mockDuration": "3:45"
+  },
+  "songs": {
+    "song1Title": "Starlight Drive",
+    "song1Artist": "The Cosmic Band",
+    "song1Lyrics": "Driving down the starlit road\nFeeling free, no heavy load\nNeon lights and city dreams\nNothing's ever what it seems\n\nRide with me through the night\nEverything will be alright\nStarlight drive, starlight drive\nKeep us feeling so alive",
+    "song2Title": "Ocean Waves",
+    "song2Artist": "Blue Horizon",
+    "song2Lyrics": "The ocean calls my name tonight\nWaves of blue in morning light\nSalt and sea and endless sky\nWatching seagulls as they fly\n\nLet the tide wash away\nAll the worries of the day\nOcean waves, ocean waves\nFind the peace that silence saves"
+  }
+}

@@ -568,6 +568,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: 'マッチング'
 	String get matching => 'マッチング';
+
+	/// ja: '音楽'
+	String get music => '音楽';
 }
 
 // Path: play.categoryDescription
@@ -616,6 +619,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: 'マッチングアプリのUI/UXを体験しよう'
 	String get matching => 'マッチングアプリのUI/UXを体験しよう';
+
+	/// ja: '音楽プレイヤーのUI/UXを体験しよう'
+	String get music => '音楽プレイヤーのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -781,6 +787,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '運命の出会い！『超いいね』を送ろう'
 	String get matching_quiz4 => '運命の出会い！『超いいね』を送ろう';
+
+	/// ja: '次の曲に進めよう'
+	String get music_quiz1 => '次の曲に進めよう';
+
+	/// ja: '再生画面を収納しよう'
+	String get music_quiz2 => '再生画面を収納しよう';
+
+	/// ja: '1曲リピートに設定しよう'
+	String get music_quiz3 => '1曲リピートに設定しよう';
+
+	/// ja: '歌詞を表示しよう'
+	String get music_quiz4 => '歌詞を表示しよう';
 }
 
 // Path: play.stageDescription
@@ -946,6 +964,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '上にスワイプして超いいねを送ってください'
 	String get matching_quiz4 => '上にスワイプして超いいねを送ってください';
+
+	/// ja: 'アルバムアートを左にスワイプするか、スキップボタンで次の曲に進んでください'
+	String get music_quiz1 => 'アルバムアートを左にスワイプするか、スキップボタンで次の曲に進んでください';
+
+	/// ja: '全画面プレイヤーを下にスワイプしてミニプレイヤーに収納してください'
+	String get music_quiz2 => '全画面プレイヤーを下にスワイプしてミニプレイヤーに収納してください';
+
+	/// ja: 'リピートボタンを2回タップして1曲リピート状態にしてください'
+	String get music_quiz3 => 'リピートボタンを2回タップして1曲リピート状態にしてください';
+
+	/// ja: '画面下部の歌詞パネルを上にスワイプして引き上げてください'
+	String get music_quiz4 => '画面下部の歌詞パネルを上にスワイプして引き上げてください';
 }
 
 // Path: scene.greeting
@@ -1174,6 +1204,7 @@ extension on Translations {
 			'play.categoryLabel.comic' => '漫画アプリ',
 			'play.categoryLabel.todo' => 'タスク管理',
 			'play.categoryLabel.matching' => 'マッチング',
+			'play.categoryLabel.music' => '音楽',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1187,6 +1218,7 @@ extension on Translations {
 			'play.categoryDescription.comic' => '漫画アプリの操作をマスターしよう',
 			'play.categoryDescription.todo' => 'TODOアプリのUI/UXを体験しよう',
 			'play.categoryDescription.matching' => 'マッチングアプリのUI/UXを体験しよう',
+			'play.categoryDescription.music' => '音楽プレイヤーのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1239,6 +1271,10 @@ extension on Translations {
 			'play.stageTitle.matching_quiz2' => '気が合わなそう……スキップしよう',
 			'play.stageTitle.matching_quiz3' => '2枚目の写真を見てみよう',
 			'play.stageTitle.matching_quiz4' => '運命の出会い！『超いいね』を送ろう',
+			'play.stageTitle.music_quiz1' => '次の曲に進めよう',
+			'play.stageTitle.music_quiz2' => '再生画面を収納しよう',
+			'play.stageTitle.music_quiz3' => '1曲リピートに設定しよう',
+			'play.stageTitle.music_quiz4' => '歌詞を表示しよう',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1291,6 +1327,10 @@ extension on Translations {
 			'play.stageDescription.matching_quiz2' => '左にスワイプしてスキップしてください',
 			'play.stageDescription.matching_quiz3' => 'プロフィールカードの右半分をタップして2枚目の写真を見てください',
 			'play.stageDescription.matching_quiz4' => '上にスワイプして超いいねを送ってください',
+			'play.stageDescription.music_quiz1' => 'アルバムアートを左にスワイプするか、スキップボタンで次の曲に進んでください',
+			'play.stageDescription.music_quiz2' => '全画面プレイヤーを下にスワイプしてミニプレイヤーに収納してください',
+			'play.stageDescription.music_quiz3' => 'リピートボタンを2回タップして1曲リピート状態にしてください',
+			'play.stageDescription.music_quiz4' => '画面下部の歌詞パネルを上にスワイプして引き上げてください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

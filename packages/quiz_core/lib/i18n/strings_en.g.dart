@@ -339,6 +339,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get comic => 'Manga App';
 	@override String get todo => 'TODO App';
 	@override String get matching => 'Matching';
+	@override String get music => 'Music';
 }
 
 // Path: play.categoryDescription
@@ -361,6 +362,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get comic => 'Master manga app operations';
 	@override String get todo => 'Experience task management app UI/UX';
 	@override String get matching => 'Experience matching app UI/UX';
+	@override String get music => 'Experience music player UI/UX';
 }
 
 // Path: play.stageTitle
@@ -422,6 +424,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get matching_quiz2 => 'Not quite your type... skip them';
 	@override String get matching_quiz3 => 'View the second photo';
 	@override String get matching_quiz4 => 'Your destiny! Send a Super Like';
+	@override String get music_quiz1 => 'Skip to the next song';
+	@override String get music_quiz2 => 'Minimize the player';
+	@override String get music_quiz3 => 'Set to 1-song repeat';
+	@override String get music_quiz4 => 'Show the lyrics';
 }
 
 // Path: play.stageDescription
@@ -483,6 +489,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get matching_quiz2 => 'Swipe left to skip';
 	@override String get matching_quiz3 => 'Tap the right half of the profile card to see the second photo';
 	@override String get matching_quiz4 => 'Swipe up to send a Super Like';
+	@override String get music_quiz1 => 'Swipe left on the album art or tap the skip button to go to the next song';
+	@override String get music_quiz2 => 'Swipe down on the full-screen player to minimize it';
+	@override String get music_quiz3 => 'Tap the repeat button twice to set 1-song repeat';
+	@override String get music_quiz4 => 'Swipe up the lyrics panel at the bottom of the screen';
 }
 
 // Path: scene.greeting
@@ -649,6 +659,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.comic' => 'Manga App',
 			'play.categoryLabel.todo' => 'TODO App',
 			'play.categoryLabel.matching' => 'Matching',
+			'play.categoryLabel.music' => 'Music',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -662,6 +673,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.comic' => 'Master manga app operations',
 			'play.categoryDescription.todo' => 'Experience task management app UI/UX',
 			'play.categoryDescription.matching' => 'Experience matching app UI/UX',
+			'play.categoryDescription.music' => 'Experience music player UI/UX',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -714,6 +726,10 @@ extension on TranslationsEn {
 			'play.stageTitle.matching_quiz2' => 'Not quite your type... skip them',
 			'play.stageTitle.matching_quiz3' => 'View the second photo',
 			'play.stageTitle.matching_quiz4' => 'Your destiny! Send a Super Like',
+			'play.stageTitle.music_quiz1' => 'Skip to the next song',
+			'play.stageTitle.music_quiz2' => 'Minimize the player',
+			'play.stageTitle.music_quiz3' => 'Set to 1-song repeat',
+			'play.stageTitle.music_quiz4' => 'Show the lyrics',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -766,6 +782,10 @@ extension on TranslationsEn {
 			'play.stageDescription.matching_quiz2' => 'Swipe left to skip',
 			'play.stageDescription.matching_quiz3' => 'Tap the right half of the profile card to see the second photo',
 			'play.stageDescription.matching_quiz4' => 'Swipe up to send a Super Like',
+			'play.stageDescription.music_quiz1' => 'Swipe left on the album art or tap the skip button to go to the next song',
+			'play.stageDescription.music_quiz2' => 'Swipe down on the full-screen player to minimize it',
+			'play.stageDescription.music_quiz3' => 'Tap the repeat button twice to set 1-song repeat',
+			'play.stageDescription.music_quiz4' => 'Swipe up the lyrics panel at the bottom of the screen',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',
