@@ -340,6 +340,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get todo => 'TODO App';
 	@override String get matching => 'Matching';
 	@override String get music => 'Music';
+	@override String get weather => 'Weather';
 }
 
 // Path: play.categoryDescription
@@ -363,6 +364,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get todo => 'Experience task management app UI/UX';
 	@override String get matching => 'Experience matching app UI/UX';
 	@override String get music => 'Experience music player UI/UX';
+	@override String get weather => 'Experience weather app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -428,6 +430,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get music_quiz2 => 'Minimize the player';
 	@override String get music_quiz3 => 'Set to 1-song repeat';
 	@override String get music_quiz4 => 'Show the lyrics';
+	@override String get weather_quiz1 => 'Check Osaka Weather';
+	@override String get weather_quiz2 => 'Refresh the Weather';
+	@override String get weather_quiz3 => 'Check Wednesday Details';
+	@override String get weather_quiz4 => 'Open Radar Map';
 }
 
 // Path: play.stageDescription
@@ -493,6 +499,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get music_quiz2 => 'Swipe down on the full-screen player to minimize it';
 	@override String get music_quiz3 => 'Tap the repeat button twice to set 1-song repeat';
 	@override String get music_quiz4 => 'Swipe up the lyrics panel at the bottom of the screen';
+	@override String get weather_quiz1 => 'Swipe the weather app to check the weather in Osaka';
+	@override String get weather_quiz2 => 'Pull down to refresh the weather data';
+	@override String get weather_quiz3 => 'Tap Wednesday in the weekly forecast to see hourly details';
+	@override String get weather_quiz4 => 'Tap the radar map image to view it fullscreen';
 }
 
 // Path: scene.greeting
@@ -660,6 +670,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.todo' => 'TODO App',
 			'play.categoryLabel.matching' => 'Matching',
 			'play.categoryLabel.music' => 'Music',
+			'play.categoryLabel.weather' => 'Weather',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -674,6 +685,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.todo' => 'Experience task management app UI/UX',
 			'play.categoryDescription.matching' => 'Experience matching app UI/UX',
 			'play.categoryDescription.music' => 'Experience music player UI/UX',
+			'play.categoryDescription.weather' => 'Experience weather app UI/UX',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -730,6 +742,10 @@ extension on TranslationsEn {
 			'play.stageTitle.music_quiz2' => 'Minimize the player',
 			'play.stageTitle.music_quiz3' => 'Set to 1-song repeat',
 			'play.stageTitle.music_quiz4' => 'Show the lyrics',
+			'play.stageTitle.weather_quiz1' => 'Check Osaka Weather',
+			'play.stageTitle.weather_quiz2' => 'Refresh the Weather',
+			'play.stageTitle.weather_quiz3' => 'Check Wednesday Details',
+			'play.stageTitle.weather_quiz4' => 'Open Radar Map',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -786,6 +802,10 @@ extension on TranslationsEn {
 			'play.stageDescription.music_quiz2' => 'Swipe down on the full-screen player to minimize it',
 			'play.stageDescription.music_quiz3' => 'Tap the repeat button twice to set 1-song repeat',
 			'play.stageDescription.music_quiz4' => 'Swipe up the lyrics panel at the bottom of the screen',
+			'play.stageDescription.weather_quiz1' => 'Swipe the weather app to check the weather in Osaka',
+			'play.stageDescription.weather_quiz2' => 'Pull down to refresh the weather data',
+			'play.stageDescription.weather_quiz3' => 'Tap Wednesday in the weekly forecast to see hourly details',
+			'play.stageDescription.weather_quiz4' => 'Tap the radar map image to view it fullscreen',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',

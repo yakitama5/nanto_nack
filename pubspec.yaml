@@ -23,6 +23,7 @@ workspace:
   - packages/quizzes/todo
   - packages/quizzes/matching
   - packages/quizzes/music
+  - packages/quizzes/weather
   - packages/geolocator_windows_stub
 
 dev_dependencies:

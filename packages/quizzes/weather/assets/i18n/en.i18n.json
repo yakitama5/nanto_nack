@@ -1,0 +1,91 @@
+{
+  "quiz1": {
+    "missionText": "Going to Osaka tomorrow. Swipe to check the weather there!",
+    "insight": {
+      "title": "How did you know swiping changes the city?",
+      "subtitle": "Left/right swipe to switch pages in PageView",
+      "swipeTitle": "Left/right swipe to switch",
+      "swipeDesc": "Weather apps typically use PageView to manage multiple cities and switch between them with left/right swipe. A small peek of the next page at the screen edge intuitively signals 'there's more'.",
+      "dotTitle": "Page indicator (dots)",
+      "dotDesc": "The dots at the bottom show the current page number. The filled dot represents your current position and lets you see the total number of pages at a glance.",
+      "cityTitle": "City list and index",
+      "cityDesc": "Managing weather for multiple cities requires a list of cities and an index tracking which one is currently displayed. The index updates every time the page changes."
+    }
+  },
+  "quiz2": {
+    "missionText": "The data looks a bit old... pull down to refresh the weather!",
+    "insight": {
+      "title": "How did you know pulling updates the data?",
+      "subtitle": "Pull to Refresh pattern",
+      "pullTitle": "Pull to refresh",
+      "pullDesc": "Pulling down past the top of a list to refresh data — Pull to Refresh — is a standard pattern popularized on iOS/Android. The physical sensation of 'pulling and releasing' maps to the concept of fetching new data.",
+      "indicatorTitle": "Loading indicator",
+      "indicatorDesc": "Pulling far enough shows a circular loading animation. This feedback tells the user that the refresh action has been accepted.",
+      "thresholdTitle": "Pull threshold",
+      "thresholdDesc": "Requiring a minimum pull distance before triggering a refresh prevents accidental refreshes while distinguishing the action from normal scrolling."
+    }
+  },
+  "quiz3": {
+    "missionText": "Wednesday looks rainy... what time does it start? Check the hourly forecast!",
+    "insight": {
+      "title": "How did you know tapping shows hourly details?",
+      "subtitle": "ExpansionTile (accordion) to reveal details",
+      "expandTitle": "Tap to expand the accordion",
+      "expandDesc": "Tapping a day row to expand hourly details is a standard accordion UI pattern used when there's too much data to show at once. It lets users open only what they need.",
+      "arrowTitle": "Arrow icon signals expandability",
+      "arrowDesc": "The '∨' or '›' icon on the right edge signals that this UI is expandable. It changes to '∧' when open, showing the current state (open/closed).",
+      "hourlyTitle": "Reading the hourly forecast",
+      "hourlyDesc": "The hourly forecast shown inside the accordion tells you when rain is expected to start. It's a core feature of weather apps that helps users plan their day."
+    }
+  },
+  "quiz4": {
+    "missionText": "The sky is getting dark! Open the radar map to check the rain clouds!",
+    "insight": {
+      "title": "How did you know tapping the image opens it fullscreen?",
+      "subtitle": "Tap to fullscreen with Hero animation",
+      "tapTitle": "Tap image to go fullscreen",
+      "tapDesc": "Tapping a thumbnail image to expand it fullscreen is a common pattern in gallery and map apps. The shared understanding is: 'small things can be tapped to enlarge'.",
+      "heroTitle": "Hero animation",
+      "heroDesc": "The Hero animation makes the tapped image smoothly expand to fill the screen. By maintaining visual continuity, it eliminates the jarring feeling of an abrupt transition.",
+      "radarTitle": "Reading the radar map",
+      "radarDesc": "Radar maps use color gradients to show rain intensity: blue→green→yellow→red→purple for increasing strength. Fullscreen view helps you accurately track the movement and position of rain clouds."
+    }
+  },
+  "common": {
+    "appTitle": "Weather",
+    "cityTitle": "{cityName} Weather",
+    "@cityTitle": { "param": "cityName" },
+    "currentTemp": "Current Temp",
+    "tempUnit": "{temp}°C",
+    "@tempUnit": { "param": "temp" },
+    "weeklyForecast": "7-Day Forecast",
+    "hourlyDetail": "Hourly Forecast",
+    "radarMap": "Radar Map",
+    "radarMapDetail": "Radar Map",
+    "refreshing": "Refreshing...",
+    "lastUpdated": "Last Updated",
+    "pullToRefresh": "Pull to Refresh",
+    "sunny": "Sunny",
+    "cloudy": "Cloudy",
+    "rainy": "Rainy",
+    "partlyCloudy": "Partly Cloudy",
+    "quitConfirmTitle": "Quit Game?",
+    "quitConfirmMessage": "Your current game will end.",
+    "continueButton": "Continue",
+    "quitButton": "Quit"
+  },
+  "cities": {
+    "tokyo": "Tokyo",
+    "osaka": "Osaka",
+    "sapporo": "Sapporo"
+  },
+  "weekdays": {
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sun": "Sun"
+  }
+}

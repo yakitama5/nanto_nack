@@ -24,6 +24,7 @@ import 'router/payment_router.dart';
 import 'router/todo_router.dart';
 import 'router/shopping_router.dart';
 import 'router/streaming_router.dart';
+import 'router/weather_router.dart';
 
 List<NavigatorObserver> _buildRouterObservers() {
   try {
@@ -77,6 +78,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           ...todoRoutes,
           ...matchingRoutes,
           ...musicRoutes,
+          ...weatherRoutes,
         ],
       ),
       GoRoute(

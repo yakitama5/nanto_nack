@@ -39,6 +39,8 @@ class NantoNackThemeExtension
     required this.matchingCategoryContainerColor,
     required this.musicCategoryColor,
     required this.musicCategoryContainerColor,
+    required this.weatherCategoryColor,
+    required this.weatherCategoryContainerColor,
   });
 
   /// 連続プレイ日数（ストリーク）のアクセントカラー
@@ -136,6 +138,12 @@ class NantoNackThemeExtension
   /// 音楽カテゴリーカードの背景コンテナカラー
   final Color musicCategoryContainerColor;
 
+  /// 天気予報カテゴリーのブランドカラー（天気アプリ風ブルー）
+  final Color weatherCategoryColor;
+
+  /// 天気予報カテゴリーカードの背景コンテナカラー
+  final Color weatherCategoryContainerColor;
+
   /// ライトテーマ用デフォルト値
   static const light = NantoNackThemeExtension(
     streakColor: Color(0xFFE65100),
@@ -170,6 +178,8 @@ class NantoNackThemeExtension
     matchingCategoryContainerColor: Color(0xFFFCE4EC),
     musicCategoryColor: Color(0xFF7B1FA2),
     musicCategoryContainerColor: Color(0xFFF3E5F5),
+    weatherCategoryColor: Color(0xFF0277BD),
+    weatherCategoryContainerColor: Color(0xFFE1F5FE),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -218,6 +228,8 @@ class NantoNackThemeExtension
     matchingCategoryContainerColor: Color(0xFF4A0B2C),
     musicCategoryColor: Color(0xFFCE93D8),
     musicCategoryContainerColor: Color(0xFF2D0F3A),
+    weatherCategoryColor: Color(0xFF81D4FA),
+    weatherCategoryContainerColor: Color(0xFF012F4A),
   );
 
   @override
@@ -254,6 +266,8 @@ class NantoNackThemeExtension
     Color? matchingCategoryContainerColor,
     Color? musicCategoryColor,
     Color? musicCategoryContainerColor,
+    Color? weatherCategoryColor,
+    Color? weatherCategoryContainerColor,
   }) {
     return NantoNackThemeExtension(
       streakColor: streakColor ?? this.streakColor,
@@ -307,6 +321,9 @@ class NantoNackThemeExtension
       musicCategoryColor: musicCategoryColor ?? this.musicCategoryColor,
       musicCategoryContainerColor:
           musicCategoryContainerColor ?? this.musicCategoryContainerColor,
+      weatherCategoryColor: weatherCategoryColor ?? this.weatherCategoryColor,
+      weatherCategoryContainerColor:
+          weatherCategoryContainerColor ?? this.weatherCategoryContainerColor,
     );
   }
 
@@ -428,6 +445,13 @@ class NantoNackThemeExtension
       musicCategoryContainerColor: Color.lerp(
         musicCategoryContainerColor,
         other.musicCategoryContainerColor,
+        t,
+      )!,
+      weatherCategoryColor:
+          Color.lerp(weatherCategoryColor, other.weatherCategoryColor, t)!,
+      weatherCategoryContainerColor: Color.lerp(
+        weatherCategoryContainerColor,
+        other.weatherCategoryContainerColor,
         t,
       )!,
     );

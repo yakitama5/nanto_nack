@@ -109,6 +109,13 @@ const String kMusicQuiz2Path = '/play/music/quiz2';
 const String kMusicQuiz3Path = '/play/music/quiz3';
 const String kMusicQuiz4Path = '/play/music/quiz4';
 
+// Weather
+const String kWeatherListPath = '/play/weather';
+const String kWeatherQuiz1Path = '/play/weather/quiz1';
+const String kWeatherQuiz2Path = '/play/weather/quiz2';
+const String kWeatherQuiz3Path = '/play/weather/quiz3';
+const String kWeatherQuiz4Path = '/play/weather/quiz4';
+
 // Comic
 const String kComicSegment = 'comic';
 const String kComicQuiz1Segment = 'quiz1';

@@ -571,6 +571,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: '音楽'
 	String get music => '音楽';
+
+	/// ja: '天気予報'
+	String get weather => '天気予報';
 }
 
 // Path: play.categoryDescription
@@ -622,6 +625,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: '音楽プレイヤーのUI/UXを体験しよう'
 	String get music => '音楽プレイヤーのUI/UXを体験しよう';
+
+	/// ja: '天気予報アプリのUI/UXを体験しよう'
+	String get weather => '天気予報アプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -799,6 +805,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '歌詞を表示しよう'
 	String get music_quiz4 => '歌詞を表示しよう';
+
+	/// ja: '大阪の天気を調べよう'
+	String get weather_quiz1 => '大阪の天気を調べよう';
+
+	/// ja: '天気を更新しよう'
+	String get weather_quiz2 => '天気を更新しよう';
+
+	/// ja: '水曜日の詳細を見よう'
+	String get weather_quiz3 => '水曜日の詳細を見よう';
+
+	/// ja: '雨雲レーダーを開こう'
+	String get weather_quiz4 => '雨雲レーダーを開こう';
 }
 
 // Path: play.stageDescription
@@ -976,6 +994,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '画面下部の歌詞パネルを上にスワイプして引き上げてください'
 	String get music_quiz4 => '画面下部の歌詞パネルを上にスワイプして引き上げてください';
+
+	/// ja: '天気アプリをスワイプして大阪の天気を確認してください'
+	String get weather_quiz1 => '天気アプリをスワイプして大阪の天気を確認してください';
+
+	/// ja: '画面を引っ張って最新の天気データに更新してください'
+	String get weather_quiz2 => '画面を引っ張って最新の天気データに更新してください';
+
+	/// ja: '週間天気の水曜日をタップして時間帯別天気を確認してください'
+	String get weather_quiz3 => '週間天気の水曜日をタップして時間帯別天気を確認してください';
+
+	/// ja: '雨雲レーダーの画像をタップして全画面で表示してください'
+	String get weather_quiz4 => '雨雲レーダーの画像をタップして全画面で表示してください';
 }
 
 // Path: scene.greeting
@@ -1205,6 +1235,7 @@ extension on Translations {
 			'play.categoryLabel.todo' => 'タスク管理',
 			'play.categoryLabel.matching' => 'マッチング',
 			'play.categoryLabel.music' => '音楽',
+			'play.categoryLabel.weather' => '天気予報',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1219,6 +1250,7 @@ extension on Translations {
 			'play.categoryDescription.todo' => 'TODOアプリのUI/UXを体験しよう',
 			'play.categoryDescription.matching' => 'マッチングアプリのUI/UXを体験しよう',
 			'play.categoryDescription.music' => '音楽プレイヤーのUI/UXを体験しよう',
+			'play.categoryDescription.weather' => '天気予報アプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1275,6 +1307,10 @@ extension on Translations {
 			'play.stageTitle.music_quiz2' => '再生画面を収納しよう',
 			'play.stageTitle.music_quiz3' => '1曲リピートに設定しよう',
 			'play.stageTitle.music_quiz4' => '歌詞を表示しよう',
+			'play.stageTitle.weather_quiz1' => '大阪の天気を調べよう',
+			'play.stageTitle.weather_quiz2' => '天気を更新しよう',
+			'play.stageTitle.weather_quiz3' => '水曜日の詳細を見よう',
+			'play.stageTitle.weather_quiz4' => '雨雲レーダーを開こう',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1331,6 +1367,10 @@ extension on Translations {
 			'play.stageDescription.music_quiz2' => '全画面プレイヤーを下にスワイプしてミニプレイヤーに収納してください',
 			'play.stageDescription.music_quiz3' => 'リピートボタンを2回タップして1曲リピート状態にしてください',
 			'play.stageDescription.music_quiz4' => '画面下部の歌詞パネルを上にスワイプして引き上げてください',
+			'play.stageDescription.weather_quiz1' => '天気アプリをスワイプして大阪の天気を確認してください',
+			'play.stageDescription.weather_quiz2' => '画面を引っ張って最新の天気データに更新してください',
+			'play.stageDescription.weather_quiz3' => '週間天気の水曜日をタップして時間帯別天気を確認してください',
+			'play.stageDescription.weather_quiz4' => '雨雲レーダーの画像をタップして全画面で表示してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

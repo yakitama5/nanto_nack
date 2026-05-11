@@ -117,7 +117,8 @@
       "comic": "Manga App",
       "todo": "TODO App",
       "matching": "Matching",
-      "music": "Music"
+      "music": "Music",
+      "weather": "Weather"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -133,7 +134,8 @@
       "comic": "Master manga app operations",
       "todo": "Experience task management app UI/UX",
       "matching": "Experience matching app UI/UX",
-      "music": "Experience music player UI/UX"
+      "music": "Experience music player UI/UX",
+      "weather": "Experience weather app UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -191,7 +193,11 @@
       "music_quiz1": "Skip to the next song",
       "music_quiz2": "Minimize the player",
       "music_quiz3": "Set to 1-song repeat",
-      "music_quiz4": "Show the lyrics"
+      "music_quiz4": "Show the lyrics",
+      "weather_quiz1": "Check Osaka Weather",
+      "weather_quiz2": "Refresh the Weather",
+      "weather_quiz3": "Check Wednesday Details",
+      "weather_quiz4": "Open Radar Map"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -249,7 +255,11 @@
       "music_quiz1": "Swipe left on the album art or tap the skip button to go to the next song",
       "music_quiz2": "Swipe down on the full-screen player to minimize it",
       "music_quiz3": "Tap the repeat button twice to set 1-song repeat",
-      "music_quiz4": "Swipe up the lyrics panel at the bottom of the screen"
+      "music_quiz4": "Swipe up the lyrics panel at the bottom of the screen",
+      "weather_quiz1": "Swipe the weather app to check the weather in Osaka",
+      "weather_quiz2": "Pull down to refresh the weather data",
+      "weather_quiz3": "Tap Wednesday in the weekly forecast to see hourly details",
+      "weather_quiz4": "Tap the radar map image to view it fullscreen"
     }
   },
   "scene": {

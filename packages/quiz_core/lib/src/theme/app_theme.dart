@@ -13,6 +13,7 @@ import 'package:quiz_core/src/theme/news_app_theme.dart';
 import 'package:quiz_core/src/theme/sns_app_theme.dart';
 import 'package:quiz_core/src/theme/streaming_app_theme.dart';
 import 'package:quiz_core/src/theme/todo_app_theme.dart';
+import 'package:quiz_core/src/theme/weather_app_theme.dart';
 
 /// NantoNack テーマ定義
 abstract final class AppTheme {
@@ -45,6 +46,7 @@ abstract final class AppTheme {
         SnsAppTheme.light,
         StreamingAppTheme.light,
         TodoAppTheme.light,
+        WeatherAppTheme.light,
       ],
     );
   }
@@ -78,6 +80,7 @@ abstract final class AppTheme {
         SnsAppTheme.dark,
         StreamingAppTheme.dark,
         TodoAppTheme.dark,
+        WeatherAppTheme.dark,
       ],
     );
   }
