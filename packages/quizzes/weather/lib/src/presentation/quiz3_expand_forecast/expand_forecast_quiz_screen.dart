@@ -21,6 +21,8 @@ class ExpandForecastQuizScreen extends ConsumerStatefulWidget {
 class _ExpandForecastQuizScreenState
     extends ConsumerState<ExpandForecastQuizScreen> {
   bool _showCutIn = true;
+  int _retryCount = 0;
+  bool _hintUsed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +34,15 @@ class _ExpandForecastQuizScreenState
         state.status == QuizStatus.giveUp;
 
     return WeatherAppScaffold(
+      key: ValueKey(_retryCount),
       quizStatus: state.status,
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: WeatherQuizConfig.quiz3TimeLimitSeconds,
       missionText: missionText,
-      hintUsed: state.hintUsed,
-      onHintTap: notifier.useHint,
+      hintUsed: _hintUsed,
+      onHintTap: () => setState(() => _hintUsed = true),
       onGiveUp: notifier.giveUp,
+      highlightWednesdayForecast: _hintUsed && state.status == QuizStatus.playing,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
@@ -59,7 +63,11 @@ class _ExpandForecastQuizScreenState
               score: state.score,
               elapsedMs: state.elapsedMs,
               onRetry: () {
-                setState(() => _showCutIn = true);
+                setState(() {
+                  _showCutIn = true;
+                  _retryCount++;
+                  _hintUsed = false;
+                });
                 notifier.retry();
               },
               onNext: state.status == QuizStatus.correct

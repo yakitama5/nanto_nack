@@ -88,7 +88,7 @@ void main() {
       );
     });
 
-    test('expandedDateがnull→非nullに変化するとcorrectになる', () async {
+    test('水曜日を展開するとcorrectになる', () async {
       final sub = container.listen(
         expandForecastQuizProvider,
         (_, _a) {},
@@ -99,9 +99,72 @@ void main() {
       await withClock(Clock.fixed(DateTime(2026, 3, 31, 12)), () async {
         container.read(expandForecastQuizProvider.notifier).startQuiz();
 
-        // expandedDateをnull→非nullに変化させる
-        final date = DateTime(2026, 4, 2);
-        container.read(weatherAppProvider.notifier).expandDailyForecast(date);
+        // 水曜日（2026/4/1 = weekday 3）を展開する
+        container
+            .read(weatherAppProvider.notifier)
+            .expandDailyForecast(DateTime(2026, 4, 1));
+
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+
+        expect(
+          container.read(expandForecastQuizProvider).status,
+          QuizStatus.correct,
+        );
+      });
+    });
+
+    test('水曜日以外を展開してもcorrectにならない', () async {
+      final sub = container.listen(
+        expandForecastQuizProvider,
+        (_, _a) {},
+        fireImmediately: true,
+      );
+      addTearDown(sub.close);
+
+      await withClock(Clock.fixed(DateTime(2026, 3, 31, 12)), () async {
+        container.read(expandForecastQuizProvider.notifier).startQuiz();
+
+        // 木曜日（2026/4/2 = weekday 4）を展開してもクリアにならない
+        container
+            .read(weatherAppProvider.notifier)
+            .expandDailyForecast(DateTime(2026, 4, 2));
+
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+
+        expect(
+          container.read(expandForecastQuizProvider).status,
+          QuizStatus.playing,
+        );
+      });
+    });
+
+    test('水曜日以外を展開した後に水曜日を展開するとcorrectになる', () async {
+      final sub = container.listen(
+        expandForecastQuizProvider,
+        (_, _a) {},
+        fireImmediately: true,
+      );
+      addTearDown(sub.close);
+
+      await withClock(Clock.fixed(DateTime(2026, 3, 31, 12)), () async {
+        container.read(expandForecastQuizProvider.notifier).startQuiz();
+
+        // 先に火曜日（2026/3/31の翌日）を展開
+        container
+            .read(weatherAppProvider.notifier)
+            .expandDailyForecast(DateTime(2026, 4, 1).subtract(const Duration(days: 1)));
+
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+
+        expect(
+          container.read(expandForecastQuizProvider).status,
+          QuizStatus.playing,
+        );
+
+        // その後水曜日（2026/4/1）を展開するとクリア
+        container
+            .read(weatherAppProvider.notifier)
+            .expandDailyForecast(DateTime(2026, 4, 1));
 
         await Future<void>.delayed(const Duration(milliseconds: 100));
 
@@ -122,9 +185,10 @@ void main() {
 
       await withClock(Clock.fixed(DateTime(2026, 3, 31, 12)), () async {
         container.read(expandForecastQuizProvider.notifier).startQuiz();
+        // 水曜日（2026/4/1）を展開
         container
             .read(weatherAppProvider.notifier)
-            .expandDailyForecast(DateTime(2026, 4, 2));
+            .expandDailyForecast(DateTime(2026, 4, 1));
         await Future<void>.delayed(const Duration(milliseconds: 100));
 
         verify(

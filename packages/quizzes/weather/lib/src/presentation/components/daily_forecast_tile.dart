@@ -9,10 +9,12 @@ class DailyForecastTile extends StatelessWidget {
     super.key,
     required this.forecast,
     required this.onExpanded,
+    this.isHighlighted = false,
   });
 
   final DailyForecast forecast;
   final VoidCallback onExpanded;
+  final bool isHighlighted;
 
   String _weekdayLabel(BuildContext context, int weekday) {
     final w = context.sq.weekdays;
@@ -33,9 +35,17 @@ class DailyForecastTile extends StatelessWidget {
     final ext = Theme.of(context).extension<WeatherAppTheme>()!;
     final weekday = _weekdayLabel(context, forecast.date.weekday);
 
-    return Theme(
-      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-      child: ExpansionTile(
+    return DecoratedBox(
+      decoration: isHighlighted
+          ? BoxDecoration(
+              border: Border.all(color: ext.highlightBorderColor, width: 2),
+              borderRadius: BorderRadius.circular(4),
+              color: ext.highlightBorderColor.withValues(alpha: 0.1),
+            )
+          : const BoxDecoration(),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
         onExpansionChanged: (expanded) {
           if (expanded) {
             onExpanded();
@@ -125,6 +135,7 @@ class DailyForecastTile extends StatelessWidget {
             ),
           ),
         ],
+        ),
       ),
     );
   }

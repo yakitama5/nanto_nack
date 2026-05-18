@@ -4,7 +4,9 @@ import 'package:quiz_core/quiz_core.dart';
 import '../../i18n/weather_translations_extension.dart';
 
 class RadarMapFullScreen extends StatelessWidget {
-  const RadarMapFullScreen({super.key});
+  const RadarMapFullScreen({super.key, this.onBack});
+
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -13,27 +15,31 @@ class RadarMapFullScreen extends StatelessWidget {
       backgroundColor: ext.radarFullScreenBackground,
       appBar: AppBar(
         backgroundColor: ext.radarFullScreenAppBarColor,
+        automaticallyImplyLeading: onBack == null,
         iconTheme: IconThemeData(color: ext.radarFullScreenTextColor),
+        leading: onBack != null
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: onBack,
+              )
+            : null,
         title: Text(
           context.sq.common.radarMapDetail,
           style: TextStyle(color: ext.radarFullScreenTextColor),
         ),
       ),
-      body: Hero(
-        tag: 'radar_map',
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: ext.radarBackground,
-          child: CustomPaint(
-            painter: _RadarMapPainter(
-              landColor: ext.radarLandColor,
-              seaColor: ext.radarSeaColor,
-              cloudGreen: ext.radarCloudGreen,
-              cloudYellow: ext.radarCloudYellow,
-              cloudRed: ext.radarCloudRed,
-              gridColor: ext.radarGridColor,
-            ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: ext.radarBackground,
+        child: CustomPaint(
+          painter: _RadarMapPainter(
+            landColor: ext.radarLandColor,
+            seaColor: ext.radarSeaColor,
+            cloudGreen: ext.radarCloudGreen,
+            cloudYellow: ext.radarCloudYellow,
+            cloudRed: ext.radarCloudRed,
+            gridColor: ext.radarGridColor,
           ),
         ),
       ),

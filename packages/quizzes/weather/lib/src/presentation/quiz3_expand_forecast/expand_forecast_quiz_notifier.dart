@@ -23,13 +23,17 @@ class ExpandForecastQuizNotifier
   ExpandForecastQuizState build() {
     ref.onDispose(() => _timer?.cancel());
 
-    // weatherAppProviderをlistenし、expandedDateがnullから非nullに変化したらクリア判定。
-    // 「ExpansionTileを展開した」という操作をクリア条件とする。
+    // weatherAppProviderをlistenし、expandedDateが水曜日に変化したらクリア判定。
+    // 「水曜日のExpansionTileを展開した」という操作をクリア条件とする。
+    // expandDailyForecastはnullに戻さないため、「水曜日以外→水曜日」への遷移で判定する。
     ref.listen(weatherAppProvider, (prev, next) {
       if (state.status != QuizStatus.playing) {
         return;
       }
-      if (prev?.expandedDate == null && next.expandedDate != null) {
+      final date = next.expandedDate;
+      if (prev?.expandedDate?.weekday != DateTime.wednesday &&
+          date != null &&
+          date.weekday == DateTime.wednesday) {
         unawaited(_onClear());
       }
     });

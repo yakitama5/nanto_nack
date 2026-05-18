@@ -1,47 +1,46 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../../i18n/weather_translations_extension.dart';
-import 'radar_map_full_screen.dart';
 
 class RadarMapCard extends StatelessWidget {
   const RadarMapCard({
     super.key,
     required this.onTap,
+    this.isHighlighted = false,
   });
 
   final VoidCallback onTap;
+  final bool isHighlighted;
 
   @override
   Widget build(BuildContext context) {
     final ext = Theme.of(context).extension<WeatherAppTheme>()!;
     return GestureDetector(
-      onTap: () {
-        onTap();
-        unawaited(
-          Navigator.of(context).push(
-            PageRouteBuilder<void>(
-              pageBuilder: (_, _a, _b) => const RadarMapFullScreen(),
-              transitionDuration: const Duration(milliseconds: 400),
-            ),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         height: 160,
         decoration: BoxDecoration(
           color: ext.radarBackground,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: ext.cardBorderColor),
+          border: Border.all(
+            color: isHighlighted ? ext.highlightBorderColor : ext.cardBorderColor,
+            width: isHighlighted ? 2.0 : 1.0,
+          ),
+          boxShadow: isHighlighted
+              ? [
+                  BoxShadow(
+                    color: ext.highlightBorderColor.withValues(alpha: 0.4),
+                    blurRadius: 8,
+                    spreadRadius: 1,
+                  ),
+                ]
+              : null,
         ),
-        child: Hero(
-          tag: 'radar_map',
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Stack(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Stack(
               children: [
                 SizedBox.expand(
                   child: CustomPaint(
@@ -89,7 +88,6 @@ class RadarMapCard extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
           ),
         ),
       ),

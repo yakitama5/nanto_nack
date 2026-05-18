@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../domain/entities/weather_city.dart';
+import 'components/radar_map_full_screen.dart';
 import 'components/weather_scroll_view.dart';
 import 'weather_app_notifier.dart';
 
@@ -17,6 +18,10 @@ class WeatherAppScaffold extends ConsumerStatefulWidget {
     this.hintUsed = false,
     this.onHintTap,
     this.overlays = const [],
+    this.highlightCitySwipe = false,
+    this.highlightRefresh = false,
+    this.highlightWednesdayForecast = false,
+    this.highlightRadarMap = false,
   });
 
   final QuizStatus quizStatus;
@@ -27,6 +32,10 @@ class WeatherAppScaffold extends ConsumerStatefulWidget {
   final bool hintUsed;
   final VoidCallback? onHintTap;
   final List<Widget> overlays;
+  final bool highlightCitySwipe;
+  final bool highlightRefresh;
+  final bool highlightWednesdayForecast;
+  final bool highlightRadarMap;
 
   @override
   ConsumerState<WeatherAppScaffold> createState() => _WeatherAppScaffoldState();
@@ -34,11 +43,21 @@ class WeatherAppScaffold extends ConsumerStatefulWidget {
 
 class _WeatherAppScaffoldState extends ConsumerState<WeatherAppScaffold> {
   late final PageController _pageController;
+  bool _isRadarMapOpen = false;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+  }
+
+  @override
+  void didUpdateWidget(WeatherAppScaffold oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.quizStatus != widget.quizStatus &&
+        widget.quizStatus == QuizStatus.idle) {
+      _isRadarMapOpen = false;
+    }
   }
 
   @override
@@ -59,6 +78,10 @@ class _WeatherAppScaffoldState extends ConsumerState<WeatherAppScaffold> {
         if (didPop) {
           return;
         }
+        if (_isRadarMapOpen) {
+          setState(() => _isRadarMapOpen = false);
+          return;
+        }
         final confirmed = await QuizExitScope.showConfirmDialog(context);
         if ((confirmed ?? false) && mounted) {
           // mounted チェック後のため BuildContext 利用は安全
@@ -74,6 +97,7 @@ class _WeatherAppScaffoldState extends ConsumerState<WeatherAppScaffold> {
               currentCity: weatherState.currentCity,
               cities: weatherState.cities,
               currentIndex: weatherState.currentCityIndex,
+              highlightCitySwipe: widget.highlightCitySwipe,
             ),
             body: PageView.builder(
               controller: _pageController,
@@ -85,8 +109,14 @@ class _WeatherAppScaffoldState extends ConsumerState<WeatherAppScaffold> {
                   city: city,
                   onRefresh: notifier.refreshWeather,
                   onExpandForecast: notifier.expandDailyForecast,
-                  onRadarMapTap: notifier.openRadarMap,
+                  onRadarMapTap: () {
+                    notifier.openRadarMap();
+                    setState(() => _isRadarMapOpen = true);
+                  },
                   cityWidget: _CityHeaderCard(city: city),
+                  highlightRefresh: widget.highlightRefresh,
+                  highlightWednesdayForecast: widget.highlightWednesdayForecast,
+                  highlightRadarMap: widget.highlightRadarMap,
                 );
               },
             ),
@@ -100,6 +130,12 @@ class _WeatherAppScaffoldState extends ConsumerState<WeatherAppScaffold> {
               onHintTap: widget.onHintTap,
               onGiveUp: widget.onGiveUp,
             ),
+          if (_isRadarMapOpen)
+            Positioned.fill(
+              child: RadarMapFullScreen(
+                onBack: () => setState(() => _isRadarMapOpen = false),
+              ),
+            ),
           ...widget.overlays,
         ],
       ),
@@ -112,11 +148,13 @@ class _WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.currentCity,
     required this.cities,
     required this.currentIndex,
+    this.highlightCitySwipe = false,
   });
 
   final WeatherCity currentCity;
   final List<WeatherCity> cities;
   final int currentIndex;
+  final bool highlightCitySwipe;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -124,6 +162,25 @@ class _WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final ext = Theme.of(context).extension<WeatherAppTheme>()!;
+
+    final dotsRow = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(cities.length, (i) {
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          margin: const EdgeInsets.symmetric(horizontal: 3),
+          width: currentIndex == i ? 16 : 6,
+          height: 6,
+          decoration: BoxDecoration(
+            color: currentIndex == i
+                ? ext.appBarTextColor
+                : ext.appBarTextColor.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(3),
+          ),
+        );
+      }),
+    );
+
     return AppBar(
       backgroundColor: ext.appBarColor,
       automaticallyImplyLeading: false,
@@ -138,23 +195,21 @@ class _WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
               fontSize: 16,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(cities.length, (i) {
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                margin: const EdgeInsets.symmetric(horizontal: 3),
-                width: currentIndex == i ? 16 : 6,
-                height: 6,
-                decoration: BoxDecoration(
-                  color: currentIndex == i
-                      ? ext.appBarTextColor
-                      : ext.appBarTextColor.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(3),
+          if (highlightCitySwipe)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: ext.highlightBorderColor,
+                  width: 2,
                 ),
-              );
-            }),
-          ),
+                borderRadius: BorderRadius.circular(8),
+                color: ext.highlightBorderColor.withValues(alpha: 0.1),
+              ),
+              child: dotsRow,
+            )
+          else
+            dotsRow,
         ],
       ),
       iconTheme: IconThemeData(color: ext.appBarTextColor),

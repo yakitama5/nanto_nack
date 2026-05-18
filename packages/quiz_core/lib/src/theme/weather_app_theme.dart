@@ -27,6 +27,7 @@ class WeatherAppTheme extends ThemeExtension<WeatherAppTheme> {
     required this.radarCloudGreen,
     required this.radarCloudYellow,
     required this.radarCloudRed,
+    required this.highlightBorderColor,
   });
 
   final Color scaffoldBackground;
@@ -72,6 +73,9 @@ class WeatherAppTheme extends ThemeExtension<WeatherAppTheme> {
   /// レーダーマップの雨雲（赤）
   final Color radarCloudRed;
 
+  /// ヒント使用時のハイライトボーダー色
+  final Color highlightBorderColor;
+
   static const light = WeatherAppTheme(
     scaffoldBackground: Color(0xFFF0F4FF),
     appBarColor: Color(0xFF1565C0),
@@ -97,6 +101,7 @@ class WeatherAppTheme extends ThemeExtension<WeatherAppTheme> {
     radarCloudGreen: Color(0xFF4CAF50),
     radarCloudYellow: Color(0xFFFFEB3B),
     radarCloudRed: Color(0xFFF44336),
+    highlightBorderColor: Color(0xFFFFEB3B),
   );
 
   static const dark = WeatherAppTheme(
@@ -124,6 +129,7 @@ class WeatherAppTheme extends ThemeExtension<WeatherAppTheme> {
     radarCloudGreen: Color(0xFF4CAF50),
     radarCloudYellow: Color(0xFFFFEB3B),
     radarCloudRed: Color(0xFFF44336),
+    highlightBorderColor: Color(0xFFFFEB3B),
   );
 
   @override
@@ -148,6 +154,7 @@ class WeatherAppTheme extends ThemeExtension<WeatherAppTheme> {
     Color? radarCloudGreen,
     Color? radarCloudYellow,
     Color? radarCloudRed,
+    Color? highlightBorderColor,
   }) {
     return WeatherAppTheme(
       scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
@@ -173,6 +180,7 @@ class WeatherAppTheme extends ThemeExtension<WeatherAppTheme> {
       radarCloudGreen: radarCloudGreen ?? this.radarCloudGreen,
       radarCloudYellow: radarCloudYellow ?? this.radarCloudYellow,
       radarCloudRed: radarCloudRed ?? this.radarCloudRed,
+      highlightBorderColor: highlightBorderColor ?? this.highlightBorderColor,
     );
   }
 
@@ -218,6 +226,8 @@ class WeatherAppTheme extends ThemeExtension<WeatherAppTheme> {
       radarCloudYellow:
           Color.lerp(radarCloudYellow, other.radarCloudYellow, t)!,
       radarCloudRed: Color.lerp(radarCloudRed, other.radarCloudRed, t)!,
+      highlightBorderColor:
+          Color.lerp(highlightBorderColor, other.highlightBorderColor, t)!,
     );
   }
 }
