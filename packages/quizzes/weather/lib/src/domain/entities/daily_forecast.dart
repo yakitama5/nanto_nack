@@ -1,13 +1,13 @@
 import 'hourly_forecast.dart';
 
 class DailyForecast {
-  const DailyForecast({
+  DailyForecast({
     required this.date,
     required this.weatherIcon,
     required this.highTemp,
     required this.lowTemp,
-    required this.hourlyForecasts,
-  });
+    required List<HourlyForecast> hourlyForecasts,
+  }) : hourlyForecasts = List.unmodifiable(hourlyForecasts);
 
   final DateTime date;
   final String weatherIcon;

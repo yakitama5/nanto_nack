@@ -16,31 +16,34 @@ class RadarMapCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ext = Theme.of(context).extension<WeatherAppTheme>()!;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        height: 160,
-        decoration: BoxDecoration(
-          color: ext.radarBackground,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isHighlighted ? ext.highlightBorderColor : ext.cardBorderColor,
-            width: isHighlighted ? 2.0 : 1.0,
-          ),
-          boxShadow: isHighlighted
-              ? [
-                  BoxShadow(
-                    color: ext.highlightBorderColor.withValues(alpha: 0.4),
-                    blurRadius: 8,
-                    spreadRadius: 1,
-                  ),
-                ]
-              : null,
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      height: 160,
+      decoration: BoxDecoration(
+        color: ext.radarBackground,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: isHighlighted ? ext.highlightBorderColor : ext.cardBorderColor,
+          width: isHighlighted ? 2.0 : 1.0,
         ),
-        child: ClipRRect(
+        boxShadow: isHighlighted
+            ? [
+                BoxShadow(
+                  color: ext.highlightBorderColor.withValues(alpha: 0.4),
+                  blurRadius: 8,
+                  spreadRadius: 1,
+                ),
+              ]
+            : null,
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(12),
-          child: Stack(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Stack(
               children: [
                 SizedBox.expand(
                   child: CustomPaint(
@@ -88,6 +91,7 @@ class RadarMapCard extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
           ),
         ),
       ),

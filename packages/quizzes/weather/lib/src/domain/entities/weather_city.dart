@@ -1,12 +1,12 @@
 import 'daily_forecast.dart';
 
 class WeatherCity {
-  const WeatherCity({
+  WeatherCity({
     required this.id,
     required this.name,
     required this.currentTemp,
-    required this.dailyForecasts,
-  });
+    required List<DailyForecast> dailyForecasts,
+  }) : dailyForecasts = List.unmodifiable(dailyForecasts);
 
   final String id;
   final String name;

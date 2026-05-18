@@ -90,12 +90,12 @@ List<DailyForecast> _buildSapporoForecasts(DateTime base) {
 
 List<HourlyForecast> _buildHourlyForecasts({required bool isRainy}) {
   return List.generate(8, (i) {
-    final hour = 6 + i * 3;
+    final hour = (6 + i * 3) % 24;
     return HourlyForecast(
       hour: hour,
       weatherIcon: (isRainy && i >= 3) ? '🌧️' : '⛅',
       temp: 20 + i,
-      precipitationChance: isRainy && i >= 3 ? 70 + i * 5 : 10,
+      precipitationChance: isRainy && i >= 3 ? (70 + i * 5).clamp(0, 100) : 10,
     );
   });
 }

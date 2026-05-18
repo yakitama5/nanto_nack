@@ -20,7 +20,15 @@
 ### DailyForecast
 - `date`: DateTime (日付)
 - `weatherIcon`: String (晴れ、雨などのアイコン/画像パス)
+- `highTemp`: int (最高気温)
+- `lowTemp`: int (最低気温)
 - `hourlyForecasts`: List<HourlyForecast> (時間別天気データ。アコーディオン展開時に表示)
+
+### HourlyForecast
+- `hour`: int (時刻。0〜23。モックでは6時始まり3時間刻みで8コマ生成、24超時は%24で正規化)
+- `weatherIcon`: String (天気アイコン)
+- `temp`: int (気温)
+- `precipitationChance`: int (降水確率。0〜100にclamp)
 
 ## 3. 状態管理 (Riverpod)
 天気アプリの共通状態を管理する `WeatherAppNotifier` を実装する。クイズごとに初期化されるよう `autoDispose` を使用すること。

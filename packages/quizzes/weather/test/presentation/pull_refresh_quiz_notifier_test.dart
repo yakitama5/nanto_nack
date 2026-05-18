@@ -123,6 +123,15 @@ void main() {
           container.read(pullRefreshQuizProvider).status,
           QuizStatus.correct,
         );
+        verify(
+          () => mockRepo.saveResult(
+            quizId: 'weather_quiz2',
+            isCleared: true,
+            clearTimeMs: any(named: 'clearTimeMs'),
+            score: any(named: 'score'),
+            failureCount: 0,
+          ),
+        ).called(1);
       });
     });
   });

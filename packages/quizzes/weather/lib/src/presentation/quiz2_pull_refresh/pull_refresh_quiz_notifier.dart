@@ -73,7 +73,9 @@ class PullRefreshQuizNotifier
     unawaited(
       ref.read(analyticsServiceProvider).logQuizGivenUp(quizId: _quizId),
     );
-    await _saveResult(isCleared: false, elapsedMs: elapsed);
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {}
   }
 
   void retry() {
@@ -86,6 +88,7 @@ class PullRefreshQuizNotifier
   }
 
   Future<void> _onClear() async {
+    if (state.status != QuizStatus.playing) return;
     _timer?.cancel();
     final elapsed = _elapsed();
     state = state.copyWith(
@@ -93,7 +96,9 @@ class PullRefreshQuizNotifier
       elapsedMs: elapsed,
     );
     unawaited(hapticFeedback.playSuccessFeedback());
-    await _saveResult(isCleared: true, elapsedMs: elapsed);
+    try {
+      await _saveResult(isCleared: true, elapsedMs: elapsed);
+    } catch (_) {}
   }
 
   void _startTimer() {
@@ -110,13 +115,16 @@ class PullRefreshQuizNotifier
   }
 
   Future<void> _onTimeUp() async {
+    if (state.status != QuizStatus.playing) return;
     final elapsed = _elapsed();
     state = state.copyWith(
       status: QuizStatus.timeUp,
       remainingSeconds: 0,
       elapsedMs: elapsed,
     );
-    await _saveResult(isCleared: false, elapsedMs: elapsed);
+    try {
+      await _saveResult(isCleared: false, elapsedMs: elapsed);
+    } catch (_) {}
   }
 
   int _elapsed() => state.startedAt != null

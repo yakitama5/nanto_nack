@@ -21,7 +21,6 @@ class CitySwitchQuizScreen extends ConsumerStatefulWidget {
 class _CitySwitchQuizScreenState extends ConsumerState<CitySwitchQuizScreen> {
   bool _showCutIn = true;
   int _retryCount = 0;
-  bool _hintUsed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +37,10 @@ class _CitySwitchQuizScreenState extends ConsumerState<CitySwitchQuizScreen> {
       remainingSeconds: state.remainingSeconds,
       timeLimitSeconds: WeatherQuizConfig.quiz1TimeLimitSeconds,
       missionText: missionText,
-      hintUsed: _hintUsed,
-      onHintTap: () => setState(() => _hintUsed = true),
+      hintUsed: state.hintUsed,
+      onHintTap: notifier.useHint,
       onGiveUp: notifier.giveUp,
-      highlightCitySwipe: _hintUsed && state.status == QuizStatus.playing,
+      highlightCitySwipe: state.hintUsed && state.status == QuizStatus.playing,
       overlays: [
         if (_showCutIn)
           MissionCutIn(
@@ -65,7 +64,6 @@ class _CitySwitchQuizScreenState extends ConsumerState<CitySwitchQuizScreen> {
                 setState(() {
                   _showCutIn = true;
                   _retryCount++;
-                  _hintUsed = false;
                 });
                 notifier.retry();
               },

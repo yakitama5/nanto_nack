@@ -7,7 +7,11 @@ class WeatherAppState {
     this.isRefreshing = false,
     this.expandedDate,
     this.isRadarMapOpened = false,
-  });
+  }) : assert(
+          cities.length > 0 &&
+              currentCityIndex >= 0 &&
+              currentCityIndex < cities.length,
+        );
 
   final List<WeatherCity> cities;
   final int currentCityIndex;
