@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 
 import '../domain/entities/weather_city.dart';
+import '../i18n/weather_translations_extension.dart';
 import 'components/radar_map_full_screen.dart';
 import 'components/weather_scroll_view.dart';
 import 'weather_app_notifier.dart';
@@ -159,6 +160,16 @@ class _WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
+  String _displayName(BuildContext context, String cityId) {
+    final c = context.sq.cities;
+    return switch (cityId) {
+      'tokyo' => c.tokyo,
+      'osaka' => c.osaka,
+      'sapporo' => c.sapporo,
+      _ => cityId,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final ext = Theme.of(context).extension<WeatherAppTheme>()!;
@@ -187,7 +198,7 @@ class _WeatherAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Column(
         children: [
           UnreadableText(
-            currentCity.name,
+            _displayName(context, currentCity.id),
             animateOnObfuscate: false,
             style: TextStyle(
               color: ext.appBarTextColor,

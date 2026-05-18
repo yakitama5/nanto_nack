@@ -23,8 +23,10 @@ class RadarMapFullScreen extends StatelessWidget {
                 onPressed: onBack,
               )
             : null,
-        title: Text(
+        title: UnreadableText(
           context.sq.common.radarMapDetail,
+          isObfuscated: true,
+          animateOnObfuscate: false,
           style: TextStyle(color: ext.radarFullScreenTextColor),
         ),
       ),

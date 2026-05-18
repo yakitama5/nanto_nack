@@ -106,7 +106,7 @@ class DailyForecastTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       UnreadableText(
-                        '${hourly.hour}時',
+                        '${hourly.hour}h',
                         animateOnObfuscate: false,
                         style: TextStyle(
                           fontSize: 10,
