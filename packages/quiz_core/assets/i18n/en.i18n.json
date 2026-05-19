@@ -256,8 +256,8 @@
       "music_quiz2": "Swipe down on the full-screen player to minimize it",
       "music_quiz3": "Tap the repeat button twice to set 1-song repeat",
       "music_quiz4": "Swipe up the lyrics panel at the bottom of the screen",
-      "weather_quiz1": "Swipe the weather app to check the weather in Osaka",
-      "weather_quiz2": "Pull down to refresh the weather data",
+      "weather_quiz1": "Check the weather in Osaka on the weather app",
+      "weather_quiz2": "Update the weather data to the latest",
       "weather_quiz3": "Tap Wednesday in the weekly forecast to see hourly details",
       "weather_quiz4": "Tap the radar map image to view it fullscreen"
     }

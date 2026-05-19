@@ -1,6 +1,6 @@
 {
   "quiz1": {
-    "missionText": "Going to Osaka tomorrow. Swipe to check the weather there!",
+    "missionText": "Going to Osaka tomorrow. Check the weather there!",
     "insight": {
       "title": "How did you know swiping changes the city?",
       "subtitle": "Left/right swipe to switch pages in PageView",
@@ -13,7 +13,7 @@
     }
   },
   "quiz2": {
-    "missionText": "The data looks a bit old... pull down to refresh the weather!",
+    "missionText": "The data looks a bit old... Update to the latest weather!",
     "insight": {
       "title": "How did you know pulling updates the data?",
       "subtitle": "Pull to Refresh pattern",

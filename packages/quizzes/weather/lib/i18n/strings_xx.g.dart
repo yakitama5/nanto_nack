@@ -55,7 +55,7 @@ class _TranslationsQuiz1Xx extends TranslationsQuiz1Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Swipe to switch city';
+	@override String get missionText => 'Check another city';
 	@override late final _TranslationsQuiz1InsightXx insight = _TranslationsQuiz1InsightXx._(_root);
 }
 
@@ -66,7 +66,7 @@ class _TranslationsQuiz2Xx extends TranslationsQuiz2Ja {
 	final TranslationsXx _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Pull down to refresh';
+	@override String get missionText => 'Get latest weather';
 	@override late final _TranslationsQuiz2InsightXx insight = _TranslationsQuiz2InsightXx._(_root);
 }
 
@@ -224,7 +224,7 @@ class _TranslationsQuiz4InsightXx extends TranslationsQuiz4InsightJa {
 extension on TranslationsXx {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'Swipe to switch city',
+			'quiz1.missionText' => 'Check another city',
 			'quiz1.insight.title' => 'How to switch cities?',
 			'quiz1.insight.subtitle' => 'Swipe left or right',
 			'quiz1.insight.swipeTitle' => 'Left/right swipe',
@@ -233,7 +233,7 @@ extension on TranslationsXx {
 			'quiz1.insight.dotDesc' => 'Dots show pages.',
 			'quiz1.insight.cityTitle' => 'City index',
 			'quiz1.insight.cityDesc' => 'Index tracks city.',
-			'quiz2.missionText' => 'Pull down to refresh',
+			'quiz2.missionText' => 'Get latest weather',
 			'quiz2.insight.title' => 'How to refresh?',
 			'quiz2.insight.subtitle' => 'Pull to refresh',
 			'quiz2.insight.pullTitle' => 'Pull refresh',

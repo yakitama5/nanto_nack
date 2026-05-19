@@ -57,8 +57,8 @@ class TranslationsQuiz1Ja {
 
 	// Translations
 
-	/// ja: '明日は大阪に出張だ。スワイプして大阪の天気を調べよう'
-	String get missionText => '明日は大阪に出張だ。スワイプして大阪の天気を調べよう';
+	/// ja: '明日は大阪に出張だ。大阪の天気を調べよう'
+	String get missionText => '明日は大阪に出張だ。大阪の天気を調べよう';
 
 	late final TranslationsQuiz1InsightJa insight = TranslationsQuiz1InsightJa.internal(_root);
 }
@@ -71,8 +71,8 @@ class TranslationsQuiz2Ja {
 
 	// Translations
 
-	/// ja: 'ちょっとデータが古いかも？引っ張って最新の天気に更新しよう'
-	String get missionText => 'ちょっとデータが古いかも？引っ張って最新の天気に更新しよう';
+	/// ja: 'ちょっとデータが古いかも？最新の天気に更新しよう'
+	String get missionText => 'ちょっとデータが古いかも？最新の天気に更新しよう';
 
 	late final TranslationsQuiz2InsightJa insight = TranslationsQuiz2InsightJa.internal(_root);
 }
@@ -359,7 +359,7 @@ class TranslationsQuiz4InsightJa {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => '明日は大阪に出張だ。スワイプして大阪の天気を調べよう',
+			'quiz1.missionText' => '明日は大阪に出張だ。大阪の天気を調べよう',
 			'quiz1.insight.title' => 'なぜ左スワイプで都市が切り替わるとわかった？',
 			'quiz1.insight.subtitle' => 'PageViewの左右スワイプで画面を切り替える',
 			'quiz1.insight.swipeTitle' => '左右スワイプで切り替え',
@@ -368,7 +368,7 @@ extension on Translations {
 			'quiz1.insight.dotDesc' => '画面下部の点（ドット）は現在表示中のページ番号を示す。白く塗りつぶされたドットが現在地であり、「全部でいくつのページがあるか」も一目でわかる。',
 			'quiz1.insight.cityTitle' => '都市リストとインデックス',
 			'quiz1.insight.cityDesc' => '複数都市の天気を管理するには、都市のリストと「現在何番目を表示しているか」のインデックスを状態として持つ設計が基本。ページ切り替えのたびにインデックスが更新される。',
-			'quiz2.missionText' => 'ちょっとデータが古いかも？引っ張って最新の天気に更新しよう',
+			'quiz2.missionText' => 'ちょっとデータが古いかも？最新の天気に更新しよう',
 			'quiz2.insight.title' => 'なぜ画面を引っ張ると更新されるとわかった？',
 			'quiz2.insight.subtitle' => 'Pull to Refresh（プルリフレッシュ）パターン',
 			'quiz2.insight.pullTitle' => '引っ張って更新',

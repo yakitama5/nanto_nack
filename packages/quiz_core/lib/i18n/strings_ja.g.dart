@@ -995,11 +995,11 @@ class TranslationsPlayStageDescriptionJa {
 	/// ja: '画面下部の歌詞パネルを上にスワイプして引き上げてください'
 	String get music_quiz4 => '画面下部の歌詞パネルを上にスワイプして引き上げてください';
 
-	/// ja: '天気アプリをスワイプして大阪の天気を確認してください'
-	String get weather_quiz1 => '天気アプリをスワイプして大阪の天気を確認してください';
+	/// ja: '天気アプリで大阪の天気を確認してください'
+	String get weather_quiz1 => '天気アプリで大阪の天気を確認してください';
 
-	/// ja: '画面を引っ張って最新の天気データに更新してください'
-	String get weather_quiz2 => '画面を引っ張って最新の天気データに更新してください';
+	/// ja: '天気アプリの天気データを最新に更新してください'
+	String get weather_quiz2 => '天気アプリの天気データを最新に更新してください';
 
 	/// ja: '週間天気の水曜日をタップして時間帯別天気を確認してください'
 	String get weather_quiz3 => '週間天気の水曜日をタップして時間帯別天気を確認してください';
@@ -1367,8 +1367,8 @@ extension on Translations {
 			'play.stageDescription.music_quiz2' => '全画面プレイヤーを下にスワイプしてミニプレイヤーに収納してください',
 			'play.stageDescription.music_quiz3' => 'リピートボタンを2回タップして1曲リピート状態にしてください',
 			'play.stageDescription.music_quiz4' => '画面下部の歌詞パネルを上にスワイプして引き上げてください',
-			'play.stageDescription.weather_quiz1' => '天気アプリをスワイプして大阪の天気を確認してください',
-			'play.stageDescription.weather_quiz2' => '画面を引っ張って最新の天気データに更新してください',
+			'play.stageDescription.weather_quiz1' => '天気アプリで大阪の天気を確認してください',
+			'play.stageDescription.weather_quiz2' => '天気アプリの天気データを最新に更新してください',
 			'play.stageDescription.weather_quiz3' => '週間天気の水曜日をタップして時間帯別天気を確認してください',
 			'play.stageDescription.weather_quiz4' => '雨雲レーダーの画像をタップして全画面で表示してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',

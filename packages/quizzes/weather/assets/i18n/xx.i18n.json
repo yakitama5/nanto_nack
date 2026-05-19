@@ -1,6 +1,6 @@
 {
   "quiz1": {
-    "missionText": "Swipe to switch city",
+    "missionText": "Check another city",
     "insight": {
       "title": "How to switch cities?",
       "subtitle": "Swipe left or right",
@@ -13,7 +13,7 @@
     }
   },
   "quiz2": {
-    "missionText": "Pull down to refresh",
+    "missionText": "Get latest weather",
     "insight": {
       "title": "How to refresh?",
       "subtitle": "Pull to refresh",

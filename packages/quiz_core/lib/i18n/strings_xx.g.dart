@@ -495,8 +495,8 @@ class _TranslationsPlayStageDescriptionXx extends TranslationsPlayStageDescripti
 	@override String get music_quiz2 => 'Wgrox msij zs erjereryх ockirxf';
 	@override String get music_quiz3 => 'Zko fxoxkz ziruх ziruх zsxw zsrw';
 	@override String get music_quiz4 => 'Wgrox ho cifruv okjxc';
-	@override String get weather_quiz1 => 'Wgrox wzgkyzx koo zs kyzuk Oasqs';
-	@override String get weather_quiz2 => 'Wgrox msij zs fxbfxwu wzgkyzx';
+	@override String get weather_quiz1 => 'Wzgkyzx koo zs kyzuk Oasqs';
+	@override String get weather_quiz2 => 'Fxbfxwu wzgkyzx mkzk';
 	@override String get weather_quiz3 => 'Zko Wzi rj wzxqci bsfxukwz bsf usofci';
 	@override String get weather_quiz4 => 'Zko xsvsx eko zs trcw bocwuxfxxj';
 }
@@ -794,8 +794,8 @@ extension on TranslationsXx {
 			'play.stageDescription.music_quiz2' => 'Wgrox msij zs erjereryх ockirxf',
 			'play.stageDescription.music_quiz3' => 'Zko fxoxkz ziruх ziruх zsxw zsrw',
 			'play.stageDescription.music_quiz4' => 'Wgrox ho cifruv okjxc',
-			'play.stageDescription.weather_quiz1' => 'Wgrox wzgkyzx koo zs kyzuk Oasqs',
-			'play.stageDescription.weather_quiz2' => 'Wgrox msij zs fxbfxwu wzgkyzx',
+			'play.stageDescription.weather_quiz1' => 'Wzgkyzx koo zs kyzuk Oasqs',
+			'play.stageDescription.weather_quiz2' => 'Fxbfxwu wzgkyzx mkzk',
 			'play.stageDescription.weather_quiz3' => 'Zko Wzi rj wzxqci bsfxukwz bsf usofci',
 			'play.stageDescription.weather_quiz4' => 'Zko xsvsx eko zs trcw bocwuxfxxj',
 			'scene.greeting.sunriseMorning' => 'おはようございます',

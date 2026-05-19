@@ -55,7 +55,7 @@ class _TranslationsQuiz1En extends TranslationsQuiz1Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'Going to Osaka tomorrow. Swipe to check the weather there!';
+	@override String get missionText => 'Going to Osaka tomorrow. Check the weather there!';
 	@override late final _TranslationsQuiz1InsightEn insight = _TranslationsQuiz1InsightEn._(_root);
 }
 
@@ -66,7 +66,7 @@ class _TranslationsQuiz2En extends TranslationsQuiz2Ja {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get missionText => 'The data looks a bit old... pull down to refresh the weather!';
+	@override String get missionText => 'The data looks a bit old... Update to the latest weather!';
 	@override late final _TranslationsQuiz2InsightEn insight = _TranslationsQuiz2InsightEn._(_root);
 }
 
@@ -224,7 +224,7 @@ class _TranslationsQuiz4InsightEn extends TranslationsQuiz4InsightJa {
 extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'quiz1.missionText' => 'Going to Osaka tomorrow. Swipe to check the weather there!',
+			'quiz1.missionText' => 'Going to Osaka tomorrow. Check the weather there!',
 			'quiz1.insight.title' => 'How did you know swiping changes the city?',
 			'quiz1.insight.subtitle' => 'Left/right swipe to switch pages in PageView',
 			'quiz1.insight.swipeTitle' => 'Left/right swipe to switch',
@@ -233,7 +233,7 @@ extension on TranslationsEn {
 			'quiz1.insight.dotDesc' => 'The dots at the bottom show the current page number. The filled dot represents your current position and lets you see the total number of pages at a glance.',
 			'quiz1.insight.cityTitle' => 'City list and index',
 			'quiz1.insight.cityDesc' => 'Managing weather for multiple cities requires a list of cities and an index tracking which one is currently displayed. The index updates every time the page changes.',
-			'quiz2.missionText' => 'The data looks a bit old... pull down to refresh the weather!',
+			'quiz2.missionText' => 'The data looks a bit old... Update to the latest weather!',
 			'quiz2.insight.title' => 'How did you know pulling updates the data?',
 			'quiz2.insight.subtitle' => 'Pull to Refresh pattern',
 			'quiz2.insight.pullTitle' => 'Pull to refresh',

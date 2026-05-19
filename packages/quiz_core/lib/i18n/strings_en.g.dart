@@ -499,8 +499,8 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get music_quiz2 => 'Swipe down on the full-screen player to minimize it';
 	@override String get music_quiz3 => 'Tap the repeat button twice to set 1-song repeat';
 	@override String get music_quiz4 => 'Swipe up the lyrics panel at the bottom of the screen';
-	@override String get weather_quiz1 => 'Swipe the weather app to check the weather in Osaka';
-	@override String get weather_quiz2 => 'Pull down to refresh the weather data';
+	@override String get weather_quiz1 => 'Check the weather in Osaka on the weather app';
+	@override String get weather_quiz2 => 'Update the weather data to the latest';
 	@override String get weather_quiz3 => 'Tap Wednesday in the weekly forecast to see hourly details';
 	@override String get weather_quiz4 => 'Tap the radar map image to view it fullscreen';
 }
@@ -802,8 +802,8 @@ extension on TranslationsEn {
 			'play.stageDescription.music_quiz2' => 'Swipe down on the full-screen player to minimize it',
 			'play.stageDescription.music_quiz3' => 'Tap the repeat button twice to set 1-song repeat',
 			'play.stageDescription.music_quiz4' => 'Swipe up the lyrics panel at the bottom of the screen',
-			'play.stageDescription.weather_quiz1' => 'Swipe the weather app to check the weather in Osaka',
-			'play.stageDescription.weather_quiz2' => 'Pull down to refresh the weather data',
+			'play.stageDescription.weather_quiz1' => 'Check the weather in Osaka on the weather app',
+			'play.stageDescription.weather_quiz2' => 'Update the weather data to the latest',
 			'play.stageDescription.weather_quiz3' => 'Tap Wednesday in the weekly forecast to see hourly details',
 			'play.stageDescription.weather_quiz4' => 'Tap the radar map image to view it fullscreen',
 			'scene.greeting.sunriseMorning' => 'Good morning',
