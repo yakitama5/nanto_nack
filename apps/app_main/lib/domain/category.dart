@@ -15,7 +15,8 @@ enum QuizCategory {
   comic,
   todo,
   matching,
-  music
+  music,
+  weather
   ;
 
   String get id => name;
@@ -35,6 +36,7 @@ enum QuizCategory {
     todo => Icons.check_box_outlined,
     matching => Icons.favorite_outline,
     music => Icons.music_note_outlined,
+    weather => Icons.wb_sunny_outlined,
   };
 
   bool get isComingSoon => false;
@@ -54,6 +56,7 @@ enum QuizCategory {
     todo => t.play.categoryLabel.todo,
     matching => t.play.categoryLabel.matching,
     music => t.play.categoryLabel.music,
+    weather => t.play.categoryLabel.weather,
   };
 
   Color color(NantoNackThemeExtension ext) => switch (this) {
@@ -71,6 +74,7 @@ enum QuizCategory {
     todo => ext.todoCategoryColor,
     matching => ext.matchingCategoryColor,
     music => ext.musicCategoryColor,
+    weather => ext.weatherCategoryColor,
   };
 
   Color containerColor(NantoNackThemeExtension ext) => switch (this) {
@@ -88,6 +92,7 @@ enum QuizCategory {
     todo => ext.todoCategoryContainerColor,
     matching => ext.matchingCategoryContainerColor,
     music => ext.musicCategoryContainerColor,
+    weather => ext.weatherCategoryContainerColor,
   };
 
   static QuizCategory fromId(String id) => QuizCategory.values.firstWhere(

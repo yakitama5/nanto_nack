@@ -26,6 +26,7 @@ enum GenericQuizStage {
             QuizCategory.todo => t.play.stageTitle.todo_quiz1,
             QuizCategory.matching => t.play.stageTitle.matching_quiz1,
             QuizCategory.music => t.play.stageTitle.music_quiz1,
+            QuizCategory.weather => t.play.stageTitle.weather_quiz1,
           },
         quiz2 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz2,
@@ -42,6 +43,7 @@ enum GenericQuizStage {
             QuizCategory.todo => t.play.stageTitle.todo_quiz2,
             QuizCategory.matching => t.play.stageTitle.matching_quiz2,
             QuizCategory.music => t.play.stageTitle.music_quiz2,
+            QuizCategory.weather => t.play.stageTitle.weather_quiz2,
           },
         quiz3 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz3,
@@ -58,6 +60,7 @@ enum GenericQuizStage {
             QuizCategory.todo => t.play.stageTitle.todo_quiz3,
             QuizCategory.matching => t.play.stageTitle.matching_quiz3,
             QuizCategory.music => t.play.stageTitle.music_quiz3,
+            QuizCategory.weather => t.play.stageTitle.weather_quiz3,
           },
         quiz4 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz4,
@@ -74,6 +77,7 @@ enum GenericQuizStage {
             QuizCategory.todo => t.play.stageTitle.todo_quiz4,
             QuizCategory.matching => t.play.stageTitle.matching_quiz4,
             QuizCategory.music => t.play.stageTitle.music_quiz4,
+            QuizCategory.weather => t.play.stageTitle.weather_quiz4,
           },
       };
 
@@ -455,6 +459,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     id: 'music_quiz4',
     category: QuizCategory.music,
     routePath: kMusicQuiz4Path,
+    difficulty: 4,
+  ),
+  // 天気予報カテゴリー
+  const Stage(
+    id: 'weather_quiz1',
+    category: QuizCategory.weather,
+    routePath: kWeatherQuiz1Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'weather_quiz2',
+    category: QuizCategory.weather,
+    routePath: kWeatherQuiz2Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'weather_quiz3',
+    category: QuizCategory.weather,
+    routePath: kWeatherQuiz3Path,
+    difficulty: 3,
+  ),
+  const Stage(
+    id: 'weather_quiz4',
+    category: QuizCategory.weather,
+    routePath: kWeatherQuiz4Path,
     difficulty: 4,
   ),
 ]);

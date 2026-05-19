@@ -1,0 +1,91 @@
+{
+  "quiz1": {
+    "missionText": "Check another city",
+    "insight": {
+      "title": "How to switch cities?",
+      "subtitle": "Swipe left or right",
+      "swipeTitle": "Left/right swipe",
+      "swipeDesc": "Swipe pages to switch.",
+      "dotTitle": "Dot indicators",
+      "dotDesc": "Dots show pages.",
+      "cityTitle": "City index",
+      "cityDesc": "Index tracks city."
+    }
+  },
+  "quiz2": {
+    "missionText": "Get latest weather",
+    "insight": {
+      "title": "How to refresh?",
+      "subtitle": "Pull to refresh",
+      "pullTitle": "Pull refresh",
+      "pullDesc": "Pull to update.",
+      "indicatorTitle": "Loading",
+      "indicatorDesc": "Spinner shows loading.",
+      "thresholdTitle": "Pull threshold",
+      "thresholdDesc": "Pull enough to trigger."
+    }
+  },
+  "quiz3": {
+    "missionText": "Tap to expand",
+    "insight": {
+      "title": "How to expand?",
+      "subtitle": "Tap row to expand",
+      "expandTitle": "Tap to expand",
+      "expandDesc": "Tap for details.",
+      "arrowTitle": "Arrow icon",
+      "arrowDesc": "Arrow shows expand.",
+      "hourlyTitle": "Hourly forecast",
+      "hourlyDesc": "See hourly detail."
+    }
+  },
+  "quiz4": {
+    "missionText": "Tap to open radar",
+    "insight": {
+      "title": "How to open radar?",
+      "subtitle": "Tap to fullscreen",
+      "tapTitle": "Tap for fullscreen",
+      "tapDesc": "Tap image to expand.",
+      "heroTitle": "Hero animation",
+      "heroDesc": "Smooth transition.",
+      "radarTitle": "Radar map",
+      "radarDesc": "Color shows intensity."
+    }
+  },
+  "common": {
+    "appTitle": "Wzgkyzx",
+    "cityTitle": "{cityName} Wzgkyzx",
+    "@cityTitle": { "param": "cityName" },
+    "currentTemp": "Kteexyk Zxtr",
+    "tempUnit": "{temp}°C",
+    "@tempUnit": { "param": "temp" },
+    "weeklyForecast": "7-Vgi Foxzksaz",
+    "hourlyDetail": "Uotofi Foxzksaz",
+    "radarMap": "Xsvsx Ksw",
+    "radarMapDetail": "Xsvsx Ksw",
+    "refreshing": "Xzfxzaujpk...",
+    "lastUpdated": "Lsaz Hrvsazv",
+    "pullToRefresh": "Woll zo Xzfxzau",
+    "sunny": "Aoppg",
+    "cloudy": "Klosvi",
+    "rainy": "Xsopg",
+    "partlyCloudy": "Wsxzfi Klosvi",
+    "quitConfirmTitle": "Qooz?",
+    "quitConfirmMessage": "Gskz zioa.",
+    "continueButton": "Kopzopoz",
+    "quitButton": "Qooz"
+  },
+  "cities": {
+    "tokyo": "Zoqgo",
+    "osaka": "Oasqs",
+    "sapporo": "Asrroxo"
+  },
+  "weekdays": {
+    "mon": "Mop",
+    "tue": "Zoz",
+    "wed": "Wzi",
+    "thu": "Zuox",
+    "fri": "Fxo",
+    "sat": "Asz",
+    "sun": "Aop"
+  }
+}

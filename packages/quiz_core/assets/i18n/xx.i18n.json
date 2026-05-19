@@ -117,7 +117,8 @@
       "comic": "漫画アプリ",
       "todo": "タスク管理",
       "matching": "Ekzuyrjp",
-      "music": "Tnwru"
+      "music": "Tnwru",
+      "weather": "Wzgkyzx"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -133,7 +134,8 @@
       "comic": "漫画アプリの操作をマスターしよう",
       "todo": "ZSMS koo HR/HT xtoxfrxjux",
       "matching": "Ekzuyrjp koo HR/HT xtoxfrxjux",
-      "music": "Tnwru ockirxf HR/HT xtoxfrxjux"
+      "music": "Tnwru ockirxf HR/HT xtoxfrxjux",
+      "weather": "Wzgkyzx koo HR/HT xtoxfrxjux"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -191,7 +193,11 @@
       "music_quiz1": "Waро zs jxtz wsjp",
       "music_quiz2": "Mrjreryx ockirxf",
       "music_quiz3": "Wxz 1-wsjp fxoxkz",
-      "music_quiz4": "Wysw cifruv"
+      "music_quiz4": "Wysw cifruv",
+      "weather_quiz1": "Kyzuk Oasqs Wzgkyzx",
+      "weather_quiz2": "Xzfxzau Wzgkyzx",
+      "weather_quiz3": "Kyzuk Wzi Vxzkrcw",
+      "weather_quiz4": "Orsj Xsvsx Ksw"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -245,7 +251,11 @@
       "music_quiz1": "Wgrox cxbz sj kcbhe kfz sf zko waро",
       "music_quiz2": "Wgrox msij zs erjereryх ockirxf",
       "music_quiz3": "Zko fxoxkz ziruх ziruх zsxw zsrw",
-      "music_quiz4": "Wgrox ho cifruv okjxc"
+      "music_quiz4": "Wgrox ho cifruv okjxc",
+      "weather_quiz1": "Wzgkyzx koo zs kyzuk Oasqs",
+      "weather_quiz2": "Fxbfxwu wzgkyzx mkzk",
+      "weather_quiz3": "Zko Wzi rj wzxqci bsfxukwz bsf usofci",
+      "weather_quiz4": "Zko xsvsx eko zs trcw bocwuxfxxj"
     }
   },
   "scene": {
