@@ -37,7 +37,7 @@ class DeliveryAppNotifier
     state = state.copyWith(
       selectedCategoryId: id,
       lastTappedCategoryId: id,
-      orderQuantity: 1,
+      orderQuantity: id != state.selectedCategoryId ? 1 : null,
     );
   }
 

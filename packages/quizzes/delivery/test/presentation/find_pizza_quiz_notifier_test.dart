@@ -146,7 +146,6 @@ void main() {
           .read(deliveryAppProvider(DeliveryViewState.browsing).notifier)
           .tapCategory('burger');
 
-      await Future<void>.delayed(const Duration(milliseconds: 100));
       final state = container.read(findPizzaQuizProvider);
       expect(state.status, QuizStatus.playing);
     });

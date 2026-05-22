@@ -134,7 +134,6 @@ void main() {
           .read(deliveryAppProvider(DeliveryViewState.tracking).notifier)
           .updateTrackingSheetExtent(0.5);
 
-      await Future<void>.delayed(const Duration(milliseconds: 100));
       final state = container.read(expandTrackingQuizProvider);
       expect(state.status, QuizStatus.playing);
     });
