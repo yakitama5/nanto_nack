@@ -116,6 +116,13 @@ const String kWeatherQuiz2Path = '/play/weather/quiz2';
 const String kWeatherQuiz3Path = '/play/weather/quiz3';
 const String kWeatherQuiz4Path = '/play/weather/quiz4';
 
+// Delivery
+const String kDeliveryListPath = '/play/delivery';
+const String kDeliveryQuiz1Path = '/play/delivery/quiz1';
+const String kDeliveryQuiz2Path = '/play/delivery/quiz2';
+const String kDeliveryQuiz3Path = '/play/delivery/quiz3';
+const String kDeliveryQuiz4Path = '/play/delivery/quiz4';
+
 // Comic
 const String kComicSegment = 'comic';
 const String kComicQuiz1Segment = 'quiz1';
