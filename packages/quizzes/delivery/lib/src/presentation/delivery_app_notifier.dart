@@ -34,7 +34,11 @@ class DeliveryAppNotifier
   /// lastTappedCategoryId を更新することで Quiz1 側の listen がクリア判定を行う。
   void tapCategory(String id) {
     if (_disposed) return;
-    state = state.copyWith(selectedCategoryId: id, lastTappedCategoryId: id);
+    state = state.copyWith(
+      selectedCategoryId: id,
+      lastTappedCategoryId: id,
+      orderQuantity: 1,
+    );
   }
 
   /// 注文個数を +1 する。
