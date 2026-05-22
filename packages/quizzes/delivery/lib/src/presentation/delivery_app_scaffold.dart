@@ -963,6 +963,7 @@ class _PinTailPainter extends CustomPainter {
 
 class _ItemData {
   const _ItemData({required this.name, required this.description});
+
   final String name;
   final String description;
 }
