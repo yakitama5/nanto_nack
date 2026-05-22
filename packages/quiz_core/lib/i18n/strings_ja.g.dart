@@ -574,6 +574,9 @@ class TranslationsPlayCategoryLabelJa {
 
 	/// ja: '天気予報'
 	String get weather => '天気予報';
+
+	/// ja: 'フードデリバリー'
+	String get delivery => 'フードデリバリー';
 }
 
 // Path: play.categoryDescription
@@ -628,6 +631,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: '天気予報アプリのUI/UXを体験しよう'
 	String get weather => '天気予報アプリのUI/UXを体験しよう';
+
+	/// ja: 'フードデリバリーアプリのUI/UXを体験しよう'
+	String get delivery => 'フードデリバリーアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -817,6 +823,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '雨雲レーダーを開こう'
 	String get weather_quiz4 => '雨雲レーダーを開こう';
+
+	/// ja: 'ピザのカテゴリを探そう'
+	String get delivery_quiz1 => 'ピザのカテゴリを探そう';
+
+	/// ja: '注文数を2つに増やそう'
+	String get delivery_quiz2 => '注文数を2つに増やそう';
+
+	/// ja: 'カートの中身を確認しよう'
+	String get delivery_quiz3 => 'カートの中身を確認しよう';
+
+	/// ja: '配達員の現在地を確認しよう'
+	String get delivery_quiz4 => '配達員の現在地を確認しよう';
 }
 
 // Path: play.stageDescription
@@ -1006,6 +1024,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '雨雲レーダーの画像をタップして全画面で表示してください'
 	String get weather_quiz4 => '雨雲レーダーの画像をタップして全画面で表示してください';
+
+	/// ja: 'カテゴリ一覧を横スクロールしてピザを見つけてください'
+	String get delivery_quiz1 => 'カテゴリ一覧を横スクロールしてピザを見つけてください';
+
+	/// ja: '商品の個数を2つに増やしてください'
+	String get delivery_quiz2 => '商品の個数を2つに増やしてください';
+
+	/// ja: 'カートボタンをタップして注文内容を確認してください'
+	String get delivery_quiz3 => 'カートボタンをタップして注文内容を確認してください';
+
+	/// ja: '配達状況のシートを全画面に引き上げて配達員の現在地を確認してください'
+	String get delivery_quiz4 => '配達状況のシートを全画面に引き上げて配達員の現在地を確認してください';
 }
 
 // Path: scene.greeting
@@ -1236,6 +1266,7 @@ extension on Translations {
 			'play.categoryLabel.matching' => 'マッチング',
 			'play.categoryLabel.music' => '音楽',
 			'play.categoryLabel.weather' => '天気予報',
+			'play.categoryLabel.delivery' => 'フードデリバリー',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1251,6 +1282,7 @@ extension on Translations {
 			'play.categoryDescription.matching' => 'マッチングアプリのUI/UXを体験しよう',
 			'play.categoryDescription.music' => '音楽プレイヤーのUI/UXを体験しよう',
 			'play.categoryDescription.weather' => '天気予報アプリのUI/UXを体験しよう',
+			'play.categoryDescription.delivery' => 'フードデリバリーアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1311,6 +1343,10 @@ extension on Translations {
 			'play.stageTitle.weather_quiz2' => '天気を更新しよう',
 			'play.stageTitle.weather_quiz3' => '水曜日の詳細を見よう',
 			'play.stageTitle.weather_quiz4' => '雨雲レーダーを開こう',
+			'play.stageTitle.delivery_quiz1' => 'ピザのカテゴリを探そう',
+			'play.stageTitle.delivery_quiz2' => '注文数を2つに増やそう',
+			'play.stageTitle.delivery_quiz3' => 'カートの中身を確認しよう',
+			'play.stageTitle.delivery_quiz4' => '配達員の現在地を確認しよう',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1371,6 +1407,10 @@ extension on Translations {
 			'play.stageDescription.weather_quiz2' => '天気アプリの天気データを最新に更新してください',
 			'play.stageDescription.weather_quiz3' => '週間天気の水曜日をタップして時間帯別天気を確認してください',
 			'play.stageDescription.weather_quiz4' => '雨雲レーダーの画像をタップして全画面で表示してください',
+			'play.stageDescription.delivery_quiz1' => 'カテゴリ一覧を横スクロールしてピザを見つけてください',
+			'play.stageDescription.delivery_quiz2' => '商品の個数を2つに増やしてください',
+			'play.stageDescription.delivery_quiz3' => 'カートボタンをタップして注文内容を確認してください',
+			'play.stageDescription.delivery_quiz4' => '配達状況のシートを全画面に引き上げて配達員の現在地を確認してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',
