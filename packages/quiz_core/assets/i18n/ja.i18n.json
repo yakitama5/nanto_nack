@@ -118,7 +118,8 @@
       "todo": "タスク管理",
       "matching": "マッチング",
       "music": "音楽",
-      "weather": "天気予報"
+      "weather": "天気予報",
+      "delivery": "フードデリバリー"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -135,7 +136,8 @@
       "todo": "TODOアプリのUI/UXを体験しよう",
       "matching": "マッチングアプリのUI/UXを体験しよう",
       "music": "音楽プレイヤーのUI/UXを体験しよう",
-      "weather": "天気予報アプリのUI/UXを体験しよう"
+      "weather": "天気予報アプリのUI/UXを体験しよう",
+      "delivery": "フードデリバリーアプリのUI/UXを体験しよう"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -197,7 +199,11 @@
       "weather_quiz1": "大阪の天気を調べよう",
       "weather_quiz2": "天気を更新しよう",
       "weather_quiz3": "水曜日の詳細を見よう",
-      "weather_quiz4": "雨雲レーダーを開こう"
+      "weather_quiz4": "雨雲レーダーを開こう",
+      "delivery_quiz1": "ピザのカテゴリを探そう",
+      "delivery_quiz2": "注文数を2つに増やそう",
+      "delivery_quiz3": "カートの中身を確認しよう",
+      "delivery_quiz4": "配達員の現在地を確認しよう"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -259,7 +265,11 @@
       "weather_quiz1": "天気アプリで大阪の天気を確認してください",
       "weather_quiz2": "天気アプリの天気データを最新に更新してください",
       "weather_quiz3": "週間天気の水曜日をタップして時間帯別天気を確認してください",
-      "weather_quiz4": "雨雲レーダーの画像をタップして全画面で表示してください"
+      "weather_quiz4": "雨雲レーダーの画像をタップして全画面で表示してください",
+      "delivery_quiz1": "カテゴリ一覧を横スクロールしてピザを見つけてください",
+      "delivery_quiz2": "商品の個数を2つに増やしてください",
+      "delivery_quiz3": "カートボタンをタップして注文内容を確認してください",
+      "delivery_quiz4": "配達状況のシートを全画面に引き上げて配達員の現在地を確認してください"
     }
   },
   "scene": {

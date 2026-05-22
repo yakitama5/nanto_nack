@@ -1,0 +1,101 @@
+{
+  "quiz1": {
+    "missionText": "Azkzk Wozzs Ksazkoxg",
+    "insight": {
+      "title": "Azkzk Wozzs?",
+      "subtitle": "Akxoll zo fopv",
+      "scrollTitle": "Azkzk Uxkll",
+      "scrollDesc": "Azkzk fox ukiizp kzza.",
+      "iconTitle": "Ksazkoxg Ikop",
+      "iconDesc": "Zkw fox kzkkoxg.",
+      "affordanceTitle": "Affoxvspkz",
+      "affordanceDesc": "Evkz aujoa akxollseoloag."
+    }
+  },
+  "quiz2": {
+    "missionText": "Apkxzsaz Qospzoag",
+    "insight": {
+      "title": "Wow Azerwwex?",
+      "subtitle": "Azerwwex UI",
+      "stepperTitle": "Azerwwex",
+      "stepperDesc": "Mopoa zp kospzaoa.",
+      "minTitle": "Mop Lokuoz",
+      "minDesc": "Ksp'z kx ozxo 1.",
+      "feedbackTitle": "Fzzveskq",
+      "feedbackDesc": "Opazspz rwvsaz."
+    }
+  },
+  "quiz3": {
+    "missionText": "Kuzkq Ksxz",
+    "insight": {
+      "title": "Wow Ksxz?",
+      "subtitle": "FAB zo Ksxz",
+      "fabTitle": "Flosoopk Ksxz",
+      "fabDesc": "Auwwa zkxz wozu wxokz.",
+      "priceTitle": "Txokz Vuawlsg",
+      "priceDesc": "Toskl wokz auowp.",
+      "actionTitle": "Mskp Akzoop",
+      "actionDesc": "Eowluszaa qzg skzoop."
+    }
+  },
+  "quiz4": {
+    "missionText": "Follakxzzp Msw",
+    "insight": {
+      "title": "Wow Bozzoa Auzzz?",
+      "subtitle": "Vxskksoez Bozzo Auzzz",
+      "sheetTitle": "Vxskksoez Auzzz",
+      "sheetDesc": "Vxsk rw fox vzzsola.",
+      "handleTitle": "Uspvlz Bsx",
+      "handleDesc": "Kuswa vxskksoez.",
+      "expandTitle": "Follakxzzp",
+      "expandDesc": "Msu vxsk fox vzzskla."
+    }
+  },
+  "common": {
+    "appTitle": "Foovilivxg",
+    "searchHint": "Azskku...",
+    "categories": "Ksazakuxoza",
+    "itemName": "Bixkzx Azz",
+    "itemDescription": "Jigkkg wzfy & fxzau vzkz.",
+    "itemPrice": "¥890",
+    "itemPriceValue": 890,
+    "cartButton": "Kuzkq Ksxz ¥{total}",
+    "@cartButton": { "param": "total" },
+    "trackingTitle": "Vxskqopk",
+    "courierName": "Koixozx: Nspzoa",
+    "courierStatus": "Axrovopk aoop",
+    "estimatedTime": "ETA: ~10mop",
+    "orderItems": "Oxvzx Izaza",
+    "orderTotal": "Tozsl ¥{total}",
+    "@orderTotal": { "param": "total" }
+  },
+  "categories": {
+    "burger": "Bixkzx",
+    "sushi": "Aiuao",
+    "pizza": "Wozzs",
+    "ramen": "Xsamzp",
+    "curry": "Kixxi"
+  },
+  "items": {
+    "burger": {
+      "name": "Bixkzx Azz",
+      "description": "Jigkkg wzfy & fxzau vzkz."
+    },
+    "sushi": {
+      "name": "Aiuao 10 Wkzkza",
+      "description": "Fxzau aiuao eg skxzfol kusfa."
+    },
+    "pizza": {
+      "name": "Msxkzxozs Wozzs",
+      "description": "Mozzsxzlls kuzzaz & esaol."
+    },
+    "ramen": {
+      "name": "Aujog Xsamzp",
+      "description": "Vorzlz axozu & xoku ikas axozu."
+    },
+    "curry": {
+      "name": "Kijkqzp Kixxi",
+      "description": "Awokz zsazz exzsmg kixxi & xokz."
+    }
+  }
+}

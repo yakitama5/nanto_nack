@@ -118,7 +118,8 @@
       "todo": "タスク管理",
       "matching": "Ekzuyrjp",
       "music": "Tnwru",
-      "weather": "Wzgkyzx"
+      "weather": "Wzgkyzx",
+      "delivery": "Vrcivelg"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -135,7 +136,8 @@
       "todo": "ZSMS koo HR/HT xtoxfrxjux",
       "matching": "Ekzuyrjp koo HR/HT xtoxfrxjux",
       "music": "Tnwru ockirxf HR/HT xtoxfrxjux",
-      "weather": "Wzgkyzx koo HR/HT xtoxfrxjux"
+      "weather": "Wzgkyzx koo HR/HT xtoxfrxjux",
+      "delivery": "Vrcivelg koo HR/HT xtoxfrxjux"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -197,7 +199,11 @@
       "weather_quiz1": "Kyzuk Oasqs Wzgkyzx",
       "weather_quiz2": "Xzfxzau Wzgkyzx",
       "weather_quiz3": "Kyzuk Wzi Vxzkrcw",
-      "weather_quiz4": "Orsj Xsvsx Ksw"
+      "weather_quiz4": "Orsj Xsvsx Ksw",
+      "delivery_quiz1": "Frjv Wczzs Ksz",
+      "delivery_quiz2": "Cjuixsaz Qtjzczg",
+      "delivery_quiz3": "Kyzuk Ksxz",
+      "delivery_quiz4": "Zxsuk Kocxryx"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -255,7 +261,11 @@
       "weather_quiz1": "Wzgkyzx koo zs kyzuk Oasqs",
       "weather_quiz2": "Fxbfxwu wzgkyzx mkzk",
       "weather_quiz3": "Zko Wzi rj wzxqci bsfxukwz bsf usofci",
-      "weather_quiz4": "Zko xsvsx eko zs trcw bocwuxfxxj"
+      "weather_quiz4": "Zko xsvsx eko zs trcw bocwuxfxxj",
+      "delivery_quiz1": "Wgrox ukzxpsfcxw zs brjm wczzs",
+      "delivery_quiz2": "Cjuixsaz qtjzczg zs 2",
+      "delivery_quiz3": "Zko ukfz biuzsj",
+      "delivery_quiz4": "Mfkp wuxxz zs bocwuxfxxj"
     }
   },
   "scene": {

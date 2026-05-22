@@ -341,6 +341,7 @@ class _TranslationsPlayCategoryLabelXx extends TranslationsPlayCategoryLabelJa {
 	@override String get matching => 'Ekzuyrjp';
 	@override String get music => 'Tnwru';
 	@override String get weather => 'Wzgkyzx';
+	@override String get delivery => 'Vrcivelg';
 }
 
 // Path: play.categoryDescription
@@ -365,6 +366,7 @@ class _TranslationsPlayCategoryDescriptionXx extends TranslationsPlayCategoryDes
 	@override String get matching => 'Ekzuyrjp koo HR/HT xtoxfrxjux';
 	@override String get music => 'Tnwru ockirxf HR/HT xtoxfrxjux';
 	@override String get weather => 'Wzgkyzx koo HR/HT xtoxfrxjux';
+	@override String get delivery => 'Vrcivelg koo HR/HT xtoxfrxjux';
 }
 
 // Path: play.stageTitle
@@ -434,6 +436,10 @@ class _TranslationsPlayStageTitleXx extends TranslationsPlayStageTitleJa {
 	@override String get weather_quiz2 => 'Xzfxzau Wzgkyzx';
 	@override String get weather_quiz3 => 'Kyzuk Wzi Vxzkrcw';
 	@override String get weather_quiz4 => 'Orsj Xsvsx Ksw';
+	@override String get delivery_quiz1 => 'Frjv Wczzs Ksz';
+	@override String get delivery_quiz2 => 'Cjuixsaz Qtjzczg';
+	@override String get delivery_quiz3 => 'Kyzuk Ksxz';
+	@override String get delivery_quiz4 => 'Zxsuk Kocxryx';
 }
 
 // Path: play.stageDescription
@@ -499,6 +505,10 @@ class _TranslationsPlayStageDescriptionXx extends TranslationsPlayStageDescripti
 	@override String get weather_quiz2 => 'Fxbfxwu wzgkyzx mkzk';
 	@override String get weather_quiz3 => 'Zko Wzi rj wzxqci bsfxukwz bsf usofci';
 	@override String get weather_quiz4 => 'Zko xsvsx eko zs trcw bocwuxfxxj';
+	@override String get delivery_quiz1 => 'Wgrox ukzxpsfcxw zs brjm wczzs';
+	@override String get delivery_quiz2 => 'Cjuixsaz qtjzczg zs 2';
+	@override String get delivery_quiz3 => 'Zko ukfz biuzsj';
+	@override String get delivery_quiz4 => 'Mfkp wuxxz zs bocwuxfxxj';
 }
 
 // Path: scene.greeting
@@ -667,6 +677,7 @@ extension on TranslationsXx {
 			'play.categoryLabel.matching' => 'Ekzuyrjp',
 			'play.categoryLabel.music' => 'Tnwru',
 			'play.categoryLabel.weather' => 'Wzgkyzx',
+			'play.categoryLabel.delivery' => 'Vrcivelg',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -682,6 +693,7 @@ extension on TranslationsXx {
 			'play.categoryDescription.matching' => 'Ekzuyrjp koo HR/HT xtoxfrxjux',
 			'play.categoryDescription.music' => 'Tnwru ockirxf HR/HT xtoxfrxjux',
 			'play.categoryDescription.weather' => 'Wzgkyzx koo HR/HT xtoxfrxjux',
+			'play.categoryDescription.delivery' => 'Vrcivelg koo HR/HT xtoxfrxjux',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -742,6 +754,10 @@ extension on TranslationsXx {
 			'play.stageTitle.weather_quiz2' => 'Xzfxzau Wzgkyzx',
 			'play.stageTitle.weather_quiz3' => 'Kyzuk Wzi Vxzkrcw',
 			'play.stageTitle.weather_quiz4' => 'Orsj Xsvsx Ksw',
+			'play.stageTitle.delivery_quiz1' => 'Frjv Wczzs Ksz',
+			'play.stageTitle.delivery_quiz2' => 'Cjuixsaz Qtjzczg',
+			'play.stageTitle.delivery_quiz3' => 'Kyzuk Ksxz',
+			'play.stageTitle.delivery_quiz4' => 'Zxsuk Kocxryx',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -798,6 +814,10 @@ extension on TranslationsXx {
 			'play.stageDescription.weather_quiz2' => 'Fxbfxwu wzgkyzx mkzk',
 			'play.stageDescription.weather_quiz3' => 'Zko Wzi rj wzxqci bsfxukwz bsf usofci',
 			'play.stageDescription.weather_quiz4' => 'Zko xsvsx eko zs trcw bocwuxfxxj',
+			'play.stageDescription.delivery_quiz1' => 'Wgrox ukzxpsfcxw zs brjm wczzs',
+			'play.stageDescription.delivery_quiz2' => 'Cjuixsaz qtjzczg zs 2',
+			'play.stageDescription.delivery_quiz3' => 'Zko ukfz biuzsj',
+			'play.stageDescription.delivery_quiz4' => 'Mfkp wuxxz zs bocwuxfxxj',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',

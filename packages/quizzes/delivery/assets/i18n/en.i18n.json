@@ -1,0 +1,101 @@
+{
+  "quiz1": {
+    "missionText": "Feeling like pizza today! Find pizza in the categories",
+    "insight": {
+      "title": "How did you know pizza was hidden?",
+      "subtitle": "Horizontal scroll to discover hidden content",
+      "scrollTitle": "Swipe to scroll",
+      "scrollDesc": "Categories that don't fit on screen can be found by horizontal scrolling. The peeking icons at the edge signal there's more content.",
+      "iconTitle": "Category icons",
+      "iconDesc": "Round icons represent categories. Tapping filters the menu by that category.",
+      "affordanceTitle": "Affordance",
+      "affordanceDesc": "Icons peeking at the edge serve as an affordance, signaling that the list is horizontally scrollable."
+    }
+  },
+  "quiz2": {
+    "missionText": "Order some for a friend too. Increase the quantity to 2",
+    "insight": {
+      "title": "How did you know + increases the quantity?",
+      "subtitle": "Stepper UI for quantity adjustment",
+      "stepperTitle": "Stepper UI",
+      "stepperDesc": "The '−', number, '+' control is called a stepper. Decrease on the left, increase on the right.",
+      "minTitle": "Minimum limit",
+      "minDesc": "The quantity cannot go below 1, preventing zero-item orders.",
+      "feedbackTitle": "Instant feedback",
+      "feedbackDesc": "The number and total price update instantly with each tap, visually confirming the action."
+    }
+  },
+  "quiz3": {
+    "missionText": "Ready to order? Check your cart",
+    "insight": {
+      "title": "How did you know the bottom button was the cart?",
+      "subtitle": "Floating action button to proceed to next step",
+      "fabTitle": "Floating cart button",
+      "fabDesc": "The prominent button always visible at the bottom shows the total price, signaling readiness to purchase.",
+      "priceTitle": "Price display",
+      "priceDesc": "The auto-calculated total appears on the button, letting users confirm the amount before ordering.",
+      "actionTitle": "Primary action emphasis",
+      "actionDesc": "Placing the main action (proceed to cart) prominently at the bottom makes the next step obvious."
+    }
+  },
+  "quiz4": {
+    "missionText": "Where is the courier? Expand the map to full screen",
+    "insight": {
+      "title": "How did you know dragging the sheet expands the map?",
+      "subtitle": "Draggable bottom sheet to reveal details",
+      "sheetTitle": "Draggable bottom sheet",
+      "sheetDesc": "A sheet that can be dragged from the bottom upward is called a draggable bottom sheet. It lets you balance the map and detail views.",
+      "handleTitle": "Handle bar",
+      "handleDesc": "The horizontal bar at the top of the sheet is an affordance showing it can be grabbed and moved.",
+      "expandTitle": "Full screen expand",
+      "expandDesc": "Dragging the sheet to maximum makes it full screen, showing detailed courier information."
+    }
+  },
+  "common": {
+    "appTitle": "Food Delivery",
+    "searchHint": "Search restaurants & menus",
+    "categories": "Categories",
+    "itemName": "Burger Set",
+    "itemDescription": "Juicy beef patty with fresh vegetables",
+    "itemPrice": "¥890",
+    "itemPriceValue": 890,
+    "cartButton": "Check Cart ¥{total}",
+    "@cartButton": { "param": "total" },
+    "trackingTitle": "Delivery Status",
+    "courierName": "Courier: Nantom",
+    "courierStatus": "Arriving soon",
+    "estimatedTime": "ETA: ~10 min",
+    "orderItems": "Order Items",
+    "orderTotal": "Total: ¥{total}",
+    "@orderTotal": { "param": "total" }
+  },
+  "categories": {
+    "burger": "Burger",
+    "sushi": "Sushi",
+    "pizza": "Pizza",
+    "ramen": "Ramen",
+    "curry": "Curry"
+  },
+  "items": {
+    "burger": {
+      "name": "Burger Set",
+      "description": "Juicy beef patty with fresh vegetables"
+    },
+    "sushi": {
+      "name": "Nigiri Sushi 10pc",
+      "description": "Fresh sushi carefully crafted by our chef"
+    },
+    "pizza": {
+      "name": "Margherita Pizza",
+      "description": "Mozzarella cheese and fresh basil on tomato sauce"
+    },
+    "ramen": {
+      "name": "Soy Sauce Ramen",
+      "description": "Rich pork & chicken broth with soy sauce tare"
+    },
+    "curry": {
+      "name": "Chicken Curry",
+      "description": "Aromatic butter chicken curry with steamed rice"
+    }
+  }
+}

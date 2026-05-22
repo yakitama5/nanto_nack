@@ -118,7 +118,8 @@
       "todo": "TODO App",
       "matching": "Matching",
       "music": "Music",
-      "weather": "Weather"
+      "weather": "Weather",
+      "delivery": "Food Delivery"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -135,7 +136,8 @@
       "todo": "Experience task management app UI/UX",
       "matching": "Experience matching app UI/UX",
       "music": "Experience music player UI/UX",
-      "weather": "Experience weather app UI/UX"
+      "weather": "Experience weather app UI/UX",
+      "delivery": "Experience food delivery app UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -197,7 +199,11 @@
       "weather_quiz1": "Check Osaka Weather",
       "weather_quiz2": "Refresh the Weather",
       "weather_quiz3": "Check Wednesday Details",
-      "weather_quiz4": "Open Radar Map"
+      "weather_quiz4": "Open Radar Map",
+      "delivery_quiz1": "Find the Pizza Category",
+      "delivery_quiz2": "Increase Quantity to 2",
+      "delivery_quiz3": "Check Your Cart",
+      "delivery_quiz4": "Track Your Courier"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -259,7 +265,11 @@
       "weather_quiz1": "Check the weather in Osaka on the weather app",
       "weather_quiz2": "Update the weather data to the latest",
       "weather_quiz3": "Tap Wednesday in the weekly forecast to see hourly details",
-      "weather_quiz4": "Tap the radar map image to view it fullscreen"
+      "weather_quiz4": "Tap the radar map image to view it fullscreen",
+      "delivery_quiz1": "Scroll through the category list horizontally to find pizza",
+      "delivery_quiz2": "Increase the item quantity to 2",
+      "delivery_quiz3": "Tap the cart button to check your order",
+      "delivery_quiz4": "Drag the delivery status sheet to full screen to see the courier location"
     }
   },
   "scene": {

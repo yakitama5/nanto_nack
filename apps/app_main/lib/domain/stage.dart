@@ -27,6 +27,7 @@ enum GenericQuizStage {
             QuizCategory.matching => t.play.stageTitle.matching_quiz1,
             QuizCategory.music => t.play.stageTitle.music_quiz1,
             QuizCategory.weather => t.play.stageTitle.weather_quiz1,
+            QuizCategory.delivery => t.play.stageTitle.delivery_quiz1,
           },
         quiz2 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz2,
@@ -44,6 +45,7 @@ enum GenericQuizStage {
             QuizCategory.matching => t.play.stageTitle.matching_quiz2,
             QuizCategory.music => t.play.stageTitle.music_quiz2,
             QuizCategory.weather => t.play.stageTitle.weather_quiz2,
+            QuizCategory.delivery => t.play.stageTitle.delivery_quiz2,
           },
         quiz3 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz3,
@@ -61,6 +63,7 @@ enum GenericQuizStage {
             QuizCategory.matching => t.play.stageTitle.matching_quiz3,
             QuizCategory.music => t.play.stageTitle.music_quiz3,
             QuizCategory.weather => t.play.stageTitle.weather_quiz3,
+            QuizCategory.delivery => t.play.stageTitle.delivery_quiz3,
           },
         quiz4 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz4,
@@ -78,6 +81,7 @@ enum GenericQuizStage {
             QuizCategory.matching => t.play.stageTitle.matching_quiz4,
             QuizCategory.music => t.play.stageTitle.music_quiz4,
             QuizCategory.weather => t.play.stageTitle.weather_quiz4,
+            QuizCategory.delivery => t.play.stageTitle.delivery_quiz4,
           },
       };
 
@@ -485,6 +489,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     category: QuizCategory.weather,
     routePath: kWeatherQuiz4Path,
     difficulty: 4,
+  ),
+  // フードデリバリーカテゴリー
+  const Stage(
+    id: 'delivery_quiz1',
+    category: QuizCategory.delivery,
+    routePath: kDeliveryQuiz1Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'delivery_quiz2',
+    category: QuizCategory.delivery,
+    routePath: kDeliveryQuiz2Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'delivery_quiz3',
+    category: QuizCategory.delivery,
+    routePath: kDeliveryQuiz3Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'delivery_quiz4',
+    category: QuizCategory.delivery,
+    routePath: kDeliveryQuiz4Path,
+    difficulty: 3,
   ),
 ]);
 

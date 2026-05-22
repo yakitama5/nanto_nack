@@ -341,6 +341,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get matching => 'Matching';
 	@override String get music => 'Music';
 	@override String get weather => 'Weather';
+	@override String get delivery => 'Food Delivery';
 }
 
 // Path: play.categoryDescription
@@ -365,6 +366,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get matching => 'Experience matching app UI/UX';
 	@override String get music => 'Experience music player UI/UX';
 	@override String get weather => 'Experience weather app UI/UX';
+	@override String get delivery => 'Experience food delivery app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -434,6 +436,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get weather_quiz2 => 'Refresh the Weather';
 	@override String get weather_quiz3 => 'Check Wednesday Details';
 	@override String get weather_quiz4 => 'Open Radar Map';
+	@override String get delivery_quiz1 => 'Find the Pizza Category';
+	@override String get delivery_quiz2 => 'Increase Quantity to 2';
+	@override String get delivery_quiz3 => 'Check Your Cart';
+	@override String get delivery_quiz4 => 'Track Your Courier';
 }
 
 // Path: play.stageDescription
@@ -503,6 +509,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get weather_quiz2 => 'Update the weather data to the latest';
 	@override String get weather_quiz3 => 'Tap Wednesday in the weekly forecast to see hourly details';
 	@override String get weather_quiz4 => 'Tap the radar map image to view it fullscreen';
+	@override String get delivery_quiz1 => 'Scroll through the category list horizontally to find pizza';
+	@override String get delivery_quiz2 => 'Increase the item quantity to 2';
+	@override String get delivery_quiz3 => 'Tap the cart button to check your order';
+	@override String get delivery_quiz4 => 'Drag the delivery status sheet to full screen to see the courier location';
 }
 
 // Path: scene.greeting
@@ -671,6 +681,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.matching' => 'Matching',
 			'play.categoryLabel.music' => 'Music',
 			'play.categoryLabel.weather' => 'Weather',
+			'play.categoryLabel.delivery' => 'Food Delivery',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -686,6 +697,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.matching' => 'Experience matching app UI/UX',
 			'play.categoryDescription.music' => 'Experience music player UI/UX',
 			'play.categoryDescription.weather' => 'Experience weather app UI/UX',
+			'play.categoryDescription.delivery' => 'Experience food delivery app UI/UX',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -746,6 +758,10 @@ extension on TranslationsEn {
 			'play.stageTitle.weather_quiz2' => 'Refresh the Weather',
 			'play.stageTitle.weather_quiz3' => 'Check Wednesday Details',
 			'play.stageTitle.weather_quiz4' => 'Open Radar Map',
+			'play.stageTitle.delivery_quiz1' => 'Find the Pizza Category',
+			'play.stageTitle.delivery_quiz2' => 'Increase Quantity to 2',
+			'play.stageTitle.delivery_quiz3' => 'Check Your Cart',
+			'play.stageTitle.delivery_quiz4' => 'Track Your Courier',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -806,6 +822,10 @@ extension on TranslationsEn {
 			'play.stageDescription.weather_quiz2' => 'Update the weather data to the latest',
 			'play.stageDescription.weather_quiz3' => 'Tap Wednesday in the weekly forecast to see hourly details',
 			'play.stageDescription.weather_quiz4' => 'Tap the radar map image to view it fullscreen',
+			'play.stageDescription.delivery_quiz1' => 'Scroll through the category list horizontally to find pizza',
+			'play.stageDescription.delivery_quiz2' => 'Increase the item quantity to 2',
+			'play.stageDescription.delivery_quiz3' => 'Tap the cart button to check your order',
+			'play.stageDescription.delivery_quiz4' => 'Drag the delivery status sheet to full screen to see the courier location',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',
