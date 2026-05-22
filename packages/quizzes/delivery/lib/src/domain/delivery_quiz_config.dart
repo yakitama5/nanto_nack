@@ -11,7 +11,7 @@ abstract final class DeliveryQuizConfig {
   static const double trackingClearExtent = 0.7;
 
   /// 商品単価（円）
-  static const double itemPriceYen = 890;
+  static const int itemPriceYen = 890;
 
   /// ピザカテゴリのID（Quiz1のクリア判定に使用）
   static const String pizzaCategoryId = 'pizza';

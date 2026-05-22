@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:clock/clock.dart';
 import 'package:delivery/src/domain/delivery_view_state.dart';
 import 'package:delivery/src/infrastructure/delivery_quiz_repository.dart';
@@ -94,9 +96,12 @@ void main() {
     });
 
     test('pizza カテゴリをタップすると correct になる', () async {
+      final completer = Completer<void>();
       final sub = container.listen(
         findPizzaQuizProvider,
-        (_, _a) {},
+        (_, next) {
+          if (next.status == QuizStatus.correct) completer.complete();
+        },
         fireImmediately: true,
       );
       addTearDown(sub.close);
@@ -115,7 +120,7 @@ void main() {
             .read(deliveryAppProvider(DeliveryViewState.browsing).notifier)
             .tapCategory('pizza');
 
-        await Future<void>.delayed(const Duration(milliseconds: 100));
+        await completer.future;
         final state = container.read(findPizzaQuizProvider);
         expect(state.status, QuizStatus.correct);
       });

@@ -70,7 +70,9 @@ class IncrementQuantityQuizNotifier
     );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (e, st) {
+      appLogger.e('Failed to save quiz result', error: e, stackTrace: st);
+    }
   }
 
   void retry() {
@@ -93,7 +95,9 @@ class IncrementQuantityQuizNotifier
     unawaited(hapticFeedback.playSuccessFeedback());
     try {
       await _saveResult(isCleared: true, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (e, st) {
+      appLogger.e('Failed to save quiz result', error: e, stackTrace: st);
+    }
   }
 
   void _startTimer() {
@@ -119,7 +123,9 @@ class IncrementQuantityQuizNotifier
     );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (e, st) {
+      appLogger.e('Failed to save quiz result', error: e, stackTrace: st);
+    }
   }
 
   int _elapsed() => state.startedAt != null

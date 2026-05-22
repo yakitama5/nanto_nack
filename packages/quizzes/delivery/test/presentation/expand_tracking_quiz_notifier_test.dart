@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:clock/clock.dart';
 import 'package:delivery/src/domain/delivery_quiz_config.dart';
 import 'package:delivery/src/domain/delivery_view_state.dart';
@@ -80,9 +82,12 @@ void main() {
     test(
       'trackingSheetExtent が ${DeliveryQuizConfig.trackingClearExtent} 以上で correct になる',
       () async {
+        final completer = Completer<void>();
         final sub = container.listen(
           expandTrackingQuizProvider,
-          (_, _a) {},
+          (_, next) {
+            if (next.status == QuizStatus.correct) completer.complete();
+          },
           fireImmediately: true,
         );
         addTearDown(sub.close);
@@ -102,7 +107,7 @@ void main() {
               )
               .updateTrackingSheetExtent(0.8);
 
-          await Future<void>.delayed(const Duration(milliseconds: 100));
+          await completer.future;
           final state = container.read(expandTrackingQuizProvider);
           expect(state.status, QuizStatus.correct);
         });

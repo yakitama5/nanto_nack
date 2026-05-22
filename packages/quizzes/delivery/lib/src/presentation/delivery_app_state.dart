@@ -15,7 +15,8 @@ class DeliveryAppState {
     this.trackingSheetExtent = 0.0,
     this.lastTappedCategoryId,
     this.cartTapCount = 0,
-  });
+  })  : assert(orderQuantity >= 1),
+        assert(trackingSheetExtent >= 0.0 && trackingSheetExtent <= 1.0);
 
   final List<FoodCategory> categories;
   final DeliveryViewState viewState;
@@ -36,8 +37,7 @@ class DeliveryAppState {
   final int cartTapCount;
 
   /// 合計金額（注文個数 × 単価）
-  int get totalPrice =>
-      orderQuantity * DeliveryQuizConfig.itemPriceYen.toInt();
+  int get totalPrice => orderQuantity * DeliveryQuizConfig.itemPriceYen;
 
   /// 選択中カテゴリの絵文字アイコン
   String get selectedCategoryIcon {

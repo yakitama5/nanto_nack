@@ -59,10 +59,9 @@ class DeliveryAppScaffold extends ConsumerStatefulWidget {
 class _DeliveryAppScaffoldState extends ConsumerState<DeliveryAppScaffold> {
   @override
   Widget build(BuildContext context) {
-    final deliveryState =
-        ref.watch(deliveryAppProvider(widget.initialViewState));
-    final notifier =
-        ref.read(deliveryAppProvider(widget.initialViewState).notifier);
+    final viewState = ref.watch(
+      deliveryAppProvider(widget.initialViewState).select((s) => s.viewState),
+    );
     final ext = Theme.of(context).extension<DeliveryAppTheme>()!;
 
     return PopScope(
@@ -79,21 +78,17 @@ class _DeliveryAppScaffoldState extends ConsumerState<DeliveryAppScaffold> {
         children: [
           Scaffold(
             backgroundColor: ext.scaffoldBackground,
-            body: deliveryState.viewState == DeliveryViewState.browsing
+            body: viewState == DeliveryViewState.browsing
                 ? _BrowsingView(
-                    state: deliveryState,
-                    notifier: notifier,
+                    initialViewState: widget.initialViewState,
                     ext: ext,
-                    context: context,
                     highlightCategory: widget.highlightCategory,
                     highlightStepper: widget.highlightStepper,
                     highlightCartButton: widget.highlightCartButton,
                   )
                 : _TrackingView(
-                    state: deliveryState,
-                    notifier: notifier,
+                    initialViewState: widget.initialViewState,
                     ext: ext,
-                    context: context,
                     highlightSheet: widget.highlightSheet,
                   ),
           ),
@@ -115,31 +110,29 @@ class _DeliveryAppScaffoldState extends ConsumerState<DeliveryAppScaffold> {
 
 // ─── BrowsingView ────────────────────────────────────────────────────────────
 
-class _BrowsingView extends StatelessWidget {
+class _BrowsingView extends ConsumerWidget {
   const _BrowsingView({
-    required this.state,
-    required this.notifier,
+    required this.initialViewState,
     required this.ext,
-    required this.context,
     this.highlightCategory = false,
     this.highlightStepper = false,
     this.highlightCartButton = false,
   });
 
-  final DeliveryAppState state;
-  final DeliveryAppNotifier notifier;
+  final DeliveryViewState initialViewState;
   final DeliveryAppTheme ext;
-  final BuildContext context;
   final bool highlightCategory;
   final bool highlightStepper;
   final bool highlightCartButton;
 
   @override
-  Widget build(BuildContext buildContext) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(deliveryAppProvider(initialViewState));
+    final notifier = ref.read(deliveryAppProvider(initialViewState).notifier);
     return SafeArea(
       child: Column(
         children: [
-          _DeliveryAppBar(ext: ext, context: buildContext),
+          _DeliveryAppBar(ext: ext),
           _CategoryHorizontalList(
             categories: state.categories,
             onTap: notifier.tapCategory,
@@ -151,7 +144,6 @@ class _BrowsingView extends StatelessWidget {
               state: state,
               notifier: notifier,
               ext: ext,
-              context: buildContext,
               highlightStepper: highlightStepper,
               highlightCartButton: highlightCartButton,
             ),
@@ -165,14 +157,13 @@ class _BrowsingView extends StatelessWidget {
 // ─── DeliveryAppBar ──────────────────────────────────────────────────────────
 
 class _DeliveryAppBar extends StatelessWidget {
-  const _DeliveryAppBar({required this.ext, required this.context});
+  const _DeliveryAppBar({required this.ext});
 
   final DeliveryAppTheme ext;
-  final BuildContext context;
 
   @override
-  Widget build(BuildContext buildContext) {
-    final sq = buildContext.sq;
+  Widget build(BuildContext context) {
+    final sq = context.sq;
     return Container(
       color: ext.appBarColor,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -346,7 +337,6 @@ class _ItemDetailArea extends StatelessWidget {
     required this.state,
     required this.notifier,
     required this.ext,
-    required this.context,
     this.highlightStepper = false,
     this.highlightCartButton = false,
   });
@@ -354,14 +344,13 @@ class _ItemDetailArea extends StatelessWidget {
   final DeliveryAppState state;
   final DeliveryAppNotifier notifier;
   final DeliveryAppTheme ext;
-  final BuildContext context;
   final bool highlightStepper;
   final bool highlightCartButton;
 
   @override
-  Widget build(BuildContext buildContext) {
-    final sq = buildContext.sq;
-    final itemData = _itemDataFor(buildContext, state.selectedCategoryId);
+  Widget build(BuildContext context) {
+    final sq = context.sq;
+    final itemData = _itemDataFor(context, state.selectedCategoryId);
     return Stack(
       children: [
         SingleChildScrollView(
@@ -440,7 +429,6 @@ class _ItemDetailArea extends StatelessWidget {
             totalPrice: state.totalPrice,
             onTap: notifier.tapCartButton,
             ext: ext,
-            context: buildContext,
             highlight: highlightCartButton,
           ),
         ),
@@ -580,19 +568,17 @@ class _CartButton extends StatelessWidget {
     required this.totalPrice,
     required this.onTap,
     required this.ext,
-    required this.context,
     this.highlight = false,
   });
 
   final int totalPrice;
   final VoidCallback onTap;
   final DeliveryAppTheme ext;
-  final BuildContext context;
   final bool highlight;
 
   @override
-  Widget build(BuildContext buildContext) {
-    final sq = buildContext.sq;
+  Widget build(BuildContext context) {
+    final sq = context.sq;
     // {total} プレースホルダーを実際の金額に置換
     final buttonText = sq.common.cartButton
         .replaceAll('{total}', totalPrice.toString());
@@ -635,24 +621,21 @@ class _CartButton extends StatelessWidget {
 
 // ─── TrackingView ─────────────────────────────────────────────────────────────
 
-class _TrackingView extends StatelessWidget {
+class _TrackingView extends ConsumerWidget {
   const _TrackingView({
-    required this.state,
-    required this.notifier,
+    required this.initialViewState,
     required this.ext,
-    required this.context,
     this.highlightSheet = false,
   });
 
-  final DeliveryAppState state;
-  final DeliveryAppNotifier notifier;
+  final DeliveryViewState initialViewState;
   final DeliveryAppTheme ext;
-  final BuildContext context;
   final bool highlightSheet;
 
   @override
-  Widget build(BuildContext buildContext) {
-    final sq = buildContext.sq;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(deliveryAppProvider(initialViewState).notifier);
+    final sq = context.sq;
     return Stack(
       children: [
         // 背面: 簡易地図（CustomPaint）
@@ -786,7 +769,7 @@ class _TrackingView extends StatelessWidget {
                           UnreadableText(
                             sq.common.orderTotal.replaceAll(
                               '{total}',
-                              DeliveryQuizConfig.itemPriceYen.toInt().toString(),
+                              DeliveryQuizConfig.itemPriceYen.toString(),
                             ),
                             animateOnObfuscate: false,
                             style: TextStyle(

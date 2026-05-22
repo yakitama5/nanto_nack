@@ -67,7 +67,9 @@ class TapCartQuizNotifier extends AutoDisposeNotifier<TapCartQuizState> {
     );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (e, st) {
+      appLogger.e('Failed to save quiz result', error: e, stackTrace: st);
+    }
   }
 
   void retry() {
@@ -90,7 +92,9 @@ class TapCartQuizNotifier extends AutoDisposeNotifier<TapCartQuizState> {
     unawaited(hapticFeedback.playSuccessFeedback());
     try {
       await _saveResult(isCleared: true, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (e, st) {
+      appLogger.e('Failed to save quiz result', error: e, stackTrace: st);
+    }
   }
 
   void _startTimer() {
@@ -116,7 +120,9 @@ class TapCartQuizNotifier extends AutoDisposeNotifier<TapCartQuizState> {
     );
     try {
       await _saveResult(isCleared: false, elapsedMs: elapsed);
-    } catch (_) {}
+    } catch (e, st) {
+      appLogger.e('Failed to save quiz result', error: e, stackTrace: st);
+    }
   }
 
   int _elapsed() => state.startedAt != null
