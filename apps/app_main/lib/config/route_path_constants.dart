@@ -128,6 +128,18 @@ const String kDeliveryQuiz2Path = '$kDeliveryListPath/$kDeliveryQuiz2Segment';
 const String kDeliveryQuiz3Path = '$kDeliveryListPath/$kDeliveryQuiz3Segment';
 const String kDeliveryQuiz4Path = '$kDeliveryListPath/$kDeliveryQuiz4Segment';
 
+// Finance
+const String kFinanceSegment = 'finance';
+const String kFinanceQuiz1Segment = 'quiz1';
+const String kFinanceQuiz2Segment = 'quiz2';
+const String kFinanceQuiz3Segment = 'quiz3';
+const String kFinanceQuiz4Segment = 'quiz4';
+const String kFinanceListPath = '/play/$kFinanceSegment';
+const String kFinanceQuiz1Path = '$kFinanceListPath/$kFinanceQuiz1Segment';
+const String kFinanceQuiz2Path = '$kFinanceListPath/$kFinanceQuiz2Segment';
+const String kFinanceQuiz3Path = '$kFinanceListPath/$kFinanceQuiz3Segment';
+const String kFinanceQuiz4Path = '$kFinanceListPath/$kFinanceQuiz4Segment';
+
 // Comic
 const String kComicSegment = 'comic';
 const String kComicQuiz1Segment = 'quiz1';

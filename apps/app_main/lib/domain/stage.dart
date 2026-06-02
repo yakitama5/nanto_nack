@@ -28,6 +28,7 @@ enum GenericQuizStage {
             QuizCategory.music => t.play.stageTitle.music_quiz1,
             QuizCategory.weather => t.play.stageTitle.weather_quiz1,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz1,
+            QuizCategory.finance => t.play.stageTitle.finance_quiz1,
           },
         quiz2 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz2,
@@ -46,6 +47,7 @@ enum GenericQuizStage {
             QuizCategory.music => t.play.stageTitle.music_quiz2,
             QuizCategory.weather => t.play.stageTitle.weather_quiz2,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz2,
+            QuizCategory.finance => t.play.stageTitle.finance_quiz2,
           },
         quiz3 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz3,
@@ -64,6 +66,7 @@ enum GenericQuizStage {
             QuizCategory.music => t.play.stageTitle.music_quiz3,
             QuizCategory.weather => t.play.stageTitle.weather_quiz3,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz3,
+            QuizCategory.finance => t.play.stageTitle.finance_quiz3,
           },
         quiz4 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz4,
@@ -82,6 +85,7 @@ enum GenericQuizStage {
             QuizCategory.music => t.play.stageTitle.music_quiz4,
             QuizCategory.weather => t.play.stageTitle.weather_quiz4,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz4,
+            QuizCategory.finance => t.play.stageTitle.finance_quiz4,
           },
       };
 
@@ -514,6 +518,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     category: QuizCategory.delivery,
     routePath: kDeliveryQuiz4Path,
     difficulty: 3,
+  ),
+  // 株価・投資カテゴリー
+  const Stage(
+    id: 'finance_quiz1',
+    category: QuizCategory.finance,
+    routePath: kFinanceQuiz1Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'finance_quiz2',
+    category: QuizCategory.finance,
+    routePath: kFinanceQuiz2Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'finance_quiz3',
+    category: QuizCategory.finance,
+    routePath: kFinanceQuiz3Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'finance_quiz4',
+    category: QuizCategory.finance,
+    routePath: kFinanceQuiz4Path,
+    difficulty: 2,
   ),
 ]);
 

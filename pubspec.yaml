@@ -25,6 +25,7 @@ workspace:
   - packages/quizzes/music
   - packages/quizzes/weather
   - packages/quizzes/delivery
+  - packages/quizzes/finance
   - packages/geolocator_windows_stub
 
 dev_dependencies:

@@ -119,7 +119,8 @@
       "matching": "マッチング",
       "music": "音楽",
       "weather": "天気予報",
-      "delivery": "フードデリバリー"
+      "delivery": "フードデリバリー",
+      "finance": "株価・投資"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -137,7 +138,8 @@
       "matching": "マッチングアプリのUI/UXを体験しよう",
       "music": "音楽プレイヤーのUI/UXを体験しよう",
       "weather": "天気予報アプリのUI/UXを体験しよう",
-      "delivery": "フードデリバリーアプリのUI/UXを体験しよう"
+      "delivery": "フードデリバリーアプリのUI/UXを体験しよう",
+      "finance": "株価チャートアプリのUI/UXを体験しよう"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -203,7 +205,11 @@
       "delivery_quiz1": "ピザのカテゴリを探そう",
       "delivery_quiz2": "注文数を2つに増やそう",
       "delivery_quiz3": "カートの中身を確認しよう",
-      "delivery_quiz4": "配達員の現在地を確認しよう"
+      "delivery_quiz4": "配達員の現在地を確認しよう",
+      "finance_quiz1": "過去のチャートを確認しよう",
+      "finance_quiz2": "グラフを縮小して全体を見よう",
+      "finance_quiz3": "正確な価格を長押しで調べよう",
+      "finance_quiz4": "1週間のグラフに切り替えよう"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -269,7 +275,11 @@
       "delivery_quiz1": "カテゴリ一覧を横スクロールしてピザを見つけてください",
       "delivery_quiz2": "商品の個数を2つに増やしてください",
       "delivery_quiz3": "カートボタンをタップして注文内容を確認してください",
-      "delivery_quiz4": "配達状況のシートを全画面に引き上げて配達員の現在地を確認してください"
+      "delivery_quiz4": "配達状況のシートを全画面に引き上げて配達員の現在地を確認してください",
+      "finance_quiz1": "スワイプで過去のチャートを確認",
+      "finance_quiz2": "ピンチイン操作でグラフを縮小",
+      "finance_quiz3": "長押しでクロスヘアを表示",
+      "finance_quiz4": "期間チップをタップして切り替え"
     }
   },
   "scene": {
