@@ -48,14 +48,53 @@ class _InteractiveChartAreaState extends ConsumerState<InteractiveChartArea> {
             maxScale: 5.0,
             panEnabled: true,
             scaleEnabled: true,
-            onInteractionUpdate: (_) {
+            onInteractionUpdate: (details) {
               final m = widget.transformationController.value;
               final scale = m.getMaxScaleOnAxis();
               final translation = m.getTranslation();
+
+              // X: チャートのデータ範囲外へのスクロールを防止する
+              final viewportWidth = constraints.maxWidth;
+              final minTx = viewportWidth - chartWidth * scale;
+              final clampedX = minTx <= 0
+                  ? translation.x.clamp(minTx, 0.0)
+                  : translation.x;
+
+              // Y: 1本指パン中はロックして上下スクロールを防止する
+              // 2本指ピンチ中はY移動を許可（ズームの焦点補正が必要なため）
+              final needsYLock =
+                  details.pointerCount == 1 && translation.y.abs() > 0.1;
+
+              if (clampedX != translation.x || needsYLock) {
+                widget.transformationController.value = Matrix4.copy(m)
+                  ..setTranslationRaw(
+                    clampedX,
+                    needsYLock ? 0.0 : translation.y,
+                    0,
+                  );
+              }
               notifier.updateInteraction(
                 scale,
-                Offset(translation.x, translation.y),
+                Offset(clampedX, translation.y),
               );
+            },
+            onInteractionEnd: (_) {
+              // ズーム操作後にX・Yが範囲外になっていた場合にリセットする
+              final m = widget.transformationController.value;
+              final scale = m.getMaxScaleOnAxis();
+              final translation = m.getTranslation();
+
+              final viewportWidth = constraints.maxWidth;
+              final minTx = viewportWidth - chartWidth * scale;
+              final clampedX = minTx <= 0
+                  ? translation.x.clamp(minTx, 0.0)
+                  : translation.x;
+              final clampedY = 0.0;
+
+              if (clampedX != translation.x || translation.y.abs() > 0.1) {
+                widget.transformationController.value = Matrix4.copy(m)
+                  ..setTranslationRaw(clampedX, clampedY, 0);
+              }
             },
             child: SizedBox(
               width: chartWidth,
@@ -197,7 +236,14 @@ class _FinanceLineChartState extends State<_FinanceLineChart> {
                     }
                   }
                   setState(() => _touchedSpotIndex = index);
-                  widget.notifier.setTouchState(index != null);
+                  // クロスヘアはライン上であればどこでも表示するが、
+                  // クリア判定は頂点付近（価格幅の上位10%）のスポットのみ発火する
+                  final isNearPeak = index != null &&
+                      spots[index].y >=
+                          maxPrice -
+                              range *
+                                  FinanceQuizConfig.quiz3PeakThresholdRatio;
+                  widget.notifier.setTouchState(isNearPeak);
                 } else if (event is FlLongPressEnd ||
                     event is FlPointerExitEvent) {
                   setState(() => _touchedSpotIndex = null);
