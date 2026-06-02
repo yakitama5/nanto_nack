@@ -133,6 +133,9 @@ class StockAppQuizNotifier
   }
 
   Future<void> _onTimeUp() async {
+    // タイマーキャンセル後にキューに残ったtickが発火した場合や、
+    // _checkClear() が既に correct へ遷移させた場合に上書きしないよう守る
+    if (state.status != QuizStatus.playing) return;
     final elapsed = _elapsed;
     state = state.copyWith(
       status: QuizStatus.timeUp,

@@ -26,12 +26,22 @@ class _TouchChartQuizScreenState extends ConsumerState<TouchChartQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(stockAppQuizProvider(_quizType));
+    // タッチ/タイマー更新（setTouchState・Timer.periodic）が頻繁に state を更新するため、
+    // 全体の watch を避け、結果表示に必要な最小フィールドのみ select で購読する
+    final status = ref.watch(
+      stockAppQuizProvider(_quizType).select((s) => s.status),
+    );
+    final score = ref.watch(
+      stockAppQuizProvider(_quizType).select((s) => s.score),
+    );
+    final elapsedMs = ref.watch(
+      stockAppQuizProvider(_quizType).select((s) => s.elapsedMs),
+    );
     final notifier = ref.read(stockAppQuizProvider(_quizType).notifier);
     final missionText = context.s.quiz3.missionText;
-    final isDone = state.status == QuizStatus.correct ||
-        state.status == QuizStatus.timeUp ||
-        state.status == QuizStatus.giveUp;
+    final isDone = status == QuizStatus.correct ||
+        status == QuizStatus.timeUp ||
+        status == QuizStatus.giveUp;
 
     return StockAppScaffold(
       key: ValueKey(_retryCount),
@@ -52,9 +62,9 @@ class _TouchChartQuizScreenState extends ConsumerState<TouchChartQuizScreen> {
         if (isDone)
           Positioned.fill(
             child: QuizResultOverlay(
-              status: state.status,
-              score: state.score,
-              elapsedMs: state.elapsedMs,
+              status: status,
+              score: score,
+              elapsedMs: elapsedMs,
               onRetry: () {
                 setState(() {
                   _showCutIn = true;
@@ -62,9 +72,7 @@ class _TouchChartQuizScreenState extends ConsumerState<TouchChartQuizScreen> {
                 });
                 notifier.retry();
               },
-              onNext: state.status == QuizStatus.correct
-                  ? widget.onCompleted
-                  : null,
+              onNext: status == QuizStatus.correct ? widget.onCompleted : null,
               onBack: () => Navigator.of(context).pop(),
               isLimitReached: ref.isPlayLimitReached,
               insight: Builder(

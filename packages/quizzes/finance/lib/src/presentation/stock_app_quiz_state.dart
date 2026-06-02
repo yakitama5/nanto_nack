@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/painting.dart';
 import 'package:quiz_core/quiz_core.dart';
 
@@ -9,8 +7,13 @@ import '../domain/chart_period.dart';
 import '../domain/finance_quiz_config.dart';
 import '../domain/finance_quiz_type.dart';
 
+// startedAt を null にリセットできるよう sentinel として使うオブジェクト
+const _unsetStartedAt = Object();
+
 class StockAppQuizState extends QuizStateBase {
-  const StockAppQuizState._({
+  // const を外して通常コンストラクタにし、chartData を内部で不変リストに変換する。
+  // これにより List.unmodifiable() をコンストラクタ内で呼び出せる。
+  StockAppQuizState._({
     required super.status,
     required super.failureCount,
     required super.elapsedMs,
@@ -21,7 +24,9 @@ class StockAppQuizState extends QuizStateBase {
     required this.currentScale,
     required this.panOffset,
     required this.isTouchingChart,
-  }) : _chartData = chartData;
+  })  :
+        // コンストラクタで一度だけ不変リストを生成し、外部からの変更を防ぐ
+        _chartData = List<ChartDataPoint>.unmodifiable(chartData);
 
   final int remainingSeconds;
   final List<ChartDataPoint> _chartData;
@@ -30,7 +35,8 @@ class StockAppQuizState extends QuizStateBase {
   final Offset panOffset;
   final bool isTouchingChart;
 
-  List<ChartDataPoint> get chartData => UnmodifiableListView(_chartData);
+  // すでに不変リストを保持しているため、毎回新しいビューを作らずそのまま返す
+  List<ChartDataPoint> get chartData => _chartData;
 
   factory StockAppQuizState.initial(FinanceQuizType quizType) {
     return StockAppQuizState._(
@@ -51,7 +57,9 @@ class StockAppQuizState extends QuizStateBase {
     QuizStatus? status,
     int? failureCount,
     int? elapsedMs,
-    DateTime? startedAt,
+    // sentinel を使って「明示的な null」と「省略」を区別する。
+    // copyWith(startedAt: null) でリセット可能にするため Object? を使用。
+    Object? startedAt = _unsetStartedAt,
     int? remainingSeconds,
     List<ChartDataPoint>? chartData,
     ChartPeriod? selectedPeriod,
@@ -63,8 +71,12 @@ class StockAppQuizState extends QuizStateBase {
       status: status ?? this.status,
       failureCount: failureCount ?? this.failureCount,
       elapsedMs: elapsedMs ?? this.elapsedMs,
-      startedAt: startedAt ?? this.startedAt,
+      // sentinel と一致しない場合のみ新しい値（null も含む）を使用する
+      startedAt: identical(startedAt, _unsetStartedAt)
+          ? this.startedAt
+          : startedAt as DateTime?,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      // copyWith に渡された chartData もコンストラクタ内で不変化される
       chartData: chartData ?? _chartData,
       selectedPeriod: selectedPeriod ?? this.selectedPeriod,
       currentScale: currentScale ?? this.currentScale,
