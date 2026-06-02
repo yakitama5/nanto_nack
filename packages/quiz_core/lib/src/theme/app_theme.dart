@@ -3,6 +3,7 @@ import 'package:quiz_core/src/theme/app_colors.dart';
 import 'package:quiz_core/src/theme/chat_app_theme.dart';
 import 'package:quiz_core/src/theme/comic_app_theme.dart';
 import 'package:quiz_core/src/theme/delivery_app_theme.dart';
+import 'package:quiz_core/src/theme/finance_app_theme.dart';
 import 'package:quiz_core/src/theme/map_app_theme.dart';
 import 'package:quiz_core/src/theme/nanto_nack_theme_extension.dart';
 import 'package:quiz_core/src/theme/payment_app_theme.dart';
@@ -49,6 +50,7 @@ abstract final class AppTheme {
         TodoAppTheme.light,
         WeatherAppTheme.light,
         DeliveryAppTheme.light,
+        FinanceAppTheme.light,
       ],
     );
   }
@@ -84,6 +86,7 @@ abstract final class AppTheme {
         TodoAppTheme.dark,
         WeatherAppTheme.dark,
         DeliveryAppTheme.dark,
+        FinanceAppTheme.dark,
       ],
     );
   }

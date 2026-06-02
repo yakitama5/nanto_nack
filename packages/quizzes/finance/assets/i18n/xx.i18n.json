@@ -1,0 +1,62 @@
+{
+  "quiz1": {
+    "missionText": "How did the prices move yesterday? Try swiping the chart to go back in time",
+    "insight": {
+      "title": "How did panning reveal the past?",
+      "subtitle": "Left is past, right is present",
+      "panTitle": "Swipe to move through time",
+      "panDesc": "Drag the chart to browse time periods.",
+      "leftTitle": "Left equals past",
+      "leftDesc": "Left side is older data, right side is newest.",
+      "viewTitle": "Scroll to reveal hidden data",
+      "viewDesc": "Swipe right to see older data."
+    }
+  },
+  "quiz2": {
+    "missionText": "Zoom out to see the full chart",
+    "insight": {
+      "title": "How did pinch-in zoom out?",
+      "subtitle": "Two fingers closing equals zoom out",
+      "pinchTitle": "Pinch-in zooms out",
+      "pinchDesc": "Close two fingers to zoom out.",
+      "zoomTitle": "Zoom out to see big picture",
+      "zoomDesc": "Zooming out shows trends.",
+      "overviewTitle": "Find optimal view",
+      "overviewDesc": "Pinch in or out for different views."
+    }
+  },
+  "quiz3": {
+    "missionText": "Long press to see the exact price at the peak",
+    "insight": {
+      "title": "Long press reveals price",
+      "subtitle": "Crosshair shows exact prices",
+      "crosshairTitle": "Touch shows crosshair",
+      "crosshairDesc": "Long press shows crosshair and price.",
+      "tooltipTitle": "Tooltip shows exact price",
+      "tooltipDesc": "Crosshair tooltip shows precise price.",
+      "longpressTitle": "Long press for precision mode",
+      "longpressDesc": "Long press signals intent to investigate."
+    }
+  },
+  "quiz4": {
+    "missionText": "Switch to the weekly chart",
+    "insight": {
+      "title": "Chip tapping changes period",
+      "subtitle": "1D 1W 1M chips are universal UI",
+      "chipTitle": "Chips switch time period",
+      "chipDesc": "1D 1W 1M 1Y chips used worldwide.",
+      "periodTitle": "Period changes view resolution",
+      "periodDesc": "Different periods show different details.",
+      "activeTitle": "Active chip shows current period",
+      "activeDesc": "Highlighted chip shows current view."
+    }
+  },
+  "common": {
+    "appTitle": "Stock Chart",
+    "tickerSymbol": "MOCK",
+    "periodOneDay": "1D",
+    "periodOneWeek": "1W",
+    "periodOneMonth": "1M",
+    "periodOneYear": "1Y"
+  }
+}

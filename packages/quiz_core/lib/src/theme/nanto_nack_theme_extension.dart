@@ -43,6 +43,8 @@ class NantoNackThemeExtension
     required this.weatherCategoryContainerColor,
     required this.deliveryCategoryColor,
     required this.deliveryCategoryContainerColor,
+    required this.financeCategoryColor,
+    required this.financeCategoryContainerColor,
   });
 
   /// 連続プレイ日数（ストリーク）のアクセントカラー
@@ -152,6 +154,12 @@ class NantoNackThemeExtension
   /// フードデリバリーカテゴリーカードの背景コンテナカラー
   final Color deliveryCategoryContainerColor;
 
+  /// 株価・投資カテゴリーのブランドカラー（TradingView風グリーン）
+  final Color financeCategoryColor;
+
+  /// 株価・投資カテゴリーカードの背景コンテナカラー
+  final Color financeCategoryContainerColor;
+
   /// ライトテーマ用デフォルト値
   static const light = NantoNackThemeExtension(
     streakColor: Color(0xFFE65100),
@@ -190,6 +198,8 @@ class NantoNackThemeExtension
     weatherCategoryContainerColor: Color(0xFFE1F5FE),
     deliveryCategoryColor: Color(0xFFEA1916),
     deliveryCategoryContainerColor: Color(0xFFFDE8E8),
+    financeCategoryColor: Color(0xFF00C087),
+    financeCategoryContainerColor: Color(0xFFE0F7F1),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -242,6 +252,8 @@ class NantoNackThemeExtension
     weatherCategoryContainerColor: Color(0xFF012F4A),
     deliveryCategoryColor: Color(0xFFFF6B6B),
     deliveryCategoryContainerColor: Color(0xFF3D0A0A),
+    financeCategoryColor: Color(0xFF00E396),
+    financeCategoryContainerColor: Color(0xFF003329),
   );
 
   @override
@@ -282,6 +294,8 @@ class NantoNackThemeExtension
     Color? weatherCategoryContainerColor,
     Color? deliveryCategoryColor,
     Color? deliveryCategoryContainerColor,
+    Color? financeCategoryColor,
+    Color? financeCategoryContainerColor,
   }) {
     return NantoNackThemeExtension(
       streakColor: streakColor ?? this.streakColor,
@@ -342,6 +356,10 @@ class NantoNackThemeExtension
           deliveryCategoryColor ?? this.deliveryCategoryColor,
       deliveryCategoryContainerColor:
           deliveryCategoryContainerColor ?? this.deliveryCategoryContainerColor,
+      financeCategoryColor:
+          financeCategoryColor ?? this.financeCategoryColor,
+      financeCategoryContainerColor:
+          financeCategoryContainerColor ?? this.financeCategoryContainerColor,
     );
   }
 
@@ -477,6 +495,13 @@ class NantoNackThemeExtension
       deliveryCategoryContainerColor: Color.lerp(
         deliveryCategoryContainerColor,
         other.deliveryCategoryContainerColor,
+        t,
+      )!,
+      financeCategoryColor:
+          Color.lerp(financeCategoryColor, other.financeCategoryColor, t)!,
+      financeCategoryContainerColor: Color.lerp(
+        financeCategoryContainerColor,
+        other.financeCategoryContainerColor,
         t,
       )!,
     );

@@ -1,0 +1,62 @@
+{
+  "quiz1": {
+    "missionText": "How did the prices move yesterday? Try swiping the chart to go back in time",
+    "insight": {
+      "title": "How did panning reveal the past?",
+      "subtitle": "Left is past, right is present — a universal rule for charts",
+      "panTitle": "Swipe left or right to move through time",
+      "panDesc": "In chart apps, you can drag the chart left or right to browse different time periods. This is a standard gesture in stock, forex, and crypto chart apps worldwide.",
+      "leftTitle": "Left = Past is standard in financial charts",
+      "leftDesc": "Since time flows from left to right, the left side of a chart represents older data and the right side shows the most recent data. This rule applies universally.",
+      "viewTitle": "Scroll to reveal hidden data",
+      "viewDesc": "Historical data that doesn't fit on screen can be revealed by swiping right. This is the standard UI design in major chart apps like TradingView."
+    }
+  },
+  "quiz2": {
+    "missionText": "I can't see the big picture. Let's zoom out to see the full chart",
+    "insight": {
+      "title": "How did pinch-in zoom out?",
+      "subtitle": "Closing two fingers = zoom out is the world standard gesture",
+      "pinchTitle": "Pinch-in is the intuitive zoom-out gesture",
+      "pinchDesc": "Pinching in (closing two fingers) to zoom out is a universally established touch operation shared across both iOS and Android.",
+      "zoomTitle": "Zooming out reveals the big picture",
+      "zoomDesc": "Zooming out on a stock chart makes long-term trends and patterns easier to see. Seeing the bigger picture is fundamental to trading decisions.",
+      "overviewTitle": "Find the optimal view with zoom in/out",
+      "overviewDesc": "Pinch-in for a macro perspective, pinch-out for micro analysis. This is a core technique that investors use to master chart apps."
+    }
+  },
+  "quiz3": {
+    "missionText": "I wonder what the exact price was at the peak. Long press to find out!",
+    "insight": {
+      "title": "How did long press reveal the price?",
+      "subtitle": "The crosshair is a precision tool for reading exact prices",
+      "crosshairTitle": "Touch to reveal the crosshair",
+      "crosshairDesc": "Long pressing a chart displays horizontal and vertical crosshairs, with the exact price shown in a tooltip. This is adopted by TradingView and many other chart apps.",
+      "tooltipTitle": "Tooltip gives you the exact price",
+      "tooltipDesc": "The tooltip that appears with the crosshair shows the precise price at that moment. Even values that are hard to read visually can be confirmed accurately.",
+      "longpressTitle": "Long press is the gesture to switch to precision mode",
+      "longpressDesc": "By distinguishing it from a normal tap, it lets users signal their intent to investigate. Long press is a universal gesture for precision operations."
+    }
+  },
+  "quiz4": {
+    "missionText": "Daily charts are hard to read. Let's switch to a weekly chart",
+    "insight": {
+      "title": "How did tapping a chip change the period?",
+      "subtitle": "1D, 1W, 1M chips are a universal chart app UI",
+      "chipTitle": "Short-label chips are the period switching UI",
+      "chipDesc": "Chips like 1D (1 day), 1W (1 week), 1M (1 month), and 1Y (1 year) are used in chart apps worldwide including TradingView and Yahoo Finance.",
+      "periodTitle": "Switching periods changes the resolution of your view",
+      "periodDesc": "A 1-day chart is great for detailed price movements, but a 1-week or 1-month chart is more effective for understanding trends.",
+      "activeTitle": "Active state shows which period you're viewing",
+      "activeDesc": "The selected chip is highlighted so you can see at a glance which time period's data you're viewing. This is the principle of current position display in UI design."
+    }
+  },
+  "common": {
+    "appTitle": "Stock Chart",
+    "tickerSymbol": "MOCK",
+    "periodOneDay": "1D",
+    "periodOneWeek": "1W",
+    "periodOneMonth": "1M",
+    "periodOneYear": "1Y"
+  }
+}

@@ -119,7 +119,8 @@
       "matching": "Matching",
       "music": "Music",
       "weather": "Weather",
-      "delivery": "Food Delivery"
+      "delivery": "Food Delivery",
+      "finance": "Stock & Crypto"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -137,7 +138,8 @@
       "matching": "Experience matching app UI/UX",
       "music": "Experience music player UI/UX",
       "weather": "Experience weather app UI/UX",
-      "delivery": "Experience food delivery app UI/UX"
+      "delivery": "Experience food delivery app UI/UX",
+      "finance": "Experience stock chart app UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -203,7 +205,11 @@
       "delivery_quiz1": "Find the Pizza Category",
       "delivery_quiz2": "Increase Quantity to 2",
       "delivery_quiz3": "Check Your Cart",
-      "delivery_quiz4": "Track Your Courier"
+      "delivery_quiz4": "Track Your Courier",
+      "finance_quiz1": "Check the Past Chart",
+      "finance_quiz2": "Zoom Out to See the Full Chart",
+      "finance_quiz3": "Long Press to Find the Exact Price",
+      "finance_quiz4": "Switch to the Weekly Chart"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -269,7 +275,11 @@
       "delivery_quiz1": "Scroll through the category list horizontally to find pizza",
       "delivery_quiz2": "Increase the item quantity to 2",
       "delivery_quiz3": "Tap the cart button to check your order",
-      "delivery_quiz4": "Drag the delivery status sheet to full screen to see the courier location"
+      "delivery_quiz4": "Drag the delivery status sheet to full screen to see the courier location",
+      "finance_quiz1": "Swipe to check past chart data",
+      "finance_quiz2": "Pinch in to zoom out the chart",
+      "finance_quiz3": "Long press to show the crosshair",
+      "finance_quiz4": "Tap the period chip to switch"
     }
   },
   "scene": {
