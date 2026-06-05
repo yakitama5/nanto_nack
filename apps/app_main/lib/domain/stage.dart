@@ -29,6 +29,7 @@ enum GenericQuizStage {
             QuizCategory.weather => t.play.stageTitle.weather_quiz1,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz1,
             QuizCategory.finance => t.play.stageTitle.finance_quiz1,
+            QuizCategory.market => t.play.stageTitle.market_quiz1,
           },
         quiz2 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz2,
@@ -48,6 +49,7 @@ enum GenericQuizStage {
             QuizCategory.weather => t.play.stageTitle.weather_quiz2,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz2,
             QuizCategory.finance => t.play.stageTitle.finance_quiz2,
+            QuizCategory.market => t.play.stageTitle.market_quiz2,
           },
         quiz3 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz3,
@@ -67,6 +69,7 @@ enum GenericQuizStage {
             QuizCategory.weather => t.play.stageTitle.weather_quiz3,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz3,
             QuizCategory.finance => t.play.stageTitle.finance_quiz3,
+            QuizCategory.market => t.play.stageTitle.market_quiz3,
           },
         quiz4 => switch (category) {
             QuizCategory.shopping => t.play.stageTitle.shopping_quiz4,
@@ -86,6 +89,7 @@ enum GenericQuizStage {
             QuizCategory.weather => t.play.stageTitle.weather_quiz4,
             QuizCategory.delivery => t.play.stageTitle.delivery_quiz4,
             QuizCategory.finance => t.play.stageTitle.finance_quiz4,
+            QuizCategory.market => t.play.stageTitle.market_quiz4,
           },
       };
 
@@ -542,6 +546,31 @@ final List<Stage> kAllStages = List.unmodifiable([
     id: 'finance_quiz4',
     category: QuizCategory.finance,
     routePath: kFinanceQuiz4Path,
+    difficulty: 2,
+  ),
+  // フリマアプリカテゴリー
+  const Stage(
+    id: 'market_quiz1',
+    category: QuizCategory.market,
+    routePath: kMarketQuiz1Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'market_quiz2',
+    category: QuizCategory.market,
+    routePath: kMarketQuiz2Path,
+    difficulty: 1,
+  ),
+  const Stage(
+    id: 'market_quiz3',
+    category: QuizCategory.market,
+    routePath: kMarketQuiz3Path,
+    difficulty: 2,
+  ),
+  const Stage(
+    id: 'market_quiz4',
+    category: QuizCategory.market,
+    routePath: kMarketQuiz4Path,
     difficulty: 2,
   ),
 ]);

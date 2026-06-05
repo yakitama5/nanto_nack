@@ -45,6 +45,8 @@ class NantoNackThemeExtension
     required this.deliveryCategoryContainerColor,
     required this.financeCategoryColor,
     required this.financeCategoryContainerColor,
+    required this.marketCategoryColor,
+    required this.marketCategoryContainerColor,
   });
 
   /// 連続プレイ日数（ストリーク）のアクセントカラー
@@ -160,6 +162,12 @@ class NantoNackThemeExtension
   /// 株価・投資カテゴリーカードの背景コンテナカラー
   final Color financeCategoryContainerColor;
 
+  /// フリマアプリカテゴリーのブランドカラー（メルカリ赤）
+  final Color marketCategoryColor;
+
+  /// フリマアプリカテゴリーカードの背景コンテナカラー
+  final Color marketCategoryContainerColor;
+
   /// ライトテーマ用デフォルト値
   static const light = NantoNackThemeExtension(
     streakColor: Color(0xFFE65100),
@@ -200,6 +208,8 @@ class NantoNackThemeExtension
     deliveryCategoryContainerColor: Color(0xFFFDE8E8),
     financeCategoryColor: Color(0xFF00C087),
     financeCategoryContainerColor: Color(0xFFE0F7F1),
+    marketCategoryColor: Color(0xFFD93025),
+    marketCategoryContainerColor: Color(0xFFFCE8E6),
   );
 
   /// マップのピンカラーリスト（colorSeed インデックスに対応）
@@ -254,6 +264,8 @@ class NantoNackThemeExtension
     deliveryCategoryContainerColor: Color(0xFF3D0A0A),
     financeCategoryColor: Color(0xFF00E396),
     financeCategoryContainerColor: Color(0xFF003329),
+    marketCategoryColor: Color(0xFFFF7043),
+    marketCategoryContainerColor: Color(0xFF3D1108),
   );
 
   @override
@@ -296,6 +308,8 @@ class NantoNackThemeExtension
     Color? deliveryCategoryContainerColor,
     Color? financeCategoryColor,
     Color? financeCategoryContainerColor,
+    Color? marketCategoryColor,
+    Color? marketCategoryContainerColor,
   }) {
     return NantoNackThemeExtension(
       streakColor: streakColor ?? this.streakColor,
@@ -360,6 +374,9 @@ class NantoNackThemeExtension
           financeCategoryColor ?? this.financeCategoryColor,
       financeCategoryContainerColor:
           financeCategoryContainerColor ?? this.financeCategoryContainerColor,
+      marketCategoryColor: marketCategoryColor ?? this.marketCategoryColor,
+      marketCategoryContainerColor:
+          marketCategoryContainerColor ?? this.marketCategoryContainerColor,
     );
   }
 
@@ -502,6 +519,13 @@ class NantoNackThemeExtension
       financeCategoryContainerColor: Color.lerp(
         financeCategoryContainerColor,
         other.financeCategoryContainerColor,
+        t,
+      )!,
+      marketCategoryColor:
+          Color.lerp(marketCategoryColor, other.marketCategoryColor, t)!,
+      marketCategoryContainerColor: Color.lerp(
+        marketCategoryContainerColor,
+        other.marketCategoryContainerColor,
         t,
       )!,
     );

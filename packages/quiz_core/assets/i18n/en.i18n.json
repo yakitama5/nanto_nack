@@ -120,7 +120,8 @@
       "music": "Music",
       "weather": "Weather",
       "delivery": "Food Delivery",
-      "finance": "Stock & Crypto"
+      "finance": "Stock & Crypto",
+      "market": "Flea Market"
     },
     "categoryDescription": {
       "shopping": "Experience e-commerce UI/UX",
@@ -139,7 +140,8 @@
       "music": "Experience music player UI/UX",
       "weather": "Experience weather app UI/UX",
       "delivery": "Experience food delivery app UI/UX",
-      "finance": "Experience stock chart app UI/UX"
+      "finance": "Experience stock chart app UI/UX",
+      "market": "Experience flea market app UI/UX"
     },
     "stageTitle": {
       "shopping_quiz1": "Buy 2 Waters",
@@ -209,7 +211,11 @@
       "finance_quiz1": "Check the Past Chart",
       "finance_quiz2": "Zoom Out to See the Full Chart",
       "finance_quiz3": "Long Press to Find the Exact Price",
-      "finance_quiz4": "Switch to the Weekly Chart"
+      "finance_quiz4": "Switch to the Weekly Chart",
+      "market_quiz1": "Check the Back of the Item",
+      "market_quiz2": "Like an Item",
+      "market_quiz3": "View Seller Profile",
+      "market_quiz4": "Purchase an Item"
     },
     "stageDescription": {
       "shopping_quiz1": "Add 2 waters to the cart and purchase on the e-commerce site",
@@ -279,7 +285,11 @@
       "finance_quiz1": "Swipe to check past chart data",
       "finance_quiz2": "Pinch in to zoom out the chart",
       "finance_quiz3": "Long press to show the crosshair",
-      "finance_quiz4": "Tap the period chip to switch"
+      "finance_quiz4": "Tap the period chip to switch",
+      "market_quiz1": "Swipe through the product images to check the back",
+      "market_quiz2": "Tap the heart icon to like the item",
+      "market_quiz3": "Tap the seller info area to view their profile",
+      "market_quiz4": "Tap the purchase button at the bottom to start checkout"
     }
   },
   "scene": {

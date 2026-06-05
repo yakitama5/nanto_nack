@@ -19,6 +19,7 @@ enum QuizCategory {
   weather,
   delivery,
   finance,
+  market,
   ;
 
   String get id => name;
@@ -41,6 +42,7 @@ enum QuizCategory {
     weather => Icons.wb_sunny_outlined,
     delivery => Icons.delivery_dining_outlined,
     finance => Icons.show_chart_outlined,
+    market => Icons.storefront_outlined,
   };
 
   bool get isComingSoon => false;
@@ -63,6 +65,7 @@ enum QuizCategory {
     weather => t.play.categoryLabel.weather,
     delivery => t.play.categoryLabel.delivery,
     finance => t.play.categoryLabel.finance,
+    market => t.play.categoryLabel.market,
   };
 
   Color color(NantoNackThemeExtension ext) => switch (this) {
@@ -83,6 +86,7 @@ enum QuizCategory {
     weather => ext.weatherCategoryColor,
     delivery => ext.deliveryCategoryColor,
     finance => ext.financeCategoryColor,
+    market => ext.marketCategoryColor,
   };
 
   Color containerColor(NantoNackThemeExtension ext) => switch (this) {
@@ -103,6 +107,7 @@ enum QuizCategory {
     weather => ext.weatherCategoryContainerColor,
     delivery => ext.deliveryCategoryContainerColor,
     finance => ext.financeCategoryContainerColor,
+    market => ext.marketCategoryContainerColor,
   };
 
   static QuizCategory fromId(String id) => QuizCategory.values.firstWhere(
