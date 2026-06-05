@@ -116,9 +116,12 @@ void main() {
       addTearDown(sub.close);
 
       container.read(fleaMarketQuizProvider(quizType).notifier).startQuiz();
+      final imageCount =
+          container.read(fleaMarketQuizProvider(quizType)).item.imageEmojis.length;
+      final nonLastIndex = imageCount >= 2 ? imageCount - 2 : 0;
       container
           .read(fleaMarketQuizProvider(quizType).notifier)
-          .updateImageIndex(1);
+          .updateImageIndex(nonLastIndex);
       final state = container.read(fleaMarketQuizProvider(quizType));
       expect(state.status, QuizStatus.playing);
     });

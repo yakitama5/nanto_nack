@@ -131,6 +131,7 @@ class FleaMarketQuizNotifier
   void _startTimer() {
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (state.status != QuizStatus.playing) return;
       final remaining = state.remainingSeconds - 1;
       if (remaining <= 0) {
         _timer?.cancel();
@@ -161,12 +162,14 @@ class FleaMarketQuizNotifier
     required int elapsedMs,
   }) async {
     if (isCleared) {
-      await ref.read(analyticsServiceProvider).logQuizCompleted(
-            quizId: arg.quizId,
-            score: state.score,
-            failureCount: state.failureCount,
-            clearTimeMs: elapsedMs,
-          );
+      try {
+        await ref.read(analyticsServiceProvider).logQuizCompleted(
+              quizId: arg.quizId,
+              score: state.score,
+              failureCount: state.failureCount,
+              clearTimeMs: elapsedMs,
+            );
+      } on Exception catch (_) {}
     }
     final repo = ref.read(marketQuizRepositoryProvider);
     await repo.saveResult(

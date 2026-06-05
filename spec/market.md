@@ -43,7 +43,7 @@ UIの実装には、いいねのアニメーション用に **`like_button`** �
 - **ItemScrollView**: メインのスクロール領域（`SingleChildScrollView` 等）。
   - **ImageCarouselArea**: 画面最上部の商品画像エリア。
     - `PageView` を使用して画像を横スワイプ可能にする。ページ切り替え時に `updateImageIndex` を発火させる。
-    - 画像のすぐ下に `smooth_page_indicator` パッケージ（またはカスタムUI）を用いて、**ドットインジケーター**を配置し、現在の画像位置を視覚的に示す。
+    - 画像のすぐ下に `AnimatedContainer` を用いたカスタムUIで**ドットインジケーター**を配置し、現在の画像位置を視覚的に示す。
   - **ItemHeaderInfo**: 商品名と価格の表示エリア。
     - 右端などにハートマークの「いいね」ボタンを配置する。
     - **重要**: ここに **`like_button`** パッケージの `LikeButton` ウィジェットを使用すること。タップ時に弾けるようなアニメーションを表示させ、`onTap` コールバック内で `toggleLike()` を発火させる。
