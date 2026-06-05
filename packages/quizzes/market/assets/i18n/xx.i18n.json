@@ -1,0 +1,65 @@
+{
+  "quiz1": {
+    "missionText": "Swipe to check the last photo",
+    "insight": {
+      "title": "Why swiping worked",
+      "subtitle": "Multiple photos show item condition",
+      "swipeTitle": "Swipe to next photo",
+      "swipeDesc": "Swipe through all photos before buying.",
+      "checkTitle": "Check back and scratches",
+      "checkDesc": "All angles matter for condition check.",
+      "dotTitle": "Dots show photo count",
+      "dotDesc": "Dots indicate current and total photos."
+    }
+  },
+  "quiz2": {
+    "missionText": "Like to save for later",
+    "insight": {
+      "title": "Heart saves the item",
+      "subtitle": "Like is the wish list feature",
+      "heartTitle": "Heart for later comparison",
+      "heartDesc": "Liked items go to a saved list.",
+      "priceTitle": "Get price drop alerts",
+      "priceDesc": "Notifications when price drops.",
+      "sellTitle": "Like count shows demand",
+      "sellDesc": "Popular items sell out fast."
+    }
+  },
+  "quiz3": {
+    "missionText": "Check seller profile and rating",
+    "insight": {
+      "title": "Profile shows trustworthiness",
+      "subtitle": "Ratings equal transaction confidence",
+      "ratingTitle": "Stars show trust at a glance",
+      "ratingDesc": "High ratings mean reliable sellers.",
+      "profileTitle": "Tap profile for details",
+      "profileDesc": "See history and comments.",
+      "trustTitle": "Review count matters too",
+      "trustDesc": "More reviews mean stable track record."
+    }
+  },
+  "quiz4": {
+    "missionText": "Tap the button to purchase",
+    "insight": {
+      "title": "Bottom button starts purchase",
+      "subtitle": "Fixed button is universal e-commerce UI",
+      "fixedTitle": "Fixed bottom button leads to purchase",
+      "fixedDesc": "Always reachable regardless of scroll.",
+      "ctaTitle": "Bright color boosts purchase intent",
+      "ctaDesc": "Red or orange buttons draw user attention.",
+      "safeTitle": "Purchase has multiple steps",
+      "safeDesc": "One tap does not instantly complete a buy."
+    }
+  },
+  "common": {
+    "appTitle": "Flea Market",
+    "itemTitle": "Vintage Denim Jacket",
+    "itemPrice": "¥3,800",
+    "itemDescription": "A vintage denim jacket. Size M.",
+    "sellerName": "Vintage Enthusiast",
+    "buyButton": "Proceed to Purchase",
+    "imageLabel1": "Front",
+    "imageLabel2": "Side",
+    "imageLabel3": "Back"
+  }
+}

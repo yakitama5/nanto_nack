@@ -1,0 +1,65 @@
+{
+  "quiz1": {
+    "missionText": "I wonder if there are any scratches on the back. Swipe to the last photo to check",
+    "insight": {
+      "title": "How did swiping let you check it?",
+      "subtitle": "Checking multiple photos of a product is standard practice",
+      "swipeTitle": "Swipe left to see the next photo",
+      "swipeDesc": "Flea market apps allow sellers to upload multiple product photos. Swiping through all photos before buying is essential.",
+      "checkTitle": "Always check the back, scratches, and stains",
+      "checkDesc": "Not just the front — check the back, bottom, and areas near logos in all photos. This is the first step to avoiding disputes.",
+      "dotTitle": "Dot indicators show how many photos there are",
+      "dotDesc": "The dots below the image show which photo you are currently viewing. You can tell at a glance whether you have checked all of them."
+    }
+  },
+  "quiz2": {
+    "missionText": "I want to compare this later — let me save it with a like for now",
+    "insight": {
+      "title": "How did the heart save it?",
+      "subtitle": "The like button is a wish list feature in flea market apps",
+      "heartTitle": "Heart saves items for later comparison",
+      "heartDesc": "Liked items are saved to a dedicated list so you can compare multiple candidates at once. A smart way to avoid impulse buying.",
+      "priceTitle": "Get notified of price drops",
+      "priceDesc": "When you like an item, you may receive a notification if the seller lowers the price. Just adding to favorites means you won't miss a deal.",
+      "sellTitle": "Gauge demand from like counts",
+      "sellDesc": "Items with many likes are popular and may sell out quickly. Checking the like count of other users helps you judge demand."
+    }
+  },
+  "quiz3": {
+    "missionText": "Can I trust this seller? Let me check their profile and ratings",
+    "insight": {
+      "title": "How did the profile reveal trustworthiness?",
+      "subtitle": "A seller's rating is directly tied to transaction confidence",
+      "ratingTitle": "Star ratings show trustworthiness at a glance",
+      "ratingDesc": "Flea market apps accumulate ratings for every transaction. A highly rated seller is more likely to have an honest transaction history, giving you peace of mind.",
+      "profileTitle": "Tap the profile for detailed information",
+      "profileDesc": "Tapping the seller's name or rating area takes you to their detailed profile. Check their transaction history and comments to verify their track record.",
+      "trustTitle": "Number of ratings is also a trust indicator",
+      "trustDesc": "A high rating with few reviews is hard to judge. The more ratings a seller has, the more you can trust they have a consistent record."
+    }
+  },
+  "quiz4": {
+    "missionText": "Alright, I've decided! Let's proceed to the purchase",
+    "insight": {
+      "title": "How did the bottom button let you buy?",
+      "subtitle": "A fixed purchase button is a universal design pattern in e-commerce apps",
+      "fixedTitle": "The fixed button at the bottom is the purchase funnel",
+      "fixedDesc": "Flea market apps and e-commerce sites commonly fix the purchase button at the bottom of the screen. You can proceed to purchase anytime regardless of scroll position.",
+      "ctaTitle": "Eye-catching colors boost purchase intent",
+      "ctaDesc": "Purchase buttons are often implemented in eye-catching colors like red or orange. They draw the user's attention and serve as a CTA (call to action) to prompt purchases.",
+      "safeTitle": "The purchase process has multiple steps",
+      "safeDesc": "This button is just the entry point to the purchase process. Steps like address confirmation and payment method selection follow, so accidental taps do not immediately complete a purchase."
+    }
+  },
+  "common": {
+    "appTitle": "Flea Market",
+    "itemTitle": "Vintage Denim Jacket",
+    "itemPrice": "¥3,800",
+    "itemDescription": "A 1990s denim jacket purchased at a vintage store. Shows slight signs of use but no notable scratches or stains. Size M.",
+    "sellerName": "Vintage Enthusiast",
+    "buyButton": "Proceed to Purchase",
+    "imageLabel1": "Front",
+    "imageLabel2": "Side",
+    "imageLabel3": "Back"
+  }
+}

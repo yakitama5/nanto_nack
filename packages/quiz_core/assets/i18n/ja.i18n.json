@@ -120,7 +120,8 @@
       "music": "音楽",
       "weather": "天気予報",
       "delivery": "フードデリバリー",
-      "finance": "株価・暗号資産"
+      "finance": "株価・暗号資産",
+      "market": "フリマ"
     },
     "categoryDescription": {
       "shopping": "ECサイトのUI/UXを体験しよう",
@@ -139,7 +140,8 @@
       "music": "音楽プレイヤーのUI/UXを体験しよう",
       "weather": "天気予報アプリのUI/UXを体験しよう",
       "delivery": "フードデリバリーアプリのUI/UXを体験しよう",
-      "finance": "株価チャートアプリのUI/UXを体験しよう"
+      "finance": "株価チャートアプリのUI/UXを体験しよう",
+      "market": "フリマアプリのUI/UXを体験しよう"
     },
     "stageTitle": {
       "shopping_quiz1": "水を2つ買おう",
@@ -209,7 +211,11 @@
       "finance_quiz1": "過去のチャートを確認しよう",
       "finance_quiz2": "グラフを縮小して全体を見よう",
       "finance_quiz3": "正確な価格を長押しで調べよう",
-      "finance_quiz4": "1週間のグラフに切り替えよう"
+      "finance_quiz4": "1週間のグラフに切り替えよう",
+      "market_quiz1": "商品の裏面を確認しよう",
+      "market_quiz2": "気になる商品をいいねしよう",
+      "market_quiz3": "出品者のプロフィールを見よう",
+      "market_quiz4": "商品を購入しよう"
     },
     "stageDescription": {
       "shopping_quiz1": "ECサイトで水を2つカートに入れて購入してください",
@@ -279,7 +285,11 @@
       "finance_quiz1": "スワイプで過去のチャートを確認",
       "finance_quiz2": "ピンチイン操作でグラフを縮小",
       "finance_quiz3": "長押しでクロスヘアを表示",
-      "finance_quiz4": "期間チップをタップして切り替え"
+      "finance_quiz4": "期間チップをタップして切り替え",
+      "market_quiz1": "商品画像を最後までスワイプして裏面の状態を確認してください",
+      "market_quiz2": "商品のハートマークをタップしていいねしてください",
+      "market_quiz3": "出品者情報エリアをタップしてプロフィールを確認してください",
+      "market_quiz4": "画面下部の購入ボタンをタップして手続きを開始してください"
     }
   },
   "scene": {

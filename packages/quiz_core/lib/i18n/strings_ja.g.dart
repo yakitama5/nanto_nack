@@ -578,8 +578,11 @@ class TranslationsPlayCategoryLabelJa {
 	/// ja: 'フードデリバリー'
 	String get delivery => 'フードデリバリー';
 
-	/// ja: '株価・投資'
-	String get finance => '株価・投資';
+	/// ja: '株価・暗号資産'
+	String get finance => '株価・暗号資産';
+
+	/// ja: 'フリマ'
+	String get market => 'フリマ';
 }
 
 // Path: play.categoryDescription
@@ -640,6 +643,9 @@ class TranslationsPlayCategoryDescriptionJa {
 
 	/// ja: '株価チャートアプリのUI/UXを体験しよう'
 	String get finance => '株価チャートアプリのUI/UXを体験しよう';
+
+	/// ja: 'フリマアプリのUI/UXを体験しよう'
+	String get market => 'フリマアプリのUI/UXを体験しよう';
 }
 
 // Path: play.stageTitle
@@ -853,6 +859,18 @@ class TranslationsPlayStageTitleJa {
 
 	/// ja: '1週間のグラフに切り替えよう'
 	String get finance_quiz4 => '1週間のグラフに切り替えよう';
+
+	/// ja: '商品の裏面を確認しよう'
+	String get market_quiz1 => '商品の裏面を確認しよう';
+
+	/// ja: '気になる商品をいいねしよう'
+	String get market_quiz2 => '気になる商品をいいねしよう';
+
+	/// ja: '出品者のプロフィールを見よう'
+	String get market_quiz3 => '出品者のプロフィールを見よう';
+
+	/// ja: '商品を購入しよう'
+	String get market_quiz4 => '商品を購入しよう';
 }
 
 // Path: play.stageDescription
@@ -1066,6 +1084,18 @@ class TranslationsPlayStageDescriptionJa {
 
 	/// ja: '期間チップをタップして切り替え'
 	String get finance_quiz4 => '期間チップをタップして切り替え';
+
+	/// ja: '商品画像を最後までスワイプして裏面の状態を確認してください'
+	String get market_quiz1 => '商品画像を最後までスワイプして裏面の状態を確認してください';
+
+	/// ja: '商品のハートマークをタップしていいねしてください'
+	String get market_quiz2 => '商品のハートマークをタップしていいねしてください';
+
+	/// ja: '出品者情報エリアをタップしてプロフィールを確認してください'
+	String get market_quiz3 => '出品者情報エリアをタップしてプロフィールを確認してください';
+
+	/// ja: '画面下部の購入ボタンをタップして手続きを開始してください'
+	String get market_quiz4 => '画面下部の購入ボタンをタップして手続きを開始してください';
 }
 
 // Path: scene.greeting
@@ -1297,7 +1327,8 @@ extension on Translations {
 			'play.categoryLabel.music' => '音楽',
 			'play.categoryLabel.weather' => '天気予報',
 			'play.categoryLabel.delivery' => 'フードデリバリー',
-			'play.categoryLabel.finance' => '株価・投資',
+			'play.categoryLabel.finance' => '株価・暗号資産',
+			'play.categoryLabel.market' => 'フリマ',
 			'play.categoryDescription.shopping' => 'ECサイトのUI/UXを体験しよう',
 			'play.categoryDescription.chat' => 'メッセージアプリのUI/UXを体験しよう',
 			'play.categoryDescription.streaming' => '動画アプリのUI/UXを体験しよう',
@@ -1315,6 +1346,7 @@ extension on Translations {
 			'play.categoryDescription.weather' => '天気予報アプリのUI/UXを体験しよう',
 			'play.categoryDescription.delivery' => 'フードデリバリーアプリのUI/UXを体験しよう',
 			'play.categoryDescription.finance' => '株価チャートアプリのUI/UXを体験しよう',
+			'play.categoryDescription.market' => 'フリマアプリのUI/UXを体験しよう',
 			'play.stageTitle.shopping_quiz1' => '水を2つ買おう',
 			'play.stageTitle.shopping_quiz2' => '購入手続きを完了しよう',
 			'play.stageTitle.shopping_quiz3' => '直近の注文を再注文しよう',
@@ -1383,6 +1415,10 @@ extension on Translations {
 			'play.stageTitle.finance_quiz2' => 'グラフを縮小して全体を見よう',
 			'play.stageTitle.finance_quiz3' => '正確な価格を長押しで調べよう',
 			'play.stageTitle.finance_quiz4' => '1週間のグラフに切り替えよう',
+			'play.stageTitle.market_quiz1' => '商品の裏面を確認しよう',
+			'play.stageTitle.market_quiz2' => '気になる商品をいいねしよう',
+			'play.stageTitle.market_quiz3' => '出品者のプロフィールを見よう',
+			'play.stageTitle.market_quiz4' => '商品を購入しよう',
 			'play.stageDescription.shopping_quiz1' => 'ECサイトで水を2つカートに入れて購入してください',
 			'play.stageDescription.shopping_quiz2' => '住所入力・支払い方法選択・注文確認の3ステップを完了してください',
 			'play.stageDescription.shopping_quiz3' => '注文履歴から直近で注文した商品をもう一度購入してください',
@@ -1451,6 +1487,10 @@ extension on Translations {
 			'play.stageDescription.finance_quiz2' => 'ピンチイン操作でグラフを縮小',
 			'play.stageDescription.finance_quiz3' => '長押しでクロスヘアを表示',
 			'play.stageDescription.finance_quiz4' => '期間チップをタップして切り替え',
+			'play.stageDescription.market_quiz1' => '商品画像を最後までスワイプして裏面の状態を確認してください',
+			'play.stageDescription.market_quiz2' => '商品のハートマークをタップしていいねしてください',
+			'play.stageDescription.market_quiz3' => '出品者情報エリアをタップしてプロフィールを確認してください',
+			'play.stageDescription.market_quiz4' => '画面下部の購入ボタンをタップして手続きを開始してください',
 			'scene.greeting.sunriseMorning' => 'おはようございます',
 			'scene.greeting.sunnyDay' => '今日もいい天気',
 			'scene.greeting.cloudyDay' => '曇り空の一日',
