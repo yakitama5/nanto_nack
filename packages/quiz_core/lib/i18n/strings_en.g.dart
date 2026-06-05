@@ -343,6 +343,7 @@ class _TranslationsPlayCategoryLabelEn extends TranslationsPlayCategoryLabelJa {
 	@override String get weather => 'Weather';
 	@override String get delivery => 'Food Delivery';
 	@override String get finance => 'Stock & Crypto';
+	@override String get market => 'Flea Market';
 }
 
 // Path: play.categoryDescription
@@ -369,6 +370,7 @@ class _TranslationsPlayCategoryDescriptionEn extends TranslationsPlayCategoryDes
 	@override String get weather => 'Experience weather app UI/UX';
 	@override String get delivery => 'Experience food delivery app UI/UX';
 	@override String get finance => 'Experience stock chart app UI/UX';
+	@override String get market => 'Experience flea market app UI/UX';
 }
 
 // Path: play.stageTitle
@@ -446,6 +448,10 @@ class _TranslationsPlayStageTitleEn extends TranslationsPlayStageTitleJa {
 	@override String get finance_quiz2 => 'Zoom Out to See the Full Chart';
 	@override String get finance_quiz3 => 'Long Press to Find the Exact Price';
 	@override String get finance_quiz4 => 'Switch to the Weekly Chart';
+	@override String get market_quiz1 => 'Check the Back of the Item';
+	@override String get market_quiz2 => 'Like an Item';
+	@override String get market_quiz3 => 'View Seller Profile';
+	@override String get market_quiz4 => 'Purchase an Item';
 }
 
 // Path: play.stageDescription
@@ -523,6 +529,10 @@ class _TranslationsPlayStageDescriptionEn extends TranslationsPlayStageDescripti
 	@override String get finance_quiz2 => 'Pinch in to zoom out the chart';
 	@override String get finance_quiz3 => 'Long press to show the crosshair';
 	@override String get finance_quiz4 => 'Tap the period chip to switch';
+	@override String get market_quiz1 => 'Swipe through the product images to check the back';
+	@override String get market_quiz2 => 'Tap the heart icon to like the item';
+	@override String get market_quiz3 => 'Tap the seller info area to view their profile';
+	@override String get market_quiz4 => 'Tap the purchase button at the bottom to start checkout';
 }
 
 // Path: scene.greeting
@@ -693,6 +703,7 @@ extension on TranslationsEn {
 			'play.categoryLabel.weather' => 'Weather',
 			'play.categoryLabel.delivery' => 'Food Delivery',
 			'play.categoryLabel.finance' => 'Stock & Crypto',
+			'play.categoryLabel.market' => 'Flea Market',
 			'play.categoryDescription.shopping' => 'Experience e-commerce UI/UX',
 			'play.categoryDescription.chat' => 'Experience messaging app UI/UX',
 			'play.categoryDescription.streaming' => 'Experience video app UI/UX',
@@ -710,6 +721,7 @@ extension on TranslationsEn {
 			'play.categoryDescription.weather' => 'Experience weather app UI/UX',
 			'play.categoryDescription.delivery' => 'Experience food delivery app UI/UX',
 			'play.categoryDescription.finance' => 'Experience stock chart app UI/UX',
+			'play.categoryDescription.market' => 'Experience flea market app UI/UX',
 			'play.stageTitle.shopping_quiz1' => 'Buy 2 Waters',
 			'play.stageTitle.shopping_quiz2' => 'Complete Checkout',
 			'play.stageTitle.shopping_quiz3' => 'Reorder Recent Purchase',
@@ -778,6 +790,10 @@ extension on TranslationsEn {
 			'play.stageTitle.finance_quiz2' => 'Zoom Out to See the Full Chart',
 			'play.stageTitle.finance_quiz3' => 'Long Press to Find the Exact Price',
 			'play.stageTitle.finance_quiz4' => 'Switch to the Weekly Chart',
+			'play.stageTitle.market_quiz1' => 'Check the Back of the Item',
+			'play.stageTitle.market_quiz2' => 'Like an Item',
+			'play.stageTitle.market_quiz3' => 'View Seller Profile',
+			'play.stageTitle.market_quiz4' => 'Purchase an Item',
 			'play.stageDescription.shopping_quiz1' => 'Add 2 waters to the cart and purchase on the e-commerce site',
 			'play.stageDescription.shopping_quiz2' => 'Complete 3 steps: address, payment method, and order confirmation',
 			'play.stageDescription.shopping_quiz3' => 'Reorder the most recently purchased item from order history',
@@ -846,6 +862,10 @@ extension on TranslationsEn {
 			'play.stageDescription.finance_quiz2' => 'Pinch in to zoom out the chart',
 			'play.stageDescription.finance_quiz3' => 'Long press to show the crosshair',
 			'play.stageDescription.finance_quiz4' => 'Tap the period chip to switch',
+			'play.stageDescription.market_quiz1' => 'Swipe through the product images to check the back',
+			'play.stageDescription.market_quiz2' => 'Tap the heart icon to like the item',
+			'play.stageDescription.market_quiz3' => 'Tap the seller info area to view their profile',
+			'play.stageDescription.market_quiz4' => 'Tap the purchase button at the bottom to start checkout',
 			'scene.greeting.sunriseMorning' => 'Good morning',
 			'scene.greeting.sunnyDay' => 'Beautiful day today',
 			'scene.greeting.cloudyDay' => 'A cloudy day',
