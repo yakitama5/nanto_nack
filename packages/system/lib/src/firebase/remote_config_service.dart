@@ -4,6 +4,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:system/src/environment/app_environment.dart';
 import 'package:system/src/firebase/tip.dart';
+import 'package:system/src/logger/app_logger.dart';
 
 /// RemoteConfig で管理するキー定数
 abstract final class RemoteConfigKeys {
@@ -68,7 +69,16 @@ class RemoteConfigService {
       RemoteConfigKeys.forceUpdateVersion: '',
       RemoteConfigKeys.latestUpdateVersion: '',
     });
-    await remoteConfig.fetchAndActivate();
+    try {
+      await remoteConfig.fetchAndActivate();
+    } on Exception catch (e, s) {
+      // オフライン時など取得失敗 → setDefaults() の値（上限5回・メンテOFF）で継続
+      appLogger.w(
+        'RemoteConfig: フェッチ失敗。デフォルト値で起動を継続します',
+        error: e,
+        stackTrace: s,
+      );
+    }
   }
 
   /// 1日のプレイ回数制限を返す
