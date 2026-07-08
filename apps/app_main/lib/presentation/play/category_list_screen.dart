@@ -76,6 +76,11 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
       context.push(kShoppingWaterPath, extra: true);
     }
 
+    // onClickTarget/onClickOverlay で遷移を即実行せず、
+    // コーチマークの dismiss アニメーション完了後（onFinish）に遷移する。
+    // アニメーション完了前に push すると AnimationController 競合が発生するため。
+    var navigateOnFinish = false;
+
     TutorialCoachMark(
       targets: targets,
       colorShadow: Colors.black,
@@ -99,16 +104,16 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
       ),
       onClickTarget: (target) {
         if (target.identify == 'category_shopping') {
-          navigateToWaterQuiz();
+          navigateOnFinish = true;
         }
       },
       onClickOverlay: (target) {
         if (target.identify == 'category_shopping') {
-          navigateToWaterQuiz();
+          navigateOnFinish = true;
         }
       },
       onFinish: () {
-        // コーチマーク自体の完了（ターゲットクリック後に呼ばれる）
+        if (navigateOnFinish) navigateToWaterQuiz();
       },
       onSkip: () {
         // ウィジェットツリーのビルド中に provider を更新するとエラーになるため遅延させる
