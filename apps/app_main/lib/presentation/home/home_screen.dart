@@ -178,7 +178,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       },
       onFinish: () {
         _tutorialCoachMark = null;
-        if (navigateOnFinish) navigateToPlay();
+        // フラグを先に消費し、dismiss 完了までに画面が破棄・遷移された場合は
+        // 遷移しない（無効な context での push を防ぐ）
+        final shouldNavigate = navigateOnFinish;
+        navigateOnFinish = false;
+        if (shouldNavigate &&
+            mounted &&
+            ModalRoute.of(context)?.isCurrent == true) {
+          navigateToPlay();
+        }
       },
       onSkip: () {
         _tutorialCoachMark = null;

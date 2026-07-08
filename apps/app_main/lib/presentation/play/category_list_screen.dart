@@ -113,7 +113,15 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         }
       },
       onFinish: () {
-        if (navigateOnFinish) navigateToWaterQuiz();
+        // フラグを先に消費し、dismiss 完了までに画面が破棄・遷移された場合は
+        // 遷移しない（無効な context での push を防ぐ）
+        final shouldNavigate = navigateOnFinish;
+        navigateOnFinish = false;
+        if (shouldNavigate &&
+            mounted &&
+            ModalRoute.of(context)?.isCurrent == true) {
+          navigateToWaterQuiz();
+        }
       },
       onSkip: () {
         // ウィジェットツリーのビルド中に provider を更新するとエラーになるため遅延させる
