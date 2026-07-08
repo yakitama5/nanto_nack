@@ -117,8 +117,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final t = Translations.of(context);
 
     Future<void> navigateToPlay() async {
-      _tutorialCoachMark?.finish();
-      _tutorialCoachMark = null;
       ref.read(analyticsServiceProvider).logPlayButtonTapped();
       ref
           .read(tutorialNotifierProvider.notifier)
@@ -127,6 +125,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (!mounted) return;
       ref.read(dashboardProvider.notifier).refresh();
     }
+
+    // onClickTarget/onClickOverlay 内で finish() や遷移を直接実行すると、
+    // コーチマークの dismiss アニメーション中に AnimationController が
+    // dispose され例外になる。フラグを立てて onFinish で遷移する。
+    var navigateOnFinish = false;
 
     _tutorialCoachMark = TutorialCoachMark(
       targets: [
@@ -167,10 +170,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
       ),
-      onClickTarget: (_) => navigateToPlay(),
-      onClickOverlay: (_) => navigateToPlay(),
+      onClickTarget: (_) {
+        navigateOnFinish = true;
+      },
+      onClickOverlay: (_) {
+        navigateOnFinish = true;
+      },
       onFinish: () {
         _tutorialCoachMark = null;
+        // フラグを先に消費し、dismiss 完了までに画面が破棄・遷移された場合は
+        // 遷移しない（無効な context での push を防ぐ）
+        final shouldNavigate = navigateOnFinish;
+        navigateOnFinish = false;
+        if (shouldNavigate &&
+            mounted &&
+            ModalRoute.of(context)?.isCurrent == true) {
+          navigateToPlay();
+        }
       },
       onSkip: () {
         _tutorialCoachMark = null;
