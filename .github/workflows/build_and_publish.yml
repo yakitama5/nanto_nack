@@ -250,7 +250,8 @@ jobs:
 
       - name: Google Play へパブリッシュ（内部テストトラック）
         env:
-          GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GPLAY_SERVICE_ACCOUNT }}
+          # codemagic CLI の新しい変数名（GCLOUD_SERVICE_ACCOUNT_CREDENTIALS は非推奨）
+          GOOGLE_PLAY_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GPLAY_SERVICE_ACCOUNT }}
         run: |
           # パッケージ名は AAB から自動判定されるため --package-name は指定しない
           google-play bundles publish \
