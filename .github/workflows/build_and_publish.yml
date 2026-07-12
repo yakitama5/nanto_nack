@@ -3,6 +3,12 @@ name: Build and Publish
 on:
   workflow_dispatch:
     inputs:
+      bump_type:
+        description: "Version bump (none = バージョンアップせずビルドのみ)"
+        required: true
+        default: "none"
+        type: choice
+        options: [none, patch, minor, major, build]
       platform:
         description: "Platform to build"
         required: true
@@ -11,12 +17,72 @@ on:
         options: [all, ios, android]
 
 jobs:
-  build:
-    name: ビルド＆配布 (${{ github.event.inputs.platform }})
+  # ──────────────────────────────────────────────
+  # Job 0: バージョンアップ（bump_type が none 以外のときのみ実行）
+  # ──────────────────────────────────────────────
+  version_up:
+    name: バージョンアップ (${{ github.event.inputs.bump_type }})
+    if: ${{ github.event.inputs.bump_type != 'none' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Flutter バージョンの取得 (.fvmrc)
+        id: fvm
+        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.fvm.outputs.version }}
+          cache: true
+
+      - name: Cider のインストール
+        run: dart pub global activate cider
+
+      - name: バージョンのバンプ
+        id: bump
+        run: |
+          cd apps/app_main
+          if [ "${{ github.event.inputs.bump_type }}" != "build" ]; then
+            dart pub global run cider bump ${{ github.event.inputs.bump_type }} --bump-build
+          else
+            dart pub global run cider bump build
+          fi
+          NEW_VERSION=$(dart pub global run cider version)
+          echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: 変更のコミットとタグの作成
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add apps/app_main/pubspec.yaml
+          git commit -m "🔖tag: v${{ steps.bump.outputs.new_version }} へバージョンアップ"
+          git tag "v${{ steps.bump.outputs.new_version }}"
+          git push origin HEAD:${{ github.ref_name }}
+          git push origin "v${{ steps.bump.outputs.new_version }}"
+
+  # ──────────────────────────────────────────────
+  # Job 1: iOS ビルド＆App Store Connect へ配布（macOS ランナー）
+  # ──────────────────────────────────────────────
+  build-ios:
+    name: iOS ビルド＆配布
+    needs: version_up
+    # version_up をスキップ（bump_type=none）しても実行する。
+    # version_up が失敗した場合のみビルドを行わない。
+    if: |
+      always() &&
+      (needs.version_up.result == 'success' || needs.version_up.result == 'skipped') &&
+      (github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios')
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # version_up がバージョンアップコミットを push している可能性があるため、
+      # 常にブランチ先端を取得する。
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
 
       # https://github.com/kuhnroyal/flutter-fvm-config-action
       - name: FVM 設定の取得
@@ -37,7 +103,7 @@ jobs:
           ln -sf "$(dirname $(dirname $(which flutter)))" .fvm/flutter_sdk
 
       - name: Pub キャッシュの復元
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.pub-cache
           key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
@@ -52,10 +118,8 @@ jobs:
 
       - name: Firebase 設定ファイルの復元
         run: |
-          mkdir -p apps/app_main/android/app/src/prod/res
           mkdir -p apps/app_main/ios/prod
           mkdir -p packages/system/lib/src/firebase
-          echo "${{ secrets.GOOGLE_SERVICES_JSON_PROD_BASE64 }}" | base64 -d > apps/app_main/android/app/src/prod/google-services.json
           echo "${{ secrets.GOOGLE_SERVICE_INFO_PLIST_PROD_BASE64 }}" | base64 -d > apps/app_main/ios/prod/GoogleService-Info.plist
           echo "${{ secrets.FIREBASE_OPTIONS_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options.dart
           echo "${{ secrets.FIREBASE_OPTIONS_DEV_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options_dev.dart
@@ -73,16 +137,11 @@ jobs:
         run: melos run gen:all
 
       - name: 最新の安定版XCodeをセットアップ
-        if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "latest-stable"
 
-      # ────────────────────────────────────────────
-      # iOS ビルド＆App Store Connect へ配布
-      # ────────────────────────────────────────────
       - name: iOS ビルド＆配布
-        if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
         env:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_IDENTIFIER: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
@@ -101,11 +160,74 @@ jobs:
           # 5. App Store Connect へアップロード
           app-store-connect publish --path apps/app_main/build/ios/ipa/*.ipa
 
-      # ────────────────────────────────────────────
-      # Android ビルド＆Google Play へ配布
-      # ────────────────────────────────────────────
+  # ──────────────────────────────────────────────
+  # Job 2: Android ビルド＆Google Play へ配布（Ubuntu ランナー）
+  # ──────────────────────────────────────────────
+  build-android:
+    name: Android ビルド＆配布
+    needs: version_up
+    if: |
+      always() &&
+      (needs.version_up.result == 'success' || needs.version_up.result == 'skipped') &&
+      (github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: FVM 設定の取得
+        uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+        id: fvm-config-action
+
+      - name: Flutter のセットアップ
+        uses: subosito/flutter-action@1c5eb12d812966ca84680edc38353a0851c8fd56 # v2.14.0
+        with:
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: .fvm/flutter_sdk シンボリックリンクの作成 (melos スクリプト用)
+        run: |
+          mkdir -p .fvm
+          ln -sf "$(dirname $(dirname $(which flutter)))" .fvm/flutter_sdk
+
+      - name: Pub キャッシュの復元
+        uses: actions/cache@v6
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - name: Melos & CodeMagic CLI のインストール
+        run: |
+          dart pub global activate melos
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+          pip3 install codemagic-cli-tools
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Firebase 設定ファイルの復元
+        run: |
+          mkdir -p apps/app_main/android/app/src/prod/res
+          mkdir -p packages/system/lib/src/firebase
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_PROD_BASE64 }}" | base64 -d > apps/app_main/android/app/src/prod/google-services.json
+          echo "${{ secrets.FIREBASE_OPTIONS_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options.dart
+          echo "${{ secrets.FIREBASE_OPTIONS_DEV_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options_dev.dart
+
+      - name: .env ファイルの作成
+        run: |
+          mkdir -p apps/app_main/env
+          echo "${{ secrets.APP_MAIN_ENV_BASE64 }}" | base64 -d > apps/app_main/env/.env
+          echo "${{ secrets.APP_MAIN_ENV_DEV_BASE64 }}" | base64 -d > apps/app_main/env/.env.dev
+
+      - name: 依存関係の解決 (melos bootstrap)
+        run: melos bootstrap
+
+      - name: コード生成 (build_runner)
+        run: melos run gen:all
+
       - name: Android ビルド
-        if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' }}
         run: |
           # 1. Base64化されたKeystoreを復元
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > apps/app_main/android/app/keystore.jks
@@ -120,19 +242,18 @@ jobs:
           melos run build:android:prod
 
       - name: AAB を GitHub Actions にアップロード
-        if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-aab
           path: apps/app_main/build/app/outputs/bundle/release/app-release.aab
           retention-days: 7
 
       - name: Google Play へパブリッシュ（内部テストトラック）
-        if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' }}
         env:
-          GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GPLAY_SERVICE_ACCOUNT }}
+          # codemagic CLI の新しい変数名（GCLOUD_SERVICE_ACCOUNT_CREDENTIALS は非推奨）
+          GOOGLE_PLAY_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GPLAY_SERVICE_ACCOUNT }}
         run: |
+          # パッケージ名は AAB から自動判定されるため --package-name は指定しない
           google-play bundles publish \
             --bundle apps/app_main/build/app/outputs/bundle/release/app-release.aab \
-            --track internal \
-            --package-name com.yakuran.nanto_nack
+            --track internal
