@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -31,14 +33,43 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
   Future<void> _maybeShowTutorial() async {
     final tutState = await ref.read(tutorialNotifierProvider.future);
     if (!mounted) return;
-    if (!tutState.isCompleted &&
-        tutState.screen == TutorialScreen.categoryList) {
-      // プロバイダーロード完了後、ウィジェットが再ビルドされるまで待つ
-      // （_shoppingCardKey がウィジェットに設定されてから表示する）
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _showTutorial();
-      });
+    if (tutState.isCompleted ||
+        tutState.screen != TutorialScreen.categoryList) {
+      return;
     }
+
+    // ページ遷移アニメーション中に localToGlobal で位置を取得すると
+    // 遷移途中の座標が固定されてしまうため、遷移完了を待ってから表示する
+    await _waitForRouteTransition();
+    if (!mounted) return;
+
+    // 遷移完了後の最終レイアウトが確定したフレームで表示する
+    // （_shoppingCardKey がウィジェットに設定されてから表示する）
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _showTutorial();
+    });
+  }
+
+  /// 現在のルートの遷移アニメーション完了を待つ。
+  /// アニメーションがない（初期ルート・遷移済み）場合は即座に完了する。
+  Future<void> _waitForRouteTransition() {
+    final animation = ModalRoute.of(context)?.animation;
+    if (animation == null ||
+        animation.status == AnimationStatus.completed ||
+        animation.status == AnimationStatus.dismissed) {
+      return Future.value();
+    }
+    final completer = Completer<void>();
+    late final AnimationStatusListener listener;
+    listener = (status) {
+      if (status == AnimationStatus.completed ||
+          status == AnimationStatus.dismissed) {
+        animation.removeStatusListener(listener);
+        completer.complete();
+      }
+    };
+    animation.addStatusListener(listener);
+    return completer.future;
   }
 
   void _showTutorial() {
