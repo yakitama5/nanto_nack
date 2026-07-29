@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz_core/quiz_core.dart';
+import 'package:slides/slides/app_slide.dart';
 import 'package:slides/slides/hook_slide.dart';
 import 'package:slides/slides/why_slide.dart';
 import 'package:slides/slides/wonder_slide.dart';
@@ -76,6 +77,7 @@ void main() {
     // ステップ提示は最初と最後だけ確認できれば足りる
     await shoot(tester, '2_why_step1', const WhyLayout(step: 1));
     await shoot(tester, '2_why_step5', const WhyLayout(step: 5));
+    await shoot(tester, '3_app', const AppLayout());
     await shoot(tester, '4_wonder', const WonderLayout());
   });
 }
