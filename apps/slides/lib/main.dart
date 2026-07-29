@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:slides/slides/hook_slide.dart';
 import 'package:slides/slides/why_slide.dart';
+import 'package:slides/slides/wonder_slide.dart';
 import 'package:slides/theme.dart';
 
 void main() {
@@ -44,6 +45,9 @@ class SlidesApp extends StatelessWidget {
       slides: const [
         HookSlide(),
         WhySlide(),
+        // TODO(slides): スライド3（アプリ紹介）をここに追加する
+        WonderSlide(),
+        // TODO(slides): スライド5（学び）・6（クロージング）をここに追加する
       ],
     );
   }

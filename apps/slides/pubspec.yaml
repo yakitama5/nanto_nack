@@ -24,3 +24,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    # マスコット「ナントム」。UI 本体は shopping / quiz_core から直接描画するため、
+    # ここにコピーするのはパッケージ外にある画像だけでよい。
+    - assets/images/
