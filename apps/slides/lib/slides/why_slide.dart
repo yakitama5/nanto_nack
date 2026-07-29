@@ -37,7 +37,9 @@ class WhyLayout extends StatelessWidget {
 
   static const cues = <({AnnotationTarget target, String text})>[
     (target: AnnotationTarget.cart, text: 'カートのアイコンの形'),
-    (target: AnnotationTarget.price, text: '¥ 記号と、3桁の区切り'),
+    // 「桁が読める」「数字が対応している」に触れてはいけない。カスタム言語の
+    // 解読の入口になるため。手がかりは通貨記号の形だけに絞る。
+    (target: AnnotationTarget.price, text: '¥ という通貨記号だけ、いつもの形のまま'),
     (target: AnnotationTarget.addButton, text: '黄色い丸という「押せそうな」形'),
     (target: AnnotationTarget.bottomNav, text: 'いつもそこにある、下部タブの位置'),
   ];

@@ -49,6 +49,9 @@ class AnnotationMarker extends StatelessWidget {
   static const _badgeSize = 26.0;
   static const _margin = 4.0;
 
+  /// バッジと楕円のすき間
+  static const _gap = 2.0;
+
   /// 枠内に収まるよう矩形を平行移動する（拡大縮小はしないので歪まない）
   Rect _clamped(Rect r) {
     var dx = 0.0;
@@ -64,15 +67,34 @@ class AnnotationMarker extends StatelessWidget {
     return r.shift(Offset(dx, dy));
   }
 
+  /// バッジを置く位置。**楕円の完全に外側**に置く。
+  ///
+  /// 楕円の角に半分重ねると、対象が画面の端にあるとき枠内へ押し戻された結果
+  /// 対象そのものの上に乗ってしまう（価格の ¥ がバッジで隠れていた）。
+  /// 左 → 右 → 真上 の順に、余地がある方へ逃がす。
+  Offset _badgeOffset(Rect r) {
+    final top = r.top.clamp(_margin, kDeviceSize.height - _badgeSize - _margin);
+
+    final left = r.left - _badgeSize - _gap;
+    if (left >= _margin) return Offset(left, top);
+
+    final right = r.right + _gap;
+    if (right + _badgeSize <= kDeviceSize.width - _margin) {
+      return Offset(right, top);
+    }
+
+    // 左右どちらにも余地が無い（下部タブのような横長の対象）
+    return Offset(
+      r.left.clamp(_margin, kDeviceSize.width - _badgeSize - _margin),
+      (r.top - _badgeSize - _gap)
+          .clamp(_margin, kDeviceSize.height - _badgeSize - _margin),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final r = _clamped(target.rect.inflate(_padding));
-
-    // バッジは楕円の左上に置く。画面外に出る場合は内側へ寄せる。
-    final badgeLeft = (r.left - _badgeSize / 2)
-        .clamp(_margin, kDeviceSize.width - _badgeSize - _margin);
-    final badgeTop = (r.top - _badgeSize / 2)
-        .clamp(_margin, kDeviceSize.height - _badgeSize - _margin);
+    final badge = _badgeOffset(r);
 
     return IgnorePointer(
       child: AnimatedOpacity(
@@ -93,8 +115,8 @@ class AnnotationMarker extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: badgeLeft,
-              top: badgeTop,
+              left: badge.dx,
+              top: badge.dy,
               child: _Badge(number: number, color: color),
             ),
           ],
