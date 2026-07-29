@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:slides/slides/app_slide.dart';
 import 'package:slides/slides/hook_slide.dart';
+import 'package:slides/slides/insight_slide.dart';
 import 'package:slides/slides/why_slide.dart';
 import 'package:slides/slides/wonder_slide.dart';
 import 'package:slides/theme.dart';
@@ -22,6 +23,11 @@ import 'package:slides/theme.dart';
 ///
 /// `apps/slides` はワークスペース外なので `melos run test:all` の対象外。
 /// このテストが CI を止めることはない。
+///
+/// **既知の差異**: スライド5の解説パネルに出る絵文字（🛒🎨📱）は、この
+/// プレビューでは豆腐（□）になる。flutter_test の環境には絵文字フォントが
+/// 無いため。ブラウザでは CanvasKit が Noto のフォールバックを取りに行くので
+/// 表示される見込みだが、**本番の投影前に実ブラウザで必ず確認すること**。
 void main() {
   setUpAll(() async {
     // flutter_test は既定でグリフを持たないフォントを使う。明示的に
@@ -79,5 +85,6 @@ void main() {
     await shoot(tester, '2_why_step5', const WhyLayout(step: 5));
     await shoot(tester, '3_app', const AppLayout());
     await shoot(tester, '4_wonder', const WonderLayout());
+    await shoot(tester, '5_insight', const InsightLayout());
   });
 }
