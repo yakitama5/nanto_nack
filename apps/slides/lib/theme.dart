@@ -34,6 +34,7 @@ abstract final class SlideText {
     height: 1.35,
     fontWeight: FontWeight.bold,
     color: SlideColors.text,
+    decoration: TextDecoration.none,
   );
 
   /// 中見出し・パンチライン
@@ -43,6 +44,7 @@ abstract final class SlideText {
     height: 1.4,
     fontWeight: FontWeight.bold,
     color: SlideColors.accent,
+    decoration: TextDecoration.none,
   );
 
   /// 強調した一文
@@ -52,6 +54,7 @@ abstract final class SlideText {
     height: 1.4,
     fontWeight: FontWeight.bold,
     color: SlideColors.primary,
+    decoration: TextDecoration.none,
   );
 
   /// 箇条書き・通常の本文
@@ -60,6 +63,7 @@ abstract final class SlideText {
     fontSize: 30,
     height: 1.5,
     color: SlideColors.text,
+    decoration: TextDecoration.none,
   );
 
   /// 補足
@@ -68,5 +72,6 @@ abstract final class SlideText {
     fontSize: 24,
     height: 1.7,
     color: SlideColors.subText,
+    decoration: TextDecoration.none,
   );
 }
