@@ -66,6 +66,12 @@ jobs:
       - name: コード生成 (build_runner)
         run: dart pub global run melos run gen:all
 
+      # melos run lint は flutter analyze . でリポジトリ全体を解析するが、
+      # apps/slides はワークスペース外なので melos bootstrap では解決されない。
+      # ここで pub get しないと apps/slides 配下が全て未解決エラーになる。
+      - name: 依存関係の解決 (apps/slides)
+        run: cd apps/slides && flutter pub get
+
       - name: 静的解析 (flutter analyze)
         run: dart pub global run melos run lint
 

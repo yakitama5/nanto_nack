@@ -117,6 +117,18 @@ melos:
         cd apps/app_main && flutter build web
       description: "Web ビルド"
 
+    # apps/slides はワークスペース外の独立パッケージなので、melos bootstrap では
+    # 依存が解決されない。各スクリプトで pub get してから実行する。
+    run:slides:
+      run: |
+        cd apps/slides && flutter pub get && flutter run -d chrome
+      description: "プレゼンスライドをローカル起動します"
+
+    build:slides:
+      run: |
+        cd apps/slides && flutter pub get && flutter build web --base-href /nanto_nack/
+      description: "プレゼンスライドを GitHub Pages 向けにビルドします"
+
     build:android:prod:
       run: |
         cd apps/app_main && "$MELOS_ROOT_PATH/.fvm/flutter_sdk/bin/flutter" build appbundle --release --dart-define-from-file=dart_define/prod.json

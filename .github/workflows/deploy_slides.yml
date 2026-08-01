@@ -1,0 +1,62 @@
+name: Deploy Slides
+
+# 手動実行のみ。未完成のスライドが勝手に公開されないようにする。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: スライドのビルドと公開
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Flutter バージョンの取得 (.fvmrc)
+        id: fvm
+        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.fvm.outputs.version }}
+          cache: true
+
+      - name: Pub キャッシュの復元
+        uses: actions/cache@v6
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      # apps/slides はワークスペース外の独立パッケージなので melos は不要。
+      # このディレクトリで pub get すれば path 依存の quiz_core / shopping も解決される。
+      # スライドは Firebase もコード生成も使わないため、ci.yml にある
+      # Secrets の復元と gen:all は意図的に入れていない。
+      - name: 依存関係の解決
+        run: cd apps/slides && flutter pub get
+
+      # --base-href は必須。GitHub Pages はリポジトリ名のサブパスで配信するため、
+      # 指定しないと JS とアセットの読み込みが全て 404 になる。
+      - name: スライドのビルド
+        run: cd apps/slides && flutter build web --base-href /nanto_nack/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/slides/build/web
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
