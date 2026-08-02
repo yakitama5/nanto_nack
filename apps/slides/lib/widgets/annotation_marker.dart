@@ -7,24 +7,26 @@ import 'package:slides/widgets/app_screen.dart';
 /// カートアイコンや下部タブに GlobalKey を差し込む口を持たないため、
 /// **アプリ本体に手を入れずに済むよう実測した固定座標**を使っている。
 ///
-/// 各値は 390x844 で `ShoppingApp` を描画し `tester.getRect()` で計測したもの。
-/// アプリ側の UI が変わったら再計測すること。
+/// 計測は **[DeviceFrame] に入れた状態で行うこと**。端末枠の 6px の枠線が
+/// 中身を内側へ押し込むので、`ShoppingApp` を単独で描いて測ると全体が
+/// ズレる。値は `annotation_target_test.dart` が実レイアウトと突き合わせて
+/// 検証しており、アプリ側の UI が変われば正しい値を出して落ちる。
 class AnnotationTarget {
   const AnnotationTarget(this.rect);
 
   final Rect rect;
 
-  /// カートのアイコン（AppBar 右上）。実測 L=338 T=4 W=48 H=48
-  static const cart = AnnotationTarget(Rect.fromLTWH(338, 4, 48, 48));
+  /// カートのアイコン（AppBar 右上）
+  static const cart = AnnotationTarget(Rect.fromLTWH(332, 10, 48, 48));
 
-  /// 価格表示（商品タイル）。実測 L=20 T=623 W=61 H=21
-  static const price = AnnotationTarget(Rect.fromLTWH(20, 623, 61, 21));
+  /// 価格表示（商品タイル）
+  static const price = AnnotationTarget(Rect.fromLTWH(26, 607, 36, 21));
 
-  /// カートに追加するボタン。実測 アイコン中心(163, 666)・ボタン 32x32
-  static const addButton = AnnotationTarget(Rect.fromLTWH(147, 650, 32, 32));
+  /// カートに追加する黄色い丸ボタン
+  static const addButton = AnnotationTarget(Rect.fromLTWH(147, 634, 32, 32));
 
-  /// 下部タブ。実測 アイコン T=796 H=22、home 中心 x=48.8 / menu 中心 x=341.3
-  static const bottomNav = AnnotationTarget(Rect.fromLTWH(20, 790, 350, 48));
+  /// 下部タブ
+  static const bottomNav = AnnotationTarget(Rect.fromLTWH(6, 781, 378, 57));
 }
 
 /// [AnnotationTarget] を楕円で囲み、番号バッジを添えて描く。
