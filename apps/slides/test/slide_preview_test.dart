@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:slides/slides/app_slide.dart';
+import 'package:slides/slides/closing_slide.dart';
 import 'package:slides/slides/hook_slide.dart';
 import 'package:slides/slides/insight_slide.dart';
 import 'package:slides/slides/why_slide.dart';
@@ -86,5 +87,6 @@ void main() {
     await shoot(tester, '3_app', const AppLayout());
     await shoot(tester, '4_wonder', const WonderLayout());
     await shoot(tester, '5_insight', const InsightLayout());
+    await shoot(tester, '6_closing', const ClosingLayout());
   });
 }

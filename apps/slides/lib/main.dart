@@ -3,6 +3,7 @@ import 'package:flutter_deck/flutter_deck.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:slides/slides/app_slide.dart';
+import 'package:slides/slides/closing_slide.dart';
 import 'package:slides/slides/hook_slide.dart';
 import 'package:slides/slides/insight_slide.dart';
 import 'package:slides/slides/why_slide.dart';
@@ -50,7 +51,7 @@ class SlidesApp extends StatelessWidget {
         AppSlide(),
         WonderSlide(),
         InsightSlide(),
-        // TODO(slides): スライド6（クロージング）をここに追加する
+        ClosingSlide(),
       ],
     );
   }
