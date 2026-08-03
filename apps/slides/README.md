@@ -79,7 +79,17 @@ fvm dart run melos run serve:slides   # http://localhost:8000/ で配信
 ```
 
 `build:slides` の `--base-href` は **`/` 固定**（ローカル配信用）。
-Pages 用の成果物が要る場合は `--base-href /nanto_nack/` でビルドすること。
+
+Pages と同じ成果物を手元で作る場合は、`apps/slides` で直接ビルドする。
+
+```bash
+cd apps/slides
+fvm flutter pub get
+fvm flutter build web --base-href /nanto_nack/
+```
+
+このまま `localhost` で配信しても**アセットが404になる**（`/nanto_nack/` を探すため）。
+ローカル確認用には `--base-href /` の方を使うこと。
 
 ## 実装上の注意
 

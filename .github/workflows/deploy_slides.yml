@@ -21,10 +21,9 @@ on:
       - '.github/workflows/deploy_slides.yml'
   workflow_dispatch:
 
+# 既定は読み取りのみ。公開に必要な権限は deploy ジョブだけに与える。
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # Pages のデプロイは途中で打ち切ると公開が中途半端な状態になりうるため、
 # cancel-in-progress は false にする（GitHub 公式のスターターと同じ）。
@@ -95,8 +94,9 @@ jobs:
       - name: GitHub Pages 用のビルド (base-href /nanto_nack/)
         run: cd apps/slides && flutter build web --base-href /nanto_nack/
 
-      - uses: actions/configure-pages@v5
-
+      # actions/configure-pages は使わない。base-href を決め打ちしており
+      # 出力（base_url 等）が不要なうえ、Pages API を読むため build ジョブに
+      # pages 権限が必要になってしまうため。
       - uses: actions/upload-pages-artifact@v3
         with:
           path: apps/slides/build/web
@@ -107,6 +107,9 @@ jobs:
     name: GitHub Pages への公開
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
