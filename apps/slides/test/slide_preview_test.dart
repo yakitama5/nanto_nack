@@ -68,7 +68,13 @@ void main() {
     await tester.runAsync(() async {
       await Future<void>.delayed(const Duration(milliseconds: 300));
     });
-    await tester.pumpAndSettle();
+
+    // **pumpAndSettle は使えない。** スライドには repeat() で回り続ける
+    // ループアニメーションがあり、永久に落ち着かないため失敗する。
+    // 代わりに一定時間進めて、任意のコマを切り出す。
+    // AnimatedOpacity などの一度きりのアニメーションが終わる長さにしてある。
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
 
     await expectLater(
       find.byType(MaterialApp),

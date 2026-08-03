@@ -24,14 +24,18 @@ abstract final class SlideColors {
 /// 1920x1080 に投影するスライドでは小さすぎる。投影距離を考えて
 /// **明示的にサイズを決め打ちする**。こうしておくとプレビュー画像と
 /// 本番の見え方が一致する。
+///
+/// **スクリーン投影が前提なので、全体に大きめに振っている。**
+/// このサイズで収まらない文章は、縮めるのではなく**言い切って短くする**。
+/// 1枚あたりの文字数は 100 字以内が目安。
 abstract final class SlideText {
   static const _family = 'packages/quiz_core/NotoSansJP';
 
   /// 大見出し（スライドのタイトル）
   static const title = TextStyle(
     fontFamily: _family,
-    fontSize: 60,
-    height: 1.35,
+    fontSize: 88,
+    height: 1.3,
     fontWeight: FontWeight.bold,
     color: SlideColors.text,
     decoration: TextDecoration.none,
@@ -40,8 +44,8 @@ abstract final class SlideText {
   /// 中見出し・パンチライン
   static const punch = TextStyle(
     fontFamily: _family,
-    fontSize: 42,
-    height: 1.4,
+    fontSize: 60,
+    height: 1.35,
     fontWeight: FontWeight.bold,
     color: SlideColors.accent,
     decoration: TextDecoration.none,
@@ -50,7 +54,7 @@ abstract final class SlideText {
   /// 強調した一文
   static const lead = TextStyle(
     fontFamily: _family,
-    fontSize: 34,
+    fontSize: 48,
     height: 1.4,
     fontWeight: FontWeight.bold,
     color: SlideColors.primary,
@@ -60,8 +64,8 @@ abstract final class SlideText {
   /// 箇条書き・通常の本文
   static const body = TextStyle(
     fontFamily: _family,
-    fontSize: 30,
-    height: 1.5,
+    fontSize: 42,
+    height: 1.45,
     color: SlideColors.text,
     decoration: TextDecoration.none,
   );
@@ -69,8 +73,8 @@ abstract final class SlideText {
   /// 補足
   static const caption = TextStyle(
     fontFamily: _family,
-    fontSize: 24,
-    height: 1.7,
+    fontSize: 32,
+    height: 1.6,
     color: SlideColors.subText,
     decoration: TextDecoration.none,
   );

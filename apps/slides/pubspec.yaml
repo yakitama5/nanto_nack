@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   flutter_deck: ^0.29.0
   flutter_riverpod: ^2.6.1
+  # QR は画像を持たずコードから描く。投影で拡大しても粗くならないため。
+  qr_flutter: ^4.1.0
   quiz_core:
     path: ../../packages/quiz_core
   shopping:

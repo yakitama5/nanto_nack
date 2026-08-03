@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
+import 'package:slides/widgets/animations.dart';
 
 /// 4枚目 (1:35-2:10)
 ///
@@ -39,10 +40,14 @@ class WonderLayout extends StatelessWidget {
             children: [
               const Expanded(child: _Message()),
               const SizedBox(width: 64),
-              Image.asset(
-                'assets/images/surprised.png',
-                width: 420,
-                filterQuality: FilterQuality.medium,
+              FloatLoop(
+                distance: 20,
+                duration: const Duration(milliseconds: 3400),
+                child: Image.asset(
+                  'assets/images/surprised.png',
+                  width: 460,
+                  filterQuality: FilterQuality.medium,
+                ),
               ),
             ],
           ),
@@ -65,40 +70,33 @@ class _Message extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '一文字も読めないのに、当てられた。',
+          '読めないのに、当てられた。',
           style: SlideText.body.copyWith(color: _onDarkSub),
         ),
-        const SizedBox(height: 20),
-        Text(
-          'あ、わかった！',
-          style: SlideText.title.copyWith(color: _onDark, fontSize: 84),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          '—— その瞬間の気持ちよさが、このアプリのすべて。',
-          style: SlideText.body.copyWith(color: _onDark),
-        ),
-        const SizedBox(height: 48),
-        _Divider(),
-        const SizedBox(height: 40),
-        Text(
-          '意味が分からなくても、形と色と位置だけで「たぶんこう」を導ける。\n'
-          '普段はUIが親切すぎて、その力を使っている自覚がない。',
-          style: SlideText.caption.copyWith(color: _onDarkSub),
+        const SizedBox(height: 24),
+        // 山場の一語。後ろで光がゆっくり広がる
+        GlowLoop(
+          color: Colors.amberAccent,
+          child: PulseLoop(
+            maxScale: 1.08,
+            duration: const Duration(milliseconds: 2400),
+            child: Text(
+              'あ、わかった！',
+              style: SlideText.title.copyWith(color: _onDark, fontSize: 120),
+            ),
+          ),
         ),
         const SizedBox(height: 32),
-        Text.rich(
-          TextSpan(
-            style: SlideText.body.copyWith(color: _onDark),
-            children: [
-              const TextSpan(text: '届けたいのは知識ではなく、'),
-              TextSpan(
-                text: '自分の感覚への再発見',
-                style: SlideText.punch.copyWith(color: Colors.amberAccent),
-              ),
-              const TextSpan(text: '。'),
-            ],
-          ),
+        _Divider(),
+        const SizedBox(height: 36),
+        Text(
+          '形と色と位置だけで。',
+          style: SlideText.body.copyWith(color: _onDarkSub),
+        ),
+        const SizedBox(height: 24),
+        Text(
+          '届けたいのは、感覚の再発見。',
+          style: SlideText.punch.copyWith(color: Colors.amberAccent),
         ),
       ],
     );

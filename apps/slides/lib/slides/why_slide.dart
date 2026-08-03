@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
+import 'package:slides/widgets/animations.dart';
 import 'package:slides/widgets/annotation_marker.dart';
 import 'package:slides/widgets/app_screen.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
@@ -36,12 +37,12 @@ class WhyLayout extends StatelessWidget {
   final int step;
 
   static const cues = <({AnnotationTarget target, String text})>[
-    (target: AnnotationTarget.cart, text: 'カートのアイコンの形'),
+    (target: AnnotationTarget.cart, text: 'カートの形'),
     // 「桁が読める」「数字が対応している」に触れてはいけない。カスタム言語の
     // 解読の入口になるため。手がかりは通貨記号の形だけに絞る。
-    (target: AnnotationTarget.price, text: '¥ という通貨記号だけ、いつもの形のまま'),
-    (target: AnnotationTarget.addButton, text: '黄色い丸という「押せそうな」形'),
-    (target: AnnotationTarget.bottomNav, text: 'いつもそこにある、下部タブの位置'),
+    (target: AnnotationTarget.price, text: '¥ の記号'),
+    (target: AnnotationTarget.addButton, text: '押せそうな黄色い丸'),
+    (target: AnnotationTarget.bottomNav, text: 'タブの位置'),
   ];
 
   @override
@@ -77,7 +78,7 @@ class _Explanation extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('一文字も読めないのに、\nなぜ分かったのか', style: SlideText.title),
+        const Text('読めないのに、\nなぜ分かった？', style: SlideText.title),
         const SizedBox(height: 44),
         for (var i = 0; i < WhyLayout.cues.length; i++)
           _Cue(
@@ -115,8 +116,8 @@ class _Cue extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 38,
-              height: 38,
+              width: 52,
+              height: 52,
               alignment: Alignment.center,
               decoration: const BoxDecoration(
                 color: SlideColors.accent,
@@ -127,12 +128,13 @@ class _Cue extends StatelessWidget {
                 style: const TextStyle(
                   fontFamily: 'packages/quiz_core/NotoSansJP',
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.none,
                 ),
               ),
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 24),
             Expanded(child: Text(text, style: SlideText.body)),
           ],
         ),
@@ -149,13 +151,9 @@ class _Punchline extends StatelessWidget {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('どれも、文字ではない。', style: SlideText.punch),
-        SizedBox(height: 18),
-        Text(
-          '私たちは普段から、UIの文字をほとんど読んでいない。\n'
-          '形と色と位置で判断している。それが アフォーダンス。',
-          style: SlideText.caption,
-        ),
+        PulseLoop(child: Text('どれも、文字じゃない。', style: SlideText.punch)),
+        SizedBox(height: 20),
+        Text('形・色・位置＝アフォーダンス', style: SlideText.caption),
       ],
     );
   }
