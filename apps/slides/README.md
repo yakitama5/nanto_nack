@@ -47,12 +47,17 @@ fvm flutter run -d chrome
 
 ## ビルドと配信
 
-成果物は **GitHub Actions の Artifact** として配布する。Web でホスティングはしない。
-`main` の `apps/slides/**` が変わると自動でビルドされ、Actions の実行結果に
-`nanto-nack-slides` という Artifact が付く。
+`main` のスライド関連の変更で自動ビルドされ、**2つの成果物**が出る。
 
-> `quiz_core` / `shopping` を変更したときは自動では走らない。
-> スライドに反映したい場合は Actions から **Build Slides を手動実行**すること。
+| 成果物 | 用途 | base-href |
+| --- | --- | --- |
+| Artifact `nanto-nack-slides` | **発表本番用**。ネットワーク非依存 | `/` |
+| [GitHub Pages](https://yakitama5.github.io/nanto_nack/) | 共有・見返し用 | `/nanto_nack/` |
+
+**投影は Artifact を使う。** バンドルが約90MBあり、会場の回線に依存させたくないため。
+
+`base-href` は配信場所ごとに変わり **1つの成果物を使い回せない**（値が合わないとアセットが全て404になる）。
+そのためワークフローでは 2 回ビルドしている。
 
 ### ⚠️ index.html をダブルクリックしても動かない
 
@@ -73,8 +78,18 @@ fvm dart run melos run build:slides   # apps/slides/build/web に出力
 fvm dart run melos run serve:slides   # http://localhost:8000/ で配信
 ```
 
-`--base-href` は **`/` 固定**。ローカルの HTTP サーバで配信する前提のため。
-サブパスで配信する（GitHub Pages 等）場合はこの指定を変える必要がある。
+`build:slides` の `--base-href` は **`/` 固定**（ローカル配信用）。
+
+Pages と同じ成果物を手元で作る場合は、`apps/slides` で直接ビルドする。
+
+```bash
+cd apps/slides
+fvm flutter pub get
+fvm flutter build web --base-href /nanto_nack/
+```
+
+このまま `localhost` で配信しても**アセットが404になる**（`/nanto_nack/` を探すため）。
+ローカル確認用には `--base-href /` の方を使うこと。
 
 ## 実装上の注意
 

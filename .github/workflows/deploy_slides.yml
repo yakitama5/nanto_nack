@@ -1,14 +1,16 @@
 name: Build Slides
 
-# main のスライド関連の変更で自動ビルドし、成果物を Artifact として上げる。
+# main のスライド関連の変更で自動ビルドし、2つの成果物を出す。
+#
+#   1. Artifact `nanto-nack-slides` … 発表本番用。ダウンロードしてローカルで配信する
+#   2. GitHub Pages                  … 共有・見返し用
+#
+# 本番の投影は 1 を使う。バンドルが大きく、会場の回線に依存させたくないため。
 #
 # apps/slides は path 依存で quiz_core / shopping の UI を**実描画**しているため、
 # それらが変わるとスライドの見た目も変わる。paths に含めていないと
-# 「最新の UI を反映していない Artifact が残り続ける」ことに気づけないので、
+# 「最新の UI を反映していない成果物が残り続ける」ことに気づけないので、
 # 依存元も対象に入れている。
-#
-# 無関係な変更でもビルドが走るが、public リポジトリは Actions の実行時間も
-# ストレージも無料で、concurrency で古い実行は打ち切られるため許容する。
 on:
   push:
     branches: [main]
@@ -19,16 +21,19 @@ on:
       - '.github/workflows/deploy_slides.yml'
   workflow_dispatch:
 
+# 既定は読み取りのみ。公開に必要な権限は deploy ジョブだけに与える。
 permissions:
   contents: read
 
+# Pages のデプロイは途中で打ち切ると公開が中途半端な状態になりうるため、
+# cancel-in-progress は false にする（GitHub 公式のスターターと同じ）。
 concurrency:
-  group: build-slides
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
-    name: スライドのビルドと Artifact 化
+    name: スライドのビルド
     runs-on: ubuntu-latest
 
     steps:
@@ -68,16 +73,47 @@ jobs:
       - name: 依存関係の解決
         run: cd apps/slides && flutter pub get
 
-      # base-href は "/" 固定。ローカルで HTTP サーバを立てて
-      # http://localhost:8000/ として開く前提のため。
-      # サブパス配信（GitHub Pages 等）に変える場合はここを直すこと。
-      - name: スライドのビルド
-        run: cd apps/slides && flutter build web --base-href /
+      # base-href は配信場所ごとに変わり、**1つの成果物を使い回せない**。
+      # 値が合わないとアセットが全て 404 になるため、2 回ビルドする。
+      #   ローカル配信 (http://localhost:8000/) → /
+      #   Pages        (…/nanto_nack/)          → /nanto_nack/
+      - name: ローカル配信用のビルド (base-href /)
+        run: |
+          cd apps/slides
+          flutter build web --base-href /
+          mv build/web build/web-local
 
-      - name: Artifact のアップロード
+      - name: 発表本番用 Artifact のアップロード
         uses: actions/upload-artifact@v4
         with:
           name: nanto-nack-slides
-          path: apps/slides/build/web
+          path: apps/slides/build/web-local
           if-no-files-found: error
           retention-days: 90
+
+      - name: GitHub Pages 用のビルド (base-href /nanto_nack/)
+        run: cd apps/slides && flutter build web --base-href /nanto_nack/
+
+      # actions/configure-pages は使わない。base-href を決め打ちしており
+      # 出力（base_url 等）が不要なうえ、Pages API を読むため build ジョブに
+      # pages 権限が必要になってしまうため。
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/slides/build/web
+
+  # ビルドが失敗すればこのジョブは走らないので、
+  # 壊れたものが公開されることはない（公開済みの内容もそのまま残る）。
+  deploy:
+    name: GitHub Pages への公開
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
