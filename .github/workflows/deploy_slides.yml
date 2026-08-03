@@ -2,16 +2,20 @@ name: Build Slides
 
 # main のスライド関連の変更で自動ビルドし、成果物を Artifact として上げる。
 #
-# apps/slides は path 依存で quiz_core / shopping の UI を実描画している。
-# **それらのパッケージを変更したときは自動では走らない**ので、
-# スライドに反映したい場合は手動実行（workflow_dispatch）すること。
-# 毎 push で走らせると 1 回あたり数十MBの Artifact が積み上がるため、
-# あえて対象を絞っている。
+# apps/slides は path 依存で quiz_core / shopping の UI を**実描画**しているため、
+# それらが変わるとスライドの見た目も変わる。paths に含めていないと
+# 「最新の UI を反映していない Artifact が残り続ける」ことに気づけないので、
+# 依存元も対象に入れている。
+#
+# 無関係な変更でもビルドが走るが、public リポジトリは Actions の実行時間も
+# ストレージも無料で、concurrency で古い実行は打ち切られるため許容する。
 on:
   push:
     branches: [main]
     paths:
       - 'apps/slides/**'
+      - 'packages/quiz_core/**'
+      - 'packages/quizzes/shopping/**'
       - '.github/workflows/deploy_slides.yml'
   workflow_dispatch:
 

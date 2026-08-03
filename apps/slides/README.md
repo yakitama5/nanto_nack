@@ -8,14 +8,32 @@ NantoNack を紹介する3分プレゼンのスライド。[flutter_deck](https:
 
 ルートの `pubspec.yaml` の `workspace:` に **意図的に含めていない**。
 
-`flutter_deck` が `go_router ^17` を要求する一方、`app_main` は `go_router ^14.8.1` に固定されており、
-Dart workspace は単一解決なので両立できないため。`go_router 14` 系と両立する `flutter_deck` は 0.18.0（かなり古い）しかない。
+本パッケージが使う `flutter_deck 0.29.0` は `go_router ^17` を要求し（実際に解決されるのは 17.3.0）、
+一方 `app_main` は `go_router ^14.8.1` に固定されている。Dart workspace は単一解決なので両立できない。
+`go_router 14` 系と両立する `flutter_deck` は 0.18.0 までさかのぼる必要があり、採用するには古すぎる。
 
 そのため以下の点に注意すること。
 
 - **依存を変えたら `cd apps/slides && flutter pub get`**。ルートの `melos bootstrap` では解決されない
 - 一方 `melos run lint`（= ルートからの `flutter analyze .`）の **解析対象には含まれる**。
   `analysis_options.yaml` はルートを include しておくこと（`package:flutter_lints` のままだと CI が落ちる）
+- `melos run test:all` の **対象外**。CI では `annotation_target_test.dart` だけを個別に実行している
+
+## テスト
+
+| ファイル | 役割 | CI |
+| --- | --- | --- |
+| `annotation_target_test.dart` | スライド2の注釈座標が実画面と一致するかの検査 | ✅ 実行する |
+| `slide_preview_test.dart` | スライドの見た目を `test/goldens/` に PNG 出力する**プレビュー生成器** | ❌ 実行しない |
+
+```bash
+# スライドの見た目を確認する（goldens を上書きする。比較はしない）
+fvm flutter test --update-goldens test/slide_preview_test.dart
+```
+
+プレビューは **goldens を開発機で生成している**ため、フォントのラスタライズが異なる CI（Linux）で
+比較すると必ず落ちる。期待画像を固定するとスライドを直すたびに落ちてプレビューとして使えなくなるので、
+**比較はせず常に上書きする**設計にしてある。
 
 ## 開発
 

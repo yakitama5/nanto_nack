@@ -133,6 +133,18 @@ jobs:
       - name: テスト実行 (flutter test)
         run: dart pub global run melos run test:all
 
+      # apps/slides はワークスペース外なので test:all の対象外。個別に実行する。
+      #
+      # slide_preview_test.dart は **意図的に対象から外している**。
+      # あれはスライドの見た目を PNG に書き出すプレビュー生成器で、
+      # goldens は開発機（Windows）で生成している。CI（Linux）はフォントの
+      # ラスタライズが異なるため、比較すると必ず落ちる。
+      - name: スライドの検査 (apps/slides)
+        run: |
+          cd apps/slides
+          flutter pub get
+          flutter test test/annotation_target_test.dart
+
       - name: テスト失敗時の成果物アップロード
         uses: actions/upload-artifact@v7
         if: failure()
