@@ -50,10 +50,21 @@ jobs:
           key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
           restore-keys: pub-${{ runner.os }}-
 
+      # スライド自身は Firebase を使わないが、shopping → system の依存があり、
+      # dart2js は**呼ばれないコードも含めてライブラリ全体をコンパイルする**。
+      # firebase_options*.dart は .gitignore されているので復元が要る。
+      # （Android/iOS 用の google-services.json 等は Web ビルドでは不要）
+      - name: Firebase 設定ファイルの復元
+        run: |
+          mkdir -p packages/system/lib/src/firebase
+          echo "${{ secrets.FIREBASE_OPTIONS_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options.dart
+          echo "${{ secrets.FIREBASE_OPTIONS_DEV_DART_BASE64 }}" | base64 -d > packages/system/lib/src/firebase/firebase_options_dev.dart
+
       # apps/slides はワークスペース外の独立パッケージなので melos は不要。
       # このディレクトリで pub get すれば path 依存の quiz_core / shopping も解決される。
-      # スライドは Firebase もコード生成も使わないため、ci.yml にある
-      # Secrets の復元と gen:all は意図的に入れていない。
+      # 生成コード（*.g.dart）はコミットされているため gen:all は不要。
+      # env.g.dart 系だけは .gitignore されているが、app_main 配下のみで
+      # スライドの依存グラフには含まれない。
       - name: 依存関係の解決
         run: cd apps/slides && flutter pub get
 
