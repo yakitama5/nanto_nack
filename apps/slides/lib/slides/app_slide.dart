@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
+import 'package:slides/widgets/animations.dart';
 
 /// 3枚目 (1:05-1:35)
 ///
@@ -49,23 +50,10 @@ class _Story extends StatelessWidget {
   const _Story();
 
   /// プレイの流れ。番号は [_Step] 側で振る。
-  static const _steps = <({IconData icon, String title, String detail})>[
-    (
-      icon: Icons.flag,
-      title: 'お題が出る',
-      // 出典: packages/quizzes/market/assets/i18n/ja.i18n.json の quiz1
-      detail: '「裏側に傷がないか気になるな。最後の写真までスワイプして確認しよう」',
-    ),
-    (
-      icon: Icons.touch_app,
-      title: '本物そっくりのUIを、実際に指で触る',
-      detail: 'タップ／スワイプ／ピンチ／長押し ——「選ぶ」のではなく「操作する」',
-    ),
-    (
-      icon: Icons.timer_outlined,
-      title: '制限時間内に達成できたらクリア',
-      detail: '測っているのは知識量ではなく、迷わなさ',
-    ),
+  static const _steps = <({IconData icon, String title})>[
+    (icon: Icons.flag, title: 'お題が出る'),
+    (icon: Icons.touch_app, title: '指で触る'),
+    (icon: Icons.timer_outlined, title: '時間内にクリア'),
   ];
 
   @override
@@ -74,22 +62,20 @@ class _Story extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('文字が読めない世界の、\nUIクイズ', style: SlideText.title),
-        const SizedBox(height: 28),
-        const Text(
-          'マスコット「ナントム」のノロいで、アプリの文字が全部読めなくなった。',
-          style: SlideText.body,
-        ),
-        const SizedBox(height: 48),
+        const Text('文字が読めない世界の\nUIクイズ', style: SlideText.title),
+        const SizedBox(height: 24),
+        const Text('ナントムのノロい。', style: SlideText.body),
+        const SizedBox(height: 52),
         for (var i = 0; i < _steps.length; i++)
           _Step(
             number: i + 1,
             icon: _steps[i].icon,
             title: _steps[i].title,
-            detail: _steps[i].detail,
           ),
-        const SizedBox(height: 28),
-        const Text('4択ではない。触って答えるクイズ。', style: SlideText.punch),
+        const SizedBox(height: 36),
+        const PulseLoop(
+          child: Text('4択じゃない。触って答える。', style: SlideText.punch),
+        ),
       ],
     );
   }
@@ -102,24 +88,22 @@ class _Step extends StatelessWidget {
     required this.number,
     required this.icon,
     required this.title,
-    required this.detail,
   });
 
   final int number;
   final IconData icon;
   final String title;
-  final String detail;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 34),
+      padding: const EdgeInsets.only(bottom: 28),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 46,
-            height: 46,
+            width: 56,
+            height: 56,
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               color: SlideColors.primary,
@@ -130,31 +114,21 @@ class _Step extends StatelessWidget {
               style: const TextStyle(
                 fontFamily: 'packages/quiz_core/NotoSansJP',
                 color: Colors.white,
-                fontSize: 22,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 decoration: TextDecoration.none,
               ),
             ),
           ),
-          const SizedBox(width: 20),
-          // 番号バッジと同じ高さの箱に入れて、見出しの行と高さを揃える。
-          SizedBox(
-            height: 46,
-            child: Center(
-              child: Icon(icon, size: 40, color: SlideColors.primary),
-            ),
+          const SizedBox(width: 24),
+          // ステップごとに位相をずらして、順番に弾むように見せる
+          FloatLoop(
+            distance: 8,
+            delay: Duration(milliseconds: 400 * number),
+            child: Icon(icon, size: 52, color: SlideColors.primary),
           ),
-          const SizedBox(width: 18),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: SlideText.body),
-                const SizedBox(height: 4),
-                Text(detail, style: SlideText.caption),
-              ],
-            ),
-          ),
+          const SizedBox(width: 22),
+          Expanded(child: Text(title, style: SlideText.body)),
         ],
       ),
     );
@@ -169,12 +143,14 @@ class _Mascot extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          'assets/images/normal.png',
-          width: 320,
-          filterQuality: FilterQuality.medium,
+        FloatLoop(
+          child: Image.asset(
+            'assets/images/normal.png',
+            width: 340,
+            filterQuality: FilterQuality.medium,
+          ),
         ),
-        const SizedBox(height: 36),
+        const SizedBox(height: 40),
         const _ScaleBadge(),
       ],
     );

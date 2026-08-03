@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slides/widgets/animations.dart';
 import 'package:slides/widgets/app_screen.dart';
 
 /// 画面上の「手がかり」を囲む注釈の対象。
@@ -105,6 +106,17 @@ class AnnotationMarker extends StatelessWidget {
         curve: Curves.easeOut,
         child: Stack(
           children: [
+            // 輪の外側へ波紋を広げる。楕円自体は動かさないので、
+            // 何を指しているかが分からなくなることはない。
+            Positioned.fromRect(
+              rect: r,
+              child: RippleLoop(
+                color: color,
+                borderRadius: BorderRadius.all(
+                  Radius.elliptical(r.width / 2, r.height / 2),
+                ),
+              ),
+            ),
             Positioned.fromRect(
               rect: r,
               child: DecoratedBox(
