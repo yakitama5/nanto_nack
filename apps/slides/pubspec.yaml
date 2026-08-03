@@ -1,0 +1,30 @@
+name: slides
+description: "NantoNack プレゼンスライド (flutter_deck)"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.3
+
+dependencies:
+  cupertino_icons: ^1.0.8
+  flutter:
+    sdk: flutter
+  flutter_deck: ^0.29.0
+  flutter_riverpod: ^2.6.1
+  quiz_core:
+    path: ../../packages/quiz_core
+  shopping:
+    path: ../../packages/quizzes/shopping
+
+dev_dependencies:
+  altive_lints: ^2.2.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    # マスコット「ナントム」。UI 本体は shopping / quiz_core から直接描画するため、
+    # ここにコピーするのはパッケージ外にある画像だけでよい。
+    - assets/images/

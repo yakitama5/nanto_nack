@@ -1,0 +1,72 @@
+name: Build Slides
+
+# main のスライド関連の変更で自動ビルドし、成果物を Artifact として上げる。
+#
+# apps/slides は path 依存で quiz_core / shopping の UI を**実描画**しているため、
+# それらが変わるとスライドの見た目も変わる。paths に含めていないと
+# 「最新の UI を反映していない Artifact が残り続ける」ことに気づけないので、
+# 依存元も対象に入れている。
+#
+# 無関係な変更でもビルドが走るが、public リポジトリは Actions の実行時間も
+# ストレージも無料で、concurrency で古い実行は打ち切られるため許容する。
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/slides/**'
+      - 'packages/quiz_core/**'
+      - 'packages/quizzes/shopping/**'
+      - '.github/workflows/deploy_slides.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-slides
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: スライドのビルドと Artifact 化
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Flutter バージョンの取得 (.fvmrc)
+        id: fvm
+        run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.fvm.outputs.version }}
+          cache: true
+
+      - name: Pub キャッシュの復元
+        uses: actions/cache@v6
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      # apps/slides はワークスペース外の独立パッケージなので melos は不要。
+      # このディレクトリで pub get すれば path 依存の quiz_core / shopping も解決される。
+      # スライドは Firebase もコード生成も使わないため、ci.yml にある
+      # Secrets の復元と gen:all は意図的に入れていない。
+      - name: 依存関係の解決
+        run: cd apps/slides && flutter pub get
+
+      # base-href は "/" 固定。ローカルで HTTP サーバを立てて
+      # http://localhost:8000/ として開く前提のため。
+      # サブパス配信（GitHub Pages 等）に変える場合はここを直すこと。
+      - name: スライドのビルド
+        run: cd apps/slides && flutter build web --base-href /
+
+      - name: Artifact のアップロード
+        uses: actions/upload-artifact@v4
+        with:
+          name: nanto-nack-slides
+          path: apps/slides/build/web
+          if-no-files-found: error
+          retention-days: 90
