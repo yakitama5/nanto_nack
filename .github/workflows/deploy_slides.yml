@@ -1,25 +1,31 @@
-name: Deploy Slides
+name: Build Slides
 
-# 手動実行のみ。未完成のスライドが勝手に公開されないようにする。
+# main のスライド関連の変更で自動ビルドし、成果物を Artifact として上げる。
+#
+# apps/slides は path 依存で quiz_core / shopping の UI を実描画している。
+# **それらのパッケージを変更したときは自動では走らない**ので、
+# スライドに反映したい場合は手動実行（workflow_dispatch）すること。
+# 毎 push で走らせると 1 回あたり数十MBの Artifact が積み上がるため、
+# あえて対象を絞っている。
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/slides/**'
+      - '.github/workflows/deploy_slides.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: build-slides
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    name: スライドのビルドと公開
+  build:
+    name: スライドのビルドと Artifact 化
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v7
@@ -47,16 +53,16 @@ jobs:
       - name: 依存関係の解決
         run: cd apps/slides && flutter pub get
 
-      # --base-href は必須。GitHub Pages はリポジトリ名のサブパスで配信するため、
-      # 指定しないと JS とアセットの読み込みが全て 404 になる。
+      # base-href は "/" 固定。ローカルで HTTP サーバを立てて
+      # http://localhost:8000/ として開く前提のため。
+      # サブパス配信（GitHub Pages 等）に変える場合はここを直すこと。
       - name: スライドのビルド
-        run: cd apps/slides && flutter build web --base-href /nanto_nack/
+        run: cd apps/slides && flutter build web --base-href /
 
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
+      - name: Artifact のアップロード
+        uses: actions/upload-artifact@v4
         with:
+          name: nanto-nack-slides
           path: apps/slides/build/web
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          if-no-files-found: error
+          retention-days: 90

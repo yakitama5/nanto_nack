@@ -27,12 +27,36 @@ fvm flutter run -d chrome
 
 矢印キー / スペースでスライドを送る。
 
-## ビルド
+## ビルドと配信
+
+成果物は **GitHub Actions の Artifact** として配布する。Web でホスティングはしない。
+`main` の `apps/slides/**` が変わると自動でビルドされ、Actions の実行結果に
+`nanto-nack-slides` という Artifact が付く。
+
+> `quiz_core` / `shopping` を変更したときは自動では走らない。
+> スライドに反映したい場合は Actions から **Build Slides を手動実行**すること。
+
+### ⚠️ index.html をダブルクリックしても動かない
+
+Flutter Web は `file://` では JS とアセットの読み込みに失敗する。
+**必ず HTTP サーバを立てること。**
 
 ```bash
-# GitHub Pages 向け（リポジトリ名のサブパスで配信されるため base-href が必須）
-fvm flutter build web --base-href /nanto_nack/
+# Artifact をダウンロードして解凍したあと
+cd 解凍先
+python -m http.server 8000
+# ブラウザで http://localhost:8000/ を開く
 ```
+
+### ローカルでビルドする場合
+
+```bash
+fvm dart run melos run build:slides   # apps/slides/build/web に出力
+fvm dart run melos run serve:slides   # http://localhost:8000/ で配信
+```
+
+`--base-href` は **`/` 固定**。ローカルの HTTP サーバで配信する前提のため。
+サブパスで配信する（GitHub Pages 等）場合はこの指定を変える必要がある。
 
 ## 実装上の注意
 
@@ -41,4 +65,4 @@ fvm flutter build web --base-href /nanto_nack/
 - **`LocaleSettings` は呼ばない。** クイズUIのカスタム言語は `sq` / `qt` が `AppLocale.xx` をハードコードで返すため、
   ロケール初期化なしで架空言語が表示される
 - **URL 戦略はデフォルト（ハッシュ）のまま。** `usePathUrlStrategy()` を呼ぶと、
-  GitHub Pages は静的配信で rewrite が無いためスライドへの直リンクが 404 になる
+  静的配信には SPA の rewrite が無いためスライドへの直リンク（`#/wonder` 等）が 404 になる
