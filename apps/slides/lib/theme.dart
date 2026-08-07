@@ -67,6 +67,18 @@ abstract final class SlideColors {
 
   /// 補足テキスト
   static Color get subText => scheme.onSurfaceVariant;
+
+  /// [surface] の上に置いて読める文字色を返す。
+  ///
+  /// 面の色を**引数で受け取る**ウィジェット（注釈のバッジなど）のためのもの。
+  /// 面が可変なのに文字色だけ固定すると、面の色を変えたときに文字が
+  /// 読めなくなる。面から導けば、その組み合わせは起きない。
+  static Color onColorOf(Color surface) =>
+      ThemeData.estimateBrightnessForColor(surface) == Brightness.dark
+          // 濃い面の上に置く文字。Primary / Secondary はどちらも濃い面なので
+          // on 色は共通（白）。
+          ? scheme.onPrimary
+          : scheme.onSurface;
 }
 
 /// 全面を主色で塗るスライド（コンセプト）専用の配色。
@@ -82,7 +94,14 @@ abstract final class SlidePanelColors {
 
   /// 面の上の控えめな文字。[onBackground]（白）から一段落として、
   /// 山場の一語だけが浮き上がるようにする。
-  static Color get onBackgroundMuted => SlideColors.scheme.onPrimaryContainer;
+  ///
+  /// **`onPrimaryContainer` を流用してはいけない。** あれは
+  /// `primaryContainer` の上に置く前提で作られた色で、面が `primary` の
+  /// ここでは組み合わせが保証されない。実際、variant を既定の `tonalSpot`
+  /// に戻すとコントラスト比が 1.43 まで落ちて読めなくなる。
+  /// **必ず [onBackground] を面の色へ寄せて作る**（現状 5.71）。
+  static final Color onBackgroundMuted =
+      Color.lerp(onBackground, background, 0.2)!;
 
   /// 面の上の強調色。
   ///
