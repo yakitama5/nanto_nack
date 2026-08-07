@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// スライドの配色。
 ///
@@ -81,35 +82,14 @@ abstract final class SlideColors {
           : scheme.onSurface;
 }
 
-/// 全面を主色で塗るスライド（コンセプト）専用の配色。
-///
-/// 明るい面向けの [SlideColors] をそのまま置くと、濃い紫の上で
-/// コントラストが取れない。**暗い面の上に載る前提の色**をここにまとめる。
-abstract final class SlidePanelColors {
-  /// 面そのものの色
-  static Color get background => SlideColors.scheme.primary;
-
-  /// 面の上に置く、最もコントラストの高い文字。山場の一語に使う。
-  static Color get onBackground => SlideColors.scheme.onPrimary;
-
-  /// 面の上の控えめな文字。[onBackground]（白）から一段落として、
-  /// 山場の一語だけが浮き上がるようにする。
+/// 面の色から、その上に置いて読める文字色を引く。
+extension SlideSurfaceColor on Color {
+  /// この色を面にしたときに、上に置いて読める文字色。
   ///
-  /// **`onPrimaryContainer` を流用してはいけない。** あれは
-  /// `primaryContainer` の上に置く前提で作られた色で、面が `primary` の
-  /// ここでは組み合わせが保証されない。実際、variant を既定の `tonalSpot`
-  /// に戻すとコントラスト比が 1.43 まで落ちて読めなくなる。
-  /// **必ず [onBackground] を面の色へ寄せて作る**（現状 5.71）。
-  static final Color onBackgroundMuted =
-      Color.lerp(onBackground, background, 0.2)!;
-
-  /// 面の上の強調色。
-  ///
-  /// [SlideColors.accent]（明るい面向けの濃い赤）は紫の上では沈んで
-  /// 読めないため、**暗い面向けに生成した赤**を使う。同じ種色から
-  /// 出しているので、赤としての系統は揃っている。
-  static final Color highlight =
-      SlideColors._seeded(SlideColors.brandRed, Brightness.dark).primary;
+  /// `SlideColors.onColorOf(color)` と同じもの。図の部品は
+  /// 「面の色」を引数で受け取ることが多く、そのたびに文字色を
+  /// 書き分けると取り違えるため、面の色から引けるようにしている。
+  Color get onColor => SlideColors.onColorOf(this);
 }
 
 /// スライド用のテキストスタイル。
@@ -126,66 +106,124 @@ abstract final class SlidePanelColors {
 /// 色は [SlideColors] から取る。[ColorScheme] は実行時に生成されるため
 /// `const` にはできない。呼び出し側の `const Text(...)` が外れるが、
 /// スライド6枚の再構築なので描画コストは問題にならない。
+///
+/// ## 書体は Kiwi Maru（google_fonts）
+///
+/// 丸みのある字形で、やわらかい印象を出す。**フォントは同梱しておらず
+/// 実行時に fonts.gstatic.com から取得する**ため、通信できない環境では
+/// 無言で [_fallbackFamily]（NotoSansJP）に戻る。
+///
+/// **Kiwi Maru に Bold(700) は無い。** ウェイトは Light(300) /
+/// Regular(400) / Medium(500) の3つだけ。`FontWeight.bold` を指定しても
+/// 実際には太くならないので、見出しと本文の差は
+/// **太さではなく文字サイズと色で付ける**こと。
 abstract final class SlideText {
-  static const _family = 'packages/quiz_core/NotoSansJP';
+  /// フォント取得に失敗したときに効く書体。
+  ///
+  /// quiz_core が同梱しているので、オフラインでも必ず表示できる。
+  static const _fallbackFamily = 'packages/quiz_core/NotoSansJP';
+
+  /// 見出しに使う最も太いウェイト。Kiwi Maru の上限。
+  static const _heading = FontWeight.w500;
+
+  /// Kiwi Maru を実行時に取得するか。
+  ///
+  /// **プレビューテスト専用の逃げ道。** `google_fonts` は取得に失敗すると
+  /// 例外を rethrow する実装なので、通信を遮断する flutter_test では
+  /// 必ずテストごと落ちる。テスト側で false にすると、取得を試みずに
+  /// [_fallbackFamily] で組む。
+  ///
+  /// **本番のコードから触らないこと。** false にすると Kiwi Maru にならない。
+  @visibleForTesting
+  static bool useWebFont = true;
+
+  static TextStyle _kiwi({
+    required double size,
+    required double height,
+    required Color color,
+    FontWeight weight = FontWeight.w400,
+  }) {
+    final base = TextStyle(
+      fontSize: size,
+      height: height,
+      fontWeight: weight,
+      color: color,
+      // Material 祖先が無い Stack 上にも描かれるため、
+      // 既定の下線が入らないよう明示的に打ち消す。
+      decoration: TextDecoration.none,
+    );
+
+    if (!useWebFont) return base.copyWith(fontFamily: _fallbackFamily);
+
+    final style = GoogleFonts.kiwiMaru(textStyle: base);
+
+    // **フォールバックは後付けしないと効かない。**
+    // `GoogleFonts` は返す直前に `fontFamilyFallback` を自前の値で
+    // 上書きするので、`textStyle:` 引数で渡しても捨てられる。
+    //
+    // 後ろに NotoSansJP を足しておかないと、フォント取得に失敗したとき
+    // 既定書体（日本語グリフを持たない）に落ちて**豆腐（□）になる**。
+    return style.copyWith(
+      fontFamilyFallback: [...?style.fontFamilyFallback, _fallbackFamily],
+    );
+  }
 
   /// 大見出し（スライドのタイトル）
-  static final title = TextStyle(
-    fontFamily: _family,
-    fontSize: 88,
+  static final title = _kiwi(
+    size: 88,
     height: 1.3,
-    fontWeight: FontWeight.bold,
+    weight: _heading,
     color: SlideColors.text,
-    decoration: TextDecoration.none,
   );
 
   /// 中見出し・パンチライン
-  static final punch = TextStyle(
-    fontFamily: _family,
-    fontSize: 60,
+  static final punch = _kiwi(
+    size: 60,
     height: 1.35,
-    fontWeight: FontWeight.bold,
+    weight: _heading,
     color: SlideColors.accent,
-    decoration: TextDecoration.none,
   );
 
   /// 強調した一文
-  static final lead = TextStyle(
-    fontFamily: _family,
-    fontSize: 48,
+  static final lead = _kiwi(
+    size: 48,
     height: 1.4,
-    fontWeight: FontWeight.bold,
+    weight: _heading,
     color: SlideColors.primary,
-    decoration: TextDecoration.none,
   );
 
   /// 箇条書き・通常の本文
-  static final body = TextStyle(
-    fontFamily: _family,
-    fontSize: 42,
+  static final body = _kiwi(
+    size: 42,
     height: 1.45,
     color: SlideColors.text,
-    decoration: TextDecoration.none,
   );
 
   /// 補足
-  static final caption = TextStyle(
-    fontFamily: _family,
-    fontSize: 32,
+  static final caption = _kiwi(
+    size: 32,
     height: 1.6,
     color: SlideColors.subText,
-    decoration: TextDecoration.none,
+  );
+
+  /// アイコンに添える一語のラベル。図の中で使う。
+  static final label = _kiwi(
+    size: 36,
+    height: 1.2,
+    weight: _heading,
+    color: SlideColors.text,
   );
 
   /// 番号バッジなど、色付きの面の上に置く小さな文字。
+  static TextStyle badge(double size, Color color) =>
+      _kiwi(size: size, height: 1, weight: _heading, color: color);
+
+  /// flutter_deck 自身が描く部分（フッター・スライド番号）に渡す TextTheme。
   ///
-  /// バッジは `Material` の子孫でない `Stack` 上にも描かれるため、
-  /// 既定の下線が入らないよう [TextDecoration.none] を明示している。
-  static TextStyle badge(double size, Color color) => TextStyle(
-        fontFamily: _family,
-        fontSize: size,
-        fontWeight: FontWeight.bold,
-        color: color,
-        decoration: TextDecoration.none,
+  /// ここを省くと、スライド本体だけ Kiwi Maru でフッターは既定書体、
+  /// という食い違いが出る。
+  static TextTheme deckTextTheme() => ThemeData.light().textTheme.apply(
+        fontFamily: caption.fontFamily,
+        fontFamilyFallback: caption.fontFamilyFallback,
       );
 }

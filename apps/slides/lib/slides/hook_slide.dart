@@ -3,6 +3,7 @@ import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/app_screen.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
+import 'package:slides/widgets/visuals.dart';
 
 /// 1枚目 (0:00-0:30)
 ///
@@ -35,14 +36,38 @@ class HookLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('この画面、\n操作できますか？', style: SlideText.title),
-          const SizedBox(height: 56),
-          Text('水を2つ、カートへ。', style: SlideText.lead),
-          const SizedBox(height: 24),
+          const SizedBox(height: 48),
+          // お題は文章で言わず、図で出す。「水 ×2 をカートへ」を
+          // 3つの札と矢印で表せば、読まずに見ただけで伝わる。
+          const _Mission(),
+          const SizedBox(height: 40),
           // 問いかけは色と大きさだけで立たせる。ここは会場が画面を読む時間なので、
           // 動かすと視線が端末から逃げる。
           Text('どこを押す？', style: SlideText.punch),
         ],
       ),
+    );
+  }
+}
+
+/// お題「水を2つ、カートへ」を図で出す。
+///
+/// 文章で書くと読ませることになる。**品物・個数・行き先**の3つだけを
+/// 札にして矢印でつなげば、目で追うだけで伝わる。
+class _Mission extends StatelessWidget {
+  const _Mission();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const LabelChip(icon: Icons.water_drop, label: '水'),
+        const SizedBox(width: 16),
+        Text('×2', style: SlideText.lead),
+        const FlowArrow(),
+        const LabelChip(icon: Icons.shopping_cart, label: 'カート'),
+      ],
     );
   }
 }

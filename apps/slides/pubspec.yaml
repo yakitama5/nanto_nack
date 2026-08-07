@@ -12,6 +12,14 @@ dependencies:
     sdk: flutter
   flutter_deck: ^0.29.0
   flutter_riverpod: ^2.6.1
+  # 本文フォント Kiwi Maru を実行時に取得する。
+  #
+  # **フォントファイルは同梱していない。** そのため表示には
+  # fonts.gstatic.com への通信が要る。取得に失敗した場合は無言で
+  # quiz_core の NotoSansJP にフォールバックする（エラーは出ない）。
+  # オフライン投影で字形を確実に揃えたくなったら、TTF を assets に置いて
+  # `fonts:` 宣言に切り替えること。
+  google_fonts: ^6.2.1
   # QR は画像を持たずコードから描く。投影で拡大しても粗くならないため。
   qr_flutter: ^4.1.0
   quiz_core:
