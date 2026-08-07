@@ -152,7 +152,7 @@ class _Badge extends StatelessWidget {
         '$number',
         // 文字色は [color] から導く。バッジの面の色は呼び出し側から渡ってくるので、
         // ここで固定すると面の色を変えたときに読めなくなる。
-        style: SlideText.badge(14, SlideColors.onColorOf(color)),
+        style: SlideText.badge(14, color.onColor),
       ),
     );
   }

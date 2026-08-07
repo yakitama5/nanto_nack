@@ -30,7 +30,7 @@ class SlidesApp extends StatelessWidget {
       lightTheme: FlutterDeckThemeData.fromTheme(
         ThemeData(
           colorScheme: SlideColors.scheme,
-          fontFamily: 'packages/quiz_core/NotoSansJP',
+          textTheme: SlideText.deckTextTheme(),
         ),
       ),
       // **明示的に light に固定する。** 既定の `ThemeMode.system` だと

@@ -25,12 +25,26 @@ import 'package:slides/theme.dart';
 /// `apps/slides` はワークスペース外なので `melos run test:all` の対象外。
 /// このテストが CI を止めることはない。
 ///
-/// **既知の差異**: スライド5の解説パネルに出る絵文字（🛒🎨📱）は、この
-/// プレビューでは豆腐（□）になる。flutter_test の環境には絵文字フォントが
-/// 無いため。ブラウザでは CanvasKit が Noto のフォールバックを取りに行くので
-/// 表示される見込みだが、**本番の投影前に実ブラウザで必ず確認すること**。
+/// **既知の差異その1 — 書体**: 本文の書体 Kiwi Maru は
+/// `google_fonts` が実行時に取得するもので、flutter_test は通信を遮断する。
+/// そのためプレビューは**フォールバックの NotoSansJP で描かれる**。
+/// レイアウト（改行位置・図の収まり）は確認できるが、**丸みのある字形は
+/// 確認できない**。字形は `fvm flutter run -d chrome` で見ること。
+///
+/// **既知の差異その2 — 絵文字**: スライド5の解説パネルに出る絵文字
+/// （🛒🎨📱）は、このプレビューでは豆腐（□）になる。flutter_test の環境に
+/// 絵文字フォントが無いため。ブラウザでは CanvasKit が Noto のフォールバックを
+/// 取りに行くので表示される見込みだが、
+/// **本番の投影前に実ブラウザで必ず確認すること**。
 void main() {
   setUpAll(() async {
+    // Kiwi Maru の取得を止める。flutter_test は通信を遮断するので必ず
+    // 失敗し、google_fonts はその失敗を rethrow してテストごと落とす。
+    //
+    // `GoogleFonts.config.allowRuntimeFetching = false` でも同じく例外に
+    // なる（同梱フォントが無いため）ので、そちらは使えない。
+    SlideText.useWebFont = false;
+
     // flutter_test は既定でグリフを持たないフォントを使う。明示的に
     // 読み込まないと日本語もアイコンも豆腐（□）になり、
     // 「アイコンで意味が分かる」というスライドの主題が確認できない。
@@ -88,8 +102,15 @@ void main() {
 
     await shoot(tester, '1_hook', const HookLayout());
     // ステップ提示は最初と最後だけ確認できれば足りる
+    // 遷移直後（手がかり0個）・1つ目が出た直後・種明かしの3コマ。
+    // 「最初は何も出ていない」ことがプレビューで確認できるようにしておく。
     await shoot(tester, '2_why_step1', const WhyLayout(step: 1));
-    await shoot(tester, '2_why_step5', const WhyLayout(step: 5));
+    await shoot(tester, '2_why_step2', const WhyLayout(step: 2));
+    await shoot(
+      tester,
+      '2_why_step6',
+      const WhyLayout(step: WhyLayout.totalSteps),
+    );
     await shoot(tester, '3_background', const BackgroundLayout());
     await shoot(tester, '4_wonder', const WonderLayout());
     await shoot(tester, '5_insight', const InsightLayout());

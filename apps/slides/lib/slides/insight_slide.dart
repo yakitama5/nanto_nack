@@ -38,13 +38,96 @@ class InsightLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('わかった、で\n終わらせない', style: SlideText.title),
-          const SizedBox(height: 44),
-          Text('クリア直後、その場で言語化。', style: SlideText.body),
-          const SizedBox(height: 40),
-          Text('感覚 → 言語化。', style: SlideText.punch),
-          const SizedBox(height: 24),
-          Text('だから、残る。', style: SlideText.lead),
+          const SizedBox(height: 48),
+          // 「感覚が先、言葉が後、だから残る」という順番そのものが伝えたい
+          // ことなので、文章ではなく**工程図**にする。
+          const _Flow(),
+          const SizedBox(height: 48),
+          Text('だから、残る。', style: SlideText.punch),
         ],
+      ),
+    );
+  }
+}
+
+/// 「触ってわかる → その場で言語化 → 残る」の工程図。
+///
+/// 3段の縦並びにしているのは、右に実機の解説パネルが縦長で入るため。
+/// 横に流すと札が小さくなって、投影で読めなくなる。
+class _Flow extends StatelessWidget {
+  const _Flow();
+
+  static const _steps = <({IconData icon, String label, bool emphasized})>[
+    (icon: Icons.touch_app, label: '触って、わかる', emphasized: false),
+    (icon: Icons.menu_book, label: 'その場で言語化', emphasized: true),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < _steps.length; i++) ...[
+          if (i > 0) const _DownArrow(),
+          _Step(
+            icon: _steps[i].icon,
+            label: _steps[i].label,
+            emphasized: _steps[i].emphasized,
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _Step extends StatelessWidget {
+  const _Step({
+    required this.icon,
+    required this.label,
+    required this.emphasized,
+  });
+
+  final IconData icon;
+  final String label;
+
+  /// 強調する側（言語化）だけ色を変える。ここがこのアプリの主張なので、
+  /// 2つを同じ重みで並べると何を言いたいか分からなくなる。
+  final bool emphasized;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = emphasized ? SlideColors.accent : SlideColors.primary;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+      decoration: BoxDecoration(
+        color: c.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 60, color: c),
+          const SizedBox(width: 24),
+          Text(label, style: SlideText.body.copyWith(color: c)),
+        ],
+      ),
+    );
+  }
+}
+
+/// 工程をつなぐ下向きの矢印。
+class _DownArrow extends StatelessWidget {
+  const _DownArrow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 52, top: 12, bottom: 12),
+      child: Icon(
+        Icons.arrow_downward_rounded,
+        size: 48,
+        color: SlideColors.subText,
       ),
     );
   }

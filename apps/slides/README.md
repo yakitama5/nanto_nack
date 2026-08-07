@@ -51,10 +51,33 @@ fvm flutter run -d chrome
 
 | 成果物 | 用途 | base-href |
 | --- | --- | --- |
-| Artifact `nanto-nack-slides` | **発表本番用**。ネットワーク非依存 | `/` |
+| Artifact `nanto-nack-slides` | **発表本番用**。書体を除きネットワーク非依存 | `/` |
 | [GitHub Pages](https://yakitama5.github.io/nanto_nack/) | 共有・見返し用 | `/nanto_nack/` |
 
 **投影は Artifact を使う。** バンドルが約90MBあり、会場の回線に依存させたくないため。
+
+### ⚠️ 書体だけはネットワークに依存する
+
+本文の書体 **Kiwi Maru は `google_fonts` が実行時に fonts.gstatic.com から取得する**。
+フォントファイルはバンドルに含めていない。
+
+- 通信できれば Kiwi Maru（丸みのある字形）で表示される
+- **通信できないと無言で NotoSansJP に戻る。** エラーは出ないので気づけない
+
+投影本番で字形を確実に揃えたい場合は、TTF を `assets/fonts/` に置いて
+`pubspec.yaml` の `fonts:` 宣言に切り替えること。Kiwi Maru は OFL 1.1 なので、
+同梱する場合は `OFL.txt` も一緒に置く。
+
+```bash
+# 同梱に切り替える場合の取得元（google/fonts の ofl/kiwimaru/）
+# KiwiMaru-Regular.ttf / KiwiMaru-Medium.ttf / OFL.txt
+```
+
+### ⚠️ Kiwi Maru に太字は無い
+
+ウェイトは Light(300) / Regular(400) / **Medium(500)** の3つだけで、Bold(700) が無い。
+`FontWeight.bold` を指定しても太くならないので、
+**見出しと本文の差は文字サイズと色で付ける**こと（`SlideText` がそうしてある）。
 
 `base-href` は配信場所ごとに変わり **1つの成果物を使い回せない**（値が合わないとアセットが全て404になる）。
 そのためワークフローでは 2 回ビルドしている。
