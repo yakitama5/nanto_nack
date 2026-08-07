@@ -31,19 +31,19 @@ class InsightLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SplitSlide(
+    return SplitSlide(
       textWidth: 780,
-      device: _InsightCard(),
+      device: const _InsightCard(),
       text: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('わかった、で\n終わらせない', style: SlideText.title),
-          SizedBox(height: 44),
+          const SizedBox(height: 44),
           Text('クリア直後、その場で言語化。', style: SlideText.body),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           PulseLoop(child: Text('感覚 → 言語化。', style: SlideText.punch)),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Text('だから、残る。', style: SlideText.lead),
         ],
       ),

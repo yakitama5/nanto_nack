@@ -78,7 +78,7 @@ class _Explanation extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('読めないのに、\nなぜ分かった？', style: SlideText.title),
+        Text('読めないのに、\nなぜ分かった？', style: SlideText.title),
         const SizedBox(height: 44),
         for (var i = 0; i < WhyLayout.cues.length; i++)
           _Cue(
@@ -119,19 +119,13 @@ class _Cue extends StatelessWidget {
               width: 52,
               height: 52,
               alignment: Alignment.center,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: SlideColors.accent,
                 shape: BoxShape.circle,
               ),
               child: Text(
                 '$index',
-                style: const TextStyle(
-                  fontFamily: 'packages/quiz_core/NotoSansJP',
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.none,
-                ),
+                style: SlideText.badge(28, SlideColors.scheme.onSecondary),
               ),
             ),
             const SizedBox(width: 24),
@@ -148,11 +142,11 @@ class _Punchline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PulseLoop(child: Text('どれも、文字じゃない。', style: SlideText.punch)),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Text('形・色・位置＝アフォーダンス', style: SlideText.caption),
       ],
     );

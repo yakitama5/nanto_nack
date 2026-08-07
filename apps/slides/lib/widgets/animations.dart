@@ -10,72 +10,13 @@ import 'package:flutter/material.dart';
 /// いずれも `repeat()` で回り続ける。プレビューテストで
 /// `pumpAndSettle()` を使うと**永久に落ち着かず失敗する**ため、
 /// テスト側は `pump(duration)` で任意のコマを切り出すこと。
+///
+/// **上下に漂う「ふわふわ」は置かない。** マスコットやQRが常に動いていると
+/// 視線が本文から逃げるため、動かすのは*強調したいもの*だけに絞っている。
 abstract final class _Loop {
   /// 息づかいのような往復。0→1→0 を繰り返す。
   static Animation<double> breathe(AnimationController c) =>
       CurvedAnimation(parent: c, curve: Curves.easeInOut);
-}
-
-/// ゆっくり上下に漂う。マスコットなど「浮いているもの」に使う。
-class FloatLoop extends StatefulWidget {
-  const FloatLoop({
-    super.key,
-    required this.child,
-    this.distance = 14,
-    this.duration = const Duration(seconds: 3),
-    this.delay = Duration.zero,
-  });
-
-  final Widget child;
-
-  /// 上下の振れ幅（px）
-  final double distance;
-  final Duration duration;
-
-  /// 複数並べたときに動きをずらすための位相差
-  final Duration delay;
-
-  @override
-  State<FloatLoop> createState() => _FloatLoopState();
-}
-
-class _FloatLoopState extends State<FloatLoop>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: widget.duration,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    // 位相をずらすため、開始位置を delay の分だけ進めておく。
-    // Future.delayed だとテストで待ち時間が読めなくなるので使わない。
-    final phase = widget.duration.inMilliseconds == 0
-        ? 0.0
-        : (widget.delay.inMilliseconds / widget.duration.inMilliseconds) % 1.0;
-    _c.value = phase;
-    _c.repeat(reverse: true);
-  }
-
-  @override
-  void dispose() {
-    _c.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final t = _Loop.breathe(_c);
-    return AnimatedBuilder(
-      animation: t,
-      builder: (context, child) => Transform.translate(
-        offset: Offset(0, -widget.distance * t.value),
-        child: child,
-      ),
-      child: widget.child,
-    );
-  }
 }
 
 /// ゆっくり拡大縮小する。強調したい一語や、注目させたい印に使う。

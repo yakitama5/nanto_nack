@@ -32,7 +32,7 @@ class WonderLayout extends StatelessWidget {
     // SizedBox.expand で明示的に広げる。
     return SizedBox.expand(
       child: ColoredBox(
-        color: SlideColors.primary,
+        color: SlidePanelColors.background,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 96, vertical: 56),
           child: Row(
@@ -40,14 +40,10 @@ class WonderLayout extends StatelessWidget {
             children: [
               const Expanded(child: _Message()),
               const SizedBox(width: 64),
-              FloatLoop(
-                distance: 20,
-                duration: const Duration(milliseconds: 3400),
-                child: Image.asset(
-                  'assets/images/surprised.png',
-                  width: 460,
-                  filterQuality: FilterQuality.medium,
-                ),
+              Image.asset(
+                'assets/images/surprised.png',
+                width: 460,
+                filterQuality: FilterQuality.medium,
               ),
             ],
           ),
@@ -60,9 +56,6 @@ class WonderLayout extends StatelessWidget {
 class _Message extends StatelessWidget {
   const _Message();
 
-  static const _onDark = Colors.white;
-  static const _onDarkSub = Color(0xFFD8CEFF);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -71,32 +64,39 @@ class _Message extends StatelessWidget {
       children: [
         Text(
           '読めないのに、当てられた。',
-          style: SlideText.body.copyWith(color: _onDarkSub),
+          style: SlideText.body.copyWith(
+            color: SlidePanelColors.onBackgroundMuted,
+          ),
         ),
         const SizedBox(height: 24),
         // 山場の一語。後ろで光がゆっくり広がる
         GlowLoop(
-          color: Colors.amberAccent,
+          color: SlidePanelColors.highlight,
           child: PulseLoop(
             maxScale: 1.08,
             duration: const Duration(milliseconds: 2400),
             child: Text(
               'あ、わかった！',
-              style: SlideText.title.copyWith(color: _onDark, fontSize: 120),
+              style: SlideText.title.copyWith(
+                color: SlidePanelColors.onBackground,
+                fontSize: 120,
+              ),
             ),
           ),
         ),
         const SizedBox(height: 32),
-        _Divider(),
+        const _Divider(),
         const SizedBox(height: 36),
         Text(
           '形と色と位置だけで。',
-          style: SlideText.body.copyWith(color: _onDarkSub),
+          style: SlideText.body.copyWith(
+            color: SlidePanelColors.onBackgroundMuted,
+          ),
         ),
         const SizedBox(height: 24),
         Text(
           '届けたいのは、感覚の再発見。',
-          style: SlideText.punch.copyWith(color: Colors.amberAccent),
+          style: SlideText.punch.copyWith(color: SlidePanelColors.highlight),
         ),
       ],
     );
@@ -104,13 +104,15 @@ class _Message extends StatelessWidget {
 }
 
 class _Divider extends StatelessWidget {
+  const _Divider();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 120,
       height: 4,
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.35),
+        color: SlidePanelColors.onBackground.withValues(alpha: 0.35),
         borderRadius: BorderRadius.circular(2),
       ),
     );

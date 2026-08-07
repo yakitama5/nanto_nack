@@ -29,16 +29,16 @@ class HookLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     // 端末は動かさない。ここは会場に画面を読ませる時間なので、
     // 動くものがあると視線がそちらへ逃げる。
-    return const SplitSlide(
-      device: DeviceFrame(child: AppScreen()),
+    return SplitSlide(
+      device: const DeviceFrame(child: AppScreen()),
       text: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('この画面、\n操作できますか？', style: SlideText.title),
-          SizedBox(height: 56),
+          const SizedBox(height: 56),
           Text('水を2つ、カートへ。', style: SlideText.lead),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           // 問いかけだけを脈打たせて、会場の視線をここに置く
           PulseLoop(
             child: Text('どこを押す？', style: SlideText.punch),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz_core/quiz_core.dart';
-import 'package:slides/slides/app_slide.dart';
+import 'package:slides/slides/background_slide.dart';
 import 'package:slides/slides/closing_slide.dart';
 import 'package:slides/slides/hook_slide.dart';
 import 'package:slides/slides/insight_slide.dart';
@@ -56,6 +56,7 @@ void main() {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            colorScheme: SlideColors.scheme,
             scaffoldBackgroundColor: SlideColors.background,
             fontFamily: 'packages/quiz_core/NotoSansJP',
           ),
@@ -90,7 +91,7 @@ void main() {
     // ステップ提示は最初と最後だけ確認できれば足りる
     await shoot(tester, '2_why_step1', const WhyLayout(step: 1));
     await shoot(tester, '2_why_step5', const WhyLayout(step: 5));
-    await shoot(tester, '3_app', const AppLayout());
+    await shoot(tester, '3_background', const BackgroundLayout());
     await shoot(tester, '4_wonder', const WonderLayout());
     await shoot(tester, '5_insight', const InsightLayout());
     await shoot(tester, '6_closing', const ClosingLayout());

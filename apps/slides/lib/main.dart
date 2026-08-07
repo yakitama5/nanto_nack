@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
-import 'package:slides/slides/app_slide.dart';
+import 'package:slides/slides/background_slide.dart';
 import 'package:slides/slides/closing_slide.dart';
 import 'package:slides/slides/hook_slide.dart';
 import 'package:slides/slides/insight_slide.dart';
@@ -24,6 +24,19 @@ class SlidesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterDeckApp(
+      // フッターやスライド番号など、flutter_deck が自前で描く部分にも
+      // 同じ ColorScheme を渡す。ここを省くと flutter_deck の既定色が
+      // 混ざって、スライド本体との色がずれる。
+      lightTheme: FlutterDeckThemeData.fromTheme(
+        ThemeData(
+          colorScheme: SlideColors.scheme,
+          fontFamily: 'packages/quiz_core/NotoSansJP',
+        ),
+      ),
+      // **明示的に light に固定する。** 既定の `ThemeMode.system` だと
+      // 発表するPCがダークモードのときに flutter_deck 側だけ暗い配色になり、
+      // スライド本体（常に明るい配色）と食い違う。
+      themeMode: ThemeMode.light,
       configuration: FlutterDeckConfiguration(
         // スライドを 1920x1080 の固定キャンバスとして描き、
         // 実際のウィンドウサイズには FittedBox で拡大縮小して合わせる。
@@ -35,11 +48,12 @@ class SlidesApp extends StatelessWidget {
         slideSize: FlutterDeckSlideSize.fromAspectRatio(
           aspectRatio: const FlutterDeckAspectRatio.ratio16x9(),
         ),
-        background: const FlutterDeckBackgroundConfiguration(
+        background: FlutterDeckBackgroundConfiguration(
           light: FlutterDeckBackground.solid(SlideColors.background),
         ),
         footer: const FlutterDeckFooterConfiguration(showSlideNumbers: true),
-        progressIndicator: const FlutterDeckProgressIndicator.gradient(
+        // 進捗バーは Primary（紫）→ Secondary（赤）。配色の2色をそのまま使う。
+        progressIndicator: FlutterDeckProgressIndicator.gradient(
           gradient: LinearGradient(
             colors: [SlideColors.primary, SlideColors.accent],
           ),
@@ -48,7 +62,7 @@ class SlidesApp extends StatelessWidget {
       slides: const [
         HookSlide(),
         WhySlide(),
-        AppSlide(),
+        BackgroundSlide(),
         WonderSlide(),
         InsightSlide(),
         ClosingSlide(),
