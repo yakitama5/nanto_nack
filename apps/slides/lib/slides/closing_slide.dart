@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:slides/theme.dart';
-import 'package:slides/widgets/animations.dart';
 
 /// ストアのURL。QRはここから描く。
 ///
@@ -45,18 +44,18 @@ class ClosingLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 96, vertical: 48),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 96, vertical: 48),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _Statement(),
-            SizedBox(height: 28),
+            const _Statement(),
+            const SizedBox(height: 28),
             // QRだけだと名前が記憶に残らないので、アプリ名は残す
             Text('NantoNack', style: SlideText.lead),
-            SizedBox(height: 44),
-            _Stores(),
+            const SizedBox(height: 44),
+            const _Stores(),
           ],
         ),
       ),
@@ -74,7 +73,10 @@ class _Statement extends StatelessWidget {
       TextSpan(
         children: [
           const TextSpan(text: '読めなくても伝わるUIが、\n'),
-          TextSpan(text: 'いいUI。', style: TextStyle(color: SlideColors.primary)),
+          TextSpan(
+            text: 'いいUI。',
+            style: TextStyle(color: SlideColors.primary),
+          ),
         ],
       ),
       textAlign: TextAlign.center,
@@ -93,12 +95,10 @@ class _Stores extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        FloatLoop(
-          child: Image.asset(
-            'assets/images/smile.png',
-            width: 200,
-            filterQuality: FilterQuality.medium,
-          ),
+        Image.asset(
+          'assets/images/smile.png',
+          width: 200,
+          filterQuality: FilterQuality.medium,
         ),
         const SizedBox(width: 56),
         const _StoreQr(
@@ -111,7 +111,6 @@ class _Stores extends StatelessWidget {
           label: 'Google Play',
           icon: Icons.shop,
           url: StoreLinks.googlePlay,
-          delay: Duration(milliseconds: 900),
         ),
       ],
     );
@@ -126,67 +125,65 @@ class _StoreQr extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.url,
-    this.delay = Duration.zero,
   });
 
   final String label;
   final IconData icon;
   final String url;
-  final Duration delay;
 
   /// 読み取れる大きさを確保する。投影では小さいと読めない。
   static const _size = 210.0;
 
   @override
   Widget build(BuildContext context) {
-    return FloatLoop(
-      distance: 10,
-      delay: delay,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x22000000),
-                  blurRadius: 20,
-                  offset: Offset(0, 8),
-                ),
-              ],
-            ),
-            child: url.isEmpty
-                ? const _QrPlaceholder(size: _size)
-                : QrImageView(
-                    data: url,
-                    size: _size,
-                    // 投影では余白が足りないと読み取りに失敗しやすい
-                    padding: EdgeInsets.zero,
-                    backgroundColor: Colors.white,
-                    eyeStyle: const QrEyeStyle(
-                      eyeShape: QrEyeShape.square,
-                      color: SlideColors.text,
-                    ),
-                    dataModuleStyle: const QrDataModuleStyle(
-                      dataModuleShape: QrDataModuleShape.square,
-                      color: SlideColors.text,
-                    ),
-                  ),
-          ),
-          const SizedBox(height: 18),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, size: 30, color: SlideColors.subText),
-              const SizedBox(width: 10),
-              Text(label, style: SlideText.caption),
+    // QR の下地は白のまま。読み取り精度が落ちるので、
+    // ここだけは配色より**カメラが認識できること**を優先する。
+    const qrBackground = Colors.white;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: qrBackground,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x22000000),
+                blurRadius: 20,
+                offset: Offset(0, 8),
+              ),
             ],
           ),
-        ],
-      ),
+          child: url.isEmpty
+              ? const _QrPlaceholder(size: _size)
+              : QrImageView(
+                  data: url,
+                  size: _size,
+                  // 投影では余白が足りないと読み取りに失敗しやすい
+                  padding: EdgeInsets.zero,
+                  backgroundColor: qrBackground,
+                  eyeStyle: QrEyeStyle(
+                    eyeShape: QrEyeShape.square,
+                    color: SlideColors.text,
+                  ),
+                  dataModuleStyle: QrDataModuleStyle(
+                    dataModuleShape: QrDataModuleShape.square,
+                    color: SlideColors.text,
+                  ),
+                ),
+        ),
+        const SizedBox(height: 18),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 30, color: SlideColors.subText),
+            const SizedBox(width: 10),
+            Text(label, style: SlideText.caption),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -208,7 +205,7 @@ class _QrPlaceholder extends StatelessWidget {
           border: Border.all(color: SlideColors.subText, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
             'URL 未設定',
             textAlign: TextAlign.center,
