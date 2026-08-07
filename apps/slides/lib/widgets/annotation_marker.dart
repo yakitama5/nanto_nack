@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:slides/widgets/animations.dart';
+import 'package:slides/theme.dart';
 import 'package:slides/widgets/app_screen.dart';
 
 /// 画面上の「手がかり」を囲む注釈の対象。
@@ -106,17 +106,6 @@ class AnnotationMarker extends StatelessWidget {
         curve: Curves.easeOut,
         child: Stack(
           children: [
-            // 輪の外側へ波紋を広げる。楕円自体は動かさないので、
-            // 何を指しているかが分からなくなることはない。
-            Positioned.fromRect(
-              rect: r,
-              child: RippleLoop(
-                color: color,
-                borderRadius: BorderRadius.all(
-                  Radius.elliptical(r.width / 2, r.height / 2),
-                ),
-              ),
-            ),
             Positioned.fromRect(
               rect: r,
               child: DecoratedBox(
@@ -155,19 +144,13 @@ class _Badge extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
+        // 白い縁は配色ではなく**分離のため**。端末のスクリーンショットの
+        // 上に直接置くので、縁が無いと下地の色に溶ける。
         border: Border.all(color: Colors.white, width: 2),
       ),
       child: Text(
         '$number',
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          // Material 祖先が無い Stack 上に描くため、
-          // 既定の下線が入らないよう明示的に打ち消す。
-          decoration: TextDecoration.none,
-          fontFamily: 'packages/quiz_core/NotoSansJP',
-        ),
+        style: SlideText.badge(14, SlideColors.scheme.onSecondary),
       ),
     );
   }

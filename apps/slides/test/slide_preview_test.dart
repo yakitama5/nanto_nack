@@ -70,10 +70,9 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 300));
     });
 
-    // **pumpAndSettle は使えない。** スライドには repeat() で回り続ける
-    // ループアニメーションがあり、永久に落ち着かないため失敗する。
-    // 代わりに一定時間進めて、任意のコマを切り出す。
-    // AnimatedOpacity などの一度きりのアニメーションが終わる長さにしてある。
+    // AnimatedOpacity（スライド2の手がかりの出現）が終わるまで進める。
+    // 残っているのはこの一度きりのアニメーションだけなので、
+    // 600ms 進めれば必ず最終状態になる。
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
 

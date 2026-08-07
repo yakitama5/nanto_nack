@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
-import 'package:slides/widgets/animations.dart';
 import 'package:slides/widgets/annotation_marker.dart';
 import 'package:slides/widgets/app_screen.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
@@ -145,7 +144,7 @@ class _Punchline extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PulseLoop(child: Text('どれも、文字じゃない。', style: SlideText.punch)),
+        Text('どれも、文字じゃない。', style: SlideText.punch),
         const SizedBox(height: 20),
         Text('形・色・位置＝アフォーダンス', style: SlideText.caption),
       ],

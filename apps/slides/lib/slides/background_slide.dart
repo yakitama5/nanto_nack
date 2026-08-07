@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
-import 'package:slides/widgets/animations.dart';
 
 /// 3枚目 (1:05-1:35)
 ///
@@ -85,9 +84,7 @@ class _Reasons extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 40),
-        PulseLoop(
-          child: Text('「うまい」より、「わかる」。', style: SlideText.punch),
-        ),
+        Text('「うまい」より、「わかる」。', style: SlideText.punch),
       ],
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
-import 'package:slides/widgets/animations.dart';
 
 /// 4枚目 (1:35-2:10)
 ///
@@ -69,19 +68,13 @@ class _Message extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 24),
-        // 山場の一語。後ろで光がゆっくり広がる
-        GlowLoop(
-          color: SlidePanelColors.highlight,
-          child: PulseLoop(
-            maxScale: 1.08,
-            duration: const Duration(milliseconds: 2400),
-            child: Text(
-              'あ、わかった！',
-              style: SlideText.title.copyWith(
-                color: SlidePanelColors.onBackground,
-                fontSize: 120,
-              ),
-            ),
+        // 山場の一語。動きは付けず、**大きさと白さだけ**で立たせる。
+        // ここは話し手が一拍おく場面なので、画面が動いていると間が持たない。
+        Text(
+          'あ、わかった！',
+          style: SlideText.title.copyWith(
+            color: SlidePanelColors.onBackground,
+            fontSize: 120,
           ),
         ),
         const SizedBox(height: 32),

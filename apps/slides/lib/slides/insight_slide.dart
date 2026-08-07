@@ -3,7 +3,6 @@ import 'package:flutter_deck/flutter_deck.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/i18n/strings.g.dart' as shopping_i18n;
 import 'package:slides/theme.dart';
-import 'package:slides/widgets/animations.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
 
 /// 5枚目 (2:10-2:45)
@@ -42,7 +41,7 @@ class InsightLayout extends StatelessWidget {
           const SizedBox(height: 44),
           Text('クリア直後、その場で言語化。', style: SlideText.body),
           const SizedBox(height: 40),
-          PulseLoop(child: Text('感覚 → 言語化。', style: SlideText.punch)),
+          Text('感覚 → 言語化。', style: SlideText.punch),
           const SizedBox(height: 24),
           Text('だから、残る。', style: SlideText.lead),
         ],

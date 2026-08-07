@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:slides/theme.dart';
-import 'package:slides/widgets/animations.dart';
 import 'package:slides/widgets/app_screen.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
 
@@ -39,10 +38,9 @@ class HookLayout extends StatelessWidget {
           const SizedBox(height: 56),
           Text('水を2つ、カートへ。', style: SlideText.lead),
           const SizedBox(height: 24),
-          // 問いかけだけを脈打たせて、会場の視線をここに置く
-          PulseLoop(
-            child: Text('どこを押す？', style: SlideText.punch),
-          ),
+          // 問いかけは色と大きさだけで立たせる。ここは会場が画面を読む時間なので、
+          // 動かすと視線が端末から逃げる。
+          Text('どこを押す？', style: SlideText.punch),
         ],
       ),
     );
