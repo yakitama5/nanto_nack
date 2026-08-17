@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:flutter_deck_web_client/flutter_deck_web_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:slides/slides/background_slide.dart';
@@ -24,6 +25,15 @@ class SlidesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterDeckApp(
+      // プレゼンター表示（発表者用の別タブ）を有効にする。
+      //
+      // ここを渡さないと `presenterController.available` が false になり、
+      // ツールバーの「Open presenter view」ボタンが**そもそも描かれない**。
+      //
+      // `isPresenterView` は渡さない。Web では flutter_deck が
+      // `#/presenter-view` というルートかどうかで自動判定するため、
+      // 明示すると本体側までプレゼンター表示になる。
+      client: FlutterDeckWebClient(),
       // フッターやスライド番号など、flutter_deck が自前で描く部分にも
       // 同じ ColorScheme を渡す。ここを省くと flutter_deck の既定色が
       // 混ざって、スライド本体との色がずれる。

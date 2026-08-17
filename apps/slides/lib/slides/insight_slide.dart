@@ -15,7 +15,21 @@ import 'package:slides/widgets/slide_scaffold.dart';
 class InsightSlide extends FlutterDeckSlideWidget {
   const InsightSlide()
       : super(
-          configuration: const FlutterDeckSlideConfiguration(route: '/insight'),
+          configuration: const FlutterDeckSlideConfiguration(
+            route: '/insight',
+            title: '言語化',
+            speakerNotes: '''
+［2:10-2:45］
+
+ただ、「わかった」で終わると、たいてい忘れます。
+
+クリアすると、いま使った手がかりの解説が出ます。
+右にあるのは実際のアプリの画面そのものです。
+
+アイコン、色、パターン。さっきの答え合わせが、そのまま出る。
+
+触ってわかる。その場で言語化する。だから、残る。''',
+          ),
         );
 
   @override

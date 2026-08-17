@@ -18,6 +18,20 @@ class BackgroundSlide extends FlutterDeckSlideWidget {
       : super(
           configuration: const FlutterDeckSlideConfiguration(
             route: '/background',
+            title: 'なぜ作ったか',
+            speakerNotes: '''
+［1:05-1:35］
+
+なぜこれを作ったのか、理由は2つです。
+
+ひとつ。パズルでもクイズでもない、新しいジャンルを作りたかった。
+
+ふたつ。ゲーム性は捨てました。代わりに取ったのが
+「あるある」と「アハ体験」です。
+
+うまくなるアプリではなく、わかるアプリにしたかった。
+
+［機能や画面数の話はしない。次の山場が機能紹介の続きに見えてしまう］''',
           ),
         );
 

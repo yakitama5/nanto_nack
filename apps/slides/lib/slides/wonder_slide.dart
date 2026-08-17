@@ -13,7 +13,22 @@ import 'package:slides/widgets/visuals.dart';
 class WonderSlide extends FlutterDeckSlideWidget {
   const WonderSlide()
       : super(
-          configuration: const FlutterDeckSlideConfiguration(route: '/wonder'),
+          configuration: const FlutterDeckSlideConfiguration(
+            route: '/wonder',
+            title: 'コンセプト',
+            speakerNotes: '''
+［1:35-2:10／本編の山場。ここだけゆっくり話す］
+
+形・色・位置。いま皆さんが使った手がかりは、
+普段はまったく意識していないものです。
+
+読めない画面に放り込まれて、はじめて気づく。
+
+［間を置いて］あ、わかった！
+
+この瞬間そのものが、このアプリが届けたいものです。
+機能ではなく、感覚の再発見。''',
+          ),
         );
 
   @override

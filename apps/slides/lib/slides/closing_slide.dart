@@ -29,7 +29,19 @@ abstract final class StoreLinks {
 class ClosingSlide extends FlutterDeckSlideWidget {
   const ClosingSlide()
       : super(
-          configuration: const FlutterDeckSlideConfiguration(route: '/closing'),
+          configuration: const FlutterDeckSlideConfiguration(
+            route: '/closing',
+            title: 'クロージング',
+            speakerNotes: '''
+［2:45-3:00／言い切って終わる］
+
+読めなくても伝わるUIが、いいUI。
+
+NantoNack、App Store と Google Play で公開中です。
+QRからどうぞ。
+
+ありがとうございました。''',
+          ),
         );
 
   @override
