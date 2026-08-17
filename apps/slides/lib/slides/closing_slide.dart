@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 
 /// ストアのURL。QRはここから描く。
@@ -32,15 +33,7 @@ class ClosingSlide extends FlutterDeckSlideWidget {
           configuration: const FlutterDeckSlideConfiguration(
             route: '/closing',
             title: 'クロージング',
-            speakerNotes: '''
-［2:45-3:00／言い切って終わる］
-
-読めなくても伝わるUIが、いいUI。
-
-NantoNack、App Store と Google Play で公開中です。
-QRからどうぞ。
-
-ありがとうございました。''',
+            speakerNotes: SpeakerNotes.closingSlide,
           ),
         );
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/annotation_marker.dart';
 import 'package:slides/widgets/app_screen.dart';
@@ -22,22 +23,7 @@ class WhySlide extends FlutterDeckSlideWidget {
             route: '/why',
             steps: WhyLayout.totalSteps,
             title: '手がかり',
-            // speakerNotes はスライド単位でしか持てず、ステップごとには
-            // 切り替わらない。このスライドだけ6ステップあるので、
-            // 原稿の側にステップ番号を書いて対応を取っている。
-            speakerNotes: '''
-［0:30-1:05／6ステップ。矢印キーで1つずつ送る］
-
-読めないのに、たぶん分かりましたよね。何を見たんでしょうか。
-
-［ステップ1：まだ何も出さない。5秒待って会場に考えさせる］
-
-［ステップ2 ①形］カートの形。買い物かごの形だと、形だけで分かる。
-［ステップ3 ②記号］円マーク。数字が読めなくても値段だと分かる。
-［ステップ4 ③色］黄色い丸ボタン。押せそうな色をしている。
-［ステップ5 ④位置］画面下の帯。下にあれば切り替えだと分かる。
-
-［ステップ6 種明かし］どれも、文字じゃないんです。''',
+            speakerNotes: SpeakerNotes.whySlide,
           ),
         );
 

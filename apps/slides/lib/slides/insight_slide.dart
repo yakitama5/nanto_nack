@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/i18n/strings.g.dart' as shopping_i18n;
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
 
@@ -18,17 +19,7 @@ class InsightSlide extends FlutterDeckSlideWidget {
           configuration: const FlutterDeckSlideConfiguration(
             route: '/insight',
             title: '言語化',
-            speakerNotes: '''
-［2:10-2:45］
-
-ただ、「わかった」で終わると、たいてい忘れます。
-
-クリアすると、いま使った手がかりの解説が出ます。
-右にあるのは実際のアプリの画面そのものです。
-
-アイコン、色、パターン。さっきの答え合わせが、そのまま出る。
-
-触ってわかる。その場で言語化する。だから、残る。''',
+            speakerNotes: SpeakerNotes.insightSlide,
           ),
         );
 

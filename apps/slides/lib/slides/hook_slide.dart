@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/app_screen.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
@@ -15,19 +16,7 @@ class HookSlide extends FlutterDeckSlideWidget {
           configuration: const FlutterDeckSlideConfiguration(
             route: '/hook',
             title: 'つかみ',
-            speakerNotes: '''
-［0:00-0:30］
-
-［まず何も言わずに5秒待つ。会場に画面を読ませる時間］
-
-この画面、操作できますか？
-
-お題はひとつだけです。水を2つ、カートに入れる。
-ただし、文字はひとつも読めません。全部、架空の言語です。
-
-……どこを押しますか？
-
-［ここでもう3秒待ってから次のスライドへ］''',
+            speakerNotes: SpeakerNotes.hookSlide,
           ),
         );
 
