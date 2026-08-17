@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:flutter_deck_web_client/flutter_deck_web_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:slides/slides/background_slide.dart';
@@ -21,9 +22,25 @@ void main() {
 class SlidesApp extends StatelessWidget {
   const SlidesApp({super.key});
 
+  /// プレゼンター表示との通信に使うクライアント。
+  ///
+  /// **build の中で作ってはいけない。** StreamController と
+  /// `storage` イベントの購読を抱えるので、再ビルドのたびに増えて
+  /// 同期が二重に走る。デッキ全体で1つあれば足りる。
+  static final _client = FlutterDeckWebClient();
+
   @override
   Widget build(BuildContext context) {
     return FlutterDeckApp(
+      // プレゼンター表示（発表者用の別タブ）を有効にする。
+      //
+      // ここを渡さないと `presenterController.available` が false になり、
+      // ツールバーの「Open presenter view」ボタンが**そもそも描かれない**。
+      //
+      // `isPresenterView` は渡さない。Web では flutter_deck が
+      // `#/presenter-view` というルートかどうかで自動判定するため、
+      // 明示すると本体側までプレゼンター表示になる。
+      client: _client,
       // フッターやスライド番号など、flutter_deck が自前で描く部分にも
       // 同じ ColorScheme を渡す。ここを省くと flutter_deck の既定色が
       // 混ざって、スライド本体との色がずれる。

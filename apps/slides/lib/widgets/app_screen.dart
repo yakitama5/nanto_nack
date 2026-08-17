@@ -23,22 +23,37 @@ class AppScreen extends StatelessWidget {
     // ShoppingApp は ShoppingAppTheme などの ThemeExtension を
     // Theme.of(context) から読むため、アプリ本体と同じ AppTheme が必須。
     // NotoSansJP もここから供給される。
-    return Theme(
-      data: AppTheme.light(),
-      child: MediaQuery(
-        data: MediaQueryData(size: kDeviceSize),
-        child: ShoppingApp(
-          cart: const ShoppingCart(),
-          onAddToCart: (_) {},
-          onUpdateQuantity: (_, __) {},
-          onRemoveFromCart: (_) {},
-          onPurchase: () {},
-          quizStatus: QuizStatus.playing,
-          remainingSeconds: 56,
-          missionText: missionText,
-          hintUsed: false,
-          timeLimitSeconds: 60,
-          cartBottomSheetBuilder: (context) => const SizedBox.shrink(),
+    //
+    // 訳語を [InheritedLocaleData] で直に流し込んでいるのは、
+    // プレゼンター表示のスライド縮小画像のため。flutter_deck は縮小画像を
+    // **独立したウィジェットツリー**（RenderObjectToWidgetAdapter）で描くので、
+    // main.dart のツリーにある `TranslationProvider` が届かない。
+    // quiz_core の FloatingMissionBar などが `context.t` を読むため、
+    // 無いとプレゼンター表示のプレビューだけがエラー表示になる。
+    //
+    // **`TranslationProvider` をここで被せてはいけない。** slang の
+    // `TranslationProvider` は型ごとに共有の GlobalKey を持つため、
+    // 入れ子にするとキーが重複してフレームワークの assert に当たる。
+    // 供給しているのは `InheritedLocaleData`（ただの InheritedWidget）だけ。
+    return InheritedLocaleData<AppLocale, Translations>(
+      translations: AppLocale.ja.buildSync(),
+      child: Theme(
+        data: AppTheme.light(),
+        child: MediaQuery(
+          data: MediaQueryData(size: kDeviceSize),
+          child: ShoppingApp(
+            cart: const ShoppingCart(),
+            onAddToCart: (_) {},
+            onUpdateQuantity: (_, __) {},
+            onRemoveFromCart: (_) {},
+            onPurchase: () {},
+            quizStatus: QuizStatus.playing,
+            remainingSeconds: 56,
+            missionText: missionText,
+            hintUsed: false,
+            timeLimitSeconds: 60,
+            cartBottomSheetBuilder: (context) => const SizedBox.shrink(),
+          ),
         ),
       ),
     );

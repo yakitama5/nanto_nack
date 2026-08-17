@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/annotation_marker.dart';
 import 'package:slides/widgets/app_screen.dart';
@@ -21,6 +22,8 @@ class WhySlide extends FlutterDeckSlideWidget {
           configuration: const FlutterDeckSlideConfiguration(
             route: '/why',
             steps: WhyLayout.totalSteps,
+            title: '手がかり',
+            speakerNotes: SpeakerNotes.whySlide,
           ),
         );
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/visuals.dart';
 
@@ -13,7 +14,11 @@ import 'package:slides/widgets/visuals.dart';
 class WonderSlide extends FlutterDeckSlideWidget {
   const WonderSlide()
       : super(
-          configuration: const FlutterDeckSlideConfiguration(route: '/wonder'),
+          configuration: const FlutterDeckSlideConfiguration(
+            route: '/wonder',
+            title: 'コンセプト',
+            speakerNotes: SpeakerNotes.wonderSlide,
+          ),
         );
 
   @override

@@ -11,6 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_deck: ^0.29.0
+  # プレゼンター表示（別タブ）とスライド本体の同期に使う。
+  #
+  # 本体と別タブは localStorage の storage イベントでやり取りするため、
+  # **同一オリジンで配信されている必要がある**。file:// では動かない。
+  # このクライアントを FlutterDeckApp に渡さないと、ツールバーに
+  # 「Open presenter view」ボタン自体が出ない（`available` が false になる）。
+  flutter_deck_web_client: ^0.4.0
   flutter_riverpod: ^2.6.1
   # 本文フォント Kiwi Maru を実行時に取得する。
   #

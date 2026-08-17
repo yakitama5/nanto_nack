@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/visuals.dart';
 
@@ -18,6 +19,8 @@ class BackgroundSlide extends FlutterDeckSlideWidget {
       : super(
           configuration: const FlutterDeckSlideConfiguration(
             route: '/background',
+            title: 'なぜ作ったか',
+            speakerNotes: SpeakerNotes.backgroundSlide,
           ),
         );
 

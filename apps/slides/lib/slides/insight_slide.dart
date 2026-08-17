@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:quiz_core/quiz_core.dart';
 import 'package:shopping/i18n/strings.g.dart' as shopping_i18n;
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
 
@@ -15,7 +16,11 @@ import 'package:slides/widgets/slide_scaffold.dart';
 class InsightSlide extends FlutterDeckSlideWidget {
   const InsightSlide()
       : super(
-          configuration: const FlutterDeckSlideConfiguration(route: '/insight'),
+          configuration: const FlutterDeckSlideConfiguration(
+            route: '/insight',
+            title: '言語化',
+            speakerNotes: SpeakerNotes.insightSlide,
+          ),
         );
 
   @override

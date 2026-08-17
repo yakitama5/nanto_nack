@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 
 /// ストアのURL。QRはここから描く。
@@ -29,7 +30,11 @@ abstract final class StoreLinks {
 class ClosingSlide extends FlutterDeckSlideWidget {
   const ClosingSlide()
       : super(
-          configuration: const FlutterDeckSlideConfiguration(route: '/closing'),
+          configuration: const FlutterDeckSlideConfiguration(
+            route: '/closing',
+            title: 'クロージング',
+            speakerNotes: SpeakerNotes.closingSlide,
+          ),
         );
 
   @override

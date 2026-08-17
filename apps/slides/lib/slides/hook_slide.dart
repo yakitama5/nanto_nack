@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
+import 'package:slides/speaker_notes.dart';
 import 'package:slides/theme.dart';
 import 'package:slides/widgets/app_screen.dart';
 import 'package:slides/widgets/slide_scaffold.dart';
@@ -12,7 +13,11 @@ import 'package:slides/widgets/visuals.dart';
 class HookSlide extends FlutterDeckSlideWidget {
   const HookSlide()
       : super(
-          configuration: const FlutterDeckSlideConfiguration(route: '/hook'),
+          configuration: const FlutterDeckSlideConfiguration(
+            route: '/hook',
+            title: 'つかみ',
+            speakerNotes: SpeakerNotes.hookSlide,
+          ),
         );
 
   @override
